@@ -1,0 +1,199 @@
+﻿<html>
+    <head>
+        <title>Productos : DynamicJasper - Getting Started</title>
+	    <link rel="stylesheet" href="styles/site.css" type="text/css" />
+        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">	    
+    </head>
+
+    <body>
+	    <table class="pagecontent" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#ffffff">
+		    <tr>
+			    <td valign="top" class="pagebody">
+				    <div class="pageheader">
+					    <span class="pagetitle">
+                            DynamicJasper - Getting Started
+                                                    </span>
+				    </div>
+				    <div class="pagesubheading">
+					    This page last changed on 01/feb/2007.
+				    </div>
+
+				    <h2><a name="DynamicJasper-GettingStarted-Trytheexamplesfirst%5C%21%26nbsp%3B"></a>Try the examples first&#33;&nbsp;</h2>
+
+<p>The source code comes with examples ready to run (you need Maven 2 to build the source code) the examples classes are:</p>
+<table class='confluenceTable'><tbody>
+<tr>
+<th class='confluenceTh'> Class </th>
+<th class='confluenceTh'> Comment <br clear="all" /> </th>
+</tr>
+<tr>
+<td class='confluenceTd'> ar.com.fdvs.dj.test.PlainReportTest </td>
+<td class='confluenceTd'> A simple report that&nbsp; shows the basic setup of a report and its columsn <br clear="all" /> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ar.com.fdvs.dj.test.StylesReportTest </td>
+<td class='confluenceTd'> Based on the PlainReportTest test, shows how to add some styles to the different elements in the report <br clear="all" /> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ar.com.fdvs.dj.test.GroupsReportTest </td>
+<td class='confluenceTd'> Based on the StylesReportTest test, this test shows how to define groups and variables at the header and footer of each group <br clear="all" /> </td>
+</tr>
+<tr>
+<td class='confluenceTd'> ar.com.fdvs.dj.test.ConditionalStylesReportTest </td>
+<td class='confluenceTd'> This test shows how to create a simple conditional style. The style of the values from a column changes as a certain condition is meat <br clear="all" /> </td>
+</tr>
+</tbody></table>
+<table cellpadding='5' width='85%' cellspacing='8px' class='tipMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/check.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Hint</b><br />This tests extends junit.framework.TestCase, but they also contain a main(...) method, we recommend to execute the test through the main method because the TestCase frameworks closes the JasperViewer (a window that shows the report) inmeadiatly.</td></tr></table>
+
+<h2><a name="DynamicJasper-GettingStarted-CreatingasimpleplainReport"></a>Creating a simple plain Report</h2>
+
+<p>This code shows how to create a simple report, the code is self explained</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">DynamicReportBuilder drb = <span class="code-keyword">new</span> DynamicReportBuilder();
+        <span class="code-object">Integer</span> margin = <span class="code-keyword">new</span> <span class="code-object">Integer</span>(20);
+        drb.addTitle(<span class="code-quote">"November 2006 sales report"</span>)                    <span class="code-comment">//defines the title of the report
+</span>            .addSubtitle(<span class="code-quote">"The items in <span class="code-keyword">this</span> report correspond "</span>
+                    +<span class="code-quote">"to the main products: Bovine meat,"</span>+
+                    <span class="code-quote">" Chicken, Pig meat and Milky "</span> )
+            .addTitleStyle(titleStyle)                                <span class="code-comment">//defines the style of the title
+</span>            .addDetailHeight(<span class="code-keyword">new</span> <span class="code-object">Integer</span>(15))                        <span class="code-comment">//defines the height <span class="code-keyword">for</span> each record of the report
+</span>            .addLeftMargin(margin)                                    <span class="code-comment">//define the margin space <span class="code-keyword">for</span> each side (top, bottom, right and left)
+</span>            .addRightMargin(margin)
+            .addTopMargin(margin)
+            .addBottomMargin(margin)
+            .addColumnsPerPage(<span class="code-keyword">new</span> <span class="code-object">Integer</span>(1));                        <span class="code-comment">//defines columns per page (like in the telephone guide)
+</span>
+        /**
+         * Note that we still didn´t call the build() method
+         */
+
+        /**
+         * Column definitions. We use a <span class="code-keyword">new</span> ColumnBuilder instance <span class="code-keyword">for</span> each
+         * column, the ColumnBuilder.getInstance() method returns a <span class="code-keyword">new</span> instance
+         * of the builder
+         */
+        AbstractColumn columnState = ColumnBuilder.getInstance()        <span class="code-comment">//creates a <span class="code-keyword">new</span> instance of a ColumnBuilder
+</span>            .addColumnProperty(<span class="code-quote">"state"</span>, <span class="code-object">String</span>.class.getName())            <span class="code-comment">//defines the field of the data source that <span class="code-keyword">this</span> column will show, also its type
+</span>            .addTitle(<span class="code-quote">"State"</span>)                                            <span class="code-comment">//the title <span class="code-keyword">for</span> the column
+</span>            .addWidth(<span class="code-keyword">new</span> <span class="code-object">Integer</span>(85))                                    <span class="code-comment">//the width of the column
+</span>            .addStyle(detailStyle)                                        <span class="code-comment">//defines the style <span class="code-keyword">for</span> the records of <span class="code-keyword">this</span> column
+</span>            .addHeaderStyle(headerStyle)                                <span class="code-comment">//defines the style <span class="code-keyword">for</span> the title of <span class="code-keyword">this</span> column
+</span>            .build();                                                    <span class="code-comment">//builds and <span class="code-keyword">return</span> a <span class="code-keyword">new</span> AbstractColumn
+</span>
+        <span class="code-comment">//Create more columns
+</span>        AbstractColumn columnBranch = ColumnBuilder.getInstance()
+            .addColumnProperty(<span class="code-quote">"branch"</span>, <span class="code-object">String</span>.class.getName())
+            .addTitle(<span class="code-quote">"Branch"</span>).addWidth(<span class="code-keyword">new</span> <span class="code-object">Integer</span>(85))
+            .addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+
+        AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
+            .addColumnProperty(<span class="code-quote">"productLine"</span>, <span class="code-object">String</span>.class.getName())
+            .addTitle(<span class="code-quote">"Product Line"</span>).addWidth(<span class="code-keyword">new</span> <span class="code-object">Integer</span>(85))
+            .addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+
+        AbstractColumn columnaItem = ColumnBuilder.getInstance()
+            .addColumnProperty(<span class="code-quote">"item"</span>, <span class="code-object">String</span>.class.getName())
+            .addTitle(<span class="code-quote">"Item"</span>).addWidth(<span class="code-keyword">new</span> <span class="code-object">Integer</span>(85))
+            .addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+
+        AbstractColumn columnCode = ColumnBuilder.getInstance()
+            .addColumnProperty(<span class="code-quote">"id"</span>, <span class="code-object">Long</span>.class.getName())
+            .addTitle(<span class="code-quote">"ID"</span>).addWidth(<span class="code-keyword">new</span> <span class="code-object">Integer</span>(40))
+            .addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+
+        AbstractColumn columnaCantidad = ColumnBuilder.getInstance()
+            .addColumnProperty(<span class="code-quote">"quantity"</span>, <span class="code-object">Long</span>.class.getName())
+            .addTitle(<span class="code-quote">"Quantity"</span>).addWidth(<span class="code-keyword">new</span> <span class="code-object">Integer</span>(80))
+            .addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+
+        AbstractColumn columnAmount = ColumnBuilder.getInstance()
+            .addColumnProperty(<span class="code-quote">"amount"</span>, <span class="code-object">Float</span>.class.getName())
+            .addTitle(<span class="code-quote">"Amount"</span>).addWidth(<span class="code-keyword">new</span> <span class="code-object">Integer</span>(90))
+            .addPattern(<span class="code-quote">"$ 0.00"</span>)                                            <span class="code-comment">//defines a pattern to apply to the values swhown (uses TextFormat)
+</span>            .addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+
+        /**
+         * We add the columns to the report (through the builder) in the order
+         * we want them to appear
+         */
+        drb.addColumn(columnState);
+        drb.addColumn(columnBranch);
+        drb.addColumn(columnaProductLine);
+        drb.addColumn(columnaItem);
+        drb.addColumn(columnCode);
+        drb.addColumn(columnaCantidad);
+        drb.addColumn(columnAmount);
+
+        /**
+         * add some more options to the report (through the builder)
+         */
+        drb.addUseFullPageWidth(<span class="code-keyword">true</span>);    <span class="code-comment">//we tell the report to use the full width of the page. <span class="code-keyword">this</span> rezises
+</span>                                        <span class="code-comment">//the columns width proportionally to meat the page width.
+</span>
+
+        DynamicReport dr = drb.build();    <span class="code-comment">//Finally build the report!
+</span>
+        JRDataSource ds = <span class="code-keyword">new</span> JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());    <span class="code-comment">//Create a JRDataSource, the Collection used
+</span>                                                                                                            <span class="code-comment">//here contains dummy hardcoded objects...
+</span>
+        JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, <span class="code-keyword">new</span> ClassicLayoutManager(), ds);    <span class="code-comment">//Creates the JasperPrint object, we pass as a Parameter
+</span>                                                                                                            <span class="code-comment">//the DynamicReport, a <span class="code-keyword">new</span> ClassicLayoutManager instance (<span class="code-keyword">this</span>
+</span>                                                                                                            <span class="code-comment">//one does the magic) and the JRDataSource
+</span>        JasperViewer.viewReport(jp);    <span class="code-comment">//<span class="code-keyword">finally</span> display the report report</span></pre>
+</div></div>
+<p>The <b>DynamicReportBuilder</b> builds <b>DynamicReport</b> objects, this object contains the main options of the report (title, subtitle, styles, page size, orientation and a list of columns and groups)</p>
+
+<p>The <b>ColumnBuilder</b> builds <b>SimpleColumn</b> and <b>ExpressionColumn</b> objects depending the case (they both inherit from <b>AbstractColumn</b>).<br/>
+Each column holds basic data like the column title, the field from the datasource to show (it uses BeanUtils, so "a.b.c" can be passed as a <em>property parameter</em>), and how to show this data (style, pattern to apply, etc).</p>
+<div class="panel"><div class="panelContent">
+<p>Note that the <b><em>property_name</em></b> passed to ColumnBuilder.addColumnProperty("<em>property_name</em>", "<em>property_class_name</em>") method must match the name of a field/property in the elements contained in the datasource</p>
+</div></div>
+
+<h2><a name="DynamicJasper-GettingStarted-Addinggroups"></a>Adding groups</h2>
+
+<p>Using the same code as before, we add this few lines</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">GroupBuilder gb1 = <span class="code-keyword">new</span> GroupBuilder();
+        ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState)        <span class="code-comment">//define the criteria column to group by (columnState)
+</span>            .addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)        <span class="code-comment">//tell the group place a variable in the footer
+</span>                                                                                    <span class="code-comment">//of the column <span class="code-quote">"columnAmount"</span> with the SUM of all
+</span>                                                                                    <span class="code-comment">//values of the columnAmount in <span class="code-keyword">this</span> group.
+</span>
+            .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)    <span class="code-comment">//idem <span class="code-keyword">for</span> the columnaQuantity column
+</span>            .addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES)                <span class="code-comment">//tells the group how to be shown, there are many
+</span>                                                                                    <span class="code-comment">//posibilities, see the GroupLayout <span class="code-keyword">for</span> more.
+</span>            .build();
+
+        GroupBuilder gb2 = <span class="code-keyword">new</span> GroupBuilder();                                        <span class="code-comment">//Create another group (using another column as criteria)
+</span>        ColumnsGroup g2 = gb2.addCriteriaColumn((PropertyColumn) columnBranch)        <span class="code-comment">//and we add the same operations <span class="code-keyword">for</span> the columnAmount and
+</span>            .addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)        <span class="code-comment">//columnaQuantity columns
+</span>            .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
+            .build();</pre>
+</div></div>
+<p>&nbsp;then we add the groups to the report (through the builder)</p>
+<div class="code"><div class="codeContent">
+<pre class="code-java">drb.addColumn(columnState);
+        drb.addColumn(columnBranch);
+        drb.addColumn(columnaProductLine);
+        drb.addColumn(columnaItem);
+        drb.addColumn(columnCode);
+        drb.addColumn(columnaQuantity);
+        drb.addColumn(columnAmount);
+
+        drb.addGroup(g1);    <span class="code-comment">//add group g1
+</span>        drb.addGroup(g2);    <span class="code-comment">//add group g2</span></pre>
+</div></div>
+<p>Here the order of the group registration is important and should be consistent with the order of the registration of the columns. If we mess here, the resultant report wont have any meaning.</p>
+<table cellpadding='5' width='85%' cellspacing='8px' class='noteMacro' border="0" align='center'><colgroup><col width='24'><col></colgroup><tr><td valign='top'><img src="./icons/emoticons/warning.gif" width="16" height="16" align="absmiddle" alt="" border="0"></td><td><b class="strong">Note</b><br />&nbsp;It´s important to remember tha the data from the datasource must be ordered with the same criteria we wont to group them.</td></tr></table>
+
+				    
+                    			    </td>
+		    </tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+			<tr>
+				<td height="12" background="border/border_bottom.gif"><img src="border/spacer.gif" width="1" height="1" border="0"/></td>
+			</tr>
+	    </table>
+    </body>
+</html>
