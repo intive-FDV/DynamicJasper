@@ -34,6 +34,7 @@
 	<artifactId>DynamicJasper</artifactId>
 	<version>1.0</version>
 	<name>DynamicJasper</name>
+  	<packaging>jar</packaging>
 	<description>
 		DynamicJasper (DJ) is an API that hides the complexity of Jasper
 		Reports, it helps developers to save time when designing
