@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Dynamic Jasper: A library for creating reports dynamically by specifying
+  ~ columns, groups, styles, etc. at runtime. It also saves a lot of development
+  ~ time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+  ~
+  ~ Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+  ~
+  ~ This library is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~
+  ~ License as published by the Free Software Foundation; either
+  ~
+  ~ version 2.1 of the License, or (at your option) any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this library; if not, write to the Free Software
+  ~
+  ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+  ~
+  ~
+  -->
+
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ar.com.fdvs</groupId>
+	<artifactId>DynamicJasper</artifactId>
+	<version>1.0</version>
+	<description>
+		DynamicJasper (DJ) is an API that hides the complexity of Jasper
+		Reports, it helps developers to save time when designing
+		simple/medium complexity reports generating the layout of the
+		report elements automatically. It creates reports dynamically
+		-defining at runtime the columns, column width, groups,
+		variables, fonts, etc. DJ keeps full compatibility with Jasper
+		Reports since its a tools that helps create reports
+		programmatically in a easy way (it only interferes with the
+		creation of the report design doing the layout of the elements).
+		You can use the classic .jrxml files as templates while the
+		content and layout of the report elements are handled by the DJ
+		API.
+	</description>
+	<url>http://sourceforge.net/projects/dynamicjasper</url>
+
+	<issueManagement>
+		<system>SourceForge Tracker</system>
+		<url>http://sourceforge.net/tracker/?group_id=188060</url>
+	</issueManagement>
+	<inceptionYear>2006</inceptionYear>
+	<repositories>
+		<repository>
+			<id>embuRepo</id>
+			<url>http://www.fdvs.com.ar/embuRepo</url>
+			<name>Embu Deploy Repository</name>
+		</repository>
+	</repositories>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>sources</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-source</id>
+								<goals>
+									<goal>jar</goal>
+									<goal>test-jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>test-jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>1.2.7</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.1_3</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-javaflow</groupId>
+			<artifactId>commons-javaflow</artifactId>
+			<version>1.0</version>
+		</dependency>
+	</dependencies>
+	<distributionManagement>
+		<repository>
+			<id>embuRepo</id>
+			<name>Embu Deploy Repo</name>
+			<url>ftp://192.168.1.101/maven_deploy_repo/</url>
+		</repository>
+	</distributionManagement>
+  <licenses>
+    <license>
+      <name>GNU Library or Lesser General Public License (LGPL)</name>
+      <url>http://www.gnu.org/licenses/lgpl.txt</url>
+<!--      <distribution>repo</distribution>-->
+    </license>
+  </licenses>
+  <scm>
+    <connection>scm:svn:https://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper</connection>
+    <developerConnection>scm:svn:https://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper</developerConnection>
+    <url>https://dynamicjasper.svn.sourceforge.net</url>
+  </scm>
+<!-- =============================== -->
+<!--	PEOPLE                      -->
+<!-- =============================== -->
+	<developers>
+		<developer>
+			<name>Juan Manuel Alvarez</name>
+			<id>djmamana</id>
+			<email>juan.alvarez@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Project lead, Java Developer</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		<developer>
+			<name>Martin Gorostegui</name>
+			<id>martingoros</id>
+			<email>martin.gorostegui@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Project admin, Java Developer</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
+  <organization>
+    <name>FDV Solutions</name>
+    <url>http://www.fdvsolutions.com/</url>
+  </organization>
+</project>
