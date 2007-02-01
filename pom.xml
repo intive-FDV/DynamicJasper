@@ -33,6 +33,7 @@
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
 	<version>1.0</version>
+	<name>DynamicJasper</name>
 	<description>
 		DynamicJasper (DJ) is an API that hides the complexity of Jasper
 		Reports, it helps developers to save time when designing
