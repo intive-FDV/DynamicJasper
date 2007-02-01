@@ -117,7 +117,7 @@ public class StylesReportTest extends TestCase {
 		drb.addColumn(columnaCantidad);
 		drb.addColumn(columnAmount);
 
-		drb.addUserFullPageWidth(true);
+		drb.addUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
 		return dr;

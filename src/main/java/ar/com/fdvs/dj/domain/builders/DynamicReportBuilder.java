@@ -151,7 +151,7 @@ public class DynamicReportBuilder {
 	}
 
 
-	public DynamicReportBuilder addUserFullPageWidth(boolean useFullwidth) {
+	public DynamicReportBuilder addUseFullPageWidth(boolean useFullwidth) {
 		options.setUseFullPageWidth(useFullwidth);
 		return this;
 	}

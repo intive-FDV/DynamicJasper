@@ -113,14 +113,19 @@ public class GroupsReportTest extends TestCase {
 
 
 		GroupBuilder gb1 = new GroupBuilder();
-		ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState)
-			.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)
-			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
-			.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES)
+		ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState)		//define the criteria column to group by (columnState)
+			.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)		//tell the group place a variable in the footer
+																					//of the column "columnAmount" with the SUM of all
+																					//values of the columnAmount in this group.
+			
+			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)	//idem for the columnaQuantity column
+			.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES)				//tells the group how to be shown, there are many
+																					//posibilities, see the GroupLayout for more.
 			.build();
-		GroupBuilder gb2 = new GroupBuilder();
-		ColumnsGroup g2 = gb2.addCriteriaColumn((PropertyColumn) columnBranch)
-			.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)
+		
+		GroupBuilder gb2 = new GroupBuilder();										//Create another group (using another column as criteria)
+		ColumnsGroup g2 = gb2.addCriteriaColumn((PropertyColumn) columnBranch)		//and we add the same operations for the columnAmount and 
+			.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)		//columnaQuantity columns
 			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
 			.build();
 
@@ -132,10 +137,10 @@ public class GroupsReportTest extends TestCase {
 		drb.addColumn(columnaQuantity);
 		drb.addColumn(columnAmount);
 
-		drb.addGroup(g1);
-		drb.addGroup(g2);
+		drb.addGroup(g1);	//add group g1
+		drb.addGroup(g2);	//add group g2
 
-		drb.addUserFullPageWidth(true);
+		drb.addUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
 		return dr;
