@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ Dynamic Jasper: A library for creating reports dynamically by specifying
   ~ columns, groups, styles, etc. at runtime. It also saves a lot of development
@@ -155,6 +155,15 @@
 			<url>ftp://192.168.1.101/maven_deploy_repo/</url>
 		</repository>
 	</distributionManagement>
+  <mailingLists>
+    <mailingList>
+      <name>DynamicJasper News List</name>
+      <post>dynamicjasper-news@lists.sourceforge.net</post>
+      <subscribe>dynamicjasper-news-subscribe@lists.sourceforge.net</subscribe>
+      <unsubscribe>dynamicjasper-news-unsubscribe@lists.sourceforge.net</unsubscribe>
+      <archive>http://sourceforge.net/mailarchive/forum.php?forum=dynamicjasper-news</archive>
+    </mailingList>
+  </mailingLists>
   <licenses>
     <license>
       <name>GNU Library or Lesser General Public License (LGPL)</name>
