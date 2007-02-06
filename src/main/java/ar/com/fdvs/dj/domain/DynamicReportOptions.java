@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain;
 
+import java.util.HashMap;
+
 import ar.com.fdvs.dj.domain.constants.Page;
 
 /**
@@ -56,6 +58,13 @@ public class DynamicReportOptions {
 	private Style oddRowBackgroundStyle = new Style();
 	private Integer subtitleHeight = new Integer(30);
 	private Integer titleHeight =  new Integer(30);
+	
+	private HashMap imageBanners = new HashMap();
+	private HashMap firstPageImageBanners = new HashMap();
+	
+	public HashMap getImageBanners() {
+		return imageBanners;
+	}
 
 	public Integer getFooterHeight() {
 		return footerHeight;
@@ -194,6 +203,10 @@ public class DynamicReportOptions {
 
 	public void setTitleHeight(Integer titleHeight) {
 		this.titleHeight = titleHeight;
+	}
+
+	public HashMap getFirstPageImageBanners() {
+		return firstPageImageBanners;
 	}
 
 }

@@ -65,6 +65,7 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 public abstract class AbstractLayoutManager {
 
 	private static final Log log = LogFactory.getLog(AbstractLayoutManager.class);
+	protected static final String EXPRESSION_TRUE_WHEN_ODD = "new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)";
 
 	private JasperDesign design;
 	private DynamicReport report;
@@ -126,10 +127,9 @@ public abstract class AbstractLayoutManager {
 	 * @param JRDesignBand detail
 	 */
 	private void decorateOddRows(JRDesignBand detail) {
-		String text = "new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)";
 		JRDesignExpression expression = new JRDesignExpression();
 		expression.setValueClass(Boolean.class);
-		expression.setText(text);
+		expression.setText(EXPRESSION_TRUE_WHEN_ODD);
 
 		JRDesignRectangle rectangle = new JRDesignRectangle();
 		rectangle.setPrintWhenExpression(expression);

@@ -39,12 +39,16 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRDefaultStyleProvider;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignImage;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
@@ -77,8 +81,8 @@ public final class DynamicJasperHelper {
 
 		des.setColumnCount(options.getColumnsPerPage().intValue());
 		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
-		des.setOrientation(JasperDesign.ORIENTATION_PORTRAIT);
-
+		
+		des.setOrientation(page.getOrientation());
 		des.setPageWidth(page.getWidth());
 		des.setPageHeight(page.getHeight());
 
@@ -96,7 +100,7 @@ public final class DynamicJasperHelper {
 		des.setDetail(new JRDesignBand());
 		des.setPageHeader(new JRDesignBand());
 		des.setPageFooter(new JRDesignBand());
-
+		
 		des.setName("DynamicReport...");
 		return des;
 	}

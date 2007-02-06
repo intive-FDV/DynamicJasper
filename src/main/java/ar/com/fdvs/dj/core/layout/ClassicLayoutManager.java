@@ -38,15 +38,19 @@ import org.apache.commons.logging.LogFactory;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignStaticText;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 
 /**
@@ -58,6 +62,8 @@ import net.sf.jasperreports.engine.design.JRDesignTextField;
 public class ClassicLayoutManager extends AbstractLayoutManager {
 
 	private static final Log log = LogFactory.getLog(ClassicLayoutManager.class);
+	
+	protected static final String EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() != 1)";
 
 	public ClassicLayoutManager() {
 		super();
@@ -67,8 +73,98 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		super.startLayout();
 		generateTitleBand();
 		generateHeaderBand();
+		applyBanners();
 		if ( getReport().getColumnsGroups()!=null)
 			layoutGroups();
+	}
+
+	/**
+	 * Create the image elements for the banners tha goes into the
+	 * title and header bands depending on the case
+	 *
+	 */
+	protected void applyBanners() {
+		/**
+		 * First create image banners for the first page only
+		 */
+		JRDesignBand title = (JRDesignBand) getDesign().getTitle();
+		//if there is no title band, but there are banner images for the first page, we create a title band
+		if (title == null && !getReport().getOptions().getFirstPageImageBanners().isEmpty()){
+			title = new JRDesignBand();
+			getDesign().setTitle(title);
+		}		
+		applyImageBannersToBand(title,getReport().getOptions().getFirstPageImageBanners().values(),null);
+		
+		/**
+		 * Now create image banner for the rest of the pages
+		 */
+		JRDesignBand pageHeader = (JRDesignBand) getDesign().getPageHeader();
+		//if there is no title band, but there are banner images for the first page, we create a title band
+		if (pageHeader == null && !getReport().getOptions().getImageBanners().isEmpty()){
+			pageHeader = new JRDesignBand();
+			getDesign().setPageHeader(pageHeader);
+		}	
+		JRDesignExpression printWhenExpression = null;
+		if (!getReport().getOptions().getFirstPageImageBanners().isEmpty()){
+			printWhenExpression = new JRDesignExpression();
+			printWhenExpression.setValueClass(Boolean.class);
+			printWhenExpression.setText(EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE);			
+		}
+		applyImageBannersToBand(pageHeader,getReport().getOptions().getImageBanners().values(),printWhenExpression);
+		
+		
+	}
+	/**
+	 * Create the image elements for the banners tha goes into the
+	 * title band
+	 * @param printWhenExpression 
+	 *
+	 */
+	protected void applyImageBannersToBand(JRDesignBand band, Collection imageBanners, JRDesignExpression printWhenExpression ) {
+		int maxHeight = 0;
+		for (Iterator iter = imageBanners.iterator(); iter.hasNext();) {
+			ImageBanner imageBanner = (ImageBanner) iter.next();
+			if (imageBanner.getHeight() > maxHeight)
+				maxHeight = imageBanner.getHeight();
+		}
+		
+		if (band != null){
+			//move everything down
+			for (Iterator iter =band.getChildren().iterator(); iter.hasNext();) {
+				JRDesignElement element = (JRDesignElement) iter.next();
+				element.setY(element.getY() + maxHeight);
+			}
+			
+			for (Iterator iter = imageBanners.iterator(); iter.hasNext();) {
+				ImageBanner imageBanner = (ImageBanner) iter.next();
+				String path = "\"" + imageBanner.getImagePath().replace("\\", "\\\\") + "\"";
+				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
+				JRDesignExpression imageExp = new JRDesignExpression();
+				imageExp.setText(path);
+				imageExp.setValueClass(String.class);
+				image.setExpression(imageExp);
+				image.setHeight(imageBanner.getHeight());
+				image.setWidth(imageBanner.getWidth());
+				image.setPrintWhenExpression(printWhenExpression);
+				
+				if (imageBanner.getAlign() == ImageBanner.ALIGN_LEFT)				
+					image.setX(0);
+				else if (imageBanner.getAlign() == ImageBanner.ALIGN_RIGHT)
+					image.setX(getReport().getOptions().getPage().getWidth() -  getReport().getOptions().getLeftMargin() - getReport().getOptions().getRightMargin() - imageBanner.getWidth());
+				else if (imageBanner.getAlign() == ImageBanner.ALIGN_CENTER){
+					int x = (getReport().getOptions().getPage().getWidth() - 
+							getReport().getOptions().getRightMargin() - 
+							getReport().getOptions().getLeftMargin() - imageBanner.getWidth()) / 2;
+					image.setX(getReport().getOptions().getLeftMargin() + x);
+				}
+				
+				image.setY(0);
+				
+				band.addElement(image);
+				
+			}			
+			band.setHeight(band.getHeight() + maxHeight);
+		}
 	}
 
 	/**
@@ -83,7 +179,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		JRDesignBand titleBand = (JRDesignBand) getDesign().getTitle();
 		if (titleBand == null)
 			titleBand = new JRDesignBand();
-
+		
 		JRDesignStaticText title = new JRDesignStaticText();
 		title.setText(getReport().getTitle());
 		title.setWidth(getReport().getOptions().getPrintableWidth());
@@ -101,7 +197,18 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			titleBand.addElement(subtitle);
 		}
 
-		titleBand.setHeight(title.getHeight() + subtitle.getHeight());
+//		JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
+//		JRDesignExpression imageExp = new JRDesignExpression();
+//		imageExp.setText("\"C:\\\\Documents and Settings\\\\mamana\\\\Escritorio\\\\jira_logo_small.gif\"");
+//		imageExp.setValueClass(String.class);
+//		image.setExpression(imageExp);
+//		image.setHeight(30);
+//		image.setWidth(111);
+//		image.setX(0);
+//		image.setY(title.getY() + title.getHeight() + 50);
+//		titleBand.addElement(image);		
+		
+		titleBand.setHeight(title.getHeight() + subtitle.getHeight() /*+ image.getHeight() + 30*/);
 		getDesign().setTitle(titleBand);
 	}
 
