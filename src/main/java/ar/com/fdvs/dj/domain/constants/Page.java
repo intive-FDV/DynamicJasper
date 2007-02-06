@@ -29,10 +29,16 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
+import net.sf.jasperreports.engine.JRReport;
+
 public class Page {
 
 	private int height = 0;
 	private int width = 0;
+	private byte orientation = ORIENTATION_PORTRAIT;
+	
+	public static final byte ORIENTATION_PORTRAIT = JRReport.ORIENTATION_PORTRAIT;
+	public static final byte ORIENTATION_LANDSCAPE = JRReport.ORIENTATION_LANDSCAPE;
 
 	public int getHeight() {
 		return height;
@@ -60,28 +66,46 @@ public class Page {
 		this.width = width;
 	}
 
+	public Page(int height, int width, byte orientation) {
+		super();
+		this.height = height;
+		this.width = width;
+		if (orientation != ORIENTATION_LANDSCAPE && orientation != ORIENTATION_PORTRAIT)
+			this.orientation = ORIENTATION_PORTRAIT;
+		else
+			this.orientation = orientation;
+	}
+
 	public static Page Page_A4_Portrait(){
-		return new Page(842,595);
+		return new Page(842,595,ORIENTATION_PORTRAIT);
 	}
 
 	public static Page Page_A4_Landscape(){
-		return new Page(595,842);
+		return new Page(595,842,ORIENTATION_LANDSCAPE);
 	}
 
 	public static Page Page_Legal_Portrait(){
-		return new Page(1008,612);
+		return new Page(1008,612,ORIENTATION_PORTRAIT);
 	}
 
 	public static Page Page_Legal_Landscape(){
-		return new Page(612,1008);
+		return new Page(612,1008,ORIENTATION_LANDSCAPE);
 	}
 
 	public static Page Page_Letter_Portrait(){
-		return new Page(792,612);
+		return new Page(792,612,ORIENTATION_PORTRAIT);
 	}
 
 	public static Page Page_Letter_Landscape(){
-		return new Page(612,792);
+		return new Page(612,792,ORIENTATION_LANDSCAPE);
+	}
+
+	public byte getOrientation() {
+		return orientation;
+	}
+
+	public void setOrientation(byte orientation) {
+		this.orientation = orientation;
 	}
 
 }

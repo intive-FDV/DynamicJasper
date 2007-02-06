@@ -35,6 +35,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -204,5 +205,19 @@ public class DynamicReportBuilder {
 		options.setSubtitleHeight(height);
 		return this;
 	}
+
+	/**
+	 * Defines the page size and orientation.<br/>
+	 * Common pages size and orientation are constants of ar.com.fdvs.dj.domain.constants.Page
+	 *  
+	 * @param page
+	 * @return
+	 */
+	public DynamicReportBuilder addPageSizeAndOrientation(Page page) {
+		options.setPage(page);
+		return this;
+	}
+
+	
 
 }
