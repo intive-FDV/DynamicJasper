@@ -59,7 +59,16 @@ public class DynamicReportOptions {
 	private Integer subtitleHeight = new Integer(30);
 	private Integer titleHeight =  new Integer(30);
 	
+	/**
+	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
+	 * value: ImageBanner
+	 */
 	private HashMap imageBanners = new HashMap();
+	
+	/**
+	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
+	 * value: ImageBanner
+	 */	
 	private HashMap firstPageImageBanners = new HashMap();
 	
 	public HashMap getImageBanners() {
