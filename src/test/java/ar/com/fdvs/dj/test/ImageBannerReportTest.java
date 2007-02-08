@@ -48,6 +48,7 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
@@ -156,6 +157,7 @@ public class ImageBannerReportTest extends TestCase {
 			DynamicReport dr = buildReport();
 			JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ImageBannerReportTest.pdf");
 			JasperViewer.viewReport(jp);
 		} catch (Exception e) {
 			e.printStackTrace();

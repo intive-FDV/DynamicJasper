@@ -153,6 +153,7 @@ public class PlainReportTest extends TestCase {
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource 
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/PlainReportTest.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -151,6 +151,7 @@ public class GroupsReportTest extends TestCase {
 			DynamicReport dr = buildReport();
 			JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
 			JasperViewer.viewReport(jp);
 		} catch (Exception e) {
 			e.printStackTrace();
