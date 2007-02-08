@@ -82,10 +82,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected void endLayout() {
 		super.endLayout();
 		applyBanners();
-		applyFooterElements();
+//		applyFooterElements();
 	}
 
-	private void applyFooterElements() {
+	protected void applyFooterElements() {
 		JRDesignBand footerband = (JRDesignBand) getDesign().getPageFooter();
 		if (footerband == null ){
 			footerband = new JRDesignBand();

@@ -39,14 +39,13 @@
 		DynamicJasper (DJ) is an API that hides the complexity of Jasper
 		Reports, it helps developers to save time when designing
 		simple/medium complexity reports generating the layout of the
-		report elements automatically.
-		It creates reports dynamically
+		report elements automatically. It creates reports dynamically
 		-defining at runtime the columns, column width, groups,
 		variables, fonts, etc. DJ keeps full compatibility with Jasper
 		Reports since its a tools that helps create reports
 		programmatically in a easy way (it only interferes with the
 		creation of the report design doing the layout of the elements).
-		
+
 		You can use the classic .jrxml files as templates while the
 		content and layout of the report elements are handled by the DJ
 		API.
@@ -123,41 +122,63 @@
 			<id>site</id>
 			<reporting>
 				<plugins>
-<!--					<plugin>-->
-<!--						<artifactId>maven-javadoc-plugin</artifactId>-->
-<!--					</plugin>-->
-<!--					<plugin>-->
-<!--						<groupId>org.codehaus.mojo</groupId>-->
-<!--						<artifactId>jxr-maven-plugin</artifactId>-->
-<!--					</plugin>-->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>
+							maven-project-info-reports-plugin
+						</artifactId>
+						<reportSets>
+							<reportSet>
+								<reports>
+									<report>dependencies</report>
+									<report>project-team</report>
+									<report>mailing-list</report>
+									<!--									<report>cim</report>-->
+									<report>issue-tracking</report>
+									<report>license</report>
+									<report>scm</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+					<plugin>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<source>1.4</source>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jxr-maven-plugin</artifactId>
+					</plugin>
 
-			      <plugin>
-			          <groupId>org.codehaus.mojo</groupId>
-			          <artifactId>changes-maven-plugin</artifactId>
-			      </plugin>
-			      
-<!--			    <plugin>-->
-<!--			      <groupId>org.codehaus.mojo</groupId>-->
-<!--			      <artifactId>changelog-maven-plugin</artifactId>-->
-<!--			    </plugin>-->
-			
-<!--			    <plugin>-->
-<!--			      <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--			      <configuration>-->
-<!--			        <source>1.4</source>-->
-<!--			      </configuration>-->
-<!--			    </plugin>-->
-			
-			    <!-- checkstyle -->
-<!--			    <plugin>-->
-<!--			      <artifactId>maven-checkstyle-plugin</artifactId>-->
-<!--			    </plugin>-->
-			    
-			    <!-- surefire unit tests -->
-<!--			    <plugin>-->
-<!--			      <groupId>org.codehaus.mojo</groupId>-->
-<!--			      <artifactId>surefire-report-maven-plugin</artifactId>-->
-<!--			    </plugin>					-->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>changes-maven-plugin</artifactId>
+						<reportSets>
+							<reportSet>
+								<reports>
+									<report>changes-report</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+
+					<!--			    <plugin>-->
+					<!--			      <groupId>org.codehaus.mojo</groupId>-->
+					<!--			      <artifactId>changelog-maven-plugin</artifactId>-->
+					<!--			    </plugin>-->
+
+					<!-- checkstyle -->
+					<!--			    <plugin>-->
+					<!--			      <artifactId>maven-checkstyle-plugin</artifactId>-->
+					<!--			    </plugin>-->
+
+					<!-- surefire unit tests -->
+					<!--			    <plugin>-->
+					<!--			      <groupId>org.codehaus.mojo</groupId>-->
+					<!--			      <artifactId>surefire-report-maven-plugin</artifactId>-->
+					<!--			    </plugin>					-->
 				</plugins>
 			</reporting>
 		</profile>
@@ -181,11 +202,11 @@
 			<version>3.1</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<version>2.1_3</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>cglib</groupId>-->
+<!--			<artifactId>cglib</artifactId>-->
+<!--			<version>2.1_3</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>commons-javaflow</groupId>
 			<artifactId>commons-javaflow</artifactId>

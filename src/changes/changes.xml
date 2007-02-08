@@ -5,24 +5,36 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-<!--      <release version="current" description="Current work version">    -->
-<!--           <action dev="Duke Java" type="add">-->
-<!--               A new cool feature.-->
-<!--           </action>         -->
-<!--         </release>-->
+      <release version="1.0.1" date="2007-02-08" description="Minor Release">    
+           <action dev="Juan Manuel Alvarez" type="add">
+               Added the capability to place images on the header of the first page and the rest of the report
+           </action>         
+           <action dev="Juan Manuel Alvarez" type="update">
+               The DynamicReportBuilder can set page size and orientation
+           </action>         
+           <action dev="Juan Manuel Alvarez" type="added">
+               Added Sreenshots and pdf examples of the reports
+           </action>         
+           <action dev="Juan Manuel Alvarez" type="update">
+               Documentation is updated with screen shots
+           </action>                      
+           <action dev="Juan Manuel Alvarez" type="remove">
+               Removed Unneded Cglib dependency.
+           </action>                      
+         </release>
       <release version="1.0" date="2007-02-01" description="Initial Release">   
            <action dev="Juan Manuel Alvarez" type="add">
                Initial version if DynamicJasper
            </action>                      
-           <action dev="Juan Manuel Alvarez" type="update">
-               Documentation updated
+           <action dev="Juan Manuel Alvarez" type="add">
+               Documentation with examples
            </action>                      
-           <action dev="Juan Manuel Alvarez" type="fix">
-               No Fixes.
-           </action>        
-           <action dev="Juan Manuel Alvarez" type="remove">
-              Nothing deleted.
-           </action>        
+<!--           <action dev="Juan Manuel Alvarez" type="fix">-->
+<!--               No Fixes.-->
+<!--           </action>        -->
+<!--           <action dev="Juan Manuel Alvarez" type="remove">-->
+<!--              Nothing deleted.-->
+<!--           </action>        -->
          </release>         
    </body>
 </document>

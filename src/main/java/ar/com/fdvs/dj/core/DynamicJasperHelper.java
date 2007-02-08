@@ -82,7 +82,6 @@ public final class DynamicJasperHelper {
 		des.setColumnCount(options.getColumnsPerPage().intValue());
 		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
 		
-		des.setOrientation(page.getOrientation());
 		des.setPageWidth(page.getWidth());
 		des.setPageHeight(page.getHeight());
 
