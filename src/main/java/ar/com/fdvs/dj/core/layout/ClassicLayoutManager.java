@@ -32,6 +32,17 @@ package ar.com.fdvs.dj.core.layout;
 import java.util.Collection;
 import java.util.Iterator;
 
+import net.sf.jasperreports.engine.JRExpression;
+import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignElement;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignImage;
+import net.sf.jasperreports.engine.design.JRDesignStaticText;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.design.JRDesignTextField;
+import net.sf.jasperreports.engine.design.JRDesignVariable;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -43,15 +54,6 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
-import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignElement;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignImage;
-import net.sf.jasperreports.engine.design.JRDesignStaticText;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.design.JRDesignTextField;
 
 /**
  * Main Layout Manager recommended for mostly cases.</br>
@@ -73,9 +75,53 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		super.startLayout();
 		generateTitleBand();
 		generateHeaderBand();
-		applyBanners();
 		if ( getReport().getColumnsGroups()!=null)
 			layoutGroups();
+	}
+
+	protected void endLayout() {
+		super.endLayout();
+		applyBanners();
+		applyFooterElements();
+	}
+
+	private void applyFooterElements() {
+		JRDesignBand footerband = (JRDesignBand) getDesign().getPageFooter();
+		if (footerband == null ){
+			footerband = new JRDesignBand();
+			getDesign().setPageFooter(footerband);
+		}	
+		int detailHeight = getReport().getOptions().getDetailHeight().intValue();
+		footerband.setHeight(footerband.getHeight() + detailHeight);
+		
+		JRDesignExpression expression = new JRDesignExpression();
+//		expression.setText("\"Page \" + $V{PAGE_NUMBER}");
+		expression.setText("\"Page 999\"");
+		expression.setValueClass(String.class);
+		
+
+		JRDesignExpression expression2 = new JRDesignExpression();
+//		expression2.setText("\" of \" + $V{PAGE_NUMBER}");
+		expression2.setText("\" of 999\"");
+		expression2.setValueClass(String.class);
+		
+		JRDesignTextField pageCounter = new JRDesignTextField();
+//		pageCounter.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
+		pageCounter.setExpression(expression);
+		pageCounter.setHeight(detailHeight);
+		pageCounter.isStyledText();
+		pageCounter.setWidth(43);
+
+		JRDesignTextField pageCounter2 = new JRDesignTextField();
+		pageCounter2.setExpression(expression2);
+		pageCounter2.setHeight(detailHeight);
+		pageCounter2.setWidth(50);
+		pageCounter2.setEvaluationTime(JRDesignVariable.RESET_TYPE_REPORT);
+		pageCounter2.setX(pageCounter.getX() + pageCounter.getWidth());
+		
+		footerband.addElement(pageCounter);
+		footerband.addElement(pageCounter2);
+		
 	}
 
 	/**
@@ -150,12 +196,12 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				if (imageBanner.getAlign() == ImageBanner.ALIGN_LEFT)				
 					image.setX(0);
 				else if (imageBanner.getAlign() == ImageBanner.ALIGN_RIGHT)
-					image.setX(getReport().getOptions().getPage().getWidth() -  getReport().getOptions().getLeftMargin() - getReport().getOptions().getRightMargin() - imageBanner.getWidth());
+					image.setX(getReport().getOptions().getPage().getWidth() -  getReport().getOptions().getLeftMargin().intValue() - getReport().getOptions().getRightMargin().intValue() - imageBanner.getWidth());
 				else if (imageBanner.getAlign() == ImageBanner.ALIGN_CENTER){
 					int x = (getReport().getOptions().getPage().getWidth() - 
-							getReport().getOptions().getRightMargin() - 
-							getReport().getOptions().getLeftMargin() - imageBanner.getWidth()) / 2;
-					image.setX(getReport().getOptions().getLeftMargin() + x);
+							getReport().getOptions().getRightMargin().intValue() - 
+							getReport().getOptions().getLeftMargin().intValue() - imageBanner.getWidth()) / 2;
+					image.setX(getReport().getOptions().getLeftMargin().intValue() + x);
 				}
 				
 				image.setY(0);

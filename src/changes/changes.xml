@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<document>
+   <properties>
+      <title>FDV Solutions - DynamicJasper</title>
+      <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
+      </properties>
+   <body>
+<!--      <release version="current" description="Current work version">    -->
+<!--           <action dev="Duke Java" type="add">-->
+<!--               A new cool feature.-->
+<!--           </action>         -->
+<!--         </release>-->
+      <release version="1.0" date="2007-02-01" description="Initial Release">   
+           <action dev="Juan Manuel Alvarez" type="add">
+               Initial version if DynamicJasper
+           </action>                      
+           <action dev="Juan Manuel Alvarez" type="update">
+               Documentation updated
+           </action>                      
+           <action dev="Juan Manuel Alvarez" type="fix">
+               No Fixes.
+           </action>        
+           <action dev="Juan Manuel Alvarez" type="remove">
+              Nothing deleted.
+           </action>        
+         </release>         
+   </body>
+</document>
