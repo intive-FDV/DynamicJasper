@@ -13,7 +13,7 @@
     <links>
       <item name="FDV Solutions" href="http://www.fdvsolutions.com/" />
       <item name="Maven 2" href="http://maven.apache.org/maven2/"/>
-      <item name="DJ@SourceForge" href="https://sourceforge.net/forum/?group_id=188060"/>
+      <item name="DJ@SourceForge" href="http://sourceforge.net/forum/?group_id=188060"/>
     </links>
 
     <menu name="Dynamic Jasper">
@@ -25,8 +25,7 @@
     </menu>
     <menu name="Comunity">
       <item name="Forums" href="https://sourceforge.net/forum/?group_id=188060" external="true"/>
-      <item name="DynamicJasper at SourceForge" href="http://sourceforge.net/projects/dynamicjasper/" external="true"/>
-      
+      <item name="DJ@SourceForge" href="https://sourceforge.net/projects/dynamicjasper" />
     </menu>    
 
     ${reports}

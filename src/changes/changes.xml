@@ -12,7 +12,7 @@
            <action dev="Juan Manuel Alvarez" type="update">
                The DynamicReportBuilder can set page size and orientation
            </action>         
-           <action dev="Juan Manuel Alvarez" type="added">
+           <action dev="Juan Manuel Alvarez" type="add">
                Added Sreenshots and pdf examples of the reports
            </action>         
            <action dev="Juan Manuel Alvarez" type="update">
