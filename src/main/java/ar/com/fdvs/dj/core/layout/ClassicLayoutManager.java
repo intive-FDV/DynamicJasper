@@ -86,6 +86,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	protected void applyFooterElements() {
+		
+		/**
+		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+		 */
+		if (true)
+			return;
+		/**
+		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+		 */
+		
+		
 		JRDesignBand footerband = (JRDesignBand) getDesign().getPageFooter();
 		if (footerband == null ){
 			footerband = new JRDesignBand();
@@ -226,16 +237,23 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		if (titleBand == null)
 			titleBand = new JRDesignBand();
 		
-		JRDesignStaticText title = new JRDesignStaticText();
-		title.setText(getReport().getTitle());
+		JRDesignTextField title = new JRDesignTextField();
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setText("\"" + getReport().getTitle() + "\"");
+		exp.setValueClass(String.class);
+		title.setExpression(exp);
 		title.setWidth(getReport().getOptions().getPrintableWidth());
 		title.setHeight(getReport().getOptions().getTitleHeight().intValue());
 		applyStyleToTextElement(getReport().getTitleStyle(), title);
 		titleBand.addElement(title);
 
-		JRDesignStaticText subtitle = new JRDesignStaticText();
+		JRDesignTextField subtitle = new JRDesignTextField();
 		if (getReport().getSubtitle() != null){
-			subtitle.setText(getReport().getSubtitle());
+			JRDesignExpression exp2 = new JRDesignExpression();
+			exp2.setText("\"" + getReport().getSubtitle() + "\"");
+			exp2.setValueClass(String.class);
+			subtitle.setExpression(exp2);
+			
 			subtitle.setWidth(getReport().getOptions().getPrintableWidth());
 			subtitle.setHeight(getReport().getOptions().getSubtitleHeight().intValue());
 			subtitle.setY(title.getY() + title.getHeight());

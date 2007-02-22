@@ -61,6 +61,11 @@ public class Style implements Serializable, Cloneable {
 
 	private Border border = Border.NO_BORDER;
 
+	private Border borderTop = Border.NO_BORDER;
+	private Border borderBottom = Border.NO_BORDER;
+	private Border borderLeft = Border.NO_BORDER;
+	private Border borderRight = Border.NO_BORDER;
+
 	private Integer padding = new Integer(2);
 
 	private Transparency transparency = Transparency.TRANSPARENT;
@@ -155,6 +160,11 @@ public class Style implements Serializable, Cloneable {
 	public JRBaseStyle transform() {
 		JRBaseStyle transformedStyle = new JRBaseStyle();
 		transformedStyle.setBorder(getBorder().getValue());
+		transformedStyle.setBottomBorder(getBorderBottom().getValue());
+		transformedStyle.setTopBorder(getBorderTop().getValue());
+		transformedStyle.setLeftBorder(getBorderLeft().getValue());
+		transformedStyle.setRightBorder(getBorderRight().getValue());
+		
 		transformedStyle.setPadding(getPadding());
 		transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
 		transformedStyle.setVerticalAlignment(getVerticalAlign().getValue());
@@ -170,6 +180,38 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setMode(getTransparency().getValue());
 
 		return transformedStyle;
+	}
+
+	public Border getBorderBottom() {
+		return borderBottom;
+	}
+
+	public void setBorderBottom(Border borderBottom) {
+		this.borderBottom = borderBottom;
+	}
+
+	public Border getBorderLeft() {
+		return borderLeft;
+	}
+
+	public void setBorderLeft(Border borderLeft) {
+		this.borderLeft = borderLeft;
+	}
+
+	public Border getBorderRight() {
+		return borderRight;
+	}
+
+	public void setBorderRight(Border borderRight) {
+		this.borderRight = borderRight;
+	}
+
+	public Border getBorderTop() {
+		return borderTop;
+	}
+
+	public void setBorderTop(Border borderTop) {
+		this.borderTop = borderTop;
 	}
 
 }

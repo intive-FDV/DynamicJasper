@@ -178,12 +178,34 @@ public abstract class AbstractLayoutManager {
 		try {
 			setDesign(design);
 			setReport(report);
+			ensureStyles();
 			startLayout();
 			transformDetailBand();
 			endLayout();
 		} catch (RuntimeException e) {
 			throw new LayoutException(e.getMessage());
 		}
+	}
+
+	protected void ensureStyles() {
+		Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
+		Style defaultHeaderStyle = getReport().getOptions().getDefaultHeaderStyle();
+		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
+		Style defaultGroupHeaderStyle = getReport().getOptions().getDefaultGroupHeaderStyle();
+		Style defaultGroupFooterStyle = getReport().getOptions().getDefaultGroupFooterStyle();
+		
+		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
+			AbstractColumn column = (AbstractColumn) iter.next();
+			if (column.getStyle() == null) column.setStyle(defaultDetailStyle);
+			if (column.getHeaderStyle() == null) column.setHeaderStyle(defaultHeaderStyle);
+		}
+		
+//		for (Iterator iter = report.getColumnsGroups().iterator(); iter.hasNext();) {
+//			ColumnsGroup group = (ColumnsGroup) iter.next();
+//			group.getColumnToGroupBy().set
+//			
+//		}
+		
 	}
 
 	protected final void generateHeaderBand(JRDesignBand band) {
@@ -193,10 +215,13 @@ public abstract class AbstractLayoutManager {
 		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
 
 			AbstractColumn col = (AbstractColumn) iter.next();
+			if (col.getTitle() == null)
+				continue;
 
 			JRDesignExpression expression = new JRDesignExpression();
 			JRDesignTextField textField = new JRDesignTextField();
 			expression.setText("\""+ col.getTitle() + "\"");
+
 			expression.setValueClass(String.class);
 
 			textField.setKey("header_"+col.getTitle());
@@ -208,8 +233,13 @@ public abstract class AbstractLayoutManager {
 			textField.setWidth(col.getWidth().intValue());
 
 			textField.setPrintWhenDetailOverflows(true);
+			textField.setBlankWhenNull(true);
 
-			applyStyleToTextElement(col.getHeaderStyle(), textField);
+			Style headerStyle = col.getHeaderStyle();
+			if (headerStyle == null)
+				headerStyle = report.getOptions().getDefaultHeaderStyle();
+			
+			applyStyleToTextElement(headerStyle, textField);
 
 			band.addElement(textField);
 		}
@@ -217,11 +247,14 @@ public abstract class AbstractLayoutManager {
 
 	protected final void applyStyleToTextElement(Style style, JRDesignTextElement textElement) {
 		textElement.setStyle(style.transform());
-		if (textElement instanceof JRDesignTextField) {
-			JRTextField textField = (JRTextField) textElement;
+		if (textElement instanceof JRDesignTextElement ) {
+			JRDesignTextElement textField = (JRDesignTextElement) textElement;
 			textField.setStretchType(style.getStreching().getValue());
-			textField.setStretchWithOverflow(style.isStretchWithOverflow());
 			textField.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
+		}
+		if (textElement instanceof JRDesignTextField ) {
+			JRDesignTextField textField = (JRDesignTextField) textElement;
+			textField.setStretchWithOverflow(style.isStretchWithOverflow());
 		}
 	}
 
@@ -353,6 +386,8 @@ public abstract class AbstractLayoutManager {
 		textField.setX(col.getPosX().intValue());
 		textField.setY(col.getPosY().intValue());
 		textField.setHeight(height);
+		
+		textField.setBlankWhenNull(col.getBlankWhenNull());
 
 		textField.setPattern(col.getPattern());
 
@@ -360,7 +395,11 @@ public abstract class AbstractLayoutManager {
 
         textField.setPrintWhenDetailOverflows(true);
 
-        applyStyleToTextElement(col.getStyle(), textField);
+        Style columnStyle = col.getStyle();
+        if (columnStyle == null) 
+        	columnStyle = report.getOptions().getDefaultDetailStyle();
+        
+		applyStyleToTextElement(columnStyle, textField);
 
         if (group != null) {
         	int index = getReport().getColumnsGroups().indexOf(group);

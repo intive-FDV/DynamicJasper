@@ -51,6 +51,7 @@ public abstract class AbstractColumn extends Entity {
 	private Style headerStyle = new Style();
 	private String pattern;
 	private Boolean printRepeatedValues = Boolean.TRUE;
+	private Boolean blankWhenNull = Boolean.TRUE;
 
 	private List conditionalStyles = new ArrayList();
 
@@ -142,6 +143,14 @@ public abstract class AbstractColumn extends Entity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Boolean getBlankWhenNull() {
+		return blankWhenNull;
+	}
+
+	public void setBlankWhenNull(Boolean blankWhenNull) {
+		this.blankWhenNull = blankWhenNull;
 	}
 
 }

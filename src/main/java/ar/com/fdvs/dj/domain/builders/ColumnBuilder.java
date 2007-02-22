@@ -57,7 +57,7 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 public class ColumnBuilder {
 
 	private String title;
-	private Integer width;
+	private Integer width = new Integer(50);
 	private Style style;
 	private Style headerStyle;
 	private ColumnProperty columnProperty;

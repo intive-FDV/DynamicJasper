@@ -100,6 +100,7 @@ public final class DynamicJasperHelper {
 		des.setPageHeader(new JRDesignBand());
 		des.setPageFooter(new JRDesignBand());
 		
+		
 		des.setName("DynamicReport...");
 		return des;
 	}
@@ -145,11 +146,29 @@ public final class DynamicJasperHelper {
 			JasperReport jr = JasperCompileManager.compileReport(jd);
 			jp = JasperFillManager.fillReport(jr,jd.getParametersWithValues(), ds);
 		} catch (CoreException e) {
+			log.error(e.getMessage(),e);
+		} catch (JRException e) {
+			log.error(e.getMessage(),e);
+		}
+		return jp;
+	}
+
+	public final static JasperReport generateJasperReport(DynamicReport dr, AbstractLayoutManager layoutManager) {
+		log.info("generating JasperPrint");
+//		JasperPrint jp = null;
+		JasperReport jr = null;
+		try {
+			DynamicJasperDesign jd = generateJasperDesign(dr);
+			registerEntities(jd, dr);
+			layoutManager.applyLayout(jd, dr);
+			jr = JasperCompileManager.compileReport(jd);
+//			jp = JasperFillManager.fillReport(jr,jd.getParametersWithValues(), ds);
+		} catch (CoreException e) {
 			log.error(e.getMessage());
 		} catch (JRException e) {
 			log.error(e.getMessage());
 		}
-		return jp;
+		return jr;
 	}
 
 	public final static ColumnsGroup getColumnGroup(AbstractColumn col, List groups) {

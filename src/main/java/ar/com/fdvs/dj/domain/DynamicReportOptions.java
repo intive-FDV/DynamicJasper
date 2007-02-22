@@ -40,12 +40,12 @@ public class DynamicReportOptions {
 
 	private Integer headerHeight = new Integer(30);
 	private Integer footerHeight = new Integer(30);
-	private Integer detailHeight = new Integer(30);
+	private Integer detailHeight = new Integer(15);
 
-	private Integer leftMargin = new Integer(0);
-	private Integer rightMargin =  new Integer(0);
-	private Integer topMargin =  new Integer(0);
-	private Integer bottomMargin =  new Integer(0);
+	private Integer leftMargin = new Integer(30);
+	private Integer rightMargin =  new Integer(10);
+	private Integer topMargin =  new Integer(20);
+	private Integer bottomMargin =  new Integer(10);
 
 	private Integer columnsPerPage = new Integer(1);
 	private Integer columnSpace = new Integer(0);
@@ -56,8 +56,14 @@ public class DynamicReportOptions {
 
 	private boolean printBackgroundOnOddRows = false;
 	private Style oddRowBackgroundStyle = new Style();
-	private Integer subtitleHeight = new Integer(30);
 	private Integer titleHeight =  new Integer(30);
+	private Integer subtitleHeight = new Integer(15);
+	
+	private Style defaultHeaderStyle = new Style();
+	private Style defaultDetailStyle = new Style();
+	private Style defaultFooterStyle = new Style();
+	private Style defaultGroupHeaderStyle = new Style();
+	private Style defaultGroupFooterStyle = new Style();
 	
 	/**
 	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
@@ -216,6 +222,46 @@ public class DynamicReportOptions {
 
 	public HashMap getFirstPageImageBanners() {
 		return firstPageImageBanners;
+	}
+
+	public Style getDefaultDetailStyle() {
+		return defaultDetailStyle;
+	}
+
+	public void setDefaultDetailStyle(Style defaultDetailStyle) {
+		this.defaultDetailStyle = defaultDetailStyle;
+	}
+
+	public Style getDefaultFooterStyle() {
+		return defaultFooterStyle;
+	}
+
+	public void setDefaultFooterStyle(Style defaultFooterStyle) {
+		this.defaultFooterStyle = defaultFooterStyle;
+	}
+
+	public Style getDefaultHeaderStyle() {
+		return defaultHeaderStyle;
+	}
+
+	public void setDefaultHeaderStyle(Style defaultHeaderStyle) {
+		this.defaultHeaderStyle = defaultHeaderStyle;
+	}
+
+	public Style getDefaultGroupHeaderStyle() {
+		return defaultGroupHeaderStyle;
+	}
+
+	public void setDefaultGroupHeaderStyle(Style defaultGroupHeaderStyle) {
+		this.defaultGroupHeaderStyle = defaultGroupHeaderStyle;
+	}
+
+	public Style getDefaultGroupFooterStyle() {
+		return defaultGroupFooterStyle;
+	}
+
+	public void setDefaultGroupFooterStyle(Style defaultGroupFooterStyle) {
+		this.defaultGroupFooterStyle = defaultGroupFooterStyle;
 	}
 
 }

@@ -64,11 +64,11 @@ import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
  */
 public class DynamicReportBuilder {
 
-	private DynamicReport report = new DynamicReport();
-	private DynamicReportOptions options = new DynamicReportOptions();
-	private String globalTitle = "";
-	private ArrayList globalFooterVariables;
-	private ArrayList globalHeaderVariables;
+	protected DynamicReport report = new DynamicReport();
+	protected DynamicReportOptions options = new DynamicReportOptions();
+	protected String globalTitle = "";
+	protected ArrayList globalFooterVariables;
+	protected ArrayList globalHeaderVariables;
 
 	public DynamicReport build(){
 		report.setOptions(options);
