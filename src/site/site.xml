@@ -20,9 +20,13 @@
       <item name="About" href="index.html"/>
       <item name="Features" href="docs/features.html"/>
       <item name="Requeriments" href="requeriments.html"/>
-      <item name="Getting Started" href="docs/getting_started.html"/>
       <item name="Download" href="http://sourceforge.net/project/showfiles.php?group_id=188060"/>
     </menu>
+    <menu name="Documentation - Examples">
+      <item name="Getting Started" href="docs/getting_started.html"/>
+      <item name="UI - Playground" href="docs/playground.html"/>      
+   
+    </menu>    
     <menu name="Comunity">
       <item name="Forums" href="https://sourceforge.net/forum/?group_id=188060" external="true"/>
       <item name="DJ@SourceForge" href="https://sourceforge.net/projects/dynamicjasper" />
