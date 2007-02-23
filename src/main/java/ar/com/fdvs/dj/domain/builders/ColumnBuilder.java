@@ -134,9 +134,17 @@ public class ColumnBuilder {
 		this.printRepeatedValues = bool;
 		return this;
 	}
+	public ColumnBuilder addPrintRepeatedValues(Boolean bool) {
+		this.printRepeatedValues = bool.booleanValue();
+		return this;
+	}
 
 	public ColumnBuilder addWidth(Integer width) {
 		this.width = width;
+		return this;
+	}
+	public ColumnBuilder addWidth(int width) {
+		this.width = new Integer(width);
 		return this;
 	}
 

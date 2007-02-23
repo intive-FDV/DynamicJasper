@@ -40,6 +40,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
+import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
 public class PlainReportTest extends TestCase {
@@ -50,7 +51,8 @@ public class PlainReportTest extends TestCase {
 		Style headerStyle = new Style();
 
 		Style titleStyle = new Style();
-		Style amountStyle = new Style();
+		Style subtitleStyle = new Style();
+		Style amountStyle = new Style(); amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 
 		/**
 		 * Creates the DynamicReportBuilder and sets the basic options for
@@ -62,13 +64,10 @@ public class PlainReportTest extends TestCase {
 			.addSubtitle("The items in this report correspond "
 					+"to the main products: Bovine meat,"+
 					" Chicken, Pig meat and Milky " )
-			.addTitleStyle(titleStyle)								//defines the style of the title
-			.addDetailHeight(new Integer(15))						//defines the height for each record of the report
-			.addLeftMargin(margin)									//define the margin space for each side (top, bottom, right and left)
-			.addRightMargin(margin)
-			.addTopMargin(margin)
-			.addBottomMargin(margin)
-			.addColumnsPerPage(new Integer(1));						//defines columns per page (like in the telephone guide)
+			.addDetailHeight(15)						//defines the height for each record of the report
+			.addMarginss(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
+			.addDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
+			.addColumnsPerPage(1);						//defines columns per page (like in the telephone guide)
 		
 		/**
 		 * Note that we still didn´t call the build() method
@@ -82,42 +81,41 @@ public class PlainReportTest extends TestCase {
 		AbstractColumn columnState = ColumnBuilder.getInstance()		//creates a new instance of a ColumnBuilder
 			.addColumnProperty("state", String.class.getName())			//defines the field of the data source that this column will show, also its type
 			.addTitle("State")											//the title for the column
-			.addWidth(new Integer(85))									//the width of the column		
-			.addStyle(detailStyle)										//defines the style for the records of this column
-			.addHeaderStyle(headerStyle)								//defines the style for the title of this column
+			.addWidth(85)									//the width of the column		
 			.build();													//builds and return a new AbstractColumn
 
 		//Create more columns
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
 			.addColumnProperty("branch", String.class.getName())
-			.addTitle("Branch").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+			.addTitle("Branch").addWidth(85)
+			.build();
 
 		AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
 			.addColumnProperty("productLine", String.class.getName())
-			.addTitle("Product Line").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+			.addTitle("Product Line").addWidth(85)
+			.build();
 
 		AbstractColumn columnaItem = ColumnBuilder.getInstance()
 			.addColumnProperty("item", String.class.getName())
-			.addTitle("Item").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+			.addTitle("Item").addWidth(85)
+			.build();
 
 		AbstractColumn columnCode = ColumnBuilder.getInstance()
 			.addColumnProperty("id", Long.class.getName())
-			.addTitle("ID").addWidth(new Integer(40))
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+			.addTitle("ID").addWidth(40)
+			.build();
 
 		AbstractColumn columnaCantidad = ColumnBuilder.getInstance()
 			.addColumnProperty("quantity", Long.class.getName())
-			.addTitle("Quantity").addWidth(new Integer(80))
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+			.addTitle("Quantity").addWidth(80)
+			.build();
 
 		AbstractColumn columnAmount = ColumnBuilder.getInstance()
 			.addColumnProperty("amount", Float.class.getName())
-			.addTitle("Amount").addWidth(new Integer(90))
-			.addPattern("$ 0.00")											//defines a pattern to apply to the values swhown (uses TextFormat)
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+			.addTitle("Amount").addWidth(90)
+			.addPattern("$ 0.00")		//defines a pattern to apply to the values swhown (uses TextFormat)
+			.addStyle(amountStyle)		//special style for this column (align right)
+			.build();
 
 		/**
 		 * We add the columns to the report (through the builder) in the order

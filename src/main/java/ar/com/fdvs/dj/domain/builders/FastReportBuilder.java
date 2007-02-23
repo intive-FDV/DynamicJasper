@@ -69,6 +69,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	Style numberStyle;  
 	Style subtitleStyle;  
 	
+	private int groupCount = 0;
 
 	public FastReportBuilder(){
 		super();
@@ -93,6 +94,15 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	}
 	
 	public DynamicReport build(){
+		
+		//Construyo los grupos
+		for (int i = 0; i < groupCount; i++) {
+			GroupBuilder gb = new GroupBuilder();
+			PropertyColumn col = (PropertyColumn) report.getColumns().get(i);
+			gb.addCriteriaColumn(col);
+			report.getColumnsGroups().add(gb.build());
+		}
+		
 		return super.build();
 	}
 
@@ -128,15 +138,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	}
 	
 	public FastReportBuilder addGroups(int numgroups) {
-		
-		
-		for (int i = 0; i < numgroups; i++) {
-			GroupBuilder gb = new GroupBuilder();
-			PropertyColumn col = (PropertyColumn) report.getColumns().get(i);
-			gb.addCriteriaColumn(col);
-			report.getColumnsGroups().add(gb.build());
-		}
-		
+		groupCount = numgroups;
 		return this;
 	}
 	

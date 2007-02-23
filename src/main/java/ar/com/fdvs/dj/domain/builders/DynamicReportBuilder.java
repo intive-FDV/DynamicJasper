@@ -113,9 +113,17 @@ public class DynamicReportBuilder {
 		options.setHeaderHeight(height);
 		return this;
 	}
+	public DynamicReportBuilder addHeaderHeight(int height) {
+		options.setHeaderHeight(new Integer(height));
+		return this;
+	}
 
 	public DynamicReportBuilder addFooterHeight(Integer height) {
 		options.setFooterHeight(height);
+		return this;
+	}
+	public DynamicReportBuilder addFooterHeight(int height) {
+		options.setFooterHeight(new Integer(height));
 		return this;
 	}
 
@@ -123,9 +131,17 @@ public class DynamicReportBuilder {
 		options.setDetailHeight(height);
 		return this;
 	}
+	public DynamicReportBuilder addDetailHeight(int height) {
+		options.setDetailHeight(new Integer(height));
+		return this;
+	}
 
 	public DynamicReportBuilder addLeftMargin(Integer margin) {
 		options.setLeftMargin(margin);
+		return this;
+	}
+	public DynamicReportBuilder addLeftMargin(int margin) {
+		options.setLeftMargin(new Integer(margin));
 		return this;
 	}
 
@@ -133,9 +149,17 @@ public class DynamicReportBuilder {
 		options.setRightMargin(margin);
 		return this;
 	}
+	public DynamicReportBuilder addRightMargin(int margin) {
+		options.setRightMargin(new Integer(margin));
+		return this;
+	}
 
 	public DynamicReportBuilder addTopMargin(Integer margin) {
 		options.setTopMargin(margin);
+		return this;
+	}
+	public DynamicReportBuilder addTopMargin(int margin) {
+		options.setTopMargin(new Integer(margin));
 		return this;
 	}
 
@@ -143,9 +167,17 @@ public class DynamicReportBuilder {
 		options.setBottomMargin(margin);
 		return this;
 	}
+	public DynamicReportBuilder addBottomMargin(int margin) {
+		options.setBottomMargin(new Integer(margin));
+		return this;
+	}
 
 	public DynamicReportBuilder addColumnsPerPage(Integer numColumns) {
 		options.setColumnsPerPage(numColumns);
+		return this;
+	}
+	public DynamicReportBuilder addColumnsPerPage(int numColumns) {
+		options.setColumnsPerPage(new Integer(numColumns));
 		return this;
 	}
 
@@ -153,10 +185,18 @@ public class DynamicReportBuilder {
 		options.setColumnSpace(columSpace);
 		return this;
 	}
+	public DynamicReportBuilder addColumnSpace(int columSpace) {
+		options.setColumnSpace(new Integer(columSpace));
+		return this;
+	}
 
 
 	public DynamicReportBuilder addUseFullPageWidth(boolean useFullwidth) {
 		options.setUseFullPageWidth(useFullwidth);
+		return this;
+	}
+	public DynamicReportBuilder addUseFullPageWidth(Boolean useFullwidth) {
+		options.setUseFullPageWidth(useFullwidth.booleanValue());
 		return this;
 	}
 
@@ -172,6 +212,10 @@ public class DynamicReportBuilder {
 
 	public DynamicReportBuilder addPrintBackgroundOnOddRows(boolean printBackgroundOnOddRows) {
 		this.options.setPrintBackgroundOnOddRows(printBackgroundOnOddRows);
+		return this;
+	}
+	public DynamicReportBuilder addPrintBackgroundOnOddRows(Boolean printBackgroundOnOddRows) {
+		this.options.setPrintBackgroundOnOddRows(printBackgroundOnOddRows.booleanValue());
 		return this;
 	}
 
@@ -233,6 +277,35 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	
+	
+	public DynamicReportBuilder addMarginss(int top, int bottom, int left, int right) {
+		
+		options.setTopMargin(new Integer(top));
+		options.setBottomMargin(new Integer(bottom));
+		options.setLeftMargin(new Integer(left));
+		options.setRightMargin(new Integer(right));
+		
+		return this;
+	}
+	
+	
+	public DynamicReportBuilder addDefaultStyles(Style title, Style subtitle, Style columnHeader, Style columDetail) {
+		if (columDetail != null) 
+			options.setDefaultDetailStyle(columDetail);
+		
+		if (columnHeader != null)
+			options.setDefaultHeaderStyle(columnHeader);
+		
+		if (subtitle != null)
+			report.setSubtitleStyle(subtitle);
+
+		if (title != null)
+			report.setTitleStyle(title);
+		
+		return this;
+	}
+	
 	
 
 }

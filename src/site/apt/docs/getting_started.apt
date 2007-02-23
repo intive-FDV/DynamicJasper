@@ -22,7 +22,9 @@ Try the examples first!
 *----------+--------------+-------+
 | <<Test>> | <<Description>> | <<Download PDF>> |
 *----------+--------------+-------+
-| ar.com.fdvs.dj.test.PlainReportTest |A simple report that  shows the basic setup of a report and its columns | {{{../examples/PlainReportTest.pdf}download}} |
+| ar.com.fdvs.dj.test.FastReportTest |A simple example that  shows the basic setup of a report and its columns | {{{../examples/FastReportTest.pdf}download}} |
+*----------+--------------+-------+
+| ar.com.fdvs.dj.test.PlainReportTest |A example that shows how to get more control on the basic setup of a report and its columns | {{{../examples/PlainReportTest.pdf}download}} |
 *----------+--------------+-------+
 | ar.com.fdvs.dj.test.StylesReportTest |Based on the PlainReportTest test, shows how to add some styles to the different elements in the report |  {{{../examples/StylesReportTest.pdf}download}} |
 *----------+--------------+-------+
@@ -37,10 +39,50 @@ Try the examples first!
  <<Note>>
   This tests extends junit.framework.TestCase, but they also contain a main(...) method, we recommend to execute the test through the main method because the TestCase frameworks closes the JasperViewer (a window that shows the report) inmeadiatly.
 
+Creating a simple report
+ 
+ This fragment shows how to create a report in an ease and fast way. {{{../xref-test/ar/com/fdvs/dj/test/FastReportTest.html}see the code}}
+ 
++------------------------------------------------------------------------------------------------------------+ 
+	FastReportBuilder drb = new FastReportBuilder();
+	DynamicReport dr = drb.addColumn("State", "state", String.class.getName(),30)
+		.addColumn("Branch", "branch", String.class.getName(),30) // title, property to show, class of the property, width
+		.addColumn("Product Line", "productLine", String.class.getName(),50)
+		.addColumn("Item", "item", String.class.getName(),50)
+		.addColumn("Item Code", "id", Long.class.getName(),20)
+		.addColumn("Quantity", "quantity", Long.class.getName(),30)
+		.addColumn("Amount", "amount", Float.class.getName(),30)
+		.addGroups(2)   // Group by the first two columns
+		.addTitle("November 2006 sales report")
+		.addSubtitle("This report was generateed at" + new Date())
+		.addUseFullPageWidth(true) //make colums to fill the page width
+		.build();	
+	
+	JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());   
+	JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
+	JasperViewer.viewReport(jp);    //finally display the report report		
++------------------------------------------------------------------------------------------------------------+ 
+
+ This code produces the report shown below
+ 
+[../images/snapshots/fast report 01.jpg] Fast Report
+
+  The <<FastReportBuilder>> provides the methods to pass the basic parameters to the report:
+  
+  * addColumn( <<\<title\>>>, <<\<field/property to show\>>>, <<\<class name of the propert to show\>>>, <<\<width of the column\>>> )
+  
+  * addGroups (<<\<number of columns to group by\>>>)
+  
+  * addTitle(...) , addSubtitle( ...) : guess!!!
+  
+  * addUseFullPageWidth( <<\<boolean\>>> ) : if true, the columns width will be resized proportionally untill meet the page width
+
+ In the previuos report, the DynamicJasper API makes a lot of desicions setting default values to the styles in general (title, column header, report detail, etc).
+ This defaults are defined in the <FastReportBuilder> class. More control in all this aspects can be achieved using the <DynamicReportBuilder> class, as shown in the next example
  
 Creating a simple plain Report
 
- This code shows how to create a simple report, the code is self explained
+ This code shows how to create a simple report, the code is self explained. {{{../xref-test/ar/com/fdvs/dj/test/PlainReportTest.html}see the code}}
 
 +------------------------------------------------------------------------------------------------------------+
 DynamicReportBuilder drb = new DynamicReportBuilder();
@@ -147,7 +189,7 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
 
 Adding groups
 
- Using the same code as before, we add this few lines
+ Using the same code as before, we add this few lines. {{{../xref-test/ar/com/fdvs/dj/test/GroupsReportTest.html}see the code}}
 
 +------------------------------------------------------------------------------------------------------------+
 GroupBuilder gb1 = new GroupBuilder();
