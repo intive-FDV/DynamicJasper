@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.test;
 
 
+import java.util.Collection;
 import java.util.Date;
 
 import junit.framework.TestCase;
@@ -43,6 +44,7 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.util.SortUtils;
 
 public class FastReportTest extends TestCase {
 
@@ -74,8 +76,10 @@ public class FastReportTest extends TestCase {
 	public void testReport() {
 		try {
 			DynamicReport dr = buildReport();
-			
-			JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());	//Create a JRDataSource, the Collection used
+			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
+			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
+						
+			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
 																											//here contains dummy hardcoded objects...
 			
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter

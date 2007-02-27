@@ -29,6 +29,12 @@
 
 package ar.com.fdvs.dj.test;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -42,6 +48,10 @@ import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.util.MultiPropertyComparator;
+import ar.com.fdvs.dj.util.SortInfo;
+import ar.com.fdvs.dj.util.SortUtils;
 
 public class PlainReportTest extends TestCase {
 
@@ -145,7 +155,10 @@ public class PlainReportTest extends TestCase {
 		try {
 			DynamicReport dr = buildReport();
 			
-			JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());	//Create a JRDataSource, the Collection used
+			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
+			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
+
+			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);	//Create a JRDataSource, the Collection used
 																											//here contains dummy hardcoded objects...
 			
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
@@ -156,6 +169,24 @@ public class PlainReportTest extends TestCase {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	private Collection sortCollection(Collection dummyCollection, List columns) {
+		ArrayList l = new ArrayList(dummyCollection);
+		ArrayList info = new ArrayList();
+		for (Iterator iter = columns.iterator(); iter.hasNext();) {
+			AbstractColumn  column = (AbstractColumn) iter.next();
+			if (column instanceof PropertyColumn){
+				PropertyColumn col = (PropertyColumn)column;
+				SortInfo si = new SortInfo(col.getColumnProperty().getProperty(),true);
+				info.add(si);
+			}
+			
+		}
+		
+		MultiPropertyComparator mpc = new MultiPropertyComparator(info);
+		Collections.sort(l,mpc);
+		return l;
 	}
 
 	public static void main(String[] args) {

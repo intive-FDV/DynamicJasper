@@ -30,6 +30,8 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
+import java.util.Collection;
+
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -47,6 +49,7 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.util.SortUtils;
 
 public class StylesReportTest extends TestCase {
 
@@ -126,7 +129,10 @@ public class StylesReportTest extends TestCase {
 	public void testReport() {
 		try {
 			DynamicReport dr = buildReport();
-			JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());
+			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
+			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
+			
+			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReportTest.pdf");
 			JasperViewer.viewReport(jp);

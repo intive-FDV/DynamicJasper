@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.test;
 import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -55,6 +56,7 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
+import ar.com.fdvs.dj.util.SortUtils;
 
 public class ConditionalStylesReportTest extends TestCase {
 
@@ -172,7 +174,11 @@ public class ConditionalStylesReportTest extends TestCase {
 	public void testReport() {
 		try {
 			DynamicReport dr = buildReport();
-			JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());
+			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
+			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
+						
+			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
+			
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ConditionalStylesReportTest.pdf");
 			JasperViewer.viewReport(jp);
