@@ -5,6 +5,23 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+      <release version="1.0.2" date="2007-02-27" description="Minor Release">    
+           <action dev="Juan Manuel Alvarez" type="add">
+               Playground. Example webapp made in GWT that shows the DynamicJasper potential
+           </action>         
+           <action dev="Juan Manuel Alvarez" type="add">
+               Added utility class to sort the datasource using the column of the report as criteria
+           </action>         
+           <action dev="Juan Manuel Alvarez" type="add">
+               Added FastReportBuilder that simplifies even more the report creation process
+           </action>         
+           <action dev="Juan Manuel Alvarez" type="updated">
+               Documentation and examples (see the test sources)
+           </action>         
+           <action dev="Juan Manuel Alvarez" type="updated">
+               More control over the styles (borders)
+           </action>         
+         </release>
       <release version="1.0.1" date="2007-02-08" description="Minor Release">    
            <action dev="Juan Manuel Alvarez" type="add">
                Added the capability to place images on the header of the first page and the rest of the report
