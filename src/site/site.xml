@@ -24,7 +24,8 @@
     </menu>
     <menu name="Documentation - Examples">
       <item name="Getting Started" href="docs/getting_started.html"/>
-      <item name="UI - Playground" href="docs/playground.html"/>      
+      <item name="Playground (GUI)" href="docs/playground.html"/>      
+      <item name="Online Demo" href="http://dynamicjasperplayground.fdvs.com.ar/" external="true"/>      
    
     </menu>    
     <menu name="Comunity">
