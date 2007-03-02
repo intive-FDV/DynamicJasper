@@ -197,19 +197,19 @@ public abstract class AbstractLayoutManager {
 		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
 		Style defaultGroupHeaderStyle = getReport().getOptions().getDefaultGroupHeaderStyle();
 		Style defaultGroupFooterStyle = getReport().getOptions().getDefaultGroupFooterStyle();
-		
+
 		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
 			AbstractColumn column = (AbstractColumn) iter.next();
 			if (column.getStyle() == null) column.setStyle(defaultDetailStyle);
 			if (column.getHeaderStyle() == null) column.setHeaderStyle(defaultHeaderStyle);
 		}
-		
+
 //		for (Iterator iter = report.getColumnsGroups().iterator(); iter.hasNext();) {
 //			ColumnsGroup group = (ColumnsGroup) iter.next();
 //			group.getColumnToGroupBy().set
-//			
+//
 //		}
-		
+
 	}
 
 	protected final void generateHeaderBand(JRDesignBand band) {
@@ -242,7 +242,7 @@ public abstract class AbstractLayoutManager {
 			Style headerStyle = col.getHeaderStyle();
 			if (headerStyle == null)
 				headerStyle = report.getOptions().getDefaultHeaderStyle();
-			
+
 			applyStyleToTextElement(headerStyle, textField);
 
 			band.addElement(textField);
@@ -271,37 +271,37 @@ public abstract class AbstractLayoutManager {
 		log.debug("Setting columns final width...");
 		float factor = 1;
 		int printableArea = report.getOptions().getColumnWidth();
-		
+
 		log.debug("printableArea = " + printableArea );
-		
+
 		if (report.getOptions().isUseFullPageWidth()) {
 			int columnsWidth = 0;
 			int notRezisableWidth = 0;
 			for (Iterator iterator =  report.getColumns().iterator(); iterator.hasNext();) {
 				AbstractColumn col = (AbstractColumn) iterator.next();
 				columnsWidth += col.getWidth().intValue();
-				if (col.getFixedWidth())
-					notRezisableWidth += col.getWidth();
+				if (col.getFixedWidth().booleanValue())
+					notRezisableWidth += col.getWidth().intValue();
 			}
-			
+
 			log.debug("columnsWidth = "+ columnsWidth);
 			log.debug("notRezisableWidth = "+ notRezisableWidth);
-			
+
 			factor = (float) (printableArea-notRezisableWidth) / (float) (columnsWidth-notRezisableWidth);
 			log.debug("factor = "+ factor);
 			int acu = 0;
 			int colFinalWidth = 0;
-			
+
 			Collection resizableColumns = CollectionUtils.select( report.getColumns(),new Predicate() {
 				public boolean evaluate(Object arg0) {
 					return !((AbstractColumn)arg0).getFixedWidth().booleanValue();
 				}
-			
+
 			}) ;
-			
+
 			for (Iterator iter = resizableColumns.iterator(); iter.hasNext();) {
 				AbstractColumn col = (AbstractColumn) iter.next();
-				
+
 				if (!iter.hasNext()) {
 //					int acu2 = acu;
 //					acu += (printableArea - acu);
@@ -410,7 +410,7 @@ public abstract class AbstractLayoutManager {
 		textField.setX(col.getPosX().intValue());
 		textField.setY(col.getPosY().intValue());
 		textField.setHeight(height);
-		
+
 		textField.setBlankWhenNull(col.getBlankWhenNull());
 
 		textField.setPattern(col.getPattern());
@@ -420,9 +420,9 @@ public abstract class AbstractLayoutManager {
         textField.setPrintWhenDetailOverflows(true);
 
         Style columnStyle = col.getStyle();
-        if (columnStyle == null) 
+        if (columnStyle == null)
         	columnStyle = report.getOptions().getDefaultDetailStyle();
-        
+
 		applyStyleToTextElement(columnStyle, textField);
 
         if (group != null) {
