@@ -58,6 +58,7 @@ public class ColumnBuilder {
 
 	private String title;
 	private Integer width = new Integer(50);
+	private Boolean fixedWidth = Boolean.FALSE;
 	private Style style;
 	private Style headerStyle;
 	private ColumnProperty columnProperty;
@@ -119,6 +120,7 @@ public class ColumnBuilder {
 		column.setStyle(style);
 		column.setPrintRepeatedValues(Boolean.valueOf(printRepeatedValues));
 		column.getConditionalStyles().addAll(conditionalStyles);
+		column.setFixedWidth(fixedWidth);
 	}
 
 	public ColumnBuilder addTitle(String title) {
@@ -210,5 +212,14 @@ public class ColumnBuilder {
 		}
 		return this;
 	}
+	
+	public ColumnBuilder addFixedWidth(boolean bool) {
+		this.fixedWidth = Boolean.valueOf(bool);
+		return this;
+	}	
+	public ColumnBuilder addFixedWidth(Boolean bool) {
+		this.fixedWidth = bool;
+		return this;
+	}	
 
 }

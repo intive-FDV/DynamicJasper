@@ -47,6 +47,7 @@ public abstract class AbstractColumn extends Entity {
 	private Integer posX = new Integer(0);
 	private Integer posY = new Integer(0);
 	private Integer width = new Integer(100);
+	private Boolean fixedWidth = Boolean.FALSE;
 	private Style style = new Style();
 	private Style headerStyle = new Style();
 	private String pattern;
@@ -151,6 +152,14 @@ public abstract class AbstractColumn extends Entity {
 
 	public void setBlankWhenNull(Boolean blankWhenNull) {
 		this.blankWhenNull = blankWhenNull;
+	}
+
+	public Boolean getFixedWidth() {
+		return fixedWidth;
+	}
+
+	public void setFixedWidth(Boolean fixedWidth) {
+		this.fixedWidth = fixedWidth;
 	}
 
 }

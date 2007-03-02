@@ -29,10 +29,8 @@
 
 package ar.com.fdvs.dj.core.layout;
 
+import java.util.Collection;
 import java.util.Iterator;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
@@ -46,6 +44,12 @@ import net.sf.jasperreports.engine.design.JRDesignRectangle;
 import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
@@ -261,27 +265,47 @@ public abstract class AbstractLayoutManager {
 	/**
 	 * Sets the columns width by reading some report options like the
 	 * printableArea and useFullPageWidth.
+	 * columns with fixedWidth property set in TRUE will not be modified
 	 */
 	private final void setColumnsFinalWidth() {
 		log.debug("Setting columns final width...");
 		float factor = 1;
 		int printableArea = report.getOptions().getColumnWidth();
-
+		
+		log.debug("printableArea = " + printableArea );
+		
 		if (report.getOptions().isUseFullPageWidth()) {
 			int columnsWidth = 0;
+			int notRezisableWidth = 0;
 			for (Iterator iterator =  report.getColumns().iterator(); iterator.hasNext();) {
 				AbstractColumn col = (AbstractColumn) iterator.next();
 				columnsWidth += col.getWidth().intValue();
+				if (col.getFixedWidth())
+					notRezisableWidth += col.getWidth();
 			}
-			factor = (float) printableArea / (float) columnsWidth;
+			
+			log.debug("columnsWidth = "+ columnsWidth);
+			log.debug("notRezisableWidth = "+ notRezisableWidth);
+			
+			factor = (float) (printableArea-notRezisableWidth) / (float) (columnsWidth-notRezisableWidth);
+			log.debug("factor = "+ factor);
 			int acu = 0;
 			int colFinalWidth = 0;
-			for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
+			
+			Collection resizableColumns = CollectionUtils.select( report.getColumns(),new Predicate() {
+				public boolean evaluate(Object arg0) {
+					return !((AbstractColumn)arg0).getFixedWidth().booleanValue();
+				}
+			
+			}) ;
+			
+			for (Iterator iter = resizableColumns.iterator(); iter.hasNext();) {
 				AbstractColumn col = (AbstractColumn) iter.next();
+				
 				if (!iter.hasNext()) {
-					int acu2 = acu;
-					acu += (printableArea - acu);
-					col.setWidth(new Integer(printableArea - acu2));
+//					int acu2 = acu;
+//					acu += (printableArea - acu);
+					col.setWidth(new Integer(printableArea - notRezisableWidth - acu));
 				} else {
 					colFinalWidth = (new Float(col.getWidth().intValue() * factor)).intValue();
 					acu += colFinalWidth;
@@ -290,7 +314,7 @@ public abstract class AbstractLayoutManager {
 			}
 		}
 
-		// If the columns width changed, they must be setted again.
+		// If the columns width changed, the X position must be setted again.
 		int posx = 0;
 		for (Iterator iterator =  report.getColumns().iterator(); iterator.hasNext();) {
 			AbstractColumn col = (AbstractColumn) iterator.next();

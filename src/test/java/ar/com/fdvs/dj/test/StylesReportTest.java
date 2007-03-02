@@ -134,7 +134,7 @@ public class StylesReportTest extends TestCase {
 			
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReportTest.pdf");
+//			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReportTest.pdf");
 			JasperViewer.viewReport(jp);
 		} catch (Exception e) {
 			e.printStackTrace();

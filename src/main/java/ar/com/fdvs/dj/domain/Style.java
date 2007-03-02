@@ -56,15 +56,16 @@ public class Style implements Serializable, Cloneable {
 
 	private Color backgroundColor = Color.WHITE;
 	private Color textColor = Color.BLACK;
+	private Color borderColor = Color.BLACK;
 
 	private Font font = Font.ARIAL_MEDIUM;
 
 	private Border border = Border.NO_BORDER;
 
-	private Border borderTop = Border.NO_BORDER;
-	private Border borderBottom = Border.NO_BORDER;
-	private Border borderLeft = Border.NO_BORDER;
-	private Border borderRight = Border.NO_BORDER;
+	private Border borderTop = null;
+	private Border borderBottom = null;
+	private Border borderLeft = null;
+	private Border borderRight = null;
 
 	private Integer padding = new Integer(2);
 
@@ -160,10 +161,15 @@ public class Style implements Serializable, Cloneable {
 	public JRBaseStyle transform() {
 		JRBaseStyle transformedStyle = new JRBaseStyle();
 		transformedStyle.setBorder(getBorder().getValue());
-		transformedStyle.setBottomBorder(getBorderBottom().getValue());
-		transformedStyle.setTopBorder(getBorderTop().getValue());
-		transformedStyle.setLeftBorder(getBorderLeft().getValue());
-		transformedStyle.setRightBorder(getBorderRight().getValue());
+		
+		if (getBorderBottom()!= null) 
+			transformedStyle.setBottomBorder(getBorderBottom().getValue());
+		if (getBorderTop()!= null)
+			transformedStyle.setTopBorder(getBorderTop().getValue());
+		if (getBorderLeft()!= null)
+			transformedStyle.setLeftBorder(getBorderLeft().getValue());
+		if (getBorderRight()!= null)
+			transformedStyle.setRightBorder(getBorderRight().getValue());
 		
 		transformedStyle.setPadding(getPadding());
 		transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
@@ -177,7 +183,9 @@ public class Style implements Serializable, Cloneable {
 
 		transformedStyle.setBackcolor(getBackgroundColor());
 		transformedStyle.setForecolor(getTextColor());
+		transformedStyle.setBorderColor(borderColor);
 		transformedStyle.setMode(getTransparency().getValue());
+		
 
 		return transformedStyle;
 	}
@@ -212,6 +220,14 @@ public class Style implements Serializable, Cloneable {
 
 	public void setBorderTop(Border borderTop) {
 		this.borderTop = borderTop;
+	}
+
+	public Color getBorderColor() {
+		return borderColor;
+	}
+
+	public void setBorderColor(Color borderColor) {
+		this.borderColor = borderColor;
 	}
 
 }
