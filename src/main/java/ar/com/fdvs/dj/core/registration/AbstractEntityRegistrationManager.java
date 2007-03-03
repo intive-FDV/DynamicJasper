@@ -62,6 +62,8 @@ public abstract class AbstractEntityRegistrationManager {
 	private static final Log log = LogFactory.getLog(AbstractEntityRegistrationManager.class);
 
 	private DynamicJasperDesign djd;
+	
+	private Collection columns;
 
 	public DynamicJasperDesign getDjd() {
 		return djd;
@@ -73,7 +75,8 @@ public abstract class AbstractEntityRegistrationManager {
 	}
 
 	public final void registerEntities(Collection entities) throws EntitiesRegistrationException {
-		log.debug("registering entities...");
+		this.columns = entities;
+		log.debug("Registering entities.");
 		try {
 			if (entities!=null) {
 				Iterator it = entities.iterator();
@@ -84,6 +87,8 @@ public abstract class AbstractEntityRegistrationManager {
 			}
 		} catch (RuntimeException e) {
 			throw new EntitiesRegistrationException(e.getMessage());
+		} finally {
+			this.columns = null;
 		}
 	}
 
@@ -107,12 +112,17 @@ public abstract class AbstractEntityRegistrationManager {
 		JRDesignParameter dparam = new JRDesignParameter();
 		dparam.setName(property);
 		dparam.setValueClassName(CustomExpression.class.getName());
+		log.debug("Registering customExpression parameter" + property );
 		try {
 			getDjd().addParameter(dparam);
 		} catch (JRException e) {
 			throw new EntitiesRegistrationException(e.getMessage());
 		}
 		getDjd().getParametersWithValues().put(property, customExpression);
+	}
+
+	public Collection getColumns() {
+		return columns;
 	}
 
 }

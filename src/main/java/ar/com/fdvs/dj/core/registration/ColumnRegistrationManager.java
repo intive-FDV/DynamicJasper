@@ -29,8 +29,11 @@
 
 package ar.com.fdvs.dj.core.registration;
 
+import org.apache.commons.collections.collection.UnmodifiableCollection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.design.JRDesignField;
@@ -61,7 +64,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 	}
 
 	protected void registerEntity(Entity entity) {
-		log.debug("registering column...");
+//		log.debug("registering column...");
 		//A default name is setted if the user didn't specify one.
 		AbstractColumn column = (AbstractColumn)entity;
 		if (column.getName() == null){
@@ -74,11 +77,16 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 		if (entity instanceof PropertyColumn) {
 			try {
 				//addField() will throw an exception only if the column has already been registered.
-				getDjd().addField((JRField)transformEntity(entity));
+				PropertyColumn propertyColumn = ((PropertyColumn)entity);
+				log.debug("registering column " + column.getName());
+				if ( propertyColumn.getColumnProperty() != null && !(entity instanceof ExpressionColumn)){
+					getDjd().addField((JRField)transformEntity(entity));
+				}
 				if (entity instanceof ExpressionColumn) {
 					//The Custom Expression parameter must be registered
 					ExpressionColumn expressionColumn = (ExpressionColumn) entity;
-					registerExpressionColumnParameter(expressionColumn.getColumnProperty().getProperty(), expressionColumn.getExpressionToGroupBy());
+					expressionColumn.setColumns( getColumns() );
+					registerExpressionColumnParameter(expressionColumn.getColumnProperty().getProperty(), expressionColumn.getExpression());
 				}
 			} catch (JRException e) {
 				log.info(FIELD_ALREADY_REGISTERED);
@@ -87,11 +95,12 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 	}
 
 	protected Object transformEntity(Entity entity) {
-		log.debug("transforming column...");
 		PropertyColumn propertyColumn = (PropertyColumn) entity;
 		JRDesignField field = new JRDesignField();
 		field.setName(propertyColumn.getColumnProperty().getProperty());
 		field.setValueClassName(propertyColumn.getColumnProperty()
+				.getValueClassName());
+		log.debug("transforming column: " + propertyColumn.getColumnProperty().getProperty() + " / " + propertyColumn.getColumnProperty()
 				.getValueClassName());
 		return field;
 	}

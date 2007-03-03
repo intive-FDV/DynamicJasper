@@ -32,6 +32,8 @@ package ar.com.fdvs.dj.domain.builders;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
+
 import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
@@ -81,7 +83,7 @@ public class ColumnBuilder {
 
 		if (columnProperty != null) {
 			return buildSimpleColumn();
-		} else if (customExpression!=null) {
+		} else if (customExpression==null) {
 			return buildOperationColumn();
 		} else {
 			return buildExpressionColumn();
@@ -91,6 +93,8 @@ public class ColumnBuilder {
 	private AbstractColumn buildExpressionColumn() {
 		ExpressionColumn column = new ExpressionColumn();
 		populateCommonAttributes(column);
+		int random = new Random().nextInt();
+		column.setColumnProperty(new ColumnProperty("expressionColumn" + random,CustomExpression.class.getName()));
 		column.setExpression(customExpression);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
 		return column;
