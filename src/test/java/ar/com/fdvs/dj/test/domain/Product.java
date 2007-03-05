@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.test.domain;
 
+import java.util.Date;
+
 public class Product {
 
 	private Long id;
@@ -39,7 +41,7 @@ public class Product {
 	private Long quantity;
 	private Float amount;
 
-	public Product(){}
+    public Product(){}
 
 	public Product(Long id, String productLine, String item, String state, String branch, Long quantity, Float amount) {
 		super();
@@ -50,7 +52,7 @@ public class Product {
 		this.branch = branch;
 		this.quantity = quantity;
 		this.amount = amount;
-	}
+    }
 
 	public String getBranch() {
 		return branch;
@@ -108,4 +110,7 @@ public class Product {
 		this.state = state;
 	}
 
+    public Date getDate() {
+        return new Date();
+    }
 }

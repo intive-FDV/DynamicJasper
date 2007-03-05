@@ -78,9 +78,9 @@ public class PlainReportTest extends TestCase {
 			.addMarginss(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
 			.addDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
 			.addColumnsPerPage(1);						//defines columns per page (like in the telephone guide)
-		
+
 		/**
-		 * Note that we still didn´t call the build() method
+		 * Note that we still didnï¿½t call the build() method
 		 */
 
 		/**
@@ -144,26 +144,26 @@ public class PlainReportTest extends TestCase {
 		 */
 		drb.addUseFullPageWidth(true);	//we tell the report to use the full width of the page. this rezises
 										//the columns width proportionally to meat the page width.
-		
+
 
 		DynamicReport dr = drb.build();	//Finally build the report!
-		
+
 		return dr;
 	}
 
 	public void testReport() {
 		try {
 			DynamicReport dr = buildReport();
-			
+
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);	//Create a JRDataSource, the Collection used
 																											//here contains dummy hardcoded objects...
-			
+
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
-																											//one does the magic) and the JRDataSource 
+																											//one does the magic) and the JRDataSource
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/PlainReportTest.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
 		} catch (Exception e) {
@@ -171,25 +171,7 @@ public class PlainReportTest extends TestCase {
 		}
 	}
 
-	private Collection sortCollection(Collection dummyCollection, List columns) {
-		ArrayList l = new ArrayList(dummyCollection);
-		ArrayList info = new ArrayList();
-		for (Iterator iter = columns.iterator(); iter.hasNext();) {
-			AbstractColumn  column = (AbstractColumn) iter.next();
-			if (column instanceof PropertyColumn){
-				PropertyColumn col = (PropertyColumn)column;
-				SortInfo si = new SortInfo(col.getColumnProperty().getProperty(),true);
-				info.add(si);
-			}
-			
-		}
-		
-		MultiPropertyComparator mpc = new MultiPropertyComparator(info);
-		Collections.sort(l,mpc);
-		return l;
-	}
-
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 		PlainReportTest test = new PlainReportTest();
 		test.testReport();
 	}

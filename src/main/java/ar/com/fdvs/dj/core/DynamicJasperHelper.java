@@ -34,6 +34,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -81,7 +84,7 @@ public final class DynamicJasperHelper {
 
 		des.setColumnCount(options.getColumnsPerPage().intValue());
 		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
-		
+
 		des.setPageWidth(page.getWidth());
 		des.setPageHeight(page.getHeight());
 
@@ -99,8 +102,8 @@ public final class DynamicJasperHelper {
 		des.setDetail(new JRDesignBand());
 		des.setPageHeader(new JRDesignBand());
 		des.setPageFooter(new JRDesignBand());
-		
-		
+
+
 		des.setName("DynamicReport...");
 		return des;
 	}
@@ -137,6 +140,10 @@ public final class DynamicJasperHelper {
 	}
 
 	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds) {
+        return generateJasperPrint(dr, layoutManager, ds, new HashMap());
+    }
+
+    public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds, Map _parameters) {
 		log.info("generating JasperPrint");
 		JasperPrint jp = null;
 		try {
@@ -144,7 +151,9 @@ public final class DynamicJasperHelper {
 			registerEntities(jd, dr);
 			layoutManager.applyLayout(jd, dr);
 			JasperReport jr = JasperCompileManager.compileReport(jd);
-			jp = JasperFillManager.fillReport(jr,jd.getParametersWithValues(), ds);
+            Map params = new HashMap(_parameters);
+            params.putAll(jd.getParametersWithValues());
+            jp = JasperFillManager.fillReport(jr, params, ds);
 		} catch (CoreException e) {
 			log.error(e.getMessage(),e);
 		} catch (JRException e) {

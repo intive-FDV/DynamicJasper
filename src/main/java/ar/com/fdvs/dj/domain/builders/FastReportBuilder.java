@@ -64,21 +64,21 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
  * </br>
  */
 public class FastReportBuilder extends DynamicReportBuilder {
-	
+
 	Style currencyStyle;
-	Style numberStyle;  
-	Style subtitleStyle;  
-	
-	private int groupCount = 0;
+	Style numberStyle;
+	Style subtitleStyle;
+
+	protected int groupCount = 0;
 
 	public FastReportBuilder(){
 		super();
 		currencyStyle = new Style();
 		currencyStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
-		
+
 		numberStyle = new Style();
 		numberStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
-		
+
 		Style defaultHeaderStyle = options.getDefaultHeaderStyle();
 		defaultHeaderStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
 		defaultHeaderStyle.setHorizontalAlign(HorizontalAlign.CENTER);
@@ -86,23 +86,23 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		defaultHeaderStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		defaultHeaderStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		defaultHeaderStyle.setTransparency(Transparency.OPAQUE);
-		
+
 		Style titleStyle2 = report.getTitleStyle();
 		titleStyle2.setFont(Font.ARIAL_BIG_BOLD);
 		titleStyle2.setHorizontalAlign(HorizontalAlign.CENTER);
 		titleStyle2.setVerticalAlign(VerticalAlign.TOP);
 	}
-	
+
 	public DynamicReport build(){
-		
-		//Construyo los grupos
+
+		//build the groups
 		for (int i = 0; i < groupCount; i++) {
 			GroupBuilder gb = new GroupBuilder();
 			PropertyColumn col = (PropertyColumn) report.getColumns().get(i);
 			gb.addCriteriaColumn(col);
 			report.getColumnsGroups().add(gb.build());
 		}
-		
+
 		return super.build();
 	}
 
@@ -113,13 +113,13 @@ public class FastReportBuilder extends DynamicReportBuilder {
 			.addWidth(new Integer(width))
 			.addTitle(title)
 			.build();
-		
+
 		Class clazz = Class.forName(className);
 		if (BigDecimal.class.isAssignableFrom(clazz) || Float.class.isAssignableFrom(clazz) || Double.class.isAssignableFrom(clazz)) {
 			column.setPattern("$ #.00");
 			column.setStyle(currencyStyle);
 		}
-			
+
 		if (Integer.class.isAssignableFrom(clazz) || Long.class.isAssignableFrom(clazz)) {
 			column.setStyle(numberStyle);
 		}
@@ -131,17 +131,17 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		if (Timestamp.class.isAssignableFrom(clazz)) {
 			column.setPattern("dd/MM/yy hh:mm:ss");
 		}
-		
+
 		addColumn(column);
-			
+
 		return this;
 	}
-	
+
 	public FastReportBuilder addGroups(int numgroups) {
 		groupCount = numgroups;
 		return this;
 	}
-	
-	
+
+
 
 }
