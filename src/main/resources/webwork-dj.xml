@@ -1,0 +1,10 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN"
+        "http://www.opensymphony.com/xwork/xwork-1.0.dtd">
+<xwork>
+    <include file="webwork-default.xml"/>
+    <package name="webwork-dj" extends="webwork-default">
+        <result-types>
+            <result-type name="dynamic-jasper" class="ar.com.fdvs.dj.webwork.DJResult"/>
+        </result-types>
+    </package>
+</xwork>
