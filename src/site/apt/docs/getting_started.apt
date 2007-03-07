@@ -80,9 +80,9 @@ Creating a simple report
  In the previuos report, the DynamicJasper API makes a lot of desicions setting default values to the styles in general (title, column header, report detail, etc).
  This defaults are defined in the <FastReportBuilder> class. More control in all this aspects can be achieved using the <DynamicReportBuilder> class, as shown in the next example
  
-Creating a simple plain Report
+Getting more control on the report options
 
- This code shows how to create a simple report, the code is self explained. {{{../xref-test/ar/com/fdvs/dj/test/PlainReportTest.html}see the code}}
+ This code shows how to create a simple report but taking more control on the report options, the code is self explained. {{{../xref-test/ar/com/fdvs/dj/test/PlainReportTest.html}see the code}}
 
 +------------------------------------------------------------------------------------------------------------+
 DynamicReportBuilder drb = new DynamicReportBuilder();
