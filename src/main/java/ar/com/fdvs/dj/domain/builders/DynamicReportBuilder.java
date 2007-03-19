@@ -31,6 +31,9 @@ package ar.com.fdvs.dj.domain.builders;
 
 import java.util.ArrayList;
 
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
+
+import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
@@ -273,6 +276,18 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align) {
 		ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
 		options.getFirstPageImageBanners().put(new Byte(align), banner);
+		return this;
+	}
+
+	/**
+	 * Registers a field that is not necesary bound to a column, it can be used in a 
+	 * custom expression
+	 * @param name
+	 * @param className
+	 * @return
+	 */
+	public DynamicReportBuilder addField(String name, String className) {
+		report.getFields().add(new ColumnProperty(name,className));
 		return this;
 	}
 

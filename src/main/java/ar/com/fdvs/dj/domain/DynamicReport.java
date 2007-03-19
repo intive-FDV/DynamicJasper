@@ -47,6 +47,9 @@ public class DynamicReport {
 	//<ColumnsGroup>
 	private List columnsGroups = new ArrayList();
 	private DynamicReportOptions options;
+	
+	//Other fields to register, not necesary aigned to columns
+	private List fields;
 
 	private String templateFileName = null;
 
@@ -122,6 +125,14 @@ public class DynamicReport {
 
 	public void setTemplateFileName(String templateFileName) {
 		this.templateFileName = templateFileName;
+	}
+
+	public List getFields() {
+		return fields;
+	}
+
+	public void setFields(List fields) {
+		this.fields = fields;
 	}
 
 }

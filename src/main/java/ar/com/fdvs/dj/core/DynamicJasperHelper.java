@@ -32,37 +32,37 @@ package ar.com.fdvs.dj.core;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.HashMap;
-
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRDefaultStyleProvider;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignImage;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
 import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupRegistrationManager;
-import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 /**
  * Helper class for running a report and some other DJ related stuff
@@ -74,6 +74,24 @@ public final class DynamicJasperHelper {
 	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
 		new ColumnRegistrationManager(jd).registerEntities(dr.getColumns());
 		new ColumnsGroupRegistrationManager(jd).registerEntities(dr.getColumnsGroups());
+		registerOtherFields(jd,dr.getFields());
+	}
+
+	private static void registerOtherFields(DynamicJasperDesign jd, List fields) {
+		for (Iterator iter = fields.iterator(); iter.hasNext();) {
+			ColumnProperty element = (ColumnProperty) iter.next();
+			JRDesignField field = new JRDesignField();
+			field.setValueClassName(element.getValueClassName());
+			field.setName(element.getProperty());
+			try {
+				jd.addField(field);
+			} catch (JRException e) {
+//				e.printStackTrace(); 
+				//if the field is already registered, it´s not a problem
+				log.warn(e.getMessage(),e);
+			}
+		}
+		
 	}
 
 	private final static DynamicJasperDesign getNewDesign(DynamicReport dr) {
