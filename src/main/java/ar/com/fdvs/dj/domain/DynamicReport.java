@@ -46,20 +46,25 @@ public class DynamicReport {
 	private List columns = new ArrayList();
 	//<ColumnsGroup>
 	private List columnsGroups = new ArrayList();
+	
+	//<DJChart>
+	private List charts = new ArrayList();
+	
 	private DynamicReportOptions options;
 	
 	//Other fields to register, not necesary aigned to columns
-	private List fields;
+	private List fields = new ArrayList();
 
 	private String templateFileName = null;
 
 	public DynamicReport() {}
 
-	public DynamicReport(String title, List columns, List columnsGroups, DynamicReportOptions options) {
+	public DynamicReport(String title, List columns, List columnsGroups, List charts, DynamicReportOptions options) {
 		super();
 		this.title = title;
 		this.columns = columns;
 		this.columnsGroups = columnsGroups;
+		this.charts = charts;
 		this.options = options;
 	}
 
@@ -133,6 +138,14 @@ public class DynamicReport {
 
 	public void setFields(List fields) {
 		this.fields = fields;
+	}
+
+	public List getCharts() {
+		return charts;
+	}
+
+	public void setCharts(List charts) {
+		this.charts = charts;
 	}
 
 }

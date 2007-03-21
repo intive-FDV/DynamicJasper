@@ -62,7 +62,6 @@ import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 /**
  * Helper class for running a report and some other DJ related stuff
@@ -87,7 +86,7 @@ public final class DynamicJasperHelper {
 				jd.addField(field);
 			} catch (JRException e) {
 //				e.printStackTrace(); 
-				//if the field is already registered, it´s not a problem
+				//if the field is already registered, it's not a problem
 				log.warn(e.getMessage(),e);
 			}
 		}
@@ -120,6 +119,7 @@ public final class DynamicJasperHelper {
 		des.setDetail(new JRDesignBand());
 		des.setPageHeader(new JRDesignBand());
 		des.setPageFooter(new JRDesignBand());
+		des.setSummary(new JRDesignBand());
 
 
 		des.setName("DynamicReport...");

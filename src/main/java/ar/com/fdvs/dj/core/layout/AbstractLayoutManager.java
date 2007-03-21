@@ -32,17 +32,23 @@ package ar.com.fdvs.dj.core.layout;
 import java.util.Collection;
 import java.util.Iterator;
 
+import net.sf.jasperreports.charts.design.JRDesignBarPlot;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
 import net.sf.jasperreports.engine.JRTextField;
 import net.sf.jasperreports.engine.base.JRBaseStyle;
+import net.sf.jasperreports.engine.base.JRBaseVariable;
 import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignRectangle;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
+import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
 
 import org.apache.commons.collections.CollectionUtils;
@@ -51,9 +57,12 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.builders.DataSetFactory;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
@@ -167,8 +176,8 @@ public abstract class AbstractLayoutManager {
 	}
 
 	protected void endLayout() {
+		layoutCharts();
 		setBandsFinalHeight();
-		EliminateEmptyBands();
 	}
 
 	/**
@@ -194,9 +203,9 @@ public abstract class AbstractLayoutManager {
 	protected void ensureStyles() {
 		Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
 		Style defaultHeaderStyle = getReport().getOptions().getDefaultHeaderStyle();
-		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
-		Style defaultGroupHeaderStyle = getReport().getOptions().getDefaultGroupHeaderStyle();
-		Style defaultGroupFooterStyle = getReport().getOptions().getDefaultGroupFooterStyle();
+//		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
+//		Style defaultGroupHeaderStyle = getReport().getOptions().getDefaultGroupHeaderStyle();
+//		Style defaultGroupFooterStyle = getReport().getOptions().getDefaultGroupFooterStyle();
 
 		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
 			AbstractColumn column = (AbstractColumn) iter.next();
@@ -323,68 +332,45 @@ public abstract class AbstractLayoutManager {
 		}
 	}
 
+	/**
+	 * Sets the necessary height for all bands in the report, to hold their children
+	 */
 	private final void setBandsFinalHeight() {
 		log.debug("Setting bands final height...");
+		
+		setBandFinalHeight((JRDesignBand) design.getPageHeader());
+		setBandFinalHeight((JRDesignBand) design.getPageFooter());
+		setBandFinalHeight((JRDesignBand) design.getColumnHeader());
+		setBandFinalHeight((JRDesignBand) design.getColumnFooter());
+		setBandFinalHeight((JRDesignBand) design.getSummary());
+		setBandFinalHeight((JRDesignBand) design.getBackground());
+		setBandFinalHeight((JRDesignBand) design.getDetail());
+		setBandFinalHeight((JRDesignBand) design.getLastPageFooter());
+		setBandFinalHeight((JRDesignBand) design.getTitle());
+		
 		for (Iterator iter = design.getGroupsList().iterator(); iter.hasNext();) {
 			JRGroup jrgroup = (JRGroup) iter.next();
-
-			JRDesignBand band = (JRDesignBand) jrgroup.getGroupHeader();
-			setBandFinalHeight(band);
-
-			band = (JRDesignBand) jrgroup.getGroupFooter();
-			setBandFinalHeight(band);
+			setBandFinalHeight((JRDesignBand) jrgroup.getGroupHeader());
+			setBandFinalHeight((JRDesignBand) jrgroup.getGroupFooter());
 		}
 	}
 
 	/**
-	 * Equals a band height to it's tallest child one.
-	 * @param JRDesignBand band
+	 * Sets the band's height to hold all its children
+	 * @param band Band to be resized
 	 */
 	private final void setBandFinalHeight(JRDesignBand band) {
 		int finalHeight = 0;
 
-		for (Iterator iter = band.getChildren().iterator(); iter.hasNext();) {
-			JRDesignElement element = (JRDesignElement) iter.next();
-			int currentHeight = element.getY() + element.getHeight();
-
-			if (currentHeight > finalHeight)
-				finalHeight = currentHeight;
-		}
-
-		band.setHeight(finalHeight);
-	}
-
-	/**
-	 * Sets zero height to all the report bands without any children.
-	 */
-	private final void EliminateEmptyBands() {
-		log.debug("Eliminating empty bands...");
-		JRDesignBand header = (JRDesignBand) design.getPageHeader();
-		if (header != null && header.getChildren().isEmpty())
-			header.setHeight(0);
-
-		JRDesignBand footer = (JRDesignBand) design.getPageFooter();
-		if (footer != null && footer.getChildren().isEmpty())
-			footer.setHeight(0);
-
-		JRDesignBand columnHeader = (JRDesignBand) design.getColumnHeader();
-		if (columnHeader != null && columnHeader.getChildren().isEmpty())
-			columnHeader.setHeight(0);
-
-		JRDesignBand columnFooter = (JRDesignBand) design.getColumnFooter();
-		if (columnFooter != null && columnFooter.getChildren().isEmpty())
-			columnFooter.setHeight(0);
-
-		for (Iterator iter = design.getGroupsList().iterator(); iter.hasNext();) {
-			JRGroup jrgroup = (JRGroup) iter.next();
-
-			JRDesignBand band = (JRDesignBand) jrgroup.getGroupHeader();
-			if (band.getChildren().isEmpty())
-				band.setHeight(0);
-
-			band = (JRDesignBand) jrgroup.getGroupFooter();
-			if (band.getChildren().isEmpty())
-				band.setHeight(0);
+		if (band != null) {
+			for (Iterator iter = band.getChildren().iterator(); iter.hasNext();) {
+				JRDesignElement element = (JRDesignElement) iter.next();
+				int currentHeight = element.getY() + element.getHeight();
+				
+				if (currentHeight > finalHeight)
+					finalHeight = currentHeight;
+				}
+			band.setHeight(finalHeight);
 		}
 	}
 
@@ -431,6 +417,135 @@ public abstract class AbstractLayoutManager {
             textField.setPrintWhenGroupChanges(previousGroup);
         }
         return textField;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private void layoutCharts() {
+		for (Iterator iter = getReport().getCharts().iterator(); iter.hasNext();) {
+			DJChart djChart = (DJChart) iter.next();
+			JRDesignChart chart = createChart(djChart);
+			JRDesignBand band = getPositionBand(djChart);
+			band.addElement(chart);
+			
+		}
+		
+	}
+	
+	
+	private JRDesignBand getPositionBand(DJChart djChart) {
+		JRDesignGroup jgroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
+		JRDesignGroup parentGroup = getParent(jgroup);
+		
+		JRDesignBand band;
+		if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_FOOTER)
+			band = (JRDesignBand) ((parentGroup.equals(jgroup)) ? getDesign().getSummary(): parentGroup.getGroupFooter());
+		else
+			band = (JRDesignBand) ((parentGroup.equals(jgroup)) ? getDesign().getSummary(): parentGroup.getGroupHeader());
+	
+	return band;
+	}
+
+	private JRDesignChart createChart(DJChart djChart){
+
+			JRDesignGroup jrGroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
+			
+			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
+			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroup, getParent(jrGroup), registerChartVariable(djChart)));
+			interpeterOptions(djChart, chart);
+		
+			return chart;
+	}
+	
+	
+	
+	private void interpeterOptions(DJChart djChart, JRDesignChart chart) {
+		DJChartOptions options = djChart.getOptions();
+		
+		//position
+		chart.setX(options.getX());
+		chart.setY(options.getY());
+		
+		//size
+		if (options.isCentered()) chart.setWidth(getReport().getOptions().getPrintableWidth());
+		else chart.setWidth(options.getWidth());
+		chart.setHeight(options.getHeight());
+		
+		//options
+		chart.setShowLegend(options.isShowLegend());
+		chart.setBackcolor(options.getBackColor());
+		
+		//Chart-dependant options
+		if (djChart.getType() == DJChart.BAR_CHART) ((JRDesignBarPlot) chart.getPlot()).setShowTickLabels(options.isShowLabels());
+		
+	}
+
+	protected JRDesignGroup getGroupFromColumnsGroup(ColumnsGroup group){
+		int index = getReport().getColumnsGroups().indexOf(group);
+		return (JRDesignGroup) getDesign().getGroupsList().get(index);
+	}
+	
+	
+	
+	
+
+	
+	
+	
+	/**
+	 * Creates and registers a variable to be used by the Chart
+	 * @param chart
+	 * @return
+	 */
+	public JRDesignVariable registerChartVariable(DJChart chart) {
+		
+		JRDesignGroup group = getGroupFromColumnsGroup(chart.getColumnsGroup());
+
+		Class clazz = null;
+		try { clazz = Class.forName(chart.getColumn().getValueClassNameForExpression());
+		} catch (ClassNotFoundException e) { /*Should never happen*/ }
+		
+		JRDesignExpression expression = new JRDesignExpression();
+		expression.setText("$F{" + chart.getColumn().getTitle().toLowerCase() + "}");
+		expression.setValueClass(clazz);
+		
+		JRDesignVariable var = new JRDesignVariable();
+		var.setValueClass(clazz);
+		var.setExpression(expression);
+		var.setCalculation(chart.getOperation());
+		var.setResetGroup(group);
+		var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
+		var.setName("CHART_" + group.getName() + "_" + chart.getColumn().getTitle() + "_" + chart.getOperation());
+		
+		try { getDesign().addVariable(var);
+		} catch (JRException e) { /*Should never happen*/ }
+		
+		return var;
+	}
+	
+	/**
+	 * Returns the parent group of the given one
+	 * @param group Group for which the parent is needed
+	 * @return The parent group of the given one. If the given one is the first group, it returns the same group
+	 */
+	private JRDesignGroup getParent(JRDesignGroup group){
+		int index = getDesign().getGroupsList().indexOf(group);
+		JRDesignGroup parentGroup = (index > 0)? (JRDesignGroup) getDesign().getGroupsList().get(index-1): group;
+		return parentGroup;
 	}
 
 }

@@ -31,6 +31,8 @@ package ar.com.fdvs.dj.core.layout;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.design.JRDesignBand;
@@ -38,7 +40,6 @@ import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
-import net.sf.jasperreports.engine.design.JRDesignStaticText;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
@@ -49,7 +50,9 @@ import org.apache.commons.logging.LogFactory;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.ImageBanner;
+import ar.com.fdvs.dj.domain.builders.DJChartBuilder;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -67,6 +70,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	
 	protected static final String EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() != 1)";
 
+	public static final byte CALCULATION_COUNT = 1;
+	
+	public static final byte CALCULATION_SUM = 2;
+	
 	public ClassicLayoutManager() {
 		super();
 	}
@@ -285,8 +292,14 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		int i = 0;
 		for (Iterator iter = getReport().getColumnsGroups().iterator(); iter.hasNext();) {
 			ColumnsGroup columnsGroup = (ColumnsGroup) iter.next();
-
 			JRDesignGroup jgroup = (JRDesignGroup) getDesign().getGroupsList().get(i++);
+
+//TODO Remove, this should be made by the user. Changes may be necessary for Report Builders.
+// No DJCharts-related code is needed here
+			if (i >= 1)
+				emulatingUserCode(columnsGroup);
+//END REMOVE
+			
 			JRDesignBand header = (JRDesignBand) jgroup.getGroupHeader();
 			JRDesignBand footer = (JRDesignBand) jgroup.getGroupFooter();
 			header.setHeight(columnsGroup.getHeaderHeight().intValue());
@@ -311,9 +324,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				}
 			}
 			layoutGroupVariables(columnsGroup, jgroup);
+	
 		}
 	}
-
+	
 	/**
 	 * If variables are present for a given group, they are placed in it's
 	 * header/footer band.
@@ -440,5 +454,40 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			textField.setExpression(exp);
 		}
 	}
+	
+	
+	
+//TODO: Move... this shoul be done by user
+	private void emulatingUserCode(ColumnsGroup group) {
+		
+//		Just trying to get a numeric column. User should already know what column is going to be uses
+		List columns = new LinkedList();
+		for (Iterator iterator =  getReport().getColumns().iterator(); iterator.hasNext();) {
+			AbstractColumn col = (AbstractColumn) iterator.next();
+			if (col.getValueClassNameForExpression() == Float.class.getName() || col.getValueClassNameForExpression() == Long.class.getName()){
+				columns.add(col);
+			}	
+		}		
+		AbstractColumn column = (AbstractColumn)columns.get(1);
+		//end of search for numeric column
 
+	
+		//Not necessary, as there are default options
+		//DJChartOptions options = new DJChartOptions();
+
+		DJChartBuilder builder = new DJChartBuilder().addType(DJChart.BAR_CHART)
+										.addOperation(DJChart.CALCULATION_SUM)
+										.addColumnsGroup(group)
+										.addColumn(column)
+//										.addChartOptions(options)
+										;
+		
+		DJChart djChart = null;
+		
+		try { djChart = builder.build(); }
+		catch (Exception e) { e.printStackTrace(); }
+
+		getReport().getCharts().add(djChart);
+		
+	}
 }

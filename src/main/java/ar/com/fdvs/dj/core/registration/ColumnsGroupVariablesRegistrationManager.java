@@ -98,6 +98,7 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 		variable.setExpression(expression);
 		variable.setCalculation(columnsGroupVariable.getOperation().getValue());
 		variable.setName(variableName);
+		
 		variable.setResetType(JRDesignVariable.RESET_TYPE_GROUP);
 		variable.setResetGroup(registeredGroup);
 
