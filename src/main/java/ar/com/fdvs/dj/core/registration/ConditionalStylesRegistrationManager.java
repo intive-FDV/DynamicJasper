@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.core.registration;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
@@ -48,8 +49,8 @@ public class ConditionalStylesRegistrationManager extends AbstractEntityRegistra
 	private String columnName;
 	int counter = 0;
 
-	public ConditionalStylesRegistrationManager(DynamicJasperDesign jd, String columnName) {
-		super(jd);
+	public ConditionalStylesRegistrationManager(DynamicJasperDesign jd,  DynamicReport dr, String columnName) {
+		super(jd,dr);
 		this.columnName = columnName;
 	}
 

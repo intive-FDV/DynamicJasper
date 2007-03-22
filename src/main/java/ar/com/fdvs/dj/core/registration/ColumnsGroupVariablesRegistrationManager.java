@@ -42,6 +42,7 @@ import ar.com.fdvs.dj.core.registration.AbstractEntityRegistrationManager;
 import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
@@ -63,8 +64,8 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 	private String type;
 	private String columnToGroupByProperty;
 
-	public ColumnsGroupVariablesRegistrationManager(String type, String columnToGroupByProperty, DynamicJasperDesign jd) {
-		super(jd);
+	public ColumnsGroupVariablesRegistrationManager(String type, String columnToGroupByProperty, DynamicJasperDesign jd,  DynamicReport dr) {
+		super(jd,dr);
 		this.type = type;
 		this.columnToGroupByProperty = columnToGroupByProperty;
 	}

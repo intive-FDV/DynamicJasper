@@ -38,6 +38,7 @@ import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
@@ -52,8 +53,8 @@ public class ColumnsGroupRegistrationManager extends AbstractEntityRegistrationM
 
 	private static final Log log = LogFactory.getLog(ColumnsGroupRegistrationManager.class);
 
-	public ColumnsGroupRegistrationManager(DynamicJasperDesign jd) {
-		super(jd);
+	public ColumnsGroupRegistrationManager(DynamicJasperDesign jd, DynamicReport dr) {
+		super(jd,dr);
 	}
 
 	protected void registerEntity(Entity entity) {
@@ -63,8 +64,8 @@ public class ColumnsGroupRegistrationManager extends AbstractEntityRegistrationM
 			JRDesignGroup group = (JRDesignGroup)transformEntity(columnsGroup);
 			getDjd().addGroup(group);
 			//Variables are registered right after the group where they belong.
-			new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.HEADER, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty(), getDjd()).registerEntities(columnsGroup.getHeaderVariables());
-			new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.FOOTER, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty(), getDjd()).registerEntities(columnsGroup.getFooterVariables());
+			new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.HEADER, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty(), getDjd(),getDynamicReport()).registerEntities(columnsGroup.getHeaderVariables());
+			new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.FOOTER, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty(), getDjd(),getDynamicReport()).registerEntities(columnsGroup.getFooterVariables());
 		} catch (JRException e) {
 			throw new EntitiesRegistrationException(e.getMessage());
 		}

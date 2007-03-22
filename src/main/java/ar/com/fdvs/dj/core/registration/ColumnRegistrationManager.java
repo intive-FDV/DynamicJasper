@@ -29,6 +29,9 @@
 
 package ar.com.fdvs.dj.core.registration;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import org.apache.commons.collections.collection.UnmodifiableCollection;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -37,11 +40,14 @@ import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.design.JRDesignField;
+import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
 /**
  * Manager invoked to register columns. An AbstractColumn is read and </br>
@@ -59,8 +65,8 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 
 	private static final String COLUMN_NAME_PREFIX = "COLUMN_";
 
-	public ColumnRegistrationManager(DynamicJasperDesign jd) {
-		super(jd);
+	public ColumnRegistrationManager(DynamicJasperDesign jd, DynamicReport dr) {
+		super(jd,dr);
 	}
 
 	protected void registerEntity(Entity entity) {
@@ -71,7 +77,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 			column.setName(COLUMN_NAME_PREFIX + colCounter++ );
 		}
 		if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty()){
-			new ConditionalStylesRegistrationManager(getDjd(),column.getName()).registerEntities(column.getConditionalStyles());
+			new ConditionalStylesRegistrationManager(getDjd(),getDynamicReport(),column.getName()).registerEntities(column.getConditionalStyles());
 		}
 
 		if (entity instanceof PropertyColumn) {
@@ -85,7 +91,15 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 				if (entity instanceof ExpressionColumn) {
 					//The Custom Expression parameter must be registered
 					ExpressionColumn expressionColumn = (ExpressionColumn) entity;
-					expressionColumn.setColumns( getColumns() );
+					ArrayList l = new ArrayList(getColumns());
+					for (Iterator iter = getDynamicReport().getFields().iterator(); iter.hasNext();) {
+						ColumnProperty columnProperty = (ColumnProperty) iter.next();
+						SimpleColumn simpleColumn = new SimpleColumn();
+						simpleColumn.setColumnProperty(columnProperty);
+						l.add(simpleColumn);
+						
+					}
+					expressionColumn.setColumns( l );
 					registerExpressionColumnParameter(expressionColumn.getColumnProperty().getProperty(), expressionColumn.getExpression());
 				}
 			} catch (JRException e) {

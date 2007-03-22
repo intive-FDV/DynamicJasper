@@ -71,8 +71,8 @@ public final class DynamicJasperHelper {
 	private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
 
 	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
-		new ColumnRegistrationManager(jd).registerEntities(dr.getColumns());
-		new ColumnsGroupRegistrationManager(jd).registerEntities(dr.getColumnsGroups());
+		new ColumnRegistrationManager(jd,dr).registerEntities(dr.getColumns());
+		new ColumnsGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());
 		registerOtherFields(jd,dr.getFields());
 	}
 

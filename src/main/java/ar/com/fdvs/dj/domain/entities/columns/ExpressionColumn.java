@@ -29,11 +29,14 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
 
 import ar.com.fdvs.dj.core.registration.AbstractEntityRegistrationManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
@@ -76,6 +79,20 @@ public class ExpressionColumn extends SimpleColumn {
 	
 	public String getTextForExpression() {
 		StringBuffer sb = new StringBuffer("new  ar.com.fdvs.dj.util.PropertiesMap()");
+		ArrayList properties = new ArrayList();
+		for (Iterator iter = columns.iterator(); iter.hasNext();) {
+			AbstractColumn col = (AbstractColumn) iter.next();
+			if (col instanceof SimpleColumn && !(col instanceof ExpressionColumn)) {
+				SimpleColumn propcol = (SimpleColumn) col;
+				properties.add(propcol.getColumnProperty());
+			}
+		}
+//		for (Iterator iter = .iterator(); iter.hasNext();) {
+//			type element = (type) iter.next();
+//			
+//		}
+		
+		
 		for (Iterator iter = columns.iterator(); iter.hasNext();) {
 			AbstractColumn col = (AbstractColumn) iter.next();
 			if (col instanceof SimpleColumn && !(col instanceof ExpressionColumn)) {

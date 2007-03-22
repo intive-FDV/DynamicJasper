@@ -94,9 +94,9 @@ public class CustomExpressionReportTest extends TestCase {
 			.addTitle("Branch").addWidth(new Integer(85))
 			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaProductLine = ColumnBuilder.getInstance().addColumnProperty("productLine", String.class.getName())
-			.addTitle("Product Line").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+//		AbstractColumn columnaProductLine = ColumnBuilder.getInstance().addColumnProperty("productLine", String.class.getName())
+//			.addTitle("Product Line").addWidth(new Integer(85))
+//			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaItem = ColumnBuilder.getInstance().addColumnProperty("item", String.class.getName())
 			.addTitle("item").addWidth(new Integer(85))
@@ -121,8 +121,8 @@ public class CustomExpressionReportTest extends TestCase {
 		.addStyle(detailStyle).addHeaderStyle(headerStyle).build();		
 
 		drb.addColumn(columnState);
-		drb.addColumn(columnBranch);
-		drb.addColumn(columnaProductLine);
+//		drb.addColumn(columnBranch);
+//		drb.addColumn(columnaProductLine);
 		drb.addColumn(columnaItem);
 		drb.addColumn(columnCode);
 		drb.addColumn(columnaCantidad);
@@ -130,6 +130,9 @@ public class CustomExpressionReportTest extends TestCase {
 		drb.addColumn(columnaCustomExpression);
 
 		drb.addUseFullPageWidth(true);
+		
+		drb.addField("productLine", String.class.getName());
+		drb.addField("branch", String.class.getName());
 
 		DynamicReport dr = drb.build();
 		return dr;
@@ -142,7 +145,8 @@ public class CustomExpressionReportTest extends TestCase {
 				Map map = (Map) object;
 				String state = (String) map.get("state");
 				String branch = (String) map.get("branch");
-				return state.toUpperCase() + " / " + branch.toUpperCase();
+				String productLine = (String) map.get("productLine");
+				return state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
 			}
 		
 		};

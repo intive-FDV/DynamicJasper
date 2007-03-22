@@ -40,6 +40,7 @@ import net.sf.jasperreports.engine.design.JRDesignParameter;
 import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
@@ -65,13 +66,16 @@ public abstract class AbstractEntityRegistrationManager {
 	
 	private Collection columns;
 
+	private DynamicReport dynamicReport;
+
 	public DynamicJasperDesign getDjd() {
 		return djd;
 	}
 
-	public AbstractEntityRegistrationManager(DynamicJasperDesign djd) {
+	public AbstractEntityRegistrationManager(DynamicJasperDesign djd, DynamicReport dr) {
 		super();
 		this.djd = djd;
+		this.dynamicReport = dr;
 	}
 
 	public final void registerEntities(Collection entities) throws EntitiesRegistrationException {
@@ -123,6 +127,10 @@ public abstract class AbstractEntityRegistrationManager {
 
 	public Collection getColumns() {
 		return columns;
+	}
+
+	public DynamicReport getDynamicReport() {
+		return dynamicReport;
 	}
 
 }
