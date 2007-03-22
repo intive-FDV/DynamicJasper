@@ -31,8 +31,6 @@ package ar.com.fdvs.dj.core.layout;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.design.JRDesignBand;
@@ -50,9 +48,7 @@ import org.apache.commons.logging.LogFactory;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
-import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.ImageBanner;
-import ar.com.fdvs.dj.domain.builders.DJChartBuilder;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -293,13 +289,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		for (Iterator iter = getReport().getColumnsGroups().iterator(); iter.hasNext();) {
 			ColumnsGroup columnsGroup = (ColumnsGroup) iter.next();
 			JRDesignGroup jgroup = (JRDesignGroup) getDesign().getGroupsList().get(i++);
-
-//TODO Remove, this should be made by the user. Changes may be necessary for Report Builders.
-// No DJCharts-related code is needed here
-			if (i >= 1)
-				emulatingUserCode(columnsGroup);
-//END REMOVE
-			
+		
 			JRDesignBand header = (JRDesignBand) jgroup.getGroupHeader();
 			JRDesignBand footer = (JRDesignBand) jgroup.getGroupFooter();
 			header.setHeight(columnsGroup.getHeaderHeight().intValue());
@@ -453,41 +443,5 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			exp.setValueClassName(String.class.getName());
 			textField.setExpression(exp);
 		}
-	}
-	
-	
-	
-//TODO: Move... this shoul be done by user
-	private void emulatingUserCode(ColumnsGroup group) {
-		
-//		Just trying to get a numeric column. User should already know what column is going to be uses
-		List columns = new LinkedList();
-		for (Iterator iterator =  getReport().getColumns().iterator(); iterator.hasNext();) {
-			AbstractColumn col = (AbstractColumn) iterator.next();
-			if (col.getValueClassNameForExpression() == Float.class.getName() || col.getValueClassNameForExpression() == Long.class.getName()){
-				columns.add(col);
-			}	
-		}		
-		AbstractColumn column = (AbstractColumn)columns.get(1);
-		//end of search for numeric column
-
-	
-		//Not necessary, as there are default options
-		//DJChartOptions options = new DJChartOptions();
-
-		DJChartBuilder builder = new DJChartBuilder().addType(DJChart.BAR_CHART)
-										.addOperation(DJChart.CALCULATION_SUM)
-										.addColumnsGroup(group)
-										.addColumn(column)
-//										.addChartOptions(options)
-										;
-		
-		DJChart djChart = null;
-		
-		try { djChart = builder.build(); }
-		catch (Exception e) { e.printStackTrace(); }
-
-		getReport().getCharts().add(djChart);
-		
 	}
 }

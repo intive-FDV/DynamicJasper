@@ -5,6 +5,11 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="1.1.0" date="2007-03-22" description="????????">    
+           <action dev="Mariano Simone" type="add">
+               Charting capabilities. Added builder to easily add charts to DynamicJasper
+           </action>
+         </release>
       <release version="1.0.2" date="2007-02-27" description="Minor Release">    
            <action dev="Juan Manuel Alvarez" type="add">
                Playground. Example webapp made in GWT that shows the DynamicJasper potential

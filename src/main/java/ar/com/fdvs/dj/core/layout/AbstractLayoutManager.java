@@ -499,13 +499,6 @@ public abstract class AbstractLayoutManager {
 		return (JRDesignGroup) getDesign().getGroupsList().get(index);
 	}
 	
-	
-	
-	
-
-	
-	
-	
 	/**
 	 * Creates and registers a variable to be used by the Chart
 	 * @param chart

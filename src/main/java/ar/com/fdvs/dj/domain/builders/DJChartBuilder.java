@@ -27,7 +27,7 @@ public class DJChartBuilder {
 	}
 	
 	private DJChartOptions createDefaultOperations() {
-		DJChartOptions options = new DJChartOptions(true, Color.white, 200, 200, true, DJChartOptions.POSITION_FOOTER , 20, 0, true);		
+		DJChartOptions options = new DJChartOptions(true, Color.white, 300, 300, true, DJChartOptions.POSITION_FOOTER , 20, 0, true);		
 		return options;
 	}
 

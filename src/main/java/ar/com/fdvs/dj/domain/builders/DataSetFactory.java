@@ -24,7 +24,8 @@ public class DataSetFactory {
 		}
 		
 		if (dataSet == null); //TODO: exception "Unknown chart type"
-return dataSet;
+		
+		return dataSet;
 	}
 
 	private static JRDesignChartDataset createBarDataset(JRDesignGroup group, JRDesignGroup parentGroup, JRDesignVariable var) {
@@ -87,7 +88,4 @@ return dataSet;
 		if (dataset.getResetGroup().equals(group)) dataset.setResetType(JRDesignVariable.RESET_TYPE_REPORT);
 		else dataset.setResetType(JRDesignVariable.RESET_TYPE_GROUP);
 	}
-	
-
-
 }

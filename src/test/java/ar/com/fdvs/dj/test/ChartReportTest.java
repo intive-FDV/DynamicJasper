@@ -161,28 +161,15 @@ public class ChartReportTest extends TestCase {
 
 		drb.addUseFullPageWidth(true);
 		
-/************************************************
- *           NEW: Chart capabilities            *
- * **********************************************/
+		DJChartBuilder cb = new DJChartBuilder();
+		DJChart chart =  cb.addType(DJChart.BAR_CHART)
+						.addOperation(DJChart.CALCULATION_SUM)
+						.addColumnsGroup(g1)
+						.addColumn(columnAmount)
+						.build();
 
-		//Not necessary, as there are default options
-		//DJChartOptions options = new DJChartOptions();
-		DJChartBuilder builder = new DJChartBuilder().addType(DJChart.BAR_CHART)
-		.addOperation(DJChart.CALCULATION_SUM)
-		.addColumnsGroup(g1)
-		.addColumn(columnAmount);
-		//.addChartOptions(options)
-		;
-		
-		DJChart chart = null;
-		
-		try { chart = builder.build(); }
-		catch (Exception e) { e.printStackTrace(); }
+		drb.addChart(chart); //add chart
 
-		drb.addChart(chart);
-/************************************************
- *           END: Chart capabilities            *
- * **********************************************/
 		DynamicReport dr = drb.build();
 		return dr;
 	}
@@ -195,7 +182,7 @@ public class ChartReportTest extends TestCase {
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-//		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
+//		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ChartReportTest.pdf");
 		JasperViewer.viewReport(jp);
 	} catch (Exception e) {
 		e.printStackTrace();

@@ -32,7 +32,9 @@ Try the examples first!
 *----------+--------------+-------+
 | ar.com.fdvs.dj.test.ConditionalStylesReportTest |This test shows how to create a simple conditional style. The style of the values from a column changes as a certain condition is meat | {{{../examples/ConditionalStylesReportTest.pdf}download}} |
 *----------+--------------+-------+
-| ar.com.fdvs.dj.test.ImageBannerReportTest |This test shows how add images to the title of the report and the header | {{{../examples/ImageBannerReportTest.pdf}download}} |
+| ar.com.fdvs.dj.test.ImageBannerReportTest |This test shows how to add images to the title of the report and the header | {{{../examples/ImageBannerReportTest.pdf}download}} |
+*----------+--------------+-------+
+| ar.com.fdvs.dj.test.ChartReportTest |Based on GroupsReportTest, this test shows how to add charts to a report, using a chart builder | {{{../examples/ChartReportTest.pdf}download}} |
 *----------+--------------+
  
 
@@ -100,7 +102,7 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
             .addColumnsPerPage(new Integer(1));                        //defines columns per page (like in the telephone guide)
 
         /**
-         * Note that we still didn´t call the build() method
+         * Note that we still didn't call the build() method
          */
 
         /**
@@ -228,4 +230,34 @@ drb.addColumn(columnState);
  Here the order of the group registration is important and should be consistent with the order of the registration of the columns. If we mess here, the resultant report wont have any meaning.
 	
  <<Note:>>
- It´s important to remember tha the data from the datasource must be ordered with the same criteria we wont to group them.
+ It's important to remember tha the data from the datasource must be ordered with the same criteria we want to group them.
+ 
+Adding charts
+
+ Using the same code as before, we add this few lines. {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}see the code}}
+
++------------------------------------------------------------------------------------------------------------+
+DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
+DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // define the type of chart (Pie)
+				.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
+				.addColumnsGroup(g1)                           // define the group that will be represented
+				.addColumn(columnAmount)                       // define the column that will be represented
+				.build();
++------------------------------------------------------------------------------------------------------------+
+
+ then we add the groups to the report (through the builder)
+
++------------------------------------------------------------------------------------------------------------+
+drb.addChart(chart);	//add chart
++------------------------------------------------------------------------------------------------------------+
+
+ Just changing the chart type parameter to a different constant, we make a bar chart
+
++------------------------------------------------------------------------------------------------------------+
+DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
+DJChart chart =  cb.addType(DJChart.BAR_CHART)                          // define the type of chart (Bar)
+				.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
+				.addColumnsGroup(g1)                           // define the group that will be represented
+				.addColumn(columnAmount)                       // define the column that will be represented
+				.build();
++------------------------------------------------------------------------------------------------------------+

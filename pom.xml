@@ -308,6 +308,17 @@
 			</roles>
 			<timezone>-3</timezone>
 		</developer>
+		 <developer>
+			<name>Mariano Simone</name>
+			<id>marianosimone</id>
+			<email>mariano.simone@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Java Developer</role>
+				<role>Charting integration</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
 	</developers>
 	<contributors>
 		<contributor>
