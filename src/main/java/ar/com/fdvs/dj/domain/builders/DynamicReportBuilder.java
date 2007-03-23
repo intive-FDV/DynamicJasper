@@ -301,6 +301,11 @@ public class DynamicReportBuilder {
 		report.getCharts().add(chart);
 		return this;
 	}
+
+	public DynamicReportBuilder addTemplateFile(String path) {
+		report.setTemplateFileName(path);
+		return this;
+	}
 	
 	
 	public DynamicReportBuilder addMarginss(int top, int bottom, int left, int right) {
@@ -329,6 +334,7 @@ public class DynamicReportBuilder {
 		
 		return this;
 	}
+	
 	
 	
 
