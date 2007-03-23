@@ -88,7 +88,7 @@ public class ChartReportTest extends TestCase {
 		drb
 				.addTitle("November 2006 sales report")
 				.addTitleStyle(titleStyle)
-				.addSubtitle("The items in this report correspond to the main products: Bovine meat, Chicken, Pig meat and Milky ")
+				.addSubtitle("The items in this report correspond to products sold in different shops across USA")
 				.addDetailHeight(new Integer(15)).addLeftMargin(margin)
 				.addRightMargin(margin).addTopMargin(margin).addBottomMargin(
 						margin).addPrintBackgroundOnOddRows(true)
@@ -140,7 +140,8 @@ public class ChartReportTest extends TestCase {
 						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
 				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
-
+		
+		
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
 		ColumnsGroup g2 = gb2.addCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,
@@ -161,16 +162,18 @@ public class ChartReportTest extends TestCase {
 
 		drb.addUseFullPageWidth(true);
 		
+		
 		DJChartBuilder cb = new DJChartBuilder();
 		DJChart chart =  cb.addType(DJChart.BAR_CHART)
 						.addOperation(DJChart.CALCULATION_SUM)
-						.addColumnsGroup(g1)
+						.addColumnsGroup(g2)
 						.addColumn(columnAmount)
 						.build();
 
 		drb.addChart(chart); //add chart
 
 		DynamicReport dr = drb.build();
+		//jdr.set
 		return dr;
 	}
 
@@ -184,6 +187,7 @@ public class ChartReportTest extends TestCase {
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 //		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ChartReportTest.pdf");
 		JasperViewer.viewReport(jp);
+//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

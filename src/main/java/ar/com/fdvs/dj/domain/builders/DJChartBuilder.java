@@ -22,12 +22,11 @@ public class DJChartBuilder {
 		if (chartOptions == null) chartOptions = createDefaultOperations();
 		
 		DJChart chart = new DJChart(type.byteValue(),columnsGroup,column,operation.byteValue(),chartOptions);
-
 		return chart;
 	}
 	
 	private DJChartOptions createDefaultOperations() {
-		DJChartOptions options = new DJChartOptions(true, Color.white, 300, 300, true, DJChartOptions.POSITION_FOOTER , 20, 0, true);		
+		DJChartOptions options = new DJChartOptions(true, Color.white, 300, 300, true, DJChartOptions.POSITION_HEADER, 0, 0, true, (byte) 1);		
 		return options;
 	}
 

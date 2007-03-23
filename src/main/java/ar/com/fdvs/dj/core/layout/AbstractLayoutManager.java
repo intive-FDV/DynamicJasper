@@ -419,45 +419,29 @@ public abstract class AbstractLayoutManager {
         return textField;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	private void layoutCharts() {
 		for (Iterator iter = getReport().getCharts().iterator(); iter.hasNext();) {
 			DJChart djChart = (DJChart) iter.next();
 			JRDesignChart chart = createChart(djChart);
 			JRDesignBand band = getPositionBand(djChart);
 			band.addElement(chart);
-			
 		}
-		
 	}
-	
 	
 	private JRDesignBand getPositionBand(DJChart djChart) {
 		JRDesignGroup jgroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
 		JRDesignGroup parentGroup = getParent(jgroup);
 		
 		JRDesignBand band;
-		if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_FOOTER)
+		if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_FOOTER) {
+
 			band = (JRDesignBand) ((parentGroup.equals(jgroup)) ? getDesign().getSummary(): parentGroup.getGroupFooter());
-		else
+		}
+		else {
 			band = (JRDesignBand) ((parentGroup.equals(jgroup)) ? getDesign().getSummary(): parentGroup.getGroupHeader());
+		}
 	
-	return band;
+		return band;
 	}
 
 	private JRDesignChart createChart(DJChart djChart){
@@ -467,7 +451,8 @@ public abstract class AbstractLayoutManager {
 			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
 			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroup, getParent(jrGroup), registerChartVariable(djChart)));
 			interpeterOptions(djChart, chart);
-		
+			
+			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_REPORT);
 			return chart;
 	}
 	
@@ -475,23 +460,54 @@ public abstract class AbstractLayoutManager {
 	
 	private void interpeterOptions(DJChart djChart, JRDesignChart chart) {
 		DJChartOptions options = djChart.getOptions();
-		
-		//position
-		chart.setX(options.getX());
-		chart.setY(options.getY());
-		
+	
 		//size
 		if (options.isCentered()) chart.setWidth(getReport().getOptions().getPrintableWidth());
 		else chart.setWidth(options.getWidth());
 		chart.setHeight(options.getHeight());
 		
+		//position
+		chart.setX(options.getX());
+		chart.setPadding(10);
+		chart.setY(options.getY());
+		arrangeBand(djChart, chart);
+		
 		//options
 		chart.setShowLegend(options.isShowLegend());
 		chart.setBackcolor(options.getBackColor());
+		chart.setBorder(options.getBorder());
+		
+//		chart.getPlot().getSeriesColors().clear();
+//		chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(1, Color.black));
+//		chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(2, Color.orange));
+//		chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(3, Color.green));
 		
 		//Chart-dependant options
 		if (djChart.getType() == DJChart.BAR_CHART) ((JRDesignBarPlot) chart.getPlot()).setShowTickLabels(options.isShowLabels());
 		
+	}
+
+	private void arrangeBand(DJChart djChart, JRDesignChart chart) {
+		int index = getReport().getColumnsGroups().indexOf(djChart.getColumnsGroup());
+		
+		if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_HEADER){
+			JRDesignBand band = (JRDesignBand) getParent(((JRDesignGroup)getDesign().getGroupsList().get(index))).getGroupHeader();
+			
+			for (int i = 0; i < band.getElements().length; i++) {
+				JRDesignElement element = (JRDesignElement) band.getElements()[i];
+				element.setY(element.getY() + chart.getY() + chart.getHeight() + 5);
+			}
+		}
+		else {
+			JRDesignBand band = (JRDesignBand) getParent(((JRDesignGroup)getDesign().getGroupsList().get(index))).getGroupFooter();
+			int max = 0;
+			for (int i = 0; i < band.getElements().length; i++) {
+				JRDesignElement element = (JRDesignElement) band.getElements()[i];
+				if ( (element.getHeight() + element.getY()) > max);
+				max = element.getHeight() + element.getY();
+			}
+			chart.setY(max +5 );
+		}	
 	}
 
 	protected JRDesignGroup getGroupFromColumnsGroup(ColumnsGroup group){

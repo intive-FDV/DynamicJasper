@@ -17,10 +17,11 @@ public class DJChartOptions {
 	private int y;
 	private int x;
 	private boolean showLabels;
+	private byte border;
 
 	public DJChartOptions(boolean showLegend, Color backColor, int height,
 			int width, boolean centered, byte position, int y, int x,
-			boolean showLabels) {
+			boolean showLabels, byte border) {
 		super();
 		this.showLegend = showLegend;
 		this.backColor = backColor;
@@ -31,6 +32,7 @@ public class DJChartOptions {
 		this.y = y;
 		this.x = x;
 		this.showLabels = showLabels;
+		this.border = border;
 	}
 
 	public Color getBackColor() {
@@ -103,5 +105,13 @@ public class DJChartOptions {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public byte getBorder() {
+		return border;
+	}
+
+	public void setBorder(byte border) {
+		this.border = border;
 	}
 }
