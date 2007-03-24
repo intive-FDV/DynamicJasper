@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -39,6 +40,7 @@ import java.util.Map;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -62,6 +64,7 @@ import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+
 
 /**
  * Helper class for running a report and some other DJ related stuff
@@ -131,10 +134,21 @@ public final class DynamicJasperHelper {
 		try {
 			if (dr.getTemplateFileName() != null) {
 				log.info("loading template file: "+dr.getTemplateFileName());
-				URL url = DynamicJasperHelper.class.getClassLoader().getResource(
-						dr.getTemplateFileName());
-				jd = downCast(JRXmlLoader.load(url.openStream()));
-			} else jd = getNewDesign(dr);
+				log.info("Attemping to find the file directly in the file system...");
+				File file = new File(dr.getTemplateFileName());
+				if (file.exists()){
+					jd = downCast(JRXmlLoader.load(file));
+				} else {
+					log.info("Not found: Attemping to find the file in the classpath...");
+					URL url = DynamicJasperHelper.class.getClassLoader().getResource(
+							dr.getTemplateFileName());
+					jd = downCast(JRXmlLoader.load(url.openStream()));
+				}
+				populateReportOptionsFromDesign(jd,dr);
+			} else {
+				//Create new JasperDesign from the scratch
+				jd = getNewDesign(dr);
+			}
 		} catch (JRException e) {
 			throw new CoreException(e.getMessage());
 		} catch (IOException e) {
@@ -143,11 +157,44 @@ public final class DynamicJasperHelper {
 		return jd;
 	}
 
+	/**
+	 * Becasuse all the layout calculations are made from the Domain Model of DynamicJasper, when loading
+	 * a template file, we have to populate the "ReportOptions" with the settings from the template file (ie: margins, etc)
+	 * @param jd
+	 * @param dr
+	 */
+	private static void populateReportOptionsFromDesign(DynamicJasperDesign jd, DynamicReport dr) {
+		DynamicReportOptions options = dr.getOptions();
+		
+		options.setBottomMargin(new Integer(jd.getBottomMargin()));
+		options.setTopMargin(new Integer(jd.getTopMargin()));
+		options.setLeftMargin(new Integer(jd.getLeftMargin()));
+		options.setRightMargin(new Integer(jd.getRightMargin()));
+		
+		options.setColumnSpace(new Integer(jd.getColumnSpacing()));
+		options.setColumnsPerPage(new Integer(jd.getColumnCount()));
+		
+		options.setPage(new Page(jd.getPageHeight(),jd.getPageWidth()));
+		
+	}
+
 	private final static DynamicJasperDesign downCast(JasperDesign jd) throws CoreException {
 		DynamicJasperDesign djd = new DynamicJasperDesign();
 		log.info("downcasting JasperDesign");
 		try {
 			BeanUtils.copyProperties(djd, jd);
+			
+			//BeanUtils.copyProperties does not perform deep copy, 
+			//adding original parameter definitions manually
+			for (Iterator iter = jd.getParametersList().iterator(); iter.hasNext();) {
+				JRParameter element = (JRParameter) iter.next();
+				try {
+					djd.addParameter(element);
+				} catch (JRException e) {	}
+				
+			}
+			
+			
 		} catch (IllegalAccessException e) {
 			throw new CoreException(e.getMessage());
 		} catch (InvocationTargetException e) {

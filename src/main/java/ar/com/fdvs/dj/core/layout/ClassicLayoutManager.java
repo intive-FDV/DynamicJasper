@@ -32,6 +32,8 @@ package ar.com.fdvs.dj.core.layout;
 import java.util.Collection;
 import java.util.Iterator;
 
+import net.sf.jasperreports.engine.JRBand;
+import net.sf.jasperreports.engine.JRElement;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
@@ -229,16 +231,36 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 	/**
 	 * Adds title and subtitle to the TitleBand when it applies.
+	 * If title is not present then subtitle will be ignored
 	 */
 	private void generateTitleBand() {
 		log.debug("Generating title band...");
-		// If title is not present then subtitle will be ignored
+		JRDesignBand band = (JRDesignBand) getDesign().getPageHeader();
+		int yOffset = 0;
+	
+		//If title is not present then subtitle will be ignored
 		if (getReport().getTitle() == null)
 			return;
 
-		JRDesignBand titleBand = (JRDesignBand) getDesign().getTitle();
-		if (titleBand == null)
-			titleBand = new JRDesignBand();
+		if (band != null && !getDesign().isTitleNewPage()){
+			//Title and subtitle comes afer the page header
+			yOffset = band.getHeight();
+			
+			JRElement[] array = getDesign().getPageHeader().getElements();
+			//modify current elements in page header band to make then not appear when page number == 1
+			for (int i = 0; i < array.length; i++) {
+				array[i].setPrintInFirstWholeBand(false);
+			}
+		} else {
+			band = (JRDesignBand) getDesign().getTitle();
+			if (band == null){
+				band = new JRDesignBand();
+				getDesign().setTitle(band);
+			}
+			
+			
+		}
+
 		
 		JRDesignTextField title = new JRDesignTextField();
 		JRDesignExpression exp = new JRDesignExpression();
@@ -247,8 +269,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		title.setExpression(exp);
 		title.setWidth(getReport().getOptions().getPrintableWidth());
 		title.setHeight(getReport().getOptions().getTitleHeight().intValue());
+		title.setY(yOffset);
 		applyStyleToTextElement(getReport().getTitleStyle(), title);
-		titleBand.addElement(title);
+		band.addElement(title);
 
 		JRDesignTextField subtitle = new JRDesignTextField();
 		if (getReport().getSubtitle() != null){
@@ -259,24 +282,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			
 			subtitle.setWidth(getReport().getOptions().getPrintableWidth());
 			subtitle.setHeight(getReport().getOptions().getSubtitleHeight().intValue());
-			subtitle.setY(title.getY() + title.getHeight());
+			subtitle.setY(yOffset + title.getY() + title.getHeight());
 			applyStyleToTextElement(getReport().getSubtitleStyle(), subtitle);
-			titleBand.addElement(subtitle);
+			band.addElement(subtitle);
 		}
 
-//		JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
-//		JRDesignExpression imageExp = new JRDesignExpression();
-//		imageExp.setText("\"C:\\\\Documents and Settings\\\\mamana\\\\Escritorio\\\\jira_logo_small.gif\"");
-//		imageExp.setValueClass(String.class);
-//		image.setExpression(imageExp);
-//		image.setHeight(30);
-//		image.setWidth(111);
-//		image.setX(0);
-//		image.setY(title.getY() + title.getHeight() + 50);
-//		titleBand.addElement(image);		
+		/**
+		 * Final height now are calculated in super.setBandsFinalHeight()
+		 */
+		//band.setHeight(title.getHeight() + subtitle.getHeight() /*+ image.getHeight() + 30*/);
 		
-		titleBand.setHeight(title.getHeight() + subtitle.getHeight() /*+ image.getHeight() + 30*/);
-		getDesign().setTitle(titleBand);
+		
 	}
 
 	/**
