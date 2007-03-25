@@ -114,6 +114,29 @@ public class FastReportBuilder extends DynamicReportBuilder {
 			.addTitle(title)
 			.build();
 
+		guessStyle(className, column);
+
+		addColumn(column);
+
+		return this;
+	}
+
+	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+		.addColumnProperty(new ColumnProperty(property, className))
+		.addWidth(new Integer(width))
+		.addTitle(title)
+		.addFixedWidth(Boolean.valueOf(fixedWidth))
+		.build();
+		
+		guessStyle(className, column);
+		
+		addColumn(column);
+		
+		return this;
+	}
+
+	private void guessStyle(String className, AbstractColumn column) throws ClassNotFoundException {
 		Class clazz = Class.forName(className);
 		if (BigDecimal.class.isAssignableFrom(clazz) || Float.class.isAssignableFrom(clazz) || Double.class.isAssignableFrom(clazz)) {
 			column.setPattern("$ #.00");
@@ -131,10 +154,6 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		if (Timestamp.class.isAssignableFrom(clazz)) {
 			column.setPattern("dd/MM/yy hh:mm:ss");
 		}
-
-		addColumn(column);
-
-		return this;
 	}
 
 	public FastReportBuilder addGroups(int numgroups) {

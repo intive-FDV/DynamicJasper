@@ -36,15 +36,11 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
@@ -53,7 +49,6 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
@@ -84,14 +79,14 @@ public class GroupsReportTest extends TestCase {
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
 		drb
-				.addTitle("November 2006 sales report")
-				.addTitleStyle(titleStyle)
-				.addSubtitle("The items in this report correspond to the main products: Bovine meat, Chicken, Pig meat and Milky ")
-				.addDetailHeight(new Integer(15)).addLeftMargin(margin)
-				.addRightMargin(margin).addTopMargin(margin).addBottomMargin(
-						margin).addPrintBackgroundOnOddRows(true)
-				.addOddRowBackgroundStyle(oddRowStyle).addColumnsPerPage(
-						new Integer(1)).addColumnSpace(new Integer(5));
+			.addTitleStyle(titleStyle)
+			.addTitle("November 2006 sales report")					//defines the title of the report
+			.addSubtitle("The items in this report correspond "
+					+"to the main products: DVDs, Books, Foods and Magazines")				
+			.addDetailHeight(new Integer(15)).addLeftMargin(margin)
+			.addRightMargin(margin).addTopMargin(margin).addBottomMargin(margin)
+			.addPrintBackgroundOnOddRows(true)
+			.addOddRowBackgroundStyle(oddRowStyle);
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.addColumnProperty("state", String.class.getName()).addTitle(
@@ -171,43 +166,12 @@ public class GroupsReportTest extends TestCase {
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-//		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
+		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
 		JasperViewer.viewReport(jp);
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
 }
-
-	public final static DynamicJasperDesign getNewDesign(DynamicReport dr) {
-		DynamicJasperDesign des = new DynamicJasperDesign();
-		DynamicReportOptions options = dr.getOptions();
-		Page page = options.getPage();
-
-		des.setColumnCount(options.getColumnsPerPage().intValue());
-		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
-
-		des.setPageWidth(page.getWidth());
-		des.setPageHeight(page.getHeight());
-
-		des.setColumnWidth(options.getColumnWidth());
-		des.setColumnSpacing(options.getColumnSpace().intValue());
-		des.setLeftMargin(options.getLeftMargin().intValue());
-		des.setRightMargin(options.getRightMargin().intValue());
-		des.setTopMargin(options.getTopMargin().intValue());
-		des.setBottomMargin(options.getBottomMargin().intValue());
-
-		des.setWhenNoDataType(JasperDesign.WHEN_NO_DATA_TYPE_NO_PAGES);
-		des.setTitleNewPage(false);
-		des.setSummaryNewPage(false);
-
-		des.setDetail(new JRDesignBand());
-		des.setPageHeader(new JRDesignBand());
-		des.setPageFooter(new JRDesignBand());
-		des.setSummary(new JRDesignBand());
-
-		des.setName("DynamicReport...");
-		return des;
-	}
 
 	public static void main(String[] args) {
 		GroupsReportTest test = new GroupsReportTest();

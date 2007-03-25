@@ -30,11 +30,7 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -51,9 +47,6 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.util.MultiPropertyComparator;
-import ar.com.fdvs.dj.util.SortInfo;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public class FixedColumnWidhTest extends TestCase {
@@ -74,11 +67,9 @@ public class FixedColumnWidhTest extends TestCase {
 		 * the report
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
 		drb.addTitle("November 2006 sales report")					//defines the title of the report
 			.addSubtitle("The items in this report correspond "
-					+"to the main products: Bovine meat,"+
-					" Chicken, Pig meat and Milky " )
+					+"to the main products: DVDs, Books, Foods and Magazines")					
 			.addDetailHeight(15)						//defines the height for each record of the report
 			.addMarginss(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
 			.addDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
@@ -127,7 +118,8 @@ public class FixedColumnWidhTest extends TestCase {
 
 		AbstractColumn columnAmount = ColumnBuilder.getInstance()
 			.addColumnProperty("amount", Float.class.getName())
-			.addTitle("Amount").addWidth(90).addFixedWidth(true)
+			.addTitle("Amount").addWidth(90)
+			.addFixedWidth(true) // <--- FIXED COLUMN WIDTH
 			.addPattern("$ 0.00")		//defines a pattern to apply to the values swhown (uses TextFormat)
 			.build();
 
@@ -168,29 +160,11 @@ public class FixedColumnWidhTest extends TestCase {
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource 
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/PlainReportTest.pdf");
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/FixedColumnWidhTest.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	private Collection sortCollection(Collection dummyCollection, List columns) {
-		ArrayList l = new ArrayList(dummyCollection);
-		ArrayList info = new ArrayList();
-		for (Iterator iter = columns.iterator(); iter.hasNext();) {
-			AbstractColumn  column = (AbstractColumn) iter.next();
-			if (column instanceof PropertyColumn){
-				PropertyColumn col = (PropertyColumn)column;
-				SortInfo si = new SortInfo(col.getColumnProperty().getProperty(),true);
-				info.add(si);
-			}
-			
-		}
-		
-		MultiPropertyComparator mpc = new MultiPropertyComparator(info);
-		Collections.sort(l,mpc);
-		return l;
 	}
 
 	public static void main(String[] args) {

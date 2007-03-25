@@ -32,6 +32,8 @@ package ar.com.fdvs.dj.test;
 import java.awt.Color;
 import java.util.Collection;
 
+import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
+
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -57,13 +59,23 @@ public class StylesReportTest extends TestCase {
 
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); headerStyle.setBorder(Border.MEDIUM);
-		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); 
+		headerStyle.setBorderTop(Border.MEDIUM);
+		headerStyle.setBorderBottom(Border.THIN);
+		headerStyle.setBackgroundColor(Color.blue);
+		headerStyle.setTransparency(Transparency.OPAQUE);
+		headerStyle.setTextColor(Color.white);
+		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); 
+		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18,Font._FONT_VERDANA,true));
+		Style numberStyle = new Style();
+		numberStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style amountStyle = new Style();
 		amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
+		amountStyle.setBackgroundColor(Color.cyan);
+		amountStyle.setTransparency(Transparency.OPAQUE);
 		Style oddRowStyle = new Style();
 		oddRowStyle.setBorder(Border.NO_BORDER);
 		Color veryLightGrey = new Color(230,230,230);
@@ -71,8 +83,10 @@ public class StylesReportTest extends TestCase {
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
-		drb.addTitle("November 2006 sales report").addTitleStyle(titleStyle).addTitleHeight(new Integer(30))
-			.addSubtitle("The items in this report correspond to the main products: Bovine meat, Chicken, Pig meat and Milky " )
+		drb.addTitle("November 2006 sales report")					//defines the title of the report
+			.addSubtitle("The items in this report correspond "
+					+"to the main products: DVDs, Books, Foods and Magazines")			
+			.addTitleStyle(titleStyle).addTitleHeight(new Integer(30))
 			.addSubtitleHeight(new Integer(20))
 			.addDetailHeight(new Integer(15))
 			.addLeftMargin(margin)
@@ -102,11 +116,11 @@ public class StylesReportTest extends TestCase {
 
 		AbstractColumn columnCode = ColumnBuilder.getInstance().addColumnProperty("id", Long.class.getName())
 			.addTitle("ID").addWidth(new Integer(40))
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+			.addStyle(numberStyle).addHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaCantidad = ColumnBuilder.getInstance().addColumnProperty("quantity", Long.class.getName())
 			.addTitle("Quantity").addWidth(new Integer(80))
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+			.addStyle(numberStyle).addHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnAmount = ColumnBuilder.getInstance().addColumnProperty("amount", Float.class.getName())
 			.addTitle("Amount").addWidth(new Integer(90)).addPattern("$ 0.00")
@@ -134,7 +148,7 @@ public class StylesReportTest extends TestCase {
 			
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-//			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReportTest.pdf");
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReportTest.pdf");
 			JasperViewer.viewReport(jp);
 		} catch (Exception e) {
 			e.printStackTrace();

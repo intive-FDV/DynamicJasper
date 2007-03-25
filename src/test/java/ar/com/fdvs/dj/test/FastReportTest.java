@@ -36,9 +36,7 @@ import java.util.Date;
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -60,12 +58,12 @@ public class FastReportTest extends TestCase {
 			.addColumn("Branch", "branch", String.class.getName(),30)
 			.addColumn("Product Line", "productLine", String.class.getName(),50)
 			.addColumn("Item", "item", String.class.getName(),50)
-			.addColumn("Item Code", "id", Long.class.getName(),20)
-			.addColumn("Quantity", "quantity", Long.class.getName(),30)
-			.addColumn("Amount", "amount", Float.class.getName(),30)
+			.addColumn("Item Code", "id", Long.class.getName(),30,true)
+			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
+			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
 			.addTitle("November 2006 sales report")
-			.addSubtitle("This report was generateed at" + new Date())
+			.addSubtitle("This report was generateed at " + new Date())
 			.addUseFullPageWidth(true);	
 
 		DynamicReport dr = drb.build();	

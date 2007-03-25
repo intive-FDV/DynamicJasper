@@ -38,6 +38,7 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -76,7 +77,6 @@ public class TemplateFileReportTest extends TestCase {
 		 * the report
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
 		drb.addTitle("November 2006 sales report")					//defines the title of the report
 			.addSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
@@ -167,6 +167,7 @@ public class TemplateFileReportTest extends TestCase {
 		return dr;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void testReport() {
 		try {
 			DynamicReport dr = buildReport();
@@ -181,10 +182,10 @@ public class TemplateFileReportTest extends TestCase {
 			parameters.put("leftHeader", "My Company - My Area");
 			parameters.put("rightHeader", "User: Jack Sparrow");
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters );	//Creates the JasperPrint object, we pass as a Parameter
-																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/TemplateReportTest.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
+//			JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

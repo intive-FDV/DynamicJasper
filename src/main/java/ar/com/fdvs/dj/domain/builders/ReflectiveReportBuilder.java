@@ -127,11 +127,11 @@ public class ReflectiveReportBuilder extends FastReportBuilder {
     private static int getColumnWidth(final PropertyDescriptor _property) {
         final Class type = _property.getPropertyType();
         if (Float.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type)) {
-            return 2;
+            return 70;
         } else if (type == Boolean.class) {
             return 1;
         } else if (Number.class.isAssignableFrom(type)) {
-            return 2;
+            return 60;
         } else if (type == String.class) {
             return 5;
         } else if (Date.class.isAssignableFrom(type)) {

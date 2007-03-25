@@ -87,14 +87,9 @@ body, td, select, input, li
 
 #breadcrumbs
     {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border: 0;
-    background-color: #fff;
-    width: 0;
-    height: 0;
-    visibility: hidden;
+#    background-color: #fff;
+    height: 15px;
+    width: 90%;
     }
 
 #leftColumn

@@ -37,6 +37,7 @@ import java.util.List;
 
 public class TestRepositoryProducts {
 
+	@SuppressWarnings("unchecked")
 	public static List getDummyCollection(){
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat();

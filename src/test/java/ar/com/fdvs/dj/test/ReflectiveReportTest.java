@@ -7,11 +7,13 @@ import ar.com.fdvs.dj.util.SortUtils;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 
+import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.Arrays;
 import java.util.List;
 
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
@@ -41,6 +43,13 @@ public class ReflectiveReportTest extends TestCase {
         final JRDataSource dataSource = new JRBeanCollectionDataSource(_data);
         final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(_report, new ClassicLayoutManager(), dataSource);
         JasperViewer.viewReport(jasperPrint);
+        try {
+			ReportExporter.exportReport(jasperPrint, System.getProperty("user.dir")+ "/target/ReflectiveReportTest.pdf");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void main(final String[] _args) {

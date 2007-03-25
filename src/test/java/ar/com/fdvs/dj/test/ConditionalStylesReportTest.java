@@ -78,8 +78,10 @@ public class ConditionalStylesReportTest extends TestCase {
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
-		drb.addTitle("November 2006 sales report").addTitleStyle(titleStyle).addTitleHeight(new Integer(30))
-			.addSubtitle("The items in this report correspond to the main products: Bovine meat, Chicken, Pig meat and Milky ")
+		drb.addTitle("November 2006 sales report")					
+			.addSubtitle("The items in this report correspond "
+				+"to the main products: DVDs, Books, Foods and Magazines")		
+			.addTitleStyle(titleStyle).addTitleHeight(new Integer(30))
 			.addSubtitleHeight(new Integer(20))
 			.addDetailHeight(new Integer(15))
 			.addLeftMargin(margin)

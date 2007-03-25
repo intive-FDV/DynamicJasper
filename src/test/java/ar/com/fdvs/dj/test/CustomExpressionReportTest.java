@@ -73,8 +73,11 @@ public class CustomExpressionReportTest extends TestCase {
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
-		drb.addTitle("November 2006 sales report").addTitleStyle(titleStyle).addTitleHeight(new Integer(30))
-			.addSubtitle("The items in this report correspond to the main products: Bovine meat, Chicken, Pig meat and Milky " )
+		drb
+			.addTitle("November 2006 sales report")					//defines the title of the report
+			.addSubtitle("The items in this report correspond "
+					+"to the main products: DVDs, Books, Foods and Magazines")			
+					.addTitleStyle(titleStyle).addTitleHeight(new Integer(30))
 			.addSubtitleHeight(new Integer(20))
 			.addDetailHeight(new Integer(15))
 			.addLeftMargin(margin)
@@ -90,9 +93,9 @@ public class CustomExpressionReportTest extends TestCase {
 			.addTitle("State").addWidth(new Integer(85))
 			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnBranch = ColumnBuilder.getInstance().addColumnProperty("branch", String.class.getName())
-			.addTitle("Branch").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+//		AbstractColumn columnBranch = ColumnBuilder.getInstance().addColumnProperty("branch", String.class.getName())
+//			.addTitle("Branch").addWidth(new Integer(85))
+//			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
 
 //		AbstractColumn columnaProductLine = ColumnBuilder.getInstance().addColumnProperty("productLine", String.class.getName())
 //			.addTitle("Product Line").addWidth(new Integer(85))
@@ -156,11 +159,11 @@ public class CustomExpressionReportTest extends TestCase {
 		try {
 			DynamicReport dr = buildReport();
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-//			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
+			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 			
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-//			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReportTest.pdf");
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/CustomExpressionReportTest.pdf");
 			JasperViewer.viewReport(jp);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -170,19 +173,6 @@ public class CustomExpressionReportTest extends TestCase {
 	public static void main(String[] args) {
 		CustomExpressionReportTest test = new CustomExpressionReportTest();
 		test.testReport();
-		
-//		value = (java.lang.String) (((ar.com.fdvs.dj.domain.CustomExpression) ((java.lang.String) parameter_expressionColumn45792938108
-//				.getValue())).evaluate(new ar.com.fdvs.dj.util.PropertiesMap()
-//				.with("state", ((java.lang.String) field_state.getValue()))
-//				.with("branch", ((java.lang.String) field_branch.getValue()))
-//				.with("productLine",
-//						((java.lang.String) field_productLine.getValue()))
-//				.with("item", ((java.lang.String) field_item.getValue())).with(
-//						"id", ((java.lang.Long) field_id.getValue())).with(
-//						"quantity",
-//						((java.lang.Long) field_quantity.getValue())).with(
-//						"amount", ((java.lang.Float) field_amount.getValue()))));		
-//		
 	}
 
 }

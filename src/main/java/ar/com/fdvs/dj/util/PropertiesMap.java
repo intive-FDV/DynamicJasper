@@ -6,6 +6,7 @@ public class PropertiesMap extends HashMap {
 	
 	private static final long serialVersionUID = -8443176521038066760L;
 
+	@SuppressWarnings("unchecked")
 	public PropertiesMap with(String key, Object value) {
 		put(key,value);
 		return this;

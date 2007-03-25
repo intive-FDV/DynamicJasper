@@ -5,9 +5,21 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="1.1.0" date="2007-03-22" description="????????">    
+         <release version="1.1.0" date="2007-03-22" description="Charting release">    
            <action dev="Mariano Simone" type="add">
-               Charting capabilities. Added builder to easily add charts to DynamicJasper
+               Charting capabilities. Added builder to easily add charts to DynamicJasper. (See the examples)
+           </action>
+           <action dev="Juan Manuel Alvarez" type="fix">
+               Template file. When using template file, first looks in the file system, then in the classpath
+           </action>
+           <action dev="Juan Manuel Alvarez" type="add">
+               Example Report that uses a tempalte file
+           </action>
+           <action dev="Juan Manuel Alvarez" type="add">
+               Fixed column width for columns that need to keep it´s original witdh
+           </action>
+           <action dev="Juan Manuel Alvarez" type="update">
+               Documentation on the API and How-to guide
            </action>
          </release>
       <release version="1.0.2" date="2007-02-27" description="Minor Release">    
@@ -20,10 +32,10 @@
            <action dev="Juan Manuel Alvarez" type="add">
                Added FastReportBuilder that simplifies even more the report creation process
            </action>         
-           <action dev="Juan Manuel Alvarez" type="updated">
+           <action dev="Juan Manuel Alvarez" type="update">
                Documentation and examples (see the test sources)
            </action>         
-           <action dev="Juan Manuel Alvarez" type="updated">
+           <action dev="Juan Manuel Alvarez" type="update">
                More control over the styles (borders)
            </action>         
          </release>

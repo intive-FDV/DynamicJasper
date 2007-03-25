@@ -86,9 +86,10 @@ public class ChartReportTest extends TestCase {
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
 		drb
-				.addTitle("November 2006 sales report")
 				.addTitleStyle(titleStyle)
-				.addSubtitle("The items in this report correspond to products sold in different shops across USA")
+				.addTitle("November 2006 sales report")					//defines the title of the report
+				.addSubtitle("The items in this report correspond "
+					+"to the main products: DVDs, Books, Foods and Magazines")				
 				.addDetailHeight(new Integer(15)).addLeftMargin(margin)
 				.addRightMargin(margin).addTopMargin(margin).addBottomMargin(
 						margin).addPrintBackgroundOnOddRows(true)
@@ -173,7 +174,6 @@ public class ChartReportTest extends TestCase {
 		drb.addChart(chart); //add chart
 
 		DynamicReport dr = drb.build();
-		//jdr.set
 		return dr;
 	}
 
@@ -185,44 +185,13 @@ public class ChartReportTest extends TestCase {
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-//		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ChartReportTest.pdf");
+		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ChartReportTest.pdf");
 		JasperViewer.viewReport(jp);
 //		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
 }
-
-	public final static DynamicJasperDesign getNewDesign(DynamicReport dr) {
-		DynamicJasperDesign des = new DynamicJasperDesign();
-		DynamicReportOptions options = dr.getOptions();
-		Page page = options.getPage();
-
-		des.setColumnCount(options.getColumnsPerPage().intValue());
-		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
-
-		des.setPageWidth(page.getWidth());
-		des.setPageHeight(page.getHeight());
-
-		des.setColumnWidth(options.getColumnWidth());
-		des.setColumnSpacing(options.getColumnSpace().intValue());
-		des.setLeftMargin(options.getLeftMargin().intValue());
-		des.setRightMargin(options.getRightMargin().intValue());
-		des.setTopMargin(options.getTopMargin().intValue());
-		des.setBottomMargin(options.getBottomMargin().intValue());
-
-		des.setWhenNoDataType(JasperDesign.WHEN_NO_DATA_TYPE_NO_PAGES);
-		des.setTitleNewPage(false);
-		des.setSummaryNewPage(false);
-
-		des.setDetail(new JRDesignBand());
-		des.setPageHeader(new JRDesignBand());
-		des.setPageFooter(new JRDesignBand());
-		des.setSummary(new JRDesignBand());
-
-		des.setName("DynamicReport...");
-		return des;
-	}
 
 	public static void main(String[] args) {
 		ChartReportTest test = new ChartReportTest();

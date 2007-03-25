@@ -1,12 +1,12 @@
 package ar.com.fdvs.dj.util;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Comparator;
+import java.util.List;
+
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.util.Comparator;
-import java.util.List;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Alejandro Gomez
@@ -48,7 +48,8 @@ public class MultiPropertyComparator implements Comparator {
         return value instanceof Comparable ? (Comparable)value : value == null ? "" : value.toString();
     }
 
-    private static int compare(final Comparable _value1, final Comparable _value2) {
+    @SuppressWarnings("unchecked")
+	private static int compare(final Comparable _value1, final Comparable _value2) {
         if (_value1 == null) {
             if (_value2 == null) {
                 return 0;

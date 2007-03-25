@@ -67,6 +67,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	private static final Log log = LogFactory.getLog(ClassicLayoutManager.class);
 	
 	protected static final String EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() != 1)";
+	protected static final String EXPRESSION_TRUE_WHEN_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() == 1)";
 
 	public static final byte CALCULATION_COUNT = 1;
 	
@@ -246,11 +247,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			//Title and subtitle comes afer the page header
 			yOffset = band.getHeight();
 			
-			JRElement[] array = getDesign().getPageHeader().getElements();
-			//modify current elements in page header band to make then not appear when page number == 1
-			for (int i = 0; i < array.length; i++) {
-				array[i].setPrintInFirstWholeBand(false);
-			}
 		} else {
 			band = (JRDesignBand) getDesign().getTitle();
 			if (band == null){
@@ -261,6 +257,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			
 		}
 
+		JRDesignExpression printWhenExpression = new JRDesignExpression();
+		printWhenExpression.setValueClass(Boolean.class);
+		printWhenExpression.setText(EXPRESSION_TRUE_WHEN_FIRST_PAGE);		
 		
 		JRDesignTextField title = new JRDesignTextField();
 		JRDesignExpression exp = new JRDesignExpression();
@@ -270,6 +269,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		title.setWidth(getReport().getOptions().getPrintableWidth());
 		title.setHeight(getReport().getOptions().getTitleHeight().intValue());
 		title.setY(yOffset);
+		title.setPrintWhenExpression(printWhenExpression);
+		title.setRemoveLineWhenBlank(true);
 		applyStyleToTextElement(getReport().getTitleStyle(), title);
 		band.addElement(title);
 
@@ -282,7 +283,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			
 			subtitle.setWidth(getReport().getOptions().getPrintableWidth());
 			subtitle.setHeight(getReport().getOptions().getSubtitleHeight().intValue());
-			subtitle.setY(yOffset + title.getY() + title.getHeight());
+			subtitle.setY(title.getY() + title.getHeight());
+			subtitle.setPrintWhenExpression(printWhenExpression);
+			subtitle.setRemoveLineWhenBlank(true);
 			applyStyleToTextElement(getReport().getSubtitleStyle(), subtitle);
 			band.addElement(subtitle);
 		}

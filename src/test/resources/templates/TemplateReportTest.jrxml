@@ -31,7 +31,7 @@
 			</band>
 		</background>
 		<title>
-			<band height="45"  isSplitAllowed="true" >
+			<band height="0"  isSplitAllowed="true" >
 			</band>
 		</title>
 		<pageHeader>
@@ -43,7 +43,7 @@
 						width="482"
 						height="0"
 						key="line-2"/>
-					<graphicElement stretchType="NoStretch" pen="2Point" fill="Solid" />
+					<graphicElement stretchType="NoStretch" pen="1Point" fill="Solid" />
 				</line>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -71,6 +71,19 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{leftHeader}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="17"
+						y="27"
+						width="30"
+						height="4"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[]]></text>
+				</staticText>
 			</band>
 		</pageHeader>
 		<columnHeader>
@@ -94,7 +107,7 @@
 						width="482"
 						height="0"
 						key="line-1"/>
-					<graphicElement stretchType="NoStretch" pen="2Point" fill="Solid" />
+					<graphicElement stretchType="NoStretch" pen="1Point" fill="Solid" />
 				</line>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -111,7 +124,7 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Report" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="74"
+						x="76"
 						y="3"
 						width="100"
 						height="18"

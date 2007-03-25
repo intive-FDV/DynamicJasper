@@ -30,11 +30,7 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -54,14 +50,11 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.util.MultiPropertyComparator;
-import ar.com.fdvs.dj.util.SortInfo;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public class ImageBannerReportTest extends TestCase {
@@ -82,8 +75,10 @@ public class ImageBannerReportTest extends TestCase {
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
-		drb.addTitle("November 2006 sales report").addTitleStyle(titleStyle)
-			.addSubtitle("The items in this report correspond to the main products: Bovine meat, Chicken, Pig meat and Milky " )
+			drb.addTitleStyle(titleStyle)
+			.addTitle("November 2006 sales report")					//defines the title of the report
+			.addSubtitle("The items in this report correspond "
+					+"to the main products: DVDs, Books, Foods and Magazines")			
 			.addDetailHeight(new Integer(15))
 			.addLeftMargin(margin)
 			.addRightMargin(margin)

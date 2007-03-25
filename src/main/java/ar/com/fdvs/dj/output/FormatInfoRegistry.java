@@ -1,27 +1,28 @@
 package ar.com.fdvs.dj.output;
 
-import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
-import net.sf.jasperreports.engine.export.JRCsvExporter;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
-import net.sf.jasperreports.engine.export.JRXmlExporter;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
-import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
-import net.sf.jasperreports.engine.JRExporter;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import net.sf.jasperreports.engine.export.JRXmlExporter;
 import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.ListLayoutManager;
+
+import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
 
 /**
  * @author Alejandro Gomez
  *         Date: Feb 22, 2007
  *         Time: 4:44:50 PM
  */
+@SuppressWarnings("unchecked")
 public class FormatInfoRegistry {
 
     private static final Map FORMAT_INFO = new HashMap();

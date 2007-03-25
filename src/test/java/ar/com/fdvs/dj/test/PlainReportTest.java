@@ -29,11 +29,7 @@
 
 package ar.com.fdvs.dj.test;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -48,9 +44,6 @@ import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.util.MultiPropertyComparator;
-import ar.com.fdvs.dj.util.SortInfo;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public class PlainReportTest extends TestCase {
@@ -69,11 +62,9 @@ public class PlainReportTest extends TestCase {
 		 * the report
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
 		drb.addTitle("November 2006 sales report")					//defines the title of the report
 			.addSubtitle("The items in this report correspond "
-					+"to the main products: Bovine meat,"+
-					" Chicken, Pig meat and Milky " )
+					+"to the main products: DVDs, Books, Foods and Magazines")					
 			.addDetailHeight(15)						//defines the height for each record of the report
 			.addMarginss(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
 			.addDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
@@ -159,10 +150,7 @@ public class PlainReportTest extends TestCase {
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);	//Create a JRDataSource, the Collection used
-																											//here contains dummy hardcoded objects...
-
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
-																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/PlainReportTest.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
