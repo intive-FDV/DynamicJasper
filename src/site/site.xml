@@ -26,7 +26,6 @@
       <item name="Getting Started" href="docs/getting_started.html"/>
       <item name="Playground (GUI)" href="docs/playground.html"/>      
       <item name="Online Demo" href="http://dynamicjasperplayground.fdvs.com.ar/" external="true"/>      
-   
     </menu>    
     <menu name="Comunity">
       <item name="Forums" href="https://sourceforge.net/forum/?group_id=188060" external="true"/>

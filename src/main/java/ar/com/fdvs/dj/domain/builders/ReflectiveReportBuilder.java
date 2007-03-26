@@ -129,15 +129,15 @@ public class ReflectiveReportBuilder extends FastReportBuilder {
         if (Float.class.isAssignableFrom(type) || Double.class.isAssignableFrom(type)) {
             return 70;
         } else if (type == Boolean.class) {
-            return 1;
+            return 10;
         } else if (Number.class.isAssignableFrom(type)) {
             return 60;
         } else if (type == String.class) {
-            return 5;
+            return 100;
         } else if (Date.class.isAssignableFrom(type)) {
-            return 3;
+            return 50;
         } else {
-            return 1;
+            return 50;
         }
     }
 }

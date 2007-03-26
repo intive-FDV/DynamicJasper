@@ -30,21 +30,29 @@ Snapshots
  
  Report with image banner
  
-[images/snapshots/report with image banner.jpg] Report with image banner 
+[images/snapshots/ImageBannerReportTest.jpg] Report with image banner 
 
  Report with styles
  
-[images/snapshots/report with styles.jpg] Report with styles
+[images/snapshots/StylesReportTest.jpg] Report with styles
 
  Report with repeating groups and variables
  
-[images/snapshots/report with groups.jpg] Report with repeating groups and variables
+[images/snapshots/GroupsReportTest.jpg] Report with repeating groups and variables
 
  Report with conditional styles
  
-[images/snapshots/report with conditional styles.jpg] Report with conditional styles
+[images/snapshots/ConditionalStylesReportTest.jpg] Report with conditional styles
+
+ Report that uses as tempalte a jrxml file
+ 
+[images/snapshots/TemplateFileReportTest.jpg] Report that uses as tempalte a jrxml file
+
+ A report with charts
+ 
+[images/snapshots/ChartReportTest.jpg] Report with charts
 
  Plain report
  
-[images/snapshots/plain - report.jpg] Plain report
+[images/snapshots/PlainReportTest.jpg] Plain report
 
