@@ -246,7 +246,7 @@
 		<repository>
 			<id>embuRepo</id>
 			<name>Embu Deploy Repo</name>
-			<url>ftp://192.168.1.101/maven2/</url>
+			<url>ftp://fdvs.com.ar/maven2/</url>
 		</repository>
 	</distributionManagement>
 	<mailingLists>
