@@ -32,7 +32,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>1.1-SNAPSHOT</version>
+	<version>1.1.0</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -246,7 +246,7 @@
 		<repository>
 			<id>embuRepo</id>
 			<name>Embu Deploy Repo</name>
-			<url>ftp://192.168.1.101/maven2/</url>
+			<url>ftp://fdvs.com.ar/maven2/</url>
 		</repository>
 	</distributionManagement>
 	<mailingLists>
