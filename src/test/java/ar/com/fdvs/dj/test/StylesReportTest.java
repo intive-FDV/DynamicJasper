@@ -32,8 +32,6 @@ package ar.com.fdvs.dj.test;
 import java.awt.Color;
 import java.util.Collection;
 
-import org.eclipse.jdt.core.dom.AnonymousClassDeclaration;
-
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;

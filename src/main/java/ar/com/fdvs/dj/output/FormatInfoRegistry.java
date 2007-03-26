@@ -22,7 +22,6 @@ import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
  *         Date: Feb 22, 2007
  *         Time: 4:44:50 PM
  */
-@SuppressWarnings("unchecked")
 public class FormatInfoRegistry {
 
     private static final Map FORMAT_INFO = new HashMap();

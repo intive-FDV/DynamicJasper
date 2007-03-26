@@ -38,7 +38,6 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -86,7 +85,7 @@ public class TemplateFileReportTest extends TestCase {
 			.addColumnsPerPage(1);						//defines columns per page (like in the telephone guide)
 
 		/**
-		 * Note that we still didn�t call the build() method
+		 * Note that we didn't call the build() method yet
 		 */
 
 		/**
@@ -149,7 +148,7 @@ public class TemplateFileReportTest extends TestCase {
 		 * add some more options to the report (through the builder)
 		 */
 		drb.addUseFullPageWidth(true);	//we tell the report to use the full width of the page. this rezises
-										//the columns width proportionally to meat the page width.
+										//the columns width proportionally to meet the page width.
 
 		//This look
 //		drb.addTemplateFile("templates/TemplateReportTest.jrxml");
@@ -162,12 +161,10 @@ public class TemplateFileReportTest extends TestCase {
 		
 		
 		DynamicReport dr = drb.build();	//Finally build the report!
-		
 
 		return dr;
 	}
 
-	@SuppressWarnings("unchecked")
 	public void testReport() {
 		try {
 			DynamicReport dr = buildReport();

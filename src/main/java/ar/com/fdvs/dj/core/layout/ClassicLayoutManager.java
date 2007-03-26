@@ -32,8 +32,6 @@ package ar.com.fdvs.dj.core.layout;
 import java.util.Collection;
 import java.util.Iterator;
 
-import net.sf.jasperreports.engine.JRBand;
-import net.sf.jasperreports.engine.JRElement;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;

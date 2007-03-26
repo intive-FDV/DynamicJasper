@@ -37,7 +37,6 @@ import ar.com.fdvs.dj.test.domain.Product;
 
 public class TestMockRepository {
 
-	@SuppressWarnings("unchecked")
 	public static Collection getDummyCollection(){
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat();

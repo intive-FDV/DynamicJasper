@@ -48,7 +48,6 @@ public class MultiPropertyComparator implements Comparator {
         return value instanceof Comparable ? (Comparable)value : value == null ? "" : value.toString();
     }
 
-    @SuppressWarnings("unchecked")
 	private static int compare(final Comparable _value1, final Comparable _value2) {
         if (_value1 == null) {
             if (_value2 == null) {

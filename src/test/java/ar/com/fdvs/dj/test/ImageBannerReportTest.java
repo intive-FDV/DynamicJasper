@@ -88,10 +88,10 @@ public class ImageBannerReportTest extends TestCase {
 			.addOddRowBackgroundStyle(oddRowStyle)
 			.addColumnsPerPage(new Integer(1))
 			.addColumnSpace(new Integer(5))
-			.addFirstPageImageBanner(System.getProperty("user.dir") +"\\target\\test-classes\\images\\logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.ALIGN_LEFT)
-			.addFirstPageImageBanner(System.getProperty("user.dir") +"\\target\\test-classes\\images\\dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.ALIGN_RIGHT)
-			.addImageBanner(System.getProperty("user.dir") +"\\target\\test-classes\\images\\logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_LEFT)
-			.addImageBanner(System.getProperty("user.dir") +"\\target\\test-classes\\images\\dynamicJasper_60.jpg", new Integer(150), new Integer(30), ImageBanner.ALIGN_RIGHT);
+			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.ALIGN_LEFT)
+			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.ALIGN_RIGHT)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_LEFT)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(150), new Integer(30), ImageBanner.ALIGN_RIGHT);
 
 		AbstractColumn columnState = ColumnBuilder.getInstance().addColumnProperty("state", String.class.getName())
 			.addTitle("State").addWidth(new Integer(85))

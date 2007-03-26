@@ -10,7 +10,6 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 public class SortUtils {
 
-    @SuppressWarnings("unchecked")
 	public static List sortCollection(Collection dummyCollection, List columns) {
         ArrayList l = new ArrayList(dummyCollection);
         ArrayList info = new ArrayList();

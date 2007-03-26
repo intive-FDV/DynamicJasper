@@ -125,7 +125,8 @@ public class ConditionalStylesReportTest extends TestCase {
 		AbstractColumn columnAmount = ColumnBuilder.getInstance().addColumnProperty("amount", Float.class.getName())
 			.addTitle("Amount").addWidth(new Integer(90)).addPattern("$ 0.00")
 			.addConditionalStyles(conditionalStyles)
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+			.addStyle(amountStyle)
+			.addHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
