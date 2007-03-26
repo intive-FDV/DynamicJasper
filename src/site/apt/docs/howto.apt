@@ -87,7 +87,8 @@ HOWTO: Add header and/or footer to a report
 	
 	drb.addTemplateFile(System.getProperty("pathToTemplate/TemplateName.jrxml");
 	
-	//Assuming you added $P{header} and $P{footer} as content for the textfields used as header and footer, you must add their content:  
+	//Assuming you added $P{header} and $P{footer} as content for the textfields used as header and footer, 
+	//you must add their content:  
  	Map parameters = new HashMap();
 	params.put("header","<my header message>");
 	params.put("footer","<my footer message>");
