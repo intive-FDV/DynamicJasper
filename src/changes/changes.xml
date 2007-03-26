@@ -18,8 +18,14 @@
            <action dev="Juan Manuel Alvarez" type="add">
                Fixed column width for columns that need to keep it´s original witdh
            </action>
-           <action dev="Juan Manuel Alvarez" type="update">
-               Documentation on the API and How-to guide
+           <action dev="Mariano Simone" type="update">
+               Documentation on the API and How-to guides
+           </action>
+           <action dev="Alejandro Gomez" type="add">
+               Reflection Report Builder
+           </action>
+           <action dev="Alejandro Gomez" type="add">
+               DynamicJasper result type for webwork integration
            </action>
          </release>
       <release version="1.0.2" date="2007-02-27" description="Minor Release">    
