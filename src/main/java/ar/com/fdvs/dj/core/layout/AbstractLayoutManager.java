@@ -476,12 +476,7 @@ public abstract class AbstractLayoutManager {
 		chart.setShowLegend(options.isShowLegend());
 		chart.setBackcolor(options.getBackColor());
 		chart.setBorder(options.getBorder());
-		
-//		chart.getPlot().getSeriesColors().clear();
-//		chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(1, Color.black));
-//		chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(2, Color.orange));
-//		chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(3, Color.green));
-		
+			
 		//Chart-dependant options
 		if (djChart.getType() == DJChart.BAR_CHART) ((JRDesignBarPlot) chart.getPlot()).setShowTickLabels(options.isShowLabels());
 		
