@@ -7,15 +7,17 @@
 		 
 Content
 
- * Try the examples first!
+ * {{{#Try the examples first!}Try the examples first!}}
  
- * Creating a simple plain Report
+ * {{{#Creating a simple Report}Creating a simple Report}}
  
- * Adding groups
+ * {{{#Getting more control on the report options}Getting more control on the report options}}
  
- * Adding charts
+ * {{{#Adding groups}Adding groups}}
+ 
+ * {{{#Adding charts}Adding charts}}
 		 
-Try the examples first!
+{Try the examples first!}
 
  The source code comes with examples ready to run (you need Maven 2 to build the source code) 
  
@@ -43,7 +45,7 @@ Try the examples first!
  <<Note>>
   This tests extends junit.framework.TestCase, but they also contain a main(...) method, we recommend to execute the test through the main method because the TestCase frameworks closes the JasperViewer (a window that shows the report) inmeadiatly.
 
-Creating a simple report
+{Creating a simple Report}
  
  This fragment shows how to create a report in an ease and fast way. {{{../xref-test/ar/com/fdvs/dj/test/FastReportTest.html}see the code}}
  
@@ -84,7 +86,7 @@ Creating a simple report
  In the previuos report, the DynamicJasper API makes a lot of desicions setting default values to the styles in general (title, column header, report detail, etc).
  This defaults are defined in the <FastReportBuilder> class. More control in all this aspects can be achieved using the <DynamicReportBuilder> class, as shown in the next example
  
-Getting more control on the report options
+{Getting more control on the report options}
 
  This code shows how to create a simple report but taking more control on the report options, the code is self explained. {{{../xref-test/ar/com/fdvs/dj/test/PlainReportTest.html}see the code}}
 
@@ -191,9 +193,18 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
 |Note that the property_name passed to ColumnBuilder.addColumnProperty("property_name", "property_class_name") method must match the name of a field/property in the elements contained in the datasource|
 *-----+
 
-Adding groups
+{Adding groups}
 
  Using the same code as before, we add this few lines. {{{../xref-test/ar/com/fdvs/dj/test/GroupsReportTest.html}see the code}}
+
++------------------------------------------------------------------------------------------------------------+
+ GroupBuilder gb1 = new GroupBuilder();
+ ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState).build();
+ drb.addGroup(g1); 		//add the group to the DynamicReportBuilder
++------------------------------------------------------------------------------------------------------------+
+
+ Up to here, the DJ API will handle how to do the grouping stuf, but this isn't enough for most of the users
+ so lets see how to put some variables (totals) in the footer and header of the group
 
 +------------------------------------------------------------------------------------------------------------+
 GroupBuilder gb1 = new GroupBuilder();
@@ -204,7 +215,7 @@ GroupBuilder gb1 = new GroupBuilder();
 
             .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)    //idem for the columnaQuantity column
             .addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES)                //tells the group how to be shown, there are many
-                                                                                    //posibilities, see the GroupLayout for more.
+                                                                                    //posibilities, see the GroupLayout class for more.
             .build();
 
         GroupBuilder gb2 = new GroupBuilder();                                        //Create another group (using another column as criteria)
@@ -213,17 +224,7 @@ GroupBuilder gb1 = new GroupBuilder();
             .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
             .build();
 
-+------------------------------------------------------------------------------------------------------------+
- then we add the groups to the report (through the builder)
-
-+------------------------------------------------------------------------------------------------------------+
-drb.addColumn(columnState);
-        drb.addColumn(columnBranch);
-        drb.addColumn(columnaProductLine);
-        drb.addColumn(columnaItem);
-        drb.addColumn(columnCode);
-        drb.addColumn(columnaQuantity);
-        drb.addColumn(columnAmount);
+ //then we add the groups to the report (through the builder)
 
         drb.addGroup(g1);    //add group g1
         drb.addGroup(g2);    //add group g2
@@ -234,7 +235,7 @@ drb.addColumn(columnState);
  <<Note:>>
  It's important to remember tha the data from the datasource must be ordered with the same criteria we want to group them.
  
-Adding charts
+{Adding charts}
 
  Using the same code as before, we add this few lines. {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}see the code}}
 

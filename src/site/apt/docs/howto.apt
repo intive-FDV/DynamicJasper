@@ -7,114 +7,158 @@
 		 
 Content
 
- * HOWTO: Use conditional Styles
+ * {{{#HOWTO-001}HOWTO: Use conditional Styles}}
  
- * HOWTO: Add banners to report's headers
+ * {{{#HOWTO-002}HOWTO: Add banners to report's headers}}
  
- * HOWTO: Use custom jrxml templates
+ * {{{#HOWTO-003}HOWTO: Use custom jrxml templates}}
  
- * HOWTO: Add header and/or footer to a report  
+ * {{{#HOWTO-004}HOWTO: Add header and/or footer to a report}}
+
+ * {{{#HOWTO-005}HOWTO: Add a chart}}
+
+ * {{{#HOWTO-006}HOWTO: Create Custom Expressions}}
  
 
-HOWTO: Use conditional Styles
+{HOWTO-001}: Use conditional Styles
 
  Suppose you need a Column that contains numerical values. If you want to use conditional styles (in order to have different colors depending on the value, for example) you can do this:
 
 +------------------------------------------------------------------------------------------------------------+ 
-	//Create some styles
-	Style style0 = new Style();
-	style0.setTextColor(Color.RED);
-	Style style1 = new Style();
-	style1.setTextColor(Color.GREEN);
+//Create some styles
+Style style0 = new Style();
+style0.setTextColor(Color.RED);
+Style style1 = new Style();
+style1.setTextColor(Color.GREEN);
 
-	//Create some conditions
-	StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(5000));
-	StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(7000));
+//Create some conditions
+StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(5000));
+StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(7000));
 
-	//Create the conditional styles, and add them to an Array List
-	ArrayList conditionalStyles = new ArrayList();
-	conditionalStyles.add(new ConditionalStyle(status0,style0));
-	conditionalStyles.add(new ConditionalStyle(status1,style1));
-		
-	ColumnBuilder cb = ColumnBuilder.getInstance();
-	//Builder initialization
+//Create the conditional styles, and add them to an Array List
+ArrayList conditionalStyles = new ArrayList();
+conditionalStyles.add(new ConditionalStyle(status0,style0));
+conditionalStyles.add(new ConditionalStyle(status1,style1));
 	
-	cb.addConditionalStyles(conditionalStyles);
+ColumnBuilder cb = ColumnBuilder.getInstance();
+//Builder initialization
+
+cb.addConditionalStyles(conditionalStyles);
 +------------------------------------------------------------------------------------------------------------+ 
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/ConditionalStylesReportTest.html}ConditionalStylesReportTest}} for a working example.
  
-HOWTO: Add banners to report's headers
+{HOWTO-002}: Add banners to report's headers
 
  Adding banners can be done by just sending the images to the Report Builder, like this:
 
 +------------------------------------------------------------------------------------------------------------+ 
-	DynamicReportBuilder drb = new DynamicReportBuilder();
-	//ReportBuilder initialization
-	
-	drb.addFirstPageImageBanner(
-		System.getProperty("pathToImage/firstPageBanner.jpg", new Integer(50), new Integer(50), ImageBanner.ALIGN_LEFT)
-		.addImageBanner(
-		System.getProperty("pathToImage/allPagesBanner.jpg", new Integer(30), new Integer(30), ImageBanner.ALIGN_RIGHT);
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+
+drb.addFirstPageImageBanner(
+	System.getProperty("pathToImage/firstPageBanner.jpg", new Integer(50), new Integer(50), ImageBanner.ALIGN_LEFT)
+	.addImageBanner(
+	System.getProperty("pathToImage/allPagesBanner.jpg", new Integer(30), new Integer(30), ImageBanner.ALIGN_RIGHT);
 +------------------------------------------------------------------------------------------------------------+ 
  
  Note that you can set a different banner for the first page. You should set the alignment using the provided constants.
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/ImageBannerReportTest.html}ImageBannerReportTest}} for a working example.
  
-HOWTO: Use custom jrxml templates
+{HOWTO-003}: Use custom jrxml templates
 
  You can write your own jrxml template, and use DynamicJasper to fill it easily:
 
 +------------------------------------------------------------------------------------------------------------+ 
-	DynamicReportBuilder drb = new DynamicReportBuilder();
-	//ReportBuilder initialization
-	
-	drb.addTemplateFile(System.getProperty("pathToTemplate/TemplateName.jrxml");
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+
+drb.addTemplateFile(System.getProperty("pathToTemplate/TemplateName.jrxml");
 +------------------------------------------------------------------------------------------------------------+ 
 
- Templates can be loaded from an Absolute Path, or from a one that is relative to the Classpath.
+ Templates can be loaded from an Absolute Path, or from the Classpath. The API first tries as an absolute path, if it fails, then tries as a reource in the classpath.
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateFileReportTest.html}TemplateFileReportTest}} for a working example.
  
-HOWTO: Add header and/or footer to a report  
+
+ 
+{HOWTO-004}: Add header and/or footer to a report  
 
  As DynamicJasper doesn't provide this feature yet, you have to use a Custom Template as shown above, and add the info to the Report Builder, like this:
 
 +------------------------------------------------------------------------------------------------------------+ 
-	DynamicReportBuilder drb = new DynamicReportBuilder();
-	//ReportBuilder initialization
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
 	
-	drb.addTemplateFile(System.getProperty("pathToTemplate/TemplateName.jrxml");
+drb.addTemplateFile(System.getProperty("pathToTemplate/TemplateName.jrxml");
 	
-	//Assuming you added $P{header} and $P{footer} as content for the textfields used as header and footer, 
-	//you must add their content:  
- 	Map parameters = new HashMap();
-	params.put("header","<my header message>");
-	params.put("footer","<my footer message>");
-	//Creates the JasperPrint, using the parameters map
-	JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters );												
+//Assuming you added $P{header} and $P{footer} as content for the textfields used as header and footer, 
+//you must add their content:  
+Map parameters = new HashMap();
+params.put("header","<my header message>");
+params.put("footer","<my footer message>");
+//Creates the JasperPrint, using the parameters map
+JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters );												
 +------------------------------------------------------------------------------------------------------------+ 
  
  Note that you can set a different banner for the first page. You should set the alignment using the provided constants.
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateFileReportTest.html}TemplateFileReportTest}} for a working example. Here you can see the used jrxml: {{{../examples/TemplateReportTest.jrxml}download}}
  
-HOWTO: Add a chart
+{HOWTO-005}: Add a chart
 
 +------------------------------------------------------------------------------------------------------------+
-	DynamicReportBuilder drb = new DynamicReportBuilder();
-	//ReportBuilder initialization
-	//Group and columns creation
-	
-	DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
-	DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // define the type of chart (Pie)
-				.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
-				.addColumnsGroup(g1)                           // define the group that will be represented
-				.addColumn(columnAmount)                       // define the column that will be represented
-				.build();
-				
-	drb.addChart(chart);	//add chart
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+//Group and columns creation
+
+DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
+DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // define the type of chart (Pie)
+			.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
+			.addColumnsGroup(g1)                           // define the group that will be represented
+			.addColumn(columnAmount)                       // define the column that will be represented
+			.build();
+			
+drb.addChart(chart);	//add chart
 +------------------------------------------------------------------------------------------------------------+
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}ChartReportTest.html}} for a working example.
+ 
+{HOWTO-006}: Create Custom Expressions
+
+ <<Custom Expression>>s are a way we provide to let the developer make complex arranging of the data to be displayed in 
+ the report such as a concatenation of 2 or more fields from the data source, a math calculation, etc.
+ Custom Expressions classes must implement the <ar.com.fdvs.dj.domain.CustomExpression> interface, wich has
+ a single method:  <evaluate(Object object)> , the parameter is a java.util.Map wich contains the elements of the
+ current row.
+ 
+ Custom Expression may be defined inline (they are like clousures)
+ Lets see an example.
+ 
++------------------------------------------------------------------------------------------------------------+
+AbstractColumn columnaCustomExpression = ColumnBuilder.getInstance()
+.addCustomExpression( 
+	new CustomExpression() {
+		public Object evaluate(Object object) {
+			Map map = (Map) object;
+			String state = (String) map.get("state");
+			String branch = (String) map.get("branch");
+			String productLine = (String) map.get("productLine");
+			return state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+		}
+	} 
+).build();	
++------------------------------------------------------------------------------------------------------------+
+
+ As you can see, the keys of the map are the properties defined at the moment of the creation of the columns.
+
+ If we need to use fields from the datasource that are not directly shown on any column, we must register them
+ like this:
+ 
++------------------------------------------------------------------------------------------------------------+
+drb.addField("productLine", String.class.getName());
+drb.addField("branch", String.class.getName());
++------------------------------------------------------------------------------------------------------------+
+
+ 
