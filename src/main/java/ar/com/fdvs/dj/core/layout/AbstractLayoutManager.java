@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.core.layout;
 
+import java.awt.Color;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -37,6 +38,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
 import net.sf.jasperreports.engine.JRTextField;
+import net.sf.jasperreports.engine.base.JRBaseChartPlot;
 import net.sf.jasperreports.engine.base.JRBaseStyle;
 import net.sf.jasperreports.engine.base.JRBaseVariable;
 import net.sf.jasperreports.engine.design.JRDesignBand;
@@ -476,7 +478,16 @@ public abstract class AbstractLayoutManager {
 		chart.setShowLegend(options.isShowLegend());
 		chart.setBackcolor(options.getBackColor());
 		chart.setBorder(options.getBorder());
+		
+		//colors
+		if (options.getColors() != null){
+			int i = 1;
+			for (Iterator iter = options.getColors().iterator(); iter.hasNext();i++) {
+				Color color = (Color) iter.next();
+				chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(i, color));
+			}
 			
+		}
 		//Chart-dependant options
 		if (djChart.getType() == DJChart.BAR_CHART) ((JRDesignBarPlot) chart.getPlot()).setShowTickLabels(options.isShowLabels());
 		
