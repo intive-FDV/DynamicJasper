@@ -5,6 +5,12 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+           <release version="1.2.0" date="" description="">    
+           	<action dev="Mariano Simone" type="add">
+               User-Defined colors can be used in charts usign Lists of colors
+            </action>
+         </release>
+         
          <release version="1.1.0" date="2007-03-22" description="Charting release">    
            <action dev="Mariano Simone" type="add">
                Charting capabilities. Added builder to easily add charts to DynamicJasper. (See the examples)
