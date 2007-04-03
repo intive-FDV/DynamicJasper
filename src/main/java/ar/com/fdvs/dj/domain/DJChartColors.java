@@ -44,11 +44,11 @@ public class DJChartColors {
 	
 	public static List desert() {
 		ArrayList array = new ArrayList();
-		array.add(new Color(0xffffd4));
-		array.add(new Color(0xfed98e));
-		array.add(new Color(0xfe9929));
-		array.add(new Color(0xd95f0e));
-		array.add(new Color(0xf03b20));
+		array.add(new Color(0xFFFFD4));
+		array.add(new Color(0xFED98E));
+		array.add(new Color(0xFE9929));
+		array.add(new Color(0xD95F0E));
+		array.add(new Color(0xF03B20));
 		array.add(new Color(0x993404));
 
 		return array;
@@ -56,12 +56,24 @@ public class DJChartColors {
 	
 	public static List justAnotherColorScheme() {
 		ArrayList array = new ArrayList();
-		array.add(new Color(0xd7191c));
-		array.add(new Color(0xfdae61));
-		array.add(new Color(0xffffbf));
-		array.add(new Color(0xabdda4));
-		array.add(new Color(0x2b83ba));
+		array.add(new Color(0xD7191C));
+		array.add(new Color(0xFDAE61));
+		array.add(new Color(0xFFFFBF));
+		array.add(new Color(0xABDDA4));
+		array.add(new Color(0x2B83BA));
 		array.add(new Color(0xFF7F02));
+
+		return array;
+	}
+	
+	public static List googleAnalytics() {
+		ArrayList array = new ArrayList();
+		array.add(new Color(0x9BBDDE));
+		array.add(new Color(0xFFBC46));
+		array.add(new Color(0xA2C488));
+		array.add(new Color(0xCFC29F));
+		array.add(new Color(0xD6B9DB));
+		array.add(new Color(0xDEA19B));
 
 		return array;
 	}
