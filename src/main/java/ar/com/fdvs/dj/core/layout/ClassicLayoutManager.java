@@ -198,10 +198,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			
 			for (Iterator iter = imageBanners.iterator(); iter.hasNext();) {
 				ImageBanner imageBanner = (ImageBanner) iter.next();
-				String path = "\"" + imageBanner.getImagePath().replace("\\", "\\\\") + "\"";
+				System.out.println(imageBanner.getImagePath());
+				String path = "\"" + imageBanner.getImagePath().replaceAll("\\\\", "/") + "\"";
+				System.out.println(path);
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
 				JRDesignExpression imageExp = new JRDesignExpression();
 				imageExp.setText(path);
+				
 				imageExp.setValueClass(String.class);
 				image.setExpression(imageExp);
 				image.setHeight(imageBanner.getHeight());
