@@ -5,7 +5,16 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="1.1.0" date="2007-03-22" description="Charting release">    
+         <release version="1.1.1" date="2007-04-21" desc="minor release">    
+           	<action dev="Mariano Simone" type="add">
+               User-Defined colors can be used in charts usign Lists of colors
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="add" due-to="gzfqh3" due-to-email="gzfqh3@sourceforge.net">
+               Text elements can now be rotated left or right (through the Style class)
+            </action>
+         </release>
+         
+         <release version="1.1.0" date="2007-03-22" desc="Charting release">    
            <action dev="Mariano Simone" type="add">
                Charting capabilities. Added builder to easily add charts to DynamicJasper. (See the examples)
            </action>
@@ -18,11 +27,17 @@
            <action dev="Juan Manuel Alvarez" type="add">
                Fixed column width for columns that need to keep it´s original witdh
            </action>
-           <action dev="Juan Manuel Alvarez" type="update">
-               Documentation on the API and How-to guide
+           <action dev="Mariano Simone" type="update">
+               Documentation on the API and How-to guides
+           </action>
+           <action dev="Alejandro Gomez" type="add">
+               Reflection Report Builder
+           </action>
+           <action dev="Alejandro Gomez" type="add">
+               DynamicJasper result type for webwork integration
            </action>
          </release>
-      <release version="1.0.2" date="2007-02-27" description="Minor Release">    
+      <release version="1.0.2" date="2007-02-27" desc="Minor Release">    
            <action dev="Juan Manuel Alvarez" type="add">
                Playground. Example webapp made in GWT that shows the DynamicJasper potential
            </action>         
@@ -39,7 +54,7 @@
                More control over the styles (borders)
            </action>         
          </release>
-      <release version="1.0.1" date="2007-02-08" description="Minor Release">    
+      <release version="1.0.1" date="2007-02-08" desc="Minor Release">    
            <action dev="Juan Manuel Alvarez" type="add">
                Added the capability to place images on the header of the first page and the rest of the report
            </action>         
@@ -56,7 +71,7 @@
                Removed Unneded Cglib dependency.
            </action>                      
          </release>
-      <release version="1.0" date="2007-02-01" description="Initial Release">   
+      <release version="1.0" date="2007-02-01" desc="Initial Release">   
            <action dev="Juan Manuel Alvarez" type="add">
                Initial version if DynamicJasper
            </action>                      
