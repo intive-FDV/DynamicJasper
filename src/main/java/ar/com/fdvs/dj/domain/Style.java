@@ -32,9 +32,13 @@ package ar.com.fdvs.dj.domain;
 import java.awt.Color;
 import java.io.Serializable;
 import net.sf.jasperreports.engine.base.JRBaseStyle;
+import net.sf.jasperreports.engine.design.JRDesignElement;
+import net.sf.jasperreports.engine.design.JRDesignTextElement;
+import net.sf.jasperreports.engine.fill.JRFillElement;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
@@ -68,11 +72,13 @@ public class Style implements Serializable, Cloneable {
 	private Border borderRight = null;
 
 	private Integer padding = new Integer(2);
+	private Integer radius = new Integer(0);
 
 	private Transparency transparency = Transparency.TRANSPARENT;
 
     private VerticalAlign verticalAlign = VerticalAlign.BOTTOM;
     private HorizontalAlign horizontalAlign = HorizontalAlign.LEFT;
+    private Rotation rotation = Rotation.NONE;
 
     private Stretching streching = Stretching.RELATIVE_TO_TALLEST_OBJECT;
 
@@ -186,7 +192,9 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setBorderColor(borderColor);
 		transformedStyle.setMode(getTransparency().getValue());
 		
-
+		transformedStyle.setRotation(getRotation().getValue());
+		transformedStyle.setRadius(getRadius().intValue());
+		
 		return transformedStyle;
 	}
 
@@ -228,6 +236,22 @@ public class Style implements Serializable, Cloneable {
 
 	public void setBorderColor(Color borderColor) {
 		this.borderColor = borderColor;
+	}
+
+	public Rotation getRotation() {
+		return rotation;
+	}
+
+	public void setRotation(Rotation rotation) {
+		this.rotation = rotation;
+	}
+
+	public Integer getRadius() {
+		return radius;
+	}
+
+	public void setRadius(Integer radius) {
+		this.radius = radius;
 	}
 
 }

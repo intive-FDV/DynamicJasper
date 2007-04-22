@@ -21,6 +21,8 @@
       <item name="Features" href="docs/features.html"/>
       <item name="Requeriments" href="requeriments.html"/>
       <item name="Download" href="http://sourceforge.net/project/showfiles.php?group_id=188060"/>
+      <item name="Changes" href="changes-report.html"/>
+      <item name="Sources and Javadoc" href="xref/index.html"/>
     </menu>
     <menu name="Documentation - Examples">
       <item name="Getting Started" href="docs/getting_started.html"/>
