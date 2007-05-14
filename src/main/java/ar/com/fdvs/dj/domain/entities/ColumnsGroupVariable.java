@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain.entities;
 
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
 /**
@@ -42,6 +43,22 @@ public class ColumnsGroupVariable extends Entity {
 
 	private AbstractColumn columnToApplyOperation;
 	private ColumnsGroupVariableOperation operation;
+	private Style style;
+
+	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, ColumnsGroupVariableOperation operation, Style style) {
+		super();
+		this.columnToApplyOperation = columnToApplyOperation;
+		this.operation = operation;
+		this.style = style;
+	}
+
+	public Style getStyle() {
+		return style;
+	}
+
+	public void setStyle(Style style) {
+		this.style = style;
+	}
 
 	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, ColumnsGroupVariableOperation operation) {
 		super();

@@ -30,6 +30,8 @@
 package ar.com.fdvs.dj.domain.entities;
 
 import java.util.ArrayList;
+
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
@@ -58,6 +60,35 @@ public class ColumnsGroup extends Entity {
 	private Integer headerHeight = new Integer(20);
 	private Integer footerHeight = new Integer(20);
 	private GroupLayout layout = GroupLayout.VALUE_IN_HEADER;
+	
+	/**
+	 * Default Style for variables when showing in footer.
+	 * Firts looks for the style at the ColumnsGroupVariable, then the default, finally
+	 * it usses the columns style.
+	 */
+	private Style defaulFooterStyle;
+	
+	/**
+	 * Default Style for variables when showing in header.
+	 * The lookup order is the same as for "defaulFooterStyle"
+	 */
+	private Style defaulHeaderStyle;
+
+	public Style getDefaulFooterStyle() {
+		return defaulFooterStyle;
+	}
+
+	public void setDefaulFooterStyle(Style defaulFooterStyle) {
+		this.defaulFooterStyle = defaulFooterStyle;
+	}
+
+	public Style getDefaulHeaderStyle() {
+		return defaulHeaderStyle;
+	}
+
+	public void setDefaulHeaderStyle(Style defaulHeaderStyle) {
+		this.defaulHeaderStyle = defaulHeaderStyle;
+	}
 
 	public ArrayList getFooterVariables() {
 		return footerVariables;

@@ -5,6 +5,11 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="1.1.2" date="2007-05-13" desc="minor release">    
+           	<action dev="Juan Manuel Alvarez" type="add" due-to="gzfqh3" due-to-email="gzfqh3@sourceforge.net">
+              Now you can define styles for header and footer variables. (see StylesReport2Test)
+            </action>
+         </release>
          <release version="1.1.1" date="2007-04-21" desc="minor release">    
            	<action dev="Mariano Simone" type="add">
                User-Defined colors can be used in charts usign Lists of colors

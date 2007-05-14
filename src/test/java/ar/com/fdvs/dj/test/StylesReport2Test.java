@@ -32,6 +32,8 @@ package ar.com.fdvs.dj.test;
 import java.awt.Color;
 import java.util.Collection;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -39,17 +41,21 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
+import ar.com.fdvs.dj.domain.builders.GroupBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public class StylesReport2Test extends TestCase {
@@ -81,6 +87,17 @@ public class StylesReport2Test extends TestCase {
 		Color veryLightGrey = new Color(230,230,230);
 		oddRowStyle.setBackgroundColor(veryLightGrey);oddRowStyle.setTransparency(Transparency.OPAQUE);
 
+		Style variableStyle = new Style();
+		BeanUtils.copyProperties(variableStyle, amountStyle);
+		variableStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
+		variableStyle.setBackgroundColor(Color.PINK);
+		
+		Style variableStyle2 = new Style();
+		BeanUtils.copyProperties(variableStyle2, amountStyle);
+		variableStyle2.setFont(Font.ARIAL_MEDIUM_BOLD);
+		variableStyle2.setBackgroundColor(Color.ORANGE);
+		
+		
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
 		drb.addTitle("November 2006 sales report")					//defines the title of the report
@@ -133,7 +150,19 @@ public class StylesReport2Test extends TestCase {
 		drb.addColumn(columnCode);
 		drb.addColumn(columnaCantidad);
 		drb.addColumn(columnAmount);
-
+		
+		ColumnsGroup group = new GroupBuilder()
+			.addCriteriaColumn((PropertyColumn) columnState)
+			.addFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM,variableStyle).build();
+		drb.addGroup(group);
+		
+		ColumnsGroup group2 = new GroupBuilder()
+		.addCriteriaColumn((PropertyColumn) columnBranch)
+		.addFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM).build();
+		drb.addGroup(group2);
+		
+		group2.setDefaulFooterStyle(variableStyle2);
+		
 		drb.addUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
