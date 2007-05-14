@@ -49,6 +49,7 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.ImageBanner;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -198,10 +199,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			
 			for (Iterator iter = imageBanners.iterator(); iter.hasNext();) {
 				ImageBanner imageBanner = (ImageBanner) iter.next();
-				String path = "\"" + imageBanner.getImagePath().replace("\\", "\\\\") + "\"";
+				String path = "\"" + imageBanner.getImagePath().replaceAll("\\\\", "/") + "\"";
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
 				JRDesignExpression imageExp = new JRDesignExpression();
 				imageExp.setText(path);
+				
 				imageExp.setValueClass(String.class);
 				image.setExpression(imageExp);
 				image.setHeight(imageBanner.getHeight());
@@ -386,8 +388,18 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				textField.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
 
 				textField.setEvaluationGroup(jgroup);
+				
+				//Assign the style to the element.
+				//First we look for the specific element style, then the default style for the group variables
+				//and finally the column style.
+				Style defStyle = ColumnsGroupVariablesRegistrationManager.HEADER.equals(type)?columnsGroup.getDefaulHeaderStyle():columnsGroup.getDefaulFooterStyle();
 
-				applyStyleToTextElement(col.getStyle(), textField);
+				if (var.getStyle() != null)
+					applyStyleToTextElement(var.getStyle(), textField);
+				else if (defStyle != null)
+					applyStyleToTextElement(defStyle, textField);
+				else
+					applyStyleToTextElement(col.getStyle(), textField);
 
 				band.addElement(textField);
 

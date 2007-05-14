@@ -3,6 +3,7 @@ package ar.com.fdvs.dj.domain.builders;
 import java.awt.Color;
 
 import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJChartColors;
 import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -26,7 +27,7 @@ public class DJChartBuilder {
 	}
 	
 	private DJChartOptions createDefaultOperations() {
-		DJChartOptions options = new DJChartOptions(true, Color.white, 300, 300, true, DJChartOptions.POSITION_HEADER, 0, 0, true, (byte) 1);		
+		DJChartOptions options = new DJChartOptions(true, Color.white, 300, 300, true, DJChartOptions.POSITION_HEADER, 0, 0, true, (byte) 1, DJChartColors.googleAnalytics());		
 		return options;
 	}
 

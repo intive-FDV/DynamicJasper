@@ -1,6 +1,7 @@
 package ar.com.fdvs.dj.domain;
 
 import java.awt.Color;
+import java.util.List;
 
 public class DJChartOptions {
 
@@ -18,10 +19,11 @@ public class DJChartOptions {
 	private int x;
 	private boolean showLabels;
 	private byte border;
+	private List colors;
 
 	public DJChartOptions(boolean showLegend, Color backColor, int height,
 			int width, boolean centered, byte position, int y, int x,
-			boolean showLabels, byte border) {
+			boolean showLabels, byte border, List colors) {
 		super();
 		this.showLegend = showLegend;
 		this.backColor = backColor;
@@ -33,6 +35,7 @@ public class DJChartOptions {
 		this.x = x;
 		this.showLabels = showLabels;
 		this.border = border;
+		this.colors = colors;
 	}
 
 	public Color getBackColor() {
@@ -113,5 +116,13 @@ public class DJChartOptions {
 
 	public void setBorder(byte border) {
 		this.border = border;
+	}
+
+	public List getColors() {
+		return colors;
+	}
+
+	public void setColors(List colors) {
+		this.colors = colors;
 	}
 }
