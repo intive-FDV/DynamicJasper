@@ -55,4 +55,8 @@ public class ColumnProperty {
 		this.valueClassName = valueClass;
 	}
 
+	public ColumnProperty() {
+		super();
+	}
+
 }

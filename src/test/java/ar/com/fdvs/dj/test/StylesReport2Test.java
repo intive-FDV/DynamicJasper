@@ -30,6 +30,10 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
+import java.beans.XMLEncoder;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.Collection;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -166,7 +170,18 @@ public class StylesReport2Test extends TestCase {
 		drb.addUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
+		saveXML(dr,"dynamicReport");
 		return dr;
+	}
+
+	private static void saveXML(Object object, String filename) throws Exception {
+		
+		OutputStream out = new FileOutputStream(System.getProperty("user.dir")+ "/target/" + filename +".xml");
+		XMLEncoder enc = new XMLEncoder(out);
+		enc.writeObject(object);
+		enc.close();
+		out.close();
+		
 	}
 
 	public void testReport() {
@@ -175,6 +190,7 @@ public class StylesReport2Test extends TestCase {
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 			
+			saveXML(dummyCollection,"reportData");
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReport2Test.pdf");
