@@ -56,10 +56,8 @@ cb.addConditionalStyles(conditionalStyles);
 DynamicReportBuilder drb = new DynamicReportBuilder();
 //ReportBuilder initialization
 
-drb.addFirstPageImageBanner(
-	System.getProperty("pathToImage/firstPageBanner.jpg", new Integer(50), new Integer(50), ImageBanner.ALIGN_LEFT)
-	.addImageBanner(
-	System.getProperty("pathToImage/allPagesBanner.jpg", new Integer(30), new Integer(30), ImageBanner.ALIGN_RIGHT);
+drb.addFirstPageImageBanner("pathToImage/firstPageBanner.jpg", new Integer(50), new Integer(50), ImageBanner.ALIGN_LEFT)
+	.addImageBanner("pathToImage/allPagesBanner.jpg", new Integer(30), new Integer(30), ImageBanner.ALIGN_RIGHT);
 +------------------------------------------------------------------------------------------------------------+ 
  
  Note that you can set a different banner for the first page. You should set the alignment using the provided constants.
@@ -74,7 +72,7 @@ drb.addFirstPageImageBanner(
 DynamicReportBuilder drb = new DynamicReportBuilder();
 //ReportBuilder initialization
 
-drb.addTemplateFile(System.getProperty("pathToTemplate/TemplateName.jrxml");
+drb.addTemplateFile("pathToTemplate/TemplateName.jrxml");
 +------------------------------------------------------------------------------------------------------------+ 
 
  Templates can be loaded from an Absolute Path, or from the Classpath. The API first tries as an absolute path, if it fails, then tries as a reource in the classpath.
@@ -91,7 +89,7 @@ drb.addTemplateFile(System.getProperty("pathToTemplate/TemplateName.jrxml");
 DynamicReportBuilder drb = new DynamicReportBuilder();
 //ReportBuilder initialization
 	
-drb.addTemplateFile(System.getProperty("pathToTemplate/TemplateName.jrxml");
+drb.addTemplateFile("pathToTemplate/TemplateName.jrxml");
 	
 //Assuming you added $P{header} and $P{footer} as content for the textfields used as header and footer, 
 //you must add their content:  
