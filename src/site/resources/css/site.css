@@ -43,11 +43,11 @@ h1,h2,h3,h4,h5,h6,pre,code
     font-size:1em;
     }
 
-li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,table,thead,tbody,tfoot,caption,th,tr,td,a,textarea,#breadcrumbs
+#li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,table,thead,tbody,tfoot,caption,th,tr,td,a,textarea,#breadcrumbs
     {
     margin:0;
     padding:0;
-    background: transparent;
+    background: transparent;    
     }
 
 a img,:link img,:visited img
@@ -221,6 +221,8 @@ div.clear
     margin: 0;
     padding: 0;
     font-size: small;
+    border-bottom: 1px dashed #999999;
+   
     }
 
 #navcolumn h5
@@ -229,6 +231,7 @@ div.clear
     border-bottom: 0px dotted #999;
     padding: 10px 0 0 10px;
     margin-bottom: 3px;
+    margin-left:-10px;
     }
 
 #navcolumn li
