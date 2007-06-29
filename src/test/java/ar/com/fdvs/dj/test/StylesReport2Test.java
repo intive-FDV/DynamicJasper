@@ -31,18 +31,18 @@ package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
 import java.beans.XMLEncoder;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Collection;
-
-import org.apache.commons.beanutils.BeanUtils;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
+
+import org.apache.commons.beanutils.BeanUtils;
+
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;

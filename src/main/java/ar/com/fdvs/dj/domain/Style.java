@@ -31,10 +31,8 @@ package ar.com.fdvs.dj.domain;
 
 import java.awt.Color;
 import java.io.Serializable;
+
 import net.sf.jasperreports.engine.base.JRBaseStyle;
-import net.sf.jasperreports.engine.design.JRDesignElement;
-import net.sf.jasperreports.engine.design.JRDesignTextElement;
-import net.sf.jasperreports.engine.fill.JRFillElement;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
