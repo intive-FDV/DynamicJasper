@@ -35,6 +35,7 @@ public class Font {
 	private String fontName;
 	private boolean bold;
 	private boolean intalic;
+	private boolean underline;
 
 	public static final String _FONT_ARIAL = "Arial";
 	public static final String _FONT_TIMES_NEW_ROMAN = "Times New Roman";
@@ -136,6 +137,12 @@ public class Font {
 		this.fontName = fontName;
 		this.bold = bold;
 		this.intalic = intalic;
+	}
+	public boolean isUnderline() {
+		return underline;
+	}
+	public void setUnderline(boolean underline) {
+		this.underline = underline;
 	}
 
 }
