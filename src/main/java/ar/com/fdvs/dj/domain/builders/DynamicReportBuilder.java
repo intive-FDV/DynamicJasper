@@ -302,6 +302,11 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * The full path of a jrxml file, or the path in the classpath of a jrxml resource.
+	 * @param path
+	 * @return
+	 */
 	public DynamicReportBuilder addTemplateFile(String path) {
 		report.setTemplateFileName(path);
 		return this;

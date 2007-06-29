@@ -1,0 +1,4005 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_02" class="java.beans.XMLDecoder"> 
+ <object class="java.util.ArrayList"> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Arizona</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Florida</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>New York</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Baseball Stadium</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>2500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>9482.4</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Main Street</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>27475.5</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Railway Station</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>1</long> 
+    </void> 
+    <void property="item"> 
+     <string>Harry Potter 7</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>3</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Pelican Brief,</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>2</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Sum of All Fears</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>book</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>38347.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>5</long> 
+    </void> 
+    <void property="item"> 
+     <string>Back To the Future</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1500</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>3322.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>6</long> 
+    </void> 
+    <void property="item"> 
+     <string>Monsters Inc</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>4</long> 
+    </void> 
+    <void property="item"> 
+     <string>Titanic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>dvd</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>8329.2</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>10</long> 
+    </void> 
+    <void property="item"> 
+     <string>snickers</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>food</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>3000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>78482.0</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>9</long> 
+    </void> 
+    <void property="item"> 
+     <string>National Geographic</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>8400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>2831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>7</long> 
+    </void> 
+    <void property="item"> 
+     <string>Sports Illustrated</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>1400</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="add"> 
+   <object class="ar.com.fdvs.dj.test.domain.Product"> 
+    <void property="amount"> 
+     <float>5831.32</float> 
+    </void> 
+    <void property="branch"> 
+     <string>Shopping Center</string> 
+    </void> 
+    <void property="id"> 
+     <long>8</long> 
+    </void> 
+    <void property="item"> 
+     <string>The Economist</string> 
+    </void> 
+    <void property="productLine"> 
+     <string>magazine</string> 
+    </void> 
+    <void property="quantity"> 
+     <long>4000</long> 
+    </void> 
+    <void property="state"> 
+     <string>Washington</string> 
+    </void> 
+   </object> 
+  </void> 
+ </object> 
+</java> 

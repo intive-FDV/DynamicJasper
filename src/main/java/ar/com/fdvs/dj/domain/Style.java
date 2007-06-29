@@ -31,10 +31,12 @@ package ar.com.fdvs.dj.domain;
 
 import java.awt.Color;
 import java.io.Serializable;
+
 import net.sf.jasperreports.engine.base.JRBaseStyle;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
@@ -66,17 +68,30 @@ public class Style implements Serializable, Cloneable {
 	private Border borderBottom = null;
 	private Border borderLeft = null;
 	private Border borderRight = null;
+	
+	private Integer paddingBotton, paddingTop, paddingLeft, paddingRight;
 
 	private Integer padding = new Integer(2);
+	private Integer radius = new Integer(0);
 
 	private Transparency transparency = Transparency.TRANSPARENT;
 
     private VerticalAlign verticalAlign = VerticalAlign.BOTTOM;
     private HorizontalAlign horizontalAlign = HorizontalAlign.LEFT;
+    private Rotation rotation = Rotation.NONE;
 
     private Stretching streching = Stretching.RELATIVE_TO_TALLEST_OBJECT;
 
     private boolean stretchWithOverflow = true;
+    private boolean blankWhenNull = true;
+
+	public boolean isBlankWhenNull() {
+		return blankWhenNull;
+	}
+
+	public void setBlankWhenNull(boolean blankWhenNull) {
+		this.blankWhenNull = blankWhenNull;
+	}
 
 	public Color getBackgroundColor() {
 		return backgroundColor;
@@ -162,6 +177,7 @@ public class Style implements Serializable, Cloneable {
 		JRBaseStyle transformedStyle = new JRBaseStyle();
 		transformedStyle.setBorder(getBorder().getValue());
 		
+		//Borders
 		if (getBorderBottom()!= null) 
 			transformedStyle.setBottomBorder(getBorderBottom().getValue());
 		if (getBorderTop()!= null)
@@ -172,21 +188,35 @@ public class Style implements Serializable, Cloneable {
 			transformedStyle.setRightBorder(getBorderRight().getValue());
 		
 		transformedStyle.setPadding(getPadding());
+		
+		if (paddingBotton != null)
+			transformedStyle.setBottomPadding(paddingBotton);
+		if (paddingTop != null)
+			transformedStyle.setTopPadding(paddingTop);
+		if (paddingLeft != null)
+			transformedStyle.setLeftPadding(paddingLeft);
+		if (paddingRight != null)
+			transformedStyle.setRightPadding(paddingRight);
+		
 		transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
 		transformedStyle.setVerticalAlignment(getVerticalAlign().getValue());
 
-		transformedStyle.setBlankWhenNull(true);
+		transformedStyle.setBlankWhenNull(blankWhenNull);
 
 		transformedStyle.setFontName(font.getFontName());
 		transformedStyle.setFontSize(font.getFontSize());
 		transformedStyle.setBold(font.isBold());
+		transformedStyle.setItalic(font.isIntalic());
+		transformedStyle.setUnderline(font.isUnderline());
 
 		transformedStyle.setBackcolor(getBackgroundColor());
 		transformedStyle.setForecolor(getTextColor());
 		transformedStyle.setBorderColor(borderColor);
 		transformedStyle.setMode(getTransparency().getValue());
 		
-
+		transformedStyle.setRotation(getRotation().getValue());
+		transformedStyle.setRadius(getRadius().intValue());
+		
 		return transformedStyle;
 	}
 
@@ -228,6 +258,54 @@ public class Style implements Serializable, Cloneable {
 
 	public void setBorderColor(Color borderColor) {
 		this.borderColor = borderColor;
+	}
+
+	public Rotation getRotation() {
+		return rotation;
+	}
+
+	public void setRotation(Rotation rotation) {
+		this.rotation = rotation;
+	}
+
+	public Integer getRadius() {
+		return radius;
+	}
+
+	public void setRadius(Integer radius) {
+		this.radius = radius;
+	}
+
+	public Integer getPaddingBotton() {
+		return paddingBotton;
+	}
+
+	public void setPaddingBotton(Integer paddingBotton) {
+		this.paddingBotton = paddingBotton;
+	}
+
+	public Integer getPaddingTop() {
+		return paddingTop;
+	}
+
+	public void setPaddingTop(Integer paddingTop) {
+		this.paddingTop = paddingTop;
+	}
+
+	public Integer getPaddingLeft() {
+		return paddingLeft;
+	}
+
+	public void setPaddingLeft(Integer paddingLeft) {
+		this.paddingLeft = paddingLeft;
+	}
+
+	public Integer getPaddingRight() {
+		return paddingRight;
+	}
+
+	public void setPaddingRight(Integer paddingRight) {
+		this.paddingRight = paddingRight;
 	}
 
 }

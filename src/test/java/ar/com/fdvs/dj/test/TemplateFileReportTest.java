@@ -150,13 +150,13 @@ public class TemplateFileReportTest extends TestCase {
 		drb.addUseFullPageWidth(true);	//we tell the report to use the full width of the page. this rezises
 										//the columns width proportionally to meet the page width.
 
-		//This look
+		//This look for the resource in the classpath
 //		drb.addTemplateFile("templates/TemplateReportTest.jrxml");
 		
-		//Portrait
+		//Portrait (looks the resource as a file in the filesystem)
 		drb.addTemplateFile(System.getProperty("user.dir") + "/target/test-classes/templates/TemplateReportTest.jrxml");
 		
-		//Landscape
+		//Landscape  (looks the resource as a file in the filesystem)
 //		drb.addTemplateFile(System.getProperty("user.dir") + "/target/test-classes/templates/TemplateReportTestPortLandscape.jrxml");
 		
 		

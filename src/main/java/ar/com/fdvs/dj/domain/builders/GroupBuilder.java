@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
@@ -80,6 +81,10 @@ public class GroupBuilder {
 
 	public GroupBuilder addFooterVariable(AbstractColumn column3, ColumnsGroupVariableOperation operation) {
 		group.getFooterVariables().add(new ColumnsGroupVariable(column3,operation));
+		return this;
+	}
+	public GroupBuilder addFooterVariable(AbstractColumn column3, ColumnsGroupVariableOperation operation, Style style) {
+		group.getFooterVariables().add(new ColumnsGroupVariable(column3,operation,style));
 		return this;
 	}
 

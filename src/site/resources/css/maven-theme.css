@@ -81,10 +81,9 @@ p {
   background-color: #eee;
 }
 #navcolumn h5 {
-  font-size: smaller;
-  border-bottom: 1px solid #aaaaaa;
+  font-size: medium;  
   padding-top: 2px;
-  color: #000;
+  color: #0B5972;
 }
 
 table.bodyTable th {
