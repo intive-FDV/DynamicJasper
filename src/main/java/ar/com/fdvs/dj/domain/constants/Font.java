@@ -34,6 +34,7 @@ public class Font {
 	private int fontSize;
 	private String fontName;
 	private boolean bold;
+	private boolean intalic;
 
 	public static final String _FONT_ARIAL = "Arial";
 	public static final String _FONT_TIMES_NEW_ROMAN = "Times New Roman";
@@ -83,6 +84,13 @@ public class Font {
 	public static Font VERDANA_MEDIUM_BOLD = new Font(MEDIUM,_FONT_VERDANA,true);
 	public static Font VERDANA_BIG_BOLD = new Font(BIG,_FONT_VERDANA,true);
 
+	public Font() {
+		super();
+		this.fontSize = 10;
+		this.fontName = _FONT_ARIAL;
+		this.bold = false;
+		this.intalic= false;
+	}
 	public Font(int fontSize, String fontName, boolean bold) {
 		super();
 		this.fontSize = fontSize;
@@ -100,6 +108,34 @@ public class Font {
 
 	public boolean isBold() {
 		return bold;
+	}
+
+	public boolean isIntalic() {
+		return intalic;
+	}
+
+	public void setIntalic(boolean intalic) {
+		this.intalic = intalic;
+	}
+
+	public void setFontSize(int fontSize) {
+		this.fontSize = fontSize;
+	}
+
+	public void setFontName(String fontName) {
+		this.fontName = fontName;
+	}
+
+	public void setBold(boolean bold) {
+		this.bold = bold;
+	}
+
+	public Font(int fontSize, String fontName, boolean bold, boolean intalic) {
+		super();
+		this.fontSize = fontSize;
+		this.fontName = fontName;
+		this.bold = bold;
+		this.intalic = intalic;
 	}
 
 }

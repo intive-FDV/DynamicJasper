@@ -184,6 +184,7 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setFontName(font.getFontName());
 		transformedStyle.setFontSize(font.getFontSize());
 		transformedStyle.setBold(font.isBold());
+		transformedStyle.setItalic(font.isIntalic());
 
 		transformedStyle.setBackcolor(getBackgroundColor());
 		transformedStyle.setForecolor(getTextColor());
