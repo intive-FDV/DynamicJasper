@@ -68,6 +68,8 @@ public class Style implements Serializable, Cloneable {
 	private Border borderBottom = null;
 	private Border borderLeft = null;
 	private Border borderRight = null;
+	
+	private Integer paddingBotton, paddingTop, paddingLeft, paddingRight;
 
 	private Integer padding = new Integer(2);
 	private Integer radius = new Integer(0);
@@ -81,6 +83,15 @@ public class Style implements Serializable, Cloneable {
     private Stretching streching = Stretching.RELATIVE_TO_TALLEST_OBJECT;
 
     private boolean stretchWithOverflow = true;
+    private boolean blankWhenNull = true;
+
+	public boolean isBlankWhenNull() {
+		return blankWhenNull;
+	}
+
+	public void setBlankWhenNull(boolean blankWhenNull) {
+		this.blankWhenNull = blankWhenNull;
+	}
 
 	public Color getBackgroundColor() {
 		return backgroundColor;
@@ -166,6 +177,7 @@ public class Style implements Serializable, Cloneable {
 		JRBaseStyle transformedStyle = new JRBaseStyle();
 		transformedStyle.setBorder(getBorder().getValue());
 		
+		//Borders
 		if (getBorderBottom()!= null) 
 			transformedStyle.setBottomBorder(getBorderBottom().getValue());
 		if (getBorderTop()!= null)
@@ -176,10 +188,20 @@ public class Style implements Serializable, Cloneable {
 			transformedStyle.setRightBorder(getBorderRight().getValue());
 		
 		transformedStyle.setPadding(getPadding());
+		
+		if (paddingBotton != null)
+			transformedStyle.setBottomPadding(paddingBotton);
+		if (paddingTop != null)
+			transformedStyle.setTopPadding(paddingTop);
+		if (paddingLeft != null)
+			transformedStyle.setLeftPadding(paddingLeft);
+		if (paddingRight != null)
+			transformedStyle.setRightPadding(paddingRight);
+		
 		transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
 		transformedStyle.setVerticalAlignment(getVerticalAlign().getValue());
 
-		transformedStyle.setBlankWhenNull(true);
+		transformedStyle.setBlankWhenNull(blankWhenNull);
 
 		transformedStyle.setFontName(font.getFontName());
 		transformedStyle.setFontSize(font.getFontSize());
@@ -252,6 +274,38 @@ public class Style implements Serializable, Cloneable {
 
 	public void setRadius(Integer radius) {
 		this.radius = radius;
+	}
+
+	public Integer getPaddingBotton() {
+		return paddingBotton;
+	}
+
+	public void setPaddingBotton(Integer paddingBotton) {
+		this.paddingBotton = paddingBotton;
+	}
+
+	public Integer getPaddingTop() {
+		return paddingTop;
+	}
+
+	public void setPaddingTop(Integer paddingTop) {
+		this.paddingTop = paddingTop;
+	}
+
+	public Integer getPaddingLeft() {
+		return paddingLeft;
+	}
+
+	public void setPaddingLeft(Integer paddingLeft) {
+		this.paddingLeft = paddingLeft;
+	}
+
+	public Integer getPaddingRight() {
+		return paddingRight;
+	}
+
+	public void setPaddingRight(Integer paddingRight) {
+		this.paddingRight = paddingRight;
 	}
 
 }

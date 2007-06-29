@@ -67,8 +67,10 @@ public class StylesReport2Test extends TestCase {
 	public DynamicReport buildReport() throws Exception {
 
 		Style detailStyle = new Style();
+		
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); 
+		headerStyle.getFont().setIntalic(true);
 		headerStyle.setBorderTop(Border.MEDIUM);
 		headerStyle.setBorderBottom(Border.THIN);
 		headerStyle.setBackgroundColor(Color.blue);
@@ -79,13 +81,16 @@ public class StylesReport2Test extends TestCase {
 		headerStyle.setRotation(Rotation.LEFT);
 
 		Style titleStyle = new Style();
-		titleStyle.setFont(new Font(18,Font._FONT_VERDANA,true));
+		titleStyle.setFont(new Font(10,Font._FONT_VERDANA,true));
 		Style numberStyle = new Style();
 		numberStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style amountStyle = new Style();
 		amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		amountStyle.setBackgroundColor(Color.cyan);
 		amountStyle.setTransparency(Transparency.OPAQUE);
+		amountStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
+		amountStyle.getFont().setUnderline(true);
+		amountStyle.setPaddingBotton(new Integer(5));
 		Style oddRowStyle = new Style();
 		oddRowStyle.setBorder(Border.NO_BORDER);
 		Color veryLightGrey = new Color(230,230,230);
@@ -170,7 +175,7 @@ public class StylesReport2Test extends TestCase {
 		drb.addUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
-		saveXML(dr,"dynamicReport");
+//		saveXML(dr,"dynamicReport");
 		return dr;
 	}
 
@@ -190,7 +195,7 @@ public class StylesReport2Test extends TestCase {
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 			
-			saveXML(dummyCollection,"reportData");
+//			saveXML(dummyCollection,"reportData");
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReport2Test.pdf");
