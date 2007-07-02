@@ -5,6 +5,10 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
+/**
+ * Charts to be displayed by dynamicjasper
+ * @author msimone
+ */
 public class DJChart {
 	
 	//The possible chart types
