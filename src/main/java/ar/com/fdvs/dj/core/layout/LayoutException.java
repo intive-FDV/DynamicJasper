@@ -35,8 +35,7 @@ public class LayoutException extends CoreException {
 
 	private static final long serialVersionUID = 779839418417884495L;
 
-	public LayoutException(String arg0) {
-		super(arg0);
+	public LayoutException(String message) {
+		super(message);
 	}
-
 }

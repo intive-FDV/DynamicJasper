@@ -53,21 +53,15 @@ public class ListLayoutManager extends AbstractLayoutManager {
 		super.startLayout();
 	}
 
-	public ListLayoutManager() {
-		super();
-	}
-
 	protected void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField) {
 		log.debug("transforming detail band text field...");
 		textField.setPrintRepeatedValues(true);
 		try {
 			//if we have a java.lang.Number then the pattern must be ignored in order to let Excel recognize the number correctly.
-			if (Number.class.isAssignableFrom(Class.forName(textField
-					.getExpression().getValueClassName())))
+			if (Number.class.isAssignableFrom(Class.forName(textField.getExpression().getValueClassName())))
 				textField.setPattern(null);
 		} catch (ClassNotFoundException e) {
 			throw new LayoutException(e.getMessage());
 		}
 	}
-
 }

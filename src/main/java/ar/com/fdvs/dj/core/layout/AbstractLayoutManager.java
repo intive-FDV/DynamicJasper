@@ -77,7 +77,7 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
  * easily apply global layout changes to their reports. Example: Ignore groups </br>
  * and styles for an Excel optimized report.
  */
-public abstract class AbstractLayoutManager {
+public abstract class AbstractLayoutManager implements LayoutManager {
 
 	private static final Log log = LogFactory.getLog(AbstractLayoutManager.class);
 	protected static final String EXPRESSION_TRUE_WHEN_ODD = "new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)";
@@ -85,29 +85,55 @@ public abstract class AbstractLayoutManager {
 	private JasperDesign design;
 	private DynamicReport report;
 
-	public AbstractLayoutManager() {
-		super();
+	protected abstract void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField);
+
+	public void applyLayout(JasperDesign design, DynamicReport report) throws LayoutException {
+		log.debug("Applying Layout...");
+		try {
+			setDesign(design);
+			setReport(report);
+			ensureStyles();
+			startLayout();
+			transformDetailBand();
+			endLayout();
+		} catch (RuntimeException e) {
+			throw new LayoutException(e.getMessage());
+		}
+	}
+	
+	protected void startLayout() {
+		setColumnsFinalWidth();
 	}
 
-	protected JasperDesign getDesign() {
-		return design;
+	protected void endLayout() {
+		layoutCharts();
+		setBandsFinalHeight();
 	}
 
-	protected void setDesign(JasperDesign design) {
-		this.design = design;
+	/**
+	 * Sets a default style for every element that doesn't have one
+	 */
+	protected void ensureStyles() {
+		Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
+		Style defaultHeaderStyle = getReport().getOptions().getDefaultHeaderStyle();
+//		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
+		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
+			AbstractColumn column = (AbstractColumn) iter.next();
+			if (column.getStyle() == null) column.setStyle(defaultDetailStyle);
+			if (column.getHeaderStyle() == null) column.setHeaderStyle(defaultHeaderStyle);
+//			if (column.getFooterStyle() == null) column.setFooterStyle(defaulyFooterStyle);	
+		}
+
+//		Style defaultGroupHeaderStyle = getReport().getOptions().getDefaultGroupHeaderStyle();
+//		Style defaultGroupFooterStyle = getReport().getOptions().getDefaultGroupFooterStyle();
+//		for (Iterator iter = report.getColumnsGroups().iterator(); iter.hasNext();) {
+//			ColumnsGroup group = (ColumnsGroup) iter.next();
+//			if (group.getHeaderSyle() == null) group.setHeaderStyle(defaultGroupHeaderStyle);
+//			if (group.getFooterSyle() == null) group.setFooterStyle(defaultGroupFooterStyle);
+//		}
 	}
-
-	protected DynamicReport getReport() {
-		return report;
-	}
-
-	protected void setReport(DynamicReport report) {
-		this.report = report;
-	}
-
-	protected void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField) {}
-
-	private final void transformDetailBand() {
+	
+	private void transformDetailBand() {
 		log.debug("transforming Detail Band...");
 		JRDesignBand detail = (JRDesignBand) design.getDetail();
 		detail.setHeight(report.getOptions().getDetailHeight().intValue());
@@ -138,7 +164,7 @@ public abstract class AbstractLayoutManager {
 	}
 
 	/**
-	 * Places a square as DetailBand background for pair rows.
+	 * Places a square as DetailBand background for odd rows.
 	 * @param JRDesignBand detail
 	 */
 	private void decorateOddRows(JRDesignBand detail) {
@@ -156,7 +182,6 @@ public abstract class AbstractLayoutManager {
 		style.setForecolor(options.getOddRowBackgroundStyle().getBackgroundColor());
 		rectangle.setStyle(style);
 		detail.addElement(rectangle);
-
 	}
 
 	/**
@@ -171,56 +196,6 @@ public abstract class AbstractLayoutManager {
 		 expression.setValueClass(Boolean.class);
 		 expression.setText(text);
 		 return expression;
-	}
-
-	protected void startLayout() {
-		setColumnsFinalWidth();
-	}
-
-	protected void endLayout() {
-		layoutCharts();
-		setBandsFinalHeight();
-	}
-
-	/**
-	 * Entry point for applying a given layout.
-	 * @param JasperDesign design
-	 * @param DynamicReport report
-	 * @throws LayoutException
-	 */
-	public final void applyLayout(JasperDesign design, DynamicReport report) throws LayoutException {
-		log.debug("Applying Layout...");
-		try {
-			setDesign(design);
-			setReport(report);
-			ensureStyles();
-			startLayout();
-			transformDetailBand();
-			endLayout();
-		} catch (RuntimeException e) {
-			throw new LayoutException(e.getMessage());
-		}
-	}
-
-	protected void ensureStyles() {
-		Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
-		Style defaultHeaderStyle = getReport().getOptions().getDefaultHeaderStyle();
-//		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
-//		Style defaultGroupHeaderStyle = getReport().getOptions().getDefaultGroupHeaderStyle();
-//		Style defaultGroupFooterStyle = getReport().getOptions().getDefaultGroupFooterStyle();
-
-		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
-			AbstractColumn column = (AbstractColumn) iter.next();
-			if (column.getStyle() == null) column.setStyle(defaultDetailStyle);
-			if (column.getHeaderStyle() == null) column.setHeaderStyle(defaultHeaderStyle);
-		}
-
-//		for (Iterator iter = report.getColumnsGroups().iterator(); iter.hasNext();) {
-//			ColumnsGroup group = (ColumnsGroup) iter.next();
-//			group.getColumnToGroupBy().set
-//
-//		}
-
 	}
 
 	protected final void generateHeaderBand(JRDesignBand band) {
@@ -278,7 +253,7 @@ public abstract class AbstractLayoutManager {
 	 * printableArea and useFullPageWidth.
 	 * columns with fixedWidth property set in TRUE will not be modified
 	 */
-	private final void setColumnsFinalWidth() {
+	private void setColumnsFinalWidth() {
 		log.debug("Setting columns final width...");
 		float factor = 1;
 		int printableArea = report.getOptions().getColumnWidth();
@@ -314,8 +289,6 @@ public abstract class AbstractLayoutManager {
 				AbstractColumn col = (AbstractColumn) iter.next();
 
 				if (!iter.hasNext()) {
-//					int acu2 = acu;
-//					acu += (printableArea - acu);
 					col.setWidth(new Integer(printableArea - notRezisableWidth - acu));
 				} else {
 					colFinalWidth = (new Float(col.getWidth().intValue() * factor)).intValue();
@@ -337,7 +310,7 @@ public abstract class AbstractLayoutManager {
 	/**
 	 * Sets the necessary height for all bands in the report, to hold their children
 	 */
-	private final void setBandsFinalHeight() {
+	protected final void setBandsFinalHeight() {
 		log.debug("Setting bands final height...");
 		
 		setBandFinalHeight((JRDesignBand) design.getPageHeader());
@@ -361,17 +334,14 @@ public abstract class AbstractLayoutManager {
 	 * Sets the band's height to hold all its children
 	 * @param band Band to be resized
 	 */
-	private final void setBandFinalHeight(JRDesignBand band) {
+	private void setBandFinalHeight(JRDesignBand band) {
 		int finalHeight = 0;
-
 		if (band != null) {
 			for (Iterator iter = band.getChildren().iterator(); iter.hasNext();) {
 				JRDesignElement element = (JRDesignElement) iter.next();
 				int currentHeight = element.getY() + element.getHeight();
-				
-				if (currentHeight > finalHeight)
-					finalHeight = currentHeight;
-				}
+				if (currentHeight > finalHeight) finalHeight = currentHeight;
+			}
 			band.setHeight(finalHeight);
 		}
 	}
@@ -421,7 +391,10 @@ public abstract class AbstractLayoutManager {
         return textField;
 	}
 	
-	private void layoutCharts() {
+	/*
+	 * Takes all the report's charts and inserts them in their corresponding bands
+	 */
+	protected final void layoutCharts() {
 		for (Iterator iter = getReport().getCharts().iterator(); iter.hasNext();) {
 			DJChart djChart = (DJChart) iter.next();
 			JRDesignChart chart = createChart(djChart);
@@ -430,19 +403,23 @@ public abstract class AbstractLayoutManager {
 		}
 	}
 	
+	/**
+	 * Calculates and returns the band where the band is to be inserted
+	 * @param djChart
+	 * @return
+	 */
 	private JRDesignBand getPositionBand(DJChart djChart) {
 		JRDesignGroup jgroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
 		JRDesignGroup parentGroup = getParent(jgroup);
 		
-		JRDesignBand band;
-		if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_FOOTER) {
-
+		JRDesignBand band = null;
+		switch (djChart.getOptions().getPosition()) {
+		case DJChartOptions.POSITION_HEADER:
+			band = (JRDesignBand) ((parentGroup.equals(jgroup)) ? getDesign().getSummary(): parentGroup.getGroupHeader());
+			break;
+		case DJChartOptions.POSITION_FOOTER:
 			band = (JRDesignBand) ((parentGroup.equals(jgroup)) ? getDesign().getSummary(): parentGroup.getGroupFooter());
 		}
-		else {
-			band = (JRDesignBand) ((parentGroup.equals(jgroup)) ? getDesign().getSummary(): parentGroup.getGroupHeader());
-		}
-	
 		return band;
 	}
 
@@ -457,8 +434,6 @@ public abstract class AbstractLayoutManager {
 			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_REPORT);
 			return chart;
 	}
-	
-	
 	
 	private void interpeterOptions(DJChart djChart, JRDesignChart chart) {
 		DJChartOptions options = djChart.getOptions();
@@ -486,13 +461,12 @@ public abstract class AbstractLayoutManager {
 				Color color = (Color) iter.next();
 				chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(i, color));
 			}
-			
 		}
 		//Chart-dependant options
 		if (djChart.getType() == DJChart.BAR_CHART) ((JRDesignBarPlot) chart.getPlot()).setShowTickLabels(options.isShowLabels());
-		
 	}
 
+	//TODO: 5's must be replaced by a constant or a configurable number
 	private void arrangeBand(DJChart djChart, JRDesignChart chart) {
 		int index = getReport().getColumnsGroups().indexOf(djChart.getColumnsGroup());
 		
@@ -516,17 +490,12 @@ public abstract class AbstractLayoutManager {
 		}	
 	}
 
-	protected JRDesignGroup getGroupFromColumnsGroup(ColumnsGroup group){
-		int index = getReport().getColumnsGroups().indexOf(group);
-		return (JRDesignGroup) getDesign().getGroupsList().get(index);
-	}
-	
 	/**
 	 * Creates and registers a variable to be used by the Chart
-	 * @param chart
-	 * @return
+	 * @param chart Chart that needs a variable to be generated
+	 * @return the generated variable
 	 */
-	public JRDesignVariable registerChartVariable(DJChart chart) {
+	private JRDesignVariable registerChartVariable(DJChart chart) {
 		
 		JRDesignGroup group = getGroupFromColumnsGroup(chart.getColumnsGroup());
 
@@ -546,21 +515,55 @@ public abstract class AbstractLayoutManager {
 		var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
 		var.setName("CHART_" + group.getName() + "_" + chart.getColumn().getTitle() + "_" + chart.getOperation());
 		
-		try { getDesign().addVariable(var);
-		} catch (JRException e) { /*Should never happen*/ }
-		
+		try {
+			getDesign().addVariable(var);
+		} catch (JRException e) {
+			throw new LayoutException(e.getMessage());
+		}
 		return var;
 	}
 	
+	
+	
+	
+	
+	//TODO: Maybe a helper could calculate the following
 	/**
-	 * Returns the parent group of the given one
+	 * Finds the parent group of the given one and returns it
 	 * @param group Group for which the parent is needed
-	 * @return The parent group of the given one. If the given one is the first group, it returns the same group
+	 * @return The parent group of the given one. If the given one is the first one, it returns the same group
 	 */
 	private JRDesignGroup getParent(JRDesignGroup group){
 		int index = getDesign().getGroupsList().indexOf(group);
-		JRDesignGroup parentGroup = (index > 0)? (JRDesignGroup) getDesign().getGroupsList().get(index-1): group;
+		JRDesignGroup parentGroup = (index > 0) ? (JRDesignGroup) getDesign().getGroupsList().get(index-1): group;
 		return parentGroup;
+	}
+	
+	protected JRDesignGroup getGroupFromColumnsGroup(ColumnsGroup group){
+		int index = getReport().getColumnsGroups().indexOf(group);
+		return (JRDesignGroup) getDesign().getGroupsList().get(index);
+	}
+	
+	//TODO: Maybe a helper could calculate this (up to here)
+	
+	
+	
+	
+	
+	protected JasperDesign getDesign() {
+		return design;
+	}
+
+	protected void setDesign(JasperDesign design) {
+		this.design = design;
+	}
+
+	protected DynamicReport getReport() {
+		return report;
+	}
+
+	protected void setReport(DynamicReport report) {
+		this.report = report;
 	}
 
 }

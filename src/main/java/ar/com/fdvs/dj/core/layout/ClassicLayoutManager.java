@@ -40,7 +40,6 @@ import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,7 +55,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 
 /**
- * Main Layout Manager recommended for mostly cases.</br>
+ * Main Layout Manager recommended for most cases.</br>
  * </br>
  * It provides DJ full features (styles, groups, conditional styles, </br>
  * expressions, group and total variables, etc)
@@ -68,76 +67,29 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected static final String EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() != 1)";
 	protected static final String EXPRESSION_TRUE_WHEN_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() == 1)";
 
-	public static final byte CALCULATION_COUNT = 1;
-	
-	public static final byte CALCULATION_SUM = 2;
-	
-	public ClassicLayoutManager() {
-		super();
-	}
-
 	protected void startLayout() {
 		super.startLayout();
 		generateTitleBand();
 		generateHeaderBand();
-		if ( getReport().getColumnsGroups()!=null)
+		if (getReport().getColumnsGroups() != null)
 			layoutGroups();
 	}
 
 	protected void endLayout() {
 		super.endLayout();
 		applyBanners();
-//		applyFooterElements();
+		applyFooterElements();
 	}
 
 	protected void applyFooterElements() {
 		
-		/**
-		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-		 */
-		if (true)
-			return;
-		/**
-		 * XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-		 */
-		
-		
 		JRDesignBand footerband = (JRDesignBand) getDesign().getPageFooter();
-		if (footerband == null ){
+		if (footerband == null ) {
 			footerband = new JRDesignBand();
 			getDesign().setPageFooter(footerband);
-		}	
-		int detailHeight = getReport().getOptions().getDetailHeight().intValue();
-		footerband.setHeight(footerband.getHeight() + detailHeight);
+		}
 		
-		JRDesignExpression expression = new JRDesignExpression();
-//		expression.setText("\"Page \" + $V{PAGE_NUMBER}");
-		expression.setText("\"Page 999\"");
-		expression.setValueClass(String.class);
-		
-
-		JRDesignExpression expression2 = new JRDesignExpression();
-//		expression2.setText("\" of \" + $V{PAGE_NUMBER}");
-		expression2.setText("\" of 999\"");
-		expression2.setValueClass(String.class);
-		
-		JRDesignTextField pageCounter = new JRDesignTextField();
-//		pageCounter.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
-		pageCounter.setExpression(expression);
-		pageCounter.setHeight(detailHeight);
-		pageCounter.isStyledText();
-		pageCounter.setWidth(43);
-
-		JRDesignTextField pageCounter2 = new JRDesignTextField();
-		pageCounter2.setExpression(expression2);
-		pageCounter2.setHeight(detailHeight);
-		pageCounter2.setWidth(50);
-		pageCounter2.setEvaluationTime(JRDesignVariable.RESET_TYPE_REPORT);
-		pageCounter2.setX(pageCounter.getX() + pageCounter.getWidth());
-		
-		footerband.addElement(pageCounter);
-		footerband.addElement(pageCounter2);
-		
+		CommonExpressionsHelper.addPageXofY(getDesign(), getReport(), footerband);
 	}
 
 	/**
@@ -222,7 +174,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				}
 				
 				image.setY(0);
-				
 				band.addElement(image);
 				
 			}			
@@ -253,8 +204,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				band = new JRDesignBand();
 				getDesign().setTitle(band);
 			}
-			
-			
 		}
 
 		JRDesignExpression printWhenExpression = new JRDesignExpression();
@@ -275,12 +224,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		band.addElement(title);
 
 		JRDesignTextField subtitle = new JRDesignTextField();
-		if (getReport().getSubtitle() != null){
+		if (getReport().getSubtitle() != null) {
 			JRDesignExpression exp2 = new JRDesignExpression();
 			exp2.setText("\"" + getReport().getSubtitle() + "\"");
 			exp2.setValueClass(String.class);
 			subtitle.setExpression(exp2);
-			
 			subtitle.setWidth(getReport().getOptions().getPrintableWidth());
 			subtitle.setHeight(getReport().getOptions().getSubtitleHeight().intValue());
 			subtitle.setY(title.getY() + title.getHeight());
@@ -294,8 +242,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		 * Final height now are calculated in super.setBandsFinalHeight()
 		 */
 		//band.setHeight(title.getHeight() + subtitle.getHeight() /*+ image.getHeight() + 30*/);
-		
-		
 	}
 
 	/**
@@ -333,7 +279,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				}
 			}
 			layoutGroupVariables(columnsGroup, jgroup);
-	
 		}
 	}
 	
