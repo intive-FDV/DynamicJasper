@@ -89,7 +89,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			getDesign().setPageFooter(footerband);
 		}
 		
-		CommonExpressionsHelper.addPageXofY(getDesign(), getReport(), footerband);
+		CommonExpressionsHelper.addPageXofY(getDesign(), getReport(), footerband, HorizontalBandAlignment.RIGHT);
+		CommonExpressionsHelper.addCreationDate(getDesign(), getReport(), footerband,HorizontalBandAlignment.LEFT);
 	}
 
 	/**
@@ -238,10 +239,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			band.addElement(subtitle);
 		}
 
-		/**
-		 * Final height now are calculated in super.setBandsFinalHeight()
-		 */
-		//band.setHeight(title.getHeight() + subtitle.getHeight() /*+ image.getHeight() + 30*/);
 	}
 
 	/**

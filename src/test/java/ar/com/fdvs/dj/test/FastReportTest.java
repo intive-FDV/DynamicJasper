@@ -63,7 +63,7 @@ public class FastReportTest extends TestCase {
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
 			.addTitle("November 2006 sales report")
-			.addSubtitle("This report was generateed at " + new Date())
+			.addSubtitle("This report was generated at " + new Date())
 			.addUseFullPageWidth(true);	
 
 		DynamicReport dr = drb.build();	
