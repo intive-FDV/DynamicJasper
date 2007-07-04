@@ -39,6 +39,8 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
+import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -158,7 +160,6 @@ public class ChartReportTest extends TestCase {
 
 		drb.addUseFullPageWidth(true);
 		
-		
 		DJChartBuilder cb = new DJChartBuilder();
 		DJChart chart =  cb.addType(DJChart.BAR_CHART)
 						.addOperation(DJChart.CALCULATION_SUM)
@@ -168,6 +169,8 @@ public class ChartReportTest extends TestCase {
 
 		drb.addChart(chart); //add chart
 
+		drb.addAutoText(new AutoText(AutoText.PAGE_X_OF_Y, AutoText.FOOTER, HorizontalBandAlignment.RIGHT));
+		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.FOOTER, HorizontalBandAlignment.CENTER));
 		DynamicReport dr = drb.build();
 		return dr;
 	}

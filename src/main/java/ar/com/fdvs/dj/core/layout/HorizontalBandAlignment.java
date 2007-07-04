@@ -1,6 +1,3 @@
-/**
- * 
- */
 package ar.com.fdvs.dj.core.layout;
 
 import net.sf.jasperreports.engine.design.JRDesignBand;
@@ -29,6 +26,8 @@ public abstract class HorizontalBandAlignment {
 
 	public static final HorizontalBandAlignment CENTER = new HorizontalBandAlignment() {
 		public void align(int totalWidth, int offset, JRDesignBand band, JRDesignElement element) {
+			element.setX(totalWidth/2 - element.getWidth()/2 + offset);
+			band.addElement(element);
 		}
 	};
 

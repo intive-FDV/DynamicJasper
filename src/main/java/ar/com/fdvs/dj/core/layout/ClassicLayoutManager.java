@@ -46,6 +46,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
+import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
@@ -89,8 +90,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			getDesign().setPageFooter(footerband);
 		}
 		
-		CommonExpressionsHelper.addPageXofY(getDesign(), getReport(), footerband, HorizontalBandAlignment.RIGHT);
-		CommonExpressionsHelper.addCreationDate(getDesign(), getReport(), footerband,HorizontalBandAlignment.LEFT);
+		for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
+			AutoText text = (AutoText) iter.next();
+			if (text.getPosition() == AutoText.FOOTER) {
+				CommonExpressionsHelper.add(getDesign(), getReport(), footerband, text);
+				
+				
+			}
+			
+		}
+		
+		
 	}
 
 	/**

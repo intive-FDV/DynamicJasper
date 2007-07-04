@@ -24,7 +24,6 @@ public class DJChartOptions {
 	public DJChartOptions(boolean showLegend, Color backColor, int height,
 			int width, boolean centered, byte position, int y, int x,
 			boolean showLabels, byte border, List colors) {
-		super();
 		this.showLegend = showLegend;
 		this.backColor = backColor;
 		this.height = height;

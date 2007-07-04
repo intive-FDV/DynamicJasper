@@ -36,7 +36,7 @@ public class HorizontalAlign {
 	public static HorizontalAlign CENTER = new HorizontalAlign((byte)2);
 	public static HorizontalAlign JUSTIFY = new HorizontalAlign((byte)4);
 
-	private byte value;
+	private final byte value;
 
 	public byte getValue() {
 		return value;

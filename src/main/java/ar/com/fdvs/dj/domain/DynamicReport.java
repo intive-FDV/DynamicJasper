@@ -56,11 +56,12 @@ public class DynamicReport {
 	private List fields = new ArrayList();
 
 	private String templateFileName = null;
+	
+	private List autoTexts = new ArrayList();
 
 	public DynamicReport() {}
 
 	public DynamicReport(String title, List columns, List columnsGroups, List charts, DynamicReportOptions options) {
-		super();
 		this.title = title;
 		this.columns = columns;
 		this.columnsGroups = columnsGroups;
@@ -146,6 +147,14 @@ public class DynamicReport {
 
 	public void setCharts(List charts) {
 		this.charts = charts;
+	}
+
+	public List getAutoTexts() {
+		return autoTexts;
+	}
+
+	public void setAutoTexts(List autoTexts) {
+		this.autoTexts = autoTexts;
 	}
 
 }

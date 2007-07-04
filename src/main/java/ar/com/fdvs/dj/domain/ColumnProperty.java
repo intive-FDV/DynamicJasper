@@ -39,6 +39,10 @@ public class ColumnProperty {
     	this.setValueClassName(valueClass);
     }
 
+	public ColumnProperty() {
+		super();
+	}
+	
     public String getProperty() {
 		return property;
 	}
@@ -53,10 +57,6 @@ public class ColumnProperty {
 
     public void setValueClassName(String valueClass) {
 		this.valueClassName = valueClass;
-	}
-
-	public ColumnProperty() {
-		super();
 	}
 
 }

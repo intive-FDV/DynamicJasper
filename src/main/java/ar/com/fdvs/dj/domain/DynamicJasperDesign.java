@@ -43,7 +43,6 @@ public class DynamicJasperDesign extends JasperDesign {
 	private TreeMap parametersWithValues;
 
 	public DynamicJasperDesign() {
-		super();
 		this.parametersWithValues = new TreeMap();
 	}
 
