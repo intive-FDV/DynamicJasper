@@ -72,7 +72,6 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	protected int groupCount = 0;
 
 	public FastReportBuilder(){
-		super();
 		currencyStyle = new Style();
 		currencyStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 

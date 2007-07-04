@@ -44,7 +44,6 @@ public class Product {
     public Product(){}
 
 	public Product(Long id, String productLine, String item, String state, String branch, Long quantity, Float amount) {
-		super();
 		this.id = id;
 		this.productLine = productLine;
 		this.item = item;

@@ -36,7 +36,6 @@ public class GroupLayout {
 	private boolean showColumnNames;
 
 	public GroupLayout(boolean showValueInHeader, boolean showValueForEach, boolean showColumnNames) {
-		super();
 		this.showValueInHeader = showValueInHeader;
 		this.showValueForEach = showValueForEach;
 		this.showColumnNames = showColumnNames;

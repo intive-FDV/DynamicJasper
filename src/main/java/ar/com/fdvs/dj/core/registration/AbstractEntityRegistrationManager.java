@@ -73,7 +73,6 @@ public abstract class AbstractEntityRegistrationManager {
 	}
 
 	public AbstractEntityRegistrationManager(DynamicJasperDesign djd, DynamicReport dr) {
-		super();
 		this.djd = djd;
 		this.dynamicReport = dr;
 	}

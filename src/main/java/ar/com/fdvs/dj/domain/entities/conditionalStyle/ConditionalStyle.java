@@ -41,10 +41,14 @@ public class ConditionalStyle extends Entity {
 	private CustomExpression condition;
 	private Style style;
 
-
 	//Internal condition name. ColumnName_style_ConditionNumber
 	private String name;
 
+	public ConditionalStyle(CustomExpression condition, Style style) {
+		this.condition = condition;
+		this.style = style;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -61,11 +65,6 @@ public class ConditionalStyle extends Entity {
 		return style;
 	}
 	public void setStyle(Style style) {
-		this.style = style;
-	}
-	public ConditionalStyle(CustomExpression condition, Style style) {
-		super();
-		this.condition = condition;
 		this.style = style;
 	}
 

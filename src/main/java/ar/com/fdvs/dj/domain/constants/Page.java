@@ -55,7 +55,6 @@ public class Page {
 	}
 
 	public Page(int height, int width) {
-		super();
 		this.height = height;
 		this.width = width;
 	}

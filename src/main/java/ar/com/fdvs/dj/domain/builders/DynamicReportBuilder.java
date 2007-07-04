@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.domain.builders;
 
 import java.util.ArrayList;
 
+import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJChart;
@@ -70,12 +71,20 @@ public class DynamicReportBuilder {
 	protected String globalTitle = "";
 	protected ArrayList globalFooterVariables;
 	protected ArrayList globalHeaderVariables;
-
+	protected ArrayList autoTexts;
+	
+	public void addAutoText(AutoText text) {
+		if (this.autoTexts == null)
+			this.autoTexts = new ArrayList();
+		autoTexts.add(text);
+	}
+	
 	public DynamicReport build(){
 		report.setOptions(options);
-		if (globalFooterVariables!=null||globalHeaderVariables!=null) {
+		if (globalFooterVariables != null || globalHeaderVariables != null) {
 			buildGlobalGroup();
 		}
+		report.setAutoTexts(autoTexts);
 		return report;
 	}
 

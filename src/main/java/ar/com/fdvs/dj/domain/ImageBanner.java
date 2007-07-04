@@ -39,7 +39,6 @@ public class ImageBanner {
 		this.width = width;
 	}
 	public ImageBanner(String imagePath, int width, int height, byte align) {
-		super();
 		this.imagePath = imagePath;
 		this.width = width;
 		this.height = height;

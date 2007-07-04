@@ -45,8 +45,12 @@ public class ColumnsGroupVariable extends Entity {
 	private ColumnsGroupVariableOperation operation;
 	private Style style;
 
+	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, ColumnsGroupVariableOperation operation) {
+		this.columnToApplyOperation = columnToApplyOperation;
+		this.operation = operation;
+	}
+
 	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, ColumnsGroupVariableOperation operation, Style style) {
-		super();
 		this.columnToApplyOperation = columnToApplyOperation;
 		this.operation = operation;
 		this.style = style;
@@ -60,11 +64,6 @@ public class ColumnsGroupVariable extends Entity {
 		this.style = style;
 	}
 
-	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, ColumnsGroupVariableOperation operation) {
-		super();
-		this.columnToApplyOperation = columnToApplyOperation;
-		this.operation = operation;
-	}
 
 	public AbstractColumn getColumnToApplyOperation() {
 		return columnToApplyOperation;

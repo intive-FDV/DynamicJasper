@@ -86,14 +86,12 @@ public class Font {
 	public static Font VERDANA_BIG_BOLD = new Font(BIG,_FONT_VERDANA,true);
 
 	public Font() {
-		super();
 		this.fontSize = 10;
 		this.fontName = _FONT_ARIAL;
 		this.bold = false;
 		this.intalic= false;
 	}
 	public Font(int fontSize, String fontName, boolean bold) {
-		super();
 		this.fontSize = fontSize;
 		this.fontName = fontName;
 		this.bold = bold;
@@ -132,7 +130,6 @@ public class Font {
 	}
 
 	public Font(int fontSize, String fontName, boolean bold, boolean intalic) {
-		super();
 		this.fontSize = fontSize;
 		this.fontName = fontName;
 		this.bold = bold;

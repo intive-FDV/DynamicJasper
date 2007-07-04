@@ -38,7 +38,6 @@ import ar.com.fdvs.dj.domain.ColumnProperty;
 public class GlobalGroupColumn extends PropertyColumn {
 
 	public GlobalGroupColumn() {
-		super();
 		ColumnProperty columnProperty = new ColumnProperty("global", String.class.getName());
 		setTitle("global");
 		setColumnProperty(columnProperty);
