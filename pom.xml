@@ -327,9 +327,7 @@
 			</roles>
 			<timezone>-3</timezone>
 		</developer>
-	</developers>
-	<contributors>
-		<contributor>
+		<developer>
 			<name>Alejandro Gomez</name>
 			<email>alejandro.gomez@fdvsolutions.com</email>
 			<organization>FDV Solutions</organization>
@@ -338,9 +336,9 @@
 				<role>webwork Integration</role>
 			</roles>
 			<timezone>-3</timezone>
-		</contributor>
+		</developer>
+	</developers>
 
-	</contributors>
 
 	<organization>
 		<name>FDV Solutions</name>
