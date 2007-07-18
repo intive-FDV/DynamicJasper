@@ -78,7 +78,6 @@ public final class DynamicJasperHelper {
 	private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
 	private static final String DJ_RESOURCE_BUNDLE ="dj-messages";
 
-	@SuppressWarnings("unchecked")
 	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
 		new ColumnRegistrationManager(jd,dr).registerEntities(dr.getColumns());
 		new ColumnsGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());

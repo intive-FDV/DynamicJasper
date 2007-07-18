@@ -17,7 +17,6 @@ public abstract class HorizontalBandAlignment {
 			band.addElement(element);
 		}
 
-		@Override
 		public byte getAlignment() {
 			return JRDesignTextField.HORIZONTAL_ALIGN_RIGHT;
 		}
@@ -29,7 +28,6 @@ public abstract class HorizontalBandAlignment {
 			band.addElement(element);
 		}
 
-		@Override
 		public byte getAlignment() {
 			return JRDesignTextField.HORIZONTAL_ALIGN_LEFT;
 		}
@@ -41,7 +39,6 @@ public abstract class HorizontalBandAlignment {
 			band.addElement(element);
 		}
 
-		@Override
 		public byte getAlignment() {
 			return JRDesignTextField.HORIZONTAL_ALIGN_CENTER;
 		}
