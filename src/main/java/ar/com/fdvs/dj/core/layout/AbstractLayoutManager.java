@@ -310,7 +310,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	/**
 	 * Sets the necessary height for all bands in the report, to hold their children
 	 */
-	protected final void setBandsFinalHeight() {
+	protected void setBandsFinalHeight() {
 		log.debug("Setting bands final height...");
 		
 		setBandFinalHeight((JRDesignBand) design.getPageHeader());
@@ -322,6 +322,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		setBandFinalHeight((JRDesignBand) design.getDetail());
 		setBandFinalHeight((JRDesignBand) design.getLastPageFooter());
 		setBandFinalHeight((JRDesignBand) design.getTitle());
+		setBandFinalHeight((JRDesignBand) design.getPageFooter());
 		
 		for (Iterator iter = design.getGroupsList().iterator(); iter.hasNext();) {
 			JRGroup jrgroup = (JRGroup) iter.next();

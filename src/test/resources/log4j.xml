@@ -22,6 +22,10 @@
 		<priority value="DEBUG" />
 		<appender-ref ref="console" />
 	</category>
+	<category name="ar.com.fdvs.dj.core.layout" additivity="false">
+		<priority value="DEBUG" />
+<!--		<appender-ref ref="console" />-->
+	</category>
 	<category name="com.opensymphony.xwork2" additivity="false">
 		<priority value="DEBUG" />
 	</category>

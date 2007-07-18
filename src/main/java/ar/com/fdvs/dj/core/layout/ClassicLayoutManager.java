@@ -80,6 +80,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		super.endLayout();
 		applyBanners();
 		applyFooterElements();
+		setBandsFinalHeight();
 	}
 
 	protected void applyFooterElements() {
@@ -94,8 +95,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			AutoText text = (AutoText) iter.next();
 			if (text.getPosition() == AutoText.POSITION_FOOTER) {
 				CommonExpressionsHelper.add(getDesign(), getReport(), footerband, text);
-				
-				
 			}
 			
 		}
