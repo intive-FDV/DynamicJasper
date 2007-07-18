@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * One of the main classes of this product. It represents the report itself.
@@ -41,6 +42,9 @@ public class DynamicReport {
 	private String subtitle;
 	private Style titleStyle = new Style();
 	private Style subtitleStyle = new Style();
+	
+	private Locale reportLocale = null;
+	private String resourceBundle = null;
 
 	//<AbstractColumn>
 	private List columns = new ArrayList();
@@ -155,6 +159,22 @@ public class DynamicReport {
 
 	public void setAutoTexts(List autoTexts) {
 		this.autoTexts = autoTexts;
+	}
+
+	public Locale getReportLocale() {
+		return reportLocale;
+	}
+
+	public void setReportLocale(Locale reportLocale) {
+		this.reportLocale = reportLocale;
+	}
+
+	public String getResourceBundle() {
+		return resourceBundle;
+	}
+
+	public void setResourceBundle(String resourceBundle) {
+		this.resourceBundle = resourceBundle;
 	}
 
 }

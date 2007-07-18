@@ -2,6 +2,7 @@ package ar.com.fdvs.dj.core.layout;
 
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
+import net.sf.jasperreports.engine.design.JRDesignTextField;
 
 /**
  * @author msimone
@@ -15,12 +16,22 @@ public abstract class HorizontalBandAlignment {
 			element.setX(width);
 			band.addElement(element);
 		}
+
+		@Override
+		public byte getAlignment() {
+			return JRDesignTextField.HORIZONTAL_ALIGN_RIGHT;
+		}
 	};
 
 	public static final HorizontalBandAlignment LEFT = new HorizontalBandAlignment() {
 		public void align(int totalWidth, int offset, JRDesignBand band, JRDesignElement element) {
 			element.setX(element.getX() + offset);
 			band.addElement(element);
+		}
+
+		@Override
+		public byte getAlignment() {
+			return JRDesignTextField.HORIZONTAL_ALIGN_LEFT;
 		}
 	};
 
@@ -29,8 +40,14 @@ public abstract class HorizontalBandAlignment {
 			element.setX(totalWidth/2 - element.getWidth()/2 + offset);
 			band.addElement(element);
 		}
+
+		@Override
+		public byte getAlignment() {
+			return JRDesignTextField.HORIZONTAL_ALIGN_CENTER;
+		}
 	};
 
 	public abstract void align(int totalWidth, int offset, JRDesignBand band, JRDesignElement element);
+	public abstract byte getAlignment();
 
 }

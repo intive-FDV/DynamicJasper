@@ -92,7 +92,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		
 		for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
 			AutoText text = (AutoText) iter.next();
-			if (text.getPosition() == AutoText.FOOTER) {
+			if (text.getPosition() == AutoText.POSITION_FOOTER) {
 				CommonExpressionsHelper.add(getDesign(), getReport(), footerband, text);
 				
 				

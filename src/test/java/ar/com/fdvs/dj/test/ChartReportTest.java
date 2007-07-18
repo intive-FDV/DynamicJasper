@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
 import java.util.Collection;
+import java.util.Locale;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -169,9 +170,14 @@ public class ChartReportTest extends TestCase {
 
 		drb.addChart(chart); //add chart
 
-		drb.addAutoText(new AutoText(AutoText.PAGE_X_OF_Y, AutoText.FOOTER, HorizontalBandAlignment.RIGHT));
-		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.FOOTER, HorizontalBandAlignment.CENTER));
+		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, HorizontalBandAlignment.LEFT));
+		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_HEADER, HorizontalBandAlignment.LEFT));
+		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, HorizontalBandAlignment.RIGHT));
+		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, HorizontalBandAlignment.CENTER,AutoText.PATTERN_DATE_DATE_TIME));
 		DynamicReport dr = drb.build();
+
+		dr.setReportLocale(new Locale("es","AR"));
+		
 		return dr;
 	}
 

@@ -15,6 +15,10 @@ import ar.com.fdvs.dj.domain.DynamicReport;
  */
 public class CommonExpressionsHelper {
 
+	private static String KEY_autotext_page = "autotext.page";
+	private static String KEY_autotext_of = "autotext.of";
+	private static String KEY_autotext_created_on = "autotext.created_on";
+
 	/**
 	 * @param report 
 	 * @param design 
@@ -26,13 +30,13 @@ public class CommonExpressionsHelper {
 
 		JRDesignTextField pageNumber = new JRDesignTextField();
 		pageNumber.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
-		//TODO: l10n
-		pageNumber.setExpression(ExpressionUtils.getPageNumberExpression("Page ", " of "));
+		
+		pageNumber.setExpression(ExpressionUtils.getPageNumberExpression(KEY_autotext_page, KEY_autotext_of));
 		pageNumber.setHeight(detailHeight);
 		pageNumber.setWidth(80);
 		
 		JRDesignTextField pageCounter = new JRDesignTextField();
-		//TODO: l10n
+
 		pageCounter.setExpression(ExpressionUtils.getPageNumberExpression("", ""));
 		pageCounter.setHeight(detailHeight);
 		pageCounter.setWidth(20);
@@ -109,16 +113,17 @@ public class CommonExpressionsHelper {
 		
 	}
 	
-	public static void addCreationDate(final JasperDesign design, final DynamicReport report, JRDesignBand band, HorizontalBandAlignment alignment) {
+	public static void addCreationDate(final JasperDesign design, final DynamicReport report, JRDesignBand band, HorizontalBandAlignment alignment, byte pattern) {
 		int detailHeight = report.getOptions().getDetailHeight().intValue();
 		
-		JRDesignTextField date = new JRDesignTextField();
-		date.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
-		//TODO: l10n
-		date.setExpression(ExpressionUtils.getDateExpression("Created on", ""));
-		date.setHeight(detailHeight);
-		date.setWidth(200);
-		alignment.align(report.getOptions().getPrintableWidth(), 0, band, date);
+		JRDesignTextField dateTf = new JRDesignTextField();
+
+		dateTf.setExpression(ExpressionUtils.getDateExpression(KEY_autotext_created_on, "", report.getReportLocale(),pattern));
+		dateTf.setHeight(detailHeight);
+		dateTf.setWidth(400);
+		dateTf.setHorizontalAlignment(alignment.getAlignment());
+
+		alignment.align(report.getOptions().getPrintableWidth(), 0, band, dateTf);
 		band.setHeight(band.getHeight() + detailHeight);
 		
 	}
@@ -135,15 +140,15 @@ public class CommonExpressionsHelper {
 		JRDesignTextField textfield = new JRDesignTextField();
 		JRDesignExpression expression = new JRDesignExpression();
 		expression.setValueClass(String.class);
-		expression.setText( "\"" + autoText.getMessage() + "\"");
+		expression.setText( "\"" + autoText.getMessageKey() + "\"");
 		textfield.setExpression(expression);
 		textfield.setHeight(detailHeight);
 		textfield.setStyledText(true);
 		textfield.setWidth(report.getOptions().getPrintableWidth());
 		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, textfield);
 		
-		if (autoText.getAlignment() == HorizontalBandAlignment.CENTER) textfield.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_CENTER);
-		else if (autoText.getAlignment() == HorizontalBandAlignment.RIGHT) textfield.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
+		textfield.setHorizontalAlignment(autoText.getAlignment().getAlignment());
+
 		band.setHeight(band.getHeight() + detailHeight);
 		
 	}
@@ -155,11 +160,11 @@ public class CommonExpressionsHelper {
 	 */
 	public static void add(JasperDesign design, DynamicReport report, JRDesignBand band , AutoText text) {
 		switch (text.getType()) {
-		case AutoText.PAGE_X_OF_Y: CommonExpressionsHelper.addPageXofY(design, report, band, text.getAlignment()); break;
-		case AutoText.PAGE_X_SLASH_Y: CommonExpressionsHelper.addPageXSlashY(design, report, band, text.getAlignment()); break;
-		case AutoText.PAGE_X: CommonExpressionsHelper.addPageX(design, report, band, text.getAlignment()); break;
-		case AutoText.CREATED_ON: CommonExpressionsHelper.addCreationDate(design, report, band,text.getAlignment()); break;
-		case AutoText.CUSTOM_MESSAGE: CommonExpressionsHelper.addMessage(design, report, band, text); break;
+		case AutoText.AUTOTEXT_PAGE_X_OF_Y: CommonExpressionsHelper.addPageXofY(design, report, band, text.getAlignment()); break;
+		case AutoText.AUTOTEXT_PAGE_X_SLASH_Y: CommonExpressionsHelper.addPageXSlashY(design, report, band, text.getAlignment()); break;
+		case AutoText.AUTOTEXT_PAGE_X: CommonExpressionsHelper.addPageX(design, report, band, text.getAlignment()); break;
+		case AutoText.AUTOTEXT_CREATED_ON: CommonExpressionsHelper.addCreationDate(design, report, band,text.getAlignment(),text.getPattern()); break;
+		case AutoText.AUTOTEXT_CUSTOM_MESSAGE: CommonExpressionsHelper.addMessage(design, report, band, text); break;
 		}
 	}
 

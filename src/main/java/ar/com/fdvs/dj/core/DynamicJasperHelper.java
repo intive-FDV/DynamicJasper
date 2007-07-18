@@ -36,7 +36,10 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -47,6 +50,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignField;
+import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
@@ -72,11 +76,28 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 public final class DynamicJasperHelper {
 
 	private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
+	private static final String DJ_RESOURCE_BUNDLE ="dj-messages";
 
+	@SuppressWarnings("unchecked")
 	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
 		new ColumnRegistrationManager(jd,dr).registerEntities(dr.getColumns());
 		new ColumnsGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());
 		registerOtherFields(jd,dr.getFields());
+		Locale locale = dr.getReportLocale() == null ? Locale.getDefault() : dr.getReportLocale();
+		ResourceBundle messages = null;
+		if (dr.getResourceBundle() != null ){
+			try {
+				messages =  ResourceBundle.getBundle(dr.getResourceBundle(), locale);
+			} catch (MissingResourceException e){ log.warn(e.getMessage() + ", usign defaut (dj-messages)");}
+		}
+		
+		if (messages == null) {
+			messages =  ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, locale);
+		}
+		jd.getParametersWithValues().put(JRDesignParameter.REPORT_RESOURCE_BUNDLE, messages);
+		jd.getParametersWithValues().put(JRDesignParameter.REPORT_LOCALE, locale);
+//		JRDesignParameter.REPORT_RESOURCE_BUNDLE
+//		report.		
 	}
 
 	private static void registerOtherFields(DynamicJasperDesign jd, List fields) {

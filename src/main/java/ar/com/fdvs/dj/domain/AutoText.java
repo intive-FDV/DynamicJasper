@@ -10,14 +10,18 @@ import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
  * 
  */
 public class AutoText {
-	public static final byte FOOTER = 0;
-	public static final byte HEADER = 1;
+	public static final byte POSITION_FOOTER = 0;
+	public static final byte POSITION_HEADER = 1;
 
-	public static final byte PAGE_X_OF_Y = 0;
-	public static final byte PAGE_X_SLASH_Y = 1;
-	public static final byte PAGE_X = 2;
-	public static final byte CREATED_ON = 3;
-	public static final byte CUSTOM_MESSAGE = 4;
+	public static final byte AUTOTEXT_PAGE_X_OF_Y = 0;
+	public static final byte AUTOTEXT_PAGE_X_SLASH_Y = 1;
+	public static final byte AUTOTEXT_PAGE_X = 2;
+	public static final byte AUTOTEXT_CREATED_ON = 3;
+	public static final byte AUTOTEXT_CUSTOM_MESSAGE = 4;
+
+	public static final byte PATTERN_DATE_DATE_ONLY = 1;
+	public static final byte PATTERN_DATE_TIME_ONLY = 2;
+	public static final byte PATTERN_DATE_DATE_TIME = 3;
 	
 	private HorizontalBandAlignment alignment;
 
@@ -25,19 +29,27 @@ public class AutoText {
 
 	private byte position;
 	
-	private String message;
+	private String messageKey;
+
+	private byte pattern; //Applies for CREATED_ON, its the pattern used for dates
 
 	public AutoText(byte type, byte position, HorizontalBandAlignment alignment){
 		this.type = type;
 		this.position = position;
 		this.alignment = alignment;
 	}
-	
-	public AutoText(String message, byte position, HorizontalBandAlignment alignment) {
-		this.type = CUSTOM_MESSAGE;
+	public AutoText(byte type, byte position, HorizontalBandAlignment alignment,byte pattern){
+		this.type = type;
 		this.position = position;
 		this.alignment = alignment;
-		this.message = message;
+		this.pattern = pattern;
+	}
+	
+	public AutoText(String message, byte position, HorizontalBandAlignment alignment) {
+		this.type = AUTOTEXT_CUSTOM_MESSAGE;
+		this.position = position;
+		this.alignment = alignment;
+		this.messageKey = message;
 	}
 
 	public HorizontalBandAlignment getAlignment() {
@@ -64,11 +76,15 @@ public class AutoText {
 		this.type = type;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getMessageKey() {
+		return messageKey;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMessageKey(String message) {
+		this.messageKey = message;
+	}
+
+	public byte getPattern() {
+		return pattern;
 	}
 }
