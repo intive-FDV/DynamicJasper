@@ -32,7 +32,15 @@ public class AutoText {
 	private String messageKey;
 
 	private byte pattern; //Applies for CREATED_ON, its the pattern used for dates
+	
+	private Integer height = new Integer(15); 
 
+	public Integer getHeight() {
+		return height;
+	}
+	public void setHeight(Integer height) {
+		this.height = height;
+	}
 	public AutoText(byte type, byte position, HorizontalBandAlignment alignment){
 		this.type = type;
 		this.position = position;

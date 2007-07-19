@@ -41,6 +41,8 @@ import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -72,8 +74,53 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		super.startLayout();
 		generateTitleBand();
 		generateHeaderBand();
+		
+		/**
+		 * Apply the autotext in footer if any
+		 */
+		JRDesignBand headerband = (JRDesignBand) getDesign().getPageHeader();
+		if (headerband == null ) {
+			headerband = new JRDesignBand();
+			getDesign().setPageHeader(headerband);
+		}
+		//make room for the elements if any
+		AutoText firstAT = (AutoText) CollectionUtils.find(getReport().getAutoTexts(), new Predicate(){
+			public boolean evaluate(Object object) {
+				AutoText text = (AutoText) object;
+				return text.getPosition() == AutoText.POSITION_HEADER;
+			}
+		});
+		
+		if (firstAT != null) {
+			moveBandsElemnts(firstAT.getHeight().intValue(), headerband);
+		}
+		
+		for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
+			AutoText text = (AutoText) iter.next();
+			if (text.getPosition() == AutoText.POSITION_HEADER) {
+				CommonExpressionsHelper.add(getDesign(), getReport(), headerband, text);
+			}
+			
+		}		
+		/** END */
+		
 		if (getReport().getColumnsGroups() != null)
 			layoutGroups();
+	}
+
+	/**
+	 * Moves the elements contained in "band" in the Y axis "yOffset"
+	 * @param intValue
+	 * @param band 
+	 */
+	private void moveBandsElemnts(int yOffset, JRDesignBand band) {
+		if (band == null)
+			return;
+		
+		for (Iterator iterator = band.getChildren().iterator(); iterator.hasNext();) {
+			JRDesignElement elem = (JRDesignElement) iterator.next();
+			elem.setY(elem.getY()+yOffset);
+		}
 	}
 
 	protected void endLayout() {
@@ -85,6 +132,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 	protected void applyFooterElements() {
 		
+		/**
+		 * Apply the autotext in footer if any
+		 */
 		JRDesignBand footerband = (JRDesignBand) getDesign().getPageFooter();
 		if (footerband == null ) {
 			footerband = new JRDesignBand();

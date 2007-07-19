@@ -144,6 +144,7 @@ public final class DynamicJasperHelper {
 		des.setPageFooter(new JRDesignBand());
 		des.setSummary(new JRDesignBand());
 
+		des.setTitleNewPage(options.isTitleNewPage());
 
 		des.setName("DynamicReport...");
 		return des;

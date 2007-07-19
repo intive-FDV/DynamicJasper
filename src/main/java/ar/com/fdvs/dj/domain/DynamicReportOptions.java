@@ -57,6 +57,7 @@ public class DynamicReportOptions {
 	private boolean printBackgroundOnOddRows = false;
 	private Style oddRowBackgroundStyle = new Style();
 	private Integer titleHeight =  new Integer(30);
+	private boolean titleNewPage =  false;
 	private Integer subtitleHeight = new Integer(15);
 	
 	private Style defaultHeaderStyle = new Style();
@@ -262,6 +263,14 @@ public class DynamicReportOptions {
 
 	public void setDefaultGroupFooterStyle(Style defaultGroupFooterStyle) {
 		this.defaultGroupFooterStyle = defaultGroupFooterStyle;
+	}
+
+	public boolean isTitleNewPage() {
+		return titleNewPage;
+	}
+
+	public void setTitleNewPage(boolean titleNewPage) {
+		this.titleNewPage = titleNewPage;
 	}
 
 }

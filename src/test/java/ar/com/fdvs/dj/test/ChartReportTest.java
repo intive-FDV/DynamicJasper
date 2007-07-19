@@ -37,6 +37,7 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -173,9 +174,10 @@ public class ChartReportTest extends TestCase {
 		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, HorizontalBandAlignment.LEFT));
 		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_HEADER, HorizontalBandAlignment.LEFT));
 		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, HorizontalBandAlignment.RIGHT));
+		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.POSITION_HEADER, HorizontalBandAlignment.RIGHT));
 		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, HorizontalBandAlignment.CENTER,AutoText.PATTERN_DATE_DATE_TIME));
 		DynamicReport dr = drb.build();
-
+		
 		dr.setReportLocale(new Locale("es","AR"));
 		
 		return dr;
@@ -191,7 +193,7 @@ public class ChartReportTest extends TestCase {
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ChartReportTest.pdf");
 		JasperViewer.viewReport(jp);
-//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
+		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
