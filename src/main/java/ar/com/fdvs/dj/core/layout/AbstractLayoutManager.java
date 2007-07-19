@@ -97,7 +97,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			transformDetailBand();
 			endLayout();
 		} catch (RuntimeException e) {
-			throw new LayoutException(e.getMessage());
+			throw new LayoutException(e.getMessage(),e);
 		}
 	}
 	

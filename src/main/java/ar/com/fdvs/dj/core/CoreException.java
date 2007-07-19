@@ -36,5 +36,8 @@ public class CoreException extends RuntimeException {
 	public CoreException(String arg0) {
 		super(arg0);
 	}
+	public CoreException(String arg0,Throwable th) {
+		super(arg0,th);
+	}
 
 }

@@ -38,4 +38,7 @@ public class LayoutException extends CoreException {
 	public LayoutException(String message) {
 		super(message);
 	}
+	public LayoutException(String message, Throwable th) {
+		super(message,th);
+	}
 }

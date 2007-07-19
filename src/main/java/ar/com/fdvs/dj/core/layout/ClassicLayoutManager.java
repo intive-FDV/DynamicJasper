@@ -86,6 +86,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * 
 	 */
 	protected void applyHeaderAutotexts() {
+		if (getReport().getAutoTexts() == null)
+			return;
 		/**
 		 * Apply the autotext in footer if any
 		 */
@@ -130,9 +132,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	private int findTotalOffset(ArrayList aligments, ArrayList autotexts, byte position) {
 		int total = 0;
-		int aux = 0;
 		for (Iterator iterator = aligments.iterator(); iterator.hasNext();) {
 			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) iterator.next();
+			int aux = 0;
 			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
 				AutoText text = (AutoText) iter.next();
 				if (text.getPosition() == position && currentAlignment.equals(text.getAlignment())) {
@@ -168,6 +170,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	protected void applyFooterAutotexts() {
+		if (getReport().getAutoTexts() == null)
+			return;
 		
 		JRDesignBand footerband = (JRDesignBand) getDesign().getPageFooter();
 		if (footerband == null ) {
