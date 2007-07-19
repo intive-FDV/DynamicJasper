@@ -33,6 +33,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -44,10 +46,12 @@ import java.util.ResourceBundle;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
@@ -228,6 +232,16 @@ public final class DynamicJasperHelper {
 	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds) {
         return generateJasperPrint(dr, layoutManager, ds, new HashMap());
     }
+	
+	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, Collection collection) {
+		JRDataSource ds = new JRBeanCollectionDataSource(collection);
+		return generateJasperPrint(dr, layoutManager, ds, new HashMap());
+	}
+	
+	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, ResultSet resultSet) {
+		JRDataSource ds = new JRResultSetDataSource(resultSet);
+		return generateJasperPrint(dr, layoutManager, ds, new HashMap());
+	}
 
     public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds, Map _parameters) {
 		log.info("generating JasperPrint");

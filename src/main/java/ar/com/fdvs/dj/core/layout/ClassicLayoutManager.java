@@ -29,7 +29,9 @@
 
 package ar.com.fdvs.dj.core.layout;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 import net.sf.jasperreports.engine.JRExpression;
@@ -74,7 +76,16 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		super.startLayout();
 		generateTitleBand();
 		generateHeaderBand();
+		applyHeaderAutotexts();
 		
+		if (getReport().getColumnsGroups() != null)
+			layoutGroups();
+	}
+
+	/**
+	 * 
+	 */
+	protected void applyHeaderAutotexts() {
 		/**
 		 * Apply the autotext in footer if any
 		 */
@@ -83,29 +94,55 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			headerband = new JRDesignBand();
 			getDesign().setPageHeader(headerband);
 		}
-		//make room for the elements if any
-		AutoText firstAT = (AutoText) CollectionUtils.find(getReport().getAutoTexts(), new Predicate(){
-			public boolean evaluate(Object object) {
-				AutoText text = (AutoText) object;
-				return text.getPosition() == AutoText.POSITION_HEADER;
-			}
-		});
 		
-		if (firstAT != null) {
-			moveBandsElemnts(firstAT.getHeight().intValue(), headerband);
+		ArrayList positions = new ArrayList();
+		positions.add(HorizontalBandAlignment.LEFT);
+		positions.add(HorizontalBandAlignment.CENTER);
+		positions.add(HorizontalBandAlignment.RIGHT);
+		
+		ArrayList autotexts = new ArrayList(getReport().getAutoTexts());
+		Collections.reverse(autotexts);
+
+		int totalYoffset = findTotalOffset(positions,autotexts, AutoText.POSITION_HEADER);
+		moveBandsElemnts(totalYoffset, headerband);
+		
+		for (Iterator iterator = positions.iterator(); iterator.hasNext();) {
+			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) iterator.next();
+			int yOffset = 0;
+		
+			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
+				AutoText text = (AutoText) iter.next();
+				if (text.getPosition() == AutoText.POSITION_HEADER && text.getAlignment().equals(currentAlignment)) {
+					CommonExpressionsHelper.add(yOffset,getDesign(), getReport(), headerband, text);
+					yOffset += text.getHeight().intValue();
+				}
+			}		
 		}
 		
-		for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
-			AutoText text = (AutoText) iter.next();
-			if (text.getPosition() == AutoText.POSITION_HEADER) {
-				CommonExpressionsHelper.add(getDesign(), getReport(), headerband, text);
-			}
-			
-		}		
 		/** END */
-		
-		if (getReport().getColumnsGroups() != null)
-			layoutGroups();
+	}
+
+	/**
+	 * Finds the highest sum of height for each posible aligment (left, center, right)
+	 * @param aligments
+	 * @param autotexts
+	 * @return
+	 */
+	private int findTotalOffset(ArrayList aligments, ArrayList autotexts, byte position) {
+		int total = 0;
+		int aux = 0;
+		for (Iterator iterator = aligments.iterator(); iterator.hasNext();) {
+			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) iterator.next();
+			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
+				AutoText text = (AutoText) iter.next();
+				if (text.getPosition() == position && currentAlignment.equals(text.getAlignment())) {
+					aux += text.getHeight().intValue();
+				}
+			}			
+			if (aux > total)
+				total = aux;
+		}
+		return total;
 	}
 
 	/**
@@ -126,29 +163,38 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected void endLayout() {
 		super.endLayout();
 		applyBanners();
-		applyFooterElements();
+		applyFooterAutotexts();
 		setBandsFinalHeight();
 	}
 
-	protected void applyFooterElements() {
+	protected void applyFooterAutotexts() {
 		
-		/**
-		 * Apply the autotext in footer if any
-		 */
 		JRDesignBand footerband = (JRDesignBand) getDesign().getPageFooter();
 		if (footerband == null ) {
 			footerband = new JRDesignBand();
 			getDesign().setPageFooter(footerband);
 		}
+
+		ArrayList positions = new ArrayList();
+		positions.add(HorizontalBandAlignment.LEFT);
+		positions.add(HorizontalBandAlignment.CENTER);
+		positions.add(HorizontalBandAlignment.RIGHT);
 		
-		for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
-			AutoText text = (AutoText) iter.next();
-			if (text.getPosition() == AutoText.POSITION_FOOTER) {
-				CommonExpressionsHelper.add(getDesign(), getReport(), footerband, text);
+		for (Iterator iterator = positions.iterator(); iterator.hasNext();) {
+			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) iterator.next();
+			int yOffset = 0;
+			/**
+			 * Apply the autotext in footer if any
+			 */
+			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
+				AutoText text = (AutoText) iter.next();
+				if (text.getPosition() == AutoText.POSITION_FOOTER && text.getAlignment().equals(currentAlignment) ) {
+					CommonExpressionsHelper.add(yOffset,getDesign(), getReport(), footerband, text);
+					yOffset += text.getHeight().intValue();
+				}
 			}
 			
 		}
-		
 		
 	}
 

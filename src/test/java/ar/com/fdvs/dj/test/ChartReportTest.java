@@ -37,6 +37,7 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.data.JRXmlDataSource;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
@@ -171,11 +172,19 @@ public class ChartReportTest extends TestCase {
 
 		drb.addChart(chart); //add chart
 
+		/**
+		 * Adding many autotexts in the same position (header/footer and aligment) makes them to be one on top of the other
+		 */
 		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, HorizontalBandAlignment.LEFT));
-		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_HEADER, HorizontalBandAlignment.LEFT));
+		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, HorizontalBandAlignment.LEFT));
+		
 		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, HorizontalBandAlignment.RIGHT));
-		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.POSITION_HEADER, HorizontalBandAlignment.RIGHT));
-		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, HorizontalBandAlignment.CENTER,AutoText.PATTERN_DATE_DATE_TIME));
+		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, HorizontalBandAlignment.RIGHT));
+		
+		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, HorizontalBandAlignment.LEFT,AutoText.PATTERN_DATE_DATE_TIME));
+		
+		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_HEADER, HorizontalBandAlignment.LEFT));
+		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.POSITION_HEADER, HorizontalBandAlignment.LEFT));
 		DynamicReport dr = drb.build();
 		
 		dr.setReportLocale(new Locale("es","AR"));
@@ -188,9 +197,8 @@ public class ChartReportTest extends TestCase {
 		DynamicReport dr = buildReport();
 		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-		
-		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
-		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
+
+		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), dummyCollection);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ChartReportTest.pdf");
 		JasperViewer.viewReport(jp);
 		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
