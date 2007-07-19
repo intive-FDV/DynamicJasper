@@ -10,7 +10,8 @@
               Autotext feature: Out of the box "Page x/y", "Created on {date}" and common autotexts in header and footer.
             </action>
            	<action dev="Juan Manuel Alvarez" type="add">
-              i18N (Internationalization) - Autotext uses i18N (dj-messages.properties), you can also specify a custom resource bundle.
+              i18N (Internationalization) - Autotext uses i18N (dj-messages.properties), you can also specify a 
+              custom resource bundle and a Locale to the report.
             </action>
            	<action dev="Juan Manuel Alvarez" type="fix">
               Title in new Page: Some how we lost this feature in a refactor, its back.
