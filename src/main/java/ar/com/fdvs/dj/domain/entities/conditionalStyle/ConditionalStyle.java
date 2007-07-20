@@ -36,7 +36,7 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 /**
  * Entity used to handle Conditional style.
  */
-public class ConditionalStyle extends Entity {
+public class ConditionalStyle implements Entity {
 
 	private CustomExpression condition;
 	private Style style;

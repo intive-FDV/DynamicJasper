@@ -38,7 +38,7 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 /**
  * Abstract Class used as base for the different Column types.
  */
-public abstract class AbstractColumn extends Entity {
+public abstract class AbstractColumn implements Entity {
 
 	//Internal column name
 	private String name;

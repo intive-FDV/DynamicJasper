@@ -40,7 +40,7 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
  * Multiple groups can be created for a single report. In this case the result </br>
  * would be a nesting with the latest groups added to the report being the inner ones.
  */
-public class ColumnsGroup extends Entity {
+public class ColumnsGroup implements Entity {
 
 	//The column used to group by
 	private PropertyColumn columnToGroupBy;

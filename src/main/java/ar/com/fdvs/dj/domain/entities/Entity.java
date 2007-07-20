@@ -30,12 +30,11 @@
 package ar.com.fdvs.dj.domain.entities;
 
 /**
- * Top of Dj's domain hierarchy. Base class that acts as a hook to apply </br>
- * polymorphism with the Registration Managers. It has no behavior itself for now. </br>
- * It would look better as an interface.</br>
+ * Top of Dj's domain hierarchy. Base interface that acts as a hook to apply </br>
+ * polymorphism with the Registration Managers.</br>
  * </br>
  * @see AbstractEntityRegistrationManager
  */
-public class Entity {
-	//TODO: Rethink the concept of entity as a class
+public interface Entity {
+	//TODO: Define common expected behaviour
 }

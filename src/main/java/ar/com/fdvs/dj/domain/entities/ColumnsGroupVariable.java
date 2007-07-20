@@ -39,7 +39,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
  * </br>
  * @see ColumnsGroupVariableOperation
  */
-public class ColumnsGroupVariable extends Entity {
+public class ColumnsGroupVariable implements Entity {
 
 	private AbstractColumn columnToApplyOperation;
 	private ColumnsGroupVariableOperation operation;
