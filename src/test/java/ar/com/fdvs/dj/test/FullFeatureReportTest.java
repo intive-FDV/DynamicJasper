@@ -166,7 +166,7 @@ public class FullFeatureReportTest extends TestCase {
 		DJChartBuilder cb = new DJChartBuilder();
 		DJChart chart =  cb.addType(DJChart.BAR_CHART)
 						.addOperation(DJChart.CALCULATION_SUM)
-						.addColumnsGroup(g2).addHeight(150)
+						.addColumnsGroup(g2).setHeight(150)
 						.addColumn(columnAmount)
 						.build();
 
