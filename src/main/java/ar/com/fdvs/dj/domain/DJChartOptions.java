@@ -9,7 +9,6 @@ public class DJChartOptions {
 
 	public static final byte POSITION_HEADER = 2;
 
-	private boolean showLegend;
 	private Color backColor;
 	private int height;
 	private int width;
@@ -17,9 +16,24 @@ public class DJChartOptions {
 	private byte position;
 	private int y;
 	private int x;
+	private boolean showLegend;
 	private boolean showLabels;
 	private byte border;
 	private List colors;
+	
+	public DJChartOptions() {
+		this.showLegend = true;
+		this.backColor = Color.WHITE;
+		this.height = 200;
+		this.width = 200;
+		this.centered = true;
+		this.position = POSITION_FOOTER;
+		this.x = 0;
+		this.y = 0;
+		this.showLabels = true;
+		this.border = 1;
+		this.colors = DJChartColors.simpleColors();
+	}
 
 	public DJChartOptions(boolean showLegend, Color backColor, int height,
 			int width, boolean centered, byte position, int y, int x,
@@ -30,8 +44,8 @@ public class DJChartOptions {
 		this.width = width;
 		this.centered = centered;
 		this.position = position;
-		this.y = y;
 		this.x = x;
+		this.y = y;
 		this.showLabels = showLabels;
 		this.border = border;
 		this.colors = colors;
