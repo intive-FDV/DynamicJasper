@@ -30,7 +30,9 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
+import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -73,10 +75,65 @@ public class DynamicReportBuilder {
 	protected ArrayList globalHeaderVariables;
 	protected ArrayList autoTexts;
 	
-	public void addAutoText(AutoText text) {
+	public DynamicReportBuilder addAutoText(AutoText text) {
 		if (this.autoTexts == null)
 			this.autoTexts = new ArrayList();
 		autoTexts.add(text);
+		return this;
+	}
+	
+	/**
+	 * Adds an autotext to the Report, this are common texts such us "Page X/Y", "Created on 07/25/2007", etc.
+	 * <br>
+	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
+	 * 
+	 * @param type  One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br> AUTOTEXT_PAGE_X_SLASH_Y <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
+	 * 
+	 * @param position  POSITION_HEADER or POSITION_FOOTER
+	 * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
+	 * @param pattern   only for dates:  <br>PATTERN_DATE_DATE_ONLY <br> PATTERN_DATE_TIME_ONLY <br> PATTERN_DATE_DATE_TIME
+	 * @return 
+	 */
+	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment,byte pattern) {
+		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
+		AutoText text = new AutoText(type,position,alignment_,pattern);
+		addAutoText(text);
+		return this;
+	}
+
+	/**
+	 * Adds a custom fixed message (literal) in header or footer.<br>
+	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
+	 * <br>
+	 * <br>
+	 * @param message   The text to show
+	 * @param position  POSITION_HEADER or POSITION_FOOTER
+	 * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
+	 * @return 
+	 */
+	public DynamicReportBuilder addAutoText(String message, byte position, byte alignment) {
+		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
+		AutoText text = new AutoText(message,position,alignment_);
+		addAutoText(text);
+		return this;
+	}
+	
+	/**
+ 	 * Adds an autotext to the Report, this are common texts such us "Page X/Y", "Created on 07/25/2007", etc.
+	 * <br>
+	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
+	 * 
+	 * @param type       One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br> AUTOTEXT_PAGE_X_SLASH_Y 
+	 * <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
+	 * @param position   POSITION_HEADER or POSITION_FOOTER
+	 * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
+	 * @return 
+	 */
+	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment) {
+		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
+		AutoText text = new AutoText(type,position,alignment_);
+		addAutoText(text);
+		return this;
 	}
 	
 	public DynamicReport build(){
@@ -346,6 +403,16 @@ public class DynamicReportBuilder {
 		if (title != null)
 			report.setTitleStyle(title);
 		
+		return this;
+	}
+
+	/**
+	 * Adds the locale to use when filling the report.
+	 * @param locale
+	 * @return
+	 */
+	public DynamicReportBuilder addReportLocale(Locale locale) {
+		report.setReportLocale(locale);
 		return this;
 	}
 	

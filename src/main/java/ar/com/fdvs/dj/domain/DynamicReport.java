@@ -43,7 +43,7 @@ public class DynamicReport {
 	private Style titleStyle = new Style();
 	private Style subtitleStyle = new Style();
 	
-	private Locale reportLocale = null;
+	private Locale reportLocale = Locale.getDefault();
 	private String resourceBundle = null;
 
 	//<AbstractColumn>

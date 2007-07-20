@@ -13,7 +13,7 @@ public class DJChartBuilder {
 	private ColumnsGroup columnsGroup;
 	private AbstractColumn column;
 	private Byte operation;
-	private DJChartOptions chartOptions;
+	private DJChartOptions chartOptions = createDefaultOperations();
 	
 	public DJChart build() throws ChartBuilderException {
 		if (type == null) throw new ChartBuilderException("Chart type must be specified");
@@ -26,7 +26,7 @@ public class DJChartBuilder {
 		return chart;
 	}
 	
-	private DJChartOptions createDefaultOperations() {
+	private static DJChartOptions createDefaultOperations() {
 		DJChartOptions options = new DJChartOptions(true, Color.white, 300, 300, true, DJChartOptions.POSITION_HEADER, 0, 0, true, (byte) 1, DJChartColors.googleAnalytics());		
 		return options;
 	}
@@ -77,6 +77,11 @@ public class DJChartBuilder {
 
 	public DJChartBuilder addChartOptions(DJChartOptions chartOptions) {
 		this.chartOptions = chartOptions;
+		return this;
+	}
+
+	public DJChartBuilder addHeight(int height) {
+		chartOptions.setHeight(height);
 		return this;
 	}
 

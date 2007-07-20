@@ -36,6 +36,7 @@ public class CommonExpressionsHelper {
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(80);
 		pageNumber.setY(yOffset);
+		pageNumber.setPositionType(JRDesignTextField.POSITION_TYPE_FLOAT);
 		
 		JRDesignTextField pageCounter = new JRDesignTextField();
 
@@ -45,6 +46,7 @@ public class CommonExpressionsHelper {
 		pageCounter.setY(yOffset);
 		pageCounter.setEvaluationTime(JRExpression.EVALUATION_TIME_REPORT);
 		pageCounter.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_LEFT);
+		pageCounter.setPositionType(JRDesignTextField.POSITION_TYPE_FLOAT);
 		band.addElement(pageCounter);
 
 		int pageNumberOffset = 0;
@@ -129,9 +131,10 @@ public class CommonExpressionsHelper {
 
 		dateTf.setExpression(ExpressionUtils.getDateExpression(KEY_autotext_created_on, "", report.getReportLocale(),autoText.getPattern()));
 		dateTf.setHeight(height);
-		dateTf.setWidth(400);
+		dateTf.setWidth(report.getOptions().getColumnWidth());
 		dateTf.setHorizontalAlignment(autoText.getAlignment().getAlignment());
 		dateTf.setY(yOffset);
+		dateTf.setPositionType(JRDesignTextField.POSITION_TYPE_FLOAT);
 
 		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, dateTf);
 		band.setHeight(band.getHeight() + height);

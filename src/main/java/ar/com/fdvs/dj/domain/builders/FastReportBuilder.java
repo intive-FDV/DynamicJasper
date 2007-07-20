@@ -155,7 +155,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		}
 	}
 
-	public FastReportBuilder addGroups(int numgroups) {
+	public DynamicReportBuilder addGroups(int numgroups) {
 		groupCount = numgroups;
 		return this;
 	}

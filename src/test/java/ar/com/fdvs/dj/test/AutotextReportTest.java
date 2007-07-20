@@ -66,21 +66,25 @@ public class AutotextReportTest extends TestCase {
 		/**
 		 * Adding many autotexts in the same position (header/footer and aligment) makes them to be one on top of the other
 		 */
-		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, HorizontalBandAlignment.LEFT));
-		drb.addAutoText(new AutoText("Autotext below Page counter", AutoText.POSITION_FOOTER, HorizontalBandAlignment.LEFT));
+		//First add in the header
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT);
+		drb.addAutoText("Autotext below Page counter", AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT);
 		
-		drb.addAutoText(new AutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, HorizontalBandAlignment.RIGHT));
-		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, HorizontalBandAlignment.RIGHT));
+		//Note the styled text: <b>msimone</b>, valid tags are: <b>, <i> and <u>
+		drb.addAutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);
 		
-		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, HorizontalBandAlignment.LEFT,AutoText.PATTERN_DATE_DATE_TIME));
+		drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
 		
-		drb.addAutoText(new AutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_HEADER, HorizontalBandAlignment.LEFT));
-		drb.addAutoText(new AutoText("Autotext at top-left", AutoText.POSITION_HEADER, HorizontalBandAlignment.LEFT));
-		drb.addAutoText(new AutoText("Autotext at top-left (2)", AutoText.POSITION_HEADER, HorizontalBandAlignment.LEFT));
-		drb.addAutoText(new AutoText("Autotext at top-center", AutoText.POSITION_HEADER, HorizontalBandAlignment.CENTER));
+		//Now in FOOTER
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT);
+		drb.addAutoText("Autotext at top-left", AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT);
+		drb.addAutoText("Autotext at top-left (2)", AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT);
+		drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALIGMENT_CENTER);
 		DynamicReport dr = drb.build();
 		
-		dr.setReportLocale(new Locale("es","AR"));
+		//i18N, you can set a Locale, different than the default in the VM 
+		drb.addReportLocale(new Locale("es","AR"));
 		
 		return dr;
 	}

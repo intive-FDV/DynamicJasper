@@ -9,6 +9,22 @@ import net.sf.jasperreports.engine.design.JRDesignTextField;
  * 
  */
 public abstract class HorizontalBandAlignment {
+	
+	/**
+	 * To be used with AutoText class constants ALIGMENT_LEFT, ALIGMENT_CENTER and ALIGMENT_RIGHT
+	 * @param aligment
+	 * @return
+	 */
+	public static final HorizontalBandAlignment buildAligment(byte aligment){
+		if (aligment == RIGHT.getAlignment())
+			return RIGHT;
+		else if (aligment == LEFT.getAlignment())
+			return LEFT;
+		else if (aligment == CENTER.getAlignment())
+			return CENTER;
+			
+		return LEFT;
+	}
 
 	public static final HorizontalBandAlignment RIGHT = new HorizontalBandAlignment() {
 		public void align(int totalWidth, int offset, JRDesignBand band, JRDesignElement element) {

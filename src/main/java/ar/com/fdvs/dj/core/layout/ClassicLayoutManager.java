@@ -271,6 +271,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				image.setHeight(imageBanner.getHeight());
 				image.setWidth(imageBanner.getWidth());
 				image.setPrintWhenExpression(printWhenExpression);
+				image.setRemoveLineWhenBlank(true);
 				
 				if (imageBanner.getAlign() == ImageBanner.ALIGN_LEFT)				
 					image.setX(0);
