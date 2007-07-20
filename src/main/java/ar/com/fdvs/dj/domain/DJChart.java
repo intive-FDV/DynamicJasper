@@ -27,7 +27,6 @@ public class DJChart {
 	
 	//How to show the chart?
 	private DJChartOptions chartOptions;
-
 	
 	public DJChart(){}
 	
