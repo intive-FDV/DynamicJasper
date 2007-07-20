@@ -160,6 +160,11 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 
+	public FastReportBuilder addResourceBundle(String resourceBundle) {
+		report.setResourceBundle(resourceBundle);
+		return this;
+	}
+
 
 
 }

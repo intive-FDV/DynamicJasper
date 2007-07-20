@@ -38,12 +38,18 @@ Content
 *----------+--------------+-------+
 | ar.com.fdvs.dj.test.ImageBannerReportTest |This test shows how to add images to the title of the report and the header | {{{../examples/ImageBannerReportTest.pdf}download}} |
 *----------+--------------+-------+
-| ar.com.fdvs.dj.test.ChartReportTest |Based on GroupsReportTest, this test shows how to add charts to a report, using a chart builder | {{{../examples/ChartReportTest.pdf}download}} |
+| ar.com.fdvs.dj.test.ChartReportTest |Based on GroupsReportTest, shows how to add charts to a report, using a chart builder | {{{../examples/ChartReportTest.pdf}download}} |
+*----------+--------------+
+| ar.com.fdvs.dj.test.AutotextReportTest |Based on FastReportTest, shows how to add autotext out-of-the-box such as "page x/y", etc | {{{../examples/AutotextReportTest.pdf}download}} |
+*----------+--------------+
+| ar.com.fdvs.dj.test.ReflectiveReportTest | With almoust no code, you get an instant report! it uses the ReflectiveReportBuilder wich make some guesses upon the data type of the elements contained in the datasource and apply a style to them | {{{../examples/ReflectiveReportTest.pdf}download}} |
 *----------+--------------+
  
+ {{{../xref-test/ar/com/fdvs/dj/test/package-summary.html}Here}} is the online sourcecode off the tests 
 
  <<Note>>
-  This tests extends junit.framework.TestCase, but they also contain a main(...) method, we recommend to execute the test through the main method because the TestCase frameworks closes the JasperViewer (a window that shows the report) inmeadiatly.
+  This tests extends junit.framework.TestCase, but they also contain a main(...) method, we recommend to execute the test through the main method because the JUnit framework closes the JasperViewer (a window that shows the report) 
+  inmeadiatly after exiting the program.
 
 {Creating a simple Report}
  

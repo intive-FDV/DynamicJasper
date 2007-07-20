@@ -24,6 +24,9 @@
               Minor cosmetic issue with Image Banners, when usign different images for the first page and the rest of the report, there was
               a blank space betwen the image in the first page and the rest of the report. 
             </action>
+           	<action dev="Juan Manuel Alvarez" type="add">
+           		Tons of documentation in the project website (how-to and getting started)
+            </action>
          </release>
          <release version="1.1.3" date="2007-06-29" desc="minor release">    
            	<action dev="Juan Manuel Alvarez" type="add">

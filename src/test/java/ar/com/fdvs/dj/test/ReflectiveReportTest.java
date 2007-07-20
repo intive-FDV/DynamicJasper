@@ -20,28 +20,32 @@ import net.sf.jasperreports.view.JasperViewer;
 
 public class ReflectiveReportTest extends TestCase {
 
-	private DynamicReport buildReport(final Collection _data) {
-		return new ReflectiveReportBuilder(_data).build();
-	}
-
 	private DynamicReport buildOrderedReport(final Collection _data, final String[] _properties) {
 		return new ReflectiveReportBuilder(_data, _properties).addGroups(3).build();
 	}
 
+	/**
+	 * Test N° 1. With only the collection, the ReflectiveReportBuilder make some guesses
+	 */
 	public void testReport() {
         final Collection data = TestRepositoryProducts.getDummyCollection();
-        doReport(buildReport(data), data);
+        DynamicReport dynamicReport = new ReflectiveReportBuilder(data).build();
+		doReport(dynamicReport, data);
     }
 
+	/**
+	 * Test N°2, the same but we tell the builder the order of the columns, we also add 3 groups
+	 */
 	public void testOrderedReport() {
         final Collection data = TestRepositoryProducts.getDummyCollection();
         final List items = SortUtils.sortCollection(data, Arrays.asList(new String[]{"productLine", "item", "state"}));
-        doReport(buildOrderedReport(items, new String[]{"productLine", "item", "state", "id", "branch", "quantity", "amount"}), items);
+        String[] columOrders = new String[]{"productLine", "item", "state", "id", "branch", "quantity", "amount"};
+		DynamicReport dynamicReport = new ReflectiveReportBuilder(items, columOrders).addGroups(3).build();
+		doReport(dynamicReport, items);
     }
 
 	public void doReport(final DynamicReport _report, final Collection _data) {
-        final JRDataSource dataSource = new JRBeanCollectionDataSource(_data);
-        final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(_report, new ClassicLayoutManager(), dataSource);
+        final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(_report, new ClassicLayoutManager(), _data);
         JasperViewer.viewReport(jasperPrint);
         try {
 			ReportExporter.exportReport(jasperPrint, System.getProperty("user.dir")+ "/target/ReflectiveReportTest.pdf");
