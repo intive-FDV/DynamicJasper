@@ -379,7 +379,7 @@ public class DynamicReportBuilder {
 	}
 	
 	
-	public DynamicReportBuilder addMarginss(int top, int bottom, int left, int right) {
+	public DynamicReportBuilder addMargins(int top, int bottom, int left, int right) {
 		
 		options.setTopMargin(new Integer(top));
 		options.setBottomMargin(new Integer(bottom));

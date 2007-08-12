@@ -241,7 +241,6 @@
 #end
 
 #macro ( poweredByLogo $poweredBy )
-	#set ( $style_ = "border:none; color:none;"  )
     #if( $poweredBy )
         #foreach ($item in $poweredBy)
             #if( $item.href )
@@ -264,28 +263,22 @@
                 #set ( $img = "images/logos/maven-feather.png" )
             #end
 
-            <a href="$href" title="$name" style="$style_" >
+            <a href="$href" title="$name" class="poweredBy">
               #set ( $img = $PathTool.calculateLink( $img, $relativePath ) )
               #set ( $img = $img.replaceAll( "\\", "/" ) )
-              <img alt="$name" src="$img" style="$style_" />
+              <img alt="$name" src="$img" />
             </a>
         #end
         #if( $poweredBy.isEmpty() )
-          <a href="http://maven.apache.org/" title="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" style="$style_" >
-            <img alt="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" src="$relativePath/images/logos/maven-feather.png" style="$style_" ></img>
+          <a href="http://maven.apache.org/" title="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" class="poweredBy">
+            <img alt="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" src="$relativePath/images/logos/maven-feather.png"></img>
           </a>
         #end
     #else
-        <a href="http://maven.apache.org/" title="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" style="$style_" >
-          <img alt="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" src="$relativePath/images/logos/maven-feather.png" style="$style_" ></img>
+        <a href="http://maven.apache.org/" title="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" class="poweredBy">
+          <img alt="$i18n.getString( "site-renderer", $locale, "template.builtby" ) Maven" src="$relativePath/images/logos/maven-feather.png"></img>
         </a>
     #end
-#end
-
-#macro ( eclipseLogo  )
-        <a href="http://eclipse.org/">
-          <img src="$relativePath/images/logos/eclipse.png" ></img>
-        </a>
 #end
 
 <html>
@@ -339,31 +332,28 @@
         <hr/>
       </div>
     </div>
-    <div id="leftColumn">
-      <div id="navcolumn">
-       #publishDate( "navigation-top" $decoration.publishDate $decoration.version )
-       #mainMenu( $decoration.body.menus )
-       #publishDate( "navigation-bottom" $decoration.publishDate $decoration.version )
-      </div>
-      <br>
-      <center>
-       #poweredByLogo( $decoration.poweredBy )
-        <br>
-        <a href="http://www.jaspersoft.com/JasperSoft_JasperReports.html"><img src="$relativePath/images/logos/icon_pr_jasperreports_pro.gif" /></a>       
-        <br><br>
-       ${project.properties.jetbrains_idea_banner} 
-        <br>
-        <a href="http://eclipse.org/"><img src="$relativePath/images/logos/eclipse.png" /></a>       
-      </center>
-    </div>
-    <div id="bodyColumn">
-	  <div id="adSense">
+<table id="mainTable">
+<tr>
+	<td colspan="2" align="center">
 		  ${project.properties.google_adSense_script} 
-	  </div>
-      <div id="contentBox">
-        $bodyContent
-      </div>
-    </div>
+	</td>
+</tr>
+	<tr>
+		<td>
+	       #mainMenu( $decoration.body.menus )
+	       #poweredByLogo( $decoration.poweredBy )
+		</td>
+		<td>
+		   <!-- <div id="bodyColumn"> -->
+		   <!--   <div id="contentBox"> -->
+		        $bodyContent
+		   <!--   </div> -->
+		    <!--  </div> -->
+		</td>
+	</tr>
+</table >    
+   #publishDate( "navigation-top" $decoration.publishDate $decoration.version )
+   #publishDate( "navigation-bottom" $decoration.publishDate $decoration.version )
     <div class="clear">
       <hr/>
     </div>
