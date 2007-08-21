@@ -226,7 +226,7 @@ public class DynamicReportOptions {
 	}
 
 	public Style getDefaultDetailStyle() {
-		return defaultDetailStyle;
+		return defaultDetailStyle.cloneStyle();
 	}
 
 	public void setDefaultDetailStyle(Style defaultDetailStyle) {
@@ -234,7 +234,7 @@ public class DynamicReportOptions {
 	}
 
 	public Style getDefaultFooterStyle() {
-		return defaultFooterStyle;
+		return defaultFooterStyle.cloneStyle();
 	}
 
 	public void setDefaultFooterStyle(Style defaultFooterStyle) {
@@ -242,6 +242,7 @@ public class DynamicReportOptions {
 	}
 
 	public Style getDefaultHeaderStyle() {
+//		return defaultHeaderStyle.cloneStyle();
 		return defaultHeaderStyle;
 	}
 
@@ -250,7 +251,7 @@ public class DynamicReportOptions {
 	}
 
 	public Style getDefaultGroupHeaderStyle() {
-		return defaultGroupHeaderStyle;
+		return defaultGroupHeaderStyle.cloneStyle();
 	}
 
 	public void setDefaultGroupHeaderStyle(Style defaultGroupHeaderStyle) {
@@ -258,7 +259,7 @@ public class DynamicReportOptions {
 	}
 
 	public Style getDefaultGroupFooterStyle() {
-		return defaultGroupFooterStyle;
+		return defaultGroupFooterStyle.cloneStyle();
 	}
 
 	public void setDefaultGroupFooterStyle(Style defaultGroupFooterStyle) {

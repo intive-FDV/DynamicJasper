@@ -87,6 +87,7 @@ public class GroupsReportTest extends TestCase {
 			.addRightMargin(margin).addTopMargin(margin).addBottomMargin(margin)
 			.addPrintBackgroundOnOddRows(true)
 			.addOddRowBackgroundStyle(oddRowStyle);
+		
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.addColumnProperty("state", String.class.getName()).addTitle(
@@ -124,6 +125,7 @@ public class GroupsReportTest extends TestCase {
 				.addPattern("$ 0.00").addStyle(importeStyle).addHeaderStyle(
 						headerStyle).build();
 
+		
 		GroupBuilder gb1 = new GroupBuilder();
 		
 //		 define the criteria column to group by (columnState)
@@ -154,7 +156,10 @@ public class GroupsReportTest extends TestCase {
 
 		drb.addUseFullPageWidth(true);
 
+		drb.addGlobalFooterVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM);
+		
 		DynamicReport dr = drb.build();
+		
 		return dr;
 	}
 

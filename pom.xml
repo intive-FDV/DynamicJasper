@@ -32,23 +32,27 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>1.2.0</version>
+	<version>1.3.0-beta2</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
-		DynamicJasper (DJ) is an API that hides the complexity of Jasper
-		Reports, it helps developers to save time when designing
-		simple/medium complexity reports generating the layout of the
-		report elements automatically. It creates reports dynamically,
-		defining at runtime the columns, column width, groups,
-		variables, fonts, etc (charts too!). DJ keeps full compatibility with 
-		Jasper Reports since its a tools that helps create reports
-		programmatically in a easy way (it only interferes with the
-		creation of the report design doing the layout of the elements).
-
-		You can use the classic .jrxml files as templates while the
-		content and layout of the report elements are handled by the DJ
-		API.
+		<![CDATA[ 
+			DynamicJasper (DJ) is an API that hides the complexity of Jasper
+			Reports, it helps developers to save time when designing
+			simple/medium complexity reports generating the layout of the
+			report elements automatically. It creates reports dynamically,
+			defining at runtime the columns, column width, groups,
+			variables, fonts, charts and sub reports (that can also be dynamic).
+			
+			DJ keeps full compatibility with Jasper Reports since 
+			its a tool that helps create reports programmatically in 
+			a easy way (it only interferes with the creation of the report 
+			design doing the layout of the elements).
+	
+			You can use the classic .jrxml files as templates while the
+			content and layout of the report elements are handled by the DJ
+			API.
+		]]>
 	</description>
 	<url>http://sourceforge.net/projects/dynamicjasper</url>
 
@@ -168,6 +172,7 @@
 				        <artifactId>maven-site-plugin</artifactId>
 				        <configuration>
 				          <templateDirectory>${basedir}/src/config/</templateDirectory>
+<!--				          <templatCe>maven-site-tables.vm</template>-->
 				          <template>maven-site.vm</template>
 				        </configuration>
 				      </plugin>					
@@ -202,7 +207,7 @@
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>1.2.7</version>
+			<version>1.3.4</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
@@ -354,5 +359,30 @@
 				</script>			
 			]]>
 		</google_analitics_url>		
+		<google_adSense_script>
+			<![CDATA[
+				<script type="text/javascript"><!--
+				google_ad_client = "pub-7228421883024969";
+				google_ad_width = 728;
+				google_ad_height = 60;
+				google_ad_format = "728x90_as";
+				google_ad_type = "text_image";
+				google_ad_channel = "";
+				google_ui_features = "rc:6";
+				//-->
+				</script>
+				<script type="text/javascript"
+				  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>		
+			]]>
+		</google_adSense_script>		
+		<jetbrains_idea_banner>
+			<![CDATA[
+					<a href="http://www.jetbrains.com/idea/" 
+						style="display:block; width:88px; height:31px; border:0; margin:0;padding:0;text-decoration:none;text-indent:0;">
+						<img src="http://www.jetbrains.com/idea/opensource/img/banners/idea88x31_blue.gif" alt="The best Java IDE" border="0"/>
+					</a>
+			]]>
+		</jetbrains_idea_banner>		
 	</properties>
 </project>

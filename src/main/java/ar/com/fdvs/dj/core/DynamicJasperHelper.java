@@ -248,11 +248,18 @@ public final class DynamicJasperHelper {
 		JasperPrint jp = null;
 		try {
 			DynamicJasperDesign jd = generateJasperDesign(dr);
+			Map params = new HashMap();
+			if (_parameters != null){
+				registerParams(jd,_parameters);
+				params.putAll(_parameters);
+			}
+			
 			registerEntities(jd, dr);
 			layoutManager.applyLayout(jd, dr);
+			
 			JasperReport jr = JasperCompileManager.compileReport(jd);
-            Map params = new HashMap(_parameters);
-            params.putAll(jd.getParametersWithValues());
+			
+			params.putAll(jd.getParametersWithValues());
             jp = JasperFillManager.fillReport(jr, params, ds);
 		} catch (CoreException e) {
 			log.error(e.getMessage(),e);
@@ -262,16 +269,44 @@ public final class DynamicJasperHelper {
 		return jp;
 	}
 
+    /**
+     * For every String key, it registers the object as a parameter to make it available
+     * in the report.
+     * @param jd
+     * @param _parameters
+     */
+	public static void registerParams(DynamicJasperDesign jd, Map _parameters) {
+		for (Iterator iterator = _parameters.keySet().iterator(); iterator.hasNext();) {
+			Object key = iterator.next();
+			if (key instanceof String){
+				try {
+					JRDesignParameter parameter = new JRDesignParameter();
+					Object value = _parameters.get(key);
+//					parameter.setValueClassName(value.getClass().getCanonicalName());
+					Class clazz = value.getClass().getComponentType();
+					if (clazz == null)
+						clazz = value.getClass();
+					parameter.setValueClass(clazz); //NOTE this is very strange
+					//when using an array as subreport-data-source, I must pass the parameter class name like this: value.getClass().getComponentType()
+					parameter.setName((String)key);
+					jd.addParameter(parameter);
+				} catch (JRException e) {
+					//nothing to do
+				}
+			}
+			
+		}
+		
+	}
+
 	public final static JasperReport generateJasperReport(DynamicReport dr, AbstractLayoutManager layoutManager) {
-		log.info("generating JasperPrint");
-//		JasperPrint jp = null;
+		log.info("generating JasperReport");
 		JasperReport jr = null;
 		try {
 			DynamicJasperDesign jd = generateJasperDesign(dr);
 			registerEntities(jd, dr);
 			layoutManager.applyLayout(jd, dr);
 			jr = JasperCompileManager.compileReport(jd);
-//			jp = JasperFillManager.fillReport(jr,jd.getParametersWithValues(), ds);
 		} catch (CoreException e) {
 			log.error(e.getMessage());
 		} catch (JRException e) {

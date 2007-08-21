@@ -54,8 +54,8 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
  */
 public class Style implements Serializable, Cloneable {
 
-	private static final long serialVersionUID = 1L;
-
+	private static final long serialVersionUID = 5411157297061343625L;
+	
 	private Color backgroundColor = Color.WHITE;
 	private Color textColor = Color.BLACK;
 	private Color borderColor = Color.BLACK;
@@ -84,6 +84,15 @@ public class Style implements Serializable, Cloneable {
 
     private boolean stretchWithOverflow = true;
     private boolean blankWhenNull = true;
+    
+    public Style cloneStyle() {
+    	try {
+			return (Style) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
+    }
 
 	public boolean isBlankWhenNull() {
 		return blankWhenNull;
@@ -206,7 +215,7 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setFontName(font.getFontName());
 		transformedStyle.setFontSize(font.getFontSize());
 		transformedStyle.setBold(font.isBold());
-		transformedStyle.setItalic(font.isIntalic());
+		transformedStyle.setItalic(font.isItalic());
 		transformedStyle.setUnderline(font.isUnderline());
 
 		transformedStyle.setBackcolor(getBackgroundColor());
