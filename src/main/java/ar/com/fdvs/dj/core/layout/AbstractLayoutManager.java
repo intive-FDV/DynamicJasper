@@ -30,7 +30,9 @@
 package ar.com.fdvs.dj.core.layout;
 
 import java.awt.Color;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
@@ -53,6 +55,7 @@ import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
@@ -86,6 +89,16 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	private DynamicReport report;
 
 	protected abstract void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField);
+	
+	private HashMap reportStyles = new HashMap();
+
+	public HashMap getReportStyles() {
+		return reportStyles;
+	}
+
+	public void setReportStyles(HashMap reportStyles) {
+		this.reportStyles = reportStyles;
+	}
 
 	public void applyLayout(JasperDesign design, DynamicReport report) throws LayoutException {
 		log.debug("Applying Layout...");
@@ -112,25 +125,57 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 	/**
 	 * Sets a default style for every element that doesn't have one
+	 * @throws JRException 
 	 */
-	protected void ensureStyles() {
-		Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
-		Style defaultHeaderStyle = getReport().getOptions().getDefaultHeaderStyle();
-//		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
-		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
-			AbstractColumn column = (AbstractColumn) iter.next();
-			if (column.getStyle() == null) column.setStyle(defaultDetailStyle);
-			if (column.getHeaderStyle() == null) column.setHeaderStyle(defaultHeaderStyle);
-//			if (column.getFooterStyle() == null) column.setFooterStyle(defaulyFooterStyle);	
-		}
+	protected void ensureStyles()  {
+			Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
+			
+//			JRBaseStyle defaulDetailtStyle = defaultDetailStyle.transform();
+//			JRDesignStyle defStyle = new JRDesignStyle();
+//			try {
+//				BeanUtils.copyProperties(defStyle, defaulDetailtStyle);
+//				defStyle.setDefault(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			} 
+//			design.setDefaultStyle(defStyle); //NEW for Jasper 2.0
+//			addStyleToDesign(defStyle);
+			
+//			addStyleToDesign( report.getTitleStyle().transform() );
+//			addStyleToDesign( report.getSubtitleStyle().transform() );
+			
+			
+			Style defaultHeaderStyle = getReport().getOptions().getDefaultHeaderStyle();
+	//		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
+			for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
+				AbstractColumn column = (AbstractColumn) iter.next();
+				if (column.getStyle() == null) 
+					column.setStyle(defaultDetailStyle);
+				if (column.getHeaderStyle() == null) 
+					column.setHeaderStyle(defaultHeaderStyle);
+	//			if (column.getFooterStyle() == null) column.setFooterStyle(defaulyFooterStyle);	
+				
+//				addStyleToDesign(column.getStyle().transform());
+//				addStyleToDesign(column.getHeaderStyle().transform());
+			}
 
-//		Style defaultGroupHeaderStyle = getReport().getOptions().getDefaultGroupHeaderStyle();
-//		Style defaultGroupFooterStyle = getReport().getOptions().getDefaultGroupFooterStyle();
-//		for (Iterator iter = report.getColumnsGroups().iterator(); iter.hasNext();) {
-//			ColumnsGroup group = (ColumnsGroup) iter.next();
-//			if (group.getHeaderSyle() == null) group.setHeaderStyle(defaultGroupHeaderStyle);
-//			if (group.getFooterSyle() == null) group.setFooterStyle(defaultGroupFooterStyle);
-//		}
+	}
+
+	/**
+	 * @param baseStyle
+	 * @throws JRException
+	 */
+	public void addStyleToDesign(JRDesignStyle jrstyle)  {
+		try {
+			if (jrstyle.getName() == null) {
+				String name = "style_" + (getReportStyles().values().size() + 1);
+				jrstyle.setName(name);
+				getReportStyles().put(name, jrstyle);
+			} 
+			design.addStyle(jrstyle);
+		} catch (JRException e) {
+			log.info("Duplicated style (it's ok): " + e.getMessage());
+		}
 	}
 	
 	private void transformDetailBand() {
@@ -178,10 +223,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		rectangle.setHeight(options.getDetailHeight().intValue());
 		rectangle.setWidth(options.getColumnWidth());
 		rectangle.setStretchType(JRDesignRectangle.STRETCH_TYPE_RELATIVE_TO_TALLEST_OBJECT);
-		JRBaseStyle style = options.getOddRowBackgroundStyle().transform();
+		JRDesignStyle style = options.getOddRowBackgroundStyle().transform();
 		style.setForecolor(options.getOddRowBackgroundStyle().getBackgroundColor());
 		rectangle.setStyle(style);
 		detail.addElement(rectangle);
+		addStyleToDesign(style);
 	}
 
 	/**
@@ -236,7 +282,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 	protected final void applyStyleToTextElement(Style style, JRDesignTextElement textElement) {
-		textElement.setStyle(style.transform());
+		JRDesignStyle jrstyle = style.transform();
+		addStyleToDesign(jrstyle);
+		textElement.setStyle(jrstyle);
 		if (textElement instanceof JRDesignTextElement ) {
 			JRDesignTextElement textField = (JRDesignTextElement) textElement;
 			textField.setStretchType(style.getStreching().getValue());

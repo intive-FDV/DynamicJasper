@@ -5,6 +5,11 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="1.2.2" date="2007-08-15" desc="JasperReports 2.0">    
+           	<action dev="Juan Manuel Alvarez" type="add">
+              Support for JasperReports 2.0
+            </action>
+         </release>
          <release version="1.2.1" date="2007-08-15" desc="bugfix release">    
            	<action dev="Alejandro Gomez" type="add">
               Minor issue with files not encoded in the system default encoding.
