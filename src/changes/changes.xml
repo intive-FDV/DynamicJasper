@@ -5,6 +5,11 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="1.2.1" date="2007-08-15" desc="bugfix release">    
+           	<action dev="Alejandro Gomez" type="add">
+              Minor issue with files not encoded in the system default encoding.
+            </action>
+         </release>
          <release version="1.2.0" date="2007-07-20" desc="Autotext release">    
            	<action dev="Mariano Simone" type="add">
               Autotext feature: Out of the box "Page x/y", "Created on {date}" and common autotexts in header and footer.
