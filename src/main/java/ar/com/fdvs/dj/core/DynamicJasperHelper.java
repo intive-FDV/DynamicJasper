@@ -81,7 +81,7 @@ public final class DynamicJasperHelper {
 	private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
 	private static final String DJ_RESOURCE_BUNDLE ="dj-messages";
 
-	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
+	private static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
 		new ColumnRegistrationManager(jd,dr).registerEntities(dr.getColumns());
 		new ColumnsGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());
 		registerOtherFields(jd,dr.getFields());
@@ -119,7 +119,7 @@ public final class DynamicJasperHelper {
 
 	}
 
-	private final static DynamicJasperDesign getNewDesign(DynamicReport dr) {
+	private static DynamicJasperDesign getNewDesign(DynamicReport dr) {
 		log.info("obtaining DynamicJasperDesign instance");
 		DynamicJasperDesign des = new DynamicJasperDesign();
 		DynamicReportOptions options = dr.getOptions();
@@ -153,8 +153,8 @@ public final class DynamicJasperHelper {
 		return des;
 	}
 
-	private final static DynamicJasperDesign generateJasperDesign(DynamicReport dr) throws CoreException {
-		DynamicJasperDesign jd = null;
+	private static DynamicJasperDesign generateJasperDesign(DynamicReport dr) throws CoreException {
+		DynamicJasperDesign jd;
 		try {
 			if (dr.getTemplateFileName() != null) {
 				log.info("loading template file: "+dr.getTemplateFileName());
@@ -184,8 +184,8 @@ public final class DynamicJasperHelper {
 	/**
 	 * Becasuse all the layout calculations are made from the Domain Model of DynamicJasper, when loading
 	 * a template file, we have to populate the "ReportOptions" with the settings from the template file (ie: margins, etc)
-	 * @param jd
-	 * @param dr
+	 * @param jd DynamicJasperDesing to use
+	 * @param dr The DynamicReport
 	 */
 	private static void populateReportOptionsFromDesign(DynamicJasperDesign jd, DynamicReport dr) {
 		DynamicReportOptions options = dr.getOptions();
@@ -202,7 +202,7 @@ public final class DynamicJasperHelper {
 
 	}
 
-	private final static DynamicJasperDesign downCast(JasperDesign jd) throws CoreException {
+	private static DynamicJasperDesign downCast(JasperDesign jd) throws CoreException {
 		DynamicJasperDesign djd = new DynamicJasperDesign();
 		log.info("downcasting JasperDesign");
 		try {
@@ -214,7 +214,9 @@ public final class DynamicJasperHelper {
 				JRParameter element = (JRParameter) iter.next();
 				try {
 					djd.addParameter(element);
-				} catch (JRException e) {	}
+				} catch (JRException e) {
+                    //TODO Handle Exception Properly
+                }
 
 			}
 
@@ -228,21 +230,21 @@ public final class DynamicJasperHelper {
 		return djd;
 	}
 
-	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds) {
+	public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds) {
         return generateJasperPrint(dr, layoutManager, ds, new HashMap());
     }
 
-	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, Collection collection) {
+	public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, Collection collection) {
 		JRDataSource ds = new JRBeanCollectionDataSource(collection);
 		return generateJasperPrint(dr, layoutManager, ds, new HashMap());
 	}
 
-	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, ResultSet resultSet) {
+	public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, ResultSet resultSet) {
 		JRDataSource ds = new JRResultSetDataSource(resultSet);
 		return generateJasperPrint(dr, layoutManager, ds, new HashMap());
 	}
 
-    public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds, Map _parameters) {
+    public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds, Map _parameters) {
 		log.info("generating JasperPrint");
 		JasperPrint jp = null;
 		try {
@@ -262,7 +264,7 @@ public final class DynamicJasperHelper {
 		return jp;
 	}
 
-	public final static JasperReport generateJasperReport(DynamicReport dr, AbstractLayoutManager layoutManager) {
+	public static JasperReport generateJasperReport(DynamicReport dr, AbstractLayoutManager layoutManager) {
 		log.info("generating JasperPrint");
 //		JasperPrint jp = null;
 		JasperReport jr = null;
@@ -281,7 +283,7 @@ public final class DynamicJasperHelper {
 		return jr;
 	}
 
-	public final static ColumnsGroup getColumnGroup(AbstractColumn col, List groups) {
+	public static ColumnsGroup getColumnGroup(AbstractColumn col, List groups) {
 		Iterator it = groups.iterator();
 		while (it.hasNext()) {
 			ColumnsGroup group = (ColumnsGroup) it.next();
@@ -291,7 +293,7 @@ public final class DynamicJasperHelper {
 		return null;
 	}
 
-	public final static boolean existsGroupWithColumnNames(List groups) {
+	public static boolean existsGroupWithColumnNames(List groups) {
 		Iterator it = groups.iterator();
 		while (it.hasNext()) {
 			ColumnsGroup group = (ColumnsGroup) it.next();

@@ -34,14 +34,9 @@ public abstract class ExpressionUtils {
 	}
 
 	private static boolean emptyString(String str) {
-		if (str == null)
-			return true;
+        return (str == null) || ("".equals(str.trim()));
 
-		if ("".equals(str.trim()))
-			return true;
-		
-		return false;
-	}
+    }
 
 	public static JRDesignExpression getDateExpression(String before, String after, Locale locale, byte pattern) {
 		if (!emptyString(before)){

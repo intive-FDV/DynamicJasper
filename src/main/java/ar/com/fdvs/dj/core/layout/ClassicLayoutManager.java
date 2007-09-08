@@ -414,7 +414,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			Iterator it = variables.iterator();
 			while (it.hasNext()) {
 				ColumnsGroupVariable var = (ColumnsGroupVariable) it.next();
-				AbstractColumn col = (AbstractColumn) var.getColumnToApplyOperation();
+				AbstractColumn col = var.getColumnToApplyOperation();
 
 				String variableName = col.getGroupVariableName(type, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty());
 
@@ -456,7 +456,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 
 			if (columnsGroup.getColumnToGroupBy() instanceof GlobalGroupColumn) {
-				int totalWidth = 0;
+				int totalWidth;
 
 				totalWidth = ((ColumnsGroupVariable)variables.iterator().next()).getColumnToApplyOperation().getPosX().intValue();
 

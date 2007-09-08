@@ -165,9 +165,7 @@ public class ChartReportTest extends TestCase {
 
 		drb.addChart(chart); //add chart
 
-		DynamicReport dr = drb.build();
-		
-		return dr;
+        return drb.build();
 	}
 
 	public void testReport() {

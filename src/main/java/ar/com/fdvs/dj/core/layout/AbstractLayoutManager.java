@@ -286,7 +286,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		addStyleToDesign(jrstyle);
 		textElement.setStyle(jrstyle);
 		if (textElement instanceof JRDesignTextElement ) {
-			JRDesignTextElement textField = (JRDesignTextElement) textElement;
+			JRDesignTextElement textField = textElement;
 			textField.setStretchType(style.getStreching().getValue());
 			textField.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
 		}
@@ -532,7 +532,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			int max = 0;
 			for (int i = 0; i < band.getElements().length; i++) {
 				JRDesignElement element = (JRDesignElement) band.getElements()[i];
-				if ( (element.getHeight() + element.getY()) > max);
+                //TODO: Review... if statement has empty body
+                if ( (element.getHeight() + element.getY()) > max);
 				max = element.getHeight() + element.getY();
 			}
 			chart.setY(max +5 );
