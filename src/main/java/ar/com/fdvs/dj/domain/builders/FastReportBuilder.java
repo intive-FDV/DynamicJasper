@@ -72,10 +72,10 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	protected int groupCount = 0;
 
 	public FastReportBuilder(){
-		currencyStyle = new Style();
+		currencyStyle = new Style("currencyStyle");
 		currencyStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 
-		numberStyle = new Style();
+		numberStyle = new Style("numberStyle");
 		numberStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 
 		Style defaultHeaderStyle = options.getDefaultHeaderStyle();

@@ -40,8 +40,8 @@ public class DynamicReport {
 
 	private String title;
 	private String subtitle;
-	private Style titleStyle = new Style();
-	private Style subtitleStyle = new Style();
+	private Style titleStyle = new Style("reportTitleStyle");
+	private Style subtitleStyle = new Style("reportSubtitleStyle");
 	
 	private Locale reportLocale = Locale.getDefault();
 	private String resourceBundle = null;

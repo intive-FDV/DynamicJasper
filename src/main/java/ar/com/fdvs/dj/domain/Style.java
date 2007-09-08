@@ -33,6 +33,7 @@ import java.awt.Color;
 import java.io.Serializable;
 
 import net.sf.jasperreports.engine.base.JRBaseStyle;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
@@ -55,6 +56,8 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 public class Style implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 1L;
+	
+	private String name;
 
 	private Color backgroundColor = Color.WHITE;
 	private Color textColor = Color.BLACK;
@@ -84,6 +87,12 @@ public class Style implements Serializable, Cloneable {
 
     private boolean stretchWithOverflow = true;
     private boolean blankWhenNull = true;
+    
+    public Style(){}
+
+    public Style(String name){
+    	this.name = name;
+    }
 
 	public boolean isBlankWhenNull() {
 		return blankWhenNull;
@@ -173,9 +182,12 @@ public class Style implements Serializable, Cloneable {
 		this.verticalAlign = verticalAlign;
 	}
 
-	public JRBaseStyle transform() {
-		JRBaseStyle transformedStyle = new JRBaseStyle();
+	public JRDesignStyle transform() {
+		
+		JRDesignStyle transformedStyle = new JRDesignStyle();
 		transformedStyle.setBorder(getBorder().getValue());
+		
+		transformedStyle.setName(this.name);
 		
 		//Borders
 		if (getBorderBottom()!= null) 
@@ -306,6 +318,14 @@ public class Style implements Serializable, Cloneable {
 
 	public void setPaddingRight(Integer paddingRight) {
 		this.paddingRight = paddingRight;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

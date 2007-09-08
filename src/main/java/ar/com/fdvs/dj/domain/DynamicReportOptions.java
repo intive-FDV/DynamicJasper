@@ -55,16 +55,16 @@ public class DynamicReportOptions {
 	private Page page = Page.Page_A4_Portrait();
 
 	private boolean printBackgroundOnOddRows = false;
-	private Style oddRowBackgroundStyle = new Style();
+	private Style oddRowBackgroundStyle = new Style("swfaultOddRowStyle");
 	private Integer titleHeight =  new Integer(30);
 	private boolean titleNewPage =  false;
 	private Integer subtitleHeight = new Integer(15);
 	
-	private Style defaultHeaderStyle = new Style();
-	private Style defaultDetailStyle = new Style();
-	private Style defaultFooterStyle = new Style();
-	private Style defaultGroupHeaderStyle = new Style();
-	private Style defaultGroupFooterStyle = new Style();
+	private Style defaultHeaderStyle = new Style("defaultHeaderStyle");
+	private Style defaultDetailStyle = new Style("defaultDetailStyle");
+	private Style defaultFooterStyle = new Style("defaultFooterStyle");
+	private Style defaultGroupHeaderStyle = new Style("defaultGroupHeaderStyle");
+	private Style defaultGroupFooterStyle = new Style("defaultGroupFooterStyle");
 	
 	/**
 	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
