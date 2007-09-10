@@ -11,16 +11,10 @@ public class ImageBanner {
 	private int height= 0;
 	private byte align = 0;
 	
-	public ImageBanner(){ }
-
-    public ImageBanner(String imagePath, int width, int height, byte align) {
-		this.imagePath = imagePath;
-		this.width = width;
-		this.height = height;
-		this.align = align;
-	}
-
-    public int getHeight() {
+	public ImageBanner(){
+	};
+	
+	public int getHeight() {
 		return height;
 	}
 	public void setHeight(int height) {
@@ -44,4 +38,11 @@ public class ImageBanner {
 	public void setWidth(int width) {
 		this.width = width;
 	}
+	public ImageBanner(String imagePath, int width, int height, byte align) {
+		this.imagePath = imagePath;
+		this.width = width;
+		this.height = height;
+		this.align = align;
+	}
+
 }
