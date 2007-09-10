@@ -70,7 +70,7 @@ public class StylesReport2Test extends TestCase {
 		
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); 
-		headerStyle.getFont().setIntalic(true);
+		headerStyle.getFont().setItalic(true);
 		headerStyle.setBorderTop(Border.MEDIUM);
 		headerStyle.setBorderBottom(Border.THIN);
 		headerStyle.setBackgroundColor(Color.blue);
