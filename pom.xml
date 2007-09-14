@@ -63,13 +63,11 @@ API.
 	</issueManagement>
 	<inceptionYear>2006</inceptionYear>
 	<repositories>
-		<!-- 
 		<repository>
 			<id>embuRepo</id>
 			<url>http://www.fdvs.com.ar/embuRepo</url>
 			<name>Embu Deploy Repository</name>
 		</repository>
-		-->
 		<repository>
 			<id>djmaven2</id>
 			<url>http://www.fdvs.com.ar/djmaven2</url>
