@@ -68,6 +68,11 @@ API.
 			<url>http://www.fdvs.com.ar/embuRepo</url>
 			<name>Embu Deploy Repository</name>
 		</repository>
+		<repository>
+			<id>djmaven2</id>
+			<url>http://www.fdvs.com.ar/djmaven2</url>
+			<name>DynamicJasper public Repository</name>
+		</repository>		
 	</repositories>
 	<build>
 		<plugins>
@@ -197,7 +202,19 @@ API.
 				</plugins>
 			</reporting>
 		</profile>
+		<profile>
+			<id>publicRepo</id>
+		<distributionManagement>
+			<repository>
+				<id>djmaven2</id>
+				<name>Embu Deploy Repo</name>
+				<url>ftp://fdvs.com.ar/djmaven2/</url>
+			</repository>
+		</distributionManagement>			
+		</profile>					
 	</profiles>
+	
+
 
 	<dependencies>
 		<dependency>
