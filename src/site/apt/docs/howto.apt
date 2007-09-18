@@ -25,6 +25,8 @@ Content
  
  * {{{#HOWTO-009}HOWTO: Add Subreports}}
 
+ * {{{#HOWTO-010}HOWTO: Create an Excel report}}
+
 {HOWTO-001}: Use conditional Styles
 
  Suppose you need a Column that contains numerical values. If you want to use conditional styles (in order to have different colors depending on the value, for example) you can do this:
@@ -402,4 +404,66 @@ drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALI
 
  We can add as many reports as we want
 
+{HOWTO-010}: Create an Excel report
+ 
+ DynamicJasper is useful for creting plain Excel sheets, the main diference is that we have to use 
+ the <<ListLayoutManager>> class instead of the <<ClassicLayoutManager>>. The main difference is that the former
+ prevents JasperReport to leave blank spaces or have missaligned cells.
+  
+*----------+--------------+
+| <<Test>> | <<Description>> |
+*----------+--------------+
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/XlsReportTest.html}ar.com.fdvs.dj.test.subreport.XlsReportTest}} | Creates a simple report using the ListLayoutManager, useful when exporting to Excel XLS format|
+*----------+--------------+
+
+ The code example
+ 
++-----------------------------------------------------------------------------+ 
+FastReportBuilder drb = new FastReportBuilder();
+drb.addColumn("State"			, "state"		, String.class.getName(), 30)
+	.addColumn("Branch"		, "branch"		, String.class.getName(), 30)
+	.addColumn("Product Line"	, "productLine"	, String.class.getName(), 50)
+	.addColumn("Item"		, "item"		, String.class.getName(), 50)
+	.addColumn("Item Code"		, "id"			, Long.class.getName()	, 30, true)
+	.addColumn("Quantity"		, "quantity"	, Long.class.getName()	, 60, true)
+	.addColumn("Amount"		, "amount"		, Float.class.getName()	, 70, true)
+	.setPrintColumnNames(true)
+	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
+	.addMargins(0, 0, 0, 0)
+	.addTitle("November 2006 sales report")
+	.addSubtitle("This report was generated at " + new Date())
+	.addUseFullPageWidth(true);	
++-----------------------------------------------------------------------------+ 
+
+ Note this two lines:
+ 
++-----------------------------------------------------------------------------+ 
+	.setPrintColumnNames(true)
+	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
++-----------------------------------------------------------------------------+ 
+ 
+ The first tells the DJ is to print or not the header with the colum names. You may don't want this
+ if the purpose is to create a plain Excel with only data and no header.
+ 
+ The second line tells the DJ is to use JasperReports paginationo or not. For Excel you may don't want this
+ so your final result is a whole list with no empty spaces rows (page breaks.)
+ 
+ The final blow to get the Excel file are these lines
+ 
++-----------------------------------------------------------------------------+ 
+	JRXlsExporter exporter = new JRXlsExporter();
+	
+	File outputFile = new File(path);
+	FileOutputStream fos = new FileOutputStream(outputFile);
+	
+	exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+	exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos); //and output stream
+	
+	//Excel specific parameter
+	exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+	exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+	exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
++-----------------------------------------------------------------------------+ 
+ 
+ or use <ReportExporter.exportReportPlainXls(jp, "path to output file");> which contains the very same lines as above
  

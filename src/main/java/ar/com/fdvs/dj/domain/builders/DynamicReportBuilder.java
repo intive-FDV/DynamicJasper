@@ -283,6 +283,27 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * When FALSE, no column names are printed (in the header band)
+	 * @param bool
+	 * @return
+	 */
+	public DynamicReportBuilder setPrintColumnNames(boolean bool) {
+		options.setPrintColumnNames(bool);
+		return this;
+	}
+
+	/**
+	 * When TRUE, no page break at all (useful for Excell)
+	 * Default is FALSE
+	 * @param bool
+	 * @return
+	 */
+	public DynamicReportBuilder setIgnorePagination(boolean bool) {
+		options.setIgnorePagination(bool);
+		return this;
+	}
+	
 
 	public DynamicReportBuilder addUseFullPageWidth(boolean useFullwidth) {
 		options.setUseFullPageWidth(useFullwidth);
