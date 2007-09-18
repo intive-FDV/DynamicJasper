@@ -90,7 +90,11 @@ drb.addTemplateFile("pathToTemplate/TemplateName.jrxml");
  
 {HOWTO-004}: Add header and/or footer to a report  
 
- As DynamicJasper doesn't provide this feature yet, you have to use a Custom Template as shown above, and add the info to the Report Builder, like this:
+ You have two different ways to achieve this task:
+ 
+ 1) Use the {{{#HOWTO-007}AutoText feature}} (recommended)
+ 
+ 2) Use a Custom Template as shown above, and add the info to the Report Builder, like this:
 
 +------------------------------------------------------------------------------------------------------------+ 
 DynamicReportBuilder drb = new DynamicReportBuilder();
@@ -106,8 +110,6 @@ params.put("footer","<my footer message>");
 //Creates the JasperPrint, using the parameters map
 JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters );												
 +------------------------------------------------------------------------------------------------------------+ 
- 
- Note that you can set a different banner for the first page. You should set the alignment using the provided constants.
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateFileReportTest.html}TemplateFileReportTest}} for a working example. Here you can see the used jrxml: {{{../examples/TemplateReportTest.jrxml}download}}
  
@@ -408,12 +410,16 @@ drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALI
  
  DynamicJasper is useful for creting plain Excel sheets, the main diference is that we have to use 
  the <<ListLayoutManager>> class instead of the <<ClassicLayoutManager>>. The main difference is that the former
- prevents JasperReport to leave blank spaces or have missaligned cells.
+ prevents JasperReport to leave blank spaces or have missaligned cells. You can still the ClassicLayoutManager
+ when generating XLS files, it depends on what you need
+ 
+ The <<ListLayoutManager>> does not pay attention to groups information, and some of the formatting options, its main
+ purpose is to give as result an XLS sheet as clean as possible 
   
 *----------+--------------+
 | <<Test>> | <<Description>> |
 *----------+--------------+
-| {{{../xref-test/ar/com/fdvs/dj/test/subreport/XlsReportTest.html}ar.com.fdvs.dj.test.subreport.XlsReportTest}} | Creates a simple report using the ListLayoutManager, useful when exporting to Excel XLS format|
+| {{{../xref-test/ar/com/fdvs/dj/test/XlsReportTest.html}ar.com.fdvs.dj.test.XlsReportTest}} | Creates a simple report using the ListLayoutManager, useful when exporting to Excel XLS format|
 *----------+--------------+
 
  The code example
