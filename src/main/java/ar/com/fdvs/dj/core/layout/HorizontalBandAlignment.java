@@ -15,7 +15,7 @@ public abstract class HorizontalBandAlignment {
 	 * @param aligment
 	 * @return
 	 */
-	public static HorizontalBandAlignment buildAligment(byte aligment){
+	public static final HorizontalBandAlignment buildAligment(byte aligment){
 		if (aligment == RIGHT.getAlignment())
 			return RIGHT;
 		else if (aligment == LEFT.getAlignment())

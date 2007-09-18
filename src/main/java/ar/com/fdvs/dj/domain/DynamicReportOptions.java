@@ -60,6 +60,16 @@ public class DynamicReportOptions {
 	private boolean titleNewPage =  false;
 	private Integer subtitleHeight = new Integer(15);
 	
+	/**
+	 * When false, no main column names (usefull for excel)
+	 */
+	private boolean printColumnNames =  true;
+	
+	/**
+	 * When true, no page break at all
+	 */
+	private boolean ignorePagination =  false;
+	
 	private Style defaultHeaderStyle = new Style("defaultHeaderStyle");
 	private Style defaultDetailStyle = new Style("defaultDetailStyle");
 	private Style defaultFooterStyle = new Style("defaultFooterStyle");
@@ -271,6 +281,22 @@ public class DynamicReportOptions {
 
 	public void setTitleNewPage(boolean titleNewPage) {
 		this.titleNewPage = titleNewPage;
+	}
+
+	public boolean isPrintColumnNames() {
+		return printColumnNames;
+	}
+
+	public void setPrintColumnNames(boolean printColumnNames) {
+		this.printColumnNames = printColumnNames;
+	}
+
+	public boolean isIgnorePagination() {
+		return ignorePagination;
+	}
+
+	public void setIgnorePagination(boolean ignorePagination) {
+		this.ignorePagination = ignorePagination;
 	}
 
 }

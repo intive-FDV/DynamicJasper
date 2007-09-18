@@ -22,6 +22,10 @@ Content
  * {{{#HOWTO-007}HOWTO: Create Autotext (ie: Page x/y) out of the box}}
 
  * {{{#HOWTO-008}HOWTO: Integrate DynamicJasper with Webwork}}
+ 
+ * {{{#HOWTO-009}HOWTO: Add Subreports}}
+
+ * {{{#HOWTO-010}HOWTO: Create an Excel report}}
 
 {HOWTO-001}: Use conditional Styles
 
@@ -310,4 +314,156 @@ drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALI
  
  And finally <<dataSource>> wich is the name of the property in the action that is an instance of any 
  of the supported classes to be used as a data source (Collection, Object arrays, ResultSet, etc). 
+ 
+{HOWTO-009}: Add Subreports
+
+ Usefull examples:
+ 
+*----------+--------------+-------+
+| <<Test>> | <<Description>> | <<Download PDF>> |
+*----------+--------------+-------+
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/SubReportBuilderTest.html}ar.com.fdvs.dj.test.subreport.SubReportBuilderTest}} | Creates a single Subreport | {{{../examples/SubReportBuilderTest.pdf}download}} |
+*----------+--------------+-------+ 
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/ConcatenatedReportTest.html}ar.com.fdvs.dj.test.subreport.ConcatenatedReportTest}} | Creates a subreport composed of 3 subreport | {{{../examples/ConcatenatedReportTest.pdf}download}} |
+*----------+--------------+-------+ 
+
+ Adding a subreport is really easy. The main class to create a report is the <<SubReportBuilder>> class.
+ 
+ Subreports can be placed in the header or footer of a group, or we can just tell the <<DynamicReportBuilder>> 
+ to concatenate a subreport to the end of the report we are building.
+ 
+ A way to concatenate many different report in a single report can be done using subreports.
+ 
+ A simple usage of the <<SubReportBuilder>> class would be:
+
++-----------------------------------------------------------------------------+
+		Subreport subreport = new SubReportBuilder()
+			.addDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, 
+							DJConstants.DATA_SOURCE_TYPE_COLLECTION, 
+							"statistics")
+			.addReport( createSubreport() )
+			.build();
+
+		group.getFooterSubreports().add(subreport); //add to an existing group
++-----------------------------------------------------------------------------+
+
+ The first call to the builer is:
+ 
++-----------------------------------------------------------------------------+ 
+ .addDataSource( <origin of the data source>, <type of the data source>, <path to the data source>)
++-----------------------------------------------------------------------------+ 
+
+ The <<origin of the data source>> is a constant from <<DJConstants>> class which can be: 
+ SUBREPORT_DATA_SOURCE_ORIGIN_FIELD or SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, it just tells the
+ subreport where to look for the data source (the parameters map, or if its a property of the current row)
+ 
+ The <<type of the data source>> is also a constant from <<DJConstants>> class, all types constants
+ has a name like DATA_SOURCE_TYPE_\<XXX\>, where \<XXX\> represents the type. Most known types are
+ java.sql.ResultSet, Collection, Array, Xml, etc.
+ 
+ Finally, the <<path to the data source>> is a String that points to the data source. If for example
+ it's value is <"subreportDatasource"> and the first parameter was SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, then
+ it will look in the parameters map for an object under the key of <"subreportDatasource">, on the other hand
+ if we pass as first parameter SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, in the current row, there must be a property
+ with the name <"subreportDatasource"> that returns an object of the type DATA_SOURCE_TYPE_\<XXX\>
+ 
+ 
+ The 2nd call is:
+  
++-----------------------------------------------------------------------------+ 
+ .addReport( <JasperReport object> )
++-----------------------------------------------------------------------------+ 
+
+ The subreport need a compiled design (this would be a JasperReport object)
+ 
+ Finally we build the subreport and we add it to a group. In this case, to the footer of a group
+ 
++-----------------------------------------------------------------------------+ 
+ group.getFooterSubreports().add(subreport);
++-----------------------------------------------------------------------------+ 
+
+ Or we can pass it to the <<GroupBuilder>> like this
+
++-----------------------------------------------------------------------------+ 
+ groupBuilder.addHeaderSubreport(subreport);
++-----------------------------------------------------------------------------+ 
+
+ or
+
++-----------------------------------------------------------------------------+ 
+ groupBuilder.addFooterSubreport(subreport);
++-----------------------------------------------------------------------------+ 
+
+*Adding the sub report at the end of the parent report  
+ 
+ If we just want to add the report to the end of the current report, we use the <<DynamicReportBuilder>> like this:
+ 
++-----------------------------------------------------------------------------+ 
+ drb.addConcatenatedReport(subreport)
++-----------------------------------------------------------------------------+ 
+
+ We can add as many reports as we want
+
+{HOWTO-010}: Create an Excel report
+ 
+ DynamicJasper is useful for creting plain Excel sheets, the main diference is that we have to use 
+ the <<ListLayoutManager>> class instead of the <<ClassicLayoutManager>>. The main difference is that the former
+ prevents JasperReport to leave blank spaces or have missaligned cells.
+  
+*----------+--------------+
+| <<Test>> | <<Description>> |
+*----------+--------------+
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/XlsReportTest.html}ar.com.fdvs.dj.test.subreport.XlsReportTest}} | Creates a simple report using the ListLayoutManager, useful when exporting to Excel XLS format|
+*----------+--------------+
+
+ The code example
+ 
++-----------------------------------------------------------------------------+ 
+FastReportBuilder drb = new FastReportBuilder();
+drb.addColumn("State"			, "state"		, String.class.getName(), 30)
+	.addColumn("Branch"		, "branch"		, String.class.getName(), 30)
+	.addColumn("Product Line"	, "productLine"	, String.class.getName(), 50)
+	.addColumn("Item"		, "item"		, String.class.getName(), 50)
+	.addColumn("Item Code"		, "id"			, Long.class.getName()	, 30, true)
+	.addColumn("Quantity"		, "quantity"	, Long.class.getName()	, 60, true)
+	.addColumn("Amount"		, "amount"		, Float.class.getName()	, 70, true)
+	.setPrintColumnNames(true)
+	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
+	.addMargins(0, 0, 0, 0)
+	.addTitle("November 2006 sales report")
+	.addSubtitle("This report was generated at " + new Date())
+	.addUseFullPageWidth(true);	
++-----------------------------------------------------------------------------+ 
+
+ Note this two lines:
+ 
++-----------------------------------------------------------------------------+ 
+	.setPrintColumnNames(true)
+	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
++-----------------------------------------------------------------------------+ 
+ 
+ The first tells the DJ is to print or not the header with the colum names. You may don't want this
+ if the purpose is to create a plain Excel with only data and no header.
+ 
+ The second line tells the DJ is to use JasperReports paginationo or not. For Excel you may don't want this
+ so your final result is a whole list with no empty spaces rows (page breaks.)
+ 
+ The final blow to get the Excel file are these lines
+ 
++-----------------------------------------------------------------------------+ 
+	JRXlsExporter exporter = new JRXlsExporter();
+	
+	File outputFile = new File(path);
+	FileOutputStream fos = new FileOutputStream(outputFile);
+	
+	exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+	exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos); //and output stream
+	
+	//Excel specific parameter
+	exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+	exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+	exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
++-----------------------------------------------------------------------------+ 
+ 
+ or use <ReportExporter.exportReportPlainXls(jp, "path to output file");> which contains the very same lines as above
  
