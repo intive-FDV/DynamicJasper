@@ -41,7 +41,9 @@ import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ListLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public class XlsReportTest extends TestCase {
@@ -54,6 +56,9 @@ public class XlsReportTest extends TestCase {
 		 * the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
+		Style columDetail = new Style();
+		columDetail.setBorder(Border.THIN);
+		
 		drb.addColumn("State"			, "state"		, String.class.getName(), 30)
 			.addColumn("Branch"			, "branch"		, String.class.getName(), 30)
 			.addColumn("Product Line"	, "productLine"	, String.class.getName(), 50)
@@ -66,6 +71,7 @@ public class XlsReportTest extends TestCase {
 			.addMargins(0, 0, 0, 0)
 			.addTitle("November 2006 sales report")
 			.addSubtitle("This report was generated at " + new Date())
+			.addDefaultStyles(null, null, null, columDetail)
 			.addUseFullPageWidth(true);	
 
 		DynamicReport dr = drb.build();	

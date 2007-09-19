@@ -48,7 +48,7 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
  * Usage example:</br>
  * Style headerStyle = new Style();</br>
  * headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);</br>
- * headerStyle.setBorder(Border.MEDIUM);</br>
+ * headerStyle.setBorder(Border.PEN_2_POINT);</br>
  * headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);</br>
  * headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);</br>
  */

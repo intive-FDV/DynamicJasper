@@ -64,7 +64,7 @@ public class ConditionalStylesReportTest extends TestCase {
 
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); headerStyle.setBorder(Border.MEDIUM);
+		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); headerStyle.setBorder(Border.PEN_2_POINT);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 
 		Style titleStyle = new Style();

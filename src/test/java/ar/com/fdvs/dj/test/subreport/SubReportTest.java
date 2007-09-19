@@ -73,7 +73,7 @@ public class SubReportTest extends TestCase {
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorder(Border.MEDIUM);
+		headerStyle.setBorder(Border.PEN_2_POINT);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 
@@ -187,7 +187,7 @@ public class SubReportTest extends TestCase {
 		g2.getFooterSubreports().add(footerSubreport);
 		
 		Style subreportStyle = new Style();
-		subreportStyle.setBorder(Border.MEDIUM);
+		subreportStyle.setBorder(Border.PEN_2_POINT);
 		subreportStyle.setBorderColor(Color.blue);
 		footerSubreport.setStyle(subreportStyle);
 		footerSubreport.setDataSourceOrigin(DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD);

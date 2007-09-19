@@ -1,18 +1,18 @@
 package ar.com.fdvs.dj.test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JExcelApiExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 public class ReportExporter {
 	/**
@@ -36,7 +36,8 @@ public class ReportExporter {
 	}
 
 	public static void exportReportPlainXls(JasperPrint jp, String path) throws JRException, FileNotFoundException{
-		JRXlsExporter exporter = new JRXlsExporter();
+//		JRXlsExporter exporter = new JRXlsExporter();
+		JExcelApiExporter exporter = new JExcelApiExporter();
 		
 		File outputFile = new File(path);
 		FileOutputStream fos = new FileOutputStream(outputFile);
