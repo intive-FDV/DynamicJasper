@@ -60,7 +60,7 @@ public class ColumnsGroup implements Entity {
 	private List footerVariables = new ArrayList();
 	private Integer headerHeight = new Integer(20);
 	private Integer footerHeight = new Integer(20);
-	private GroupLayout layout = GroupLayout.VALUE_IN_HEADER;
+	private GroupLayout layout = GroupLayout.DEFAULT;
 	private List footerSubreports = new ArrayList();
 	private List headerSubreports = new ArrayList();
 	

@@ -30,10 +30,11 @@
 package ar.com.fdvs.dj.core.layout;
 
 import java.awt.Color;
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.engine.JRException;
@@ -41,7 +42,6 @@ import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
 import net.sf.jasperreports.engine.JRTextField;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
-import net.sf.jasperreports.engine.base.JRBaseStyle;
 import net.sf.jasperreports.engine.base.JRBaseVariable;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignChart;
@@ -55,13 +55,12 @@ import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJChartOptions;
@@ -174,7 +173,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			decorateOddRows(detail);
 		}
 
-		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
+		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
 
 			AbstractColumn column = (AbstractColumn)iter.next();
 
@@ -235,7 +234,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		log.debug("Generating header band...");
 		band.setHeight(report.getOptions().getHeaderHeight().intValue());
 
-		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
+		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
 
 			AbstractColumn col = (AbstractColumn) iter.next();
 			if (col.getTitle() == null)
@@ -268,19 +267,20 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		}
 	}
 
-	protected final void applyStyleToElement(Style style, JRDesignElement textElement) {
+	protected final void applyStyleToElement(Style style, JRDesignElement designElemen) {
 		JRDesignStyle jrstyle = style.transform();
 		addStyleToDesign(jrstyle);
-		textElement.setStyle(jrstyle);
-		if (textElement instanceof JRDesignTextElement ) {
-			JRDesignTextElement textField = (JRDesignTextElement) textElement;
+		designElemen.setStyle(jrstyle);
+		if (designElemen instanceof JRDesignTextElement ) {
+			JRDesignTextElement textField = (JRDesignTextElement) designElemen;
 			textField.setStretchType(style.getStreching().getValue());
 			textField.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
 		}
-		if (textElement instanceof JRDesignTextField ) {
-			JRDesignTextField textField = (JRDesignTextField) textElement;
+		if (designElemen instanceof JRDesignTextField ) {
+			JRDesignTextField textField = (JRDesignTextField) designElemen;
 			textField.setStretchWithOverflow(style.isStretchWithOverflow());
 		}
+		 
 	}
 
 	/**
@@ -292,13 +292,18 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		log.debug("Setting columns final width...");
 		float factor = 1;
 		int printableArea = report.getOptions().getColumnWidth();
+		
+		//Create a list with only the visible columns.
+		List visibleColums = getVisibleColumns();
 
 		log.debug("printableArea = " + printableArea );
 
 		if (report.getOptions().isUseFullPageWidth()) {
 			int columnsWidth = 0;
 			int notRezisableWidth = 0;
-			for (Iterator iterator =  report.getColumns().iterator(); iterator.hasNext();) {
+			
+			//Store in a variable the total with of all visible columns
+			for (Iterator iterator =  visibleColums.iterator(); iterator.hasNext();) {
 				AbstractColumn col = (AbstractColumn) iterator.next();
 				columnsWidth += col.getWidth().intValue();
 				if (col.getFixedWidth().booleanValue())
@@ -313,13 +318,15 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			int acu = 0;
 			int colFinalWidth = 0;
 
-			Collection resizableColumns = CollectionUtils.select( report.getColumns(),new Predicate() {
+			//Select the non-resizable columns
+			Collection resizableColumns = CollectionUtils.select( visibleColums,new Predicate() {
 				public boolean evaluate(Object arg0) {
 					return !((AbstractColumn)arg0).getFixedWidth().booleanValue();
 				}
 
 			}) ;
 
+			//Finally, set the new width to the resizable columns
 			for (Iterator iter = resizableColumns.iterator(); iter.hasNext();) {
 				AbstractColumn col = (AbstractColumn) iter.next();
 
@@ -335,11 +342,19 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 		// If the columns width changed, the X position must be setted again.
 		int posx = 0;
-		for (Iterator iterator =  report.getColumns().iterator(); iterator.hasNext();) {
+		for (Iterator iterator =  visibleColums.iterator(); iterator.hasNext();) {
 			AbstractColumn col = (AbstractColumn) iterator.next();
 			col.setPosX(new Integer(posx));
 			posx += col.getWidth().intValue();
 		}
+	}
+
+	/**
+	 * @return
+	 */
+	protected List getVisibleColumns() {
+		List visibleColums = new ArrayList(report.getColumns());
+		return visibleColums;
 	}
 
 	/**

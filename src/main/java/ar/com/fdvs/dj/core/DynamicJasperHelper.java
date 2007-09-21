@@ -327,11 +327,16 @@ public final class DynamicJasperHelper {
 		return null;
 	}
 
+	/**
+	 * Returns true if at least one group is configured to show the column name in its header
+	 * @param groups
+	 * @return
+	 */
 	public final static boolean existsGroupWithColumnNames(List groups) {
 		Iterator it = groups.iterator();
 		while (it.hasNext()) {
 			ColumnsGroup group = (ColumnsGroup) it.next();
-			if (group.getLayout().isShowColumnNames())
+			if (group.getLayout().isShowColumnName())
 				return true;
 		}
 		return false;

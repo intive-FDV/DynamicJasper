@@ -44,6 +44,8 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public class XlsReportTest extends TestCase {
@@ -66,8 +68,9 @@ public class XlsReportTest extends TestCase {
 			.addColumn("Item Code"		, "id"			, Long.class.getName()	, 30, true)
 			.addColumn("Quantity"		, "quantity"	, Long.class.getName()	, 60, true)
 			.addColumn("Amount"			, "amount"		, Float.class.getName()	, 70, true)
+			.addGroups(2) //Not used by the ListLayoutManager
 			.setPrintColumnNames(true)
-			.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
+			.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list			
 			.addMargins(0, 0, 0, 0)
 			.addTitle("November 2006 sales report")
 			.addSubtitle("This report was generated at " + new Date())
@@ -76,6 +79,8 @@ public class XlsReportTest extends TestCase {
 
 		DynamicReport dr = drb.build();	
 		
+		ColumnsGroup group = (ColumnsGroup) dr.getColumnsGroups().iterator().next();
+		group.setLayout(GroupLayout.EMPTY); //not used by ListLayoutManager
 		
 		return dr;
 	}
