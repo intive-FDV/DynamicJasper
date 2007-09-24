@@ -65,7 +65,7 @@ public class HiddenColumnReportTest2 extends TestCase {
 
 		Style detailStyle = new Style();
 		Style specialHeaderStyle = new Style();
-		specialHeaderStyle.setFont(Font.VERDANA_SMALL);
+		specialHeaderStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
 //		specialHeaderStyle.setBorderBottom(Border.PEN_2_POINT);
 //		specialHeaderStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 //		specialHeaderStyle.setVerticalAlign(VerticalAlign.MIDDLE);
@@ -74,7 +74,7 @@ public class HiddenColumnReportTest2 extends TestCase {
 //		specialHeaderStyle.setTransparency(Transparency.OPAQUE);
 		
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.VERDANA_SMALL);
+		headerStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
 		headerStyle.setBorderBottom(Border.PEN_2_POINT);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
@@ -92,8 +92,7 @@ public class HiddenColumnReportTest2 extends TestCase {
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 		
 		Style specialDetailStyle = new Style();
-		specialDetailStyle.setFont(Font.VERDANA_MEDIUM);
-//		specialDetailStyle.setBorderBottom(Border.PEN_2_POINT);
+		specialDetailStyle.setFont(new Font(20,"Arial",true));
 
 		Style specialDetailStyle2 = new Style();
 		specialDetailStyle2.setFont(Font.VERDANA_MEDIUM);
@@ -109,18 +108,19 @@ public class HiddenColumnReportTest2 extends TestCase {
 			.addDetailHeight(new Integer(15)).addLeftMargin(margin)
 			.addRightMargin(margin).addTopMargin(margin).addBottomMargin(margin)
 			.addPrintBackgroundOnOddRows(true)
+			.setPrintColumnNames(false)
 //			.addHeaderHeight(100)
 			.addOddRowBackgroundStyle(oddRowStyle);
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.addColumnProperty("state", String.class.getName()).addTitle(
-						"State:").addWidth(new Integer(30))
+						"State:").addWidth(40)
 				.addStyle(specialDetailStyle).addHeaderStyle(specialHeaderStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
 				.addColumnProperty("branch", String.class.getName()).addTitle(
 						"Branch").addWidth(new Integer(85))
-						.addStyle(specialDetailStyle2).addHeaderStyle(specialHeaderStyle).build();
+						.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
 				.addColumnProperty("productLine", String.class.getName())
@@ -155,14 +155,14 @@ public class HiddenColumnReportTest2 extends TestCase {
 						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,
 						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
+				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
 		ColumnsGroup g2 = gb2.addCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
 				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
-				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
+				.addGroupLayout(GroupLayout.DEFAULT) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
 				.build();
 
 		drb.addColumn(columnState);

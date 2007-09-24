@@ -132,7 +132,7 @@ public class FullFeatureReportTest extends TestCase {
 																					//values of the columnAmount in this group.
 			
 			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)	//idem for the columnaQuantity column
-			.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES)				//tells the group how to be shown, there are many
+			.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS)				//tells the group how to be shown, there are many
 																					//posibilities, see the GroupLayout for more.
 			.build();
 		

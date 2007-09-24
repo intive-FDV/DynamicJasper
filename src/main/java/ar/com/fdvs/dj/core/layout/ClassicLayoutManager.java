@@ -52,6 +52,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.FontHeightHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -64,6 +65,7 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.SubReportUtil;
 
 /**
@@ -389,13 +391,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			header.setHeight(columnsGroup.getHeaderHeight().intValue());
 			footer.setHeight(columnsGroup.getFooterHeight().intValue());
 			
-			if (columnsGroup.getLayout().isShowColumnName()) {
+			if (columnsGroup.getLayout().isPrintHeaders()) {
 				for (Iterator iterator =  getVisibleColumns().iterator(); iterator.hasNext();) {
 					AbstractColumn col = (AbstractColumn) iterator.next();
 
-					JRDesignTextField designStaticText = createColumnNameTextField(columnsGroup, col);
+					JRDesignTextField designTextField = createColumnNameTextField(columnsGroup, col);
 
-					header.addElement(designStaticText);
+					header.addElement(designTextField);
 				}
 			}
 			layoutGroupVariables(columnsGroup, jgroup);
@@ -506,30 +508,52 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		int yOffset = 0;
 		GroupLayout layout = group.getLayout();
 		//Only the value in heaeder
+		PropertyColumn column = group.getColumnToGroupBy();
 		if (layout.isShowValueInHeader() && layout.isHideColumn() && !layout.isShowColumnName()){
-			JRDesignTextField currentValue = generateTextFieldFromColumn(group.getColumnToGroupBy(), getReport().getOptions().getDetailHeight().intValue(), group);
+			//textvield for the current value
+			JRDesignTextField currentValue = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), group);
+			
+			//The width will be all the page
 			currentValue.setWidth(getReport().getOptions().getPrintableWidth());
+			
+			//fix the height depending on the font size
+			currentValue.setHeight(FontHeightHelper.getHeightFor(column.getStyle().getFont()));
 			yOffset += currentValue.getHeight();
-			moveBandsElemnts(yOffset + 10, headerBand);
+			
+			//Move down exisiting elements in the band. 
+			moveBandsElemnts(yOffset, headerBand);
+			
 			headerBand.addElement(currentValue);
 		} else if (layout.isShowValueInHeader() && !layout.isHideColumn() && !layout.isShowColumnName()){
 			headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
 			insertValueInHeader(headerBand, group, headerOffset);
 		} else if (layout.isShowValueInHeader() && layout.isHideColumn() && layout.isShowColumnName()){
-			headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
-			//first the column name
-			JRDesignTextField columnNameTf = createColumnNameTextField(group, group.getColumnToGroupBy());
+			//Create the element for the column name
+			JRDesignTextField columnNameTf = createColumnNameTextField(group, column);
 			columnNameTf.setY(columnNameTf.getY() + headerOffset);
-			headerBand.addElement(columnNameTf);
 			
-			//now the current value
-			JRDesignTextField currentValue = generateTextFieldFromColumn(group.getColumnToGroupBy(),getReport().getOptions().getHeaderHeight().intValue(),group);
-			currentValue.setX(columnNameTf.getWidth());
+			//textvield for the current value
+			JRDesignTextField currentValue = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), group);
+			
+			//The width will be (width of the page) - (column name width) 
 			currentValue.setWidth(getReport().getOptions().getPrintableWidth() - columnNameTf.getWidth());
-			currentValue.setY(columnNameTf.getY());
-			currentValue.setHeight(columnNameTf.getHeight());
+			//The x position for the current value is right next to the column name
+			currentValue.setX(columnNameTf.getWidth());
+			
+			//fix the height depending on the font size
+			currentValue.setHeight(FontHeightHelper.getHeightFor(column.getStyle().getFont()));
+			columnNameTf.setHeight(currentValue.getHeight());
+			
+			yOffset += currentValue.getHeight();
+			
+			//Move down exisiting elements in the band. 
+			moveBandsElemnts(yOffset, headerBand);
+			
+			headerBand.addElement(columnNameTf);
 			headerBand.addElement(currentValue);
-//			insertValueInHeader(headerBand, group, headerOffset);
+			
+//			headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
+			
 		} 		
 
 //		if (group.getLayout().isShowValueInHeader())
@@ -640,8 +664,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			getDesign().setColumnHeader(header);
 		}
 		
-		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))
+
+		/**
+		 * Note: Te column names, when in header, are printed at the begining of every page.
+		 * You may dont want this option if you have groups that prints column names.
+		 */
+		if (getReport().getOptions().isPrintColumnNames()){
 			generateHeaderBand(header);
+		}
+		
+//		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))
+//			generateHeaderBand(header);
 	}
 
 	protected void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField) {

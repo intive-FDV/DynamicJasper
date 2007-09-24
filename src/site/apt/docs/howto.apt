@@ -26,6 +26,13 @@ Content
  * {{{#HOWTO-009}HOWTO: Add Subreports}}
 
  * {{{#HOWTO-010}HOWTO: Create an Excel report}}
+ 
+ * {{{#HOWTO-011}HOWTO: Hide a column}}
+
+ * {{{#HOWTO-012}HOWTO: Declare invisible fields}}
+
+ * {{{#HOWTO-013}HOWTO: Create a report with columns  (like the telephone guide)}}
+ 
 
 {HOWTO-001}: Use conditional Styles
 
@@ -473,3 +480,93 @@ drb.addColumn("State"			, "state"		, String.class.getName(), 30)
  
  or use <ReportExporter.exportReportPlainXls(jp, "path to output file");> which contains the very same lines as above
  
+{HOWTO-011}: Hide a column
+
+ Its possible to hide a column when it's used for grouping, printing only the current value on the header of the group
+ every time it changes.
+
+ This can be achieved through the different "group layouts".
+ 
+ There are many posibilities, one example that hides the column is like this:
+ 
++-----------------------------------------------------------------------------+ 
+		drb.setPrintColumnNames(true); //Show the column names on the top of every page
+
+  		ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState).addFooterVariable(columnAmount,
+						ColumnsGroupVariableOperation.SUM) 
+				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
+				.addGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
+				.build();
+				
+		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
+		ColumnsGroup g2 = gb2.addCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
+				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
+				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
+				.addGroupLayout(GroupLayout.DEFAULT) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
+				.build();				
++-----------------------------------------------------------------------------+ 
+
+ In this case, group 1 (g1) uses <<GroupLayout.VALUE_IN_HEADER>> which tells the DJ to hide the column, and show only the value every time
+ the group change in the header.
+ 
+ Group 2 (g2) uses <<GroupLayout.DEFAULT>>, which tells the DJ to show the colum to: show the column, not to print the other column headers, not to repeat 
+ the current value, not to print the column name (of the column used for grouping).
+ 
+ Also note that re <DynamicReportBuilder> (drb) is configured to print the column names on the begining of every page.  
+ 
+ Note in this example that the column "<state>" is not printed, the other columns fills the width of the page, and finally
+ the current value of the state (Arizona) is shown in the header of the group. In this example, 
+ 
+[../images/examples/hidden-column.jpg] Hidden column
+
+* Other example of hidding a column
+
+ In this exmple:
+ 
+ * DynamicReportBuilder uses <setPrintColumnNames(false)>
+ 
+ * Group 1 uses <<GroupLayout.VALUE_IN_HEADER_WITH_HEADERS>>
+
+ * Group 2 uses <<GroupLayout.DEFAULT>>
+
+ * Column <State> has a <Style> for the detail with a bigger font
+
+
+[../images/examples/hidden-column02.jpg] Hidden column example 2
+ 
+ 
+* Yet another example of hidding a column
+
+ Notice that the column name "State" is shown before the current value (Arizona)
+
+ In this exmple:
+ 
+ * DynamicReportBuilder uses <setPrintColumnNames(false)>
+ 
+ * Group 1 uses <<GroupLayout.VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME>>
+
+ * Group 2 uses <<GroupLayout.DEFAULT>>
+
+ * Column <State> has a <Style> for the detail with a bigger font, and a <Style> for the header. Also the width is 40
+
+
+[../images/examples/hidden-column03.jpg] Hidden column example 2
+ 
+ 
+ 
+{HOWTO-012}: Declare invisible fields
+ 
+ If we need to use fields from the datasource that are not directly shown on any column, we must register them
+ like this:
+ 
++------------------------------------------------------------------------------------------------------------+
+drb.addField("productLine", String.class.getName());
+drb.addField("branch", String.class.getName());
++------------------------------------------------------------------------------------------------------------+
+ 
+ This fields are now avaible to be used inside custom expressions, or if we use a template which has objects that 
+ references this fields
+ 
+{HOWTO-013}: Create a report with columns  (like the telephone guide)
+
+ TODO :)

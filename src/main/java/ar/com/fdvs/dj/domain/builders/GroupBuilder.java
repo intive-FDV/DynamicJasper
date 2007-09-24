@@ -48,7 +48,7 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
  * ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState)</br>
  * .addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)</br>
  * .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)</br>
- * .addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES)</br>
+ * .addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS)</br>
  * .build();</br>
  * </br>
  * Like with all DJ's builders, it's usage must end with a call to build() mehtod.

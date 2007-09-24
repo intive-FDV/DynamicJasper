@@ -59,10 +59,15 @@ public class GroupLayout {
 	 */
 	private boolean hideColumn;
 
-	public GroupLayout(boolean showValueInHeader, boolean showValueForEach, boolean showColumnNames, boolean hideColumn, boolean printHeaders) {
+	public GroupLayout(boolean showValueInHeader, 
+			boolean showValueForEach, 
+			boolean showColumnName, 
+			boolean hideColumn, 
+			boolean printHeaders) 
+	{
 		this.showValueInHeader = showValueInHeader;
 		this.showValueForEachRow = showValueForEach;
-		this.showColumnName = showColumnNames;
+		this.showColumnName = showColumnName;
 		this.hideColumn = hideColumn;
 		this.printHeaders = printHeaders;
 	}
@@ -81,12 +86,16 @@ public class GroupLayout {
 
 	public static GroupLayout VALUE_IN_HEADER_AND_FOR_EACH_WITH_COLNAMES = new GroupLayout(true,true,true,false,true);
 	public static GroupLayout VALUE_IN_HEADER_AND_FOR_EACH = new GroupLayout(true,true,false,false,true);
-	public static GroupLayout VALUE_IN_HEADER_WITH_COLNAMES = new GroupLayout(true,false,true,true,true);
+	
 	public static GroupLayout VALUE_IN_HEADER = new GroupLayout(true,false,false,true,false);
+	public static GroupLayout VALUE_IN_HEADER_WITH_HEADERS = new GroupLayout(true,false,false,true,true);
+	public static GroupLayout VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME = new GroupLayout(true,false,true,true,true);
+	
 	public static GroupLayout VALUE_FOR_EACH = new GroupLayout(false,true,false,false,true);
 	public static GroupLayout VALUE_FOR_EACH_WITH_COLNAMES = new GroupLayout(true,true,true,true,true);
 	public static GroupLayout EMPTY = new GroupLayout(false,false,false,true,false);
-	public static GroupLayout DEFAULT = new GroupLayout(true,false,false,false,true);
+	public static GroupLayout DEFAULT = new GroupLayout(true,false,false,false,false);
+	public static GroupLayout DEFAULT_WITH_HEADER = new GroupLayout(true,false,false,false,true);
 
 	public boolean isHideColumn() {
 		return hideColumn;
