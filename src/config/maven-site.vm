@@ -169,7 +169,7 @@
   #if ( $publishDate && $publishDate.format )
     #set ( $format = $publishDate.format )
   #else
-    #set ( $format = "MM/dd/yyyy" )
+    #set ( $format = "dd MMM yyyy" )
   #end
 
   $dateFormat.applyPattern( $format )

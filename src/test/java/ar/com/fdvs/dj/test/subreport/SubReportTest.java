@@ -96,6 +96,7 @@ public class SubReportTest extends TestCase {
 			.addDetailHeight(new Integer(15)).addLeftMargin(margin)
 			.addRightMargin(margin).addTopMargin(margin).addBottomMargin(margin)
 			.addPrintBackgroundOnOddRows(true)
+			.setPrintColumnNames(false)
 			.addOddRowBackgroundStyle(oddRowStyle);
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
@@ -141,7 +142,7 @@ public class SubReportTest extends TestCase {
 						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,
 						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.addGroupLayout(GroupLayout.DEFAULT_WITH_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
 
 		Style defaultFooterVariableStyle = new Style();
@@ -157,6 +158,7 @@ public class SubReportTest extends TestCase {
 				.addHeaderVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
 				.addDefaultFooterVariableStyle(defaultFooterVariableStyle)
 				.addDefaultHeaderVariableStyle(defaultFooterVariableStyle)
+				.addGroupLayout(GroupLayout.DEFAULT)
 				.build();
 
 		drb.addColumn(columnState);

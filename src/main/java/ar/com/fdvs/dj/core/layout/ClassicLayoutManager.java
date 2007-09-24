@@ -509,6 +509,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		GroupLayout layout = group.getLayout();
 		//Only the value in heaeder
 		PropertyColumn column = group.getColumnToGroupBy();
+		
+		//VALUE_IN_HEADER, 
+		//VALUE_IN_HEADER_WITH_HEADERS, 
+		//VALUE_IN_HEADER_AND_FOR_EACH, 
+		//VALUE_IN_HEADER_AND_FOR_EACH_WITH_HEADERS
 		if (layout.isShowValueInHeader() && layout.isHideColumn() && !layout.isShowColumnName()){
 			//textvield for the current value
 			JRDesignTextField currentValue = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), group);
@@ -524,10 +529,14 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			moveBandsElemnts(yOffset, headerBand);
 			
 			headerBand.addElement(currentValue);
-		} else if (layout.isShowValueInHeader() && !layout.isHideColumn() && !layout.isShowColumnName()){
+		} 
+		//DEFAULT and DEFAULT_WITH_HEADER
+		else if (layout.isShowValueInHeader() && !layout.isHideColumn() && !layout.isShowColumnName()){
 			headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
 			insertValueInHeader(headerBand, group, headerOffset);
-		} else if (layout.isShowValueInHeader() && layout.isHideColumn() && layout.isShowColumnName()){
+		} 
+		//VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME
+		else if (layout.isShowValueInHeader() && layout.isHideColumn() && layout.isShowColumnName()){
 			//Create the element for the column name
 			JRDesignTextField columnNameTf = createColumnNameTextField(group, column);
 			columnNameTf.setY(columnNameTf.getY() + headerOffset);
@@ -551,13 +560,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			
 			headerBand.addElement(columnNameTf);
 			headerBand.addElement(currentValue);
-			
-//			headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
-			
 		} 		
-
-//		if (group.getLayout().isShowValueInHeader())
-//			insertValueInHeader(headerBand, group, headerOffset);
 
 		placeVariableInBand(group.getHeaderVariables(), group, jgroup, DJConstants.HEADER, headerBand, headerOffset);
 		placeVariableInBand(group.getFooterVariables(), group, jgroup, DJConstants.FOOTER, footerBand, 0);

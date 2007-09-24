@@ -84,16 +84,18 @@ public class GroupLayout {
 		return showValueInHeader;
 	}
 
-	public static GroupLayout VALUE_IN_HEADER_AND_FOR_EACH_WITH_COLNAMES = new GroupLayout(true,true,true,false,true);
-	public static GroupLayout VALUE_IN_HEADER_AND_FOR_EACH = new GroupLayout(true,true,false,false,true);
+	public static GroupLayout VALUE_IN_HEADER_AND_FOR_EACH 				= new GroupLayout(true,true,false,false,false);
+	public static GroupLayout VALUE_IN_HEADER_AND_FOR_EACH_WITH_HEADERS = new GroupLayout(true,true,false,false,true);
 	
-	public static GroupLayout VALUE_IN_HEADER = new GroupLayout(true,false,false,true,false);
-	public static GroupLayout VALUE_IN_HEADER_WITH_HEADERS = new GroupLayout(true,false,false,true,true);
-	public static GroupLayout VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME = new GroupLayout(true,false,true,true,true);
+	public static GroupLayout VALUE_IN_HEADER 								= new GroupLayout(true,false,false,true,false);
+	public static GroupLayout VALUE_IN_HEADER_WITH_HEADERS 					= new GroupLayout(true,false,false,true,true);
+	public static GroupLayout VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME 	= new GroupLayout(true,false,true,true,true);
 	
-	public static GroupLayout VALUE_FOR_EACH = new GroupLayout(false,true,false,false,true);
-	public static GroupLayout VALUE_FOR_EACH_WITH_COLNAMES = new GroupLayout(true,true,true,true,true);
+	public static GroupLayout VALUE_FOR_EACH 				= new GroupLayout(false,true,false,false,false);
+	public static GroupLayout VALUE_FOR_EACH_WITH_HEADERS   = new GroupLayout(false,true,false,false,true);
+	
 	public static GroupLayout EMPTY = new GroupLayout(false,false,false,true,false);
+	
 	public static GroupLayout DEFAULT = new GroupLayout(true,false,false,false,false);
 	public static GroupLayout DEFAULT_WITH_HEADER = new GroupLayout(true,false,false,false,true);
 

@@ -23,6 +23,9 @@ DynamicJasper
 			content and layout of the report elements are handled by the DJ
 			API.
 
+[images/dynamicjasper-examples.jpg]			
+			
+
 Online Demo - DynamicJasper Playground
 
  The DynamicJasper Playground is an example webapp made in GWT and it is inteded to show all the capabilities and potential that the DynamicJasper

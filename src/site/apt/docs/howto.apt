@@ -59,6 +59,10 @@ ColumnBuilder cb = ColumnBuilder.getInstance();
 
 cb.addConditionalStyles(conditionalStyles);
 +------------------------------------------------------------------------------------------------------------+ 
+
+ This code generates a report like this:
+ 
+[../images/examples/conditional-style.jpg] Conditional Style
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/ConditionalStylesReportTest.html}ConditionalStylesReportTest}} for a working example.
  
@@ -75,6 +79,9 @@ drb.addFirstPageImageBanner("pathToImage/firstPageBanner.jpg", new Integer(50), 
 +------------------------------------------------------------------------------------------------------------+ 
  
  Note that you can set a different banner for the first page. You should set the alignment using the provided constants.
+
+ 
+[../images/examples/banner-in-report-page1and2.jpg] Banner in report
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/ImageBannerReportTest.html}ImageBannerReportTest}} for a working example.
  
@@ -136,6 +143,10 @@ DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // defin
 			
 drb.addChart(chart);	//add chart
 +------------------------------------------------------------------------------------------------------------+
+ 
+ This code generate a report like this:
+ 
+[../images/examples/chart-report-test.jpg] Chart Report
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}ChartReportTest.html}} for a working example.
  
@@ -403,6 +414,10 @@ drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALI
  groupBuilder.addFooterSubreport(subreport);
 +-----------------------------------------------------------------------------+ 
 
+ This is a example of a report with 2 different subreports
+ 
+[../images/examples/subreport.jpg] Chart Report
+
 *Adding the sub report at the end of the parent report  
  
  If we just want to add the report to the end of the current report, we use the <<DynamicReportBuilder>> like this:
@@ -552,7 +567,34 @@ drb.addColumn("State"			, "state"		, String.class.getName(), 30)
 
 [../images/examples/hidden-column03.jpg] Hidden column example 2
  
+* More about the GroupLayout
+
+ Combining of the different <<GroupLayout>> posibilities with nested groups can end in very interesting results
  
+ The following matrix shows the different aspects used in each template.
+
+*----------+--------------+-------+-------+-------+-------+
+| <<Template>> | <<show Value In Header>> | <<show Value For Each Row>> | <<show ColumnName>> | <<hide Column>> | <<printHeaders>> |
+*----------+--------------+-------+-------+-------+-------+
+| EMPTY | NO | NO | NO | YES | NO |
+*----------+--------------+-------+-------+-------+-------+
+| DEFAULT | YES | NO | NO | NO | NO |
+*----------+--------------+-------+-------+-------+-------+
+| DEFAULT_WITH_HEADER | YES | NO | NO | YES | NO |
+*----------+--------------+-------+-------+-------+-------+
+| VALUE_IN_HEADER_WITH_HEADERS | YES | NO | NO | YES | YES |
+*----------+--------------+-------+-------+-------+-------+
+| VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME | YES | NO | YES | YES | YES |
+*----------+--------------+-------+-------+-------+-------+
+| VALUE_FOR_EACH | NO | YES | NO | NO | NO |
+*----------+--------------+-------+-------+-------+-------+
+| VALUE_FOR_EACH_WITH_HEADERS | NO | YES | NO | NO | YES |
+*----------+--------------+-------+-------+-------+-------+
+| VALUE_IN_HEADER_AND_FOR_EACH | YES | YES | NO | NO | NO |
+*----------+--------------+-------+-------+-------+-------+
+| VALUE_IN_HEADER_AND_FOR_EACH_WITH_HEADERS | YES | YES | NO | NO | YES |
+*----------+--------------+-------+-------+-------+-------+
+
  
 {HOWTO-012}: Declare invisible fields
  

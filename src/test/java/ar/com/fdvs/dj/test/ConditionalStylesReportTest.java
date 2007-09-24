@@ -64,8 +64,13 @@ public class ConditionalStylesReportTest extends TestCase {
 
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); headerStyle.setBorder(Border.PEN_2_POINT);
-		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setFont(Font.ARIAL_BIG_BOLD); 
+		headerStyle.setBorderBottom(Border.PEN_2_POINT);
+		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); 
+		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setBackgroundColor(Color.LIGHT_GRAY);
+		headerStyle.setTextColor(Color.WHITE);
+		headerStyle.setTransparency(Transparency.OPAQUE);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18,Font._FONT_VERDANA,true));
@@ -155,9 +160,9 @@ public class ConditionalStylesReportTest extends TestCase {
 		Style style0 = (Style) BeanUtils.cloneBean(baseStyle);
 		style0.setTextColor(Color.RED);
 		Style style1 = (Style) BeanUtils.cloneBean(baseStyle);
-		style1.setTextColor(Color.YELLOW);
+		style1.setTextColor(new Color(128,128,0));
 		Style style2 = (Style) BeanUtils.cloneBean(baseStyle);
-		style2.setTextColor(Color.GREEN);
+		style2.setTextColor(new Color(0,128,0)); //dark green
 
 		StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(5000));
 		StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(7000));

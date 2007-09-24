@@ -181,8 +181,8 @@ public class HiddenColumnReportTest extends TestCase {
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/HiddenColumnReportTest.pdf");
-		JasperViewer.viewReport(jp);
-		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
+//		JasperViewer.viewReport(jp);
+//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

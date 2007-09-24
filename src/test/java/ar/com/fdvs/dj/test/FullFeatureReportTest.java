@@ -88,9 +88,8 @@ public class FullFeatureReportTest extends TestCase {
 			.addTopMargin(margin)
 			.addBottomMargin(margin)
 			.addPrintBackgroundOnOddRows(true)
+			.setPrintColumnNames(false)
 			.addOddRowBackgroundStyle(oddRowStyle)
-			.addColumnsPerPage(new Integer(1))
-			.addColumnSpace(new Integer(5))
 			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.ALIGN_LEFT)
 			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.ALIGN_RIGHT)
 			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_LEFT)
@@ -132,7 +131,7 @@ public class FullFeatureReportTest extends TestCase {
 																					//values of the columnAmount in this group.
 			
 			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)	//idem for the columnaQuantity column
-			.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS)				//tells the group how to be shown, there are many
+			.addGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)				//tells the group how to be shown, there are many
 																					//posibilities, see the GroupLayout for more.
 			.build();
 		
@@ -184,8 +183,8 @@ public class FullFeatureReportTest extends TestCase {
 			
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), dummyCollection);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/fullFeatureReportTest.pdf");
-			JasperViewer.viewReport(jp);
-			JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
+//			JasperViewer.viewReport(jp);
+//			JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

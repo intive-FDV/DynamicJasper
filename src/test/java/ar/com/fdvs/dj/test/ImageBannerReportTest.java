@@ -63,8 +63,13 @@ public class ImageBannerReportTest extends TestCase {
 
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); headerStyle.setBorder(Border.PEN_2_POINT);
-		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
+		headerStyle.setBorderBottom(Border.PEN_2_POINT);
+		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
+		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setBackgroundColor(Color.DARK_GRAY);
+		headerStyle.setTextColor(Color.WHITE);
+		headerStyle.setTransparency(Transparency.OPAQUE);	
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18,Font._FONT_VERDANA,true));
@@ -86,8 +91,6 @@ public class ImageBannerReportTest extends TestCase {
 			.addBottomMargin(margin)
 			.addPrintBackgroundOnOddRows(true)
 			.addOddRowBackgroundStyle(oddRowStyle)
-			.addColumnsPerPage(new Integer(1))
-			.addColumnSpace(new Integer(5))
 			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.ALIGN_LEFT)
 			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.ALIGN_RIGHT)
 			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_LEFT)
@@ -129,7 +132,7 @@ public class ImageBannerReportTest extends TestCase {
 																					//values of the columnAmount in this group.
 			
 			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)	//idem for the columnaQuantity column
-			.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS)				//tells the group how to be shown, there are many
+			.addGroupLayout(GroupLayout.DEFAULT)				//tells the group how to be shown, there are many
 																					//posibilities, see the GroupLayout for more.
 			.build();
 		
@@ -165,7 +168,7 @@ public class ImageBannerReportTest extends TestCase {
 			
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ImageBannerReportTest.pdf");
-			JasperViewer.viewReport(jp);
+//			JasperViewer.viewReport(jp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

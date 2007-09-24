@@ -114,8 +114,8 @@ public class HiddenColumnReportTest2 extends TestCase {
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.addColumnProperty("state", String.class.getName()).addTitle(
-						"State:").addWidth(40)
-				.addStyle(specialDetailStyle).addHeaderStyle(specialHeaderStyle).build();
+						"State:").addWidth(80)
+				.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
 				.addColumnProperty("branch", String.class.getName()).addTitle(
@@ -155,14 +155,14 @@ public class HiddenColumnReportTest2 extends TestCase {
 						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,
 						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
+				.addGroupLayout(GroupLayout.DEFAULT_WITH_HEADER) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
 		ColumnsGroup g2 = gb2.addCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
 				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
-				.addGroupLayout(GroupLayout.DEFAULT) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
+				.addGroupLayout(GroupLayout.EMPTY) // tells the group how to be shown, there are many posibilities, see the GroupLayout for more.
 				.build();
 
 		drb.addColumn(columnState);
@@ -191,8 +191,8 @@ public class HiddenColumnReportTest2 extends TestCase {
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/HiddenColumnReportTest.pdf");
-		JasperViewer.viewReport(jp);
-		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
+//		JasperViewer.viewReport(jp);
+//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}
