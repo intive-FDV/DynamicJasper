@@ -5,7 +5,42 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="1.2.2" date="2007-08-15" desc="JasperReports 2.0">    
+         <release version="1.3.2" date="2007-09-24" desc="minor styles fix">    
+           	<action dev="Juan Manuel Alvarez" type="fix">
+              The thin border is back, now the available border are: NO_BORDER, THIN, PEN_1_POINT, PEN_2_POINT, PEN_4_POINT and DOTTED
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="fix">
+              The Group Layouts behaviour changed, see HOW-TO hide a column
+            </action>
+         </release>
+         <release version="1.3.1" date="2007-09-17" desc="minor XLS improvements">    
+           	<action dev="Juan Manuel Alvarez" type="fix">
+              Fixed some flags for XLS exporting that where lost during refactorings: ignore pagination and print column names
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="add">
+              Example test for exporting to XLS
+            </action>
+         </release>
+         <release version="1.3.0" date="2007-08-21" desc="Subreports beta 2">    
+           	<action dev="Juan Manuel Alvarez" type="add">
+              Subreports support: Added SubReportBuilder class
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="add">
+              Subreports support: Hability to the DynamicReportBuilder to concatenate subreports in a single report
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="add">
+              Subreports support: Added 2 tests to be used as examples (SubReportBuilderTest and ConcatenatedReportTest)
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="add">
+              Subreports support: HOW-TO documentation in the site
+            </action>
+         </release>
+         <release version="1.3.0-beta1" date="2007-07-20" desc="Subreports early release">    
+           	<action dev="Juan Manuel Alvarez" type="add">
+              Subreports support: see SubReportTest test case.
+            </action>
+         </release>
+         <release version="1.2.2" date="2007-08-15" desc="JasperReports 2.0 (internal)">    
            	<action dev="Juan Manuel Alvarez" type="add">
               Support for JasperReports 2.0
             </action>

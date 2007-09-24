@@ -58,7 +58,7 @@ public class StylesReportTest extends TestCase {
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); 
-		headerStyle.setBorderTop(Border.MEDIUM);
+		headerStyle.setBorderTop(Border.PEN_2_POINT);
 		headerStyle.setBorderBottom(Border.THIN);
 		headerStyle.setBackgroundColor(Color.blue);
 		headerStyle.setTransparency(Transparency.OPAQUE);

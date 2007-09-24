@@ -63,7 +63,7 @@ public class ChartReportTest extends TestCase {
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorder(Border.MEDIUM);
+		headerStyle.setBorder(Border.PEN_2_POINT);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 
@@ -77,17 +77,17 @@ public class ChartReportTest extends TestCase {
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		int margin = 20;
 		drb
 				.addTitleStyle(titleStyle)
 				.addTitle("November 2006 sales report")					//defines the title of the report
 				.addSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")				
 				.addDetailHeight(new Integer(15)).addLeftMargin(margin)
-				.addRightMargin(margin).addTopMargin(margin).addBottomMargin(
-						margin).addPrintBackgroundOnOddRows(true)
-				.addOddRowBackgroundStyle(oddRowStyle).addColumnsPerPage(
-						new Integer(1)).addColumnSpace(new Integer(5));
+				.addMargins(margin, margin, margin, margin)
+				.addPrintBackgroundOnOddRows(true)
+				.setPrintColumnNames(false)
+				.addOddRowBackgroundStyle(oddRowStyle);
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.addColumnProperty("state", String.class.getName()).addTitle(
@@ -132,7 +132,7 @@ public class ChartReportTest extends TestCase {
 						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,
 						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.addGroupLayout(GroupLayout.DEFAULT_WITH_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
 		
 		
@@ -165,7 +165,9 @@ public class ChartReportTest extends TestCase {
 
 		drb.addChart(chart); //add chart
 
-        return drb.build();
+		DynamicReport dr = drb.build();
+		
+		return dr;
 	}
 
 	public void testReport() {
@@ -176,7 +178,7 @@ public class ChartReportTest extends TestCase {
 
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), dummyCollection);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ChartReportTest.pdf");
-		JasperViewer.viewReport(jp);
+//		JasperViewer.viewReport(jp);
 //		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();

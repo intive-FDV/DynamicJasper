@@ -42,7 +42,6 @@ public class DJResult extends JasperReportsResult {
     private String dynamicReport;
 
     private String documentFormat;
-    private static final long serialVersionUID = 8272276796810374927L;
 
     public void setDynamicReport(final String _dynamicReport) {
         dynamicReport = _dynamicReport;
