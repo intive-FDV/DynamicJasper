@@ -23,7 +23,7 @@ public class DataSetFactory {
 			dataSet = createBarDataset(group,parentGroup, var);
 		}
 		
-		if (dataSet == null); //TODO: exception "Unknown chart type"
+		//if (dataSet == null); //TODO: exception "Unknown chart type"
 		
 		return dataSet;
 	}

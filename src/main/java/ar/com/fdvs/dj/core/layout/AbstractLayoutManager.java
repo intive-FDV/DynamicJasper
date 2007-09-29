@@ -547,8 +547,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			int max = 0;
 			for (int i = 0; i < band.getElements().length; i++) {
 				JRDesignElement element = (JRDesignElement) band.getElements()[i];
-				if ( (element.getHeight() + element.getY()) > max);
-				max = element.getHeight() + element.getY();
+				if ( (element.getHeight() + element.getY()) > max)
+					max = element.getHeight() + element.getY();
 			}
 			chart.setY(max +5 );
 		}	

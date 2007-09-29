@@ -1,6 +1,8 @@
 package ar.com.fdvs.dj.test.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Statistic {
 	
@@ -9,6 +11,15 @@ public class Statistic {
 	private float percentage;
 	private float average;
 	private float amount;
+	
+	public static List dummy3 = new ArrayList();
+	
+	static {
+		dummy3.add(new DummyLevel3("name1",new Long(1)));
+		dummy3.add(new DummyLevel3("name2",new Long(2)));
+		dummy3.add(new DummyLevel3("name3",new Long(3)));
+		dummy3.add(new DummyLevel3("name3",new Long(4)));
+	}
 	
 	public Statistic() {
 		super();
@@ -50,6 +61,9 @@ public class Statistic {
 	}
 	public void setAmount(float amount) {
 		this.amount = amount;
+	}
+	public List getDummy3() {
+		return dummy3;
 	}
 	
 }

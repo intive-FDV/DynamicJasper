@@ -1,11 +1,9 @@
 package ar.com.fdvs.dj.output;
 
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JasperPrint;
-
 import java.util.Map;
 
-import ar.com.fdvs.dj.output.FormatInfoRegistry;
+import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JasperPrint;
 
 /**
  * @author Alejandro Gomez

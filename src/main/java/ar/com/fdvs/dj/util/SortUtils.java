@@ -20,6 +20,7 @@ public class SortUtils {
                 info.add(new SortInfo((String)object, true));
             } else if (object instanceof ExpressionColumn) {
             	//do nothing with expression columns
+            	continue;
 	        } else if (object instanceof PropertyColumn) {
 	        	info.add(new SortInfo(((PropertyColumn)object).getColumnProperty().getProperty(), true));
 	        }
