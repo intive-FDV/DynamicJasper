@@ -34,6 +34,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import net.sf.jasperreports.engine.JRElement;
 import net.sf.jasperreports.engine.JRExpression;
@@ -80,6 +81,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	
 	protected static final String EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() != 1)";
 	protected static final String EXPRESSION_TRUE_WHEN_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() == 1)";
+
+	private Random subReportRandom = new Random();
 
 	protected void startLayout() {
 		super.startLayout();
@@ -458,9 +461,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			//The data source
 			subreport.setDataSourceExpression(SubReportUtil.getDataSourceExpression(sr));
 			
+			int random_ = subReportRandom.nextInt();
 			//the subreport design
 			JRDesignExpression srExpression = new JRDesignExpression();
-			String paramname = "subreport_" + position + "_" + getReport().getColumnsGroups().indexOf(columnsGroup) + "_" + footerSubreportsList.indexOf(sr);
+			String paramname = "subreport_" + position + "_" + getReport().getColumnsGroups().indexOf(columnsGroup) + "_" + footerSubreportsList.indexOf(sr) + "-rnd-" + random_;
 			((DynamicJasperDesign)getDesign()).getParametersWithValues().put(paramname, sr.getReport());
 			srExpression.setText("("+JasperReport.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get( \""+ paramname +"\" )");
 			srExpression.setValueClass(JasperReport.class);

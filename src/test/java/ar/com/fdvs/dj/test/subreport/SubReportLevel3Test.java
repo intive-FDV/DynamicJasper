@@ -29,44 +29,30 @@
 
 package ar.com.fdvs.dj.test.subreport;
 
-import java.awt.Color;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
-import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.builders.GroupBuilder;
-import ar.com.fdvs.dj.domain.constants.Border;
-import ar.com.fdvs.dj.domain.constants.Font;
-import ar.com.fdvs.dj.domain.constants.GroupLayout;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.constants.Stretching;
-import ar.com.fdvs.dj.domain.constants.Transparency;
-import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.Subreport;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public class SubReportLevel3Test extends TestCase {
+
+	private HashMap generatedParams;
 
 	public DynamicReport buildReport() throws Exception {
 		
@@ -75,12 +61,8 @@ public class SubReportLevel3Test extends TestCase {
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
-//			.addColumn("Product Line", "productLine", String.class.getName(),50)
-//			.addColumn("Item", "item", String.class.getName(),50)
-//			.addColumn("Item Code", "id", Long.class.getName(),30,true)
-//			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
-//			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
+			.addMargins(5, 5, 20, 20)
 			.addField("statistics", Collection.class.getName())
 			.addTitle("November 2006 sales report")
 			.addSubtitle("This report was generated at " + new Date())
@@ -92,20 +74,21 @@ public class SubReportLevel3Test extends TestCase {
 //		//Create de deepest subreport (level 3)
 		DynamicReport drLevel3 = createLevel3Subreport();
 		JasperReport srLevel3 = DynamicJasperHelper.generateJasperReport(drLevel3, new ClassicLayoutManager());
-//		
-//		
-//		//Create level 2 subreport
+
+		//Create level 2 subreport
 		DynamicReport drLevel2 = createLevel2Subreport();
 		ColumnsGroup srl2group1 = (ColumnsGroup) drLevel2.getColumnsGroups().get(0);
-//		
+		
 		Subreport level3Sr = new Subreport();
 		level3Sr.setReport(srLevel3);
 		level3Sr.setDataSourceExpression("dummy3");
 		level3Sr.setDataSourceOrigin(DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD);
 		level3Sr.setDataSourceType(DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 		srl2group1.getHeaderSubreports().add(level3Sr); //put level 3 subreport inside level 2 subreport
-		JasperReport jrLevel2 = DynamicJasperHelper.generateJasperReport(drLevel2, new ClassicLayoutManager());
-//		
+		
+		generatedParams = new HashMap();
+		JasperReport jrLevel2 = DynamicJasperHelper.generateJasperReport(drLevel2, new ClassicLayoutManager(),generatedParams);
+
 		//now create and put level2 subreport in the main subreport
 		Subreport headerSubreport = new Subreport();
 		headerSubreport.setReport(jrLevel2);
@@ -115,7 +98,6 @@ public class SubReportLevel3Test extends TestCase {
 		ColumnsGroup mainReportGroup1 = (ColumnsGroup) mainReport.getColumnsGroups().get(0);	
 		mainReportGroup1.getHeaderSubreports().add(headerSubreport);
 		
-
 		return mainReport;
 	}
 
@@ -154,10 +136,9 @@ public class SubReportLevel3Test extends TestCase {
 		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
-		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
+		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, generatedParams );
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/SubReportLevel3Test.pdf");
 		JasperViewer.viewReport(jp);
-//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

@@ -300,7 +300,6 @@ public final class DynamicJasperHelper {
 
 	public final static JasperReport generateJasperReport(DynamicReport dr, AbstractLayoutManager layoutManager) {
 		log.info("generating JasperReport");
-//		JasperPrint jp = null;
 		JasperReport jr = null;
 		try {
 			DynamicJasperDesign jd = generateJasperDesign(dr);
@@ -308,7 +307,24 @@ public final class DynamicJasperHelper {
 			layoutManager.applyLayout(jd, dr);
             JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
             jr = JasperCompileManager.compileReport(jd);
-//			jp = JasperFillManager.fillReport(jr,jd.getParametersWithValues(), ds);
+		} catch (CoreException e) {
+			log.error(e.getMessage());
+		} catch (JRException e) {
+			log.error(e.getMessage());
+		}
+		return jr;
+	}
+
+	public final static JasperReport generateJasperReport(DynamicReport dr, AbstractLayoutManager layoutManager, Map generatedParams) {
+		log.info("generating JasperReport");
+		JasperReport jr = null;
+		try {
+			DynamicJasperDesign jd = generateJasperDesign(dr);
+			registerEntities(jd, dr);
+			layoutManager.applyLayout(jd, dr);
+			JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
+			jr = JasperCompileManager.compileReport(jd);
+			generatedParams.putAll(jd.getParametersWithValues());
 		} catch (CoreException e) {
 			log.error(e.getMessage());
 		} catch (JRException e) {
