@@ -5,6 +5,11 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="1.3.3" date="2007-09-28" desc="minor styles fix">    
+           	<action dev="Juan Manuel Alvarez" type="fix">
+              You could have many subreports, but not recursive subreports 
+            </action>
+         </release>
          <release version="1.3.2" date="2007-09-24" desc="minor styles fix">    
            	<action dev="Juan Manuel Alvarez" type="fix">
               The thin border is back, now the available border are: NO_BORDER, THIN, PEN_1_POINT, PEN_2_POINT, PEN_4_POINT and DOTTED
