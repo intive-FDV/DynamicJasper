@@ -63,7 +63,7 @@ public class GroupsReportTest extends TestCase {
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorder(Border.MEDIUM);
+		headerStyle.setBorder(Border.PEN_2_POINT);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 
@@ -131,7 +131,7 @@ public class GroupsReportTest extends TestCase {
 						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,
 						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)

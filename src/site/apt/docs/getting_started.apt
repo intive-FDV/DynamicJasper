@@ -77,7 +77,7 @@ Content
 
  This code produces the report shown below
  
-[../images/snapshots/fast report 01.jpg] Fast Report
+[../images/examples/group-default-style.jpg] Fast Report
 
   The <<FastReportBuilder>> provides the methods to pass the basic parameters to the report:
   
@@ -220,7 +220,7 @@ GroupBuilder gb1 = new GroupBuilder();
                                                                                     //values of the columnAmount in this group.
 
             .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)    //idem for the columnaQuantity column
-            .addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES)                //tells the group how to be shown, there are many
+            .addGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)                //tells the group how to be shown, there are many
                                                                                     //posibilities, see the GroupLayout class for more.
             .build();
 
@@ -270,3 +270,7 @@ DJChart chart =  cb.addType(DJChart.BAR_CHART)                          // defin
 				.addColumn(columnAmount)                       // define the column that will be represented
 				.build();
 +------------------------------------------------------------------------------------------------------------+
+
+ This code generate a report like this:
+ 
+[../images/examples/chart-report-test.jpg] Fast Report

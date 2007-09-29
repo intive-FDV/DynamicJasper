@@ -32,7 +32,6 @@ package ar.com.fdvs.dj.domain;
 import java.awt.Color;
 import java.io.Serializable;
 
-import net.sf.jasperreports.engine.base.JRBaseStyle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
@@ -49,7 +48,7 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
  * Usage example:</br>
  * Style headerStyle = new Style();</br>
  * headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);</br>
- * headerStyle.setBorder(Border.MEDIUM);</br>
+ * headerStyle.setBorder(Border.PEN_2_POINT);</br>
  * headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);</br>
  * headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);</br>
  */
@@ -218,7 +217,7 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setFontName(font.getFontName());
 		transformedStyle.setFontSize(font.getFontSize());
 		transformedStyle.setBold(font.isBold());
-		transformedStyle.setItalic(font.isIntalic());
+		transformedStyle.setItalic(font.isItalic());
 		transformedStyle.setUnderline(font.isUnderline());
 
 		transformedStyle.setBackcolor(getBackgroundColor());

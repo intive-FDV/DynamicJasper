@@ -32,23 +32,28 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>1.2.2</version>
+	<version>1.3.3-SNAPSHOT</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
-		DynamicJasper (DJ) is an API that hides the complexity of Jasper
-		Reports, it helps developers to save time when designing
-		simple/medium complexity reports generating the layout of the
-		report elements automatically. It creates reports dynamically,
-		defining at runtime the columns, column width, groups,
-		variables, fonts, etc (charts too!). DJ keeps full compatibility with 
-		Jasper Reports since its a tools that helps create reports
-		programmatically in a easy way (it only interferes with the
-		creation of the report design doing the layout of the elements).
+		<![CDATA[ 
+DynamicJasper (DJ) is an API that hides the complexity of Jasper
+Reports, it helps developers to save time when designing
+simple/medium complexity reports generating the layout of the
+report elements automatically. It creates reports dynamically,
+defining at runtime the columns, column width (auto width), groups,
+variables, fonts, charts, sub reports (that can also be dynamic), page size
+and everything else that you can define at design time.
 
-		You can use the classic .jrxml files as templates while the
-		content and layout of the report elements are handled by the DJ
-		API.
+DJ keeps full compatibility with Jasper Reports since 
+it's a tool that helps create reports programmatically in 
+a easy way (it only interferes with the creation of the report 
+design doing the layout of the elements).
+
+You can use the classic .jrxml files as templates while the
+content and layout of the report elements are handled by the DJ
+API.
+		]]>
 	</description>
 	<url>http://sourceforge.net/projects/dynamicjasper</url>
 
@@ -63,6 +68,11 @@
 			<url>http://www.fdvs.com.ar/embuRepo</url>
 			<name>Embu Deploy Repository</name>
 		</repository>
+		<repository>
+			<id>djmaven2</id>
+			<url>http://www.fdvs.com.ar/djmaven2</url>
+			<name>DynamicJasper public Repository</name>
+		</repository>		
 	</repositories>
 	<build>
 		<plugins>
@@ -73,6 +83,17 @@
 					<execution>
 						<goals>
 							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -168,7 +189,9 @@
 				        <artifactId>maven-site-plugin</artifactId>
 				        <configuration>
 				          <templateDirectory>${basedir}/src/config/</templateDirectory>
+<!--				          <templatCe>maven-site-tables.vm</template>-->
 				          <template>maven-site.vm</template>
+				          <locales>en,es</locales>
 				        </configuration>
 				      </plugin>					
 
@@ -190,7 +213,19 @@
 				</plugins>
 			</reporting>
 		</profile>
+		<profile>
+			<id>publicRepo</id>
+		<distributionManagement>
+			<repository>
+				<id>djmaven2</id>
+				<name>DynamicJasper public Repository</name>
+				<url>ftp://fdvs.com.ar/djmaven2/</url>
+			</repository>
+		</distributionManagement>			
+		</profile>					
 	</profiles>
+	
+
 
 	<dependencies>
 		<dependency>
@@ -202,7 +237,7 @@
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
-			<version>2.0.1</version>
+			<version>1.3.4</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
@@ -248,6 +283,18 @@
             <artifactId>servlet-api</artifactId>
             <version>2.3</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+			<groupId>poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>[2.0.0,)</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+			<groupId>jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6</version>
+            <scope>test</scope>
         </dependency>
 	</dependencies>
 	<distributionManagement>
@@ -354,5 +401,30 @@
 				</script>			
 			]]>
 		</google_analitics_url>		
+		<google_adSense_script>
+			<![CDATA[
+				<script type="text/javascript"><!--
+				google_ad_client = "pub-7228421883024969";
+				google_ad_width = 728;
+				google_ad_height = 85;
+				google_ad_format = "728x90_as";
+				google_ad_type = "text_image";
+				google_ad_channel = "";
+				google_ui_features = "rc:6";
+				//-->
+				</script>
+				<script type="text/javascript"
+				  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>		
+			]]>
+		</google_adSense_script>		
+		<jetbrains_idea_banner>
+			<![CDATA[
+					<a href="http://www.jetbrains.com/idea/" 
+						style="display:block; width:88px; height:31px; border:0; margin:0;padding:0;text-decoration:none;text-indent:0;">
+						<img src="http://www.jetbrains.com/idea/opensource/img/banners/idea88x31_blue.gif" alt="The best Java IDE" border="0"/>
+					</a>
+			]]>
+		</jetbrains_idea_banner>		
 	</properties>
 </project>

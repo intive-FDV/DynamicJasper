@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Locale;
 
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
@@ -45,6 +46,7 @@ import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
+import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 
@@ -74,6 +76,8 @@ public class DynamicReportBuilder {
 	protected ArrayList globalFooterVariables;
 	protected ArrayList globalHeaderVariables;
 	protected ArrayList autoTexts;
+
+	protected ArrayList concatenatedReports = new ArrayList();
 	
 	public DynamicReportBuilder addAutoText(AutoText text) {
 		if (this.autoTexts == null)
@@ -139,21 +143,41 @@ public class DynamicReportBuilder {
 	public DynamicReport build(){
 		report.setOptions(options);
 		if (globalFooterVariables != null || globalHeaderVariables != null) {
-			buildGlobalGroup();
+			ColumnsGroup globalGroup = createDummyGroup();
+			report.getColumnsGroups().add(0,globalGroup);			
 		}
+		
+		concatenateReports();
+		
 		report.setAutoTexts(autoTexts);
 		return report;
 	}
 
-	private void buildGlobalGroup() {
+	private void concatenateReports() {
+		ArrayList aux = new ArrayList(concatenatedReports);
+//		Collections.reverse(aux);
+		for (Iterator iterator = aux.iterator(); iterator.hasNext();) {
+			Subreport subreport = (Subreport) iterator.next();
+			ColumnsGroup globalGroup = createDummyGroup();
+			globalGroup.getFooterSubreports().add(subreport);
+			report.getColumnsGroups().add(0,globalGroup);
+		}
+		
+	}
+
+	/**
+	 * @return
+	 */
+	private ColumnsGroup createDummyGroup() {
 		ColumnsGroup globalGroup = new ColumnsGroup();
 		globalGroup.setLayout(GroupLayout.EMPTY);
 		GlobalGroupColumn globalCol = new GlobalGroupColumn();
 		globalCol.setTitle(globalTitle);
+		
 		globalGroup.setColumnToGroupBy(globalCol);
 		globalGroup.setHeaderVariables(globalHeaderVariables);
 		globalGroup.setFooterVariables(globalFooterVariables);
-		report.getColumnsGroups().add(globalGroup);
+		return globalGroup;
 	}
 
 	public DynamicReportBuilder addTitle(String title) {
@@ -257,6 +281,27 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * When FALSE, no column names are printed (in the header band)
+	 * @param bool
+	 * @return
+	 */
+	public DynamicReportBuilder setPrintColumnNames(boolean bool) {
+		options.setPrintColumnNames(bool);
+		return this;
+	}
+
+	/**
+	 * When TRUE, no page break at all (useful for Excell)
+	 * Default is FALSE
+	 * @param bool
+	 * @return
+	 */
+	public DynamicReportBuilder setIgnorePagination(boolean bool) {
+		options.setIgnorePagination(bool);
+		return this;
+	}
+	
 
 	public DynamicReportBuilder addUseFullPageWidth(boolean useFullwidth) {
 		options.setUseFullPageWidth(useFullwidth);
@@ -379,7 +424,7 @@ public class DynamicReportBuilder {
 	}
 	
 	
-	public DynamicReportBuilder addMarginss(int top, int bottom, int left, int right) {
+	public DynamicReportBuilder addMargins(int top, int bottom, int left, int right) {
 		
 		options.setTopMargin(new Integer(top));
 		options.setBottomMargin(new Integer(bottom));
@@ -413,6 +458,16 @@ public class DynamicReportBuilder {
 	 */
 	public DynamicReportBuilder addReportLocale(Locale locale) {
 		report.setReportLocale(locale);
+		return this;
+	}
+
+	/**
+	 * All concatenated reports are shown in the same order they are inserted
+	 * @param jrFooterSubreport
+	 * @return
+	 */
+	public DynamicReportBuilder addConcatenatedReport(Subreport jrFooterSubreport) {
+		concatenatedReports.add(jrFooterSubreport);
 		return this;
 	}
 	

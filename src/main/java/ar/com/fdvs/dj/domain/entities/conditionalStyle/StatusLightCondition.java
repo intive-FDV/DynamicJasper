@@ -60,11 +60,11 @@ public class StatusLightCondition implements CustomExpression {
 		Number number = (Number)object;
 
 		if (mode == 0){
-			return new Boolean(min.doubleValue() > number.doubleValue());
+			return Boolean.valueOf((min.doubleValue() > number.doubleValue()));
 		} else if (mode == 1) {
-			return new Boolean(min.doubleValue() <= number.doubleValue() && max.doubleValue() > number.doubleValue());
+			return Boolean.valueOf(min.doubleValue() <= number.doubleValue() && max.doubleValue() > number.doubleValue());
 		} else {
-			return new Boolean(max.doubleValue() <= number.doubleValue());
+			return Boolean.valueOf(max.doubleValue() <= number.doubleValue());
 		}
 
 	}

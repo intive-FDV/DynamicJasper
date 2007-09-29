@@ -71,7 +71,7 @@ public class FixedColumnWidhTest extends TestCase {
 			.addSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")					
 			.addDetailHeight(15)						//defines the height for each record of the report
-			.addMarginss(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
+			.addMargins(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
 			.addDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
 			.addColumnsPerPage(1);						//defines columns per page (like in the telephone guide)
 		
