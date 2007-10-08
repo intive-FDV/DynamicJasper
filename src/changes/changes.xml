@@ -5,12 +5,15 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="1.3.3" date="2007-09-28" desc="minor styles fix">    
+         <release version="1.3.3" date="2007-09-28" desc="minor styles fix">
            	<action dev="Juan Manuel Alvarez" type="fix">
-              You could have many subreports, but not recursive subreports 
+              You could have many subreports, but not recursive subreports
+            </action>
+           	<action dev="Alejandro Gomez" type="fix">
+              Issue with file encoding is fixed for every compiler, not just eclipse jdt compiler.
             </action>
          </release>
-         <release version="1.3.2" date="2007-09-24" desc="minor styles fix">    
+         <release version="1.3.2" date="2007-09-24" desc="minor styles fix">
            	<action dev="Juan Manuel Alvarez" type="fix">
               The thin border is back, now the available border are: NO_BORDER, THIN, PEN_1_POINT, PEN_2_POINT, PEN_4_POINT and DOTTED
             </action>
@@ -18,7 +21,7 @@
               The Group Layouts behaviour changed, see HOW-TO hide a column
             </action>
          </release>
-         <release version="1.3.1" date="2007-09-17" desc="minor XLS improvements">    
+         <release version="1.3.1" date="2007-09-17" desc="minor XLS improvements">
            	<action dev="Juan Manuel Alvarez" type="fix">
               Fixed some flags for XLS exporting that where lost during refactorings: ignore pagination and print column names
             </action>
@@ -26,7 +29,7 @@
               Example test for exporting to XLS
             </action>
          </release>
-         <release version="1.3.0" date="2007-08-21" desc="Subreports beta 2">    
+         <release version="1.3.0" date="2007-08-21" desc="Subreports beta 2">
            	<action dev="Juan Manuel Alvarez" type="add">
               Subreports support: Added SubReportBuilder class
             </action>
@@ -40,45 +43,45 @@
               Subreports support: HOW-TO documentation in the site
             </action>
          </release>
-         <release version="1.3.0-beta1" date="2007-07-20" desc="Subreports early release">    
+         <release version="1.3.0-beta1" date="2007-07-20" desc="Subreports early release">
            	<action dev="Juan Manuel Alvarez" type="add">
               Subreports support: see SubReportTest test case.
             </action>
          </release>
-         <release version="1.2.2" date="2007-08-15" desc="JasperReports 2.0 (internal)">    
+         <release version="1.2.2" date="2007-08-15" desc="JasperReports 2.0 (internal)">
            	<action dev="Juan Manuel Alvarez" type="add">
               Support for JasperReports 2.0
             </action>
          </release>
-         <release version="1.2.1" date="2007-08-15" desc="bugfix release">    
+         <release version="1.2.1" date="2007-08-15" desc="bugfix release">
            	<action dev="Alejandro Gomez" type="add">
               Minor issue with files not encoded in the system default encoding.
             </action>
          </release>
-         <release version="1.2.0" date="2007-07-20" desc="Autotext release">    
+         <release version="1.2.0" date="2007-07-20" desc="Autotext release">
            	<action dev="Mariano Simone" type="add">
               Autotext feature: Out of the box "Page x/y", "Created on {date}" and common autotexts in header and footer.
             </action>
            	<action dev="Juan Manuel Alvarez" type="add">
-              i18N (Internationalization) - Autotext uses i18N (dj-messages.properties), you can also specify a 
+              i18N (Internationalization) - Autotext uses i18N (dj-messages.properties), you can also specify a
               custom resource bundle and a Locale to the report.
             </action>
            	<action dev="Juan Manuel Alvarez" type="fix">
               Title in new Page: Some how we lost this feature in a refactor, its back.
             </action>
            	<action dev="Juan Manuel Alvarez" type="add">
-             added 2 more convenient methods on DynamicJasperHelper class. 
-             DynamicJasperHelper.generateJasperPrint(...) can now receive as a datasource a Collection or a ResultSet besides the JRDataSource  
+             added 2 more convenient methods on DynamicJasperHelper class.
+             DynamicJasperHelper.generateJasperPrint(...) can now receive as a datasource a Collection or a ResultSet besides the JRDataSource
             </action>
            	<action dev="Juan Manuel Alvarez" type="fix">
               Minor cosmetic issue with Image Banners, when usign different images for the first page and the rest of the report, there was
-              a blank space betwen the image in the first page and the rest of the report. 
+              a blank space betwen the image in the first page and the rest of the report.
             </action>
            	<action dev="Juan Manuel Alvarez" type="add">
            		Tons of documentation in the project website (how-to and getting started)
             </action>
          </release>
-         <release version="1.1.3" date="2007-06-29" desc="minor release">    
+         <release version="1.1.3" date="2007-06-29" desc="minor release">
            	<action dev="Juan Manuel Alvarez" type="add">
               Font has missing attribute for italic and underline, now there are setters ang getter for every property.
             </action>
@@ -86,12 +89,12 @@
               Padding: Now you can configure different padding for every side
             </action>
          </release>
-         <release version="1.1.2" date="2007-05-13" desc="minor release">    
+         <release version="1.1.2" date="2007-05-13" desc="minor release">
            	<action dev="Juan Manuel Alvarez" type="add" due-to="gzfqh3" due-to-email="gzfqh3@sourceforge.net">
               Now you can define styles for header and footer variables. (see StylesReport2Test)
             </action>
          </release>
-         <release version="1.1.1" date="2007-04-21" desc="minor release">    
+         <release version="1.1.1" date="2007-04-21" desc="minor release">
            	<action dev="Mariano Simone" type="add">
                User-Defined colors can be used in charts usign Lists of colors
             </action>
@@ -99,8 +102,8 @@
                Text elements can now be rotated left or right (through the Style class)
             </action>
          </release>
-         
-         <release version="1.1.0" date="2007-03-22" desc="Charting release">    
+
+         <release version="1.1.0" date="2007-03-22" desc="Charting release">
            <action dev="Mariano Simone" type="add">
                Charting capabilities. Added builder to easily add charts to DynamicJasper. (See the examples)
            </action>
@@ -123,53 +126,53 @@
                DynamicJasper result type for webwork integration
            </action>
          </release>
-      <release version="1.0.2" date="2007-02-27" desc="Minor Release">    
+      <release version="1.0.2" date="2007-02-27" desc="Minor Release">
            <action dev="Juan Manuel Alvarez" type="add">
                Playground. Example webapp made in GWT that shows the DynamicJasper potential
-           </action>         
+           </action>
            <action dev="Juan Manuel Alvarez" type="add">
                Added utility class to sort the datasource using the column of the report as criteria
-           </action>         
+           </action>
            <action dev="Juan Manuel Alvarez" type="add">
                Added FastReportBuilder that simplifies even more the report creation process
-           </action>         
+           </action>
            <action dev="Juan Manuel Alvarez" type="update">
                Documentation and examples (see the test sources)
-           </action>         
+           </action>
            <action dev="Juan Manuel Alvarez" type="update">
                More control over the styles (borders)
-           </action>         
+           </action>
          </release>
-      <release version="1.0.1" date="2007-02-08" desc="Minor Release">    
+      <release version="1.0.1" date="2007-02-08" desc="Minor Release">
            <action dev="Juan Manuel Alvarez" type="add">
                Added the capability to place images on the header of the first page and the rest of the report
-           </action>         
+           </action>
            <action dev="Juan Manuel Alvarez" type="update">
                The DynamicReportBuilder can set page size and orientation
-           </action>         
+           </action>
            <action dev="Juan Manuel Alvarez" type="add">
                Added Sreenshots and pdf examples of the reports
-           </action>         
+           </action>
            <action dev="Juan Manuel Alvarez" type="update">
                Documentation is updated with screen shots
-           </action>                      
+           </action>
            <action dev="Juan Manuel Alvarez" type="remove">
                Removed Unneded Cglib dependency.
-           </action>                      
+           </action>
          </release>
-      <release version="1.0" date="2007-02-01" desc="Initial Release">   
+      <release version="1.0" date="2007-02-01" desc="Initial Release">
            <action dev="Juan Manuel Alvarez" type="add">
                Initial version of DynamicJasper
-           </action>                      
+           </action>
            <action dev="Juan Manuel Alvarez" type="add">
                Documentation with examples
-           </action>                      
+           </action>
 <!--           <action dev="Juan Manuel Alvarez" type="fix">-->
 <!--               No Fixes.-->
 <!--           </action>        -->
 <!--           <action dev="Juan Manuel Alvarez" type="remove">-->
 <!--              Nothing deleted.-->
 <!--           </action>        -->
-         </release>         
+         </release>
    </body>
 </document>
