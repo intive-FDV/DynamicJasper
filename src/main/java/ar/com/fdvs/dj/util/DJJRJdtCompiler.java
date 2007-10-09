@@ -27,6 +27,8 @@ public class DJJRJdtCompiler extends JRJdtCompiler {
             return JRClassLoader.loadClassForName("org.eclipse.jdt.internal.compiler.Compiler") != null;
         } catch (ClassNotFoundException ex) {
             return false;
-        }
+        } catch (NoClassDefFoundError e) {
+			return false;
+		}
     }
 }
