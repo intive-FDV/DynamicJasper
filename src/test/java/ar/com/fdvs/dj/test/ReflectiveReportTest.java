@@ -42,9 +42,9 @@ public class ReflectiveReportTest extends TestCase {
     }
 
 	public void doReport(final DynamicReport _report, final Collection _data) {
-        final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(_report, new ClassicLayoutManager(), _data);
-        JasperViewer.viewReport(jasperPrint);
         try {
+        	final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(_report, new ClassicLayoutManager(), _data);
+        	JasperViewer.viewReport(jasperPrint);
 			ReportExporter.exportReport(jasperPrint, System.getProperty("user.dir")+ "/target/ReflectiveReportTest.pdf");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

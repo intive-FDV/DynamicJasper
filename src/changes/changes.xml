@@ -9,6 +9,15 @@
            	<action dev="Juan Manuel Alvarez" type="fix">
               You could have many subreports, but not recursive subreports
             </action>
+           	<action dev="Juan Manuel Alvarez" type="fix">
+              Deprecated methods in builders (DynamicReportBuilder, etc) and create new ones to give meaninfull names 
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="fix">
+              DynamicJasperHelper methods now throws exceptions as they should always do 
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="fix">
+              DynamicJasperHelper methods are not "final" anymore. 
+            </action>
            	<action dev="Alejandro Gomez" type="fix">
               Issue with file encoding is fixed for every compiler, not just eclipse jdt compiler.
             </action>

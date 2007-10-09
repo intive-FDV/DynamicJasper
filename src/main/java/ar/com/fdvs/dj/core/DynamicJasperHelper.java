@@ -229,24 +229,23 @@ public final class DynamicJasperHelper {
 		return djd;
 	}
 
-	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds) {
+	public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds) throws JRException {
         return generateJasperPrint(dr, layoutManager, ds, new HashMap());
     }
 
-	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, Collection collection) {
+	public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, Collection collection) throws JRException {
 		JRDataSource ds = new JRBeanCollectionDataSource(collection);
 		return generateJasperPrint(dr, layoutManager, ds, new HashMap());
 	}
 
-	public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, ResultSet resultSet) {
+	public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, ResultSet resultSet) throws JRException {
 		JRDataSource ds = new JRResultSetDataSource(resultSet);
 		return generateJasperPrint(dr, layoutManager, ds, new HashMap());
 	}
 
-    public final static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds, Map _parameters) {
+    public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds, Map _parameters) throws JRException {
 		log.info("generating JasperPrint");
 		JasperPrint jp = null;
-		try {
 			DynamicJasperDesign jd = generateJasperDesign(dr);
 			Map params = new HashMap();
 			if (_parameters != null){
@@ -259,12 +258,8 @@ public final class DynamicJasperHelper {
             JasperReport jr = JasperCompileManager.compileReport(jd);
             params.putAll(jd.getParametersWithValues());
             jp = JasperFillManager.fillReport(jr, params, ds);
-		} catch (CoreException e) {
-			log.error(e.getMessage(),e);
-		} catch (JRException e) {
-			log.error(e.getMessage(),e);
-		}
-		return jp;
+
+            return jp;
 	}
 
     /**
@@ -297,20 +292,14 @@ public final class DynamicJasperHelper {
 
 	}
 
-	public final static JasperReport generateJasperReport(DynamicReport dr, AbstractLayoutManager layoutManager) {
+	public static JasperReport generateJasperReport(DynamicReport dr, AbstractLayoutManager layoutManager) throws JRException {
 		log.info("generating JasperReport");
 		JasperReport jr = null;
-		try {
 			DynamicJasperDesign jd = generateJasperDesign(dr);
 			registerEntities(jd, dr);
 			layoutManager.applyLayout(jd, dr);
             JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
             jr = JasperCompileManager.compileReport(jd);
-		} catch (CoreException e) {
-			log.error(e.getMessage());
-		} catch (JRException e) {
-			log.error(e.getMessage());
-		}
 		return jr;
 	}
 
@@ -332,7 +321,7 @@ public final class DynamicJasperHelper {
 		return jr;
 	}
 
-	public final static ColumnsGroup getColumnGroup(AbstractColumn col, List groups) {
+	public static ColumnsGroup getColumnGroup(AbstractColumn col, List groups) {
 		Iterator it = groups.iterator();
 		while (it.hasNext()) {
 			ColumnsGroup group = (ColumnsGroup) it.next();
@@ -347,7 +336,7 @@ public final class DynamicJasperHelper {
 	 * @param groups
 	 * @return
 	 */
-	public final static boolean existsGroupWithColumnNames(List groups) {
+	public static boolean existsGroupWithColumnNames(List groups) {
 		Iterator it = groups.iterator();
 		while (it.hasNext()) {
 			ColumnsGroup group = (ColumnsGroup) it.next();
