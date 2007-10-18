@@ -2,14 +2,20 @@ package ar.com.fdvs.dj.domain.builders;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperReport;
+import ar.com.fdvs.dj.core.DJBuilderException;
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 
 public class SubReportBuilder {
 
 	private Subreport subreport = new Subreport();
 	
-	public Subreport build(){
+	public Subreport build() throws DJBuilderException{
+		if (subreport.getPath() == null && subreport.getDynamicReport() == null && subreport.getReport() == null)
+			throw new DJBuilderException("No subreport origin defined (path, dynamicReport, jasperReport)");
+		
 		return subreport;
 	}
 	
@@ -29,7 +35,7 @@ public class SubReportBuilder {
 	 * Collection, Array, ResultSet, or any of the data source types provided by Jasper Reports
 	 * @return
 	 */
-	public SubReportBuilder addDataSource(int origin, int type, String expression) {
+	public SubReportBuilder setDataSource(int origin, int type, String expression) {
 		subreport.setDataSourceOrigin(origin);
 		subreport.setDataSourceType(type);
 		subreport.setDataSourceExpression(expression);
@@ -42,7 +48,7 @@ public class SubReportBuilder {
 	 * @param expression
 	 * @return
 	 */
-	public SubReportBuilder addDataSource(int origin, String expression) {
+	public SubReportBuilder setDataSource(int origin, String expression) {
 		subreport.setDataSourceOrigin(origin);
 		subreport.setDataSourceType(DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE);
 		subreport.setDataSourceExpression(expression);
@@ -55,7 +61,7 @@ public class SubReportBuilder {
 	 * @param expression
 	 * @return
 	 */
-	public SubReportBuilder addDataSource(String expression) {
+	public SubReportBuilder setDataSource(String expression) {
 		subreport.setDataSourceOrigin(DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER);
 		subreport.setDataSourceType(DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE);
 		subreport.setDataSourceExpression(expression);
@@ -64,6 +70,17 @@ public class SubReportBuilder {
 	
 	public SubReportBuilder addReport(JasperReport jasperReport) {
 		subreport.setReport(jasperReport);
+		return this;
+	}
+
+	public SubReportBuilder setDynamicReport(DynamicReport dynamicReport, LayoutManager layoutManager) {
+		subreport.setDynamicReport(dynamicReport);
+		subreport.setLayoutManager(layoutManager);
+		return this;
+	}
+
+	public SubReportBuilder setPathToReport(String path) {
+		subreport.setPath(path);
 		return this;
 	}
 	

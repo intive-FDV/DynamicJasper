@@ -50,7 +50,7 @@ import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
 
-public class SubReportLevel3Test extends TestCase {
+public class SubReportTest2 extends TestCase {
 
 	private HashMap generatedParams;
 
@@ -62,41 +62,24 @@ public class SubReportLevel3Test extends TestCase {
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
 			.addGroups(2)
-			.addMargins(5, 5, 20, 20)
+			.setMargins(5, 5, 20, 20)
 			.addField("statistics", Collection.class.getName())
-			.addTitle("November 2006 sales report")
-			.addSubtitle("This report was generated at " + new Date())
-			.addUseFullPageWidth(true);	
+			.setTitle("November 2006 sales report")
+			.setSubtitle("This report was generated at " + new Date())
+			.setUseFullPageWidth(true);	
 
-		DynamicReport mainReport = drb.build();	
 		
 
-//		//Create the deepest sub-report (level 3)
-		DynamicReport drLevel3 = createLevel3Subreport();
-		JasperReport srLevel3 = DynamicJasperHelper.generateJasperReport(drLevel3, new ClassicLayoutManager());
 
 		//Create level 2 sub-report
 		DynamicReport drLevel2 = createLevel2Subreport();
-		ColumnsGroup srl2group1 = (ColumnsGroup) drLevel2.getColumnsGroups().get(0);
 		
-		Subreport level3Sr = new Subreport();
-		level3Sr.setReport(srLevel3);
-		level3Sr.setDataSourceExpression("dummy3");
-		level3Sr.setDataSourceOrigin(DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD);
-		level3Sr.setDataSourceType(DJConstants.DATA_SOURCE_TYPE_COLLECTION);
-		srl2group1.getHeaderSubreports().add(level3Sr); //put level 3 subreport inside level 2 subreport
-		
-		generatedParams = new HashMap();
-		JasperReport jrLevel2 = DynamicJasperHelper.generateJasperReport(drLevel2, new ClassicLayoutManager(),generatedParams);
-
 		//now create and put level2 subreport in the main subreport
-		Subreport headerSubreport = new Subreport();
-		headerSubreport.setReport(jrLevel2);
-		headerSubreport.setDataSourceExpression("statistics");
-		headerSubreport.setDataSourceOrigin(DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD);
-		headerSubreport.setDataSourceType(DJConstants.DATA_SOURCE_TYPE_COLLECTION);
-		ColumnsGroup mainReportGroup1 = (ColumnsGroup) mainReport.getColumnsGroups().get(0);	
-		mainReportGroup1.getHeaderSubreports().add(headerSubreport);
+		drb.addSubreportInGroupFooter(1, drLevel2, new ClassicLayoutManager(), 
+				"statistics", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
+		
+		DynamicReport mainReport = drb.build();	
+
 		
 		return mainReport;
 	}
@@ -137,7 +120,7 @@ public class SubReportLevel3Test extends TestCase {
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, generatedParams );
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/SubReportLevel3Test.pdf");
+		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/SubReportTest2.pdf");
 		JasperViewer.viewReport(jp);
 	} catch (Exception e) {
 		e.printStackTrace();
@@ -145,7 +128,7 @@ public class SubReportLevel3Test extends TestCase {
 }
 
 	public static void main(String[] args) {
-		SubReportLevel3Test test = new SubReportLevel3Test();
+		SubReportTest2 test = new SubReportTest2();
 		test.testReport();
 	}
 

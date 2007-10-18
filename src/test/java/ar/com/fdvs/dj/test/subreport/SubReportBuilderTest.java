@@ -140,7 +140,7 @@ public class SubReportBuilderTest extends TestCase {
 		 * as parameter to the GroupBuilder
 		 */
 		Subreport subreport = new SubReportBuilder()
-						.addDataSource(	DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER,
+						.setDataSource(	DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER,
 										DJConstants.DATA_SOURCE_TYPE_COLLECTION,
 										"statistics")
 						.addReport(createFooterSubreport())

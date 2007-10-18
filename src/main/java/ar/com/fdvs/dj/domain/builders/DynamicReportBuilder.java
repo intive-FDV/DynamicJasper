@@ -33,7 +33,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Locale;
 
+import ar.com.fdvs.dj.core.DJBuilderException;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -149,19 +151,33 @@ public class DynamicReportBuilder {
 		
 		concatenateReports();
 		
+		compileOrLoadSubreports(report);
+		
 		report.setAutoTexts(autoTexts);
 		return report;
 	}
 
-	private void concatenateReports() {
-		ArrayList aux = new ArrayList(concatenatedReports);
-//		Collections.reverse(aux);
-		for (Iterator iterator = aux.iterator(); iterator.hasNext();) {
+
+	/**
+	 * Create dummy groups for each concatenated report, and in the footer of each group
+	 * adds the subreport.
+	 */
+	protected void concatenateReports() {
+
+		for (Iterator iterator = concatenatedReports.iterator(); iterator.hasNext();) {
 			Subreport subreport = (Subreport) iterator.next();
 			ColumnsGroup globalGroup = createDummyGroup();
 			globalGroup.getFooterSubreports().add(subreport);
 			report.getColumnsGroups().add(0,globalGroup);
 		}
+	}
+
+	/**
+	 * Since the subreports can come from a DynamicReport, a path to a .jasper file, or a JasperReport
+	 * we normalize this behaviour and we load them all as JasperReports to the parameters Map.
+	 */
+	protected void compileOrLoadSubreports(DynamicReport dr) {
+		// TODO Complete this!!!
 		
 	}
 
@@ -828,23 +844,46 @@ public class DynamicReportBuilder {
 
 	/**
 	 * All concatenated reports are shown in the same order they are inserted
-	 * @param jrFooterSubreport
+	 * @param subreport
 	 * @return
 	 */
-	public DynamicReportBuilder setConcatenatedReport(Subreport jrFooterSubreport) {
-		concatenatedReports.add(jrFooterSubreport);
-		return this;
-	}
-	/**
-	 * @deprecated
-	 * @param jrFooterSubreport
-	 * @return
-	 */
-	public DynamicReportBuilder addConcatenatedReport(Subreport jrFooterSubreport) {
-		concatenatedReports.add(jrFooterSubreport);
+	public DynamicReportBuilder addConcatenatedReport(Subreport subreport) {
+		concatenatedReports.add(subreport);
 		return this;
 	}
 	
+
+	/**
+	 * Adds in the group (starts with 1) "groupNumber" a subreport in the footer band
+	 * @param groupNumber
+	 * @param subreport
+	 * @return
+	 */
+
+	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, Subreport subreport) {
+		ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNumber - 1);
+		group.getFooterSubreports().add(subreport);	
+		return this;
+	}
+	
+	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
+		Subreport subreport = new SubReportBuilder()
+			.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+			.setDynamicReport(dynamicReport,layoutManager)
+			.build();
+		
+		return addSubreportInGroupFooter(groupNumber, subreport);
+	}
+
+	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, String pathToSubreport, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
+		
+		Subreport subreport = new SubReportBuilder()
+		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setPathToReport(pathToSubreport)
+		.build();
+		
+		return addSubreportInGroupFooter(groupNumber, subreport);
+	}
 	
 	
 

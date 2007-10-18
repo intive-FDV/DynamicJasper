@@ -88,7 +88,7 @@ public class ConcatenatedReportTest extends TestCase {
 		 */
 		//Create a subreport
 		Subreport subreport1 =  new SubReportBuilder()
-				.addDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER,
+				.setDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER,
 								DJConstants.DATA_SOURCE_TYPE_COLLECTION, 
 								"statistics")
 				.addReport(createSubreport1())
@@ -104,7 +104,7 @@ public class ConcatenatedReportTest extends TestCase {
 		 */
 		//Create a subreport
 		Subreport subreport2 = new SubReportBuilder()
-				.addDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, 
+				.setDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, 
 								DJConstants.DATA_SOURCE_TYPE_ARRAY, 
 								"statisticsArray")
 				.addReport(createSubreport2())
@@ -121,7 +121,7 @@ public class ConcatenatedReportTest extends TestCase {
 		ChartReportTest crt = new ChartReportTest();
 		JasperReport chartJr = DynamicJasperHelper.generateJasperReport(crt.buildReport(), new ClassicLayoutManager());
 		SubReportBuilder srb3 = new SubReportBuilder();
-		Subreport subreport3 = srb3.addDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, 
+		Subreport subreport3 = srb3.setDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, 
 									DJConstants.DATA_SOURCE_TYPE_COLLECTION, 
 									"subreportsDataSource")
 			.addReport(chartJr)
