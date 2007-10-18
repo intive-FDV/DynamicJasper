@@ -83,7 +83,7 @@ public class FastReportTest extends TestCase {
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource 
-//			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/FastReportTest.pdf");
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/FastReportTest.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
 //			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
 //			JasperDesignViewer.viewReportDesign(jr);

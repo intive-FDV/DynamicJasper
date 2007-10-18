@@ -53,7 +53,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.FontHeightHelper;
+import ar.com.fdvs.dj.core.FontHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -527,7 +527,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			currentValue.setWidth(getReport().getOptions().getPrintableWidth());
 			
 			//fix the height depending on the font size
-			currentValue.setHeight(FontHeightHelper.getHeightFor(column.getStyle().getFont()));
+			currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont()));
 			yOffset += currentValue.getHeight();
 			
 			//Move down exisiting elements in the band. 
@@ -555,7 +555,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			currentValue.setX(columnNameTf.getWidth());
 			
 			//fix the height depending on the font size
-			currentValue.setHeight(FontHeightHelper.getHeightFor(column.getStyle().getFont()));
+			currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont()));
 			columnNameTf.setHeight(currentValue.getHeight());
 			
 			yOffset += currentValue.getHeight();

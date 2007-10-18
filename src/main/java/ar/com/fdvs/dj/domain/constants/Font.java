@@ -144,5 +144,22 @@ public class Font {
 	public void setUnderline(boolean underline) {
 		this.underline = underline;
 	}
+	
+	/**
+	 * Returns a string that describes the font like indicated in
+	 *  java.awt.Font.decode(...)
+	 * @return
+	 */
+	public String getStandardFontname() {
+		String decoration = "PLAIN";
+		if (isBold() && isItalic())
+			decoration = "BOLDITALIC";
+		else if (isBold())
+		decoration = "BOLD";
+		else if (isItalic())
+			decoration = "ITALIC";
+		
+		return fontName + "-" + decoration + "-" + this.fontSize;
+	}
 
 }
