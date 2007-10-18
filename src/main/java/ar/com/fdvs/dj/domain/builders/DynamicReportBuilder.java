@@ -30,8 +30,11 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import ar.com.fdvs.dj.core.DJBuilderException;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
@@ -78,6 +81,8 @@ public class DynamicReportBuilder {
 	protected ArrayList globalFooterVariables;
 	protected ArrayList globalHeaderVariables;
 	protected ArrayList autoTexts;
+	protected Map groupFooterSubreports = new HashMap();
+	protected Map groupHeaderSubreports = new HashMap();
 
 	protected ArrayList concatenatedReports = new ArrayList();
 	
@@ -104,6 +109,7 @@ public class DynamicReportBuilder {
 		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
 		AutoText text = new AutoText(type,position,alignment_,pattern);
 		addAutoText(text);
+		
 		return this;
 	}
 
@@ -149,14 +155,38 @@ public class DynamicReportBuilder {
 			report.getColumnsGroups().add(0,globalGroup);			
 		}
 		
+		addSubreportsToGroups();
+		
 		concatenateReports();
 		
-		compileOrLoadSubreports(report);
 		
 		report.setAutoTexts(autoTexts);
 		return report;
 	}
 
+
+	/**
+	 * Because the groups are not created until we call the "build()" method, all the subreports that must go
+	 * inside a group are handled here.
+	 */
+	protected void addSubreportsToGroups() {
+		for (Iterator iterator = groupFooterSubreports.keySet().iterator(); iterator.hasNext();) {
+			Integer groupNum = (Integer) iterator.next();
+			List list = (List) groupFooterSubreports.get(groupNum);
+			
+			ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
+			group.getFooterSubreports().addAll(list);			
+		}
+		
+		for (Iterator iterator = groupHeaderSubreports.keySet().iterator(); iterator.hasNext();) {
+			Integer groupNum = (Integer) iterator.next();
+			List list = (List) groupHeaderSubreports.get(groupNum);
+			
+			ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
+			group.getHeaderSubreports().addAll(list);			
+		}
+		
+	}
 
 	/**
 	 * Create dummy groups for each concatenated report, and in the footer of each group
@@ -170,15 +200,6 @@ public class DynamicReportBuilder {
 			globalGroup.getFooterSubreports().add(subreport);
 			report.getColumnsGroups().add(0,globalGroup);
 		}
-	}
-
-	/**
-	 * Since the subreports can come from a DynamicReport, a path to a .jasper file, or a JasperReport
-	 * we normalize this behaviour and we load them all as JasperReports to the parameters Map.
-	 */
-	protected void compileOrLoadSubreports(DynamicReport dr) {
-		// TODO Complete this!!!
-		
 	}
 
 	/**
@@ -861,8 +882,15 @@ public class DynamicReportBuilder {
 	 */
 
 	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, Subreport subreport) {
-		ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNumber - 1);
-		group.getFooterSubreports().add(subreport);	
+		Integer groupNum = Integer.valueOf(groupNumber);
+		List list = (List) groupFooterSubreports.get(groupNum);
+		if (list == null) {
+			list = new ArrayList();
+			groupFooterSubreports.put(groupNum, list);
+		}
+		
+//		ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNumber - 1);
+		list.add(subreport);	
 		return this;
 	}
 	

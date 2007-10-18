@@ -1,20 +1,60 @@
 package ar.com.fdvs.dj.domain.builders;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import ar.com.fdvs.dj.core.DJBuilderException;
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 
+import common.Logger;
+
 public class SubReportBuilder {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(SubReportBuilder.class);
 
 	private Subreport subreport = new Subreport();
 	
-	public Subreport build() throws DJBuilderException{
+	public Subreport build() throws DJBuilderException {
 		if (subreport.getPath() == null && subreport.getDynamicReport() == null && subreport.getReport() == null)
 			throw new DJBuilderException("No subreport origin defined (path, dynamicReport, jasperReport)");
+		
+		//If the subreport comes from a file, then we load it now
+		if (subreport.getPath() != null) {
+			JasperReport jr = null;
+			File file = new File(subreport.getPath());
+			if (file.exists()){
+				logger.debug("Loading subreport from file path");
+				try {
+					jr = (JasperReport) JRLoader.loadObject(file);
+				} catch (JRException e) {
+					throw new DJBuilderException("Could not load subreport.",e);
+				}
+			} else {
+				logger.debug("Loading subreport from classpath");
+				URL url = DynamicJasperHelper.class.getClassLoader().getResource(subreport.getPath());
+				try {
+					jr = (JasperReport) JRLoader.loadObject(url.openStream());
+				} catch (IOException e) {
+					throw new DJBuilderException("Could not open subreport as an input stream",e);
+				} catch (JRException e) {
+					throw new DJBuilderException("Could not load subreport.",e);
+				}
+			}
+			
+			subreport.setReport(jr);
+		}
 		
 		return subreport;
 	}

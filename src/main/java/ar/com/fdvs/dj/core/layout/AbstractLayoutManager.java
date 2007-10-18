@@ -164,7 +164,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		}
 	}
 	
-	private void transformDetailBand() {
+	protected void transformDetailBand() {
 		log.debug("transforming Detail Band...");
 		JRDesignBand detail = (JRDesignBand) design.getDetail();
 		detail.setHeight(report.getOptions().getDetailHeight().intValue());
@@ -189,7 +189,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         	} else {
         		JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
         		transformDetailBandTextField(column, textField);
-        		detail.addElement(textField);
+        		if (textField.getExpression() != null)
+        			detail.addElement(textField);
         	}
         }
 	}

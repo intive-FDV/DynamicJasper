@@ -38,6 +38,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
@@ -51,8 +52,6 @@ import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public class SubReportTest2 extends TestCase {
-
-	private HashMap generatedParams;
 
 	public DynamicReport buildReport() throws Exception {
 		
@@ -75,7 +74,7 @@ public class SubReportTest2 extends TestCase {
 		DynamicReport drLevel2 = createLevel2Subreport();
 		
 		//now create and put level2 subreport in the main subreport
-		drb.addSubreportInGroupFooter(1, drLevel2, new ClassicLayoutManager(), 
+		drb.addSubreportInGroupFooter(2, drLevel2, new ClassicLayoutManager(), 
 				"statistics", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 		
 		DynamicReport mainReport = drb.build();	
@@ -93,9 +92,11 @@ public class SubReportTest2 extends TestCase {
 			.addColumn("Amount", "amount", Float.class.getName(), 50)
 			.addGroups(1)
 			.addField("dummy3", Collection.class.getName())
-			.addMargins(5, 5, 20, 20)
-			.addUseFullPageWidth(true)
-			.addTitle("Level 2 Subreport")
+			.setMargins(5, 5, 20, 20)
+			.setUseFullPageWidth(true)
+			.setTitle("Level 2 Subreport")
+			.addSubreportInGroupFooter(1, createLevel3Subreport(), new ClassicLayoutManager(), 
+				"dummy3", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
 			.build();
 		return dr;
 	}
@@ -119,9 +120,12 @@ public class SubReportTest2 extends TestCase {
 		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
-		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, generatedParams );
+		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds );
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/SubReportTest2.pdf");
 		JasperViewer.viewReport(jp);
+		
+		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager(), new HashMap()));
+		
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

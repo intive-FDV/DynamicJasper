@@ -464,7 +464,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			int random_ = subReportRandom.nextInt();
 			//the subreport design
 			JRDesignExpression srExpression = new JRDesignExpression();
-			String paramname = "subreport_" + position + "_" + getReport().getColumnsGroups().indexOf(columnsGroup) + "_" + footerSubreportsList.indexOf(sr) + "-rnd-" + random_;
+//			String paramname = "subreport_" + position + "_" + getReport().getColumnsGroups().indexOf(columnsGroup) + "_" + footerSubreportsList.indexOf(sr) + "-rnd-" + random_;
+			String paramname = sr.getReport().toString(); //TODO ensure this name is unique among all possible subreports
 			((DynamicJasperDesign)getDesign()).getParametersWithValues().put(paramname, sr.getReport());
 			srExpression.setText("("+JasperReport.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get( \""+ paramname +"\" )");
 			srExpression.setValueClass(JasperReport.class);
@@ -689,11 +690,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		log.debug("transforming detail band text field...");
 		ColumnsGroup group = DynamicJasperHelper.getColumnGroup(column, getReport().getColumnsGroups());
 		if (group!=null&&!group.getLayout().isShowValueForEachRow()) {
-			textField.getStyle().setBorder((byte)0);
-			JRDesignExpression exp = new JRDesignExpression();
-			exp.setText("\" \"");
-			exp.setValueClassName(String.class.getName());
-			textField.setExpression(exp);
+			textField.setExpression(null); //this way, the textfield is not added to the band			
 		}
 	}
 }
