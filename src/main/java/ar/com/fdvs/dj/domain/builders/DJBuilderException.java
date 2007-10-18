@@ -1,4 +1,4 @@
-package ar.com.fdvs.dj.core;
+package ar.com.fdvs.dj.domain.builders;
 
 /**
  * This exception can be thrown by any builder used in DynamicJasper

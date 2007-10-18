@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import ar.com.fdvs.dj.core.DJBuilderException;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -888,8 +887,6 @@ public class DynamicReportBuilder {
 			list = new ArrayList();
 			groupFooterSubreports.put(groupNum, list);
 		}
-		
-//		ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNumber - 1);
 		list.add(subreport);	
 		return this;
 	}
@@ -911,6 +908,36 @@ public class DynamicReportBuilder {
 		.build();
 		
 		return addSubreportInGroupFooter(groupNumber, subreport);
+	}
+	
+	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, Subreport subreport) {
+		Integer groupNum = Integer.valueOf(groupNumber);
+		List list = (List) groupHeaderSubreports.get(groupNum);
+		if (list == null) {
+			list = new ArrayList();
+			groupHeaderSubreports.put(groupNum, list);
+		}
+		list.add(subreport);	
+		return this;
+	}
+	
+	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
+		Subreport subreport = new SubReportBuilder()
+		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setDynamicReport(dynamicReport,layoutManager)
+		.build();
+		
+		return addSubreportInGroupHeader(groupNumber, subreport);
+	}
+	
+	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, String pathToSubreport, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
+		
+		Subreport subreport = new SubReportBuilder()
+		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setPathToReport(pathToSubreport)
+		.build();
+		
+		return addSubreportInGroupHeader(groupNumber, subreport);
 	}
 	
 	

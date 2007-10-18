@@ -62,11 +62,11 @@ public class SubReportLevel3Test extends TestCase {
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
 			.addGroups(2)
-			.addMargins(5, 5, 20, 20)
+			.setMargins(5, 5, 20, 20)
 			.addField("statistics", Collection.class.getName())
-			.addTitle("November 2006 sales report")
-			.addSubtitle("This report was generated at " + new Date())
-			.addUseFullPageWidth(true);	
+			.setTitle("November 2006 sales report")
+			.setSubtitle("This report was generated at " + new Date())
+			.setUseFullPageWidth(true);	
 
 		DynamicReport mainReport = drb.build();	
 		
@@ -110,9 +110,9 @@ public class SubReportLevel3Test extends TestCase {
 			.addColumn("Amount", "amount", Float.class.getName(), 50)
 			.addGroups(1)
 			.addField("dummy3", Collection.class.getName())
-			.addMargins(5, 5, 20, 20)
-			.addUseFullPageWidth(true)
-			.addTitle("Level 2 Subreport")
+			.setMargins(5, 5, 20, 20)
+			.setUseFullPageWidth(true)
+			.setTitle("Level 2 Subreport")
 			.build();
 		return dr;
 	}
@@ -122,9 +122,9 @@ public class SubReportLevel3Test extends TestCase {
 		DynamicReport dr = rb
 		.addColumn("Name", "name", String.class.getName(), 100)
 		.addColumn("Number", "number", Long.class.getName(), 50)
-		.addMargins(5, 5, 20, 20)
-		.addUseFullPageWidth(false)
-		.addTitle("Level 3 Subreport")
+		.setMargins(5, 5, 20, 20)
+		.setUseFullPageWidth(false)
+		.setTitle("Level 3 Subreport")
 		.build();
 		return dr;
 	}

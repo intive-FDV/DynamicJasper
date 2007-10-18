@@ -17,9 +17,9 @@ import ar.com.fdvs.dj.util.SortUtils;
 
 public class ReflectiveReportTest extends TestCase {
 
-	private DynamicReport buildOrderedReport(final Collection _data, final String[] _properties) {
-		return new ReflectiveReportBuilder(_data, _properties).addGroups(3).build();
-	}
+//	private DynamicReport buildOrderedReport(final Collection _data, final String[] _properties) {
+//		return new ReflectiveReportBuilder(_data, _properties).addGroups(3).build();
+//	}
 
 	/**
 	 * Test N� 1. With only the collection, the ReflectiveReportBuilder make some guesses

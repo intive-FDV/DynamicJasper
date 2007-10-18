@@ -40,7 +40,6 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -74,12 +73,12 @@ public class ConcatenatedReportTest extends TestCase {
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
 		drb
-			.addTitleStyle(titleStyle)
-			.addTitle("Concatenated reports")					//defines the title of the report
-			.addSubtitle("All the reports shown here are concatenated as sub reports")				
-			.addDetailHeight(new Integer(15)).addLeftMargin(margin)
-			.addRightMargin(margin).addTopMargin(margin).addBottomMargin(margin)
-			.addUseFullPageWidth(true)
+			.setTitleStyle(titleStyle)
+			.setTitle("Concatenated reports")					//defines the title of the report
+			.setSubtitle("All the reports shown here are concatenated as sub reports")				
+			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
+			.setUseFullPageWidth(true)
 			.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER,AutoText.ALIGMENT_CENTER);
 
 		
@@ -164,9 +163,9 @@ public class ConcatenatedReportTest extends TestCase {
 			.addColumn("Average", "average", Float.class.getName(), 50)
 			.addColumn("%", "percentage", Float.class.getName(), 50)
 			.addColumn("Amount", "amount", Float.class.getName(), 50)
-			.addMargins(5, 5, 20, 20)
-			.addUseFullPageWidth(true)
-			.addTitle("Subreport for this group")
+			.setMargins(5, 5, 20, 20)
+			.setUseFullPageWidth(true)
+			.setTitle("Subreport for this group")
 			.build();
 		return DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager());
 	}
@@ -185,9 +184,9 @@ public class ConcatenatedReportTest extends TestCase {
 		.addColumn("%", "percentage", Float.class.getName(), 50)
 		.addColumn("Amount", "amount", Float.class.getName(), 50)
 		.addGroups(1)
-		.addMargins(5, 5, 20, 20)
-		.addUseFullPageWidth(true)
-		.addTitle("Subreport for this group")
+		.setMargins(5, 5, 20, 20)
+		.setUseFullPageWidth(true)
+		.setTitle("Subreport for this group")
 		.build();
 		return DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager());
 	}

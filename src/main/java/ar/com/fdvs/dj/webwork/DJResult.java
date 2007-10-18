@@ -37,7 +37,9 @@ import com.opensymphony.xwork.util.TextParseUtil;
  */
 public class DJResult extends JasperReportsResult {
 
-    private static final Log LOG = LogFactory.getLog(DJResult.class);
+	private static final long serialVersionUID = -5135527859073133975L;
+
+	private static final Log LOG = LogFactory.getLog(DJResult.class);
 
     private String dynamicReport;
 
@@ -139,9 +141,9 @@ public class DJResult extends JasperReportsResult {
         return (DynamicReport)conditionalParse(dynamicReport, _invocation, DynamicReport.class);
     }
 
-    private String getDataSource(final ActionInvocation _invocation) {
-        return conditionalParse(dataSource, _invocation);
-    }
+//    private String getDataSource(final ActionInvocation _invocation) {
+//        return conditionalParse(dataSource, _invocation);
+//    }
 
     private String getFormat(final ActionInvocation _invocation) {
         final String parsedFormat = conditionalParse(format == null ? FORMAT_PDF : format, _invocation);
@@ -157,13 +159,13 @@ public class DJResult extends JasperReportsResult {
         return parsedContentDisposition == null ? "inline" : parsedContentDisposition;
     }
 
-    private String getDelimiter(final ActionInvocation _invocation) {
-        return conditionalParse(delimiter, _invocation);
-    }
+//    private String getDelimiter(final ActionInvocation _invocation) {
+//        return conditionalParse(delimiter, _invocation);
+//    }
 
-    private String getImageServletUrl(final ActionInvocation _invocation) {
-        return conditionalParse(imageServletUrl, _invocation);
-    }
+//    private String getImageServletUrl(final ActionInvocation _invocation) {
+//        return conditionalParse(imageServletUrl, _invocation);
+//    }
 
     private Object conditionalParse(final String _param, final ActionInvocation _invocation, final Class _type) {
         if (parse && _param != null && _invocation != null) {

@@ -71,11 +71,11 @@ public class XlsReportTest extends TestCase {
 			.addGroups(2) //Not used by the ListLayoutManager
 			.setPrintColumnNames(true)
 			.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list			
-			.addMargins(0, 0, 0, 0)
-			.addTitle("November 2006 sales report")
-			.addSubtitle("This report was generated at " + new Date())
-			.addDefaultStyles(null, null, null, columDetail)
-			.addUseFullPageWidth(true);	
+			.setMargins(0, 0, 0, 0)
+			.setTitle("November 2006 sales report")
+			.setSubtitle("This report was generated at " + new Date())
+			.setDefaultStyles(null, null, null, columDetail)
+			.setUseFullPageWidth(true);	
 
 		DynamicReport dr = drb.build();	
 		

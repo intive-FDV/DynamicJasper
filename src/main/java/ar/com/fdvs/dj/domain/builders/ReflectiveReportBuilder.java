@@ -78,7 +78,7 @@ public class ReflectiveReportBuilder extends FastReportBuilder {
                 addColumn(getColumnTitle(property), property.getName(), property.getPropertyType().getName(), getColumnWidth(property));
             }
         }
-        addUseFullPageWidth(true);
+        setUseFullPageWidth(true);
     }
 
     /**

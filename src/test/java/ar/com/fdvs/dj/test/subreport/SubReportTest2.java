@@ -36,7 +36,6 @@ import java.util.HashMap;
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
@@ -45,8 +44,6 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
@@ -106,9 +103,9 @@ public class SubReportTest2 extends TestCase {
 		DynamicReport dr = rb
 		.addColumn("Name", "name", String.class.getName(), 100)
 		.addColumn("Number", "number", Long.class.getName(), 50)
-		.addMargins(5, 5, 20, 20)
-		.addUseFullPageWidth(false)
-		.addTitle("Level 3 Subreport")
+		.setMargins(5, 5, 20, 20)
+		.setUseFullPageWidth(false)
+		.setTitle("Level 3 Subreport")
 		.build();
 		return dr;
 	}

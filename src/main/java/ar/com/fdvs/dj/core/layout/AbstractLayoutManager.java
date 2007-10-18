@@ -57,7 +57,6 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections.Transformer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -629,17 +628,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 	protected void setReport(DynamicReport report) {
 		this.report = report;
-	}
-
-	private void generateHeaderBand() {
-		log.debug("generating header band...");
-		JRDesignBand header = (JRDesignBand) getDesign().getColumnHeader();
-		if (header == null) {
-			header = new JRDesignBand();
-			getDesign().setColumnHeader(header);
-		}
-//		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))
-		generateHeaderBand(header);
 	}
 
 }
