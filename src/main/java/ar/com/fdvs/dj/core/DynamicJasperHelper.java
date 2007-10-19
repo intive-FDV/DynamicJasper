@@ -245,6 +245,16 @@ public final class DynamicJasperHelper {
 		return generateJasperPrint(dr, layoutManager, ds, new HashMap());
 	}
 
+	/**
+	 * Compiles and fills the reports design.
+	 * 
+	 * @param dr the DynamicReport
+	 * @param layoutManager the object in charge of doing the layout
+	 * @param ds The datasource
+	 * @param _parameters Map with parameters that the report may need
+	 * @return
+	 * @throws JRException
+	 */
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, JRDataSource ds, Map _parameters) throws JRException {
 		log.info("generating JasperPrint");
 		JasperPrint jp = null;
@@ -280,11 +290,11 @@ public final class DynamicJasperHelper {
 				
 				if (subreport.getDynamicReport() != null){
 					 compileOrLoadSubreports(subreport.getDynamicReport(),_parameters);
+					 JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
+					 _parameters.put(jp.toString(), jp);
+					 subreport.setReport(jp);
 				}
 				
-				JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
-				_parameters.put(jp.toString(), jp);
-				subreport.setReport(jp);
 			}
 
 			//Footer Subreports
@@ -293,11 +303,11 @@ public final class DynamicJasperHelper {
 				
 				if (subreport.getDynamicReport() != null){
 					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters);
+					JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
+					_parameters.put(jp.toString(), jp);
+					subreport.setReport(jp);
 				}
 				
-				JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
-				_parameters.put(jp.toString(), jp);
-				subreport.setReport(jp);
 			}
 		}
 	}

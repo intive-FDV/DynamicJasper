@@ -39,6 +39,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -144,6 +145,8 @@ public class SubReportBuilderTest extends TestCase {
 										"statistics")
 						.addReport(createFooterSubreport())
 						.build();
+		
+		drb.addSubreportInGroupFooter(1, subreport);
 
 		/**
 		 * add in a map the paramter with the data source to use in the subreport.
@@ -156,7 +159,6 @@ public class SubReportBuilderTest extends TestCase {
 		 */
 		GroupBuilder gb1 = new GroupBuilder();
 		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
-						.addFooterSubreport(subreport)
 						.build();
 
 		Style defaultFooterVariableStyle = new Style();
@@ -189,7 +191,7 @@ public class SubReportBuilderTest extends TestCase {
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/SubReportBuilderTest.pdf");
-		//JasperViewer.viewReport(jp);
+		JasperViewer.viewReport(jp);
 	}
 	
 	/**
