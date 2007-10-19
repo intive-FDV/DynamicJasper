@@ -8,19 +8,22 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 
-import common.Logger;
-
 public class SubReportBuilder {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(SubReportBuilder.class);
+	private static final Log logger = LogFactory.getLog(SubReportBuilder.class);
+
 
 	private Subreport subreport = new Subreport();
 	
