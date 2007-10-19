@@ -29,16 +29,20 @@
 
 package ar.com.fdvs.dj.core;
 
-import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
-import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
-import ar.com.fdvs.dj.core.registration.ColumnsGroupRegistrationManager;
-import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
-import ar.com.fdvs.dj.domain.constants.Page;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
@@ -54,23 +58,23 @@ import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
+import ar.com.fdvs.dj.core.registration.ColumnsGroupRegistrationManager;
+import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.DynamicReportOptions;
+import ar.com.fdvs.dj.domain.constants.Page;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.util.DJCompilerFactory;
 
 
 /**
@@ -81,7 +85,7 @@ public final class DynamicJasperHelper {
 	private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
 	private static final String DJ_RESOURCE_BUNDLE ="dj-messages";
 
-	private static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
+	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
 		new ColumnRegistrationManager(jd,dr).registerEntities(dr.getColumns());
 		new ColumnsGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());
 		registerOtherFields(jd,dr.getFields());
@@ -119,7 +123,7 @@ public final class DynamicJasperHelper {
 
 	}
 
-	private static DynamicJasperDesign getNewDesign(DynamicReport dr) {
+	protected static DynamicJasperDesign getNewDesign(DynamicReport dr) {
 		log.info("obtaining DynamicJasperDesign instance");
 		DynamicJasperDesign des = new DynamicJasperDesign();
 		DynamicReportOptions options = dr.getOptions();
@@ -153,8 +157,8 @@ public final class DynamicJasperHelper {
 		return des;
 	}
 
-	private static DynamicJasperDesign generateJasperDesign(DynamicReport dr) throws CoreException {
-		DynamicJasperDesign jd;
+	protected static DynamicJasperDesign generateJasperDesign(DynamicReport dr) throws CoreException {
+		DynamicJasperDesign jd = null;
 		try {
 			if (dr.getTemplateFileName() != null) {
 				log.info("loading template file: "+dr.getTemplateFileName());
@@ -184,10 +188,10 @@ public final class DynamicJasperHelper {
 	/**
 	 * Becasuse all the layout calculations are made from the Domain Model of DynamicJasper, when loading
 	 * a template file, we have to populate the "ReportOptions" with the settings from the template file (ie: margins, etc)
-	 * @param jd DynamicJasperDesing to use
-	 * @param dr The DynamicReport
+	 * @param jd
+	 * @param dr
 	 */
-	private static void populateReportOptionsFromDesign(DynamicJasperDesign jd, DynamicReport dr) {
+	protected static void populateReportOptionsFromDesign(DynamicJasperDesign jd, DynamicReport dr) {
 		DynamicReportOptions options = dr.getOptions();
 
 		options.setBottomMargin(new Integer(jd.getBottomMargin()));
@@ -202,7 +206,7 @@ public final class DynamicJasperHelper {
 
 	}
 
-	private static DynamicJasperDesign downCast(JasperDesign jd) throws CoreException {
+	protected static DynamicJasperDesign downCast(JasperDesign jd) throws CoreException {
 		DynamicJasperDesign djd = new DynamicJasperDesign();
 		log.info("downcasting JasperDesign");
 		try {
@@ -214,12 +218,9 @@ public final class DynamicJasperHelper {
 				JRParameter element = (JRParameter) iter.next();
 				try {
 					djd.addParameter(element);
-				} catch (JRException e) {
-                    //TODO Handle Exception Properly
-                }
+				} catch (JRException e) {	}
 
 			}
-
 
 		} catch (IllegalAccessException e) {
 			throw new CoreException(e.getMessage());
@@ -230,56 +231,142 @@ public final class DynamicJasperHelper {
 		return djd;
 	}
 
-	public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds) {
+	public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, JRDataSource ds) throws JRException {
         return generateJasperPrint(dr, layoutManager, ds, new HashMap());
     }
 
-	public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, Collection collection) {
+	public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Collection collection) throws JRException {
 		JRDataSource ds = new JRBeanCollectionDataSource(collection);
 		return generateJasperPrint(dr, layoutManager, ds, new HashMap());
 	}
 
-	public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, ResultSet resultSet) {
+	public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, ResultSet resultSet) throws JRException {
 		JRDataSource ds = new JRResultSetDataSource(resultSet);
 		return generateJasperPrint(dr, layoutManager, ds, new HashMap());
 	}
 
-    public static JasperPrint generateJasperPrint(DynamicReport dr, AbstractLayoutManager layoutManager, JRDataSource ds, Map _parameters) {
+	/**
+	 * Compiles and fills the reports design.
+	 * 
+	 * @param dr the DynamicReport
+	 * @param layoutManager the object in charge of doing the layout
+	 * @param ds The datasource
+	 * @param _parameters Map with parameters that the report may need
+	 * @return
+	 * @throws JRException
+	 */
+    public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, JRDataSource ds, Map _parameters) throws JRException {
 		log.info("generating JasperPrint");
 		JasperPrint jp = null;
-		try {
+			
+			if (_parameters == null)
+				_parameters = new HashMap();
+			
+			compileOrLoadSubreports(dr, _parameters);
+		
 			DynamicJasperDesign jd = generateJasperDesign(dr);
+			Map params = new HashMap();
+			if (!_parameters.isEmpty()){
+				registerParams(jd,_parameters);
+				params.putAll(_parameters);
+			}
 			registerEntities(jd, dr);
 			layoutManager.applyLayout(jd, dr);
-            JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
+            JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
             JasperReport jr = JasperCompileManager.compileReport(jd);
-            Map params = new HashMap(_parameters);
             params.putAll(jd.getParametersWithValues());
             jp = JasperFillManager.fillReport(jr, params, ds);
-		} catch (CoreException e) {
-			log.error(e.getMessage(),e);
-		} catch (JRException e) {
-			log.error(e.getMessage(),e);
-		}
-		return jp;
+
+            return jp;
 	}
 
-	public static JasperReport generateJasperReport(DynamicReport dr, AbstractLayoutManager layoutManager) {
-		log.info("generating JasperPrint");
-//		JasperPrint jp = null;
+    protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters) throws JRException {
+    	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext();) {
+			ColumnsGroup group = (ColumnsGroup) iterator.next();
+			
+			//Header Subreports
+			for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext();) {
+				Subreport subreport = (Subreport) iterator2.next();
+				
+				if (subreport.getDynamicReport() != null){
+					 compileOrLoadSubreports(subreport.getDynamicReport(),_parameters);
+					 JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
+					 _parameters.put(jp.toString(), jp);
+					 subreport.setReport(jp);
+				}
+				
+			}
+
+			//Footer Subreports
+			for (Iterator iterator2 = group.getFooterSubreports().iterator(); iterator2.hasNext();) {
+				Subreport subreport = (Subreport) iterator2.next();
+				
+				if (subreport.getDynamicReport() != null){
+					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters);
+					JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
+					_parameters.put(jp.toString(), jp);
+					subreport.setReport(jp);
+				}
+				
+			}
+		}
+	}
+
+	/**
+     * For every String key, it registers the object as a parameter to make it available
+     * in the report.
+     * @param jd
+     * @param _parameters
+     */
+	public static void registerParams(DynamicJasperDesign jd, Map _parameters) {
+		for (Iterator iterator = _parameters.keySet().iterator(); iterator.hasNext();) {
+			Object key = iterator.next();
+			if (key instanceof String){
+				try {
+					JRDesignParameter parameter = new JRDesignParameter();
+					Object value = _parameters.get(key);
+//					parameter.setValueClassName(value.getClass().getCanonicalName());
+					Class clazz = value.getClass().getComponentType();
+					if (clazz == null)
+						clazz = value.getClass();
+					parameter.setValueClass(clazz); //NOTE this is very strange
+					//when using an array as subreport-data-source, I must pass the parameter class name like this: value.getClass().getComponentType()
+					parameter.setName((String)key);
+					jd.addParameter(parameter);
+				} catch (JRException e) {
+					//nothing to do
+				}
+			}
+
+		}
+
+	}
+
+	public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager) throws JRException {
+		log.info("generating JasperReport");
 		JasperReport jr = null;
-		try {
 			DynamicJasperDesign jd = generateJasperDesign(dr);
 			registerEntities(jd, dr);
 			layoutManager.applyLayout(jd, dr);
             JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
             jr = JasperCompileManager.compileReport(jd);
-//			jp = JasperFillManager.fillReport(jr,jd.getParametersWithValues(), ds);
-		} catch (CoreException e) {
-			log.error(e.getMessage());
-		} catch (JRException e) {
-			log.error(e.getMessage());
-		}
+		return jr;
+	}
+
+	public final static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams) throws JRException {
+		log.info("generating JasperReport");
+		JasperReport jr = null;
+			if (generatedParams == null)
+				generatedParams = new HashMap();
+			
+			compileOrLoadSubreports(dr, generatedParams);			
+			
+			DynamicJasperDesign jd = generateJasperDesign(dr);
+			registerEntities(jd, dr);
+			layoutManager.applyLayout(jd, dr);
+			JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
+			jr = JasperCompileManager.compileReport(jd);
+			generatedParams.putAll(jd.getParametersWithValues());
 		return jr;
 	}
 
@@ -293,11 +380,16 @@ public final class DynamicJasperHelper {
 		return null;
 	}
 
+	/**
+	 * Returns true if at least one group is configured to show the column name in its header
+	 * @param groups
+	 * @return
+	 */
 	public static boolean existsGroupWithColumnNames(List groups) {
 		Iterator it = groups.iterator();
 		while (it.hasNext()) {
 			ColumnsGroup group = (ColumnsGroup) it.next();
-			if (group.getLayout().isShowColumnNames())
+			if (group.getLayout().isShowColumnName())
 				return true;
 		}
 		return false;

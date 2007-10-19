@@ -32,9 +32,11 @@ package ar.com.fdvs.dj.domain.constants;
 public class Border {
 
 	public static Border NO_BORDER = new Border((byte)0);
-	public static Border THIN = new Border((byte)1);
-	public static Border MEDIUM = new Border((byte)2);
-	public static Border THICK = new Border((byte)3);
+	public static Border THIN = new Border((byte)5);
+	
+	public static Border PEN_1_POINT = new Border((byte)2);
+	public static Border PEN_2_POINT = new Border((byte)2);
+	public static Border PEN_4_POINT = new Border((byte)3);
 	public static Border DOTTED = new Border((byte)4);
 
 	private byte value;

@@ -17,9 +17,9 @@ import ar.com.fdvs.dj.util.SortUtils;
 
 public class ReflectiveReportTest extends TestCase {
 
-	private DynamicReport buildOrderedReport(final Collection _data, final String[] _properties) {
-		return new ReflectiveReportBuilder(_data, _properties).addGroups(3).build();
-	}
+//	private DynamicReport buildOrderedReport(final Collection _data, final String[] _properties) {
+//		return new ReflectiveReportBuilder(_data, _properties).addGroups(3).build();
+//	}
 
 	/**
 	 * Test N� 1. With only the collection, the ReflectiveReportBuilder make some guesses
@@ -42,9 +42,9 @@ public class ReflectiveReportTest extends TestCase {
     }
 
 	public void doReport(final DynamicReport _report, final Collection _data) {
-        final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(_report, new ClassicLayoutManager(), _data);
-        JasperViewer.viewReport(jasperPrint);
         try {
+        	final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(_report, new ClassicLayoutManager(), _data);
+        	JasperViewer.viewReport(jasperPrint);
 			ReportExporter.exportReport(jasperPrint, System.getProperty("user.dir")+ "/target/ReflectiveReportTest.pdf");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

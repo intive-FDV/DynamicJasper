@@ -56,9 +56,9 @@ public class AutotextReportTest extends TestCase {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
-			.addTitle("November 2006 sales report")
-			.addSubtitle("This report was generated at " + new Date())
-			.addUseFullPageWidth(true);	
+			.setTitle("November 2006 sales report")
+			.setSubtitle("This report was generated at " + new Date())
+			.setUseFullPageWidth(true);	
 
 
 		/**
@@ -82,7 +82,7 @@ public class AutotextReportTest extends TestCase {
 		DynamicReport dr = drb.build();
 		
 		//i18N, you can set a Locale, different than the default in the VM 
-		drb.addReportLocale(new Locale("es","AR"));
+		drb.setReportLocale(new Locale("es","AR"));
 		
 		return dr;
 	}

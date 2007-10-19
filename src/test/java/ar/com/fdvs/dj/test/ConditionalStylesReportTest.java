@@ -64,8 +64,13 @@ public class ConditionalStylesReportTest extends TestCase {
 
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); headerStyle.setBorder(Border.MEDIUM);
-		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setFont(Font.ARIAL_BIG_BOLD); 
+		headerStyle.setBorderBottom(Border.PEN_2_POINT);
+		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); 
+		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setBackgroundColor(Color.LIGHT_GRAY);
+		headerStyle.setTextColor(Color.WHITE);
+		headerStyle.setTransparency(Transparency.OPAQUE);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18,Font._FONT_VERDANA,true));
@@ -78,55 +83,55 @@ public class ConditionalStylesReportTest extends TestCase {
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
-		drb.addTitle("November 2006 sales report")					
-			.addSubtitle("The items in this report correspond "
+		drb.setTitle("November 2006 sales report")					
+			.setSubtitle("The items in this report correspond "
 				+"to the main products: DVDs, Books, Foods and Magazines")		
-			.addTitleStyle(titleStyle).addTitleHeight(new Integer(30))
-			.addSubtitleHeight(new Integer(20))
-			.addDetailHeight(new Integer(15))
-			.addLeftMargin(margin)
-			.addRightMargin(margin)
-			.addTopMargin(margin)
-			.addBottomMargin(margin)
-			.addPrintBackgroundOnOddRows(true)
-			.addOddRowBackgroundStyle(oddRowStyle)
-			.addColumnsPerPage(new Integer(1))
-			.addColumnSpace(new Integer(5));
+			.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
+			.setSubtitleHeight(new Integer(20))
+			.setDetailHeight(new Integer(15))
+			.setLeftMargin(margin)
+			.setRightMargin(margin)
+			.setTopMargin(margin)
+			.setBottomMargin(margin)
+			.setPrintBackgroundOnOddRows(true)
+			.setOddRowBackgroundStyle(oddRowStyle)
+			.setColumnsPerPage(new Integer(1))
+			.setColumnSpace(new Integer(5));
 
-		AbstractColumn columnState = ColumnBuilder.getInstance().addColumnProperty("state", String.class.getName())
-			.addTitle("State").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnState = ColumnBuilder.getInstance().setColumnProperty("state", String.class.getName())
+			.setTitle("State").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnBranch = ColumnBuilder.getInstance().addColumnProperty("branch", String.class.getName())
-			.addTitle("Branch").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnBranch = ColumnBuilder.getInstance().setColumnProperty("branch", String.class.getName())
+			.setTitle("Branch").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaProductLine = ColumnBuilder.getInstance().addColumnProperty("productLine", String.class.getName())
-			.addTitle("Product Line").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnaProductLine = ColumnBuilder.getInstance().setColumnProperty("productLine", String.class.getName())
+			.setTitle("Product Line").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaItem = ColumnBuilder.getInstance().addColumnProperty("item", String.class.getName())
-			.addTitle("Item").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnaItem = ColumnBuilder.getInstance().setColumnProperty("item", String.class.getName())
+			.setTitle("Item").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnCode = ColumnBuilder.getInstance().addColumnProperty("id", Long.class.getName())
-			.addTitle("ID").addWidth(new Integer(40))
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnCode = ColumnBuilder.getInstance().setColumnProperty("id", Long.class.getName())
+			.setTitle("ID").setWidth(new Integer(40))
+			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaCantidad = ColumnBuilder.getInstance().addColumnProperty("quantity", Long.class.getName())
-			.addTitle("Quantity").addWidth(new Integer(80))
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnaCantidad = ColumnBuilder.getInstance().setColumnProperty("quantity", Long.class.getName())
+			.setTitle("Quantity").setWidth(new Integer(80))
+			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 
 		//Define Conditional Styles
 
 		ArrayList conditionalStyles = createConditionalStyles(amountStyle);
 
-		AbstractColumn columnAmount = ColumnBuilder.getInstance().addColumnProperty("amount", Float.class.getName())
-			.addTitle("Amount").addWidth(new Integer(90)).addPattern("$ 0.00")
+		AbstractColumn columnAmount = ColumnBuilder.getInstance().setColumnProperty("amount", Float.class.getName())
+			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
 			.addConditionalStyles(conditionalStyles)
-			.addStyle(amountStyle)
-			.addHeaderStyle(headerStyle).build();
+			.setStyle(amountStyle)
+			.setHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
@@ -136,7 +141,7 @@ public class ConditionalStylesReportTest extends TestCase {
 		drb.addColumn(columnaCantidad);
 		drb.addColumn(columnAmount);
 
-		drb.addUseFullPageWidth(true);
+		drb.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
 		return dr;
@@ -155,9 +160,9 @@ public class ConditionalStylesReportTest extends TestCase {
 		Style style0 = (Style) BeanUtils.cloneBean(baseStyle);
 		style0.setTextColor(Color.RED);
 		Style style1 = (Style) BeanUtils.cloneBean(baseStyle);
-		style1.setTextColor(Color.YELLOW);
+		style1.setTextColor(new Color(128,128,0));
 		Style style2 = (Style) BeanUtils.cloneBean(baseStyle);
-		style2.setTextColor(Color.GREEN);
+		style2.setTextColor(new Color(0,128,0)); //dark green
 
 		StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(5000));
 		StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(7000));

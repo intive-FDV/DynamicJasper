@@ -29,18 +29,20 @@
 
 package ar.com.fdvs.dj.core.registration;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 /**
@@ -78,7 +80,12 @@ public class ColumnsGroupRegistrationManager extends AbstractEntityRegistrationM
 		PropertyColumn column = columnsGroup.getColumnToGroupBy();
 		JRDesignGroup group = new JRDesignGroup();
 
-		group.setName(column.getTitle());
+		if (column instanceof GlobalGroupColumn){
+			group.setName("global_column_" + getDynamicReport().getColumnsGroups().indexOf(columnsGroup));
+		} else {
+			group.setName(column.getTitle());
+		}
+		
 		group.setCountVariable(new JRDesignVariable());
 		group.setGroupFooter(new JRDesignBand());
 		group.setGroupHeader(new JRDesignBand());

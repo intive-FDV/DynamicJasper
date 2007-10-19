@@ -58,7 +58,7 @@ public class StylesReportTest extends TestCase {
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); 
-		headerStyle.setBorderTop(Border.MEDIUM);
+		headerStyle.setBorderTop(Border.PEN_2_POINT);
 		headerStyle.setBorderBottom(Border.THIN);
 		headerStyle.setBackgroundColor(Color.blue);
 		headerStyle.setTransparency(Transparency.OPAQUE);
@@ -81,48 +81,48 @@ public class StylesReportTest extends TestCase {
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
-		drb.addTitle("November 2006 sales report")					//defines the title of the report
-			.addSubtitle("The items in this report correspond "
+		drb.setTitle("November 2006 sales report")					//defines the title of the report
+			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")			
-			.addTitleStyle(titleStyle).addTitleHeight(new Integer(30))
-			.addSubtitleHeight(new Integer(20))
-			.addDetailHeight(new Integer(15))
-			.addLeftMargin(margin)
-			.addRightMargin(margin)
-			.addTopMargin(margin)
-			.addBottomMargin(margin)
-			.addPrintBackgroundOnOddRows(true)
-			.addOddRowBackgroundStyle(oddRowStyle)
-			.addColumnsPerPage(new Integer(1))
-			.addColumnSpace(new Integer(5));
+			.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
+			.setSubtitleHeight(new Integer(20))
+			.setDetailHeight(new Integer(15))
+			.setLeftMargin(margin)
+			.setRightMargin(margin)
+			.setTopMargin(margin)
+			.setBottomMargin(margin)
+			.setPrintBackgroundOnOddRows(true)
+			.setOddRowBackgroundStyle(oddRowStyle)
+			.setColumnsPerPage(new Integer(1))
+			.setColumnSpace(new Integer(5));
 
-		AbstractColumn columnState = ColumnBuilder.getInstance().addColumnProperty("state", String.class.getName())
-			.addTitle("State").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnState = ColumnBuilder.getInstance().setColumnProperty("state", String.class.getName())
+			.setTitle("State").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnBranch = ColumnBuilder.getInstance().addColumnProperty("branch", String.class.getName())
-			.addTitle("Branch").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnBranch = ColumnBuilder.getInstance().setColumnProperty("branch", String.class.getName())
+			.setTitle("Branch").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaProductLine = ColumnBuilder.getInstance().addColumnProperty("productLine", String.class.getName())
-			.addTitle("Product Line").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnaProductLine = ColumnBuilder.getInstance().setColumnProperty("productLine", String.class.getName())
+			.setTitle("Product Line").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaItem = ColumnBuilder.getInstance().addColumnProperty("item", String.class.getName())
-			.addTitle("item").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnaItem = ColumnBuilder.getInstance().setColumnProperty("item", String.class.getName())
+			.setTitle("item").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnCode = ColumnBuilder.getInstance().addColumnProperty("id", Long.class.getName())
-			.addTitle("ID").addWidth(new Integer(40))
-			.addStyle(numberStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnCode = ColumnBuilder.getInstance().setColumnProperty("id", Long.class.getName())
+			.setTitle("ID").setWidth(new Integer(40))
+			.setStyle(numberStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaCantidad = ColumnBuilder.getInstance().addColumnProperty("quantity", Long.class.getName())
-			.addTitle("Quantity").addWidth(new Integer(80))
-			.addStyle(numberStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnaCantidad = ColumnBuilder.getInstance().setColumnProperty("quantity", Long.class.getName())
+			.setTitle("Quantity").setWidth(new Integer(80))
+			.setStyle(numberStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnAmount = ColumnBuilder.getInstance().addColumnProperty("amount", Float.class.getName())
-			.addTitle("Amount").addWidth(new Integer(90)).addPattern("$ 0.00")
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnAmount = ColumnBuilder.getInstance().setColumnProperty("amount", Float.class.getName())
+			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
+			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
@@ -132,7 +132,7 @@ public class StylesReportTest extends TestCase {
 		drb.addColumn(columnaCantidad);
 		drb.addColumn(columnAmount);
 
-		drb.addUseFullPageWidth(true);
+		drb.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
 		return dr;

@@ -33,29 +33,40 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.List;
 
+import net.sf.jasperreports.engine.JRElement;
 import net.sf.jasperreports.engine.JRExpression;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.design.JRDesignSubreport;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.FontHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
+import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.util.SubReportUtil;
 
 /**
  * Main Layout Manager recommended for most cases.</br>
@@ -69,6 +80,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	
 	protected static final String EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() != 1)";
 	protected static final String EXPRESSION_TRUE_WHEN_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() == 1)";
+
+//	private Random subReportRandom = new Random();
 
 	protected void startLayout() {
 		super.startLayout();
@@ -197,8 +210,23 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 			
 		}
-		
 	}
+	
+	/**
+	 * Returns a list with the columns that are visible.
+	 * Invisible column are the one whose group is configured with hideColumn = true (in the GroupLayout)
+	 * @return
+	 */
+	protected List getVisibleColumns() {
+		List visibleColums = new ArrayList(getReport().getColumns());
+		for (Iterator iterator = getReport().getColumnsGroups().iterator(); iterator.hasNext();) {
+			ColumnsGroup group = (ColumnsGroup) iterator.next();
+			if (group.getLayout().isHideColumn()){
+				visibleColums.remove(group.getColumnToGroupBy());
+			}
+		}
+		return visibleColums;
+	}	
 
 	/**
 	 * Create the image elements for the banners tha goes into the
@@ -329,7 +357,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		title.setY(yOffset);
 		title.setPrintWhenExpression(printWhenExpression);
 		title.setRemoveLineWhenBlank(true);
-		applyStyleToTextElement(getReport().getTitleStyle(), title);
+		applyStyleToElement(getReport().getTitleStyle(), title);
 		band.addElement(title);
 
 		JRDesignTextField subtitle = new JRDesignTextField();
@@ -343,7 +371,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			subtitle.setY(title.getY() + title.getHeight());
 			subtitle.setPrintWhenExpression(printWhenExpression);
 			subtitle.setRemoveLineWhenBlank(true);
-			applyStyleToTextElement(getReport().getSubtitleStyle(), subtitle);
+			applyStyleToElement(getReport().getSubtitleStyle(), subtitle);
 			band.addElement(subtitle);
 		}
 
@@ -364,29 +392,107 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignBand footer = (JRDesignBand) jgroup.getGroupFooter();
 			header.setHeight(columnsGroup.getHeaderHeight().intValue());
 			footer.setHeight(columnsGroup.getFooterHeight().intValue());
-			if (columnsGroup.getLayout().isShowColumnNames()) {
-				for (Iterator iterator =  getReport().getColumns().iterator(); iterator.hasNext();) {
+			
+			if (columnsGroup.getLayout().isPrintHeaders()) {
+				for (Iterator iterator =  getVisibleColumns().iterator(); iterator.hasNext();) {
 					AbstractColumn col = (AbstractColumn) iterator.next();
 
-					JRDesignTextField designStaticText = new JRDesignTextField();
-					JRDesignExpression exp = new JRDesignExpression();
-					exp.setText("\"" + col.getTitle() + "\"");
-					exp.setValueClass(String.class);
-					designStaticText.setExpression(exp);
-					designStaticText.setHeight(columnsGroup.getHeaderHeight().intValue());
-					designStaticText.setWidth(col.getWidth().intValue());
-					designStaticText.setX(col.getPosX().intValue());
-					designStaticText.setY(col.getPosY().intValue());
+					JRDesignTextField designTextField = createColumnNameTextField(columnsGroup, col);
 
-					applyStyleToTextElement(col.getHeaderStyle(), designStaticText);
-
-					header.addElement(designStaticText);
+					header.addElement(designTextField);
 				}
 			}
 			layoutGroupVariables(columnsGroup, jgroup);
+			layoutGroupSubreports(columnsGroup, jgroup);
 		}
 	}
+
+	/**
+	 * @param columnsGroup
+	 * @param col
+	 * @return
+	 */
+	private JRDesignTextField createColumnNameTextField(ColumnsGroup columnsGroup, AbstractColumn col) {
+		JRDesignTextField designStaticText = new JRDesignTextField();
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setText("\"" + col.getTitle() + "\"");
+		exp.setValueClass(String.class);
+		designStaticText.setExpression(exp);
+		designStaticText.setHeight(columnsGroup.getHeaderHeight().intValue());
+		designStaticText.setWidth(col.getWidth().intValue());
+		designStaticText.setX(col.getPosX().intValue());
+		designStaticText.setY(col.getPosY().intValue());
+
+		applyStyleToElement(col.getHeaderStyle(), designStaticText);
+		return designStaticText;
+	}
 	
+	/**
+	 * If there is a SubReport on a Group, we do the layout here
+	 * @param columnsGroup
+	 * @param jgroup
+	 */
+	private void layoutGroupSubreports(ColumnsGroup columnsGroup, JRDesignGroup jgroup) {
+		log.debug("Starting subreport layout...");
+		JRDesignBand footerBand = (JRDesignBand) jgroup.getGroupFooter();
+		JRDesignBand headerBand = (JRDesignBand) jgroup.getGroupHeader();
+		
+		layOutSubReportInBand(columnsGroup, headerBand, DJConstants.HEADER);
+		layOutSubReportInBand(columnsGroup, footerBand, DJConstants.FOOTER);
+		
+	}
+
+	/**
+	 * @param columnsGroup
+	 * @param band
+	 * @param position 
+	 */
+	private void layOutSubReportInBand(ColumnsGroup columnsGroup, JRDesignBand band, String position) {
+		
+		List footerSubreportsList = DJConstants.FOOTER.equals(position) 
+				? columnsGroup.getFooterSubreports() 
+				: columnsGroup.getHeaderSubreports();
+				
+		for (Iterator iterator = footerSubreportsList.iterator(); iterator.hasNext();) {
+			Subreport sr = (Subreport) iterator.next();
+			JRDesignSubreport subreport = new JRDesignSubreport(new JRDesignStyle().getDefaultStyleProvider());
+			
+			//The data source
+			subreport.setDataSourceExpression(SubReportUtil.getDataSourceExpression(sr));
+			
+//			int random_ = subReportRandom.nextInt();
+			//the subreport design
+			JRDesignExpression srExpression = new JRDesignExpression();
+//			String paramname = "subreport_" + position + "_" + getReport().getColumnsGroups().indexOf(columnsGroup) + "_" + footerSubreportsList.indexOf(sr) + "-rnd-" + random_;
+			String paramname = sr.getReport().toString(); //TODO ensure this name is unique among all possible subreports
+			((DynamicJasperDesign)getDesign()).getParametersWithValues().put(paramname, sr.getReport());
+			srExpression.setText("("+JasperReport.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get( \""+ paramname +"\" )");
+			srExpression.setValueClass(JasperReport.class);
+			subreport.setExpression(srExpression );
+			
+			
+			//set the parameters
+			subreport.setParametersMapExpression(SubReportUtil.getParameterExpression(sr));
+			
+			
+			//some other options (cosmetical)
+			//subreport.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH);
+			int offset = findVerticalOffset(band);
+			subreport.setY(offset);
+			subreport.setX(-getReport().getOptions().getLeftMargin().intValue());
+			subreport.setWidth(getReport().getOptions().getPage().getWidth());
+			subreport.setHeight(100);
+			subreport.setPositionType(JRElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+			subreport.setStretchType(JRElement.STRETCH_TYPE_NO_STRETCH);
+			
+			if (sr.getStyle() != null)
+				applyStyleToElement(sr.getStyle(), subreport);
+			
+			//adding to the band
+			band.addElement(subreport);
+		}
+	}
+
 	/**
 	 * If variables are present for a given group, they are placed in it's
 	 * header/footer band.
@@ -399,13 +505,69 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		JRDesignBand headerBand = (JRDesignBand) jgroup.getGroupHeader();
 		JRDesignBand footerBand = (JRDesignBand) jgroup.getGroupFooter();
 
-		int headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
-
-		if (group.getLayout().isShowValueInHeader())
+//		int headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
+		int headerOffset = 0;
+		
+		//Show the current valio above the column name
+		int yOffset = 0;
+		GroupLayout layout = group.getLayout();
+		//Only the value in heaeder
+		PropertyColumn column = group.getColumnToGroupBy();
+		
+		//VALUE_IN_HEADER, 
+		//VALUE_IN_HEADER_WITH_HEADERS, 
+		//VALUE_IN_HEADER_AND_FOR_EACH, 
+		//VALUE_IN_HEADER_AND_FOR_EACH_WITH_HEADERS
+		if (layout.isShowValueInHeader() && layout.isHideColumn() && !layout.isShowColumnName()){
+			//textvield for the current value
+			JRDesignTextField currentValue = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), group);
+			
+			//The width will be all the page
+			currentValue.setWidth(getReport().getOptions().getPrintableWidth());
+			
+			//fix the height depending on the font size
+			currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont()));
+			yOffset += currentValue.getHeight();
+			
+			//Move down exisiting elements in the band. 
+			moveBandsElemnts(yOffset, headerBand);
+			
+			headerBand.addElement(currentValue);
+		} 
+		//DEFAULT and DEFAULT_WITH_HEADER
+		else if (layout.isShowValueInHeader() && !layout.isHideColumn() && !layout.isShowColumnName()){
+			headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
 			insertValueInHeader(headerBand, group, headerOffset);
+		} 
+		//VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME
+		else if (layout.isShowValueInHeader() && layout.isHideColumn() && layout.isShowColumnName()){
+			//Create the element for the column name
+			JRDesignTextField columnNameTf = createColumnNameTextField(group, column);
+			columnNameTf.setY(columnNameTf.getY() + headerOffset);
+			
+			//textvield for the current value
+			JRDesignTextField currentValue = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), group);
+			
+			//The width will be (width of the page) - (column name width) 
+			currentValue.setWidth(getReport().getOptions().getPrintableWidth() - columnNameTf.getWidth());
+			//The x position for the current value is right next to the column name
+			currentValue.setX(columnNameTf.getWidth());
+			
+			//fix the height depending on the font size
+			currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont()));
+			columnNameTf.setHeight(currentValue.getHeight());
+			
+			yOffset += currentValue.getHeight();
+			
+			//Move down exisiting elements in the band. 
+			moveBandsElemnts(yOffset, headerBand);
+			
+			headerBand.addElement(columnNameTf);
+			headerBand.addElement(currentValue);
+		} 		
 
-		placeVariableInBand(group.getHeaderVariables(), group, jgroup, ColumnsGroupVariablesRegistrationManager.HEADER, headerBand, headerOffset);
-		placeVariableInBand(group.getFooterVariables(), group, jgroup, ColumnsGroupVariablesRegistrationManager.FOOTER, footerBand, 0);
+		placeVariableInBand(group.getHeaderVariables(), group, jgroup, DJConstants.HEADER, headerBand, headerOffset);
+		placeVariableInBand(group.getFooterVariables(), group, jgroup, DJConstants.FOOTER, footerBand, 0);
 	}
 
 	private void placeVariableInBand(Collection variables, ColumnsGroup columnsGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
@@ -414,7 +576,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			Iterator it = variables.iterator();
 			while (it.hasNext()) {
 				ColumnsGroupVariable var = (ColumnsGroupVariable) it.next();
-				AbstractColumn col = var.getColumnToApplyOperation();
+				AbstractColumn col = (AbstractColumn) var.getColumnToApplyOperation();
 
 				String variableName = col.getGroupVariableName(type, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty());
 
@@ -442,21 +604,21 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				//Assign the style to the element.
 				//First we look for the specific element style, then the default style for the group variables
 				//and finally the column style.
-				Style defStyle = ColumnsGroupVariablesRegistrationManager.HEADER.equals(type)?columnsGroup.getDefaulHeaderStyle():columnsGroup.getDefaulFooterStyle();
+				Style defStyle = DJConstants.HEADER.equals(type)?columnsGroup.getDefaulHeaderStyle():columnsGroup.getDefaulFooterStyle();
 
 				if (var.getStyle() != null)
-					applyStyleToTextElement(var.getStyle(), textField);
+					applyStyleToElement(var.getStyle(), textField);
 				else if (defStyle != null)
-					applyStyleToTextElement(defStyle, textField);
+					applyStyleToElement(defStyle, textField);
 				else
-					applyStyleToTextElement(col.getStyle(), textField);
+					applyStyleToElement(col.getStyle(), textField);
 
 				band.addElement(textField);
 
 			}
 
 			if (columnsGroup.getColumnToGroupBy() instanceof GlobalGroupColumn) {
-				int totalWidth;
+				int totalWidth = 0;
 
 				totalWidth = ((ColumnsGroupVariable)variables.iterator().next()).getColumnToApplyOperation().getPosX().intValue();
 
@@ -475,7 +637,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					globalTextField.setY(yOffset);
 				globalTextField.setKey("global_legend_"+type);
 
-				applyStyleToTextElement(globalCol.getStyle(), globalTextField);
+				applyStyleToElement(globalCol.getStyle(), globalTextField);
 
 				band.addElement(globalTextField);
 			}
@@ -485,6 +647,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	private void insertValueInHeader(JRDesignBand headerBand, ColumnsGroup columnsGroup, int headerOffset) {
 		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), columnsGroup.getHeaderHeight().intValue(), columnsGroup);
 		textField.setHorizontalAlignment(columnsGroup.getColumnToGroupBy().getStyle().getHorizontalAlign().getValue());
+		textField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX this is a patch for subreports, ensure it works well.
 		textField.setY(textField.getY() + headerOffset);
 		headerBand.addElement(textField);
 	}
@@ -507,20 +670,26 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			header = new JRDesignBand();
 			getDesign().setColumnHeader(header);
 		}
-		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))
+		
+
+		/**
+		 * Note: Te column names, when in header, are printed at the begining of every page.
+		 * You may dont want this option if you have groups that prints column names.
+		 */
+		if (getReport().getOptions().isPrintColumnNames()){
 			generateHeaderBand(header);
+		}
+		
+//		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))
+//			generateHeaderBand(header);
 	}
 
 	protected void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField) {
 		//TODO: Set default characters when null values are found.
 		log.debug("transforming detail band text field...");
 		ColumnsGroup group = DynamicJasperHelper.getColumnGroup(column, getReport().getColumnsGroups());
-		if (group!=null&&!group.getLayout().isShowValueForEach()) {
-			textField.getStyle().setBorder((byte)0);
-			JRDesignExpression exp = new JRDesignExpression();
-			exp.setText("\" \"");
-			exp.setValueClassName(String.class.getName());
-			textField.setExpression(exp);
+		if (group!=null&&!group.getLayout().isShowValueForEachRow()) {
+			textField.setExpression(null); //this way, the textfield is not added to the band			
 		}
 	}
 }
