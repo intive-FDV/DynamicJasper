@@ -5,12 +5,15 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="1.4.0" date="2007-11-09" desc="CrossTab Release">
+         <release version="1.4.0" date="2007-10-23" desc="CrossTab Release">
            	<action dev="Juan Manuel Alvarez" type="add">
               Groups can start in new page or in new column. 
             </action>
            	<action dev="Juan Manuel Alvarez" type="add">
               Existing styles in .jrxml files can be referenced from a DynamicReport 
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="fix">
+              Anoying loggin information when using repeated styles 
             </action>
          </release>
          <release version="1.3.3" date="2007-10-18" desc="minor styles fix">

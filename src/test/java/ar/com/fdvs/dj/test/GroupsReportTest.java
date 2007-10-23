@@ -138,8 +138,8 @@ public class GroupsReportTest extends TestCase {
 		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,
 						ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
-				.addFooterVariable(columnaQuantity,
-						ColumnsGroupVariableOperation.SUM).build();
+				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM)
+				.build();
 
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
