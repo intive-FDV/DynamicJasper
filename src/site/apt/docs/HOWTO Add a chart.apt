@@ -1,0 +1,23 @@
+HOW-TO Add a chart
+
++------------------------------------------------------------------------------------------------------------+
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+//Group and columns creation
+
+DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
+DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // define the type of chart (Pie)
+			.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
+			.addColumnsGroup(g1)                           // define the group that will be represented
+			.addColumn(columnAmount)                       // define the column that will be represented
+			.build();
+			
+drb.addChart(chart);	//add chart
++------------------------------------------------------------------------------------------------------------+
+ 
+ This code generate a report like this:
+ 
+[../images/examples/chart-report-test.jpg] Chart Report
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}ChartReportTest.html}} for a working example.
+ 

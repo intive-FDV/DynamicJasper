@@ -1,0 +1,25 @@
+HOW-TO Add header and/or footer to a report  
+
+ You have two different ways to achieve this task:
+ 
+ 1) Use the {{{HOWTO Create Autotext.html}AutoText feature}} (recommended)
+ 
+ 2) Use a Custom Template as shown above, and add the info to the Report Builder, like this:
+
++------------------------------------------------------------------------------------------------------------+ 
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+	
+drb.addTemplateFile("pathToTemplate/TemplateName.jrxml");
+	
+//Assuming you added $P{header} and $P{footer} as content for the textfields used as header and footer, 
+//you must add their content:  
+Map parameters = new HashMap();
+params.put("header","<my header message>");
+params.put("footer","<my footer message>");
+//Creates the JasperPrint, using the parameters map
+JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters );												
++------------------------------------------------------------------------------------------------------------+ 
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateFileReportTest.html}TemplateFileReportTest}} for a working example. Here you can see the used jrxml: {{{../examples/TemplateReportTest.jrxml}download}}
+ 

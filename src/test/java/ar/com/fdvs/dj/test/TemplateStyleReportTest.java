@@ -70,6 +70,7 @@ public class TemplateStyleReportTest extends TestCase {
 		 * The title should be seen in a big font size, violet foreground and light green background 
 		 */
 		Style titleStyle = new Style("titleStyle");
+		titleStyle.setOverridesExistingStyle(true);
 		
 		Style subtitleStyle = new Style();
 		Style amountStyle = new Style(); amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);

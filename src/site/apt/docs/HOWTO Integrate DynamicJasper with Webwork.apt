@@ -1,0 +1,37 @@
+HOW-TO Integrate DynamicJasper with Webwork
+
+ Webwork actually integrates with jasper reports through the JasperReportsResult result-type, we extended this class to support
+ DynamicJasper also.
+ 
+ Firt you have to register the <<dynamic-jasper>> result-type in you <xwork.xml> like this
+
++-----------------------------------------------------------------------------+
+<result-types>
+	...
+    <result-type name="dynamic-jasper" class="ar.com.fdvs.dj.webwork.DJResult"/>
+    ...
+</result-types>
++-----------------------------------------------------------------------------+
+
+ Later in you action definition, the configuration
+ 
++-----------------------------------------------------------------------------+
+<action name="myAcion" 	class="myActionClass" method="myMethod">
+	...
+	<result name="success" type="dynamic-jasper">
+		 <param name="dynamicReport">myDynamicReport</param>
+		 <param name="dataSource">datasource</param>
+		 <param name="documentName">The_final_name_of_the_file</param>
+		 <param name="contentDisposition">application/download</param>
+		 <param name="format">PDF</param>
+	</result>
+</action>
++-----------------------------------------------------------------------------+
+ 
+ The three important parameters here are <<dynamicReport>> wich is the name of the property of the action wich is an instance of DynamicReport
+ 
+ The 2nd is <<format>> wich tells the output format to generate.
+ 
+ And finally <<dataSource>> wich is the name of the property in the action that is an instance of any 
+ of the supported classes to be used as a data source (Collection, Object arrays, ResultSet, etc). 
+ 

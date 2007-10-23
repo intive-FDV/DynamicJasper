@@ -278,7 +278,7 @@ public class DynamicReportBuilder {
 	}
 
 	public DynamicReportBuilder setHeaderHeight(int height) {
-		options.setHeaderHeight(new Integer(height));
+		options.setHeaderHeight(Integer.valueOf(height));
 		return this;
 	}
 
@@ -303,12 +303,12 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addFooterHeight(int height) {
-		options.setFooterHeight(new Integer(height));
+		options.setFooterHeight(Integer.valueOf(height));
 		return this;
 	}
 
 	public DynamicReportBuilder setFooterHeight(int height) {
-		options.setFooterHeight(new Integer(height));
+		options.setFooterHeight(Integer.valueOf(height));
 		return this;
 	}
 
@@ -333,12 +333,12 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addDetailHeight(int height) {
-		options.setDetailHeight(new Integer(height));
+		options.setDetailHeight(Integer.valueOf(height));
 		return this;
 	}
 	
 	public DynamicReportBuilder setDetailHeight(int height) {
-		options.setDetailHeight(new Integer(height));
+		options.setDetailHeight(Integer.valueOf(height));
 		return this;
 	}
 
@@ -363,12 +363,12 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addLeftMargin(int margin) {
-		options.setLeftMargin(new Integer(margin));
+		options.setLeftMargin(Integer.valueOf(margin));
 		return this;
 	}
 	
 	public DynamicReportBuilder setLeftMargin(int margin) {
-		options.setLeftMargin(new Integer(margin));
+		options.setLeftMargin(Integer.valueOf(margin));
 		return this;
 	}
 
@@ -393,12 +393,12 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addRightMargin(int margin) {
-		options.setRightMargin(new Integer(margin));
+		options.setRightMargin(Integer.valueOf(margin));
 		return this;
 	}
 	
 	public DynamicReportBuilder setRightMargin(int margin) {
-		options.setRightMargin(new Integer(margin));
+		options.setRightMargin(Integer.valueOf(margin));
 		return this;
 	}
 
@@ -423,11 +423,11 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addTopMargin(int margin) {
-		options.setTopMargin(new Integer(margin));
+		options.setTopMargin(Integer.valueOf(margin));
 		return this;
 	}
 	public DynamicReportBuilder setTopMargin(int margin) {
-		options.setTopMargin(new Integer(margin));
+		options.setTopMargin(Integer.valueOf(margin));
 		return this;
 	}
 
@@ -451,11 +451,11 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addBottomMargin(int margin) {
-		options.setBottomMargin(new Integer(margin));
+		options.setBottomMargin(Integer.valueOf(margin));
 		return this;
 	}
 	public DynamicReportBuilder setBottomMargin(int margin) {
-		options.setBottomMargin(new Integer(margin));
+		options.setBottomMargin(Integer.valueOf(margin));
 		return this;
 	}
 
@@ -479,11 +479,22 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addColumnsPerPage(int numColumns) {
-		options.setColumnsPerPage(new Integer(numColumns));
+		options.setColumnsPerPage(Integer.valueOf(numColumns));
 		return this;
 	}
 	public DynamicReportBuilder setColumnsPerPage(int numColumns) {
-		options.setColumnsPerPage(new Integer(numColumns));
+		options.setColumnsPerPage(Integer.valueOf(numColumns));
+		return this;
+	}
+	
+	public DynamicReportBuilder setColumnsPerPage(int numColumns, int columnSpace) {
+		options.setColumnsPerPage(Integer.valueOf(numColumns));
+		options.setColumnSpace(Integer.valueOf(columnSpace));
+		return this;
+	}
+	public DynamicReportBuilder setColumnsPerPage(Integer numColumns, Integer columnSpace) {
+		options.setColumnsPerPage(numColumns);
+		options.setColumnSpace(columnSpace);
 		return this;
 	}
 
@@ -506,11 +517,11 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addColumnSpace(int columSpace) {
-		options.setColumnSpace(new Integer(columSpace));
+		options.setColumnSpace(Integer.valueOf(columSpace));
 		return this;
 	}
 	public DynamicReportBuilder setColumnSpace(int columSpace) {
-		options.setColumnSpace(new Integer(columSpace));
+		options.setColumnSpace(Integer.valueOf(columSpace));
 		return this;
 	}
 
@@ -796,20 +807,20 @@ public class DynamicReportBuilder {
 	 */
 	public DynamicReportBuilder addMargins(int top, int bottom, int left, int right) {
 		
-		options.setTopMargin(new Integer(top));
-		options.setBottomMargin(new Integer(bottom));
-		options.setLeftMargin(new Integer(left));
-		options.setRightMargin(new Integer(right));
+		options.setTopMargin(Integer.valueOf(top));
+		options.setBottomMargin(Integer.valueOf(bottom));
+		options.setLeftMargin(Integer.valueOf(left));
+		options.setRightMargin(Integer.valueOf(right));
 		
 		return this;
 	}
 	
 	public DynamicReportBuilder setMargins(int top, int bottom, int left, int right) {
 		
-		options.setTopMargin(new Integer(top));
-		options.setBottomMargin(new Integer(bottom));
-		options.setLeftMargin(new Integer(left));
-		options.setRightMargin(new Integer(right));
+		options.setTopMargin(Integer.valueOf(top));
+		options.setBottomMargin(Integer.valueOf(bottom));
+		options.setLeftMargin(Integer.valueOf(left));
+		options.setRightMargin(Integer.valueOf(right));
 		
 		return this;
 	}
