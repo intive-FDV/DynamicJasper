@@ -40,6 +40,7 @@ import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
+import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JRTextField;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
 import net.sf.jasperreports.engine.base.JRBaseVariable;
@@ -81,10 +82,10 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
  */
 public abstract class AbstractLayoutManager implements LayoutManager {
 
-	private static final Log log = LogFactory.getLog(AbstractLayoutManager.class);
+	static final Log log = LogFactory.getLog(AbstractLayoutManager.class);
 	protected static final String EXPRESSION_TRUE_WHEN_ODD = "new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)";
 
-	private JasperDesign design;
+	JasperDesign design;
 	private DynamicReport report;
 
 	protected abstract void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField);
@@ -150,14 +151,25 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @param baseStyle
 	 * @throws JRException
 	 */
-	public void addStyleToDesign(JRDesignStyle jrstyle)  {
+	public void addStyleToDesign(Style style)  {
+		JRDesignStyle jrstyle = style.transform();
 		try {
 			if (jrstyle.getName() == null) {
-				String name = "style_" + (getReportStyles().values().size() + 1);
+				String name = "dj_style_" + (getReportStyles().values().size() + 1);
 				jrstyle.setName(name);
 				getReportStyles().put(name, jrstyle);
-			} 
-			design.addStyle(jrstyle);
+			}
+			
+			JRStyle old = (JRStyle) design.getStylesMap().get(jrstyle.getName());
+			if (old != null && style.isOverridesExistingStyle()){
+				log.info("Overriding style with name \""+ style.getName() +"\"");
+				
+				design.removeStyle(style.getName());
+				design.addStyle(jrstyle);
+			} else {
+				if (style.getName() != null)
+					log.info("Using existing style for style with name \""+ style.getName() +"\"");
+			}
 		} catch (JRException e) {
 			log.info("Duplicated style (it's ok): " + e.getMessage());
 		}
@@ -213,7 +225,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		style.setForecolor(options.getOddRowBackgroundStyle().getBackgroundColor());
 		rectangle.setStyle(style);
 		detail.addElement(rectangle);
-		addStyleToDesign(style);
+		addStyleToDesign(options.getOddRowBackgroundStyle());
 	}
 
 	/**
@@ -268,8 +280,18 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 	protected final void applyStyleToElement(Style style, JRDesignElement designElemen) {
-		JRDesignStyle jrstyle = style.transform();
-		addStyleToDesign(jrstyle);
+		boolean existsInDesign = style.getName() != null 
+			&& design.getStylesMap().get(style.getName()) != null; 
+//			&& !style.isOverridesExistingStyle();
+		
+		JRStyle jrstyle = null;
+		if (existsInDesign && !style.isOverridesExistingStyle()){
+			jrstyle = (JRStyle) design.getStylesMap().get(style.getName());
+		} else {
+			jrstyle = style.transform();
+			addStyleToDesign(style);
+		}
+		
 		designElemen.setStyle(jrstyle);
 		if (designElemen instanceof JRDesignTextElement ) {
 			JRDesignTextElement textField = (JRDesignTextElement) designElemen;

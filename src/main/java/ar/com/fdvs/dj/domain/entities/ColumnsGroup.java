@@ -64,6 +64,9 @@ public class ColumnsGroup implements Entity {
 	private List footerSubreports = new ArrayList();
 	private List headerSubreports = new ArrayList();
 	
+	private Boolean startInNewPage = Boolean.FALSE;
+	private Boolean startInNewColumn = Boolean.FALSE;
+	
 	/**
 	 * Default Style for variables when showing in footer.
 	 * Firts looks for the style at the ColumnsGroupVariable, then the default, finally
@@ -139,6 +142,22 @@ public class ColumnsGroup implements Entity {
 
 	public List getHeaderSubreports() {
 		return headerSubreports;
+	}
+
+	public Boolean getStartInNewPage() {
+		return startInNewPage;
+	}
+
+	public void setStartInNewPage(Boolean startInNewPage) {
+		this.startInNewPage = startInNewPage;
+	}
+
+	public Boolean getStartInNewColumn() {
+		return startInNewColumn;
+	}
+
+	public void setStartInNewColumn(Boolean startInNewColumn) {
+		this.startInNewColumn = startInNewColumn;
 	}
 
 }

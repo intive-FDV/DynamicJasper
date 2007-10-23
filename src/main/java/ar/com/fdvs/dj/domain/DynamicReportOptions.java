@@ -55,7 +55,7 @@ public class DynamicReportOptions {
 	private Page page = Page.Page_A4_Portrait();
 
 	private boolean printBackgroundOnOddRows = false;
-	private Style oddRowBackgroundStyle = new Style("swfaultOddRowStyle");
+	private Style oddRowBackgroundStyle = new Style("defaultOddRowStyle");
 	private Integer titleHeight =  new Integer(30);
 	private boolean titleNewPage =  false;
 	private Integer subtitleHeight = new Integer(15);

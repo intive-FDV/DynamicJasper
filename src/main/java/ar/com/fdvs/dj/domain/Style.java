@@ -87,7 +87,20 @@ public class Style implements Serializable, Cloneable {
     private boolean stretchWithOverflow = true;
     private boolean blankWhenNull = true;
     
-    public Style(){}
+    /**
+     * If true and another style exists in the design with the same name, this style overrides the existing one.
+     */
+    private boolean overridesExistingStyle = false;
+    
+    public boolean isOverridesExistingStyle() {
+		return overridesExistingStyle;
+	}
+
+	public void setOverridesExistingStyle(boolean overridesExistingStyle) {
+		this.overridesExistingStyle = overridesExistingStyle;
+	}
+
+	public Style(){}
 
     public Style(String name){
     	this.name = name;

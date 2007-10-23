@@ -196,6 +196,28 @@ public class GroupBuilder {
 		return this;
 	}
 
+	public GroupBuilder setStartInNewPage(Boolean bool) {
+		group.setStartInNewPage(bool);
+		return this;
+	}
+
+	public GroupBuilder setStartInNewPage(boolean bool) {
+		group.setStartInNewPage(Boolean.valueOf(bool));
+		return this;
+	}
+	
+	public GroupBuilder setStartInNewColumn(Boolean bool) {
+		group.setStartInNewColumn(bool);
+		return this;
+	}
+	
+	public GroupBuilder setStartInNewColumn(boolean bool) {
+		group.setStartInNewColumn(Boolean.valueOf(bool));
+		return this;
+	}
+
+
+
 
 
 

@@ -47,6 +47,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -220,6 +221,16 @@ public final class DynamicJasperHelper {
 					djd.addParameter(element);
 				} catch (JRException e) {	}
 
+			}
+			
+			//Add all existing styles in the design to the new one
+			for (Iterator iterator = jd.getStylesList().iterator(); iterator.hasNext();) {
+				JRStyle style = (JRStyle) iterator.next();
+				try {
+					djd.addStyle(style);
+				} catch (JRException e) {					
+					log.warn("Duplicated style (style name \""+ style.getName()+"\") when loading design: " + e.getMessage(), e);
+				}
 			}
 
 		} catch (IllegalAccessException e) {

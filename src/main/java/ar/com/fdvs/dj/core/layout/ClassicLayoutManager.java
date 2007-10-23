@@ -388,6 +388,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			ColumnsGroup columnsGroup = (ColumnsGroup) iter.next();
 			JRDesignGroup jgroup = (JRDesignGroup) getDesign().getGroupsList().get(i++);
 		
+			jgroup.setStartNewPage(columnsGroup.getStartInNewPage().booleanValue());
+			jgroup.setStartNewColumn(columnsGroup.getStartInNewColumn().booleanValue());
+			
 			JRDesignBand header = (JRDesignBand) jgroup.getGroupHeader();
 			JRDesignBand footer = (JRDesignBand) jgroup.getGroupFooter();
 			header.setHeight(columnsGroup.getHeaderHeight().intValue());
@@ -692,4 +695,5 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			textField.setExpression(null); //this way, the textfield is not added to the band			
 		}
 	}
+
 }
