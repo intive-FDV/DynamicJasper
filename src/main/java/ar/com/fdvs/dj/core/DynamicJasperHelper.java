@@ -154,7 +154,7 @@ public final class DynamicJasperHelper {
 
 		des.setTitleNewPage(options.isTitleNewPage());
 
-		des.setName("DynamicReport...");
+		des.setName("DynamicReport");
 		return des;
 	}
 

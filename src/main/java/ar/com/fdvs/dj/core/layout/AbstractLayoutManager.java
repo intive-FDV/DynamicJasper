@@ -105,15 +105,17 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		try {
 			setDesign(design);
 			setReport(report);
-			ensureStyles();
+			ensureDJStyles();
 			startLayout();
 			transformDetailBand();
 			endLayout();
+			registerRemainingStyles();
 		} catch (RuntimeException e) {
 			throw new LayoutException(e.getMessage(),e);
 		}
 	}
 	
+
 	protected void startLayout() {
 		setColumnsFinalWidth();
 	}
@@ -122,12 +124,18 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		layoutCharts();
 		setBandsFinalHeight();
 	}
+	
+	protected void registerRemainingStyles() {
+		//TODO: troll all elements in the JRDesing and for elements that has styles with null name 
+		//or not registered, register them in the design
+		
+	}
 
 	/**
 	 * Sets a default style for every element that doesn't have one
 	 * @throws JRException 
 	 */
-	protected void ensureStyles()  {
+	protected void ensureDJStyles()  {
 			Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
 			
 			
@@ -157,7 +165,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			if (jrstyle.getName() == null) {
 				String name = "dj_style_" + (getReportStyles().values().size() + 1);
 				jrstyle.setName(name);
+				style.setName(name);
 				getReportStyles().put(name, jrstyle);
+				design.addStyle(jrstyle);
 			}
 			
 			JRStyle old = (JRStyle) design.getStylesMap().get(jrstyle.getName());
@@ -165,6 +175,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				log.info("Overriding style with name \""+ style.getName() +"\"");
 				
 				design.removeStyle(style.getName());
+				design.addStyle(jrstyle);
+			} else if (old == null){
+				log.info("Registering new style with name \""+ style.getName() +"\"");
 				design.addStyle(jrstyle);
 			} else {
 				if (style.getName() != null)
@@ -221,11 +234,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		rectangle.setHeight(options.getDetailHeight().intValue());
 		rectangle.setWidth(options.getColumnWidth());
 		rectangle.setStretchType(JRDesignRectangle.STRETCH_TYPE_RELATIVE_TO_TALLEST_OBJECT);
-		JRDesignStyle style = options.getOddRowBackgroundStyle().transform();
-		style.setForecolor(options.getOddRowBackgroundStyle().getBackgroundColor());
+		Style oddRowBackgroundStyle = options.getOddRowBackgroundStyle();
+		
+		addStyleToDesign(oddRowBackgroundStyle);//register this style in the jasperDesign
+		
+		JRDesignStyle style = oddRowBackgroundStyle.transform();
+		style.setForecolor(oddRowBackgroundStyle.getBackgroundColor());
 		rectangle.setStyle(style);
 		detail.addElement(rectangle);
-		addStyleToDesign(options.getOddRowBackgroundStyle());
 	}
 
 	/**
@@ -288,8 +304,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		if (existsInDesign && !style.isOverridesExistingStyle()){
 			jrstyle = (JRStyle) design.getStylesMap().get(style.getName());
 		} else {
+			addStyleToDesign(style); //Order maters. This line fist
 			jrstyle = style.transform();
-			addStyleToDesign(style);
 		}
 		
 		designElemen.setStyle(jrstyle);
@@ -480,7 +496,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	/*
 	 * Takes all the report's charts and inserts them in their corresponding bands
 	 */
-	protected final void layoutCharts() {
+	protected void layoutCharts() {
 		for (Iterator iter = getReport().getCharts().iterator(); iter.hasNext();) {
 			DJChart djChart = (DJChart) iter.next();
 			JRDesignChart chart = createChart(djChart);

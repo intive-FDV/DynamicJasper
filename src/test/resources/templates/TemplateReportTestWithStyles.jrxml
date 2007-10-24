@@ -25,10 +25,19 @@
 
 	<style 
 		name="titleStyle"
+		isDefault="false"
 		mode="Opaque"
 		forecolor="#CC00CC"
 		backcolor="#CCFF99"
 		fontSize="24"
+	/>
+	<style 
+		name="defaultDetailStyle"
+		isDefault="false"
+		mode="Opaque"
+		forecolor="#CC33FF"
+		fontName="Arial"
+		fontSize="10"
 	/>
 
 	<parameter name="rightHeader" isForPrompting="false" class="java.lang.String"/>
