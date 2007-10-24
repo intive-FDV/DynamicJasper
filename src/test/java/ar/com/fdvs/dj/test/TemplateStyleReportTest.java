@@ -71,6 +71,10 @@ public class TemplateStyleReportTest extends TestCase {
 		 */
 		Style titleStyle = new Style("titleStyle");
 
+		/**
+		 * "subtitleStyleParent" is meant to be used as a parent style, while
+		 * "subtitleStyle" is the child.
+		 */
 		Style subtitleStyleParent = new Style("subtitleParent");
 		subtitleStyleParent.setBackgroundColor(Color.CYAN);
 		subtitleStyleParent.setTransparency(Transparency.OPAQUE);
@@ -85,14 +89,14 @@ public class TemplateStyleReportTest extends TestCase {
 		 * the report
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		drb.setTitle("November 2006 sales report")					//defines the title of the report
+		drb.setTitle("November 2006 sales report")
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(15)						//defines the height for each record of the report
-			.setMargins(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
+			.setDetailHeight(15)
+			.setMargins(30, 20, 30, 15)
 			.setDefaultStyles(titleStyle, subtitleStyle, headerStyle, null)
-			.addStyle(subtitleStyleParent)
-			.setColumnsPerPage(1);						//defines columns per page (like in the telephone guide)
+			.addStyle(subtitleStyleParent); //register the parent style
+			
 
 		/**
 		 * Note that we didn't call the build() method yet
