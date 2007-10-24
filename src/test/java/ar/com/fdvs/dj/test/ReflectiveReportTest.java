@@ -8,7 +8,6 @@ import java.util.List;
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -44,7 +43,7 @@ public class ReflectiveReportTest extends TestCase {
 	public void doReport(final DynamicReport _report, final Collection _data) {
         try {
         	final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(_report, new ClassicLayoutManager(), _data);
-        	JasperViewer.viewReport(jasperPrint);
+//        	JasperViewer.viewReport(jasperPrint);
 			ReportExporter.exportReport(jasperPrint, System.getProperty("user.dir")+ "/target/ReflectiveReportTest.pdf");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

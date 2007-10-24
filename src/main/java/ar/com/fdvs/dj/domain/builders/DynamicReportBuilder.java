@@ -951,6 +951,22 @@ public class DynamicReportBuilder {
 		return addSubreportInGroupHeader(groupNumber, subreport);
 	}
 	
+	/**
+	 * You can register styles object for later reference them directly.
+	 * Parent styles should be registered this way
+	 * @param style
+	 * @return
+	 * @throws DJBuilderException
+	 */
+	public DynamicReportBuilder addStyle(Style style) throws DJBuilderException {
+		if (style.getName() == null)
+			throw new DJBuilderException("Invalid style. The style must have a name");
+		
+		report.addStyle(style);
+		
+		return this;
+	}
+	
 	
 
 }

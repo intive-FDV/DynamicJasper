@@ -98,7 +98,7 @@ public class XlsReportTest extends TestCase {
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource 
 			ReportExporter.exportReportPlainXls(jp, System.getProperty("user.dir")+ "/target/XlsReportTest.xls");
-			JasperViewer.viewReport(jp);	//finally display the report report
+//			JasperViewer.viewReport(jp);	//finally display the report report
 //			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
 //			JasperDesignViewer.viewReportDesign(jr);
 		} catch (Exception e) {

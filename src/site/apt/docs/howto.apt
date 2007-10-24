@@ -36,4 +36,6 @@ HOW TO Guide
  * {{{HOWTO Create a report with columns.html}Create a report with columns  (like the telephone guide)}}
 
  * {{{HOWTO Reference a style that exists in a jrxml file.html}Reference a style that exists in a jrxml file}}
+
+ * {{{HOWTO Use inherited styles.html}Use inherited styles}}
  

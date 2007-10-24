@@ -136,8 +136,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @throws JRException 
 	 */
 	protected void ensureDJStyles()  {
-			Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
-			
+		
+		//first of all, register all parent styles if any
+		for (Iterator iterator = getReport().getStyles().values().iterator(); iterator.hasNext();) {
+			Style style = (Style) iterator.next();
+			addStyleToDesign(style);			
+		}
+		
+		Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
 			
 			Style defaultHeaderStyle = getReport().getOptions().getDefaultHeaderStyle();
 	//		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
@@ -311,7 +317,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		designElemen.setStyle(jrstyle);
 		if (designElemen instanceof JRDesignTextElement ) {
 			JRDesignTextElement textField = (JRDesignTextElement) designElemen;
-			textField.setStretchType(style.getStreching().getValue());
+			if (style.getStreching() != null)
+				textField.setStretchType(style.getStreching().getValue());
 			textField.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
 		}
 		if (designElemen instanceof JRDesignTextField ) {

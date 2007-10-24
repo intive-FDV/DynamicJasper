@@ -36,7 +36,6 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -161,7 +160,7 @@ public class FixedColumnWidhTest extends TestCase {
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource 
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/FixedColumnWidhTest.pdf");
-			JasperViewer.viewReport(jp);	//finally display the report report
+//			JasperViewer.viewReport(jp);	//finally display the report report
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

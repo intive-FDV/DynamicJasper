@@ -38,6 +38,7 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -45,6 +46,7 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
+import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -68,8 +70,14 @@ public class TemplateStyleReportTest extends TestCase {
 		 * The title should be seen in a big font size, violet foreground and light green background 
 		 */
 		Style titleStyle = new Style("titleStyle");
+
+		Style subtitleStyleParent = new Style("subtitleParent");
+		subtitleStyleParent.setBackgroundColor(Color.CYAN);
+		subtitleStyleParent.setTransparency(Transparency.OPAQUE);
 		
-		Style subtitleStyle = new Style();
+		Style subtitleStyle = Style.createBlankStyle("subtitleStyle","subtitleParent");
+		subtitleStyle.setFont(Font.GEORGIA_SMALL_BOLD);
+		
 		Style amountStyle = new Style(); amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 
 		/**
@@ -83,6 +91,7 @@ public class TemplateStyleReportTest extends TestCase {
 			.setDetailHeight(15)						//defines the height for each record of the report
 			.setMargins(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
 			.setDefaultStyles(titleStyle, subtitleStyle, headerStyle, null)
+			.addStyle(subtitleStyleParent)
 			.setColumnsPerPage(1);						//defines columns per page (like in the telephone guide)
 
 		/**
@@ -175,7 +184,7 @@ public class TemplateStyleReportTest extends TestCase {
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters );	//Creates the JasperPrint object, we pass as a Parameter
 																											//one does the magic) and the JRDataSource
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/TemplateReportTestWithStyles.pdf");
-//			JasperViewer.viewReport(jp);	//finally display the report report
+			JasperViewer.viewReport(jp);	//finally display the report report
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
