@@ -105,8 +105,21 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return super.build();
 	}
 
+    public FastReportBuilder addColumn(String title, String property, String className, int width, Style style) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+			.setColumnProperty(new ColumnProperty(property, className))
+			.setWidth(Integer.valueOf(width))
+			.setTitle(title)
+			.build();
 
-	public FastReportBuilder addColumn(String title, String property, String className, int width) throws ColumnBuilderException, ClassNotFoundException {
+		column.setStyle(style);
+
+		addColumn(column);
+
+		return this;
+	}
+
+    public FastReportBuilder addColumn(String title, String property, String className, int width) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getInstance()
 			.setColumnProperty(new ColumnProperty(property, className))
 			.setWidth(Integer.valueOf(width))
