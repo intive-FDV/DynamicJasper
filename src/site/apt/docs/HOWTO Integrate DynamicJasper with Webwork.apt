@@ -40,7 +40,11 @@ HOW-TO Integrate DynamicJasper with Webwork
  
  Other possible values are:
  
+ * <classic>: To use <<ClassicLayoutManager>>
+ 
  * <list>: To use <<ListLayoutManager>>
+ 
  * <$expresion>: evaluates the content of the expression. The expression must return <classic>, <list>, a <LayoutManager> object, or a java class name 
- * <Fully qualified java name>: instantiates the specified class (must implement the <LayoutManager> interface
+ 
+ * <Fully qualified java name>: instantiates the specified class (must implement the <LayoutManager> interface)
  
