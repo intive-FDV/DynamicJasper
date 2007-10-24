@@ -18,6 +18,9 @@
            	<action dev="Juan Manuel Alvarez" type="add">
               Support for inherited styles 
             </action>
+           	<action dev="Mariano Simone" type="add">
+              Convinient method in the FastReportBuilder to pass the style whe adding a new column.
+            </action>
          </release>
          <release version="1.3.3" date="2007-10-18" desc="minor styles fix">
            	<action dev="Juan Manuel Alvarez" type="fix">
