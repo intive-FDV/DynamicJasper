@@ -16,8 +16,12 @@ import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import sun.security.action.GetLongAction;
+
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.core.layout.ListLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.output.FormatInfoRegistry;
 import ar.com.fdvs.dj.output.ReportWriter;
@@ -40,10 +44,18 @@ public class DJResult extends JasperReportsResult {
 	private static final long serialVersionUID = -5135527859073133975L;
 
 	private static final Log LOG = LogFactory.getLog(DJResult.class);
+	
+	public static final String LAYOUT_CLASSIC = "classic";
+	public static final String LAYOUT_LIST = "list";
 
     private String dynamicReport;
 
     private String documentFormat;
+
+    /**
+     * The layout manager to use. Possible values are: classic, list, or a fully qualified java name
+     */
+    private String layoutManager;
 
     public void setDynamicReport(final String _dynamicReport) {
         dynamicReport = _dynamicReport;
@@ -83,14 +95,45 @@ public class DJResult extends JasperReportsResult {
             final HashMap parameters = new HashMap();
             //TODO set the locale
             parameters.put(JRParameter.REPORT_LOCALE, _invocation.getInvocationContext().getLocale());
-            final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(getDynamicReport(_invocation), new ClassicLayoutManager(), ds, parameters);
+            LayoutManager layoutManagerObj = getLayOutManagerObj(_invocation);
+			final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(getDynamicReport(_invocation), layoutManagerObj, ds, parameters);
 
             // Export the print object to the desired output format
             writeReponse(request, response, jasperPrint, _invocation);
         }
     }
 
-    private void handleConTypeRequest(final HttpServletResponse _response) throws ServletException {
+    private LayoutManager getLayOutManagerObj(ActionInvocation _invocation) {
+		String los = conditionalParse(layoutManager, _invocation);
+		if (LAYOUT_CLASSIC.equals(los))
+			return new ClassicLayoutManager();
+		
+		if (LAYOUT_LIST.equals(los))
+			return new ListLayoutManager();
+		
+		
+		LayoutManager lo = (LayoutManager) conditionalParse(layoutManager, _invocation, LayoutManager.class);
+		
+		if (lo != null)
+			return lo;
+		
+		if (los != null){
+			try {
+				lo = (LayoutManager) Class.forName(los).newInstance();
+			} catch (Exception e) {
+				LOG.warn("No valid LayoutManager: " + e.getMessage(),e);
+			} 
+		}
+		
+		if (lo == null){
+			LOG.warn("No valid LayoutManager, using ClassicLayoutManager");
+			lo = new ClassicLayoutManager();
+		}
+		
+		return lo;
+	}
+
+	private void handleConTypeRequest(final HttpServletResponse _response) throws ServletException {
         try {
             _response.setContentType("application/pdf");
             _response.setContentLength(0);
@@ -174,4 +217,12 @@ public class DJResult extends JasperReportsResult {
             return _param;
         }
     }
+
+	public String getLayoutManager() {
+		return layoutManager;
+	}
+
+	public void setLayoutManager(String layoutManager) {
+		this.layoutManager = layoutManager;
+	}
 }

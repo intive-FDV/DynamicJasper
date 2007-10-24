@@ -24,6 +24,7 @@ HOW-TO Integrate DynamicJasper with Webwork
 		 <param name="documentName">The_final_name_of_the_file</param>
 		 <param name="contentDisposition">application/download</param>
 		 <param name="format">PDF</param>
+		 <param name="layoutManager">classic</param>
 	</result>
 </action>
 +-----------------------------------------------------------------------------+
@@ -32,6 +33,14 @@ HOW-TO Integrate DynamicJasper with Webwork
  
  The 2nd is <<format>> wich tells the output format to generate.
  
- And finally <<dataSource>> wich is the name of the property in the action that is an instance of any 
- of the supported classes to be used as a data source (Collection, Object arrays, ResultSet, etc). 
+ The 3rd is <<dataSource>> wich is the name of the property in the action that is an instance of any 
+ of the supported classes to be used as a data source (Collection, Object arrays, ResultSet, etc).
+ 
+ The <<layoutManager>> parameter defines the layout manager to use. The default value is <classic> (<<ClassicLayoutManager>>).
+ 
+ Other possible values are:
+ 
+ * <list>: To use <<ListLayoutManager>>
+ * <$expresion>: evaluates the content of the expression. The expression must return <classic>, <list>, a <LayoutManager> object, or a java class name 
+ * <Fully qualified java name>: instantiates the specified class (must implement the <LayoutManager> interface
  
