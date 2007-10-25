@@ -659,32 +659,24 @@ public class DynamicReportBuilder {
 	}
 
 	/**
-	 * @deprecated
 	 * @param col
 	 * @param op
 	 * @return
 	 */
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, ColumnsGroupVariableOperation op) {
-		return setGlobalHeaderVariable(col,op);
-	}
-
-	public DynamicReportBuilder setGlobalHeaderVariable(AbstractColumn col, ColumnsGroupVariableOperation op) {
 		if (this.globalHeaderVariables == null)
 			this.globalHeaderVariables = new ArrayList();
 		this.globalHeaderVariables.add(new ColumnsGroupVariable(col, op));
 		return this;
 	}
 
+
 	/**
-	 * @deprecated
 	 * @param col
 	 * @param op
 	 * @return
 	 */
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, ColumnsGroupVariableOperation op) {
-		return setGlobalFooterVariable(col,op);
-	}
-	public DynamicReportBuilder setGlobalFooterVariable(AbstractColumn col, ColumnsGroupVariableOperation op) {
 		if (this.globalFooterVariables == null)
 			this.globalFooterVariables = new ArrayList();
 		this.globalFooterVariables.add(new ColumnsGroupVariable(col, op));
