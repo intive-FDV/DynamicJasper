@@ -573,7 +573,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		placeVariableInBand(group.getFooterVariables(), group, jgroup, DJConstants.FOOTER, footerBand, 0);
 	}
 
-	private void placeVariableInBand(Collection variables, ColumnsGroup columnsGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
+	private void placeVariableInBand(List variables, ColumnsGroup columnsGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
 		log.debug("Placing variables in "+type+" band...");
 		if ((variables != null)&&(variables.size()>0)) {
 			Iterator it = variables.iterator();
@@ -623,7 +623,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			if (columnsGroup.getColumnToGroupBy() instanceof GlobalGroupColumn) {
 				int totalWidth = 0;
 
-				totalWidth = ((ColumnsGroupVariable)variables.iterator().next()).getColumnToApplyOperation().getPosX().intValue();
+				ColumnsGroupVariable leftmostColumn = findLeftMostColumn(variables);
+				totalWidth = leftmostColumn.getColumnToApplyOperation().getPosX().intValue();
 
 				GlobalGroupColumn globalCol = (GlobalGroupColumn) columnsGroup.getColumnToGroupBy();
 
@@ -635,7 +636,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 				globalTextField.setHeight(band.getHeight());
 				globalTextField.setWidth(totalWidth);
-				globalTextField.setX(((AbstractColumn)getReport().getColumns().get(0)).getPosX().intValue());
+//				globalTextField.setX(((AbstractColumn)getReport().getColumns().get(0)).getPosX().intValue());
+				globalTextField.setX(0);
 				if (type.equals(ColumnsGroupVariablesRegistrationManager.HEADER))
 					globalTextField.setY(yOffset);
 				globalTextField.setKey("global_legend_"+type);
@@ -645,6 +647,18 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				band.addElement(globalTextField);
 			}
 		}
+	}
+
+	private ColumnsGroupVariable findLeftMostColumn(List variables) {
+		int x = Integer.MAX_VALUE;
+		ColumnsGroupVariable col =  null;
+		for (Iterator iterator = variables.iterator(); iterator.hasNext();) {
+			ColumnsGroupVariable col2 = (ColumnsGroupVariable) iterator.next();
+			if (col2.getColumnToApplyOperation().getPosX().intValue() <= x)
+				col = col2;
+			
+		}
+		return col;
 	}
 
 	private void insertValueInHeader(JRDesignBand headerBand, ColumnsGroup columnsGroup, int headerOffset) {

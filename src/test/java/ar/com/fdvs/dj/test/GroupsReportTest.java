@@ -94,7 +94,8 @@ public class GroupsReportTest extends TestCase {
 			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
-			.setGrandTotalLegend("Marianito's Total")
+			.setGrandTotalLegend("Grand Total")
+			.setGrandTotalLegendStyle(headerVariables)
 			.setOddRowBackgroundStyle(oddRowStyle);
 		
 
@@ -164,7 +165,6 @@ public class GroupsReportTest extends TestCase {
 
 		drb.addGroup(g1); // add group g1
 		drb.addGroup(g2); // add group g2
-		drb.setIgnorePagination(true);
 
 		drb.setUseFullPageWidth(true);
 

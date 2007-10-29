@@ -84,6 +84,7 @@ public class DynamicReportBuilder {
 	protected Map groupHeaderSubreports = new HashMap();
 
 	protected ArrayList concatenatedReports = new ArrayList();
+	private Style grandTotalStyle;
 	
 	public DynamicReportBuilder addAutoText(AutoText text) {
 		if (this.autoTexts == null)
@@ -209,6 +210,8 @@ public class DynamicReportBuilder {
 		globalGroup.setLayout(GroupLayout.EMPTY);
 		GlobalGroupColumn globalCol = new GlobalGroupColumn();
 		globalCol.setTitle(grandTotalLegend);
+		globalCol.setHeaderStyle(grandTotalStyle);
+		globalCol.setStyle(grandTotalStyle);
 		
 		globalGroup.setColumnToGroupBy(globalCol);
 		globalGroup.setHeaderVariables(globalHeaderVariables);
@@ -975,6 +978,11 @@ public class DynamicReportBuilder {
 
 	public DynamicReportBuilder addResourceBundle(String resourceBundle) {
 		report.setResourceBundle(resourceBundle);
+		return this;
+	}
+
+	public DynamicReportBuilder setGrandTotalLegendStyle(Style grandTotalStyle) {
+		this.grandTotalStyle = grandTotalStyle;
 		return this;
 	}
 	
