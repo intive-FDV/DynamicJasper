@@ -45,7 +45,8 @@ public abstract class ExpressionUtils {
 		return expression;
 	}
 
-	private static boolean emptyString(String str) {
+    //TODO: use string utils
+    private static boolean emptyString(String str) {
 		if (str == null)
 			return true;
 
