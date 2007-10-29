@@ -153,6 +153,8 @@ public final class DynamicJasperHelper {
 		des.setSummary(new JRDesignBand());
 
 		des.setTitleNewPage(options.isTitleNewPage());
+		
+		des.setIgnorePagination(options.isIgnorePagination());
 
 		des.setName("DynamicReport");
 		return des;

@@ -347,5 +347,13 @@ public class ColumnBuilder {
 		this.fixedWidth = bool;
 		return this;
 	}	
+	
+	public ColumnBuilder setCommonProperties(String title, String property, String className, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
+		setColumnProperty(new ColumnProperty(property, className));
+		setWidth(Integer.valueOf(width));
+		setTitle(title);
+		setFixedWidth(Boolean.valueOf(fixedWidth));
+		return this;
+	}	
 
 }

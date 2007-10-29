@@ -533,7 +533,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			yOffset += currentValue.getHeight();
 			
 			//Move down exisiting elements in the band. 
-			moveBandsElemnts(yOffset, headerBand);
+			moveBandsElemnts(yOffset-1, headerBand); //Dont know why, but without the "-1" it wont show the headers
 			
 			headerBand.addElement(currentValue);
 		} 

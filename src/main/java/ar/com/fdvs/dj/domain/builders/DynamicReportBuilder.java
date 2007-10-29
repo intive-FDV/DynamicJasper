@@ -670,6 +670,13 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, ColumnsGroupVariableOperation op, Style style) {
+		if (this.globalHeaderVariables == null)
+			this.globalHeaderVariables = new ArrayList();
+		this.globalHeaderVariables.add(new ColumnsGroupVariable(col, op, style));
+		return this;
+	}
+
 
 	/**
 	 * @param col
@@ -680,6 +687,13 @@ public class DynamicReportBuilder {
 		if (this.globalFooterVariables == null)
 			this.globalFooterVariables = new ArrayList();
 		this.globalFooterVariables.add(new ColumnsGroupVariable(col, op));
+		return this;
+	}
+	
+	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, ColumnsGroupVariableOperation op, Style style) {
+		if (this.globalFooterVariables == null)
+			this.globalFooterVariables = new ArrayList();
+		this.globalFooterVariables.add(new ColumnsGroupVariable(col, op, style));
 		return this;
 	}
 
@@ -956,6 +970,11 @@ public class DynamicReportBuilder {
 		
 		report.addStyle(style);
 		
+		return this;
+	}
+
+	public DynamicReportBuilder addResourceBundle(String resourceBundle) {
+		report.setResourceBundle(resourceBundle);
 		return this;
 	}
 	

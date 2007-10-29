@@ -102,6 +102,11 @@ public class GroupBuilder {
 		return this;
 	}
 
+	public GroupBuilder addHeaderVariable(AbstractColumn column, ColumnsGroupVariableOperation operation, Style style) {
+		group.getHeaderVariables().add(new ColumnsGroupVariable(column,operation,style));
+		return this;
+	}
+
 	public GroupBuilder addFooterVariable(ColumnsGroupVariable variable) {
 		group.getFooterVariables().add(variable);
 		return this;
