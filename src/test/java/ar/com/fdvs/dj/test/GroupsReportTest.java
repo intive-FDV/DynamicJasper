@@ -36,6 +36,8 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -60,11 +62,18 @@ public class GroupsReportTest extends TestCase {
 	public DynamicReport buildReport() throws Exception {
 
 		Style detailStyle = new Style();
+		
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
+		headerStyle.setFont(Font.COMIC_SANS_SMALL_BOLD);
 		headerStyle.setBorder(Border.PEN_2_POINT);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		
+		Style headerVariables = new Style();
+		headerVariables.setFont(Font.ARIAL_SMALL_BOLD);
+		headerVariables.setBorderBottom(Border.PEN_2_POINT);
+		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
+		headerVariables.setVerticalAlign(VerticalAlign.MIDDLE);		
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
@@ -85,12 +94,14 @@ public class GroupsReportTest extends TestCase {
 			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
+			.setGrandTotalLegend("Marianito's Total")
 			.setOddRowBackgroundStyle(oddRowStyle);
+		
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.setColumnProperty("state", String.class.getName()).setTitle(
 						"State").setWidth(new Integer(85))
-				.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
+				.setStyle(titleStyle).setHeaderStyle(titleStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
 				.setColumnProperty("branch", String.class.getName()).setTitle(
@@ -122,6 +133,9 @@ public class GroupsReportTest extends TestCase {
 						"Amount").setWidth(new Integer(90))
 				.setPattern("$ 0.00").setStyle(importeStyle).setHeaderStyle(
 						headerStyle).build();
+		
+		drb.addGlobalHeaderVariable(columnAmount, ColumnsGroupVariableOperation.SUM,headerVariables);
+		drb.addGlobalHeaderVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
 
 		GroupBuilder gb1 = new GroupBuilder();
 		
@@ -130,7 +144,7 @@ public class GroupsReportTest extends TestCase {
 						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,
 						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
@@ -150,6 +164,7 @@ public class GroupsReportTest extends TestCase {
 
 		drb.addGroup(g1); // add group g1
 		drb.addGroup(g2); // add group g2
+		drb.setIgnorePagination(true);
 
 		drb.setUseFullPageWidth(true);
 
@@ -165,8 +180,10 @@ public class GroupsReportTest extends TestCase {
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
-//		JasperViewer.viewReport(jp);
+//		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
+		ReportExporter.exportReportPlainXls(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.xls");
+		JasperViewer.viewReport(jp);
+//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

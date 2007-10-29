@@ -76,7 +76,7 @@ public class DynamicReportBuilder {
 
 	protected DynamicReport report = new DynamicReport();
 	protected DynamicReportOptions options = new DynamicReportOptions();
-	protected String globalTitle = "";
+	protected String grandTotalLegend = "";
 	protected ArrayList globalFooterVariables;
 	protected ArrayList globalHeaderVariables;
 	protected ArrayList autoTexts;
@@ -208,7 +208,7 @@ public class DynamicReportBuilder {
 		ColumnsGroup globalGroup = new ColumnsGroup();
 		globalGroup.setLayout(GroupLayout.EMPTY);
 		GlobalGroupColumn globalCol = new GlobalGroupColumn();
-		globalCol.setTitle(globalTitle);
+		globalCol.setTitle(grandTotalLegend);
 		
 		globalGroup.setColumnToGroupBy(globalCol);
 		globalGroup.setHeaderVariables(globalHeaderVariables);
@@ -650,11 +650,11 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addGlobalTitle(String title) {
-		this.globalTitle = title;
+		this.grandTotalLegend = title;
 		return this;
 	}
-	public DynamicReportBuilder setGlobalTitle(String title) {
-		this.globalTitle = title;
+	public DynamicReportBuilder setGrandTotalLegend(String title) {
+		this.grandTotalLegend = title;
 		return this;
 	}
 

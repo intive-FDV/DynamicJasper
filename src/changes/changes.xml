@@ -27,6 +27,12 @@
            	<action dev="Juan Manuel Alvarez" type="update">
               webwork result type: now you can specify a layout manager
             </action>
+           	<action dev="Juan Manuel Alvarez" type="update">
+              refactor in DynamicReportBuilder: grand total legend is now: drb.setGrandTotalLegend("...")
+            </action>
+           	<action dev="Juan Manuel Alvarez" type="fix">
+              small bug with "ignore pagination"
+            </action>
          </release>
          <release version="1.3.3" date="2007-10-18" desc="minor styles fix">
            	<action dev="Juan Manuel Alvarez" type="fix">
