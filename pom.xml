@@ -57,7 +57,14 @@ API.
 	</description>
 	<url>http://sourceforge.net/projects/dynamicjasper</url>
 
-	<issueManagement>
+    <scm>
+        <connection>scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk</connection>
+        <developerConnection>scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk</developerConnection>
+        <tag>HEAD</tag>
+        <url>http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk</url>
+    </scm>
+
+    <issueManagement>
 		<system>SourceForge Tracker</system>
 		<url>http://sourceforge.net/tracker/?group_id=188060</url>
 	</issueManagement>
