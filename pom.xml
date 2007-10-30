@@ -330,10 +330,10 @@ API.
 	</licenses>
 	<scm>
 		<connection>
-			scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper
+			scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk
 		</connection>
 		<developerConnection>
-			scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper
+			scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk
 		</developerConnection>
 		<url>http://dynamicjasper.svn.sourceforge.net</url>
 	</scm>
