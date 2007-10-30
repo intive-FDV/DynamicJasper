@@ -330,12 +330,12 @@ API.
 	</licenses>
 	<scm>
 		<connection>
-			scm:svn:https://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper
+			scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper
 		</connection>
 		<developerConnection>
-			scm:svn:https://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper
+			scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper
 		</developerConnection>
-		<url>https://dynamicjasper.svn.sourceforge.net</url>
+		<url>http://dynamicjasper.svn.sourceforge.net</url>
 	</scm>
 	<!-- =============================== -->
 	<!--	PEOPLE                      -->
