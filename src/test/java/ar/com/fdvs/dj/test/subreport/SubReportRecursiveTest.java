@@ -48,7 +48,7 @@ import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
 
-public class SubReportTest2 extends TestCase {
+public class SubReportRecursiveTest extends TestCase {
 
 	public DynamicReport buildReport() throws Exception {
 		
@@ -64,15 +64,13 @@ public class SubReportTest2 extends TestCase {
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);	
 
-		
-
-
 		//Create level 2 sub-report
 		DynamicReport drLevel2 = createLevel2Subreport();
 		
 		//now create and put level2 subreport in the main subreport
 		drb.addSubreportInGroupFooter(2, drLevel2, new ClassicLayoutManager(), 
 				"statistics", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
+		
 		
 		DynamicReport mainReport = drb.build();	
 
@@ -118,7 +116,7 @@ public class SubReportTest2 extends TestCase {
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds );
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/SubReportTest2.pdf");
+		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/SubReportRecursiveTest.pdf");
 		JasperViewer.viewReport(jp);
 		
 		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager(), new HashMap()));
@@ -129,7 +127,7 @@ public class SubReportTest2 extends TestCase {
 }
 
 	public static void main(String[] args) {
-		SubReportTest2 test = new SubReportTest2();
+		SubReportRecursiveTest test = new SubReportRecursiveTest();
 		test.testReport();
 	}
 

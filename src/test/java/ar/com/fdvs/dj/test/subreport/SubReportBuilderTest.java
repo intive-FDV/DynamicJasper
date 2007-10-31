@@ -31,13 +31,13 @@ package ar.com.fdvs.dj.test.subreport;
 
 import java.awt.Color;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
@@ -71,69 +71,18 @@ public class SubReportBuilderTest extends TestCase {
 
 	public DynamicReport buildReport() throws Exception {
 
-		Style detailStyle = new Style();
-		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorder(Border.PEN_2_POINT);
-		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
-		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
-
-		Style titleStyle = new Style();
-		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
-		Style importeStyle = new Style();
-		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
-		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
-		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
-		oddRowStyle.setTransparency(Transparency.OPAQUE);
-
-		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
-		drb
-			.setTitleStyle(titleStyle)
-			.setTitle("November 2006 sales report")					//defines the title of the report
-			.setSubtitle("The items in this report correspond "
-					+"to the main products: DVDs, Books, Foods and Magazines")				
-			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
-			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
-			.setPrintBackgroundOnOddRows(true)
-			.setOddRowBackgroundStyle(oddRowStyle);
-
-		AbstractColumn columnState = ColumnBuilder.getInstance()
-				.setColumnProperty("state", String.class.getName()).setTitle(
-						"State").setWidth(new Integer(85))
-				.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnBranch = ColumnBuilder.getInstance()
-				.setColumnProperty("branch", String.class.getName()).setTitle(
-						"Branch").setWidth(new Integer(85)).setStyle(
-						detailStyle).setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
-				.setColumnProperty("productLine", String.class.getName())
-				.setTitle("Product Line").setWidth(new Integer(85)).setStyle(
-						detailStyle).setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnaItem = ColumnBuilder.getInstance()
-				.setColumnProperty("item", String.class.getName()).setTitle(
-						"Item").setWidth(new Integer(85)).setStyle(detailStyle)
-				.setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnCode = ColumnBuilder.getInstance()
-				.setColumnProperty("id", Long.class.getName()).setTitle("ID")
-				.setWidth(new Integer(40)).setStyle(importeStyle)
-				.setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnaQuantity = ColumnBuilder.getInstance()
-				.setColumnProperty("quantity", Long.class.getName()).setTitle(
-						"Quantity").setWidth(new Integer(80)).setStyle(
-						importeStyle).setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnAmount = ColumnBuilder.getInstance()
-				.setColumnProperty("amount", Float.class.getName()).setTitle(
-						"Amount").setWidth(new Integer(90))
-				.setPattern("$ 0.00").setStyle(importeStyle).setHeaderStyle(
-						headerStyle).build();
+		FastReportBuilder drb = new FastReportBuilder();
+		drb.addColumn("State", "state", String.class.getName(),30)
+			.addColumn("Branch", "branch", String.class.getName(),30)
+			.addColumn("Product Line", "productLine", String.class.getName(),50)
+			.addColumn("Item", "item", String.class.getName(),50)
+			.addColumn("Item Code", "id", Long.class.getName(),30,true)
+			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
+			.addColumn("Amount", "amount", Float.class.getName(),70,true)
+			.addGroups(2)
+			.setTitle("November 2006 sales report")
+			.setSubtitle("This report was generated at " + new Date())
+			.setUseFullPageWidth(true);	
 		
 		/**
 		 * Create the subreport. Note that the "subreport" object is then passed
@@ -143,7 +92,7 @@ public class SubReportBuilderTest extends TestCase {
 						.setDataSource(	DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER,
 										DJConstants.DATA_SOURCE_TYPE_COLLECTION,
 										"statistics")
-						.addReport(createFooterSubreport())
+						.setDynamicReport(createFooterSubreport(), new ClassicLayoutManager())
 						.build();
 		
 		drb.addSubreportInGroupFooter(1, subreport);
@@ -157,25 +106,6 @@ public class SubReportBuilderTest extends TestCase {
 		/**
 		 * Create the group and add the subreport (as a Fotter subreport)
 		 */
-		GroupBuilder gb1 = new GroupBuilder();
-		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
-						.build();
-
-		Style defaultFooterVariableStyle = new Style();
-		defaultFooterVariableStyle.setStreching(Stretching.NO_STRETCH);
-		defaultFooterVariableStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
-		defaultFooterVariableStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-
-		drb.addColumn(columnState);
-		drb.addColumn(columnBranch);
-		drb.addColumn(columnaProductLine);
-		drb.addColumn(columnaItem);
-		drb.addColumn(columnCode);
-		drb.addColumn(columnaQuantity);
-		drb.addColumn(columnAmount);
-		
-		drb.addGroup(g1); // add group g1
-		
 		drb.setUseFullPageWidth(true);
 		
 		DynamicReport dr = drb.build();
@@ -199,7 +129,7 @@ public class SubReportBuilderTest extends TestCase {
 	 * @return
 	 * @throws Exception
 	 */
-	private JasperReport createFooterSubreport() throws Exception {
+	private DynamicReport createFooterSubreport() throws Exception {
 		FastReportBuilder rb = new FastReportBuilder();
 		DynamicReport dr = rb
 		.addColumn("Area", "name", String.class.getName(), 100)
@@ -211,7 +141,7 @@ public class SubReportBuilderTest extends TestCase {
 		.setUseFullPageWidth(true)
 		.setTitle("Subreport for this group")
 		.build();
-		return DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager());
+		return dr;
 	}
 
 

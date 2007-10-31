@@ -25,7 +25,9 @@ HOW TO Guide
 
  * {{{HOWTO Integrate DynamicJasper with Webwork.html}Integrate DynamicJasper with Webwork}}
  
- * {{{HOWTO Add Subreports.html}Add Subreports}}
+ * {{{HOWTO Add Subreports2.html}Add Subreports}}
+
+ * {{{HOWTO Add Concatenated subreports.html}Add Concatenated subreports}}
 
  * {{{HOWTO Create an Excel report.html}Create an Excel report}}
  

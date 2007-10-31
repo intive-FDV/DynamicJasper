@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import net.sf.jasperreports.engine.JasperReport;
+
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -888,6 +890,26 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addConcatenatedReport(Subreport subreport) {
+		concatenatedReports.add(subreport);
+		return this;
+	}
+
+	public DynamicReportBuilder addConcatenatedReport(DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
+		Subreport subreport = new SubReportBuilder()
+		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setDynamicReport(dynamicReport,layoutManager)
+		.build();
+	
+		concatenatedReports.add(subreport);
+		return this;
+	}
+
+	public DynamicReportBuilder addConcatenatedReport(JasperReport jasperReport, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
+		Subreport subreport = new SubReportBuilder()
+		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setReport(jasperReport)
+		.build();
+		
 		concatenatedReports.add(subreport);
 		return this;
 	}

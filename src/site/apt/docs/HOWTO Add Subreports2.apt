@@ -1,0 +1,72 @@
+HOW-TO Add Subreports (fast way)
+
+ Usefull examples:
+ 
+*----------+--------------+-------+
+| <<Test>> | <<Description>> | <<Download PDF>> |
+*----------+--------------+-------+
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/SubReportTest.html}ar.com.fdvs.dj.test.subreport.SubReportTest}} | Creates a single Subreport | {{{../examples/SubReportTest.pdf}download}} |
+*----------+--------------+-------+ 
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/SubReportBuilderTest.html}ar.com.fdvs.dj.test.subreport.SubReportBuilderTest}} | Creates a single Subreport | {{{../examples/SubReportBuilderTest.pdf}download}} |
+*----------+--------------+-------+ 
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/ConcatenatedReportTest.html}ar.com.fdvs.dj.test.subreport.ConcatenatedReportTest}} | Creates a single PDF that concatenates 3 reports | {{{../examples/ConcatenatedReportTest.pdf}download}} |
+*----------+--------------+-------+ 
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/SubReportRecursiveTest.html}ar.com.fdvs.dj.test.subreport.SubReportRecursiveTest}} | Creates a report that contains a subreport, and the subrerport contains a subreport too | {{{../examples/SubReportRecursiveTest.pdf}download}} |
+*----------+--------------+-------+ 
+
+ An easy way to add subreport is through the <<DynamicReportBuilder>> class (which internally uses  <<SubReportBuilder>>, but makes it even easier)
+ 
+ Look at the example bellow
+ 
++-----------------------------------------------------------------------------+
+DynamicReport drHeaderSubreport = createHeaderSubreport();
+
+drb.addSubreportInGroupHeader(2, drHeaderSubreport, new ClassicLayoutManager(),
+		"statistics"
+		, DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD
+		, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
+
+drb.addField("statistics", List.class.getName());
++-----------------------------------------------------------------------------+
+
+ The first call to the builer is:
+ 
++-----------------------------------------------------------------------------+ 
+ .addSubreportInGroupHeader( <group number>, <dynamicReport>, <LayOutManager>
+                          ,  <path to the data source>, <origin of the data source>, <type of the data source>)
++-----------------------------------------------------------------------------+ 
+
+ <<group number>>: Subreports are placed in the header or footers of a group. This parameter defines which group
+ 
+ <<dynamicReport>>: A DynamicReport object to use as a subreport. In this example we create it in the call to <createHeaderSubreport()>
+
+ <<LayOutManager>>: Since the subreport is goin to be a DynamicReport, a LayOutManager is needed
+ 
+ <<path to the data source>>: A string that points to the data source.
+ 
+ <<origin of the data source>>: A constant from <<DJConstants>> class which can be: 
+ SUBREPORT_DATA_SOURCE_ORIGIN_FIELD or SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, it just tells the
+ subreport where to look for the data source (the parameters map, or if its a property of the current row)
+ 
+ For example, if <path to the data source> is <"subreportDatasource"> and <origin of the data source> is SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER,
+ then it will look in the parameters map for an object under the key of <"subreportDatasource">, on the other hand
+ if we pass SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, in the current row, there must be a property
+ with the name <"subreportDatasource"> that returns an object of the type DATA_SOURCE_TYPE_\<XXX\>
+ 
+ <<type of the data source>>: A constant from <<DJConstants>> class, all types constants
+ has a name like DATA_SOURCE_TYPE_\<XXX\>, where \<XXX\> represents the type. Most known types are
+ java.sql.ResultSet, Collection, Array, Xml, etc.
+ 
+ The 2nd call is:
+  
++-----------------------------------------------------------------------------+ 
+ drb.addField("statistics", List.class.getName());
++-----------------------------------------------------------------------------+ 
+
+ Because in this example, the origin is DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, there must be such a <field> in the reports datasource.
+ That is why, registering the field is necessary.
+  
+
+ This is a example of a report with 2 different subreports
+ 
+[../images/examples/subreport.jpg] Chart Report  

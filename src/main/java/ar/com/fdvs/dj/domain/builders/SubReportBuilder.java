@@ -109,7 +109,7 @@ public class SubReportBuilder {
 		return this;
 	}
 	
-	public SubReportBuilder addReport(JasperReport jasperReport) {
+	public SubReportBuilder setReport(JasperReport jasperReport) {
 		subreport.setReport(jasperReport);
 		return this;
 	}

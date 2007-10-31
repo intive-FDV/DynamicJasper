@@ -40,6 +40,7 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -48,9 +49,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.builders.SubReportBuilder;
 import ar.com.fdvs.dj.domain.constants.Font;
-import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.test.ChartReportTest;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
@@ -68,7 +67,7 @@ public class ConcatenatedReportTest extends TestCase {
 		titleStyle.setFont(new Font(24, Font._FONT_VERDANA, true));
 
 		/**
-		 * 1st) Whe create an empty report (just title)
+		 * 1st) Whe create an empty report (just title) and add 2 sub-reports
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
@@ -79,58 +78,31 @@ public class ConcatenatedReportTest extends TestCase {
 			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setUseFullPageWidth(true)
-			.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER,AutoText.ALIGMENT_CENTER);
-
+			.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER,AutoText.ALIGMENT_CENTER)
+			.addConcatenatedReport(createSubreport1(), new ClassicLayoutManager(), "statistics", 
+									DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
+			.addConcatenatedReport(createSubreport2(), "statistics", 
+									DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 		
-		/**
-		 * 2nd) First subreport to add
-		 */
-		//Create a subreport
-		Subreport subreport1 =  new SubReportBuilder()
-				.setDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER,
-								DJConstants.DATA_SOURCE_TYPE_COLLECTION, 
-								"statistics")
-				.addReport(createSubreport1())
-				.build();
 
 		//Add the data source of the sub-report as a parameter
 		params.put("statistics", Product.statistics_ );
 		//add the subreport to the main report builder
-		drb.addConcatenatedReport(subreport1);
 		
-		/**
-		 * 3rd) One more report
-		 */
-		//Create a subreport
-		Subreport subreport2 = new SubReportBuilder()
-				.setDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, 
-								DJConstants.DATA_SOURCE_TYPE_ARRAY, 
-								"statisticsArray")
-				.addReport(createSubreport2())
-				.build();
 		//Add the data source of the sub-report as a parameter		
 		params.put("statisticsArray", Product.statistics_.toArray() );
-		//add the subreport to the main report builder
-		drb.addConcatenatedReport(subreport2);
 
 		/**
-		 * 4th) And one more report (from another test)
+		 * Add one more report (from another test)
 		 */
 		//Create a subreport
 		ChartReportTest crt = new ChartReportTest();
 		JasperReport chartJr = DynamicJasperHelper.generateJasperReport(crt.buildReport(), new ClassicLayoutManager());
-		SubReportBuilder srb3 = new SubReportBuilder();
-		Subreport subreport3 = srb3.setDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, 
-									DJConstants.DATA_SOURCE_TYPE_COLLECTION, 
-									"subreportsDataSource")
-			.addReport(chartJr)
-			.build();		
+		drb.addConcatenatedReport(chartJr, "subreportsDataSource", 
+									DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 		//Add the data source of the sub-report as a parameter		
 		params.put("subreportsDataSource", TestRepositoryProducts.getDummyCollection()  );
-		//add the subreport to the main report builder
-		drb.addConcatenatedReport(subreport3);
 
-		
 		//thats it!!!!
 		DynamicReport dr = drb.build();
 		
@@ -147,7 +119,7 @@ public class ConcatenatedReportTest extends TestCase {
 			JRDataSource ds = new JRBeanCollectionDataSource(mainDataSource);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/ConcatenatedReportTest.pdf");
-			//JasperViewer.viewReport(jp);
+			JasperViewer.viewReport(jp);
 	}	
 
 	/**
@@ -156,7 +128,7 @@ public class ConcatenatedReportTest extends TestCase {
 	 * @return
 	 * @throws Exception
 	 */
-	private JasperReport createSubreport1() throws Exception {
+	private DynamicReport createSubreport1() throws Exception {
 		FastReportBuilder rb = new FastReportBuilder();
 		DynamicReport dr = rb
 			.addColumn("Date", "date", Date.class.getName(), 100)
@@ -167,7 +139,7 @@ public class ConcatenatedReportTest extends TestCase {
 			.setUseFullPageWidth(true)
 			.setTitle("Subreport for this group")
 			.build();
-		return DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager());
+		return dr;
 	}
 
 	/**

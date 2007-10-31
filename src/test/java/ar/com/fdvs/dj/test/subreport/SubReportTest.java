@@ -29,7 +29,6 @@
 
 package ar.com.fdvs.dj.test.subreport;
 
-import java.awt.Color;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -42,23 +41,8 @@ import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
-import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.builders.GroupBuilder;
-import ar.com.fdvs.dj.domain.constants.Border;
-import ar.com.fdvs.dj.domain.constants.Font;
-import ar.com.fdvs.dj.domain.constants.GroupLayout;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.constants.Stretching;
-import ar.com.fdvs.dj.domain.constants.Transparency;
-import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
@@ -67,109 +51,22 @@ public class SubReportTest extends TestCase {
 
 	public DynamicReport buildReport() throws Exception {
 
-		Style detailStyle = new Style();
-		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorder(Border.PEN_2_POINT);
-		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
-		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 
-		Style titleStyle = new Style();
-		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
-		Style importeStyle = new Style();
-		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
-		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
-		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
-		oddRowStyle.setTransparency(Transparency.OPAQUE);
-
-		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
-		drb
-			.setTitleStyle(titleStyle)
-			.setTitle("November 2006 sales report")					//defines the title of the report
-			.setSubtitle("The items in this report correspond "
-					+"to the main products: DVDs, Books, Foods and Magazines")				
-			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
-			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
-			.setPrintBackgroundOnOddRows(true)
-			.setPrintColumnNames(false)
-			.setOddRowBackgroundStyle(oddRowStyle);
-
-		AbstractColumn columnState = ColumnBuilder.getInstance()
-				.setColumnProperty("state", String.class.getName()).setTitle(
-						"State").setWidth(new Integer(85))
-				.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnBranch = ColumnBuilder.getInstance()
-				.setColumnProperty("branch", String.class.getName()).setTitle(
-						"Branch").setWidth(new Integer(85)).setStyle(
-						detailStyle).setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
-				.setColumnProperty("productLine", String.class.getName())
-				.setTitle("Product Line").setWidth(new Integer(85)).setStyle(
-						detailStyle).setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnaItem = ColumnBuilder.getInstance()
-				.setColumnProperty("item", String.class.getName()).setTitle(
-						"Item").setWidth(new Integer(85)).setStyle(detailStyle)
-				.setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnCode = ColumnBuilder.getInstance()
-				.setColumnProperty("id", Long.class.getName()).setTitle("ID")
-				.setWidth(new Integer(40)).setStyle(importeStyle)
-				.setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnaQuantity = ColumnBuilder.getInstance()
-				.setColumnProperty("quantity", Long.class.getName()).setTitle(
-						"Quantity").setWidth(new Integer(80)).setStyle(
-						importeStyle).setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnAmount = ColumnBuilder.getInstance()
-				.setColumnProperty("amount", Float.class.getName()).setTitle(
-						"Amount").setWidth(new Integer(90))
-				.setPattern("$ 0.00").setStyle(importeStyle).setHeaderStyle(
-						headerStyle).build();
-
-		GroupBuilder gb1 = new GroupBuilder();
-		
-//		 define the criteria column to group by (columnState)
-		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState).addFooterVariable(columnAmount,
-						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addFooterVariable(columnaQuantity,
-						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
-				.build();
-
-		Style defaultFooterVariableStyle = new Style();
-		defaultFooterVariableStyle.setStreching(Stretching.NO_STRETCH);
-		defaultFooterVariableStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
-		defaultFooterVariableStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		
-		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
-		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
-				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
-				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
-				.addHeaderVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
-				.addHeaderVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
-				.setDefaultFooterVariableStyle(defaultFooterVariableStyle)
-				.setDefaultHeaderVariableStyle(defaultFooterVariableStyle)
-				.setGroupLayout(GroupLayout.DEFAULT)
-				.build();
-
-		drb.addColumn(columnState);
-		drb.addColumn(columnBranch);
-		drb.addColumn(columnaProductLine);
-		drb.addColumn(columnaItem);
-		drb.addColumn(columnCode);
-		drb.addColumn(columnaQuantity);
-		drb.addColumn(columnAmount);
+		FastReportBuilder drb = new FastReportBuilder();
+		drb.addColumn("State", "state", String.class.getName(),30)
+			.addColumn("Branch", "branch", String.class.getName(),30)
+			.addColumn("Product Line", "productLine", String.class.getName(),50)
+			.addColumn("Item", "item", String.class.getName(),50)
+			.addColumn("Item Code", "id", Long.class.getName(),30,true)
+			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
+			.addColumn("Amount", "amount", Float.class.getName(),70,true)
+			.addGroups(2)
+			.setMargins(5, 5, 20, 20)
+			.setTitle("November 2006 sales report")
+			.setSubtitle("This report was generated at " + new Date())
+			.setUseFullPageWidth(true);	
 		
 		drb.addField("statistics", List.class.getName());
-
-		drb.addGroup(g1); // add group g1
-		drb.addGroup(g2); // add group g2
 
 		DynamicReport drHeaderSubreport = createHeaderSubreport();
 		drb.addSubreportInGroupHeader(2, drHeaderSubreport, new ClassicLayoutManager(),
