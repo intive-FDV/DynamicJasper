@@ -32,7 +32,7 @@ public class CommonExpressionsHelper {
 		JRDesignTextField pageNumber = new JRDesignTextField();
 		pageNumber.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
 		
-		pageNumber.setExpression(ExpressionUtils.getPageNumberExpression(KEY_autotext_page, KEY_autotext_of));
+		pageNumber.setExpression(ExpressionUtils.getPageNumberExpression(KEY_autotext_page, KEY_autotext_of,true));
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(80);
 		pageNumber.setY(yOffset);
@@ -40,7 +40,7 @@ public class CommonExpressionsHelper {
 		
 		JRDesignTextField pageCounter = new JRDesignTextField();
 
-		pageCounter.setExpression(ExpressionUtils.getPageNumberExpression("", ""));
+		pageCounter.setExpression(ExpressionUtils.getPageNumberExpression("", "",false));
 		pageCounter.setHeight(height);
 		pageCounter.setWidth(20);
 		pageCounter.setY(yOffset);
@@ -71,13 +71,13 @@ public class CommonExpressionsHelper {
 		
 		JRDesignTextField pageNumber = new JRDesignTextField();
 		pageNumber.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
-		pageNumber.setExpression(ExpressionUtils.getPageNumberExpression("", ""));
+		pageNumber.setExpression(ExpressionUtils.getPageNumberExpression("", "",false));
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(20);
 		pageNumber.setY(yOffset);
 		
 		JRDesignTextField pageCounter = new JRDesignTextField();
-		pageCounter.setExpression(ExpressionUtils.getPageNumberExpression("/", ""));
+		pageCounter.setExpression(ExpressionUtils.getPageNumberExpression("/", "",false));
 		pageCounter.setHeight(height);
 		pageCounter.setWidth(20);
 		pageCounter.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_LEFT);
@@ -113,7 +113,7 @@ public class CommonExpressionsHelper {
 		
 		JRDesignTextField pageNumber = new JRDesignTextField();
 		pageNumber.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
-		pageNumber.setExpression(ExpressionUtils.getPageNumberExpression("", ""));
+		pageNumber.setExpression(ExpressionUtils.getPageNumberExpression("", "",false));
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(20);
 		pageNumber.setY(yOffset);

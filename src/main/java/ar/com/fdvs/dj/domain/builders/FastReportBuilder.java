@@ -81,7 +81,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		Style defaultHeaderStyle = options.getDefaultHeaderStyle();
 		defaultHeaderStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
 		defaultHeaderStyle.setHorizontalAlign(HorizontalAlign.CENTER);
-		defaultHeaderStyle.setBorderBottom(Border.DOTTED);
+		defaultHeaderStyle.setBorderBottom(Border.THIN);
 		defaultHeaderStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		defaultHeaderStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		defaultHeaderStyle.setTransparency(Transparency.OPAQUE);
@@ -98,19 +98,32 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		for (int i = 0; i < groupCount; i++) {
 			GroupBuilder gb = new GroupBuilder();
 			PropertyColumn col = (PropertyColumn) report.getColumns().get(i);
-			gb.addCriteriaColumn(col);
+			gb.setCriteriaColumn(col);
 			report.getColumnsGroups().add(gb.build());
 		}
 
 		return super.build();
 	}
 
-
-	public FastReportBuilder addColumn(String title, String property, String className, int width) throws ColumnBuilderException, ClassNotFoundException {
+    public FastReportBuilder addColumn(String title, String property, String className, int width, Style style) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getInstance()
-			.addColumnProperty(new ColumnProperty(property, className))
-			.addWidth(new Integer(width))
-			.addTitle(title)
+			.setColumnProperty(new ColumnProperty(property, className))
+			.setWidth(Integer.valueOf(width))
+			.setTitle(title)
+			.build();
+
+		column.setStyle(style);
+
+		addColumn(column);
+
+		return this;
+	}
+
+    public FastReportBuilder addColumn(String title, String property, String className, int width) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+			.setColumnProperty(new ColumnProperty(property, className))
+			.setWidth(Integer.valueOf(width))
+			.setTitle(title)
 			.build();
 
 		guessStyle(className, column);
@@ -122,10 +135,10 @@ public class FastReportBuilder extends DynamicReportBuilder {
 
 	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getInstance()
-		.addColumnProperty(new ColumnProperty(property, className))
-		.addWidth(new Integer(width))
-		.addTitle(title)
-		.addFixedWidth(Boolean.valueOf(fixedWidth))
+		.setColumnProperty(new ColumnProperty(property, className))
+		.setWidth(Integer.valueOf(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
 		.build();
 		
 		guessStyle(className, column);
@@ -155,13 +168,8 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		}
 	}
 
-	public DynamicReportBuilder addGroups(int numgroups) {
+	public FastReportBuilder addGroups(int numgroups) {
 		groupCount = numgroups;
-		return this;
-	}
-
-	public FastReportBuilder addResourceBundle(String resourceBundle) {
-		report.setResourceBundle(resourceBundle);
 		return this;
 	}
 

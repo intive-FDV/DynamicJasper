@@ -36,6 +36,7 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -61,11 +62,18 @@ public class GroupsReportTest extends TestCase {
 	public DynamicReport buildReport() throws Exception {
 
 		Style detailStyle = new Style();
+		
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorder(Border.MEDIUM);
+		headerStyle.setFont(Font.COMIC_SANS_SMALL_BOLD);
+		headerStyle.setBorder(Border.PEN_2_POINT);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		
+		Style headerVariables = new Style();
+		headerVariables.setFont(Font.ARIAL_SMALL_BOLD);
+		headerVariables.setBorderBottom(Border.PEN_2_POINT);
+		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
+		headerVariables.setVerticalAlign(VerticalAlign.MIDDLE);		
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
@@ -79,67 +87,73 @@ public class GroupsReportTest extends TestCase {
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
 		drb
-			.addTitleStyle(titleStyle)
-			.addTitle("November 2006 sales report")					//defines the title of the report
-			.addSubtitle("The items in this report correspond "
+			.setTitleStyle(titleStyle)
+			.setTitle("November 2006 sales report")					//defines the title of the report
+			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")				
-			.addDetailHeight(new Integer(15)).addLeftMargin(margin)
-			.addRightMargin(margin).addTopMargin(margin).addBottomMargin(margin)
-			.addPrintBackgroundOnOddRows(true)
-			.addOddRowBackgroundStyle(oddRowStyle);
+			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
+			.setPrintBackgroundOnOddRows(true)
+			.setGrandTotalLegend("Grand Total")
+			.setGrandTotalLegendStyle(headerVariables)
+			.setOddRowBackgroundStyle(oddRowStyle);
+		
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
-				.addColumnProperty("state", String.class.getName()).addTitle(
-						"State").addWidth(new Integer(85))
-				.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+				.setColumnProperty("state", String.class.getName()).setTitle(
+						"State").setWidth(new Integer(85))
+				.setStyle(titleStyle).setHeaderStyle(titleStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
-				.addColumnProperty("branch", String.class.getName()).addTitle(
-						"Branch").addWidth(new Integer(85)).addStyle(
-						detailStyle).addHeaderStyle(headerStyle).build();
+				.setColumnProperty("branch", String.class.getName()).setTitle(
+						"Branch").setWidth(new Integer(85)).setStyle(
+						detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
-				.addColumnProperty("productLine", String.class.getName())
-				.addTitle("Product Line").addWidth(new Integer(85)).addStyle(
-						detailStyle).addHeaderStyle(headerStyle).build();
+				.setColumnProperty("productLine", String.class.getName())
+				.setTitle("Product Line").setWidth(new Integer(85)).setStyle(
+						detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaItem = ColumnBuilder.getInstance()
-				.addColumnProperty("item", String.class.getName()).addTitle(
-						"Item").addWidth(new Integer(85)).addStyle(detailStyle)
-				.addHeaderStyle(headerStyle).build();
+				.setColumnProperty("item", String.class.getName()).setTitle(
+						"Item").setWidth(new Integer(85)).setStyle(detailStyle)
+				.setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnCode = ColumnBuilder.getInstance()
-				.addColumnProperty("id", Long.class.getName()).addTitle("ID")
-				.addWidth(new Integer(40)).addStyle(importeStyle)
-				.addHeaderStyle(headerStyle).build();
+				.setColumnProperty("id", Long.class.getName()).setTitle("ID")
+				.setWidth(new Integer(40)).setStyle(importeStyle)
+				.setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaQuantity = ColumnBuilder.getInstance()
-				.addColumnProperty("quantity", Long.class.getName()).addTitle(
-						"Quantity").addWidth(new Integer(80)).addStyle(
-						importeStyle).addHeaderStyle(headerStyle).build();
+				.setColumnProperty("quantity", Long.class.getName()).setTitle(
+						"Quantity").setWidth(new Integer(80)).setStyle(
+						importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnAmount = ColumnBuilder.getInstance()
-				.addColumnProperty("amount", Float.class.getName()).addTitle(
-						"Amount").addWidth(new Integer(90))
-				.addPattern("$ 0.00").addStyle(importeStyle).addHeaderStyle(
+				.setColumnProperty("amount", Float.class.getName()).setTitle(
+						"Amount").setWidth(new Integer(90))
+				.setPattern("$ 0.00").setStyle(importeStyle).setHeaderStyle(
 						headerStyle).build();
+		
+		drb.addGlobalHeaderVariable(columnAmount, ColumnsGroupVariableOperation.SUM,headerVariables);
+		drb.addGlobalHeaderVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
 
 		GroupBuilder gb1 = new GroupBuilder();
 		
 //		 define the criteria column to group by (columnState)
-		ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState).addFooterVariable(columnAmount,
+		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState).addFooterVariable(columnAmount,
 						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,
 						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_COLNAMES) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
-		ColumnsGroup g2 = gb2.addCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
+		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,
 						ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
-				.addFooterVariable(columnaQuantity,
-						ColumnsGroupVariableOperation.SUM).build();
+				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM)
+				.build();
 
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
@@ -152,7 +166,7 @@ public class GroupsReportTest extends TestCase {
 		drb.addGroup(g1); // add group g1
 		drb.addGroup(g2); // add group g2
 
-		drb.addUseFullPageWidth(true);
+		drb.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
 		return dr;
@@ -166,8 +180,10 @@ public class GroupsReportTest extends TestCase {
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
+//		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
+		ReportExporter.exportReportPlainXls(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.xls");
 		JasperViewer.viewReport(jp);
+//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

@@ -29,11 +29,13 @@
 
 package ar.com.fdvs.dj.core.layout;
 
+import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignTextField;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import net.sf.jasperreports.engine.design.JRDesignTextField;
 
 /**
  * Simple Layout Manager recommended when we want to get a ready to operate </br>
@@ -51,6 +53,10 @@ public class ListLayoutManager extends AbstractLayoutManager {
 		getDesign().setColumnCount(1);
 		getDesign().setColumnWidth(getReport().getOptions().getColumnWidth());
 		super.startLayout();
+		if (getReport().getOptions().isPrintColumnNames()){
+			generateHeaderBand();
+		}
+		getDesign().setIgnorePagination(getReport().getOptions().isIgnorePagination());
 	}
 
 	protected void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField) {
@@ -64,4 +70,15 @@ public class ListLayoutManager extends AbstractLayoutManager {
 			throw new LayoutException(e.getMessage());
 		}
 	}
+	
+	private void generateHeaderBand() {
+		log.debug("generating header band...");
+		JRDesignBand header = (JRDesignBand) getDesign().getColumnHeader();
+		if (header == null) {
+			header = new JRDesignBand();
+			getDesign().setColumnHeader(header);
+		}
+//		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))
+			generateHeaderBand(header);
+	}	
 }

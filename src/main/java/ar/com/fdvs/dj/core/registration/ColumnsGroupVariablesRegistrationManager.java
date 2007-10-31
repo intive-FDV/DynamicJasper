@@ -58,9 +58,6 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 
 	private static final Log log = LogFactory.getLog(ColumnsGroupVariablesRegistrationManager.class);
 
-	public static final String HEADER = "header";
-	public static final String FOOTER = "footer";
-
 	private String type;
 	private String columnToGroupByProperty;
 
