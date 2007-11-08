@@ -112,7 +112,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			registerRemainingStyles();
 		} catch (RuntimeException e) {
 			throw new LayoutException(e.getMessage(),e);
-		}
+		} 
 	}
 	
 

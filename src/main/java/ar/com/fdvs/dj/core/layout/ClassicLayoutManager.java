@@ -35,17 +35,31 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabBucket;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabCell;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabColumnGroup;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabDataset;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabMeasure;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRElement;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignDataset;
+import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignSubreport;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
+import net.sf.jasperreports.engine.design.JRDesignVariable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -407,7 +421,110 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 			layoutGroupVariables(columnsGroup, jgroup);
 			layoutGroupSubreports(columnsGroup, jgroup);
+			layoutGroupCrosstabs(columnsGroup, jgroup);
 		}
+	}
+
+	protected void layoutGroupCrosstabs(ColumnsGroup columnsGroup,	JRDesignGroup jgroup) {
+		JRDesignCrosstab crosst = new JRDesignCrosstab();		
+		crosst.setWidth(200);
+		crosst.setHeight(100);
+		
+		JRDesignCrosstabColumnGroup ctColGroup = new JRDesignCrosstabColumnGroup();
+		ctColGroup.setName("col1");
+		ctColGroup.setHeight(30);
+		
+//		JRDesignCellContents header = new JRDesignCellContents();
+//		JRDesignStaticText element = new JRDesignStaticText();
+//		element.setText("Col 1");
+//		element.setWidth(30);
+//		header.addElement(element);
+//		ctColGroup.setHeader(header);
+		JRDesignCrosstabBucket bucket = new JRDesignCrosstabBucket();
+		JRDesignExpression bucketExp = new JRDesignExpression();
+		bucketExp.setValueClass(String.class);
+		bucketExp.setText("$F{branch}");
+		bucket.setExpression(bucketExp);
+		ctColGroup.setBucket(bucket);
+		ctColGroup.setBucket(bucket);		
+		
+		//ROW
+		JRDesignCrosstabRowGroup ctRowGroup = new JRDesignCrosstabRowGroup();
+		ctRowGroup.setWidth(50);
+		ctRowGroup.setName("row1");
+		JRDesignCrosstabBucket rowBucket = new JRDesignCrosstabBucket();
+		ctRowGroup.setBucket(rowBucket);		
+		bucketExp = new JRDesignExpression();
+		bucketExp.setValueClass(String.class);
+		bucketExp.setText("$F{product}");
+		rowBucket.setExpression(bucketExp);
+		
+		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
+		cell.setColumnTotalGroup("a");
+		cell.setRowTotalGroup("b");
+		cell.setWidth(Integer.valueOf(50));
+		cell.setHeight(Integer.valueOf(30));
+		
+		
+		JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
+		measure.setName("measure1");
+		measure.setCalculation(JRDesignVariable.CALCULATION_SUM);
+		measure.setValueClassName(Float.class.getName());
+		JRDesignExpression valueExp = new JRDesignExpression();
+		valueExp.setValueClass(Float.class);
+		valueExp.setText("$F{amount}");
+		measure.setValueExpression(valueExp);
+	
+		try {			
+			crosst.addMeasure(measure);
+			crosst.addColumnGroup(ctColGroup);
+			crosst.addRowGroup(ctRowGroup);
+			crosst.addCell(cell);
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		
+		JRDesignBand band = (JRDesignBand) jgroup.getGroupFooter();
+		JRDesignCrosstabDataset dataset = new JRDesignCrosstabDataset();
+		dataset.setDataPreSorted(false); 		
+		JRDesignDatasetRun datasetRun = new JRDesignDatasetRun();
+		datasetRun.setDatasetName("sub1");
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setValueClass(JRDataSource.class);	
+		exp.setText("new "+JRBeanCollectionDataSource.class.getName()+"((java.util.Collection)$P{REPORT_PARAMETERS_MAP}.get( \"sr\" ))");
+		datasetRun.setDataSourceExpression(exp);
+		
+		dataset.setDatasetRun(datasetRun);
+		
+		JRDesignDataset jrDataset = new JRDesignDataset(false);
+		jrDataset.setName("sub1");
+		JRDesignField field = new JRDesignField();
+		field.setName("branch");
+		field.setValueClass(String.class);
+		
+		JRDesignField field2 = new JRDesignField();
+		field2.setName("product");
+		field2.setValueClass(String.class);		
+
+		JRDesignField field3 = new JRDesignField();
+		field3.setName("amount");
+		field3.setValueClass(Float.class);
+		
+		try {
+			jrDataset.addField(field);
+			jrDataset.addField(field2);
+			jrDataset.addField(field3);
+			design.addDataset(jrDataset);
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		
+		crosst.setDataset(dataset);
+		band.addElement(crosst);
+		
+		
+		
+		
 	}
 
 	/**
