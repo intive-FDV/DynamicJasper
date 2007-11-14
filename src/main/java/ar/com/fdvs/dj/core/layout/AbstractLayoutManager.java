@@ -246,7 +246,13 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		
 		JRDesignStyle style = oddRowBackgroundStyle.transform();
 		style.setForecolor(oddRowBackgroundStyle.getBackgroundColor());
-		rectangle.setStyle(style);
+		
+		applyStyleToElement(oddRowBackgroundStyle, rectangle);
+//		rectangle.setStyle(style);
+		rectangle.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
+		rectangle.setForecolor(oddRowBackgroundStyle.getBorderColor());
+		rectangle.setPen(oddRowBackgroundStyle.getBorder().getValue());
+		rectangle.setMode(JRDesignElement.MODE_OPAQUE);
 		detail.addElement(rectangle);
 	}
 
@@ -320,11 +326,16 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			if (style.getStreching() != null)
 				textField.setStretchType(style.getStreching().getValue());
 			textField.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
+			
 		}
 		if (designElemen instanceof JRDesignTextField ) {
 			JRDesignTextField textField = (JRDesignTextField) designElemen;
 			textField.setStretchWithOverflow(style.isStretchWithOverflow());
+			
+			if (textField.isBlankWhenNull() == false && style.isBlankWhenNull())
+				textField.setBlankWhenNull(true);
 		}
+		
 		 
 	}
 

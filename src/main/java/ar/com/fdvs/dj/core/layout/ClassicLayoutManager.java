@@ -720,7 +720,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				textField.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
 
 				textField.setEvaluationGroup(jgroup);
-				
 				//Assign the style to the element.
 				//First we look for the specific element style, then the default style for the group variables
 				//and finally the column style.
@@ -732,6 +731,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					applyStyleToElement(defStyle, textField);
 				else
 					applyStyleToElement(col.getStyle(), textField);
+				
 
 				band.addElement(textField);
 
