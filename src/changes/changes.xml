@@ -5,6 +5,8 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="1.4.1a" date="2007-11-05" desc="Minor release">
+          </release>
          <release version="1.4.0" date="2007-10-31" desc="Styles release">
            	<action dev="Juan Manuel Alvarez" type="add">
               Groups can start in new page or in new column. 
