@@ -29,12 +29,14 @@
 
 package ar.com.fdvs.dj.core.layout;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabBucket;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabCell;
@@ -56,6 +58,7 @@ import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
+import net.sf.jasperreports.engine.design.JRDesignRectangle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignSubreport;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
@@ -421,7 +424,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 			layoutGroupVariables(columnsGroup, jgroup);
 			layoutGroupSubreports(columnsGroup, jgroup);
-//			layoutGroupCrosstabs(columnsGroup, jgroup);
+			layoutGroupCrosstabs(columnsGroup, jgroup);
 		}
 	}
 
@@ -434,19 +437,12 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		ctColGroup.setName("col1");
 		ctColGroup.setHeight(30);
 		
-//		JRDesignCellContents header = new JRDesignCellContents();
-//		JRDesignStaticText element = new JRDesignStaticText();
-//		element.setText("Col 1");
-//		element.setWidth(30);
-//		header.addElement(element);
-//		ctColGroup.setHeader(header);
 		JRDesignCrosstabBucket bucket = new JRDesignCrosstabBucket();
 		JRDesignExpression bucketExp = new JRDesignExpression();
 		bucketExp.setValueClass(String.class);
 		bucketExp.setText("$F{branch}");
 		bucket.setExpression(bucketExp);
 		ctColGroup.setBucket(bucket);
-		ctColGroup.setBucket(bucket);		
 		
 		//ROW
 		JRDesignCrosstabRowGroup ctRowGroup = new JRDesignCrosstabRowGroup();
@@ -460,10 +456,21 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		rowBucket.setExpression(bucketExp);
 		
 		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
-		cell.setColumnTotalGroup("a");
-		cell.setRowTotalGroup("b");
+		cell.setColumnTotalGroup("col1");
+		cell.setRowTotalGroup("row1");
 		cell.setWidth(Integer.valueOf(50));
 		cell.setHeight(Integer.valueOf(30));
+		
+		
+		JRDesignCellContents contents = new JRDesignCellContents();
+		JRDesignRectangle designElem = new JRDesignRectangle();
+		designElem.setWidth(20);
+		designElem.setHeight(20);
+		designElem.setMode(JRDesignElement.MODE_OPAQUE);
+		designElem.setBackcolor(Color.blue);
+		contents.addElement(designElem);
+		
+		cell.setContents(contents);
 		
 		
 		JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
@@ -480,6 +487,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			crosst.addColumnGroup(ctColGroup);
 			crosst.addRowGroup(ctRowGroup);
 			crosst.addCell(cell);
+			
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
@@ -514,16 +522,14 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			jrDataset.addField(field);
 			jrDataset.addField(field2);
 			jrDataset.addField(field3);
-			design.addDataset(jrDataset);
+			if ( design.getDatasetMap().containsKey(jrDataset.getName())==false)
+				design.addDataset(jrDataset);
 		} catch (JRException e) {
 			e.printStackTrace();
 		}
 		
 		crosst.setDataset(dataset);
 		band.addElement(crosst);
-		
-		
-		
 		
 	}
 

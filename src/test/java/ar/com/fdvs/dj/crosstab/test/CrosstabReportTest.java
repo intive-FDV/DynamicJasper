@@ -39,6 +39,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -64,10 +65,11 @@ public class CrosstabReportTest extends TestCase {
 			.addColumn("Item Code", "id", Long.class.getName(),30,true)
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
-			.addGroups(2)
+			.addGroups(1)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
-			.setUseFullPageWidth(true);	
+			.setUseFullPageWidth(true)
+			.setTemplateFile("templates/crosstab-test.jrxml");
 
 		DynamicReport dr = drb.build();	
 		
@@ -87,7 +89,7 @@ public class CrosstabReportTest extends TestCase {
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource 
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/FastReportTest.pdf");
-//			JasperViewer.viewReport(jp);	//finally display the report report
+			JasperViewer.viewReport(jp);	//finally display the report report
 			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
 			JasperDesignViewer.viewReportDesign(jr);
 		} catch (Exception e) {
