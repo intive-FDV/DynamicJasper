@@ -421,7 +421,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 			layoutGroupVariables(columnsGroup, jgroup);
 			layoutGroupSubreports(columnsGroup, jgroup);
-			layoutGroupCrosstabs(columnsGroup, jgroup);
+//			layoutGroupCrosstabs(columnsGroup, jgroup);
 		}
 	}
 
@@ -696,7 +696,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			Iterator it = variables.iterator();
 			while (it.hasNext()) {
 				ColumnsGroupVariable var = (ColumnsGroupVariable) it.next();
-				AbstractColumn col = (AbstractColumn) var.getColumnToApplyOperation();
+				AbstractColumn col = var.getColumnToApplyOperation();
 
 				String variableName = col.getGroupVariableName(type, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty());
 
@@ -767,15 +767,16 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	private ColumnsGroupVariable findLeftMostColumn(List variables) {
-		int x = Integer.MAX_VALUE;
-		ColumnsGroupVariable col =  null;
+		int mostLeftX = Integer.MAX_VALUE;
+		ColumnsGroupVariable mostLeftColumn =  null;
 		for (Iterator iterator = variables.iterator(); iterator.hasNext();) {
-			ColumnsGroupVariable col2 = (ColumnsGroupVariable) iterator.next();
-			if (col2.getColumnToApplyOperation().getPosX().intValue() <= x)
-				col = col2;
-			
-		}
-		return col;
+			ColumnsGroupVariable currentCol = (ColumnsGroupVariable) iterator.next();
+			if (currentCol.getColumnToApplyOperation().getPosX().intValue() <= mostLeftX) {
+				mostLeftColumn = currentCol;
+                mostLeftX = mostLeftColumn.getColumnToApplyOperation().getPosX().intValue();
+            }
+        }
+		return mostLeftColumn;
 	}
 
 	private void insertValueInHeader(JRDesignBand headerBand, ColumnsGroup columnsGroup, int headerOffset) {
