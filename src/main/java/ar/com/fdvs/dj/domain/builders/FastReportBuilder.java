@@ -148,10 +148,46 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 
-	private void guessStyle(String className, AbstractColumn column) throws ClassNotFoundException {
+	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth, String pattern) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+		.setColumnProperty(new ColumnProperty(property, className))
+		.setWidth(Integer.valueOf(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setPattern(pattern)
+		.build();
+		
+		guessStyle(className, column);
+		
+		addColumn(column);
+		
+		return this;
+	}
+
+	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth, String pattern, Style style) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+		.setColumnProperty(new ColumnProperty(property, className))
+		.setWidth(Integer.valueOf(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setPattern(pattern)
+		.setStyle(style)
+		.build();
+		
+		if (style == null)
+			guessStyle(className, column);
+		
+		addColumn(column);
+		
+		return this;
+	}
+
+	protected void guessStyle(String className, AbstractColumn column) throws ClassNotFoundException {
+		
 		Class clazz = Class.forName(className);
 		if (BigDecimal.class.isAssignableFrom(clazz) || Float.class.isAssignableFrom(clazz) || Double.class.isAssignableFrom(clazz)) {
-			column.setPattern("$ #.00");
+			if (column.getPattern() == null)
+				column.setPattern("$ #.00");
 			column.setStyle(currencyStyle);
 		}
 
@@ -160,11 +196,13 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		}
 
 		if (Date.class.isAssignableFrom(clazz)) {
-			column.setPattern("dd/MM/yy");
+			if (column.getPattern() == null)
+				column.setPattern("dd/MM/yy");
 		}
 
 		if (Timestamp.class.isAssignableFrom(clazz)) {
-			column.setPattern("dd/MM/yy hh:mm:ss");
+			if (column.getPattern() == null)
+				column.setPattern("dd/MM/yy hh:mm:ss");
 		}
 	}
 

@@ -5,23 +5,7 @@
 		------
 		 Date
 		 
-Introduction
-
- The DynamicJasper Playground is an example webapp made in GWT and it is inteded to show all the capabilities and potential that the DynamicJasper
- API provides.
- 
- In a near future we will release this playground as a component ready to integrate to your web application.
- 
- {{{http://dynamicjasperplayground.fdvs.com.ar/}See it working online!!!}}
- 
-[../images/playground/playground-thumbnail.jpg] Report Main options.
-		 
-Installation
-
- {{{http://sourceforge.net/project/showfiles.php?group_id=188060}Download}} the war application and deploy it in an 2.3 servlet compatible servlet container (like Apache Tomcat 4.x or 5).
- <<The source code is also available for download>>
-
-Usage
+Mini Guide for Playground
 
  The Playground uses as example a report that lists movies, dvd and book titles. In the column selection area you can choose the columns you 
  want to appear in the report, also the order you want them to appear.
@@ -45,11 +29,28 @@ Usage
 |In this playground we sort the data in the right way (because its a demo), but it's not responsability of this component nor JasperReport to sort the data.
 *------+
 
-Future features for the playground
+* Step by step guide
 
- * Variables in groups
+ Report Main options
  
- * Component oriented design. So you can integrate to any web application
+[../images/playground/Diapositiva1.jpg] Report Main options.
+
+ Defining some styles.
  
- []
+[../images/playground/Diapositiva2.jpg] Defining some styles.
+
+ The column selection area.
  
+[../images/playground/Diapositiva3.jpg] The column selection area.
+
+ Redefining styles per column
+ 
+[../images/playground/Diapositiva4.jpg] Redefining styles per column
+
+ Finally getting the report
+ 
+[../images/playground/Diapositiva5.jpg] finally
+
+
+
+
