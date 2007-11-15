@@ -5,7 +5,7 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="1.4.1a" date="2007-11-05" desc="Minor release">
+         <release version="1.4.2" date="2007-11-05" desc="Minor release">
              <action dev="Mariano Simone" type="fix">
                  Grand Total Legends positions calculation fixed
              </action>
