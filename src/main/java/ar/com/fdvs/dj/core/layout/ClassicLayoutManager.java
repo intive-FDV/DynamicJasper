@@ -424,7 +424,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 			layoutGroupVariables(columnsGroup, jgroup);
 			layoutGroupSubreports(columnsGroup, jgroup);
-			layoutGroupCrosstabs(columnsGroup, jgroup);
+//			layoutGroupCrosstabs(columnsGroup, jgroup);
 		}
 	}
 
