@@ -296,7 +296,7 @@ API.
 		<repository>
 			<id>embuRepo</id>
 			<name>Embu Deploy Repo</name>
-			<url>ftp://fdvs.com.ar/maven2/</url>
+			<url>ftp://fdvs.com.ar/maven2</url>
 		</repository>
 	</distributionManagement>
 	<mailingLists>
