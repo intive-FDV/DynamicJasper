@@ -32,7 +32,6 @@ package ar.com.fdvs.dj.domain;
 import java.awt.Color;
 import java.io.Serializable;
 
-import net.sf.jasperreports.engine.base.JRBaseStyle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
@@ -49,7 +48,7 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
  * Usage example:</br>
  * Style headerStyle = new Style();</br>
  * headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);</br>
- * headerStyle.setBorder(Border.MEDIUM);</br>
+ * headerStyle.setBorder(Border.PEN_2_POINT);</br>
  * headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);</br>
  * headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);</br>
  */
@@ -58,6 +57,7 @@ public class Style implements Serializable, Cloneable {
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
+	private String parentStyleName;
 
 	private Color backgroundColor = Color.WHITE;
 	private Color textColor = Color.BLACK;
@@ -88,10 +88,27 @@ public class Style implements Serializable, Cloneable {
     private boolean stretchWithOverflow = true;
     private boolean blankWhenNull = true;
     
-    public Style(){}
+    /**
+     * If true and another style exists in the design with the same name, this style overrides the existing one.
+     */
+    private boolean overridesExistingStyle = false;
+    
+    public boolean isOverridesExistingStyle() {
+		return overridesExistingStyle;
+	}
+
+	public void setOverridesExistingStyle(boolean overridesExistingStyle) {
+		this.overridesExistingStyle = overridesExistingStyle;
+	}
+
+	public Style(){}
 
     public Style(String name){
     	this.name = name;
+    }
+    public Style(String name, String parentName){
+    	this.name = name;
+    	this.parentStyleName = parentName;
     }
 
 	public boolean isBlankWhenNull() {
@@ -185,9 +202,11 @@ public class Style implements Serializable, Cloneable {
 	public JRDesignStyle transform() {
 		
 		JRDesignStyle transformedStyle = new JRDesignStyle();
-		transformedStyle.setBorder(getBorder().getValue());
+		if (getBorder()!=null)
+			transformedStyle.setBorder(getBorder().getValue());
 		
 		transformedStyle.setName(this.name);
+		transformedStyle.setParentStyleNameReference(this.parentStyleName);
 		
 		//Borders
 		if (getBorderBottom()!= null) 
@@ -210,24 +229,33 @@ public class Style implements Serializable, Cloneable {
 		if (paddingRight != null)
 			transformedStyle.setRightPadding(paddingRight);
 		
-		transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
-		transformedStyle.setVerticalAlignment(getVerticalAlign().getValue());
+		if (getHorizontalAlign() != null)
+			transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
+		
+		if (getVerticalAlign() != null)
+			transformedStyle.setVerticalAlignment(getVerticalAlign().getValue());
 
 		transformedStyle.setBlankWhenNull(blankWhenNull);
 
-		transformedStyle.setFontName(font.getFontName());
-		transformedStyle.setFontSize(font.getFontSize());
-		transformedStyle.setBold(font.isBold());
-		transformedStyle.setItalic(font.isIntalic());
-		transformedStyle.setUnderline(font.isUnderline());
+		if (font != null) {
+			transformedStyle.setFontName(font.getFontName());
+			transformedStyle.setFontSize(font.getFontSize());
+			transformedStyle.setBold(font.isBold());
+			transformedStyle.setItalic(font.isItalic());
+			transformedStyle.setUnderline(font.isUnderline());
+		}
 
 		transformedStyle.setBackcolor(getBackgroundColor());
 		transformedStyle.setForecolor(getTextColor());
 		transformedStyle.setBorderColor(borderColor);
-		transformedStyle.setMode(getTransparency().getValue());
+		if (getTransparency() != null)
+			transformedStyle.setMode(getTransparency().getValue());
 		
-		transformedStyle.setRotation(getRotation().getValue());
-		transformedStyle.setRadius(getRadius().intValue());
+		if (getRotation() != null)
+			transformedStyle.setRotation(getRotation().getValue());
+		
+		if (getRadius() != null)
+			transformedStyle.setRadius(getRadius().intValue());
 		
 		return transformedStyle;
 	}
@@ -326,6 +354,47 @@ public class Style implements Serializable, Cloneable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getParentStyleName() {
+		return parentStyleName;
+	}
+
+	public void setParentStyleName(String parentStyleName) {
+		this.parentStyleName = parentStyleName;
+	}
+	
+	/**
+	 * Creates a blank style (no default values).
+	 * Usefull when we need a style with a parent style, not defined properties (null ones) will be inherited
+	 * from parent style
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public static Style createBlankStyle(String name){
+		Style style = new Style(name);
+		
+		style.setBackgroundColor(null);
+		style.setTransparency(null);
+		style.setTextColor(null);
+		style.setBorder(null);
+		style.setFont(null);
+		style.setPadding(null);
+		style.setRadius(null);
+		style.setVerticalAlign(null);
+		style.setHorizontalAlign(null);
+		style.setRotation(null);
+		style.setStreching(null);
+		
+		return style;
+		
+	}	
+
+	public static Style createBlankStyle(String name, String parent){
+		Style s = createBlankStyle(name);
+		s.setParentStyleName(parent);
+		return s;
 	}
 
 }

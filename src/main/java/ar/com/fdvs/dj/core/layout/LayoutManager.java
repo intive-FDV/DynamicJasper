@@ -19,5 +19,6 @@ public interface LayoutManager {
 	 * @throws LayoutException
 	 */
 	void applyLayout(JasperDesign design, DynamicReport report) throws LayoutException;
+
 	
 }

@@ -30,8 +30,10 @@
 package ar.com.fdvs.dj.domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * One of the main classes of this product. It represents the report itself.
@@ -62,6 +64,20 @@ public class DynamicReport {
 	private String templateFileName = null;
 	
 	private List autoTexts = new ArrayList();
+	
+	private Map styles = new HashMap();
+
+	public void addStyle(Style style) {
+		styles.put(style.getName(), style);
+	}
+
+	public Map getStyles() {
+		return styles;
+	}
+
+	public void setStyles(Map styles) {
+		this.styles = styles;
+	}
 
 	public DynamicReport() {}
 

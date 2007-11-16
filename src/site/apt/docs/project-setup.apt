@@ -1,0 +1,70 @@
+		------
+		Project Setup
+		------
+		Martin Gorostegui
+		------
+		 Date
+		 
+Project Setup (Eclipse / Idea)
+
+* DJ API as IDE Project 
+
+** Requirements:
+
+ * Java 1.4 or higher
+
+ * Maven 2.06 or higher
+ 
+ * SVN client
+ 
+ * Eclipse or IntelliJ Idea (not tested under other IDEs)
+
+ []
+
+** Configuration steps:
+
+ * Create a project by checking it out from <https://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk>
+ 
+ * Run <<mvn clean compile install –PpublicRepo>> to add all the required libraries to your local m2 repository
+ 
+ * Run the m2 goal needed to generate your configured project files (<<mvn eclipse:eclipse>>, <<mvn idea:idea>> or maybe none if you’re using Intellij Idea 7 milestone2 or higher)
+ 
+ * Refresh your project
+ 
+ * Now you can do anything you want (modify source code, run the examples found at package ar.com.fdvs.dj.test, make use of any m2 goal, etc)
+
+ []
+ 
+
+* DJ Playground as IDE Project 
+
+** Requirements:
+
+ * Java 1.4 or higher
+ 
+ * Maven 2.06 or higher
+ 
+ * SVN client
+ 
+ * GWT 1.33
+ 
+ * Eclipse or IntelliJ Idea (not tested under other IDEs)
+
+ []
+
+** Configuration steps:
+
+ * Create a project by checking it out from <https://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/playground/trunk>
+
+ * Run <<mvn clean compile install –PpublicRepo>> to add all the required libraries to your local m2 repository
+
+ * Run the m2 goal needed to generate your configured project files (<<mvn eclipse:eclipse>>, <<mvn idea:idea>> or maybe none if you’re using Intellij Idea 7 or higher)
+
+ * Refresh your project
+ 
+ * Open your POM file and modify <google.webtoolkit.home> to point to your GWT home folder
+
+ * Now you can do anything you want (modify source code, make use of the m2-gwt plugin goals listed at , etc)
+ 
+ [] 
+

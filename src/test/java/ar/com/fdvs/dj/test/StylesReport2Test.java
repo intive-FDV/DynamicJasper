@@ -30,16 +30,12 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
-import java.beans.XMLEncoder;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.util.Collection;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -70,8 +66,8 @@ public class StylesReport2Test extends TestCase {
 		
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); 
-		headerStyle.getFont().setIntalic(true);
-		headerStyle.setBorderTop(Border.MEDIUM);
+		headerStyle.getFont().setItalic(true);
+		headerStyle.setBorderTop(Border.PEN_2_POINT);
 		headerStyle.setBorderBottom(Border.THIN);
 		headerStyle.setBackgroundColor(Color.blue);
 		headerStyle.setTransparency(Transparency.OPAQUE);
@@ -109,48 +105,48 @@ public class StylesReport2Test extends TestCase {
 		
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
-		drb.addTitle("November 2006 sales report")					//defines the title of the report
-			.addSubtitle("The items in this report correspond "
+		drb.setTitle("November 2006 sales report")					//defines the title of the report
+			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")			
-			.addTitleStyle(titleStyle).addTitleHeight(new Integer(30))
-			.addSubtitleHeight(new Integer(20))
-			.addDetailHeight(new Integer(15))
-			.addLeftMargin(margin)
-			.addRightMargin(margin)
-			.addTopMargin(margin)
-			.addBottomMargin(margin)
-			.addPrintBackgroundOnOddRows(true)
-			.addOddRowBackgroundStyle(oddRowStyle)
-			.addColumnsPerPage(new Integer(1))
-			.addColumnSpace(new Integer(5));
+			.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
+			.setSubtitleHeight(new Integer(20))
+			.setDetailHeight(new Integer(15))
+			.setLeftMargin(margin)
+			.setRightMargin(margin)
+			.setTopMargin(margin)
+			.setBottomMargin(margin)
+			.setPrintBackgroundOnOddRows(true)
+			.setOddRowBackgroundStyle(oddRowStyle)
+			.setColumnsPerPage(new Integer(1))
+			.setColumnSpace(new Integer(5));
 
-		AbstractColumn columnState = ColumnBuilder.getInstance().addColumnProperty("state", String.class.getName())
-			.addTitle("State").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnState = ColumnBuilder.getInstance().setColumnProperty("state", String.class.getName())
+			.setTitle("State").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnBranch = ColumnBuilder.getInstance().addColumnProperty("branch", String.class.getName())
-			.addTitle("Branch").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnBranch = ColumnBuilder.getInstance().setColumnProperty("branch", String.class.getName())
+			.setTitle("Branch").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaProductLine = ColumnBuilder.getInstance().addColumnProperty("productLine", String.class.getName())
-			.addTitle("Product Line").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnaProductLine = ColumnBuilder.getInstance().setColumnProperty("productLine", String.class.getName())
+			.setTitle("Product Line").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaItem = ColumnBuilder.getInstance().addColumnProperty("item", String.class.getName())
-			.addTitle("item").addWidth(new Integer(85))
-			.addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnaItem = ColumnBuilder.getInstance().setColumnProperty("item", String.class.getName())
+			.setTitle("item").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnCode = ColumnBuilder.getInstance().addColumnProperty("id", Long.class.getName())
-			.addTitle("ID").addWidth(new Integer(40))
-			.addStyle(numberStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnCode = ColumnBuilder.getInstance().setColumnProperty("id", Long.class.getName())
+			.setTitle("ID").setWidth(new Integer(40))
+			.setStyle(numberStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnaCantidad = ColumnBuilder.getInstance().addColumnProperty("quantity", Long.class.getName())
-			.addTitle("Quantity").addWidth(new Integer(80))
-			.addStyle(numberStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnaCantidad = ColumnBuilder.getInstance().setColumnProperty("quantity", Long.class.getName())
+			.setTitle("Quantity").setWidth(new Integer(80))
+			.setStyle(numberStyle).setHeaderStyle(headerStyle).build();
 
-		AbstractColumn columnAmount = ColumnBuilder.getInstance().addColumnProperty("amount", Float.class.getName())
-			.addTitle("Amount").addWidth(new Integer(90)).addPattern("$ 0.00")
-			.addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+		AbstractColumn columnAmount = ColumnBuilder.getInstance().setColumnProperty("amount", Float.class.getName())
+			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
+			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
@@ -161,33 +157,33 @@ public class StylesReport2Test extends TestCase {
 		drb.addColumn(columnAmount);
 		
 		ColumnsGroup group = new GroupBuilder()
-			.addCriteriaColumn((PropertyColumn) columnState)
+			.setCriteriaColumn((PropertyColumn) columnState)
 			.addFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM,variableStyle).build();
 		drb.addGroup(group);
 		
 		ColumnsGroup group2 = new GroupBuilder()
-		.addCriteriaColumn((PropertyColumn) columnBranch)
+		.setCriteriaColumn((PropertyColumn) columnBranch)
 		.addFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM).build();
 		drb.addGroup(group2);
 		
 		group2.setDefaulFooterStyle(variableStyle2);
 		
-		drb.addUseFullPageWidth(true);
+		drb.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
 //		saveXML(dr,"dynamicReport");
 		return dr;
 	}
 
-	private static void saveXML(Object object, String filename) throws Exception {
-		
-		OutputStream out = new FileOutputStream(System.getProperty("user.dir")+ "/target/" + filename +".xml");
-		XMLEncoder enc = new XMLEncoder(out);
-		enc.writeObject(object);
-		enc.close();
-		out.close();
-		
-	}
+//	private static void saveXML(Object object, String filename) throws Exception {
+//		
+//		OutputStream out = new FileOutputStream(System.getProperty("user.dir")+ "/target/" + filename +".xml");
+//		XMLEncoder enc = new XMLEncoder(out);
+//		enc.writeObject(object);
+//		enc.close();
+//		out.close();
+//		
+//	}
 
 	public void testReport() {
 		try {
@@ -199,7 +195,7 @@ public class StylesReport2Test extends TestCase {
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReport2Test.pdf");
-			JasperViewer.viewReport(jp);
+//			JasperViewer.viewReport(jp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
