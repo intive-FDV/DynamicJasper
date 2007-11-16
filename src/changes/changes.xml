@@ -9,6 +9,15 @@
              <action dev="Mariano Simone" type="fix">
                  Grand Total Legends positions calculation fixed
              </action>
+             <action dev="Juan Manuel Alvarez" type="add">
+                 Convinient methods in FastReportBuilder to add columns with more options
+             </action>
+             <action dev="Juan Manuel Alvarez" type="fix">
+                 FastReportBuilder no guess in styles is the column already has a style 
+             </action>
+             <action dev="Juan Manuel Alvarez" type="fix">
+                 odd rows background border and foreground color was not working 
+             </action>
           </release>
          <release version="1.4.0" date="2007-10-31" desc="Styles release">
            	<action dev="Juan Manuel Alvarez" type="add">
