@@ -70,6 +70,7 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 
 /**
@@ -624,7 +625,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		} catch (ClassNotFoundException e) { /*Should never happen*/ }
 		
 		JRDesignExpression expression = new JRDesignExpression();
-		expression.setText("$F{" + chart.getColumn().getTitle().toLowerCase() + "}");
+//		expression.setText("$F{" + chart.getColumn().getTitle().toLowerCase() + "}");
+		expression.setText("$F{" + ((PropertyColumn) chart.getColumn()).getColumnProperty().getProperty()  + "}");
 		expression.setValueClass(clazz);
 		
 		JRDesignVariable var = new JRDesignVariable();

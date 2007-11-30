@@ -99,7 +99,12 @@ public final class DynamicJasperHelper {
 		}
 
 		if (messages == null) {
-			messages =  ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, locale);
+			try {
+				messages =  ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, locale);
+			} catch (MissingResourceException e){ log.warn(e.getMessage() + ", usign defaut (dj-messages)");}
+			finally {
+				messages =  ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, Locale.ENGLISH); //this cannot fail because is included in the DJ jar
+			}
 		}
 		jd.getParametersWithValues().put(JRDesignParameter.REPORT_RESOURCE_BUNDLE, messages);
 		jd.getParametersWithValues().put(JRDesignParameter.REPORT_LOCALE, locale);

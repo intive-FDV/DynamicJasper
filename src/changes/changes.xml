@@ -5,6 +5,16 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="1.4.3" date="2007-11-27"	desc="Bug fix release">
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		MissingResourceException when locale is not EN or US. Thanks danidacila.
+         		https://sourceforge.net/forum/message.php?msg_id=4645638
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Problem with Chart and grouping. Thanks danidacila.
+         		https://sourceforge.net/forum/message.php?msg_id=4645263
+         	</action>
+         </release>
          <release version="1.4.2" date="2007-11-05" desc="Minor release">
              <action dev="Mariano Simone" type="fix">
                  Grand Total Legends positions calculation fixed
