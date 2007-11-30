@@ -78,6 +78,19 @@
 					</crosstabDataset>
 					<crosstabHeaderCell>						<cellContents mode="Transparent">
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+				<staticText>
+					<reportElement
+						x="9"
+						y="1"
+						width="76"
+						height="20"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[juan1]]></text>
+				</staticText>
 						</cellContents>
 					</crosstabHeaderCell>					<rowGroup name="PERIOD_ID" width="100">
 						<bucket>

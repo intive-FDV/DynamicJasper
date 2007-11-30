@@ -35,6 +35,7 @@ import java.util.Locale;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -181,7 +182,7 @@ public class FullFeatureReportTest extends TestCase {
 			
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), dummyCollection);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/fullFeatureReportTest.pdf");
-//			JasperViewer.viewReport(jp);
+			JasperViewer.viewReport(jp);
 //			JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 		} catch (Exception e) {
 			e.printStackTrace();

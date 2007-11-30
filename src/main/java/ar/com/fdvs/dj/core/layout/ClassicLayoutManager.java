@@ -59,6 +59,7 @@ import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignRectangle;
+import net.sf.jasperreports.engine.design.JRDesignStaticText;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignSubreport;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
@@ -424,7 +425,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 			layoutGroupVariables(columnsGroup, jgroup);
 			layoutGroupSubreports(columnsGroup, jgroup);
-//			layoutGroupCrosstabs(columnsGroup, jgroup);
+			layoutGroupCrosstabs(columnsGroup, jgroup);
 		}
 	}
 
@@ -446,7 +447,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		
 		//ROW
 		JRDesignCrosstabRowGroup ctRowGroup = new JRDesignCrosstabRowGroup();
-		ctRowGroup.setWidth(50);
+		ctRowGroup.setWidth(80);
 		ctRowGroup.setName("row1");
 		JRDesignCrosstabBucket rowBucket = new JRDesignCrosstabBucket();
 		ctRowGroup.setBucket(rowBucket);		
@@ -456,10 +457,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		rowBucket.setExpression(bucketExp);
 		
 		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
-		cell.setColumnTotalGroup("col1");
-		cell.setRowTotalGroup("row1");
-		cell.setWidth(Integer.valueOf(50));
+//		cell.setColumnTotalGroup("col1");
+//		cell.setRowTotalGroup("row1");
+		cell.setWidth(Integer.valueOf(120));
 		cell.setHeight(Integer.valueOf(30));
+		
 		
 		
 		JRDesignCellContents contents = new JRDesignCellContents();
@@ -481,12 +483,19 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		valueExp.setValueClass(Float.class);
 		valueExp.setText("$F{amount}");
 		measure.setValueExpression(valueExp);
+		
+		JRDesignCrosstabCell celltop = createTopCell();
+		JRDesignCrosstabCell cellright = createRightCell();
+		JRDesignCrosstabCell cellTopright = createTopRightCell();
 	
 		try {			
 			crosst.addMeasure(measure);
 			crosst.addColumnGroup(ctColGroup);
 			crosst.addRowGroup(ctRowGroup);
 			crosst.addCell(cell);
+			crosst.addCell(celltop);
+			crosst.addCell(cellright);
+			crosst.addCell(cellTopright);
 			
 		} catch (JRException e) {
 			e.printStackTrace();
@@ -531,6 +540,32 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		crosst.setDataset(dataset);
 		band.addElement(crosst);
 		
+	}
+
+	private JRDesignCrosstabCell createTopCell() {
+		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
+		cell.setColumnTotalGroup("col1");
+		return cell;
+	}
+	private JRDesignCrosstabCell createRightCell() {
+		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
+		cell.setRowTotalGroup("row1");
+		return cell;
+	}
+	private JRDesignCrosstabCell createTopRightCell() {
+		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
+		cell.setColumnTotalGroup("col1");
+		cell.setRowTotalGroup("row1");
+		JRDesignCellContents contents = new JRDesignCellContents();
+		cell.setContents(contents);
+		
+		JRDesignStaticText element = new JRDesignStaticText();
+		element.setText("DJ");
+		element.setHeight(30);
+		element.setWidth(50);
+		contents.addElement(element);
+		
+		return cell;
 	}
 
 	/**

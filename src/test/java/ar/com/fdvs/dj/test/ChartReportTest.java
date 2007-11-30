@@ -34,10 +34,13 @@ import java.util.Collection;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
@@ -160,6 +163,8 @@ public class ChartReportTest extends TestCase {
 						.addOperation(DJChart.CALCULATION_SUM)
 						.addColumnsGroup(g2)
 						.addColumn(columnAmount)
+						.setPosition(DJChartOptions.POSITION_FOOTER)
+						.setShowLabels(true)
 						.build();
 
 		drb.addChart(chart); //add chart
@@ -177,7 +182,7 @@ public class ChartReportTest extends TestCase {
 
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), dummyCollection);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ChartReportTest.pdf");
-//		JasperViewer.viewReport(jp);
+		JasperViewer.viewReport(jp);
 //		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
