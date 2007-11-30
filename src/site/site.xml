@@ -22,21 +22,32 @@
       <item name="Features" href="docs/features.html"/>
       <item name="Requeriments" href="requeriments.html"/>
       <item name="Download" href="http://sourceforge.net/project/showfiles.php?group_id=188060"/>
-      <item name="Changes" href="changes-report.html"/>
-      <item name="Sources and Javadoc" href="xref/index.html"/>
     </menu>
+    <menu name="Playground (GUI)">
+      <item name="Introduction" href="docs/playground.html"/>      
+      <item name="Mini guide" href="docs/playground-mini-guide.html"/>
+      <item name="Online Demo" href="http://dynamicjasperplayground.fdvs.com.ar/" external="true"/>      
+      <item name="Download" href="https://sourceforge.net/project/showfiles.php?group_id=188060" external="true"/>
+    </menu>    
     <menu name="Documentation - Examples">
       <item name="Getting Started" href="docs/getting_started.html"/>
       <item name="Howto" href="docs/howto.html"/>
-      <item name="Playground (GUI)" href="docs/playground.html"/>      
-      <item name="Online Demo" href="http://dynamicjasperplayground.fdvs.com.ar/" external="true"/>      
     </menu>    
-    <menu name="Comunity">
+    <menu name="Development">
+      <item name="Changes" href="changes-report.html"/>
+      <item name="Sources reference" href="jxr.html"/>
+      <item name="Javadoc" href="apidocs/index.html" />
+      <item name="Setting up the project" href="docs/project-setup.html" />
+    </menu>    
+    <menu name="Support">
       <item name="Forums" href="https://sourceforge.net/forum/?group_id=188060" external="true"/>
+      <item name="Issue Tracker" href="https://sourceforge.net/tracker/?group_id=188060"/>
       <item name="DJ@SourceForge" href="https://sourceforge.net/projects/dynamicjasper" />
     </menu>    
 
+<!-- 
     ${reports}
+ -->
     
         
   </body>

@@ -1,6 +1,8 @@
 package ar.com.fdvs.dj.domain.entities;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import net.sf.jasperreports.engine.JasperReport;
 
@@ -9,12 +11,27 @@ public class Subreport {
 	private JasperReport report;
 	
 	/**
+	 * The full path or URI in the class path of the compiled .jasper report file
+	 */
+	private String path;
+	
+	/**
+	 * The DynamicReport to use
+	 */
+	private DynamicReport dynamicReport = null;
+	
+	/**
+	 * Only needed when the subreport is made from a DynamicReport
+	 */
+	private LayoutManager layoutManager = null;
+	
+	/**
 	 * This expression must point to a JRDataSource object
 	 */
 	private String dataSourceExpression;
 	
 	/**
-	 * Tells form where to look up the datasource expression
+	 * Tells form where to look up the data source expression
 	 */
 	private int dataSourceOrigin = DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER;
 
@@ -88,6 +105,24 @@ public class Subreport {
 	}
 	public void setDataSourceType(int dataSourceType) {
 		this.dataSourceType = dataSourceType;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
+	}
+	public DynamicReport getDynamicReport() {
+		return dynamicReport;
+	}
+	public void setDynamicReport(DynamicReport dynamicReport) {
+		this.dynamicReport = dynamicReport;
+	}
+	public LayoutManager getLayoutManager() {
+		return layoutManager;
+	}
+	public void setLayoutManager(LayoutManager layoutManager) {
+		this.layoutManager = layoutManager;
 	}
 
 }

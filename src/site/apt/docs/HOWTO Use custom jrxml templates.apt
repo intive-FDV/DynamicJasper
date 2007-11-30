@@ -1,0 +1,19 @@
+HOW-TO Use custom jrxml templates
+
+ You can write your own jrxml template, and use DynamicJasper to fill it easily:
+
++------------------------------------------------------------------------------------------------------------+ 
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+
+drb.addTemplateFile("pathToTemplate/TemplateName.jrxml");
++------------------------------------------------------------------------------------------------------------+ 
+
+ Templates can be loaded from an Absolute Path, or from the Classpath. The API first tries as an absolute path, if it fails, then tries as a reource in the classpath.
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateFileReportTest.html}TemplateFileReportTest}} for a working example.
+ 
+*-----+
+|<<Note:>> You can reference in the DynamicReport styles that where defined in the .jrxml file
+|For more info: {{{HOWTO Reference a style that exists in a jrxml file.html}How to Reference a style that exists in a jrxml file}}
+*-----+

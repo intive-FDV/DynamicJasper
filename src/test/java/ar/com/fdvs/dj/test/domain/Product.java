@@ -29,7 +29,11 @@
 
 package ar.com.fdvs.dj.test.domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Product {
 
@@ -40,6 +44,25 @@ public class Product {
 	private String branch;
 	private Long quantity;
 	private Float amount;
+	
+	public static List statistics_ = new ArrayList();
+	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	static {
+		
+		try {
+			statistics_.add(new Statistic(formatter.parse("01/01/2003"),"West",14.3f,50.4f,43.1f));
+			statistics_.add(new Statistic(formatter.parse("01/01/2004"),"West",40.0f,49.4f,44.5f));
+			statistics_.add(new Statistic(formatter.parse("01/01/2005"),"North",33.3f,63.4f,45f));
+			statistics_.add(new Statistic(formatter.parse("01/01/2006"),"East",91.1f,34.4f,46f));
+			statistics_.add(new Statistic(formatter.parse("01/01/2007"),"South",99.3f,52.4f,47f));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public List getStatistics(){
+		return statistics_;
+	}
 
     public Product(){}
 

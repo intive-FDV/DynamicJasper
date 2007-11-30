@@ -1,0 +1,19 @@
+HOW-TO Add banners to report's headers
+
+ Adding banners can be done by just sending the images to the Report Builder, like this:
+
++------------------------------------------------------------------------------------------------------------+ 
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+
+drb.addFirstPageImageBanner("pathToImage/firstPageBanner.jpg", new Integer(50), new Integer(50), ImageBanner.ALIGN_LEFT)
+	.addImageBanner("pathToImage/allPagesBanner.jpg", new Integer(30), new Integer(30), ImageBanner.ALIGN_RIGHT);
++------------------------------------------------------------------------------------------------------------+ 
+ 
+ Note that you can set a different banner for the first page. You should set the alignment using the provided constants.
+
+ 
+[../images/examples/banner-in-report-page1and2.jpg] Banner in report
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/ImageBannerReportTest.html}ImageBannerReportTest}} for a working example.
+ 

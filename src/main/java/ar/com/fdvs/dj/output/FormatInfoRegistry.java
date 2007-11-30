@@ -11,8 +11,8 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.JRXmlExporter;
-import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.layout.ListLayoutManager;
 
 import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
@@ -51,7 +51,7 @@ public class FormatInfoRegistry {
         return exporter;
     }
 
-    public AbstractLayoutManager getLayoutManager(final String _format) {
+    public LayoutManager getLayoutManager(final String _format) {
         checkFormat(_format);
         return ((FormatInfo)FORMAT_INFO.get(_format)).getLayoutManagerInstance();
     }
@@ -90,9 +90,9 @@ public class FormatInfoRegistry {
             }
         }
 
-        public AbstractLayoutManager getLayoutManagerInstance() {
+        public LayoutManager getLayoutManagerInstance() {
             try {
-                return (AbstractLayoutManager)layoutManagerClass.newInstance();
+                return (LayoutManager)layoutManagerClass.newInstance();
             } catch (Exception ex) {
                 return null;
             }

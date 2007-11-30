@@ -1,6 +1,7 @@
 package ar.com.fdvs.dj.util;
 
 import net.sf.jasperreports.engine.design.JRJdtCompiler;
+import net.sf.jasperreports.engine.util.JRClassLoader;
 import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 
 import java.util.Map;
@@ -19,5 +20,15 @@ public class DJJRJdtCompiler extends JRJdtCompiler {
             settings.put(CompilerOptions.OPTION_Encoding, encoding);
         }
         return settings;
+    }
+
+    public static boolean isValid() {
+        try {
+            return JRClassLoader.loadClassForName("org.eclipse.jdt.internal.compiler.Compiler") != null;
+        } catch (ClassNotFoundException ex) {
+            return false;
+        } catch (NoClassDefFoundError e) {
+			return false;
+		}
     }
 }
