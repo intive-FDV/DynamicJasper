@@ -32,6 +32,8 @@ package ar.com.fdvs.dj.crosstab.test;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -49,6 +51,8 @@ import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public class CrosstabReportTest extends TestCase {
+
+	private Map params = new HashMap();
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -69,7 +73,7 @@ public class CrosstabReportTest extends TestCase {
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
-			drb.setTemplateFile("templates/crosstab-test.jrxml");
+//			drb.setTemplateFile("templates/crosstab-test.jrxml");
 
 		DynamicReport dr = drb.build();	
 		
@@ -84,8 +88,9 @@ public class CrosstabReportTest extends TestCase {
 						
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
 																											//here contains dummy hardcoded objects...
+			params.put("sr", TestRepositoryProducts.getDummyCollection());
 			
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
+			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params );	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource 
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/FastReportTest.pdf");

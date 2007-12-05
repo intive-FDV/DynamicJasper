@@ -77,4 +77,11 @@ public abstract class ExpressionUtils {
 		expression.setValueClass(String.class);
 		return expression;
 	}
+	
+	public static JRDesignExpression createStringExpression(String text) {
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setValueClass(String.class);
+		exp.setText(text);
+		return exp;
+	}
 }
