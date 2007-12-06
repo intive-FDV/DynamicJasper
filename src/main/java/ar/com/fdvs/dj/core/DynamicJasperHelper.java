@@ -173,12 +173,14 @@ public final class DynamicJasperHelper {
 				log.info("Attemping to find the file directly in the file system...");
 				File file = new File(dr.getTemplateFileName());
 				if (file.exists()){
-					jd = downCast(JRXmlLoader.load(file));
+					JasperDesign jdesign = JRXmlLoader.load(file);
+					jd = downCast(jdesign);
 				} else {
 					log.info("Not found: Attemping to find the file in the classpath...");
 					URL url = DynamicJasperHelper.class.getClassLoader().getResource(
 							dr.getTemplateFileName());
-					jd = downCast(JRXmlLoader.load(url.openStream()));
+					JasperDesign jdesign = JRXmlLoader.load(url.openStream());
+					jd = downCast(jdesign);
 				}
 				populateReportOptionsFromDesign(jd,dr);
 			} else {

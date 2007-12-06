@@ -45,6 +45,7 @@ import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabDataset;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabMeasure;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
 import net.sf.jasperreports.engine.JRBox;
+import net.sf.jasperreports.engine.JRConstants;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRElement;
 import net.sf.jasperreports.engine.JRException;
@@ -80,6 +81,7 @@ import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
@@ -435,8 +437,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 	protected void layoutGroupCrosstabs(ColumnsGroup columnsGroup,	JRDesignGroup jgroup) {
 		JRDesignCrosstab crosst = new JRDesignCrosstab();		
-		crosst.setWidth(200);
-		crosst.setHeight(100);
+		crosst.setWidth(500);
+		crosst.setHeight(60);
 //		crosst.setPrintWhenGroupChanges(jgroup);
 		crosst.setMode(Transparency.OPAQUE.getValue());
 		
@@ -452,6 +454,18 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		bucket.setExpression(bucketExp);
 		ctColGroup.setBucket(bucket);
 		
+		JRDesignCellContents colHeaer = new JRDesignCellContents();
+		JRDesignTextField colTitle = new JRDesignTextField();
+		JRDesignExpression colTitleExp = ExpressionUtils.createStringExpression("$V{col1}");
+		colTitle.setExpression(colTitleExp);
+		colTitle.setWidth(80);
+		colTitle.setHeight(30);
+		colTitle.setBorder(Border.THIN.getValue());
+		colTitle.setBackcolor(Color.green);
+		colTitle.setMode(Transparency.OPAQUE.getValue());			
+		colHeaer.addElement(colTitle);
+		ctColGroup.setHeader(colHeaer);
+		
 		//ROW
 		JRDesignCrosstabRowGroup ctRowGroup = new JRDesignCrosstabRowGroup();
 		ctRowGroup.setWidth(80);
@@ -463,10 +477,20 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		bucketExp.setText("$F{productLine}");
 		rowBucket.setExpression(bucketExp);
 		
+		JRDesignCellContents rowHeader = new JRDesignCellContents();
+		JRDesignTextField rowTitle = new JRDesignTextField();
+		JRExpression rowTitExp = ExpressionUtils.createStringExpression("$V{row1}");
+		rowTitle.setExpression(rowTitExp);
+		rowTitle.setHeight(30);
+		rowTitle.setWidth(80);
+		rowTitle.setBorder(Border.THIN.getValue());
+		rowTitle.setBackcolor(Color.pink);
+		rowTitle.setMode(Transparency.OPAQUE.getValue());		
+		rowHeader.addElement(rowTitle);
+		ctRowGroup.setHeader(rowHeader );
+		
 		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
-//		cell.setColumnTotalGroup("col1");
-//		cell.setRowTotalGroup("row1");
-		cell.setWidth(Integer.valueOf(120));
+		cell.setWidth(Integer.valueOf(80));
 		cell.setHeight(Integer.valueOf(30));
 		
 		
@@ -480,10 +504,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		contents.addElement(designElem);
 		
 		JRDesignTextField element = new JRDesignTextField();
-		element.setWidth(40);
-		element.setHeight(20);
-		element.setX(40);
-		element.setExpression(ExpressionUtils.createStringExpression("\"dj mamana\""));
+		element.setWidth(80);
+		element.setHeight(30);
+		element.setExpression(ExpressionUtils.createStringExpression("$V{measure1}.toString()"));
+		element.setBackcolor(Color.cyan);
+		element.setMode(Transparency.OPAQUE.getValue());
 		contents.addElement(element);		
 		
 		cell.setContents(contents);
@@ -559,60 +584,18 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	private JRDesignCrosstabCell createTopCell() {
 		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
 		cell.setColumnTotalGroup("col1");
-		
-		JRDesignCellContents contents = new JRDesignCellContents();
-		cell.setContents(contents);
-		
-		
-		
-		cell.setWidth(Integer.valueOf(40));
-		cell.setHeight(Integer.valueOf(20));
-		JRDesignTextField element = new JRDesignTextField();
-		element.setWidth(40);
-		element.setHeight(20);
-		element.setExpression(ExpressionUtils.createStringExpression("\"b\""));
-		contents.addElement(element);
-		contents.setBox(element);		
 		return cell;
 	}
 	private JRDesignCrosstabCell createRightCell() {
 		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
 		cell.setRowTotalGroup("row1");
-		JRDesignCellContents contents = new JRDesignCellContents();
-		cell.setContents(contents);
 		
-		
-		
-		cell.setWidth(Integer.valueOf(40));
-		cell.setHeight(Integer.valueOf(20));
-		JRDesignTextField element = new JRDesignTextField();
-		element.setWidth(40);
-		element.setHeight(20);
-		element.setExpression(ExpressionUtils.createStringExpression("\"a\""));
-		contents.addElement(element);
-		contents.setBox(element);
 		return cell;
 	}
 	private JRDesignCrosstabCell createTopRightCell() {
 		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
 		cell.setColumnTotalGroup("col1");
 		cell.setRowTotalGroup("row1");
-		JRDesignCellContents contents = new JRDesignCellContents();
-		
-		JRDesignStaticText element = new JRDesignStaticText();
-		element.setText("DJ");
-		element.setHeight(30);
-		element.setWidth(50);
-		contents.addElement(element);
-		
-		JRDesignRectangle designElem = new JRDesignRectangle();
-		designElem.setWidth(20);
-		designElem.setHeight(20);
-		designElem.setMode(JRDesignElement.MODE_OPAQUE);
-		designElem.setBackcolor(Color.red);
-		contents.addElement(designElem);		
-		
-		cell.setContents(contents);
 		return cell;
 	}
 
