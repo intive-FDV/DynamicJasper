@@ -45,11 +45,11 @@ public class TestRepositoryProducts {
 		List col =  new ArrayList();
 
 		//The collection is ordered by State, Branch and Product Line
-		col.add(new Product( new Long("1"),"book","Harry Potter 7","Florida","Main Street", new Long("2500"), new Float("78482")));
+		col.add(new Product( new Long("1"),"book","Harry Potter 7","Florida","Main Street", new Long("2500"), new Float("10000")));
 		col.add(new Product( new Long("1"),"book","Harry Potter 7","Florida","Railway Station", new Long("1400"), new Float("2831.32")));
 		col.add(new Product( new Long("1"),"book","Harry Potter 7","Florida","Baseball Stadium", new Long("4000"), new Float("38347")));
 		col.add(new Product( new Long("1"),"book","Harry Potter 7","Florida","Shopping Center", new Long("3000"), new Float("9482.4")));
-		col.add(new Product( new Long("1"),"book","Harry Potter 7","New York","Main Street", new Long("2500"), new Float("27475.5")));
+//		col.add(new Product( new Long("1"),"book","Harry Potter 7","New York","Main Street", new Long("2500"), new Float("27475.5")));
 		col.add(new Product( new Long("1"),"book","Harry Potter 7","New York","Railway Station", new Long("1400"), new Float("3322")));
 		col.add(new Product( new Long("1"),"book","Harry Potter 7","New York","Baseball Stadium", new Long("4000"), new Float("78482")));
 		col.add(new Product( new Long("1"),"book","Harry Potter 7","New York","Shopping Center", new Long("3000"), new Float("5831.32")));

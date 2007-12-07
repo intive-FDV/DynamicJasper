@@ -552,7 +552,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroup, getParent(jrGroup), registerChartVariable(djChart)));
 			interpeterOptions(djChart, chart);
 			
-			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_REPORT);
+			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
+			chart.setEvaluationGroup(jrGroup);
 			return chart;
 	}
 	
@@ -636,6 +637,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		var.setResetGroup(group);
 		var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
 		var.setName("CHART_" + group.getName() + "_" + chart.getColumn().getTitle() + "_" + chart.getOperation());
+//		JRDesignExpression initExp = new JRDesignExpression();
+//		initExp.setText("new Float(0)");
+//		initExp.setValueClass(clazz);
+//		var.setInitialValueExpression(initExp);
 		
 		try {
 			getDesign().addVariable(var);
