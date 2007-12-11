@@ -73,7 +73,7 @@ public class CrosstabReportTest extends TestCase {
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
-//			drb.setTemplateFile("templates/crosstab-test.jrxml");
+			drb.setTemplateFile("templates/crosstab2-test.jrxml");
 
 		DynamicReport dr = drb.build();	
 		
