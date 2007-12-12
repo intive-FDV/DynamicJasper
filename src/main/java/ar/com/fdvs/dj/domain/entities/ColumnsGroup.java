@@ -63,6 +63,9 @@ public class ColumnsGroup implements Entity {
 	private GroupLayout layout = GroupLayout.DEFAULT;
 	private List footerSubreports = new ArrayList();
 	private List headerSubreports = new ArrayList();
+
+	private List headerCrosstabs = new ArrayList();
+	private List footerCrosstabs = new ArrayList();
 	
 	private Boolean startInNewPage = Boolean.FALSE;
 	private Boolean startInNewColumn = Boolean.FALSE;
@@ -158,6 +161,22 @@ public class ColumnsGroup implements Entity {
 
 	public void setStartInNewColumn(Boolean startInNewColumn) {
 		this.startInNewColumn = startInNewColumn;
+	}
+
+	public List getHeaderCrosstabs() {
+		return headerCrosstabs;
+	}
+
+	public void setHeaderCrosstabs(List headerCrosstabs) {
+		this.headerCrosstabs = headerCrosstabs;
+	}
+
+	public List getFooterCrosstabs() {
+		return footerCrosstabs;
+	}
+
+	public void setFooterCrosstabs(List footerCrosstabs) {
+		this.footerCrosstabs = footerCrosstabs;
 	}
 
 }

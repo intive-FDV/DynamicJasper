@@ -44,6 +44,7 @@ import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabColumnGroup;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabDataset;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabMeasure;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
+import net.sf.jasperreports.engine.JRBand;
 import net.sf.jasperreports.engine.JRBox;
 import net.sf.jasperreports.engine.JRConstants;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -77,7 +78,11 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.FontHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.AutoText;
+import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJCrosstabColumn;
+import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
@@ -436,148 +441,48 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	protected void layoutGroupCrosstabs(ColumnsGroup columnsGroup,	JRDesignGroup jgroup) {
-		JRDesignCrosstab crosst = new JRDesignCrosstab();		
-		crosst.setWidth(500);
-		crosst.setHeight(60);
-//		crosst.setPrintWhenGroupChanges(jgroup);
-		crosst.setMode(Transparency.OPAQUE.getValue());
+//		Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
+//		djcb.setDesign(design);
+//		DJCrosstab djcross = new DJCrosstab();
+//		djcross.setHeight(200);
+//		djcross.setWidth(500);
+//		djcross.setMeasure(new ColumnProperty("amount",Float.class.getName()));
+//		djcross.setOperation(ColumnsGroupVariableOperation.SUM);
+//		
+//		DJCrosstabRow row = new DJCrosstabRow();
+//		row.setProperty(new ColumnProperty("productLine",String.class.getName()));
+//		row.setHeaderWidth(100);
+//		row.setHeight(30);		
+//		djcross.getRows().add(row);	
+//		row = new DJCrosstabRow();
+//		row.setProperty(new ColumnProperty("item",String.class.getName()));
+//		row.setHeaderWidth(100);
+//		row.setHeight(30);		
+//		djcross.getRows().add(row);	
+//		
+//		DJCrosstabColumn col = new DJCrosstabColumn();
+//		col.setProperty(new ColumnProperty("state",String.class.getName()));
+//		col.setHeaderHeight(40);
+//		col.setWidth(50);
+//		djcross.getColumns().add(col);
+//		
+//		col = new DJCrosstabColumn();
+//		col.setProperty(new ColumnProperty("branch",String.class.getName()));
+//		col.setHeaderHeight(40);
+//		col.setWidth(50);
+//		djcross.getColumns().add(col);
 		
-		
-		JRDesignCrosstabColumnGroup ctColGroup = new JRDesignCrosstabColumnGroup();
-		ctColGroup.setName("col1");
-		ctColGroup.setHeight(30);
-		
-		JRDesignCrosstabBucket bucket = new JRDesignCrosstabBucket();
-		JRDesignExpression bucketExp = new JRDesignExpression();
-		bucketExp.setValueClass(String.class);
-		bucketExp.setText("$F{branch}");
-		bucket.setExpression(bucketExp);
-		ctColGroup.setBucket(bucket);
-		
-		JRDesignCellContents colHeaer = new JRDesignCellContents();
-		JRDesignTextField colTitle = new JRDesignTextField();
-		JRDesignExpression colTitleExp = ExpressionUtils.createStringExpression("$V{col1}");
-		colTitle.setExpression(colTitleExp);
-		colTitle.setWidth(80);
-		colTitle.setHeight(30);
-		colTitle.setBorder(Border.THIN.getValue());
-		colTitle.setBackcolor(Color.green);
-		colTitle.setMode(Transparency.OPAQUE.getValue());			
-		colHeaer.addElement(colTitle);
-		ctColGroup.setHeader(colHeaer);
-		
-		//ROW
-		JRDesignCrosstabRowGroup ctRowGroup = new JRDesignCrosstabRowGroup();
-		ctRowGroup.setWidth(80);
-		ctRowGroup.setName("row1");
-		JRDesignCrosstabBucket rowBucket = new JRDesignCrosstabBucket();
-		ctRowGroup.setBucket(rowBucket);		
-		bucketExp = new JRDesignExpression();
-		bucketExp.setValueClass(String.class);
-		bucketExp.setText("$F{productLine}");
-		rowBucket.setExpression(bucketExp);
-		
-		JRDesignCellContents rowHeader = new JRDesignCellContents();
-		JRDesignTextField rowTitle = new JRDesignTextField();
-		JRExpression rowTitExp = ExpressionUtils.createStringExpression("$V{row1}");
-		rowTitle.setExpression(rowTitExp);
-		rowTitle.setHeight(30);
-		rowTitle.setWidth(80);
-		rowTitle.setBorder(Border.THIN.getValue());
-		rowTitle.setBackcolor(Color.pink);
-		rowTitle.setMode(Transparency.OPAQUE.getValue());		
-		rowHeader.addElement(rowTitle);
-		ctRowGroup.setHeader(rowHeader );
-		
-		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
-		cell.setWidth(Integer.valueOf(80));
-		cell.setHeight(Integer.valueOf(30));
-		
-		
-		
-		JRDesignCellContents contents = new JRDesignCellContents();
-		JRDesignRectangle designElem = new JRDesignRectangle();
-		designElem.setWidth(20);
-		designElem.setHeight(20);
-		designElem.setMode(JRDesignElement.MODE_OPAQUE);
-		designElem.setBackcolor(Color.blue);
-		contents.addElement(designElem);
-		
-		JRDesignTextField element = new JRDesignTextField();
-		element.setWidth(80);
-		element.setHeight(30);
-		element.setExpression(ExpressionUtils.createStringExpression("$V{measure1}.toString()"));
-		element.setBackcolor(Color.cyan);
-		element.setMode(Transparency.OPAQUE.getValue());
-		contents.addElement(element);		
-		
-		cell.setContents(contents);
-		
-		
-		JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
-		measure.setName("measure1");
-		measure.setCalculation(JRDesignVariable.CALCULATION_SUM);
-		measure.setValueClassName(Float.class.getName());
-		JRDesignExpression valueExp = new JRDesignExpression();
-		valueExp.setValueClass(Float.class);
-		valueExp.setText("$F{amount}");
-		measure.setValueExpression(valueExp);
-		
-		JRDesignCrosstabCell celltop = createTopCell();
-		JRDesignCrosstabCell cellright = createRightCell();
-		JRDesignCrosstabCell cellTopright = createTopRightCell();
-	
-		try {			
-			crosst.addMeasure(measure);
-			crosst.addColumnGroup(ctColGroup);
-			crosst.addRowGroup(ctRowGroup);
-			crosst.addCell(cell);
-			crosst.addCell(celltop);
-			crosst.addCell(cellright);
-			crosst.addCell(cellTopright);
+		for (Iterator iterator = columnsGroup.getFooterCrosstabs().iterator(); iterator.hasNext();) {
+			DJCrosstab djcross = (DJCrosstab) iterator.next();
 			
-		} catch (JRException e) {
-			e.printStackTrace();
+			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
+			djcb.setDesign(design);		
+			
+			JRDesignCrosstab crosst = djcb.createCrosstab(djcross);
+			JRDesignBand band = (JRDesignBand) jgroup.getGroupFooter();
+			band.addElement(crosst);
 		}
 		
-		JRDesignBand band = (JRDesignBand) jgroup.getGroupFooter();
-		JRDesignCrosstabDataset dataset = new JRDesignCrosstabDataset();
-		dataset.setDataPreSorted(false); 		
-		JRDesignDatasetRun datasetRun = new JRDesignDatasetRun();
-		datasetRun.setDatasetName("sub1");
-		JRDesignExpression exp = new JRDesignExpression();
-		exp.setValueClass(JRDataSource.class);	
-		exp.setText("new "+JRBeanCollectionDataSource.class.getName()+"((java.util.Collection)$P{REPORT_PARAMETERS_MAP}.get( \"sr\" ))");
-		datasetRun.setDataSourceExpression(exp);
-		
-		dataset.setDatasetRun(datasetRun);
-		
-		JRDesignDataset jrDataset = new JRDesignDataset(false);
-		jrDataset.setName("sub1");
-		JRDesignField field = new JRDesignField();
-		field.setName("branch");
-		field.setValueClass(String.class);
-		
-		JRDesignField field2 = new JRDesignField();
-		field2.setName("productLine");
-		field2.setValueClass(String.class);		
-
-		JRDesignField field3 = new JRDesignField();
-		field3.setName("amount");
-		field3.setValueClass(Float.class);
-		
-		try {
-			jrDataset.addField(field);
-			jrDataset.addField(field2);
-			jrDataset.addField(field3);
-			if ( design.getDatasetMap().containsKey(jrDataset.getName())==false)
-				design.addDataset(jrDataset);
-		} catch (JRException e) {
-			e.printStackTrace();
-		}
-		
-		crosst.setDataset(dataset);
-		band.addElement(crosst);
 		
 	}
 

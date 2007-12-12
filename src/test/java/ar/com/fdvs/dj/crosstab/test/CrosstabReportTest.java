@@ -44,8 +44,15 @@ import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.core.layout.Dj2JrCrosstabBuilder;
+import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJCrosstabColumn;
+import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
@@ -53,6 +60,7 @@ import ar.com.fdvs.dj.util.SortUtils;
 public class CrosstabReportTest extends TestCase {
 
 	private Map params = new HashMap();
+	private DJCrosstab djcross;
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -73,9 +81,44 @@ public class CrosstabReportTest extends TestCase {
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
-			drb.setTemplateFile("templates/crosstab2-test.jrxml");
+//			drb.setTemplateFile("templates/crosstab3-test.jrxml");
+		
+		
 
-		DynamicReport dr = drb.build();	
+		djcross = new DJCrosstab();
+		djcross.setHeight(200);
+		djcross.setWidth(500);
+		djcross.setMeasure(new ColumnProperty("amount",Float.class.getName()));
+		djcross.setOperation(ColumnsGroupVariableOperation.SUM);
+		
+		DJCrosstabRow row = new DJCrosstabRow();
+		row.setProperty(new ColumnProperty("productLine",String.class.getName()));
+		row.setHeaderWidth(100);
+		row.setHeight(30);		
+		djcross.getRows().add(row);	
+		row = new DJCrosstabRow();
+		row.setProperty(new ColumnProperty("item",String.class.getName()));
+		row.setHeaderWidth(100);
+		row.setHeight(30);		
+		djcross.getRows().add(row);	
+		
+		DJCrosstabColumn col = new DJCrosstabColumn();
+		col.setProperty(new ColumnProperty("state",String.class.getName()));
+		col.setHeaderHeight(40);
+		col.setWidth(50);
+		djcross.getColumns().add(col);
+		
+		col = new DJCrosstabColumn();
+		col.setProperty(new ColumnProperty("branch",String.class.getName()));
+		col.setHeaderHeight(40);
+		col.setWidth(50);
+		djcross.getColumns().add(col);		
+		
+
+		DynamicReport dr = drb.build();
+		
+		ColumnsGroup group = (ColumnsGroup) dr.getColumnsGroups().get(0);
+		group.getFooterCrosstabs().add(djcross);
 		
 		return dr;
 	}
@@ -88,7 +131,7 @@ public class CrosstabReportTest extends TestCase {
 						
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
 																											//here contains dummy hardcoded objects...
-			params.put("sr", TestRepositoryProducts.getDummyCollection());
+			params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
 			
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params );	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
