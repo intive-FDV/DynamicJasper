@@ -3,8 +3,6 @@ package ar.com.fdvs.dj.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.fdvs.dj.test.CalculatedColumnReportTest;
-
 public class DJCrosstab {
 	
 	private List rows = new ArrayList();
