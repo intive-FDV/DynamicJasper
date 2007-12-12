@@ -307,12 +307,12 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			band.addElement(textField);
 		}
 	}
-
-	protected final void applyStyleToElement(Style style, JRDesignElement designElemen) {
+	
+	public void applyStyleToElement(Style style, JRDesignElement designElemen) {
 		boolean existsInDesign = style.getName() != null 
-			&& design.getStylesMap().get(style.getName()) != null; 
-//			&& !style.isOverridesExistingStyle();
-		
+		&& design.getStylesMap().get(style.getName()) != null; 
+//		&& !style.isOverridesExistingStyle();
+	
 		JRStyle jrstyle = null;
 		if (existsInDesign && !style.isOverridesExistingStyle()){
 			jrstyle = (JRStyle) design.getStylesMap().get(style.getName());
@@ -335,10 +335,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			
 			if (textField.isBlankWhenNull() == false && style.isBlankWhenNull())
 				textField.setBlankWhenNull(true);
-		}
-		
-		 
+		}		
 	}
+
 
 	/**
 	 * Sets the columns width by reading some report options like the

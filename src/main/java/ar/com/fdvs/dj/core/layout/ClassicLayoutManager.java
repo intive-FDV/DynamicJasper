@@ -478,7 +478,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
 			djcb.setDesign(design);		
 			
-			JRDesignCrosstab crosst = djcb.createCrosstab(djcross);
+			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
 			JRDesignBand band = (JRDesignBand) jgroup.getGroupFooter();
 			band.addElement(crosst);
 		}

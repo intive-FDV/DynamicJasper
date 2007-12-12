@@ -84,4 +84,16 @@ public abstract class ExpressionUtils {
 		exp.setText(text);
 		return exp;
 	}
+	public static JRDesignExpression createExpression(String text, Class clazz) {
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setValueClass(clazz);
+		exp.setText(text);
+		return exp;
+	}
+	public static JRDesignExpression createExpression(String text, String className) {
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setValueClassName(className);
+		exp.setText(text);
+		return exp;
+	}
 }

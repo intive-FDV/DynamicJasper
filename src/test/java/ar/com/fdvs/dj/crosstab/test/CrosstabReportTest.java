@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.crosstab.test;
 
 
+import java.awt.Color;
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
@@ -49,9 +50,16 @@ import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
+import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.Page;
+import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
@@ -80,40 +88,99 @@ public class CrosstabReportTest extends TestCase {
 			.addGroups(1)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
+			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setUseFullPageWidth(true);
-//			drb.setTemplateFile("templates/crosstab3-test.jrxml");
+//			drb.setTemplateFile("templates/crosstab2-test.jrxml");
 		
 		
+		Style totalHeader = new StyleBuilder(false)
+			.setHorizontalAlign(HorizontalAlign.CENTER)
+			.setVerticalAlign(VerticalAlign.MIDDLE)
+			.setFont(Font.ARIAL_MEDIUM_BOLD)
+			.setTextColor(Color.WHITE)
+			.build();
+		Style colAndRowHeaderStyle = new StyleBuilder(false)
+			.setHorizontalAlign(HorizontalAlign.CENTER)
+			.setVerticalAlign(VerticalAlign.MIDDLE)
+			.setFont(Font.ARIAL_MEDIUM_BOLD)
+			.setTextColor(Color.orange)
+			.build();
+		Style mainHeaderStyle = new StyleBuilder(false)
+			.setHorizontalAlign(HorizontalAlign.CENTER)
+			.setVerticalAlign(VerticalAlign.MIDDLE)
+			.setFont(Font.ARIAL_BIG_BOLD)
+			.setTextColor(Color.BLACK)
+			.build();
+		Style totalStyle = new StyleBuilder(false).setPattern("#,###.##")
+			.setHorizontalAlign(HorizontalAlign.RIGHT)
+			.setFont(Font.ARIAL_MEDIUM_BOLD)
+			.build();
+		Style measureStyle = new StyleBuilder(false).setPattern("#,###.##")
+			.setHorizontalAlign(HorizontalAlign.RIGHT)
+			.setFont(Font.ARIAL_MEDIUM)
+			.build();
 
 		djcross = new DJCrosstab();
 		djcross.setHeight(200);
-		djcross.setWidth(500);
-		djcross.setMeasure(new ColumnProperty("amount",Float.class.getName()));
-		djcross.setOperation(ColumnsGroupVariableOperation.SUM);
+		djcross.setWidth(Page.Page_A4_Landscape().getWidth());
+		djcross.setHeaderStyle(mainHeaderStyle);
+//		djcross.setShowColumnGroupTotals(true);
+//		djcross.setShowRowGroupTotals(true);
+		
+		DJCrosstabMeasure measure = new DJCrosstabMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount");
+		measure.setStyle(measureStyle);
+		djcross.getMeasures().add(measure);
 		
 		DJCrosstabRow row = new DJCrosstabRow();
 		row.setProperty(new ColumnProperty("productLine",String.class.getName()));
 		row.setHeaderWidth(100);
-		row.setHeight(30);		
+		row.setHeight(30);
+		row.setTitle("Product Line my mother teressa");
+		row.setShowTotals(true);
+		row.setTotalStyle(totalStyle);
+		row.setTotalHeaderStyle(totalHeader);
+		row.setHeaderStyle(colAndRowHeaderStyle);
 		djcross.getRows().add(row);	
+		
 		row = new DJCrosstabRow();
 		row.setProperty(new ColumnProperty("item",String.class.getName()));
 		row.setHeaderWidth(100);
 		row.setHeight(30);		
+		row.setTitle("Item");
+		row.setShowTotals(true);
+		row.setTotalStyle(totalStyle);
+		row.setTotalHeaderStyle(totalHeader);
+		row.setHeaderStyle(colAndRowHeaderStyle);
 		djcross.getRows().add(row);	
 		
 		DJCrosstabColumn col = new DJCrosstabColumn();
 		col.setProperty(new ColumnProperty("state",String.class.getName()));
 		col.setHeaderHeight(40);
-		col.setWidth(50);
+		col.setWidth(80);
+		col.setTitle("State");
+		col.setShowTotals(true);
+		col.setTotalStyle(totalStyle);
+		col.setTotalHeaderStyle(totalHeader);
+		col.setHeaderStyle(colAndRowHeaderStyle);
 		djcross.getColumns().add(col);
 		
 		col = new DJCrosstabColumn();
 		col.setProperty(new ColumnProperty("branch",String.class.getName()));
 		col.setHeaderHeight(40);
-		col.setWidth(50);
+		col.setWidth(70);
+		col.setShowTotals(true);
+		col.setTitle("Branch");
+		col.setTotalStyle(totalStyle);
+		col.setTotalHeaderStyle(totalHeader);
+		col.setHeaderStyle(colAndRowHeaderStyle);
 		djcross.getColumns().add(col);		
-		
+
+//		col = new DJCrosstabColumn();
+//		col.setProperty(new ColumnProperty("id",Long.class.getName()));
+//		col.setHeaderHeight(40);
+//		col.setWidth(50);
+//		djcross.getColumns().add(col);		
+
 
 		DynamicReport dr = drb.build();
 		

@@ -88,6 +88,8 @@ public class Style implements Serializable, Cloneable {
     private boolean stretchWithOverflow = true;
     private boolean blankWhenNull = true;
     
+    private String pattern;
+    
     /**
      * If true and another style exists in the design with the same name, this style overrides the existing one.
      */
@@ -257,6 +259,8 @@ public class Style implements Serializable, Cloneable {
 		if (getRadius() != null)
 			transformedStyle.setRadius(getRadius().intValue());
 		
+		transformedStyle.setPattern(this.pattern);
+		
 		return transformedStyle;
 	}
 
@@ -397,4 +401,12 @@ public class Style implements Serializable, Cloneable {
 		return s;
 	}
 
+	public String getPattern() {
+		return pattern;
+	}
+
+	public void setPattern(String pattern) {
+		this.pattern = pattern;
+	}
+	
 }

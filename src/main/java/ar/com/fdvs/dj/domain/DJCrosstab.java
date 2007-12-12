@@ -9,17 +9,22 @@ public class DJCrosstab {
 	
 	private List rows = new ArrayList();
 	private List columns = new ArrayList();
+	private List measures = new ArrayList();
 	
-	private boolean showColumnGroupTotals;
-	private boolean showRowGroupTotals;
-	
-	private ColumnProperty measure;
-	private ColumnsGroupVariableOperation operation;
+	private boolean showColumnGroupTotals = false;
+	private boolean showRowGroupTotals = false;
 	
 	private int height;
 	private int width;
 	
+	private Style headerStyle;
 	
+	public Style getHeaderStyle() {
+		return headerStyle;
+	}
+	public void setHeaderStyle(Style headerStyle) {
+		this.headerStyle = headerStyle;
+	}
 	public boolean isShowColumnGroupTotals() {
 		return showColumnGroupTotals;
 	}
@@ -56,17 +61,15 @@ public class DJCrosstab {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	public ColumnProperty getMeasure() {
-		return measure;
+	public List getMeasures() {
+		return measures;
 	}
-	public void setMeasure(ColumnProperty measure) {
-		this.measure = measure;
+	public void setMeasures(List measures) {
+		this.measures = measures;
 	}
-	public ColumnsGroupVariableOperation getOperation() {
-		return operation;
-	}
-	public void setOperation(ColumnsGroupVariableOperation operation) {
-		this.operation = operation;
-	}
+	
+	public DJCrosstabMeasure getMeasure(int index) {
+		return (DJCrosstabMeasure) measures.get(index);
+	}	
 
 }
