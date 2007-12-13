@@ -15,7 +15,7 @@ import net.sf.jasperreports.engine.design.JRDesignExpression;
  * @author msimone
  *
  */
-public abstract class ExpressionUtils {
+public abstract class AutoTextExpressionUtils {
 
 	private static final String PAGE_NUMBER_VAR = "$V{PAGE_NUMBER}";
 
@@ -77,23 +77,5 @@ public abstract class ExpressionUtils {
 		expression.setValueClass(String.class);
 		return expression;
 	}
-	
-	public static JRDesignExpression createStringExpression(String text) {
-		JRDesignExpression exp = new JRDesignExpression();
-		exp.setValueClass(String.class);
-		exp.setText(text);
-		return exp;
-	}
-	public static JRDesignExpression createExpression(String text, Class clazz) {
-		JRDesignExpression exp = new JRDesignExpression();
-		exp.setValueClass(clazz);
-		exp.setText(text);
-		return exp;
-	}
-	public static JRDesignExpression createExpression(String text, String className) {
-		JRDesignExpression exp = new JRDesignExpression();
-		exp.setValueClassName(className);
-		exp.setText(text);
-		return exp;
-	}
+
 }

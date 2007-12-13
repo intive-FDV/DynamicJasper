@@ -3,6 +3,8 @@ package ar.com.fdvs.dj.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.fdvs.dj.core.DJConstants;
+
 public class DJCrosstab {
 	
 	private List rows = new ArrayList();
@@ -14,6 +16,14 @@ public class DJCrosstab {
 	
 	private int height;
 	private int width;
+	
+	/**
+	 * if true, the width will be the page width - margins
+	 */
+	private boolean useFullWidth = true;
+	
+	private DJDataSource datasource;  
+	
 	
 	private Style headerStyle;
 	
@@ -68,6 +78,18 @@ public class DJCrosstab {
 	
 	public DJCrosstabMeasure getMeasure(int index) {
 		return (DJCrosstabMeasure) measures.get(index);
-	}	
+	}
+	public boolean isUseFullWidth() {
+		return useFullWidth;
+	}
+	public void setUseFullWidth(boolean useFullWidth) {
+		this.useFullWidth = useFullWidth;
+	}
+	public DJDataSource getDatasource() {
+		return datasource;
+	}
+	public void setDatasource(DJDataSource datasource) {
+		this.datasource = datasource;
+	}
 
 }

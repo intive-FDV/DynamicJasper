@@ -15,6 +15,7 @@ import org.apache.commons.logging.LogFactory;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 
@@ -77,9 +78,8 @@ public class SubReportBuilder {
 	 * @return
 	 */
 	public SubReportBuilder setDataSource(int origin, int type, String expression) {
-		subreport.setDataSourceOrigin(origin);
-		subreport.setDataSourceType(type);
-		subreport.setDataSourceExpression(expression);
+		DJDataSource ds = new DJDataSource(expression, origin, type);
+		subreport.setDatasource(ds);
 		return this;
 	}
 
@@ -90,10 +90,7 @@ public class SubReportBuilder {
 	 * @return
 	 */
 	public SubReportBuilder setDataSource(int origin, String expression) {
-		subreport.setDataSourceOrigin(origin);
-		subreport.setDataSourceType(DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE);
-		subreport.setDataSourceExpression(expression);
-		return this;
+		return setDataSource(origin, DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE, expression);
 	}
 
 	/**
@@ -103,10 +100,7 @@ public class SubReportBuilder {
 	 * @return
 	 */
 	public SubReportBuilder setDataSource(String expression) {
-		subreport.setDataSourceOrigin(DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER);
-		subreport.setDataSourceType(DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE);
-		subreport.setDataSourceExpression(expression);
-		return this;
+		return setDataSource(DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE, expression);
 	}
 	
 	public SubReportBuilder setReport(JasperReport jasperReport) {

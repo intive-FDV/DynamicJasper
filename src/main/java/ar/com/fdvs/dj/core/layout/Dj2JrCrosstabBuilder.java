@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
@@ -34,6 +35,7 @@ import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 public class Dj2JrCrosstabBuilder {
 	
@@ -170,18 +172,17 @@ public class Dj2JrCrosstabBuilder {
 		JRDesignCrosstabDataset dataset = new JRDesignCrosstabDataset();
 		dataset.setDataPreSorted(false); 		
 		JRDesignDatasetRun datasetRun = new JRDesignDatasetRun();
-		datasetRun.setDatasetName("sub1");
-		JRDesignExpression exp = new JRDesignExpression();
-		exp.setValueClass(JRDataSource.class);	
-		exp.setText("new "+JRBeanCollectionDataSource.class.getName()+"((java.util.Collection)$P{REPORT_PARAMETERS_MAP}.get( \"sr\" ))");
+//		datasetRun.setDatasetName("sub1");
+		JRDesignExpression exp = ExpressionUtils.getDataSourceExpression(djcrosstab.getDatasource());
 		datasetRun.setDataSourceExpression(exp);
+		
 		
 		
 		dataset.setDatasetRun(datasetRun);
 		
 		
 		JRDesignDataset jrDataset = new JRDesignDataset(false);
-		jrDataset.setName("sub1");
+//		jrDataset.setName("sub1");
 
 		for (int i =  rows.length-1; i >= 0; i--) {
 			DJCrosstabRow crosstabRow = rows[i];
@@ -216,13 +217,23 @@ public class Dj2JrCrosstabBuilder {
 		
 		
 		jrcross.setDataset(dataset);
+		Random rd = new Random();
+		String dsName = "crosstabDataSource_" + rd.nextLong();
 		
+		while (design.getDatasetMap().containsKey(dsName)){
+			dsName = "crosstabDataSource_" + rd.nextLong();
+		}
+		
+		datasetRun.setDatasetName(dsName);
+		jrDataset.setName(dsName);
+		
+		log.debug("Crosstab dataset name = " + dsName);
 		try {
 				if ( design.getDatasetMap().containsKey(jrDataset.getName())==false)
 					design.addDataset(jrDataset);
 			} catch (JRException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				//Will never happen
+				log.error(e.getMessage(),e);
 			}
 	}
 

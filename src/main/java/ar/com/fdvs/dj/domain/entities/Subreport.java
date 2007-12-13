@@ -2,6 +2,7 @@ package ar.com.fdvs.dj.domain.entities;
 
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import net.sf.jasperreports.engine.JasperReport;
@@ -25,17 +26,19 @@ public class Subreport {
 	 */
 	private LayoutManager layoutManager = null;
 	
-	/**
-	 * This expression must point to a JRDataSource object
-	 */
-	private String dataSourceExpression;
 	
-	/**
-	 * Tells form where to look up the data source expression
-	 */
-	private int dataSourceOrigin = DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER;
-
-	private int dataSourceType = DJConstants.DATA_SOURCE_TYPE_COLLECTION;
+	private DJDataSource datasource;
+//	/**
+//	 * This expression must point to a JRDataSource object
+//	 */
+//	private String dataSourceExpression;
+//	
+//	/**
+//	 * Tells form where to look up the data source expression
+//	 */
+//	private int dataSourceOrigin = DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER;
+//
+//	private int dataSourceType = DJConstants.DATA_SOURCE_TYPE_COLLECTION;
 	
 	
 	private Style style;
@@ -88,24 +91,24 @@ public class Subreport {
 	public void setReport(JasperReport design) {
 		this.report = design;
 	}
-	public String getDataSourceExpression() {
-		return dataSourceExpression;
-	}
-	public void setDataSourceExpression(String dataSourceExpression) {
-		this.dataSourceExpression = dataSourceExpression;
-	}
-	public int getDataSourceOrigin() {
-		return dataSourceOrigin;
-	}
-	public void setDataSourceOrigin(int dataSourceOrigin) {
-		this.dataSourceOrigin = dataSourceOrigin;
-	}
-	public int getDataSourceType() {
-		return dataSourceType;
-	}
-	public void setDataSourceType(int dataSourceType) {
-		this.dataSourceType = dataSourceType;
-	}
+//	public String getDataSourceExpression() {
+//		return dataSourceExpression;
+//	}
+//	public void setDataSourceExpression(String dataSourceExpression) {
+//		this.dataSourceExpression = dataSourceExpression;
+//	}
+//	public int getDataSourceOrigin() {
+//		return dataSourceOrigin;
+//	}
+//	public void setDataSourceOrigin(int dataSourceOrigin) {
+//		this.dataSourceOrigin = dataSourceOrigin;
+//	}
+//	public int getDataSourceType() {
+//		return dataSourceType;
+//	}
+//	public void setDataSourceType(int dataSourceType) {
+//		this.dataSourceType = dataSourceType;
+//	}
 	public String getPath() {
 		return path;
 	}
@@ -123,6 +126,12 @@ public class Subreport {
 	}
 	public void setLayoutManager(LayoutManager layoutManager) {
 		this.layoutManager = layoutManager;
+	}
+	public DJDataSource getDatasource() {
+		return datasource;
+	}
+	public void setDatasource(DJDataSource datasource) {
+		this.datasource = datasource;
 	}
 
 }

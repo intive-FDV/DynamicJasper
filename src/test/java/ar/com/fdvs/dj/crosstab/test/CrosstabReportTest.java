@@ -43,6 +43,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.Dj2JrCrosstabBuilder;
@@ -52,6 +53,7 @@ import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
+import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
@@ -124,6 +126,9 @@ public class CrosstabReportTest extends TestCase {
 		djcross.setHeight(200);
 		djcross.setWidth(Page.Page_A4_Landscape().getWidth());
 		djcross.setHeaderStyle(mainHeaderStyle);
+		DJDataSource datasource = new DJDataSource("sr",DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
+		djcross.setDatasource(datasource);
+		djcross.setUseFullWidth(true);
 //		djcross.setShowColumnGroupTotals(true);
 //		djcross.setShowRowGroupTotals(true);
 		
@@ -185,7 +190,7 @@ public class CrosstabReportTest extends TestCase {
 		DynamicReport dr = drb.build();
 		
 		ColumnsGroup group = (ColumnsGroup) dr.getColumnsGroups().get(0);
-		group.getFooterCrosstabs().add(djcross);
+		group.getHeaderCrosstabs().add(djcross);
 		
 		return dr;
 	}

@@ -24,15 +24,9 @@
 	</category>
 	<category name="ar.com.fdvs.dj.core.layout" additivity="false">
 		<priority value="DEBUG" />
-<!--		<appender-ref ref="console" />-->
+		<appender-ref ref="console" />
 	</category>
 	<category name="com.opensymphony.xwork2" additivity="false">
-		<priority value="DEBUG" />
-	</category>
-	<category name="org.apache.jackrabbit" additivity="false">
-		<priority value="WARN" />
-	</category>
-	<category name="org.springmodules.jcr" additivity="false">
 		<priority value="DEBUG" />
 	</category>
 
@@ -41,7 +35,7 @@
 	</category>
 
 	<root>
-		<priority value="WARN" />
+		<priority value="INFO" />
 		<appender-ref ref="console" />
 	</root>
 </log4j:configuration>

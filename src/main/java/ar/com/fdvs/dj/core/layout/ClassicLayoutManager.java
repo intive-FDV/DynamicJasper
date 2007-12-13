@@ -95,7 +95,7 @@ import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.util.SubReportUtil;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
  * Main Layout Manager recommended for most cases.</br>
@@ -440,37 +440,23 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		}
 	}
 
+	/**
+	 * Looks for crosstabs in the groups, if any, it does the layout
+	 * 
+	 * @param columnsGroup
+	 * @param jgroup
+	 */
 	protected void layoutGroupCrosstabs(ColumnsGroup columnsGroup,	JRDesignGroup jgroup) {
-//		Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
-//		djcb.setDesign(design);
-//		DJCrosstab djcross = new DJCrosstab();
-//		djcross.setHeight(200);
-//		djcross.setWidth(500);
-//		djcross.setMeasure(new ColumnProperty("amount",Float.class.getName()));
-//		djcross.setOperation(ColumnsGroupVariableOperation.SUM);
-//		
-//		DJCrosstabRow row = new DJCrosstabRow();
-//		row.setProperty(new ColumnProperty("productLine",String.class.getName()));
-//		row.setHeaderWidth(100);
-//		row.setHeight(30);		
-//		djcross.getRows().add(row);	
-//		row = new DJCrosstabRow();
-//		row.setProperty(new ColumnProperty("item",String.class.getName()));
-//		row.setHeaderWidth(100);
-//		row.setHeight(30);		
-//		djcross.getRows().add(row);	
-//		
-//		DJCrosstabColumn col = new DJCrosstabColumn();
-//		col.setProperty(new ColumnProperty("state",String.class.getName()));
-//		col.setHeaderHeight(40);
-//		col.setWidth(50);
-//		djcross.getColumns().add(col);
-//		
-//		col = new DJCrosstabColumn();
-//		col.setProperty(new ColumnProperty("branch",String.class.getName()));
-//		col.setHeaderHeight(40);
-//		col.setWidth(50);
-//		djcross.getColumns().add(col);
+		for (Iterator iterator = columnsGroup.getHeaderCrosstabs().iterator(); iterator.hasNext();) {
+			DJCrosstab djcross = (DJCrosstab) iterator.next();
+			
+			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
+			djcb.setDesign(design);		
+			
+			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
+			JRDesignBand band = (JRDesignBand) jgroup.getGroupHeader();
+			band.addElement(crosst);
+		}
 		
 		for (Iterator iterator = columnsGroup.getFooterCrosstabs().iterator(); iterator.hasNext();) {
 			DJCrosstab djcross = (DJCrosstab) iterator.next();
@@ -555,21 +541,19 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignSubreport subreport = new JRDesignSubreport(new JRDesignStyle().getDefaultStyleProvider());
 			
 			//The data source
-			subreport.setDataSourceExpression(SubReportUtil.getDataSourceExpression(sr));
+			subreport.setDataSourceExpression(ExpressionUtils.getDataSourceExpression(sr.getDatasource()));
 			
 //			int random_ = subReportRandom.nextInt();
 			//the subreport design
-			JRDesignExpression srExpression = new JRDesignExpression();
-//			String paramname = "subreport_" + position + "_" + getReport().getColumnsGroups().indexOf(columnsGroup) + "_" + footerSubreportsList.indexOf(sr) + "-rnd-" + random_;
 			String paramname = sr.getReport().toString(); //TODO ensure this name is unique among all possible subreports
 			((DynamicJasperDesign)getDesign()).getParametersWithValues().put(paramname, sr.getReport());
-			srExpression.setText("("+JasperReport.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get( \""+ paramname +"\" )");
-			srExpression.setValueClass(JasperReport.class);
+			String expText = "("+JasperReport.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get( \""+ paramname +"\" )";
+			JRDesignExpression srExpression = ExpressionUtils.createExpression(expText, JasperReport.class);
 			subreport.setExpression(srExpression );
 			
 			
 			//set the parameters
-			subreport.setParametersMapExpression(SubReportUtil.getParameterExpression(sr));
+			subreport.setParametersMapExpression(ExpressionUtils.getParameterExpression(sr));
 			
 			
 			//some other options (cosmetical)
