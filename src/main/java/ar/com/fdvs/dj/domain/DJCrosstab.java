@@ -3,16 +3,13 @@ package ar.com.fdvs.dj.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.domain.constants.Border;
 
 public class DJCrosstab {
 	
 	private List rows = new ArrayList();
 	private List columns = new ArrayList();
 	private List measures = new ArrayList();
-	
-	private boolean showColumnGroupTotals = false;
-	private boolean showRowGroupTotals = false;
 	
 	private int height;
 	private int width;
@@ -24,26 +21,35 @@ public class DJCrosstab {
 	
 	private DJDataSource datasource;  
 	
+	private String mainHeaderTitle;
+	
+	private boolean automaticTitle = false;
 	
 	private Style headerStyle;
 	
+	private int colorScheme = 0;
+	
+	/**
+	 * If not null or NO_BORDER, all cells will have this border
+	 */
+	private Border cellBorder;
+	
+	/**
+	 * From here on, pass-throug properties
+	 */
+	private int columnBreakOffset = 10;
+	
+	public int getColumnBreakOffset() {
+		return columnBreakOffset;
+	}
+	public void setColumnBreakOffset(int columnBreakOffset) {
+		this.columnBreakOffset = columnBreakOffset;
+	}
 	public Style getHeaderStyle() {
 		return headerStyle;
 	}
 	public void setHeaderStyle(Style headerStyle) {
 		this.headerStyle = headerStyle;
-	}
-	public boolean isShowColumnGroupTotals() {
-		return showColumnGroupTotals;
-	}
-	public void setShowColumnGroupTotals(boolean showColumnGroupTotals) {
-		this.showColumnGroupTotals = showColumnGroupTotals;
-	}
-	public boolean isShowRowGroupTotals() {
-		return showRowGroupTotals;
-	}
-	public void setShowRowGroupTotals(boolean showRowGroupTotals) {
-		this.showRowGroupTotals = showRowGroupTotals;
 	}
 	public List getRows() {
 		return rows;
@@ -90,6 +96,30 @@ public class DJCrosstab {
 	}
 	public void setDatasource(DJDataSource datasource) {
 		this.datasource = datasource;
+	}
+	public Border getCellBorder() {
+		return cellBorder;
+	}
+	public void setCellBorder(Border cellBorder) {
+		this.cellBorder = cellBorder;
+	}
+	public int getColorScheme() {
+		return colorScheme;
+	}
+	public void setColorScheme(int colorScheme) {
+		this.colorScheme = colorScheme;
+	}
+	public String getMainHeaderTitle() {
+		return mainHeaderTitle;
+	}
+	public void setMainHeaderTitle(String mainHeaderTitle) {
+		this.mainHeaderTitle = mainHeaderTitle;
+	}
+	public boolean isAutomaticTitle() {
+		return automaticTitle;
+	}
+	public void setAutomaticTitle(boolean automaticTitle) {
+		this.automaticTitle = automaticTitle;
 	}
 
 }

@@ -451,7 +451,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			DJCrosstab djcross = (DJCrosstab) iterator.next();
 			
 			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
-			djcb.setDesign(design);		
 			
 			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
 			JRDesignBand band = (JRDesignBand) jgroup.getGroupHeader();
@@ -462,7 +461,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			DJCrosstab djcross = (DJCrosstab) iterator.next();
 			
 			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
-			djcb.setDesign(design);		
 			
 			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
 			JRDesignBand band = (JRDesignBand) jgroup.getGroupFooter();

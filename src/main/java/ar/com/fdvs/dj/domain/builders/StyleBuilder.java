@@ -6,6 +6,7 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 
 public class StyleBuilder {
@@ -59,6 +60,16 @@ public class StyleBuilder {
 	
 	public StyleBuilder setTextColor(Color textColor){
 		style.setTextColor(textColor);
+		return this;
+	}
+	
+	public StyleBuilder setBackgroundColor(Color backgroundColor){
+		style.setBackgroundColor(backgroundColor);
+		return this;
+	}
+
+	public StyleBuilder setTransparency(Transparency transparency){
+		style.setTransparency(transparency);
 		return this;
 	}
 

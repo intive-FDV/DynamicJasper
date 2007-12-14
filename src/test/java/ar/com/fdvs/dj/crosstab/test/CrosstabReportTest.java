@@ -46,7 +46,6 @@ import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.core.layout.Dj2JrCrosstabBuilder;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
@@ -56,8 +55,10 @@ import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.builders.CrosstabBuilder;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Page;
@@ -99,13 +100,15 @@ public class CrosstabReportTest extends TestCase {
 			.setHorizontalAlign(HorizontalAlign.CENTER)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
-			.setTextColor(Color.WHITE)
+			.setTextColor(Color.BLUE)
 			.build();
 		Style colAndRowHeaderStyle = new StyleBuilder(false)
-			.setHorizontalAlign(HorizontalAlign.CENTER)
-			.setVerticalAlign(VerticalAlign.MIDDLE)
+			.setHorizontalAlign(HorizontalAlign.LEFT)
+			.setVerticalAlign(VerticalAlign.TOP)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
-			.setTextColor(Color.orange)
+//			.setTextColor(Color.orange)
+//			.setBackgroundColor(Color.LIGHT_GRAY)
+//			.setTransparency(Transparency.OPAQUE)
 			.build();
 		Style mainHeaderStyle = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.CENTER)
@@ -122,19 +125,19 @@ public class CrosstabReportTest extends TestCase {
 			.setFont(Font.ARIAL_MEDIUM)
 			.build();
 
-		djcross = new DJCrosstab();
-		djcross.setHeight(200);
-		djcross.setWidth(Page.Page_A4_Landscape().getWidth());
-		djcross.setHeaderStyle(mainHeaderStyle);
-		DJDataSource datasource = new DJDataSource("sr",DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
-		djcross.setDatasource(datasource);
-		djcross.setUseFullWidth(true);
-//		djcross.setShowColumnGroupTotals(true);
-//		djcross.setShowRowGroupTotals(true);
+		CrosstabBuilder cb = new CrosstabBuilder();
 		
-		DJCrosstabMeasure measure = new DJCrosstabMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount");
-		measure.setStyle(measureStyle);
-		djcross.getMeasures().add(measure);
+		cb.setHeight(200)
+			.setWidth(500)
+			.setHeaderStyle(mainHeaderStyle)
+			.setDatasource("sr",DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
+			.setUseFullWidth(true)
+			.setColorScheme(4)
+//			.setMainHeaderTitle("Little campleon!!!")
+			.setAutomaticTitle(true)
+			.setCellBorder(Border.THIN);
+
+		cb.addMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount",measureStyle);
 		
 		DJCrosstabRow row = new DJCrosstabRow();
 		row.setProperty(new ColumnProperty("productLine",String.class.getName()));
@@ -145,7 +148,8 @@ public class CrosstabReportTest extends TestCase {
 		row.setTotalStyle(totalStyle);
 		row.setTotalHeaderStyle(totalHeader);
 		row.setHeaderStyle(colAndRowHeaderStyle);
-		djcross.getRows().add(row);	
+		
+		cb.addRow(row);
 		
 		row = new DJCrosstabRow();
 		row.setProperty(new ColumnProperty("item",String.class.getName()));
@@ -156,7 +160,20 @@ public class CrosstabReportTest extends TestCase {
 		row.setTotalStyle(totalStyle);
 		row.setTotalHeaderStyle(totalHeader);
 		row.setHeaderStyle(colAndRowHeaderStyle);
-		djcross.getRows().add(row);	
+		
+		cb.addRow(row);
+
+//		row = new DJCrosstabRow();
+//		row.setProperty(new ColumnProperty("id",Long.class.getName()));
+//		row.setHeaderWidth(100);
+//		row.setHeight(30);		
+//		row.setTitle("ID");
+//		row.setShowTotals(true);
+//		row.setTotalStyle(totalStyle);
+//		row.setTotalHeaderStyle(totalHeader);
+//		row.setHeaderStyle(colAndRowHeaderStyle);
+
+//		cb.addRow(row);
 		
 		DJCrosstabColumn col = new DJCrosstabColumn();
 		col.setProperty(new ColumnProperty("state",String.class.getName()));
@@ -167,7 +184,8 @@ public class CrosstabReportTest extends TestCase {
 		col.setTotalStyle(totalStyle);
 		col.setTotalHeaderStyle(totalHeader);
 		col.setHeaderStyle(colAndRowHeaderStyle);
-		djcross.getColumns().add(col);
+		
+		cb.addColumn(col);
 		
 		col = new DJCrosstabColumn();
 		col.setProperty(new ColumnProperty("branch",String.class.getName()));
@@ -178,14 +196,21 @@ public class CrosstabReportTest extends TestCase {
 		col.setTotalStyle(totalStyle);
 		col.setTotalHeaderStyle(totalHeader);
 		col.setHeaderStyle(colAndRowHeaderStyle);
-		djcross.getColumns().add(col);		
+		
+		cb.addColumn(col);
 
 //		col = new DJCrosstabColumn();
 //		col.setProperty(new ColumnProperty("id",Long.class.getName()));
 //		col.setHeaderHeight(40);
-//		col.setWidth(50);
-//		djcross.getColumns().add(col);		
+//		col.setWidth(70);
+//		col.setShowTotals(true);
+//		col.setTitle("ID");
+//		col.setTotalStyle(totalStyle);
+//		col.setTotalHeaderStyle(totalHeader);
+//		col.setHeaderStyle(colAndRowHeaderStyle);
+//		cb.addColumn(col);
 
+		djcross = cb.build();
 
 		DynamicReport dr = drb.build();
 		

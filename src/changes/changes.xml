@@ -5,7 +5,13 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="1.4.3" date="2007-11-27"	desc="Bug fix release">
+         <release version="2.0.0" date="2007-12-13"	desc="Crosstab release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+				Crosstabs support (still in developement)
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+				StyleBuilder class: convinient when creating styles
+         	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
          		MissingResourceException when locale is not EN or US. Thanks danidacila.
          		https://sourceforge.net/forum/message.php?msg_id=4645638
