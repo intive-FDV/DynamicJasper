@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain.entities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
@@ -54,12 +55,20 @@ public class ColumnsGroup implements Entity {
 	}
 
 	//<ColumnsGroupVariable>
-	private ArrayList headerVariables = new ArrayList();
+	private List headerVariables = new ArrayList();
 	//<ColumnsGroupVariable>
-	private ArrayList footerVariables = new ArrayList();
+	private List footerVariables = new ArrayList();
 	private Integer headerHeight = new Integer(20);
 	private Integer footerHeight = new Integer(20);
-	private GroupLayout layout = GroupLayout.VALUE_IN_HEADER;
+	private GroupLayout layout = GroupLayout.DEFAULT;
+	private List footerSubreports = new ArrayList();
+	private List headerSubreports = new ArrayList();
+
+	private List headerCrosstabs = new ArrayList();
+	private List footerCrosstabs = new ArrayList();
+	
+	private Boolean startInNewPage = Boolean.FALSE;
+	private Boolean startInNewColumn = Boolean.FALSE;
 	
 	/**
 	 * Default Style for variables when showing in footer.
@@ -90,7 +99,7 @@ public class ColumnsGroup implements Entity {
 		this.defaulHeaderStyle = defaulHeaderStyle;
 	}
 
-	public ArrayList getFooterVariables() {
+	public List getFooterVariables() {
 		return footerVariables;
 	}
 
@@ -98,7 +107,7 @@ public class ColumnsGroup implements Entity {
 		this.footerVariables = footerVariables;
 	}
 
-	public ArrayList getHeaderVariables() {
+	public List getHeaderVariables() {
 		return headerVariables;
 	}
 
@@ -128,6 +137,46 @@ public class ColumnsGroup implements Entity {
 
 	public void setLayout(GroupLayout layout) {
 		this.layout = layout;
+	}
+
+	public List getFooterSubreports() {
+		return footerSubreports;
+	}
+
+	public List getHeaderSubreports() {
+		return headerSubreports;
+	}
+
+	public Boolean getStartInNewPage() {
+		return startInNewPage;
+	}
+
+	public void setStartInNewPage(Boolean startInNewPage) {
+		this.startInNewPage = startInNewPage;
+	}
+
+	public Boolean getStartInNewColumn() {
+		return startInNewColumn;
+	}
+
+	public void setStartInNewColumn(Boolean startInNewColumn) {
+		this.startInNewColumn = startInNewColumn;
+	}
+
+	public List getHeaderCrosstabs() {
+		return headerCrosstabs;
+	}
+
+	public void setHeaderCrosstabs(List headerCrosstabs) {
+		this.headerCrosstabs = headerCrosstabs;
+	}
+
+	public List getFooterCrosstabs() {
+		return footerCrosstabs;
+	}
+
+	public void setFooterCrosstabs(List footerCrosstabs) {
+		this.footerCrosstabs = footerCrosstabs;
 	}
 
 }

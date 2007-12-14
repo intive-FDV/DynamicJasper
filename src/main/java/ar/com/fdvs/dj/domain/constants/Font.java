@@ -33,9 +33,9 @@ public class Font {
 
 	private int fontSize;
 	private String fontName;
-	private boolean bold;
-	private boolean intalic;
-	private boolean underline;
+	private boolean bold = false;
+	private boolean italic = false;
+	private boolean underline = false;
 
 	public static final String _FONT_ARIAL = "Arial";
 	public static final String _FONT_TIMES_NEW_ROMAN = "Times New Roman";
@@ -48,49 +48,58 @@ public class Font {
 	private static final int MEDIUM = 10;
 	private static final int BIG = 14;
 
-	public static Font ARIAL_SMALL = new Font(SMALL,_FONT_ARIAL,false);
-	public static Font ARIAL_MEDIUM = new Font(MEDIUM,_FONT_ARIAL,false);
-	public static Font ARIAL_BIG = new Font(BIG,_FONT_ARIAL,false);
-	public static Font ARIAL_SMALL_BOLD = new Font(SMALL,_FONT_ARIAL,true);
-	public static Font ARIAL_MEDIUM_BOLD = new Font(MEDIUM,_FONT_ARIAL,true);
-	public static Font ARIAL_BIG_BOLD = new Font(BIG,_FONT_ARIAL,true);
-	public static Font TIMES_NEW_ROMAN_SMALL = new Font(SMALL,_FONT_TIMES_NEW_ROMAN,false);
-	public static Font TIMES_NEW_ROMAN_MEDIUM = new Font(MEDIUM,_FONT_TIMES_NEW_ROMAN,false);
-	public static Font TIMES_NEW_ROMAN_BIG = new Font(BIG,_FONT_TIMES_NEW_ROMAN,false);
-	public static Font TIMES_NEW_ROMAN_SMALL_BOLD = new Font(SMALL,_FONT_TIMES_NEW_ROMAN,true);
-	public static Font TIMES_NEW_ROMAN_MEDIUM_BOLD = new Font(MEDIUM,_FONT_TIMES_NEW_ROMAN,true);
-	public static Font TIMES_NEW_ROMAN_BIG_BOLD = new Font(BIG,_FONT_TIMES_NEW_ROMAN,true);
-	public static Font COURIER_NEW_SMALL = new Font(SMALL,_FONT_COURIER_NEW,false);
-	public static Font COURIER_NEW_MEDIUM = new Font(MEDIUM,_FONT_COURIER_NEW,false);
-	public static Font COURIER_NEW_BIG = new Font(BIG,_FONT_COURIER_NEW,false);
-	public static Font COURIER_NEW_SMALL_BOLD = new Font(SMALL,_FONT_COURIER_NEW,true);
-	public static Font COURIER_NEW_MEDIUM_BOLD = new Font(MEDIUM,_FONT_COURIER_NEW,true);
-	public static Font COURIER_NEW_BIG_BOLD = new Font(BIG,_FONT_COURIER_NEW,true);
-	public static Font COMIC_SANS_SMALL = new Font(SMALL,_FONT_COMIC_SANS,false);
-	public static Font COMIC_SANS_MEDIUM = new Font(MEDIUM,_FONT_COMIC_SANS,false);
-	public static Font COMIC_SANS_BIG = new Font(BIG,_FONT_COMIC_SANS,false);
-	public static Font COMIC_SANS_SMALL_BOLD = new Font(SMALL,_FONT_COMIC_SANS,true);
-	public static Font COMIC_SANS_MEDIUM_BOLD = new Font(MEDIUM,_FONT_COMIC_SANS,true);
-	public static Font COMIC_SANS_BIG_BOLD = new Font(BIG,_FONT_COMIC_SANS,true);
-	public static Font GEORGIA_SMALL = new Font(SMALL,_FONT_GEORGIA,false);
-	public static Font GEORGIA_MEDIUM = new Font(MEDIUM,_FONT_GEORGIA,false);
-	public static Font GEORGIA_BIG = new Font(BIG,_FONT_GEORGIA,false);
-	public static Font GEORGIA_SMALL_BOLD = new Font(SMALL,_FONT_GEORGIA,true);
-	public static Font GEORGIA_MEDIUM_BOLD = new Font(MEDIUM,_FONT_GEORGIA,true);
-	public static Font GEORGIA_BIG_BOLD = new Font(BIG,_FONT_GEORGIA,true);
-	public static Font VERDANA_SMALL = new Font(SMALL,_FONT_VERDANA,false);
-	public static Font VERDANA_MEDIUM = new Font(MEDIUM,_FONT_VERDANA,false);
-	public static Font VERDANA_BIG = new Font(BIG,_FONT_VERDANA,false);
-	public static Font VERDANA_SMALL_BOLD = new Font(SMALL,_FONT_VERDANA,true);
-	public static Font VERDANA_MEDIUM_BOLD = new Font(MEDIUM,_FONT_VERDANA,true);
-	public static Font VERDANA_BIG_BOLD = new Font(BIG,_FONT_VERDANA,true);
+	public static Font ARIAL_SMALL = new Font(SMALL,_FONT_ARIAL,false,false,false);
+	public static Font ARIAL_MEDIUM = new Font(MEDIUM,_FONT_ARIAL,false,false,false);
+	public static Font ARIAL_BIG = new Font(BIG,_FONT_ARIAL,false,false,false);
+	public static Font ARIAL_SMALL_BOLD = new Font(SMALL,_FONT_ARIAL,true,false,false);
+	public static Font ARIAL_MEDIUM_BOLD = new Font(MEDIUM,_FONT_ARIAL,true,false,false);
+	public static Font ARIAL_BIG_BOLD = new Font(BIG,_FONT_ARIAL,true,false,false);
+	public static Font TIMES_NEW_ROMAN_SMALL = new Font(SMALL,_FONT_TIMES_NEW_ROMAN,false,false,false);
+	public static Font TIMES_NEW_ROMAN_MEDIUM = new Font(MEDIUM,_FONT_TIMES_NEW_ROMAN,false,false,false);
+	public static Font TIMES_NEW_ROMAN_BIG = new Font(BIG,_FONT_TIMES_NEW_ROMAN,false,false,false);
+	public static Font TIMES_NEW_ROMAN_SMALL_BOLD = new Font(SMALL,_FONT_TIMES_NEW_ROMAN,true,false,false);
+	public static Font TIMES_NEW_ROMAN_MEDIUM_BOLD = new Font(MEDIUM,_FONT_TIMES_NEW_ROMAN,true,false,false);
+	public static Font TIMES_NEW_ROMAN_BIG_BOLD = new Font(BIG,_FONT_TIMES_NEW_ROMAN,true,false,false);
+	public static Font COURIER_NEW_SMALL = new Font(SMALL,_FONT_COURIER_NEW,false,false,false);
+	public static Font COURIER_NEW_MEDIUM = new Font(MEDIUM,_FONT_COURIER_NEW,false,false,false);
+	public static Font COURIER_NEW_BIG = new Font(BIG,_FONT_COURIER_NEW,false,false,false);
+	public static Font COURIER_NEW_SMALL_BOLD = new Font(SMALL,_FONT_COURIER_NEW,true,false,false);
+	public static Font COURIER_NEW_MEDIUM_BOLD = new Font(MEDIUM,_FONT_COURIER_NEW,true,false,false);
+	public static Font COURIER_NEW_BIG_BOLD = new Font(BIG,_FONT_COURIER_NEW,true,false,false);
+	public static Font COMIC_SANS_SMALL = new Font(SMALL,_FONT_COMIC_SANS,false,false,false);
+	public static Font COMIC_SANS_MEDIUM = new Font(MEDIUM,_FONT_COMIC_SANS,false,false,false);
+	public static Font COMIC_SANS_BIG = new Font(BIG,_FONT_COMIC_SANS,false,false,false);
+	public static Font COMIC_SANS_SMALL_BOLD = new Font(SMALL,_FONT_COMIC_SANS,true,false,false);
+	public static Font COMIC_SANS_MEDIUM_BOLD = new Font(MEDIUM,_FONT_COMIC_SANS,true,false,false);
+	public static Font COMIC_SANS_BIG_BOLD = new Font(BIG,_FONT_COMIC_SANS,true,false,false);
+	public static Font GEORGIA_SMALL = new Font(SMALL,_FONT_GEORGIA,false,false,false);
+	public static Font GEORGIA_MEDIUM = new Font(MEDIUM,_FONT_GEORGIA,false,false,false);
+	public static Font GEORGIA_BIG = new Font(BIG,_FONT_GEORGIA,false,false,false);
+	public static Font GEORGIA_SMALL_BOLD = new Font(SMALL,_FONT_GEORGIA,true,false,false);
+	public static Font GEORGIA_MEDIUM_BOLD = new Font(MEDIUM,_FONT_GEORGIA,true,false,false);
+	public static Font GEORGIA_BIG_BOLD = new Font(BIG,_FONT_GEORGIA,true,false,false);
+	public static Font VERDANA_SMALL = new Font(SMALL,_FONT_VERDANA,false,false,false);
+	public static Font VERDANA_MEDIUM = new Font(MEDIUM,_FONT_VERDANA,false,false,false);
+	public static Font VERDANA_BIG = new Font(BIG,_FONT_VERDANA,false,false,false);
+	public static Font VERDANA_SMALL_BOLD = new Font(SMALL,_FONT_VERDANA,true,false,false);
+	public static Font VERDANA_MEDIUM_BOLD = new Font(MEDIUM,_FONT_VERDANA,true,false,false);
+	public static Font VERDANA_BIG_BOLD = new Font(BIG,_FONT_VERDANA,true,false,false);
 
 	public Font() {
 		this.fontSize = 10;
 		this.fontName = _FONT_ARIAL;
 		this.bold = false;
-		this.intalic= false;
+		this.italic= false;
+		this.underline= false;
 	}
+	public Font(int fontSize, String fontName, boolean bold, boolean italic, boolean underline) {
+		this.fontSize = fontSize;
+		this.fontName = fontName;
+		this.bold = bold;
+		this.italic= italic;
+		this.underline= underline;		
+	}
+	
 	public Font(int fontSize, String fontName, boolean bold) {
 		this.fontSize = fontSize;
 		this.fontName = fontName;
@@ -109,12 +118,12 @@ public class Font {
 		return bold;
 	}
 
-	public boolean isIntalic() {
-		return intalic;
+	public boolean isItalic() {
+		return italic;
 	}
 
-	public void setIntalic(boolean intalic) {
-		this.intalic = intalic;
+	public void setItalic(boolean intalic) {
+		this.italic = intalic;
 	}
 
 	public void setFontSize(int fontSize) {
@@ -129,17 +138,28 @@ public class Font {
 		this.bold = bold;
 	}
 
-	public Font(int fontSize, String fontName, boolean bold, boolean intalic) {
-		this.fontSize = fontSize;
-		this.fontName = fontName;
-		this.bold = bold;
-		this.intalic = intalic;
-	}
 	public boolean isUnderline() {
 		return underline;
 	}
 	public void setUnderline(boolean underline) {
 		this.underline = underline;
+	}
+	
+	/**
+	 * Returns a string that describes the font like indicated in
+	 *  java.awt.Font.decode(...)
+	 * @return
+	 */
+	public String getStandardFontname() {
+		String decoration = "PLAIN";
+		if (isBold() && isItalic())
+			decoration = "BOLDITALIC";
+		else if (isBold())
+		decoration = "BOLD";
+		else if (isItalic())
+			decoration = "ITALIC";
+		
+		return fontName + "-" + decoration + "-" + this.fontSize;
 	}
 
 }

@@ -15,28 +15,46 @@ import net.sf.jasperreports.engine.design.JRDesignExpression;
  * @author msimone
  *
  */
-public abstract class ExpressionUtils {
+public abstract class AutoTextExpressionUtils {
 
 	private static final String PAGE_NUMBER_VAR = "$V{PAGE_NUMBER}";
 
-	public static JRDesignExpression getPageNumberExpression(String before, String after) {
-		if (!emptyString(before)){
-			before = "$R{" + before + "}";
-		} else {before = "\"" + before + "\"";}
-		if (!emptyString(after)){
-			after = "$R{" + after + "}";
-		} else {after = "\"" + after + "\"";}
+	public static JRDesignExpression getPageNumberExpression(String before, String after, boolean useI18n) {
 		JRDesignExpression expression = new JRDesignExpression();
-		String text = before + "+\" \" + " + PAGE_NUMBER_VAR + "+\" \" + " + after;
+		String text = null;
+		if (useI18n) {
+			if (!emptyString(before)){
+				before = "$R{" + before + "}";
+			} else {before = "\"" + before + "\"";}
+			if (!emptyString(after)){
+				after = "$R{" + after + "}";
+			} else {after = "\"" + after + "\"";}
+			 text = before + "+\" \" + " + PAGE_NUMBER_VAR + "+\" \" + " + after;
+		} else {
+			if (emptyString(before)){
+				before = "\"\"";
+			} else {before = "\"" + before + "\"";}
+			if (emptyString(after)){
+				after = "\"\"";
+			} else {after = "\"" + after + "\"";}
+			text = before + "+\" \" + " + PAGE_NUMBER_VAR + "+\" \" + " + after;
+			
+		}
 		expression.setText( text );
 		expression.setValueClass(String.class);
 		return expression;
 	}
 
-	private static boolean emptyString(String str) {
-        return (str == null) || ("".equals(str.trim()));
+    //TODO: use string utils
+    private static boolean emptyString(String str) {
+		if (str == null)
+			return true;
 
-    }
+		if ("".equals(str.trim()))
+			return true;
+		
+		return false;
+	}
 
 	public static JRDesignExpression getDateExpression(String before, String after, Locale locale, byte pattern) {
 		if (!emptyString(before)){
@@ -59,4 +77,5 @@ public abstract class ExpressionUtils {
 		expression.setValueClass(String.class);
 		return expression;
 	}
+
 }

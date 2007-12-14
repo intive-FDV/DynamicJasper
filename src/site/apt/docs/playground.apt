@@ -13,6 +13,8 @@ Introduction
  In a near future we will release this playground as a component ready to integrate to your web application.
  
  {{{http://dynamicjasperplayground.fdvs.com.ar/}See it working online!!!}}
+ 
+[../images/playground/playground-thumbnail.jpg] Report Main options.
 		 
 Installation
 
@@ -51,20 +53,3 @@ Future features for the playground
  
  []
  
-Mini guide for playground
-
- And now a mini guide...
-
-[../images/playground/Diapositiva1.jpg] Report Main options.
-
-[../images/playground/Diapositiva2.jpg] Defining some styles.
-
-[../images/playground/Diapositiva3.jpg] The column selection area.
-
-[../images/playground/Diapositiva4.jpg] Redefining styles per column
-
-[../images/playground/Diapositiva5.jpg] finally
-
-
-
-

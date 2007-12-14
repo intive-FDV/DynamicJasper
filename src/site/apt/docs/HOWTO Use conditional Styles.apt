@@ -1,0 +1,32 @@
+HOW-TO Use conditional Styles
+
+ Suppose you need a Column that contains numerical values. If you want to use conditional styles (in order to have different colors depending on the value, for example) you can do this:
+
++------------------------------------------------------------------------------------------------------------+ 
+//Create some styles
+Style style0 = new Style();
+style0.setTextColor(Color.RED);
+Style style1 = new Style();
+style1.setTextColor(Color.GREEN);
+
+//Create some conditions
+StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(5000));
+StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(7000));
+
+//Create the conditional styles, and add them to an Array List
+ArrayList conditionalStyles = new ArrayList();
+conditionalStyles.add(new ConditionalStyle(status0,style0));
+conditionalStyles.add(new ConditionalStyle(status1,style1));
+	
+ColumnBuilder cb = ColumnBuilder.getInstance();
+//Builder initialization
+
+cb.addConditionalStyles(conditionalStyles);
++------------------------------------------------------------------------------------------------------------+ 
+
+ This code generates a report like this:
+ 
+[../images/examples/conditional-style.jpg] Conditional Style
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/ConditionalStylesReportTest.html}ConditionalStylesReportTest}} for a working example.
+ 

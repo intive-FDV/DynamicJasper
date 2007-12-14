@@ -37,6 +37,7 @@ import org.apache.commons.logging.LogFactory;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
@@ -58,7 +59,7 @@ import ar.com.fdvs.dj.domain.entities.Entity;
  * @see Entity
  * @see AbstractLayoutManager
  */
-public abstract class AbstractEntityRegistrationManager {
+public abstract class AbstractEntityRegistrationManager implements DJConstants {
 
 	private static final Log log = LogFactory.getLog(AbstractEntityRegistrationManager.class);
 

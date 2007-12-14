@@ -30,18 +30,19 @@
 package ar.com.fdvs.dj.core.layout;
 
 import java.awt.Color;
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
+import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JRTextField;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
-import net.sf.jasperreports.engine.base.JRBaseStyle;
 import net.sf.jasperreports.engine.base.JRBaseVariable;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignChart;
@@ -55,7 +56,6 @@ import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
@@ -70,6 +70,7 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 
 /**
@@ -82,10 +83,10 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
  */
 public abstract class AbstractLayoutManager implements LayoutManager {
 
-	private static final Log log = LogFactory.getLog(AbstractLayoutManager.class);
+	static final Log log = LogFactory.getLog(AbstractLayoutManager.class);
 	protected static final String EXPRESSION_TRUE_WHEN_ODD = "new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)";
 
-	private JasperDesign design;
+	JasperDesign design;
 	private DynamicReport report;
 
 	protected abstract void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField);
@@ -105,15 +106,17 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		try {
 			setDesign(design);
 			setReport(report);
-			ensureStyles();
+			ensureDJStyles();
 			startLayout();
 			transformDetailBand();
 			endLayout();
+			registerRemainingStyles();
 		} catch (RuntimeException e) {
 			throw new LayoutException(e.getMessage(),e);
-		}
+		} 
 	}
 	
+
 	protected void startLayout() {
 		setColumnsFinalWidth();
 	}
@@ -122,28 +125,26 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		layoutCharts();
 		setBandsFinalHeight();
 	}
+	
+	protected void registerRemainingStyles() {
+		//TODO: troll all elements in the JRDesing and for elements that has styles with null name 
+		//or not registered, register them in the design
+		
+	}
 
 	/**
 	 * Sets a default style for every element that doesn't have one
 	 * @throws JRException 
 	 */
-	protected void ensureStyles()  {
-			Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
-			
-//			JRBaseStyle defaulDetailtStyle = defaultDetailStyle.transform();
-//			JRDesignStyle defStyle = new JRDesignStyle();
-//			try {
-//				BeanUtils.copyProperties(defStyle, defaulDetailtStyle);
-//				defStyle.setDefault(true);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			} 
-//			design.setDefaultStyle(defStyle); //NEW for Jasper 2.0
-//			addStyleToDesign(defStyle);
-			
-//			addStyleToDesign( report.getTitleStyle().transform() );
-//			addStyleToDesign( report.getSubtitleStyle().transform() );
-			
+	protected void ensureDJStyles()  {
+		
+		//first of all, register all parent styles if any
+		for (Iterator iterator = getReport().getStyles().values().iterator(); iterator.hasNext();) {
+			Style style = (Style) iterator.next();
+			addStyleToDesign(style);			
+		}
+		
+		Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
 			
 			Style defaultHeaderStyle = getReport().getOptions().getDefaultHeaderStyle();
 	//		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
@@ -165,20 +166,36 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @param baseStyle
 	 * @throws JRException
 	 */
-	public void addStyleToDesign(JRDesignStyle jrstyle)  {
+	public void addStyleToDesign(Style style)  {
+		JRDesignStyle jrstyle = style.transform();
 		try {
 			if (jrstyle.getName() == null) {
-				String name = "style_" + (getReportStyles().values().size() + 1);
+				String name = "dj_style_" + (getReportStyles().values().size() + 1);
 				jrstyle.setName(name);
+				style.setName(name);
 				getReportStyles().put(name, jrstyle);
-			} 
-			design.addStyle(jrstyle);
+				design.addStyle(jrstyle);
+			}
+			
+			JRStyle old = (JRStyle) design.getStylesMap().get(jrstyle.getName());
+			if (old != null && style.isOverridesExistingStyle()){
+				log.info("Overriding style with name \""+ style.getName() +"\"");
+				
+				design.removeStyle(style.getName());
+				design.addStyle(jrstyle);
+			} else if (old == null){
+				log.info("Registering new style with name \""+ style.getName() +"\"");
+				design.addStyle(jrstyle);
+			} else {
+				if (style.getName() != null)
+					log.info("Using existing style for style with name \""+ style.getName() +"\"");
+			}
 		} catch (JRException e) {
 			log.info("Duplicated style (it's ok): " + e.getMessage());
 		}
 	}
 	
-	private void transformDetailBand() {
+	protected void transformDetailBand() {
 		log.debug("transforming Detail Band...");
 		JRDesignBand detail = (JRDesignBand) design.getDetail();
 		detail.setHeight(report.getOptions().getDetailHeight().intValue());
@@ -187,7 +204,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			decorateOddRows(detail);
 		}
 
-		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
+		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
 
 			AbstractColumn column = (AbstractColumn)iter.next();
 
@@ -196,14 +213,15 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 					ConditionalStyle condition = (ConditionalStyle) iterator.next();
 					JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
 					transformDetailBandTextField(column, textField);
-					applyStyleToTextElement(condition.getStyle(), textField);
+					applyStyleToElement(condition.getStyle(), textField);
 					textField.setPrintWhenExpression(getExpressionForConditionalStyle(condition.getName(), column.getTextForExpression()));
 					detail.addElement(textField);
 				}
         	} else {
         		JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
         		transformDetailBandTextField(column, textField);
-        		detail.addElement(textField);
+        		if (textField.getExpression() != null)
+        			detail.addElement(textField);
         	}
         }
 	}
@@ -223,11 +241,20 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		rectangle.setHeight(options.getDetailHeight().intValue());
 		rectangle.setWidth(options.getColumnWidth());
 		rectangle.setStretchType(JRDesignRectangle.STRETCH_TYPE_RELATIVE_TO_TALLEST_OBJECT);
-		JRDesignStyle style = options.getOddRowBackgroundStyle().transform();
-		style.setForecolor(options.getOddRowBackgroundStyle().getBackgroundColor());
-		rectangle.setStyle(style);
+		Style oddRowBackgroundStyle = options.getOddRowBackgroundStyle();
+		
+		addStyleToDesign(oddRowBackgroundStyle);//register this style in the jasperDesign
+		
+		JRDesignStyle style = oddRowBackgroundStyle.transform();
+		style.setForecolor(oddRowBackgroundStyle.getBackgroundColor());
+		
+		applyStyleToElement(oddRowBackgroundStyle, rectangle);
+//		rectangle.setStyle(style);
+		rectangle.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
+		rectangle.setForecolor(oddRowBackgroundStyle.getBorderColor());
+		rectangle.setPen(oddRowBackgroundStyle.getBorder().getValue());
+		rectangle.setMode(JRDesignElement.MODE_OPAQUE);
 		detail.addElement(rectangle);
-		addStyleToDesign(style);
 	}
 
 	/**
@@ -248,7 +275,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		log.debug("Generating header band...");
 		band.setHeight(report.getOptions().getHeaderHeight().intValue());
 
-		for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
+		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
 
 			AbstractColumn col = (AbstractColumn) iter.next();
 			if (col.getTitle() == null)
@@ -275,26 +302,42 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			if (headerStyle == null)
 				headerStyle = report.getOptions().getDefaultHeaderStyle();
 
-			applyStyleToTextElement(headerStyle, textField);
+			applyStyleToElement(headerStyle, textField);
 
 			band.addElement(textField);
 		}
 	}
-
-	protected final void applyStyleToTextElement(Style style, JRDesignTextElement textElement) {
-		JRDesignStyle jrstyle = style.transform();
-		addStyleToDesign(jrstyle);
-		textElement.setStyle(jrstyle);
-		if (textElement instanceof JRDesignTextElement ) {
-			JRDesignTextElement textField = textElement;
-			textField.setStretchType(style.getStreching().getValue());
+	
+	public void applyStyleToElement(Style style, JRDesignElement designElemen) {
+		boolean existsInDesign = style.getName() != null 
+		&& design.getStylesMap().get(style.getName()) != null; 
+//		&& !style.isOverridesExistingStyle();
+	
+		JRStyle jrstyle = null;
+		if (existsInDesign && !style.isOverridesExistingStyle()){
+			jrstyle = (JRStyle) design.getStylesMap().get(style.getName());
+		} else {
+			addStyleToDesign(style); //Order maters. This line fist
+			jrstyle = style.transform();
+		}
+		
+		designElemen.setStyle(jrstyle);
+		if (designElemen instanceof JRDesignTextElement ) {
+			JRDesignTextElement textField = (JRDesignTextElement) designElemen;
+			if (style.getStreching() != null)
+				textField.setStretchType(style.getStreching().getValue());
 			textField.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
+			
 		}
-		if (textElement instanceof JRDesignTextField ) {
-			JRDesignTextField textField = (JRDesignTextField) textElement;
+		if (designElemen instanceof JRDesignTextField ) {
+			JRDesignTextField textField = (JRDesignTextField) designElemen;
 			textField.setStretchWithOverflow(style.isStretchWithOverflow());
-		}
+			
+			if (textField.isBlankWhenNull() == false && style.isBlankWhenNull())
+				textField.setBlankWhenNull(true);
+		}		
 	}
+
 
 	/**
 	 * Sets the columns width by reading some report options like the
@@ -305,13 +348,18 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		log.debug("Setting columns final width...");
 		float factor = 1;
 		int printableArea = report.getOptions().getColumnWidth();
+		
+		//Create a list with only the visible columns.
+		List visibleColums = getVisibleColumns();
 
 		log.debug("printableArea = " + printableArea );
 
 		if (report.getOptions().isUseFullPageWidth()) {
 			int columnsWidth = 0;
 			int notRezisableWidth = 0;
-			for (Iterator iterator =  report.getColumns().iterator(); iterator.hasNext();) {
+			
+			//Store in a variable the total with of all visible columns
+			for (Iterator iterator =  visibleColums.iterator(); iterator.hasNext();) {
 				AbstractColumn col = (AbstractColumn) iterator.next();
 				columnsWidth += col.getWidth().intValue();
 				if (col.getFixedWidth().booleanValue())
@@ -326,13 +374,15 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			int acu = 0;
 			int colFinalWidth = 0;
 
-			Collection resizableColumns = CollectionUtils.select( report.getColumns(),new Predicate() {
+			//Select the non-resizable columns
+			Collection resizableColumns = CollectionUtils.select( visibleColums,new Predicate() {
 				public boolean evaluate(Object arg0) {
 					return !((AbstractColumn)arg0).getFixedWidth().booleanValue();
 				}
 
 			}) ;
 
+			//Finally, set the new width to the resizable columns
 			for (Iterator iter = resizableColumns.iterator(); iter.hasNext();) {
 				AbstractColumn col = (AbstractColumn) iter.next();
 
@@ -348,11 +398,19 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 		// If the columns width changed, the X position must be setted again.
 		int posx = 0;
-		for (Iterator iterator =  report.getColumns().iterator(); iterator.hasNext();) {
+		for (Iterator iterator =  visibleColums.iterator(); iterator.hasNext();) {
 			AbstractColumn col = (AbstractColumn) iterator.next();
 			col.setPosX(new Integer(posx));
 			posx += col.getWidth().intValue();
 		}
+	}
+
+	/**
+	 * @return
+	 */
+	protected List getVisibleColumns() {
+		List visibleColums = new ArrayList(report.getColumns());
+		return visibleColums;
 	}
 
 	/**
@@ -383,7 +441,19 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * Sets the band's height to hold all its children
 	 * @param band Band to be resized
 	 */
-	private void setBandFinalHeight(JRDesignBand band) {
+	protected void setBandFinalHeight(JRDesignBand band) {
+		if (band != null) {
+			int finalHeight = findVerticalOffset(band);
+			band.setHeight(finalHeight);
+		}
+	}
+
+	/**
+	 * Finds "Y" corrdinate value in with more elements could be added in the band
+	 * @param band
+	 * @return
+	 */
+	protected int findVerticalOffset(JRDesignBand band) {
 		int finalHeight = 0;
 		if (band != null) {
 			for (Iterator iter = band.getChildren().iterator(); iter.hasNext();) {
@@ -391,8 +461,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				int currentHeight = element.getY() + element.getHeight();
 				if (currentHeight > finalHeight) finalHeight = currentHeight;
 			}
-			band.setHeight(finalHeight);
+			return finalHeight;
 		}
+		return finalHeight;
 	}
 
 	/**
@@ -430,7 +501,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         if (columnStyle == null)
         	columnStyle = report.getOptions().getDefaultDetailStyle();
 
-		applyStyleToTextElement(columnStyle, textField);
+		applyStyleToElement(columnStyle, textField);
 
         if (group != null) {
         	int index = getReport().getColumnsGroups().indexOf(group);
@@ -443,7 +514,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	/*
 	 * Takes all the report's charts and inserts them in their corresponding bands
 	 */
-	protected final void layoutCharts() {
+	protected void layoutCharts() {
 		for (Iterator iter = getReport().getCharts().iterator(); iter.hasNext();) {
 			DJChart djChart = (DJChart) iter.next();
 			JRDesignChart chart = createChart(djChart);
@@ -480,7 +551,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroup, getParent(jrGroup), registerChartVariable(djChart)));
 			interpeterOptions(djChart, chart);
 			
-			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_REPORT);
+			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
+			chart.setEvaluationGroup(jrGroup);
 			return chart;
 	}
 	
@@ -532,9 +604,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			int max = 0;
 			for (int i = 0; i < band.getElements().length; i++) {
 				JRDesignElement element = (JRDesignElement) band.getElements()[i];
-                //TODO: Review... if statement has empty body
-                if ( (element.getHeight() + element.getY()) > max);
-				max = element.getHeight() + element.getY();
+				if ( (element.getHeight() + element.getY()) > max)
+					max = element.getHeight() + element.getY();
 			}
 			chart.setY(max +5 );
 		}	
@@ -554,7 +625,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		} catch (ClassNotFoundException e) { /*Should never happen*/ }
 		
 		JRDesignExpression expression = new JRDesignExpression();
-		expression.setText("$F{" + chart.getColumn().getTitle().toLowerCase() + "}");
+//		expression.setText("$F{" + chart.getColumn().getTitle().toLowerCase() + "}");
+		expression.setText("$F{" + ((PropertyColumn) chart.getColumn()).getColumnProperty().getProperty()  + "}");
 		expression.setValueClass(clazz);
 		
 		JRDesignVariable var = new JRDesignVariable();
@@ -564,6 +636,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		var.setResetGroup(group);
 		var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
 		var.setName("CHART_" + group.getName() + "_" + chart.getColumn().getTitle() + "_" + chart.getOperation());
+//		JRDesignExpression initExp = new JRDesignExpression();
+//		initExp.setText("new Float(0)");
+//		initExp.setValueClass(clazz);
+//		var.setInitialValueExpression(initExp);
 		
 		try {
 			getDesign().addVariable(var);
