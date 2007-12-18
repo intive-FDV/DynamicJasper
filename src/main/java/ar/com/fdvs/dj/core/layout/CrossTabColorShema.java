@@ -10,7 +10,9 @@ public abstract class CrossTabColorShema {
 		
 		CrossTabColorShema generator = null;
 		
-		if (schema == 1)
+		if (schema == 0)
+			generator = new Schema0();
+		else if (schema == 1)
 			generator = new Schema1();
 		else if (schema == 2)
 			generator = new Schema2();
@@ -27,7 +29,7 @@ public abstract class CrossTabColorShema {
 		
 		generator.colors = new Color[numCols+1][numRows+1];
 		
-		generator.create(numCols, numRows);		
+		generator.create(numCols+1, numRows+1);		
 		return generator.colors;
 	}
 
@@ -39,6 +41,16 @@ public abstract class CrossTabColorShema {
  * @author Juan Manuel
  *
  */
+class Schema0 extends CrossTabColorShema{
+	
+	public void create(int numCols, int numRows) {
+		for (int i = numCols-1; i >= 0; i--) {
+			for (int j =  numRows-1; j >= 0; j--) {
+				colors[i][j] =  Color.WHITE;
+			}
+		}
+	}
+}
 class Schema1 extends CrossTabColorShema{
 
 	public void create(int numCols, int numRows) {

@@ -36,39 +36,20 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabBucket;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabCell;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabColumnGroup;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabDataset;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabMeasure;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
-import net.sf.jasperreports.engine.JRBand;
-import net.sf.jasperreports.engine.JRBox;
-import net.sf.jasperreports.engine.JRConstants;
-import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRElement;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.JRGroup;
 import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignDataset;
-import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignRectangle;
-import net.sf.jasperreports.engine.design.JRDesignStaticText;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignSubreport;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
-import net.sf.jasperreports.engine.xml.JRExpressionFactory;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -78,11 +59,8 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.FontHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.AutoText;
-import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJCrosstabColumn;
-import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
@@ -430,7 +408,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					AbstractColumn col = (AbstractColumn) iterator.next();
 
 					JRDesignTextField designTextField = createColumnNameTextField(columnsGroup, col);
-
+					designTextField.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT); //XXX changeg to see what happens  (must come from the column position property)
+					designTextField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX changeg to see what happens (must come from the column property)
 					header.addElement(designTextField);
 				}
 			}
@@ -454,7 +433,19 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			
 			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
 			JRDesignBand band = (JRDesignBand) jgroup.getGroupHeader();
+			if (djcross.getBottomSpace() != 0){
+				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), 0);
+				moveBandsElemnts(rect.getHeight(), band);
+				band.addElement(rect);
+			}
+			moveBandsElemnts(crosst.getHeight(), band);
 			band.addElement(crosst);
+			if (djcross.getTopSpace() != 0){
+				moveBandsElemnts(djcross.getTopSpace(), band);
+				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), 0);
+				band.addElement(rect);
+			}
+			
 		}
 		
 		for (Iterator iterator = columnsGroup.getFooterCrosstabs().iterator(); iterator.hasNext();) {
@@ -464,28 +455,43 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			
 			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
 			JRDesignBand band = (JRDesignBand) jgroup.getGroupFooter();
+			int yOffset = findVerticalOffset(band);
+			if (djcross.getTopSpace() != 0){
+//				moveBandsElemnts(djcross.getTopSpace(), band);
+				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), yOffset);
+				rect.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+				band.addElement(rect);
+				crosst.setY(rect.getY() + rect.getHeight());
+			}			
+			
 			band.addElement(crosst);
+			
+			
+			if (djcross.getBottomSpace() != 0){
+				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), crosst.getY() + crosst.getHeight());
+				band.addElement(rect);
+			}			
 		}
 		
 		
 	}
 
-	private JRDesignCrosstabCell createTopCell() {
-		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
-		cell.setColumnTotalGroup("col1");
-		return cell;
-	}
-	private JRDesignCrosstabCell createRightCell() {
-		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
-		cell.setRowTotalGroup("row1");
-		
-		return cell;
-	}
-	private JRDesignCrosstabCell createTopRightCell() {
-		JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
-		cell.setColumnTotalGroup("col1");
-		cell.setRowTotalGroup("row1");
-		return cell;
+	/**
+	 * @param djcross
+	 * @param crosst
+	 * @return
+	 */
+	private JRDesignRectangle createBlankRectableCrosstab(int amount,int yOffset) {
+		JRDesignRectangle rect = new JRDesignRectangle();
+		rect.setPen(Border.NO_BORDER.getValue());
+		rect.setMode(Transparency.TRANSPARENT.getValue());
+//		rect.setMode(Transparency.OPAQUE.getValue());
+//		rect.setBackcolor(Color.RED);
+		rect.setWidth(getReport().getOptions().getPrintableWidth());
+		rect.setHeight(amount);
+		rect.setY(yOffset);
+		rect.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT);
+		return rect;
 	}
 
 	/**
@@ -587,7 +593,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 //		int headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
 		int headerOffset = 0;
 		
-		//Show the current valio above the column name
+		//Show the current value above the column name
 		int yOffset = 0;
 		GroupLayout layout = group.getLayout();
 		//Only the value in heaeder
@@ -668,12 +674,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 				textField.setKey(variableName);
 				textField.setExpression(expression);
+				
+				if (DJConstants.FOOTER.equals(type)){
+					textField.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+				}
 
 				textField.setX(col.getPosX().intValue());
 				if (yOffset!=0)
 					textField.setY(yOffset);
 
-				textField.setHeight(columnsGroup.getHeaderHeight().intValue());
+//				textField.setHeight(columnsGroup.getHeaderHeight().intValue());
+				textField.setHeight(2 + getReport().getOptions().getDetailHeight().intValue()); //XXX be carefull with the "2+ ..."
 				textField.setWidth(col.getWidth().intValue());
 
 				textField.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
@@ -710,14 +721,15 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				globalExp.setValueClassName(globalCol.getValueClassNameForExpression());
 				globalTextField.setExpression(globalExp);
 
-				globalTextField.setHeight(band.getHeight());
+//				globalTextField.setHeight(band.getHeight()); //XXX Changed, see if its ok
+				globalTextField.setHeight(2 + getReport().getOptions().getDetailHeight().intValue()); //XXX be carefull with the "2+ ..."
 				globalTextField.setWidth(totalWidth);
 //				globalTextField.setX(((AbstractColumn)getReport().getColumns().get(0)).getPosX().intValue());
 				globalTextField.setX(0);
 				if (type.equals(ColumnsGroupVariablesRegistrationManager.HEADER))
 					globalTextField.setY(yOffset);
 				globalTextField.setKey("global_legend_"+type);
-
+				
 				applyStyleToElement(globalCol.getStyle(), globalTextField);
 
 				band.addElement(globalTextField);
@@ -739,7 +751,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	private void insertValueInHeader(JRDesignBand headerBand, ColumnsGroup columnsGroup, int headerOffset) {
-		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), columnsGroup.getHeaderHeight().intValue(), columnsGroup);
+//		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), columnsGroup.getHeaderHeight().intValue(), columnsGroup);
+		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), getReport().getOptions().getDetailHeight().intValue(), columnsGroup);
 		textField.setHorizontalAlignment(columnsGroup.getColumnToGroupBy().getStyle().getHorizontalAlign().getValue());
 		textField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX this is a patch for subreports, ensure it works well.
 		textField.setY(textField.getY() + headerOffset);

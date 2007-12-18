@@ -309,6 +309,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 	
 	public void applyStyleToElement(Style style, JRDesignElement designElemen) {
+		if (style == null){
+			log.warn("NULL style passed to object");
+			return;
+		}
 		boolean existsInDesign = style.getName() != null 
 		&& design.getStylesMap().get(style.getName()) != null; 
 //		&& !style.isOverridesExistingStyle();

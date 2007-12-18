@@ -32,16 +32,26 @@ package ar.com.fdvs.dj.domain.builders;
 import java.awt.Color;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
@@ -70,6 +80,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	Style subtitleStyle;
 
 	protected int groupCount = 0;
+	
+//	protected Map headerGroupVariables = new TreeMap();
+//	protected Map footerGroupVariables = new TreeMap();
 
 	public FastReportBuilder(){
 		currencyStyle = new Style("currencyStyle");
@@ -93,14 +106,6 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	}
 
 	public DynamicReport build(){
-
-		//build the groups
-		for (int i = 0; i < groupCount; i++) {
-			GroupBuilder gb = new GroupBuilder();
-			PropertyColumn col = (PropertyColumn) report.getColumns().get(i);
-			gb.setCriteriaColumn(col);
-			report.getColumnsGroups().add(gb.build());
-		}
 
 		return super.build();
 	}
@@ -208,9 +213,89 @@ public class FastReportBuilder extends DynamicReportBuilder {
 
 	public FastReportBuilder addGroups(int numgroups) {
 		groupCount = numgroups;
+		for (int i = 0; i < groupCount; i++) {
+			GroupBuilder gb = new GroupBuilder();
+			PropertyColumn col = (PropertyColumn) report.getColumns().get(i);
+			gb.setCriteriaColumn(col);
+			report.getColumnsGroups().add(gb.build());
+		}		
+		return this;
+	}
+	
+	public FastReportBuilder setGroupLayout(int groupNumber, GroupLayout layout) throws BuilderException {
+		ColumnsGroup group = getGroupByNumber(groupNumber);
+		group.setLayout(layout);
+		return this;
+	}	
+
+	public FastReportBuilder addGlobalHeaderVariable(int colNumber, ColumnsGroupVariableOperation op, Style style) {
+		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
+		if (this.globalHeaderVariables == null)
+			this.globalHeaderVariables = new ArrayList();
+		if (style == null)
+			style = numberStyle;
+
+		this.globalHeaderVariables.add(new ColumnsGroupVariable(column, op, style));
+		return this;
+	}
+	
+	public FastReportBuilder addHeaderVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style) throws BuilderException {
+		ColumnsGroup group = getGroupByNumber(groupNum);
+		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
+		if (style == null)
+			style = numberStyle;
+
+		ColumnsGroupVariable columnsGroupVariable = new ColumnsGroupVariable(column, op, style);
+		group.getHeaderVariables().add(columnsGroupVariable);
 		return this;
 	}
 
+	/**
+	 * @param groupNum
+	 * @return
+	 * @throws BuilderException
+	 */
+	private ColumnsGroup getGroupByNumber(int groupNum) throws BuilderException {
+		ColumnsGroup group;
+		try {
+			group = (ColumnsGroup) report.getColumnsGroups().get(groupNum-1);
+		} catch (IndexOutOfBoundsException e) {
+			throw new BuilderException("No such group, use addGroups(int) first");
+		}
+		return group;
+	}
+	
+	public FastReportBuilder addGlobalFooterVariable(int colNumber, ColumnsGroupVariableOperation op, Style style) {
+		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
+		if (this.globalFooterVariables == null)
+			this.globalFooterVariables = new ArrayList();
+		if (style == null)
+			style = numberStyle;
+		
+		this.globalFooterVariables.add(new ColumnsGroupVariable(column, op, style));
+		return this;
+	}
+	
+	public FastReportBuilder addFooterVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style) throws BuilderException {
+		ColumnsGroup group = getGroupByNumber(groupNum);		
+		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
+		if (style == null)
+			style = numberStyle;
+		
+		ColumnsGroupVariable columnsGroupVariable = new ColumnsGroupVariable(column, op, style);
+		group.getFooterVariables().add(columnsGroupVariable);
+		return this;
+	}
 
+	public FastReportBuilder addHeaderCrosstab(int groupNumber, DJCrosstab djcross) throws BuilderException {
+		ColumnsGroup group = getGroupByNumber(groupNumber);
+		group.getHeaderCrosstabs().add(djcross);
+		return this;
+	}
+	public FastReportBuilder addFooterCrosstab(int groupNumber, DJCrosstab djcross) throws BuilderException {
+		ColumnsGroup group = getGroupByNumber(groupNumber);
+		group.getFooterCrosstabs().add(djcross);
+		return this;
+	}
 
 }

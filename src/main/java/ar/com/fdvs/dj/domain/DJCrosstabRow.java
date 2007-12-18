@@ -5,6 +5,7 @@ public class DJCrosstabRow {
 	private ColumnProperty property;
 	private int height;
 	private int headerWidth;
+	private int totalHeaderHeight;
 	
 	private String title;
 	
@@ -61,6 +62,12 @@ public class DJCrosstabRow {
 	}
 	public void setHeaderStyle(Style headerStyle) {
 		this.headerStyle = headerStyle;
+	}
+	public int getTotalHeaderHeight() {
+		return totalHeaderHeight;
+	}
+	public void setTotalHeaderHeight(int totalHeaderHeight) {
+		this.totalHeaderHeight = totalHeaderHeight;
 	}
 	
 }

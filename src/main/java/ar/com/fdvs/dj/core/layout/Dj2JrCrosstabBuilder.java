@@ -22,6 +22,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.base.JRBaseBox;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
+import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
@@ -58,6 +59,8 @@ public class Dj2JrCrosstabBuilder {
 		this.design = layoutManager.getDesign();
 		
 		jrcross = new JRDesignCrosstab();
+		
+		jrcross.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
 		
 		cols = (DJCrosstabColumn[]) djcrosstab.getColumns().toArray(new DJCrosstabColumn[]{});
 		rows = (DJCrosstabRow[]) djcrosstab.getRows().toArray(new DJCrosstabRow[]{});
@@ -187,13 +190,7 @@ public class Dj2JrCrosstabBuilder {
 	}
 
 	private void initColors() {
-
-		if (djcross.getColorScheme() == 0) {
-			colors = new Color[cols.length+1][rows.length+1];
-			return;
-		}
-		
-		colors = CrossTabColorShema.createSchema(djcross.getColorScheme(), cols.length+1, rows.length+1);
+		colors = CrossTabColorShema.createSchema(djcross.getColorScheme(), cols.length, rows.length);
 		
 	}
 
@@ -351,6 +348,7 @@ public class Dj2JrCrosstabBuilder {
 				 * Is there any style for this object?
 				 */
 				if (crosstabRow.getProperty() == null && crosstabColumn.getProperty() == null && measure.getStyle() != null ){
+					//this is the inner most cell
 					layoutManager.applyStyleToElement(measure.getStyle() , element);
 				} else if (crosstabRow.getTotalStyle() != null) {
 					layoutManager.applyStyleToElement(crosstabRow.getTotalStyle(), element);
@@ -358,6 +356,16 @@ public class Dj2JrCrosstabBuilder {
 				else if (crosstabColumn.getTotalStyle() != null) {
 					layoutManager.applyStyleToElement(crosstabColumn.getTotalStyle(), element);
 				}
+				
+//				if ((i == auxCols.length-1 &&  j != auxRows.length-1) || (i != auxCols.length-1 &&  j != auxRows.length-1)){
+//					cell.setWidth(Integer.valueOf( 100));
+//				}
+//				if (crosstabColumn.getProperty() != null && j != auxRows.length-1 && crosstabRow.getTotalHeaderHeight() != 0){
+//					cell.setWidth(Integer.valueOf( crosstabRow.getTotalHeaderHeight() ));
+//				}
+//				if (i != auxCols.length-1 && j != auxRows.length-1 && crosstabRow.getTotalHeaderHeight() != 0){
+//					cell.setWidth(Integer.valueOf( crosstabRow.getTotalHeaderHeight() ));
+//				}
 				
 				
 				contents.setMode(Byte.valueOf(Transparency.OPAQUE.getValue()));
@@ -523,8 +531,8 @@ public class Dj2JrCrosstabBuilder {
 			colHeaerContent.setMode(Byte.valueOf(Transparency.OPAQUE.getValue()));
 			applyCellBorder(colHeaerContent);
 			
-			ctColGroup.setHeader(colHeaerContent);	
-			
+			ctColGroup.setHeader(colHeaerContent);
+						
 			if (crosstabColumn.isShowTotals())
 				createColumTotalHeader(ctColGroup,crosstabColumn);
 			
@@ -650,7 +658,7 @@ public class Dj2JrCrosstabBuilder {
 		}
 		element.setHeight(auxWidth);
 		
-		applyCellBorder(totalHeaderContent);		
+		applyCellBorder(totalHeaderContent);	
 		
 		totalHeaderContent.addElement(element);
 		

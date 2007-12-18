@@ -44,6 +44,7 @@ import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.ImageBanner;
@@ -81,6 +82,8 @@ public class DynamicReportBuilder {
 	protected String grandTotalLegend = "";
 	protected ArrayList globalFooterVariables;
 	protected ArrayList globalHeaderVariables;
+	protected ArrayList globalFooterCrosstabs;
+	protected ArrayList globalHeaderCrosstabs;
 	protected ArrayList autoTexts;
 	protected Map groupFooterSubreports = new HashMap();
 	protected Map groupHeaderSubreports = new HashMap();
@@ -157,6 +160,9 @@ public class DynamicReportBuilder {
 			report.getColumnsGroups().add(0,globalGroup);			
 		}
 		
+		
+		addGlobalCrosstabs();
+		
 		addSubreportsToGroups();
 		
 		concatenateReports();
@@ -166,6 +172,29 @@ public class DynamicReportBuilder {
 		return report;
 	}
 
+
+	private void addGlobalCrosstabs() {
+		//For header
+		if (globalHeaderCrosstabs != null) {
+			for (Iterator iterator = globalHeaderCrosstabs.iterator(); iterator.hasNext();) {
+				DJCrosstab djcross = (DJCrosstab) iterator.next();
+				ColumnsGroup globalGroup = createDummyGroupForCrosstabs("crosstabHeaderGroup-" + globalHeaderCrosstabs.indexOf(djcross));
+				globalGroup.getHeaderCrosstabs().add(djcross);
+				report.getColumnsGroups().add(0,globalGroup);			
+			}
+		}
+
+		//For footer
+		if (globalFooterCrosstabs != null) {
+			for (Iterator iterator = globalFooterCrosstabs.iterator(); iterator.hasNext();) {
+				DJCrosstab djcross = (DJCrosstab) iterator.next();
+				ColumnsGroup globalGroup = createDummyGroupForCrosstabs("crosstabFooterGroup-" + globalFooterCrosstabs.indexOf(djcross));
+				globalGroup.getFooterCrosstabs().add(djcross);
+				report.getColumnsGroups().add(0,globalGroup);			
+			}
+		}
+		
+	}
 
 	/**
 	 * Because the groups are not created until we call the "build()" method, all the subreports that must go
@@ -210,7 +239,7 @@ public class DynamicReportBuilder {
 	private ColumnsGroup createDummyGroup() {
 		ColumnsGroup globalGroup = new ColumnsGroup();
 		globalGroup.setLayout(GroupLayout.EMPTY);
-		GlobalGroupColumn globalCol = new GlobalGroupColumn();
+		GlobalGroupColumn globalCol = new GlobalGroupColumn("global");
 		globalCol.setTitle(grandTotalLegend);
 		globalCol.setHeaderStyle(grandTotalStyle);
 		globalCol.setStyle(grandTotalStyle);
@@ -218,6 +247,19 @@ public class DynamicReportBuilder {
 		globalGroup.setColumnToGroupBy(globalCol);
 		globalGroup.setHeaderVariables(globalHeaderVariables);
 		globalGroup.setFooterVariables(globalFooterVariables);
+		return globalGroup;
+	}
+	
+	private ColumnsGroup createDummyGroupForCrosstabs(String name) {
+		ColumnsGroup globalGroup = new ColumnsGroup();
+		globalGroup.setLayout(GroupLayout.EMPTY);
+		GlobalGroupColumn globalCol = new GlobalGroupColumn(name );
+		
+		globalCol.setTitle(grandTotalLegend);
+		globalCol.setHeaderStyle(grandTotalStyle);
+		globalCol.setStyle(grandTotalStyle);
+		
+		globalGroup.setColumnToGroupBy(globalCol);
 		return globalGroup;
 	}
 
@@ -1008,6 +1050,28 @@ public class DynamicReportBuilder {
 		return this;
 	}
 	
+	/**
+	 * Adds a crosstab in the header, before the the data
+	 * @param cross
+	 * @return
+	 */
+	public DynamicReportBuilder addHeaderCrosstab(DJCrosstab cross) {
+		if (this.globalHeaderCrosstabs == null)
+			this.globalHeaderCrosstabs = new ArrayList();
+		this.globalHeaderCrosstabs.add(cross);
+		return this;
+	}	
 	
+	/**
+	 * Adds a crosstab in the footer of the report (at the end of all data)
+	 * @param cross
+	 * @return
+	 */
+	public DynamicReportBuilder addFooterCrosstab(DJCrosstab cross) {
+		if (this.globalFooterCrosstabs == null)
+			this.globalFooterCrosstabs = new ArrayList();
+		this.globalFooterCrosstabs.add(cross);
+		return this;
+	}	
 
 }

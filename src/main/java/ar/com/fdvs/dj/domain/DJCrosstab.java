@@ -14,6 +14,9 @@ public class DJCrosstab {
 	private int height;
 	private int width;
 	
+	private int bottomSpace = 10; //blank space AFTER the crosstab 
+	private int topSpace = 10; //blank space BEFORE the crosstab
+	
 	/**
 	 * if true, the width will be the page width - margins
 	 */
@@ -120,6 +123,18 @@ public class DJCrosstab {
 	}
 	public void setAutomaticTitle(boolean automaticTitle) {
 		this.automaticTitle = automaticTitle;
+	}
+	public int getBottomSpace() {
+		return bottomSpace;
+	}
+	public void setBottomSpace(int bottomSpace) {
+		this.bottomSpace = bottomSpace;
+	}
+	public int getTopSpace() {
+		return topSpace;
+	}
+	public void setTopSpace(int topSpace) {
+		this.topSpace = topSpace;
 	}
 
 }

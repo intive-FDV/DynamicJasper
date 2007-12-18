@@ -5,6 +5,29 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="2.0.1" date="2007-12-17"	desc="Crosstab release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+				FastReportBuilder: setGroupLayout(groupNumber, GroupLayout)
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+				CrosstabRowBuilder: for easy crosstab row building
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+				CrosstabcolumnBuilder: for easy crosstab column building
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+				DynamicReportBuilder: addFooterCrosstab(DJCrosstab cross)
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+				DynamicReportBuilder: addHeaderCrosstab(DJCrosstab cross)
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+				 FastReportBuilder: addFooterVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style)
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+				 FastReportBuilder: addHeaderVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style)
+         	</action>
+        </release>
          <release version="2.0.0" date="2007-12-13"	desc="Crosstab release">
          	<action dev="Juan Manuel Alvarez" type="add">
 				Crosstabs support (still in developement)

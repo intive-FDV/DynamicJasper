@@ -43,6 +43,12 @@ public class GlobalGroupColumn extends PropertyColumn {
 		setColumnProperty(columnProperty);
 	}
 
+	public GlobalGroupColumn(String name) {
+		ColumnProperty columnProperty = new ColumnProperty(name, String.class.getName());
+		setTitle("global");
+		setColumnProperty(columnProperty);
+	}
+
 	public String getGroupVariableName(String type, String columnToGroupByProperty) {
 		return null;
 	}

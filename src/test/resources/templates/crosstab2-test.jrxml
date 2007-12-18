@@ -298,7 +298,7 @@
 				</rectangle>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="50" height="30" columnTotalGroup="branch">
+					<crosstabCell width="96" height="30" columnTotalGroup="branch">
 						<cellContents mode="Transparent">
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
@@ -336,7 +336,7 @@
 				</rectangle>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="50" height="30" columnTotalGroup="state">
+					<crosstabCell width="138" height="30" columnTotalGroup="state">
 						<cellContents mode="Transparent">
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
@@ -383,7 +383,7 @@
 				</rectangle>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="50" height="30" rowTotalGroup="item">
+					<crosstabCell width="50" height="51" rowTotalGroup="item">
 						<cellContents mode="Transparent">
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
@@ -439,7 +439,7 @@
 				</rectangle>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="50" height="30" rowTotalGroup="item" columnTotalGroup="branch">
+					<crosstabCell width="96" height="51" rowTotalGroup="item" columnTotalGroup="branch">
 						<cellContents mode="Transparent">
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
@@ -504,7 +504,7 @@
 				</rectangle>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="50" height="30" rowTotalGroup="item" columnTotalGroup="state">
+					<crosstabCell width="138" height="51" rowTotalGroup="item" columnTotalGroup="state">
 						<cellContents mode="Transparent">
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
@@ -661,7 +661,7 @@
 				</rectangle>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="50" height="30" rowTotalGroup="productLine" columnTotalGroup="branch">
+					<crosstabCell width="96" height="30" rowTotalGroup="productLine" columnTotalGroup="branch">
 						<cellContents mode="Transparent">
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
@@ -753,7 +753,7 @@
 				</rectangle>
 						</cellContents>
 					</crosstabCell>
-					<crosstabCell width="50" height="30" rowTotalGroup="productLine" columnTotalGroup="state">
+					<crosstabCell width="138" height="30" rowTotalGroup="productLine" columnTotalGroup="state">
 						<cellContents mode="Transparent">
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="1Point" rightBorderColor="#000000" bottomBorder="1Point" bottomBorderColor="#000000"/>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >

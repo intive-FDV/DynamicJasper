@@ -11,7 +11,7 @@ DynamicJasper Library
 
 Dependencies
 
- DJ stands on JasperReports, so you will need this jars too ,  {{{https://sourceforge.net/project/showfiles.php?group_id=36382}download}} it from SourceForge
+ DJ stands on JasperReports (since DJ 1.4 JasperReports 2.0 is needed), so you will need this jars too ,  {{{https://sourceforge.net/project/showfiles.php?group_id=36382}download}} it from SourceForge
  
  Note that JasperReports need some other file in order to export the report to pdf, xls (Excel), rtf (MS Word), etc. 
  

@@ -72,5 +72,13 @@ public class CrosstabBuilder {
 		crosstab.setAutomaticTitle(bool);
 		return this;
 	}
+	public CrosstabBuilder setBottomSpace(int bottomSpace) {
+		crosstab.setBottomSpace(bottomSpace);
+		return this;
+	}
+	public CrosstabBuilder setTopSpace(int topSpace) {
+		crosstab.setTopSpace(topSpace);
+		return this;
+	}
 	
 }
