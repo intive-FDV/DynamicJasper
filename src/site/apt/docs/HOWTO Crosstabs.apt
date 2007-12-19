@@ -8,18 +8,35 @@ HOW-TO Crosstabs
  The above crosstab was generated with a fragment like this:
 
 +------------------------------------------------------------------------------------------------------------+
-/**
- * Create an empty report (no columns)!
- */
 FastReportBuilder drb = new FastReportBuilder();
 	drb
 	.setTitle("November 2006 sales report")
 	.setSubtitle("This report was generated at " + new Date())
 	.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 	.setPrintColumnNames(false)
-	.setUseFullPageWidth(true);
+	.setUseFullPageWidth(true)
+	.setDefaultStyles(titleStyle, null, null, null);
 
-DJCrosstab djcross = createCrosstab();
+DJCrosstab djcross = new CrosstabBuilder()
+	.setHeight(200)
+	.setWidth(500)
+	.setHeaderStyle(mainHeaderStyle)
+	.setDatasource("sr",DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
+	.setUseFullWidth(true)
+	.setColorScheme(4)
+	.setAutomaticTitle(true)
+	.setCellBorder(Border.THIN)
+	.addColumn("State","state",String.class.getName(),false)
+	.addColumn("Branch","branch",String.class.getName(),false)
+	.addRow("Product Line", "productLine", String.class.getName(),false)
+	.addRow("Item", "item", String.class.getName(),true)			
+	.addMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount",measureStyle)
+	.setRowStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
+	.setColumnStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
+	.setCellDimension(17, 60)
+	.setColumnHeaderHeight(30)
+	.setRowHeaderWidth(80)
+	.build();
 
 drb.addHeaderCrosstab(djcross); //add the crosstab in the header band of the report
 
@@ -27,61 +44,6 @@ DynamicReport dr = drb.build();
 
 //put a collection in the parameters map to be used by the crosstab
 params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
-+------------------------------------------------------------------------------------------------------------+
- 
- And now the definition of the <<createCrosstab()>> method:
- 
-+------------------------------------------------------------------------------------------------------------+
-private DJCrosstab createCrosstab() {
-	initStyles(); //init some styles that will be used
-	
-	CrosstabBuilder cb = new CrosstabBuilder();
-	
-	cb.setHeight(200)
-		.setWidth(500)
-		.setHeaderStyle(mainHeaderStyle)
-		.setDatasource("sr",DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION) //same as with subreports
-		.setUseFullWidth(true)
-		.setColorScheme(2)	//so far color schemes goes from 0 to 6 (try them!)
-		.setAutomaticTitle(true) //generates the tile using the colum and row titles
-		.setCellBorder(Border.THIN);
-
-	//A measure is what will be shown in the inner cells
-	cb.addMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount",measureStyle);
-	
-	//Create a ROW
-	DJCrosstabRow row = new CrosstabRowBuilder().setProperty("productLine",String.class.getName())
-		.setHeaderWidth(100).setHeight(0)
-		.setTitle("Product Line my mother teressa")
-		.setShowTotals(true).setTotalStyle(totalStyle)
-		.setTotalHeaderStyle(totalHeader).setHeaderStyle(colAndRowHeaderStyle)
-		.build();
-	
-	//And add it to the crosstab. Order matters! the first row added will be the outer-most row.
-	cb.addRow(row);
-	
-	row = new CrosstabRowBuilder().setProperty("item",String.class.getName())
-		.setHeaderWidth(100).setHeight(20)
-		.setTitle("Item").setShowTotals(true)
-		.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
-		.setHeaderStyle(colAndRowHeaderStyle)
-		.build();
-		
-	cb.addRow(row);
-
-	//Create just one column
-	col = new CrosstabColumnBuilder().setProperty("branch",String.class.getName())
-		.setHeaderHeight(30).setWidth(70)
-		.setShowTotals(true).setTitle("Branch")
-		.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
-		.setHeaderStyle(colAndRowHeaderStyle)
-		.build();
-	
-	//And add it to the crosstab. Order matters! the first row will be the outer-most column 
-	cb.addColumn(col);
-
-	return cb.build();
-}
 +------------------------------------------------------------------------------------------------------------+
  
  There is no limit about how many columns or rows the crosstab contains.
