@@ -441,7 +441,8 @@ public class Dj2JrCrosstabBuilder {
 			rowTitle.setWidth(crosstabRow.getHeaderWidth());
 			
 			//The width can be the sum of the with of all the rows starting from the current one, up to the inner most one.
-			int auxHeight = getRowHeaderMaxHeight(crosstabRow);
+//			int auxHeight = getRowHeaderMaxHeight(crosstabRow);
+			int auxHeight = crosstabRow.getHeight(); //FIXME getRowHeaderMaxHeight() must be FIXED because it breaks when 1rs row sho total and 2nd doesnt
 			rowTitle.setHeight(auxHeight);			
 			
 
@@ -483,7 +484,10 @@ public class Dj2JrCrosstabBuilder {
 				found = true;
 			}
 			
-			auxHeight += row.getHeight();
+			if (auxHeight == 0 && !crosstabRow.isShowTotals())
+				auxHeight += row.getHeight();
+			else if (crosstabRow.isShowTotals())
+				auxHeight += row.getHeight();
 		}
 		return auxHeight;
 	}

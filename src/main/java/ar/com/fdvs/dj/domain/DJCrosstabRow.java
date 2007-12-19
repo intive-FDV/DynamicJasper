@@ -3,9 +3,9 @@ package ar.com.fdvs.dj.domain;
 public class DJCrosstabRow {
 	
 	private ColumnProperty property;
-	private int height;
-	private int headerWidth;
-	private int totalHeaderHeight;
+	private int height = -1;
+	private int headerWidth = -1;
+	private int totalHeaderHeight = -1;
 	
 	private String title;
 	
@@ -54,8 +54,8 @@ public class DJCrosstabRow {
 	public Style getTotalHeaderStyle() {
 		return totalHeaderStyle;
 	}
-	public void setTotalHeaderStyle(Style titleStyle) {
-		this.totalHeaderStyle = titleStyle;
+	public void setTotalHeaderStyle(Style totalHeaderStyle) {
+		this.totalHeaderStyle = totalHeaderStyle;
 	}
 	public Style getHeaderStyle() {
 		return headerStyle;

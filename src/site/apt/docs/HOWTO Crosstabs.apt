@@ -1,23 +1,118 @@
 HOW-TO Crosstabs
 
-+------------------------------------------------------------------------------------------------------------+
-DynamicReportBuilder drb = new DynamicReportBuilder();
-//ReportBuilder initialization
-//Group and columns creation
+ Crosstabs are a great feature introduced by JasperReports, now it is possible to create crosstabs
+ through DynamicJasper.
 
-DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
-DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // define the type of chart (Pie)
-			.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
-			.addColumnsGroup(g1)                           // define the group that will be represented
-			.addColumn(columnAmount)                       // define the column that will be represented
-			.build();
-			
-drb.addChart(chart);	//add chart
+[../images/examples/crosstabReportTest2.jpg] Crosstab report test2
+
+ The above crosstab was generated with a fragment like this:
+
++------------------------------------------------------------------------------------------------------------+
+/**
+ * Create an empty report (no columns)!
+ */
+FastReportBuilder drb = new FastReportBuilder();
+	drb
+	.setTitle("November 2006 sales report")
+	.setSubtitle("This report was generated at " + new Date())
+	.setPageSizeAndOrientation(Page.Page_A4_Landscape())
+	.setPrintColumnNames(false)
+	.setUseFullPageWidth(true);
+
+DJCrosstab djcross = createCrosstab();
+
+drb.addHeaderCrosstab(djcross); //add the crosstab in the header band of the report
+
+DynamicReport dr = drb.build();
+
+//put a collection in the parameters map to be used by the crosstab
+params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
 +------------------------------------------------------------------------------------------------------------+
  
- This code generate a report like this:
+ And now the definition of the <<createCrosstab()>> method:
  
-[../images/examples/chart-report-test.jpg] Chart Report
++------------------------------------------------------------------------------------------------------------+
+private DJCrosstab createCrosstab() {
+	initStyles(); //init some styles that will be used
+	
+	CrosstabBuilder cb = new CrosstabBuilder();
+	
+	cb.setHeight(200)
+		.setWidth(500)
+		.setHeaderStyle(mainHeaderStyle)
+		.setDatasource("sr",DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION) //same as with subreports
+		.setUseFullWidth(true)
+		.setColorScheme(2)	//so far color schemes goes from 0 to 6 (try them!)
+		.setAutomaticTitle(true) //generates the tile using the colum and row titles
+		.setCellBorder(Border.THIN);
+
+	//A measure is what will be shown in the inner cells
+	cb.addMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount",measureStyle);
+	
+	//Create a ROW
+	DJCrosstabRow row = new CrosstabRowBuilder().setProperty("productLine",String.class.getName())
+		.setHeaderWidth(100).setHeight(0)
+		.setTitle("Product Line my mother teressa")
+		.setShowTotals(true).setTotalStyle(totalStyle)
+		.setTotalHeaderStyle(totalHeader).setHeaderStyle(colAndRowHeaderStyle)
+		.build();
+	
+	//And add it to the crosstab. Order matters! the first row added will be the outer-most row.
+	cb.addRow(row);
+	
+	row = new CrosstabRowBuilder().setProperty("item",String.class.getName())
+		.setHeaderWidth(100).setHeight(20)
+		.setTitle("Item").setShowTotals(true)
+		.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
+		.setHeaderStyle(colAndRowHeaderStyle)
+		.build();
+		
+	cb.addRow(row);
+
+	//Create just one column
+	col = new CrosstabColumnBuilder().setProperty("branch",String.class.getName())
+		.setHeaderHeight(30).setWidth(70)
+		.setShowTotals(true).setTitle("Branch")
+		.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
+		.setHeaderStyle(colAndRowHeaderStyle)
+		.build();
+	
+	//And add it to the crosstab. Order matters! the first row will be the outer-most column 
+	cb.addColumn(col);
+
+	return cb.build();
+}
++------------------------------------------------------------------------------------------------------------+
  
- Refer to {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}ChartReportTest.html}} for a working example.
+ There is no limit about how many columns or rows the crosstab contains.
+ 
+ The data <<must>> be sorted whith the following criteria: <row(1)>, ..., <row(n)>, <column(1)>, ..., <column(m)>
+ 
+ <row(1)> will be the outer-most row, <row(n)> will be the inner-most row
+
+ <column(1)> will be the outer-most column, <column(m)> will be the inner-most column
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/crosstab/test/CrosstabReportTest2.html}CrosstabReportTest2.html}} for a working example.
+
+* Some other examples:
+ 
+ One column, one row
+ 
+[../images/examples/crosstab-1x1.jpg] crosstab-1x1.jpg
+
+ 2 columns, 1 row
+ 
+[../images/examples/crosstab-1x2.jpg] crosstab-1x2.jpg
+
+ 1 column, 2 rows
+ 
+[../images/examples/crosstab-2x1.jpg] crosstab-2x1.jpg
+
+ 2 columns, 2 rows
+ 
+[../images/examples/crosstab-2x2.jpg] crosstab-2x2.jpg
+
+ 3 columns, 2 rows
+
+[../images/examples/crosstab-3x2.jpg] crosstab-3x2.jpg
  

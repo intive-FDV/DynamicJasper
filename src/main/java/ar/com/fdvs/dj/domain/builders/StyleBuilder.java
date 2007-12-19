@@ -3,8 +3,10 @@ package ar.com.fdvs.dj.domain.builders;
 import java.awt.Color;
 
 import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
@@ -70,6 +72,67 @@ public class StyleBuilder {
 
 	public StyleBuilder setTransparency(Transparency transparency){
 		style.setTransparency(transparency);
+		return this;
+	}
+
+	public StyleBuilder setBorderBottom(Border borderBottom) {
+		style.setBorderBottom(borderBottom);
+		return this;
+	}
+
+	public StyleBuilder setBorderColor(Color borderColor) {
+		style.setBorderColor(borderColor);
+		return this;
+	}
+
+	public StyleBuilder setBorderLeft(Border borderLeft) {
+		style.setBorderLeft(borderLeft);
+		return this;
+	}
+
+	public StyleBuilder setBorderRight(Border borderRight) {
+		style.setBorderRight(borderRight);
+		return this;
+	}
+
+	public StyleBuilder setBorderTop(Border borderTop) {
+		style.setBorderTop(borderTop);
+		return this;
+	}
+
+	public StyleBuilder setPadding(Integer padding) {
+		style.setPadding(padding);
+		return this;
+	}
+
+	public StyleBuilder setPaddingBotton(Integer paddingBotton) {
+		style.setPaddingBotton(paddingBotton);
+		return this;
+	}
+
+	public StyleBuilder setPaddingLeft(Integer paddingLeft) {
+		style.setPaddingLeft(paddingLeft);
+		return this;
+	}
+
+	public StyleBuilder setPaddingRight(Integer paddingRight) {
+		style.setPaddingRight(paddingRight);
+		return this;
+	}
+
+	public StyleBuilder setPaddingTop(Integer paddingTop) {
+		style.setPaddingTop(paddingTop);
+		return this;
+	}
+
+	public StyleBuilder setParentStyleName(String parentStyleName) {
+		style.setParentStyleName(parentStyleName);
+		return this;
+	}
+
+
+	public StyleBuilder setRotation(Rotation rotation) {
+		style.setRotation(rotation);
 		return this;
 	}
 
