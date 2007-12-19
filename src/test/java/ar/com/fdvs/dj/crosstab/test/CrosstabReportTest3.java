@@ -79,8 +79,8 @@ public class CrosstabReportTest3 extends TestCase {
 	private Style mainHeaderStyle;
 	private Style totalStyle;
 	private Style measureStyle;
-
 	public DynamicReport buildReport() throws Exception {
+		
 
 
 		/**
