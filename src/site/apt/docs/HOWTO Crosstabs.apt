@@ -127,6 +127,14 @@ params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollect
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/crosstab/test/CrosstabReportTest4.html}CrosstabReportTest4.html}} for a working example.
 
+ Also, these other examples show other ways to create crosstabs and add them to group headers and footers
+ 
+ * {{{../xref-test/ar/com/fdvs/dj/crosstab/test/CrosstabReportTest.html}CrosstabReportTest.html}}
+ 
+ * {{{../xref-test/ar/com/fdvs/dj/crosstab/test/CrosstabReportTest2.html}CrosstabReportTest2.html}}
+ 
+ * {{{../xref-test/ar/com/fdvs/dj/crosstab/test/CrosstabReportTest3.html}CrosstabReportTest3.html}}
+
 * Some other examples:
  
  One column, one row
