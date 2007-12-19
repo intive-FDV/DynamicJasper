@@ -2,8 +2,8 @@ package ar.com.fdvs.dj.core;
 
 public interface DJConstants {
 	
-	public static final String HEADER = "header";
-	public static final String FOOTER = "footer";
+	String HEADER = "header";
+	String FOOTER = "footer";
 	
 	int SUBREPORT_PARAMETER_MAP_ORIGIN_PARAMETER = 0;
 	int SUBREPORT_PARAMETER_MAP_ORIGIN_FIELD = 1;
@@ -40,4 +40,12 @@ public interface DJConstants {
 	int DATA_SOURCE_TYPE_OGNL_VALUE_STACK		= 9;
 	int DATA_SOURCE_TYPE_JRDATASOURCE			= 10;
 
+	int COLOR_SCHEMA_WHITE = 0;
+	int COLOR_SCHEMA_VIOLET = 1;
+	int COLOR_SCHEMA_PINK = 2;
+	int COLOR_SCHEMA_PINK_AND_BROWN = 3;
+	int COLOR_SCHEMA_LIGHT_GREEN = 4;
+	int COLOR_SCHEMA_BLUE = 5;
+	int COLOR_SCHEMA_GRAY = 6;	
+	
 }

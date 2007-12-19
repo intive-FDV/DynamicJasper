@@ -36,11 +36,6 @@ public abstract class CrossTabColorShema {
 	public abstract void create(int numCols, int numRows);
 }
 
-/**
- * Violet
- * @author Juan Manuel
- *
- */
 class Schema0 extends CrossTabColorShema{
 	
 	public void create(int numCols, int numRows) {
@@ -51,6 +46,12 @@ class Schema0 extends CrossTabColorShema{
 		}
 	}
 }
+
+/**
+ * Violet
+ * @author Juan Manuel
+ *
+ */
 class Schema1 extends CrossTabColorShema{
 
 	public void create(int numCols, int numRows) {
