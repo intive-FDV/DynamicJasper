@@ -32,7 +32,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>2.0.1</version>
+	<version>2.0.2</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -98,7 +98,7 @@ API.
             <extension>
                 <groupId>org.apache.maven.wagon</groupId>
                 <artifactId>wagon-ftp</artifactId>
-                <version>1.0-alpha-6</version>
+                <version>1.0-beta-2</version>
             </extension>
         </extensions>
     </build>
@@ -284,6 +284,12 @@ API.
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge</groupId>
+            <artifactId>barbecue</artifactId>
+            <version>1.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

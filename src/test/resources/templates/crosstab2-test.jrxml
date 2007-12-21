@@ -891,7 +891,18 @@
 			</band>
 		</pageHeader>
 		<columnHeader>
-			<band height="22"  isSplitAllowed="true" >
+			<band height="65"  isSplitAllowed="true" >
+				<image  scaleImage="RetainShape" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
+					<reportElement
+						x="9"
+						y="11"
+						width="359"
+						height="44"
+						key="barcode-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<graphicElement stretchType="NoStretch" pen="None"/>
+					<imageExpression class="java.awt.Image"><![CDATA[it.businesslogic.ireport.barcode.BcImage.getBarcodeImage(2,"081235",false,false,null,0,0)]]></imageExpression>
+				</image>
 			</band>
 		</columnHeader>
 		<detail>

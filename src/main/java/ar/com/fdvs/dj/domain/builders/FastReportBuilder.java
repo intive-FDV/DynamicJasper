@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import java.awt.Color;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
@@ -140,10 +142,46 @@ public class FastReportBuilder extends DynamicReportBuilder {
 
 	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getInstance()
-		.setColumnProperty(new ColumnProperty(property, className))
+			.setColumnProperty(property, className)
+			.setWidth(Integer.valueOf(width))
+			.setTitle(title)
+			.setFixedWidth(Boolean.valueOf(fixedWidth))
+			.build();
+		
+		guessStyle(className, column);
+		
+		addColumn(column);
+		
+		return this;
+	}
+	
+	public FastReportBuilder addImageColumn(String title, String property, int width, boolean fixedWidth, ImageScaleMode imageScaleMode) throws ColumnBuilderException, ClassNotFoundException {
+		String className = InputStream.class.getName();
+		AbstractColumn column = ColumnBuilder.getInstance()
+			.setColumnProperty(property, className)
+			.setWidth(Integer.valueOf(width))
+			.setTitle(title)
+			.setFixedWidth(Boolean.valueOf(fixedWidth))
+			.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
+			.setImageScaleMode(imageScaleMode)
+			.build();
+		
+		guessStyle(className, column);
+		
+		addColumn(column);
+		
+		return this;
+	}
+	
+	public FastReportBuilder addImageColumn(String title, String property, int width, boolean fixedWidth,ImageScaleMode imageScaleMode, Style style) throws ColumnBuilderException, ClassNotFoundException {
+		String className = InputStream.class.getName();
+		AbstractColumn column = ColumnBuilder.getInstance()
+		.setColumnProperty(property, className)
 		.setWidth(Integer.valueOf(width))
 		.setTitle(title)
 		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
+		.setStyle(style)
 		.build();
 		
 		guessStyle(className, column);

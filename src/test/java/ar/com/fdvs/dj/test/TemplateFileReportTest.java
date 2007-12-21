@@ -38,6 +38,7 @@ import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -150,14 +151,13 @@ public class TemplateFileReportTest extends TestCase {
 										//the columns width proportionally to meet the page width.
 
 		//This look for the resource in the classpath
-//		drb.setTemplateFile("templates/TemplateReportTest.jrxml");
+		drb.setTemplateFile("templates/TemplateReportTest.jrxml");
 		
 		//Portrait (looks the resource as a file in the filesystem)
-		drb.setTemplateFile(System.getProperty("user.dir") + "/target/test-classes/templates/TemplateReportTest.jrxml");
+//		drb.setTemplateFile(System.getProperty("user.dir") + "/target/test-classes/templates/TemplateReportTest.jrxml");
 		
 		//Landscape  (looks the resource as a file in the filesystem)
 //		drb.setTemplateFile(System.getProperty("user.dir") + "/target/test-classes/templates/TemplateReportTestPortLandscape.jrxml");
-		
 		
 		DynamicReport dr = drb.build();	//Finally build the report!
 
@@ -180,7 +180,7 @@ public class TemplateFileReportTest extends TestCase {
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters );	//Creates the JasperPrint object, we pass as a Parameter
 																											//one does the magic) and the JRDataSource
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/TemplateReportTest.pdf");
-//			JasperViewer.viewReport(jp);	//finally display the report report
+			JasperViewer.viewReport(jp);	//finally display the report report
 //			JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 		} catch (Exception e) {
 			e.printStackTrace();

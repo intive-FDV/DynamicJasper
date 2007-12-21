@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.test.domain;
 
+import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,6 +48,9 @@ public class Product {
 	
 	public static List statistics_ = new ArrayList();
 	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	
+	static String[] images = {"confused.gif","cool.gif","happy.gif","puaj.gif","ungry.gif","what.gif"};
+	static int counter = 0;
 	static {
 		
 		try {
@@ -135,4 +139,12 @@ public class Product {
     public Date getDate() {
         return new Date();
     }
+
+	public InputStream getImage() {
+		InputStream ret = this.getClass().getClassLoader().getResourceAsStream("images/emoticons/" + images[counter++]);
+		if (counter >= images.length)
+			counter = 0;
+		return ret;
+	}
+
 }

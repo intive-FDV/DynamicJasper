@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.core.layout;
 
 import java.awt.Color;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -49,17 +50,26 @@ import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignRectangle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sourceforge.barbecue.Barcode;
+import net.sourceforge.barbecue.BarcodeException;
+import net.sourceforge.barbecue.BarcodeFactory;
+import net.sourceforge.barbecue.BarcodeImageHandler;
+import net.sourceforge.barbecue.linear.code39.Code39Barcode;
+import net.sourceforge.barbecue.output.OutputException;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import sun.security.jca.GetInstance.Instance;
 
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJChart;
@@ -70,6 +80,8 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 
@@ -195,6 +207,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		}
 	}
 	
+	/**
+	 * For each column, puts the elements in the detail band
+	 */
 	protected void transformDetailBand() {
 		log.debug("transforming Detail Band...");
 		JRDesignBand detail = (JRDesignBand) design.getDetail();
@@ -207,23 +222,79 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
 
 			AbstractColumn column = (AbstractColumn)iter.next();
-
-			if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty() ){
-        		for (Iterator iterator = column.getConditionalStyles().iterator(); iterator.hasNext();) {
-					ConditionalStyle condition = (ConditionalStyle) iterator.next();
+			
+			if (column instanceof BarCodeColumn) {
+				ImageColumn imageColumn = (ImageColumn)column;
+				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
+				JRDesignExpression imageExp = new JRDesignExpression();
+				imageExp.setText("ar.com.fdvs.dj.core.layout.AbstractLayoutManager.getBarcode("+ column.getTextForExpression() + ","+ column.getWidth() +", "+ report.getOptions().getDetailHeight().intValue() + " )" );
+				
+				imageExp.setValueClass(java.awt.Image.class);
+				image.setExpression(imageExp);
+				image.setHeight(getReport().getOptions().getDetailHeight().intValue());
+				image.setWidth(column.getWidth().intValue());
+				image.setX(column.getPosX().intValue());
+				image.setScaleImage(imageColumn.getScaleMode().getValue());
+				
+				applyStyleToElement(column.getStyle(), image);
+				
+				detail.addElement(image);
+			} else if (column instanceof ImageColumn) {
+				ImageColumn imageColumn = (ImageColumn)column;
+				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
+				JRDesignExpression imageExp = new JRDesignExpression();
+				imageExp.setText(column.getTextForExpression());
+				
+				imageExp.setValueClass(InputStream.class);
+				image.setExpression(imageExp);
+				image.setHeight(getReport().getOptions().getDetailHeight().intValue());
+				image.setWidth(column.getWidth().intValue());
+				image.setX(column.getPosX().intValue());
+				image.setScaleImage(imageColumn.getScaleMode().getValue());
+				
+				applyStyleToElement(column.getStyle(), image);
+				
+				detail.addElement(image);
+			} else {
+				if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty() ){
+					for (Iterator iterator = column.getConditionalStyles().iterator(); iterator.hasNext();) {
+						ConditionalStyle condition = (ConditionalStyle) iterator.next();
+						JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
+						transformDetailBandTextField(column, textField);
+						applyStyleToElement(condition.getStyle(), textField);
+						textField.setPrintWhenExpression(getExpressionForConditionalStyle(condition.getName(), column.getTextForExpression()));
+						detail.addElement(textField);
+					}
+				} else {
 					JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
 					transformDetailBandTextField(column, textField);
-					applyStyleToElement(condition.getStyle(), textField);
-					textField.setPrintWhenExpression(getExpressionForConditionalStyle(condition.getName(), column.getTextForExpression()));
-					detail.addElement(textField);
+					if (textField.getExpression() != null)
+						detail.addElement(textField);
 				}
-        	} else {
-        		JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
-        		transformDetailBandTextField(column, textField);
-        		if (textField.getExpression() != null)
-        			detail.addElement(textField);
-        	}
+			}
+
         }
+	}
+	
+	public static java.awt.Image getBarcode(Object text, int width, int height) {
+	    Barcode bc;
+		try {
+			bc = BarcodeFactory.create2of7(text.toString());
+
+	        if(width > 0)
+	            bc.setBarWidth(width);
+	        if(height > 0)
+	            bc.setBarHeight(height);
+	        bc.setDrawingText(true);
+	        return BarcodeImageHandler.getImage(bc);
+		
+		} catch (BarcodeException e) {
+			e.printStackTrace();
+		} catch (OutputException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 
 	/**

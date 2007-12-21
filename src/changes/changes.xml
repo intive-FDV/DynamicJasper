@@ -5,6 +5,15 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="2.0.2" date="2007-12-19"	desc="Crosstab release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Image Column :: Hability to show images in the detail band 
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+				Bug with group names: https://sourceforge.net/forum/message.php?msg_id=4684608
+				Thanks danidacila!
+         	</action>
+         </release>
          <release version="2.0.1" date="2007-12-19"	desc="Crosstab release">
          	<action dev="Juan Manuel Alvarez" type="add">
 				FastReportBuilder: setGroupLayout(groupNumber, GroupLayout)

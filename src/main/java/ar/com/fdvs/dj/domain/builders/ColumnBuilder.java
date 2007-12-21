@@ -38,8 +38,10 @@ import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
@@ -57,6 +59,9 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
  * </br>
  */
 public class ColumnBuilder {
+	
+	public static final int COLUMN_TYPE_DEFAULT = 0;
+	public static final int COLUMN_TYPE_IMAGE = 1;
 
 	private String title;
 	private Integer width = new Integer(50);
@@ -71,6 +76,9 @@ public class ColumnBuilder {
 	private ArrayList conditionalStyles = new ArrayList();
 	private ColumnOperation operation;
 	private List operationColumns;
+	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
+	
+	private int columnType = COLUMN_TYPE_DEFAULT;
 
 	public static ColumnBuilder getInstance(){
 		return new ColumnBuilder();
@@ -81,13 +89,25 @@ public class ColumnBuilder {
 			throw new ColumnBuilderException("Either a ColumnProperty or a CustomExpression must be present");
 		}
 
-		if (columnProperty != null) {
+		if (columnType == COLUMN_TYPE_IMAGE){
+			return buildSimpleImageColumn();
+		}		
+		else if (columnProperty != null) {
 			return buildSimpleColumn();
 		} else if (customExpression==null) {
 			return buildOperationColumn();
 		} else {
 			return buildExpressionColumn();
 		}
+	}
+
+	private AbstractColumn buildSimpleImageColumn() {
+		ImageColumn column = new ImageColumn();
+		populateCommonAttributes(column);
+		column.setColumnProperty(columnProperty);
+		column.setExpressionToGroupBy(customExpressionToGroupBy);
+		column.setScaleMode(imageScaleMode);
+		return column;
 	}
 
 	private AbstractColumn buildExpressionColumn() {
@@ -345,6 +365,21 @@ public class ColumnBuilder {
 	}	
 	public ColumnBuilder setFixedWidth(Boolean bool) {
 		this.fixedWidth = bool;
+		return this;
+	}	
+
+	/**
+	 * For image columns use: ColumnBuilder.COLUMN_TYPE_IMAGE
+	 * @param columnType
+	 * @return
+	 */
+	public ColumnBuilder setColumnType(int columnType) {
+		this.columnType = columnType;
+		return this;
+	}	
+
+	public ColumnBuilder setImageScaleMode(ImageScaleMode imageScaleMode) {
+		this.imageScaleMode = imageScaleMode;
 		return this;
 	}	
 	

@@ -98,7 +98,7 @@ public class CrosstabReportTest extends TestCase {
 			.setSubtitle("This report was generated at " + new Date())
 			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setUseFullPageWidth(true);
-//			drb.setTemplateFile("templates/crosstab2-test.jrxml");
+			drb.setTemplateFile("templates/crosstab2-test.jrxml");
 		
 		
 		initStyles();

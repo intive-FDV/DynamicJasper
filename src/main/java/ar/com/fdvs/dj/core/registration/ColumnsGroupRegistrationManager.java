@@ -83,7 +83,7 @@ public class ColumnsGroupRegistrationManager extends AbstractEntityRegistrationM
 		if (column instanceof GlobalGroupColumn){
 			group.setName("global_column_" + getDynamicReport().getColumnsGroups().indexOf(columnsGroup));
 		} else {
-			group.setName(column.getTitle());
+			group.setName( "group_for_column_" + getDynamicReport().getColumnsGroups().indexOf(columnsGroup) + "-" +  column.getTitle());
 		}
 		
 		group.setCountVariable(new JRDesignVariable());

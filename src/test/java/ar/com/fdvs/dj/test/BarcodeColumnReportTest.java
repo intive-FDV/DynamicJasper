@@ -40,18 +40,22 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.domain.ColumnOperation;
-import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
+import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
+import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
 import ar.com.fdvs.dj.util.SortUtils;
 
-public class CalculatedColumnReportTest extends TestCase {
+public class BarcodeColumnReportTest extends TestCase {
 
 	public DynamicReport buildReport() throws Exception {
 
 
+		Style style = new StyleBuilder(true).setHorizontalAlign(HorizontalAlign.CENTER).build();
 		/**
 		 * Creates the DynamicReportBuilder and sets the basic options for
 		 * the report
@@ -61,16 +65,25 @@ public class CalculatedColumnReportTest extends TestCase {
 			.addColumn("Branch", "branch", String.class.getName(),30)
 			.addColumn("Product Line", "productLine", String.class.getName(),50)
 			.addColumn("Item", "item", String.class.getName(),50)
-			.addColumn("Item Code", "id", Long.class.getName(),30,true)
+//			.addColumn("Item Code", "id", Long.class.getName(),30,true)
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
+//			.addImageColumn("IMG", "image", 50, true,ImageScaleMode.FILL_PROPORTIONALLY ,style)
 			.addGroups(2)
+			.setDetailHeight(40)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);	
-
 		
+		BarCodeColumn col = new BarCodeColumn();
+		col.setColumnProperty(new ColumnProperty("id",Long.class.getName()));
+		col.setWidth(Integer.valueOf(100));
+		col.setFixedWidth(Boolean.TRUE);
+		col.setScaleMode(ImageScaleMode.FILL);
+		col.setTitle("Bar Code");
+//		col.setHeaderStyle(style);
 		
+		drb.addColumn(col);
 		
 		DynamicReport dr = drb.build();	
 		
@@ -89,7 +102,7 @@ public class CalculatedColumnReportTest extends TestCase {
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource 
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/CalculatedColumnReportTest.pdf");
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/BarcodeColumnReportTest.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
 //			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
 //			JasperDesignViewer.viewReportDesign(jr);
@@ -100,7 +113,7 @@ public class CalculatedColumnReportTest extends TestCase {
 	}
 
 	public static void main(String[] args) {
-		CalculatedColumnReportTest test = new CalculatedColumnReportTest();
+		BarcodeColumnReportTest test = new BarcodeColumnReportTest();
 		test.testReport();
 	}
 

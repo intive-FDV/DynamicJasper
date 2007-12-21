@@ -49,7 +49,7 @@ public abstract class AbstractColumn implements Entity {
 	private Integer width = new Integer(100);
 	private Boolean fixedWidth = Boolean.FALSE;
 	private Style style = new Style();
-	private Style headerStyle = new Style();
+	private Style headerStyle = null; //new Style();
 	private String pattern;
 	private Boolean printRepeatedValues = Boolean.TRUE;
 	private Boolean blankWhenNull = Boolean.TRUE;
