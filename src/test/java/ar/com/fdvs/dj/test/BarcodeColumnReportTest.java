@@ -63,24 +63,26 @@ public class BarcodeColumnReportTest extends TestCase {
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
-			.addColumn("Product Line", "productLine", String.class.getName(),50)
-			.addColumn("Item", "item", String.class.getName(),50)
+//			.addColumn("Product Line", "productLine", String.class.getName(),50)
+//			.addColumn("Item", "item", String.class.getName(),50)
 //			.addColumn("Item Code", "id", Long.class.getName(),30,true)
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 //			.addImageColumn("IMG", "image", 50, true,ImageScaleMode.FILL_PROPORTIONALLY ,style)
 			.addGroups(2)
-			.setDetailHeight(40)
+			.setDetailHeight(60)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);	
 		
 		BarCodeColumn col = new BarCodeColumn();
-		col.setColumnProperty(new ColumnProperty("id",Long.class.getName()));
-		col.setWidth(Integer.valueOf(100));
+		col.setColumnProperty(new ColumnProperty("item",String.class.getName()));
+		col.setWidth(Integer.valueOf(200));
 		col.setFixedWidth(Boolean.TRUE);
 		col.setScaleMode(ImageScaleMode.FILL);
 		col.setTitle("Bar Code");
+		col.setShowText(true);
+		col.setBarcodeType(BarCodeColumn.EAN128);
 //		col.setHeaderStyle(style);
 		
 		drb.addColumn(col);

@@ -1,11 +1,22 @@
 package ar.com.fdvs.dj.domain.entities.columns;
 
-public class BarCodeColumn extends ImageColumn {
+import ar.com.fdvs.dj.core.BarcodeTypes;
+
+public class BarCodeColumn extends ImageColumn implements BarcodeTypes {
 	
-	private int barcodeType = 0;
+	private int barcodeType = _2_OF_7;
 	private boolean showText = false;
 	private boolean checkSum = false;
 	private String applicationIdentifier = null;
+	private boolean haltWhenException = false;
+
+	public boolean isHaltWhenException() {
+		return haltWhenException;
+	}
+
+	public void setHaltWhenException(boolean haltWhenException) {
+		this.haltWhenException = haltWhenException;
+	}
 
 	public String getApplicationIdentifier() {
 		return applicationIdentifier;

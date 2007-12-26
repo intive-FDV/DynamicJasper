@@ -224,17 +224,17 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			AbstractColumn column = (AbstractColumn)iter.next();
 			
 			if (column instanceof BarCodeColumn) {
-				ImageColumn imageColumn = (ImageColumn)column;
+				BarCodeColumn barcodeColumn = (BarCodeColumn)column;
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
 				JRDesignExpression imageExp = new JRDesignExpression();
-				imageExp.setText("ar.com.fdvs.dj.core.layout.AbstractLayoutManager.getBarcode("+ column.getTextForExpression() + ","+ column.getWidth() +", "+ report.getOptions().getDetailHeight().intValue() + " )" );
+				imageExp.setText("ar.com.fdvs.dj.core.BarcodeHelper.getBarcodeImage("+barcodeColumn.getBarcodeType() + ", "+ column.getTextForExpression()+ ", "+ barcodeColumn.isShowText() + ", " + barcodeColumn.isCheckSum() + ", " + barcodeColumn.getApplicationIdentifier() + ","+ column.getWidth() +", "+ report.getOptions().getDetailHeight().intValue() + " )" );
 				
 				imageExp.setValueClass(java.awt.Image.class);
 				image.setExpression(imageExp);
 				image.setHeight(getReport().getOptions().getDetailHeight().intValue());
 				image.setWidth(column.getWidth().intValue());
 				image.setX(column.getPosX().intValue());
-				image.setScaleImage(imageColumn.getScaleMode().getValue());
+				image.setScaleImage(barcodeColumn.getScaleMode().getValue());
 				
 				applyStyleToElement(column.getStyle(), image);
 				
@@ -276,26 +276,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         }
 	}
 	
-	public static java.awt.Image getBarcode(Object text, int width, int height) {
-	    Barcode bc;
-		try {
-			bc = BarcodeFactory.create2of7(text.toString());
-
-	        if(width > 0)
-	            bc.setBarWidth(width);
-	        if(height > 0)
-	            bc.setBarHeight(height);
-	        bc.setDrawingText(true);
-	        return BarcodeImageHandler.getImage(bc);
-		
-		} catch (BarcodeException e) {
-			e.printStackTrace();
-		} catch (OutputException e) {
-			e.printStackTrace();
-		}
-		return null;
-		
-	}
 
 	/**
 	 * Places a square as DetailBand background for odd rows.
