@@ -5,7 +5,10 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.2" date="2007-12-19"	desc="Crosstab release">
+         <release version="2.0.2" date="2007-12-28"	desc="Crosstab release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		BarCode Column :: Hability to show bar codes in the detail band 
+         	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
          		Image Column :: Hability to show images in the detail band 
          	</action>
