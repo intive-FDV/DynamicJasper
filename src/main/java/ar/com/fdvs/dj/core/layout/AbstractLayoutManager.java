@@ -223,6 +223,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 			AbstractColumn column = (AbstractColumn)iter.next();
 			
+			/**
+			 * Barcode column
+			 */
 			if (column instanceof BarCodeColumn) {
 				BarCodeColumn barcodeColumn = (BarCodeColumn)column;
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
@@ -231,7 +234,13 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				
 				//Do not pass column height and width mecause barbecue 
 				//generates the image with wierd dimensions. Pass 0 in both cases
-				imageExp.setText("ar.com.fdvs.dj.core.BarcodeHelper.getBarcodeImage("+barcodeColumn.getBarcodeType() + ", "+ column.getTextForExpression()+ ", "+ barcodeColumn.isShowText() + ", " + barcodeColumn.isCheckSum() + ", \"" + barcodeColumn.getApplicationIdentifier() + "\",0,0 )" );
+				String applicationIdentifier = barcodeColumn.getApplicationIdentifier();
+				if (applicationIdentifier != null && !"".equals(applicationIdentifier.trim()) ){
+					applicationIdentifier = "$F{" + applicationIdentifier + "}";
+				} else {
+					applicationIdentifier = "\"\"";
+				}
+				imageExp.setText("ar.com.fdvs.dj.core.BarcodeHelper.getBarcodeImage("+barcodeColumn.getBarcodeType() + ", "+ column.getTextForExpression()+ ", "+ barcodeColumn.isShowText() + ", " + barcodeColumn.isCheckSum() + ", " + applicationIdentifier + ",0,0 )" );
 				
 				
 				imageExp.setValueClass(java.awt.Image.class);
@@ -246,13 +255,17 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				applyStyleToElement(column.getStyle(), image);
 				
 				detail.addElement(image);
-			} else if (column instanceof ImageColumn) {
+			} 
+			/**
+			 * Image columns
+			 */
+			else if (column instanceof ImageColumn) {
 				ImageColumn imageColumn = (ImageColumn)column;
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
 				JRDesignExpression imageExp = new JRDesignExpression();
 				imageExp.setText(column.getTextForExpression());
 				
-				imageExp.setValueClass(InputStream.class);
+				imageExp.setValueClassName(imageColumn.getColumnProperty().getValueClassName());
 				image.setExpression(imageExp);
 				image.setHeight(getReport().getOptions().getDetailHeight().intValue());
 				image.setWidth(column.getWidth().intValue());
@@ -262,7 +275,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				applyStyleToElement(column.getStyle(), image);
 				
 				detail.addElement(image);
-			} else {
+			} 
+			/**
+			 * Regular Column
+			 */
+			else {
 				if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty() ){
 					for (Iterator iterator = column.getConditionalStyles().iterator(); iterator.hasNext();) {
 						ConditionalStyle condition = (ConditionalStyle) iterator.next();

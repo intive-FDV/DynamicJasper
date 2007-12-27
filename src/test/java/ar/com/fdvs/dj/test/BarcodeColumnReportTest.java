@@ -40,6 +40,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
+import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnProperty;
@@ -63,32 +64,17 @@ public class BarcodeColumnReportTest extends TestCase {
 		 * the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
-		drb.addColumn("State", "state", String.class.getName(),30)
+		drb.addColumn("State", "state", String.class.getName(),20)
 			.addColumn("Branch", "branch", String.class.getName(),30)
-//			.addColumn("Product Line", "productLine", String.class.getName(),50)
-//			.addColumn("Item", "item", String.class.getName(),50)
-//			.addColumn("Item Code", "id", Long.class.getName(),30,true)
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
-//			.addImageColumn("IMG", "image", 50, true,ImageScaleMode.FILL_PROPORTIONALLY ,style)
+			.addBarcodeColumn("Bar-Code", "amount", Long.class.getName(), BarcodeTypes.USD3, true, false,null, 100, true, ImageScaleMode.FILL, null)
 			.addGroups(1)
-			.setDetailHeight(20)
+			.setDetailHeight(30)
+			.addField("productLine",  String.class.getName())
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);	
-		
-		BarCodeColumn col = new BarCodeColumn();
-		col.setColumnProperty(new ColumnProperty("id",Long.class.getName()));
-		col.setWidth(Integer.valueOf(100));
-		col.setFixedWidth(Boolean.TRUE);
-		col.setScaleMode(ImageScaleMode.FILL);
-		col.setTitle("Bar Code");
-		col.setShowText(true);
-		col.setBarcodeType(BarCodeColumn.USPS);
-		col.setApplicationIdentifier("123");
-//		col.setHeaderStyle(style);
-		
-		drb.addColumn(col);
 		
 		DynamicReport dr = drb.build();	
 		

@@ -29,7 +29,7 @@ public class BarcodeHelper implements BarcodeTypes {
         return getBarcodeImage(type, aText, showText, checkSum, "", 0, 0);
     }	
     
-    public static BufferedImage getBarcodeImage(int type, Object aText, boolean showText, boolean checkSum, String applicationIdentifier, int width, int height)
+    public static BufferedImage getBarcodeImage(int type, Object aText, boolean showText, boolean checkSum, Object applicationIdentifier, int width, int height)
     {
     	
         String text = null;
@@ -103,7 +103,7 @@ public class BarcodeHelper implements BarcodeTypes {
 			case UCCEAN128:
 				if (applicationIdentifier == null)
 					applicationIdentifier = "";
-				bc = new UCCEAN128Barcode(applicationIdentifier, text, checkSum);
+				bc = new UCCEAN128Barcode(applicationIdentifier.toString(), text, checkSum);
 				break;
 			case UPCA:
 				bc = BarcodeFactory.createUPCA(text);

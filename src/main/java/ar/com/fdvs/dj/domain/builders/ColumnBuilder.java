@@ -34,12 +34,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
@@ -62,6 +64,7 @@ public class ColumnBuilder {
 	
 	public static final int COLUMN_TYPE_DEFAULT = 0;
 	public static final int COLUMN_TYPE_IMAGE = 1;
+	public static final int COLUMN_TYPE_BARCODE = 2;
 
 	private String title;
 	private Integer width = new Integer(50);
@@ -79,6 +82,15 @@ public class ColumnBuilder {
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	
 	private int columnType = COLUMN_TYPE_DEFAULT;
+	
+	
+	/**
+	 * For BARCODE columns 
+	 */
+	private int barcodeType;
+	private String applicationIdentifier;
+	private boolean showText = false;
+	private boolean checkSum = false;
 
 	public static ColumnBuilder getInstance(){
 		return new ColumnBuilder();
@@ -92,6 +104,9 @@ public class ColumnBuilder {
 		if (columnType == COLUMN_TYPE_IMAGE){
 			return buildSimpleImageColumn();
 		}		
+		else if (columnType == COLUMN_TYPE_BARCODE){
+			return buildSimpleBarcodeColumn();
+		}		
 		else if (columnProperty != null) {
 			return buildSimpleColumn();
 		} else if (customExpression==null) {
@@ -100,7 +115,28 @@ public class ColumnBuilder {
 			return buildExpressionColumn();
 		}
 	}
+	
+	/**
+	 * When creating barcode columns
+	 * @return
+	 */
+	private AbstractColumn buildSimpleBarcodeColumn() {
+		BarCodeColumn column = new BarCodeColumn();
+		populateCommonAttributes(column);
+		column.setColumnProperty(columnProperty);
+		column.setExpressionToGroupBy(customExpressionToGroupBy);
+		column.setScaleMode(imageScaleMode);
+		column.setApplicationIdentifier(applicationIdentifier);
+		column.setBarcodeType(barcodeType);
+		column.setShowText(showText);
+		column.setCheckSum(checkSum);
+		return column;
+	}
 
+	/**
+	 * When creating image columns
+	 * @return
+	 */
 	private AbstractColumn buildSimpleImageColumn() {
 		ImageColumn column = new ImageColumn();
 		populateCommonAttributes(column);
@@ -110,6 +146,10 @@ public class ColumnBuilder {
 		return column;
 	}
 
+	/**
+	 * For creating expression columns
+	 * @return
+	 */
 	private AbstractColumn buildExpressionColumn() {
 		ExpressionColumn column = new ExpressionColumn();
 		populateCommonAttributes(column);
@@ -120,6 +160,10 @@ public class ColumnBuilder {
 		return column;
 	}
 
+	/**
+	 * For creating regular columns
+	 * @return
+	 */
 	private AbstractColumn buildSimpleColumn() {
 		SimpleColumn column = new SimpleColumn();
 		populateCommonAttributes(column);
@@ -369,7 +413,7 @@ public class ColumnBuilder {
 	}	
 
 	/**
-	 * For image columns use: ColumnBuilder.COLUMN_TYPE_IMAGE
+	 * For image columns use: {@link #COLUMN_TYPE_IMAGE} or {@link #COLUMN_TYPE_BARCODE}
 	 * @param columnType
 	 * @return
 	 */
@@ -388,6 +432,38 @@ public class ColumnBuilder {
 		setWidth(Integer.valueOf(width));
 		setTitle(title);
 		setFixedWidth(Boolean.valueOf(fixedWidth));
+		return this;
+	}	
+	
+	
+	
+	/**
+	 * 
+	 * @param barcodeType use constanst defined in {@link BarcodeTypes}
+	 * @return
+	 */
+	public ColumnBuilder setBarcodeType(int barcodeType) {
+		this.barcodeType = barcodeType;
+		return this;
+	}	
+
+	public ColumnBuilder setShowText(boolean showText) {
+		this.showText  = showText;
+		return this;
+	}	
+	public ColumnBuilder setCheckSum(boolean checkSum) {
+		this.checkSum  = checkSum;
+		return this;
+	}	
+	
+	
+	/**
+	 * Only used when barcode type is UCCEAN128
+	 * @param applicationIdentifier
+	 * @return
+	 */
+	public ColumnBuilder setApplicationIdentifier(String applicationIdentifier) {
+		this.applicationIdentifier = applicationIdentifier;
 		return this;
 	}	
 

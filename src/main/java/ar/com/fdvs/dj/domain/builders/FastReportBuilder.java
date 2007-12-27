@@ -35,11 +35,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
+import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
@@ -173,6 +170,18 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 	
+	/**
+	 * By default uses InputStream as the type of the image
+	 * @param title
+	 * @param property
+	 * @param width
+	 * @param fixedWidth
+	 * @param imageScaleMode
+	 * @param style
+	 * @return
+	 * @throws ColumnBuilderException
+	 * @throws ClassNotFoundException
+	 */
 	public FastReportBuilder addImageColumn(String title, String property, int width, boolean fixedWidth,ImageScaleMode imageScaleMode, Style style) throws ColumnBuilderException, ClassNotFoundException {
 		String className = InputStream.class.getName();
 		AbstractColumn column = ColumnBuilder.getInstance()
@@ -185,6 +194,131 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.build();
 		
 		guessStyle(className, column);
+		
+		addColumn(column);
+		
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param title
+	 * @param property
+	 * @param className valid class names are: InputStream and java.awt.Image
+	 * @param width
+	 * @param fixedWidth
+	 * @param imageScaleMode
+	 * @param style
+	 * @return
+	 * @throws ColumnBuilderException
+	 * @throws ClassNotFoundException
+	 */
+	public FastReportBuilder addImageColumn(String title, String property, String className, int width, boolean fixedWidth,ImageScaleMode imageScaleMode, Style style) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+		.setColumnProperty(property, className)
+		.setWidth(Integer.valueOf(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
+		.setStyle(style)
+		.build();
+		
+		if (style == null)
+			guessStyle(className, column);
+		
+		addColumn(column);
+		
+		return this;
+	}
+	
+	public FastReportBuilder addBarcodeColumn(String title, String property, String className, int barcodeType, boolean showText, int width, boolean fixedWidth, ImageScaleMode imageScaleMode) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+		.setColumnProperty(property, className)
+		.setWidth(Integer.valueOf(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setColumnType(ColumnBuilder.COLUMN_TYPE_BARCODE)
+		.setImageScaleMode(imageScaleMode)
+		.setBarcodeType(barcodeType)
+		.setShowText(showText)
+		.build();
+		
+//		guessStyle(className, column); //NOT FOR BARCODE!!!
+		
+		addColumn(column);
+		
+		return this;
+	}
+	
+	/**
+	 * By default uses InputStream as the type of the image
+	 * @param title
+	 * @param property
+	 * @param width
+	 * @param fixedWidth
+	 * @param imageScaleMode
+	 * @param style
+	 * @return
+	 * @throws ColumnBuilderException
+	 * @throws ClassNotFoundException
+	 */
+	public FastReportBuilder addBarcodeColumn(String title, String property,String className, int  barcodeType,boolean showText, int width, boolean fixedWidth,ImageScaleMode imageScaleMode, Style style) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+		.setColumnProperty(property, className)
+		.setWidth(Integer.valueOf(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setColumnType(ColumnBuilder.COLUMN_TYPE_BARCODE)
+		.setStyle(style)
+		.setBarcodeType(barcodeType)
+		.setShowText(showText)
+		.build();
+		
+		if (style == null)
+			guessStyle(className, column);
+		
+		addColumn(column);
+		
+		return this;
+	}
+	
+/**
+ * 
+ * @param title
+ * @param property
+ * @param className  valid class names are: InputStream and java.awt.Image
+ * @param barcodeType use constansts from {@link BarcodeTypes}
+ * @param showText
+ * @param checkSum
+ * @param applicationIdentifier Only for barcodeType = UCCEAN128, this value must point to a property (it register the property)
+ * @param width
+ * @param fixedWidth
+ * @param imageScaleMode
+ * @param style
+ * @return
+ * @throws ColumnBuilderException
+ * @throws ClassNotFoundException
+ */
+	public FastReportBuilder addBarcodeColumn(String title, String property, String className, int barcodeType, boolean showText, boolean checkSum, String applicationIdentifier, int width, boolean fixedWidth, ImageScaleMode imageScaleMode, Style style) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+		.setColumnProperty(property, className)
+		.setWidth(Integer.valueOf(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setColumnType(ColumnBuilder.COLUMN_TYPE_BARCODE)
+		.setBarcodeType(barcodeType)
+		.setApplicationIdentifier(applicationIdentifier)
+		.setStyle(style)
+		.setShowText(showText)
+		.setCheckSum(checkSum)
+		.build();
+		
+		if (applicationIdentifier != null){
+			addField(applicationIdentifier,  Object.class.getName());
+		}
+		
+		if (style == null)
+			guessStyle(className, column);
 		
 		addColumn(column);
 		
