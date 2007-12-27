@@ -36,7 +36,9 @@ import java.util.Date;
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -69,20 +71,21 @@ public class BarcodeColumnReportTest extends TestCase {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 //			.addImageColumn("IMG", "image", 50, true,ImageScaleMode.FILL_PROPORTIONALLY ,style)
-			.addGroups(2)
-			.setDetailHeight(60)
+			.addGroups(1)
+			.setDetailHeight(20)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);	
 		
 		BarCodeColumn col = new BarCodeColumn();
-		col.setColumnProperty(new ColumnProperty("item",String.class.getName()));
-		col.setWidth(Integer.valueOf(200));
+		col.setColumnProperty(new ColumnProperty("id",Long.class.getName()));
+		col.setWidth(Integer.valueOf(100));
 		col.setFixedWidth(Boolean.TRUE);
 		col.setScaleMode(ImageScaleMode.FILL);
 		col.setTitle("Bar Code");
 		col.setShowText(true);
-		col.setBarcodeType(BarCodeColumn.EAN128);
+		col.setBarcodeType(BarCodeColumn.USPS);
+		col.setApplicationIdentifier("123");
 //		col.setHeaderStyle(style);
 		
 		drb.addColumn(col);
@@ -106,8 +109,8 @@ public class BarcodeColumnReportTest extends TestCase {
 																											//one does the magic) and the JRDataSource 
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/BarcodeColumnReportTest.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
-//			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
-//			JasperDesignViewer.viewReportDesign(jr);
+			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
+			JasperDesignViewer.viewReportDesign(jr);
 		} catch (Exception e) {
 //			e.getCause().printStackTrace();
 			e.printStackTrace();

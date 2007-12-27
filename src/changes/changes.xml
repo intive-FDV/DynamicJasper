@@ -7,6 +7,9 @@
    <body>
          <release version="2.0.2" date="2007-12-28"	desc="Crosstab release">
          	<action dev="Juan Manuel Alvarez" type="add">
+         		pom.xml cleanup :: Unnecesary depenencies are optional now. Thanks danttran!!! 
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
          		BarCode Column :: Hability to show bar codes in the detail band 
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">

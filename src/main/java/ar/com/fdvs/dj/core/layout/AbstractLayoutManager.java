@@ -227,7 +227,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				BarCodeColumn barcodeColumn = (BarCodeColumn)column;
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
 				JRDesignExpression imageExp = new JRDesignExpression();
-				imageExp.setText("ar.com.fdvs.dj.core.BarcodeHelper.getBarcodeImage("+barcodeColumn.getBarcodeType() + ", "+ column.getTextForExpression()+ ", "+ barcodeColumn.isShowText() + ", " + barcodeColumn.isCheckSum() + ", " + barcodeColumn.getApplicationIdentifier() + ","+ column.getWidth() +", "+ report.getOptions().getDetailHeight().intValue() + " )" );
+//				imageExp.setText("ar.com.fdvs.dj.core.BarcodeHelper.getBarcodeImage("+barcodeColumn.getBarcodeType() + ", "+ column.getTextForExpression()+ ", "+ barcodeColumn.isShowText() + ", " + barcodeColumn.isCheckSum() + ", " + barcodeColumn.getApplicationIdentifier() + ","+ column.getWidth() +", "+ report.getOptions().getDetailHeight().intValue() + " )" );
+				imageExp.setText("ar.com.fdvs.dj.core.BarcodeHelper.getBarcodeImage("+barcodeColumn.getBarcodeType() + ", "+ column.getTextForExpression()+ ", "+ barcodeColumn.isShowText() + ", " + barcodeColumn.isCheckSum() + ", \"" + barcodeColumn.getApplicationIdentifier() + "\",0,0 )" );
+				
 				
 				imageExp.setValueClass(java.awt.Image.class);
 				image.setExpression(imageExp);
@@ -235,6 +237,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				image.setWidth(column.getWidth().intValue());
 				image.setX(column.getPosX().intValue());
 				image.setScaleImage(barcodeColumn.getScaleMode().getValue());
+				image.setMode(JRDesignImage.MODE_TRANSPARENT);
+				image.setOnErrorType(JRDesignImage.ON_ERROR_TYPE_ICON);
 				
 				applyStyleToElement(column.getStyle(), image);
 				

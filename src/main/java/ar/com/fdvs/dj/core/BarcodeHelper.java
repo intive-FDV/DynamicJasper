@@ -3,7 +3,11 @@ package ar.com.fdvs.dj.core;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.awt.Font;
 import java.awt.image.BufferedImage;
+
+import javax.swing.border.Border;
+import javax.swing.border.SoftBevelBorder;
 
 import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;
@@ -97,6 +101,8 @@ public class BarcodeHelper implements BarcodeTypes {
 				bc = BarcodeFactory.createStd2of5(text, checkSum);
 				break;
 			case UCCEAN128:
+				if (applicationIdentifier == null)
+					applicationIdentifier = "";
 				bc = new UCCEAN128Barcode(applicationIdentifier, text, checkSum);
 				break;
 			case UPCA:
@@ -123,6 +129,7 @@ public class BarcodeHelper implements BarcodeTypes {
 	        if(height > 0)
 	        	bc.setBarHeight(height);
 	        bc.setDrawingText(showText);
+//	        bc.setResolution(96);
 	        return BarcodeImageHandler.getImage(bc);
   
         } catch (Exception e) {
