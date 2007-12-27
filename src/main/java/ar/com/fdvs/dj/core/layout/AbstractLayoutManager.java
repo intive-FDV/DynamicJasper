@@ -228,6 +228,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
 				JRDesignExpression imageExp = new JRDesignExpression();
 //				imageExp.setText("ar.com.fdvs.dj.core.BarcodeHelper.getBarcodeImage("+barcodeColumn.getBarcodeType() + ", "+ column.getTextForExpression()+ ", "+ barcodeColumn.isShowText() + ", " + barcodeColumn.isCheckSum() + ", " + barcodeColumn.getApplicationIdentifier() + ","+ column.getWidth() +", "+ report.getOptions().getDetailHeight().intValue() + " )" );
+				
+				//Do not pass column height and width mecause barbecue 
+				//generates the image with wierd dimensions. Pass 0 in both cases
 				imageExp.setText("ar.com.fdvs.dj.core.BarcodeHelper.getBarcodeImage("+barcodeColumn.getBarcodeType() + ", "+ column.getTextForExpression()+ ", "+ barcodeColumn.isShowText() + ", " + barcodeColumn.isCheckSum() + ", \"" + barcodeColumn.getApplicationIdentifier() + "\",0,0 )" );
 				
 				
@@ -237,8 +240,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				image.setWidth(column.getWidth().intValue());
 				image.setX(column.getPosX().intValue());
 				image.setScaleImage(barcodeColumn.getScaleMode().getValue());
-				image.setMode(JRDesignImage.MODE_TRANSPARENT);
-				image.setOnErrorType(JRDesignImage.ON_ERROR_TYPE_ICON);
+				
+				image.setOnErrorType(JRDesignImage.ON_ERROR_TYPE_ICON); //FIXME should we provide control of this to the user?
 				
 				applyStyleToElement(column.getStyle(), image);
 				
