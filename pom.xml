@@ -247,16 +247,6 @@ API.
 			<version>3.1</version>
 			<scope>compile</scope>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>cglib</groupId>-->
-<!--			<artifactId>cglib</artifactId>-->
-<!--			<version>2.1_3</version>-->
-<!--		</dependency>-->
-		<dependency>
-			<groupId>commons-javaflow</groupId>
-			<artifactId>commons-javaflow</artifactId>
-			<version>1.0</version>
-		</dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
