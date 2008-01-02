@@ -185,10 +185,10 @@ public class GroupsReportTest extends TestCase {
 		
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-//		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
-		ReportExporter.exportReportPlainXls(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.xls");
+		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.pdf");
+//		ReportExporter.exportReportPlainXls(jp, System.getProperty("user.dir")+ "/target/GroupsReportTest.xls");
 		JasperViewer.viewReport(jp);
-		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
+//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	} catch (Exception e) {
 		e.printStackTrace();
 	}

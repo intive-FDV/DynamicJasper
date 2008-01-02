@@ -9,6 +9,10 @@ HOW TO Guide
 
 * Content
 
+ * {{{HOWTO image column.html}Use images in columns}} <<new!>>
+ 
+ * {{{HOWTO barcode column.html}Use barcodes}} <<new!>>
+ 
  * {{{HOWTO Crosstabs.html}Use Crosstabs}} <<new!>>
  
  * {{{HOWTO Use conditional Styles.html}Use conditional Styles}}

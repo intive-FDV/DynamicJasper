@@ -1,0 +1,70 @@
+HOW-TO Create barcode columns
+
+ This new feature makes the existing JasperReports and Barbecue integration available in DynamicJasper.
+ 
+ In the following example, we are adding a barcode column (the last one)
+
++------------------------------------------------------------------------------------------------------------+
+FastReportBuilder drb = new FastReportBuilder();
+drb.addColumn("State", "state", String.class.getName(),20)
+	.addColumn("Branch", "branch", String.class.getName(),30)
+	.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
+	.addColumn("Amount", "amount", Float.class.getName(),70,true)
+	.addBarcodeColumn("Bar-Code", "amount", Long.class.getName(), BarcodeTypes.USD3, true, false,null, 100, true, ImageScaleMode.FILL, null)
+	.addGroups(1)
+	.setDetailHeight(30)
+	.setTitle("November 2006 sales report")
+	.setSubtitle("This report was generated at " + new Date())
+	.setUseFullPageWidth(true);	
+
+DynamicReport dr = drb.build();	
++------------------------------------------------------------------------------------------------------------+
+ 
+ In this code, the key call is
+ 
++------------------------------------------------------------------------------------------------------------+
+.addBarcodeColumn(	<column title>, <property>, <class>, 
+					<barcode type>, <show text>, <checksum>, 
+					<application identifier>, <width>, <fixed column>, 
+					<fill mode>, <style> )
++------------------------------------------------------------------------------------------------------------+
+ 
+ Where 
+ 
+ * <column title> is the title of the column.
+ 
+ * <property> is the property of the current element to use as the input for the barcode
+ 
+ * <class> is the <<class type>> of <property>. Regardles off the barcode specific valid input (character), 
+ a String is needed for the barcode.
+ 
+ * <barcode type> is a constant from <ar.com.fdvs.dj.core.BarcodeTypes>
+ 
+ * <show text> is boolean that when true, the text is displayed bellow the barcode (only available in some barcode types)
+ 
+ * <checksum> (boolean) if true and the barcode type allows it, the checksum is added to the barcode.
+ 
+ * <application identifier>: (Optional) only for <<UCCEAN128>>, this must be a property from the datarource to a String object. The field is registered automatically.
+ 
+ * <width> of the column
+ 
+ * <fixed column> (boolean) if true, the width is mandatory and no resize will be done.
+ 
+ * <fill mode> specifies how to deal with the size of the barcode: 
+ 
+   * ImageScaleMode.NO_RESIZE: no rezise of the barcode
+   
+   * ImageScaleMode.FILL: streches the barcode to fill the rectangle (the with of the column and the height of the detil band)
+   
+   * ImageScaleMode.FILL_PROPORTIONALLY: streches the barcode <proportionally> as much as it can to fill the area given to the column. 
+
+   []
+    
+ * <style>: (Optional) to give the column horizontal alignment, border, etc...
+ 
+ This code generate a report like this:
+ 
+[../images/examples/barcode-example.jpg] Barcode example
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/BarcodeColumnReportTest.html}BarcodeColumnReportTest.html}} for a working example.
+ 
