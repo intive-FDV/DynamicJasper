@@ -65,14 +65,17 @@ public class GroupsReportTest extends TestCase {
 		Style detailStyle = new Style();
 
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.COMIC_SANS_SMALL_BOLD);
-		headerStyle.setBorder(Border.PEN_2_POINT);
+		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
+		headerStyle.setBorderBottom(Border.PEN_1_POINT);
+		headerStyle.setBackgroundColor(Color.gray);
+		headerStyle.setTextColor(Color.white);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setTransparency(Transparency.OPAQUE);
 
 		Style headerVariables = new Style();
 		headerVariables.setFont(Font.ARIAL_SMALL_BOLD);
-		headerVariables.setBorderBottom(Border.PEN_2_POINT);
+		headerVariables.setBorderBottom(Border.THIN);
 		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
 		headerVariables.setVerticalAlign(VerticalAlign.MIDDLE);
 
@@ -94,7 +97,7 @@ public class GroupsReportTest extends TestCase {
 					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
-			.setPrintBackgroundOnOddRows(true)
+			.setPrintBackgroundOnOddRows(false)
 			.setGrandTotalLegend("Grand Total")
 			.setGrandTotalLegendStyle(headerVariables)
 			.setOddRowBackgroundStyle(oddRowStyle);
@@ -167,10 +170,9 @@ public class GroupsReportTest extends TestCase {
 		drb.addColumn(columnAmount);
 
 		drb.addGroup(g1); // add group g1
-		drb.addGroup(g2); // add group g2
+//		drb.addGroup(g2); // add group g2
 
 		drb.setUseFullPageWidth(true);
-		drb.setIgnorePagination(true);
 		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);
 
 		DynamicReport dr = drb.build();
