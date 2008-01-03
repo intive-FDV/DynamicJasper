@@ -1,25 +1,53 @@
-package ar.com.fdvs.dj.domain.builders;
+/*
+ * Dynamic Jasper: A library for creating reports dynamically by specifying
+ * columns, groups, styles, etc. at runtime. It also saves a lot of development
+ * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+ *
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ *
+ * License as published by the Free Software Foundation; either
+ *
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ *
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ *
+ */
 
-import java.util.Iterator;
+package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
-import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 
+import java.util.Iterator;
+
 public class CrosstabBuilder {
 
 	private DJCrosstab crosstab = new DJCrosstab();
-	
+
 	public DJCrosstab build(){
 		return crosstab;
 	}
-	
+
 	public CrosstabBuilder setHeight(int height) {
 		crosstab.setHeight(height);
 		return this;
@@ -52,12 +80,12 @@ public class CrosstabBuilder {
 		crosstab.getMeasures().add(measure);
 		return this;
 	}
-	
+
 	public CrosstabBuilder addRow(DJCrosstabRow row) {
-		crosstab.getRows().add(row);	
+		crosstab.getRows().add(row);
 		return this;
 	}
-	
+
 	public CrosstabBuilder addColumn(DJCrosstabColumn col) {
 		crosstab.getColumns().add(col);
 		return this;
@@ -93,7 +121,7 @@ public class CrosstabBuilder {
 		addColumn(col);
 		return this;
 	}
-	public CrosstabBuilder addColumn(String title, String property, String className, boolean showTotal, 
+	public CrosstabBuilder addColumn(String title, String property, String className, boolean showTotal,
 			Style headerStyle, Style totalStyle, Style totalHeaderStyle) {
 		DJCrosstabColumn col = new CrosstabColumnBuilder()
 		.setProperty(property,className)
@@ -123,12 +151,12 @@ public class CrosstabBuilder {
 		.setTitle(title)
 		.setHeaderStyle(headerStyle)
 		.setTotalHeaderStyle(totalHeaderStyle)
-		.setTotalStyle(totalStyle)		
+		.setTotalStyle(totalStyle)
 		.build();
 		addRow(row);
 		return this;
 	}
-	
+
 	public CrosstabBuilder setRowStyles(Style headerStyle, Style totalStyle, Style totalHeaderStyle) {
 		for (Iterator iterator = crosstab.getRows().iterator(); iterator.hasNext();) {
 			DJCrosstabRow row = (DJCrosstabRow) iterator.next();
@@ -136,19 +164,19 @@ public class CrosstabBuilder {
 			row.setTotalHeaderStyle(totalHeaderStyle);
 			row.setTotalStyle(totalStyle);
 		}
-		return this;		
+		return this;
 	}
-	
+
 	public CrosstabBuilder setColumnStyles(Style headerStyle, Style totalStyle, Style totalHeaderStyle) {
 		for (Iterator iterator = crosstab.getColumns().iterator(); iterator.hasNext();) {
 			DJCrosstabColumn col = (DJCrosstabColumn) iterator.next();
 			col.setHeaderStyle(headerStyle);
 			col.setTotalHeaderStyle(totalHeaderStyle);
 			col.setTotalStyle(totalStyle);
-		}		
-		return this;		
+		}
+		return this;
 	}
-	
+
 	public CrosstabBuilder setCellWidth(int width) {
 		for (Iterator iterator = crosstab.getColumns().iterator(); iterator.hasNext();) {
 			DJCrosstabColumn col = (DJCrosstabColumn) iterator.next();
@@ -182,5 +210,5 @@ public class CrosstabBuilder {
 		}
 		return this;
 	}
-	
+
 }

@@ -1,16 +1,33 @@
+/*
+ * Dynamic Jasper: A library for creating reports dynamically by specifying
+ * columns, groups, styles, etc. at runtime. It also saves a lot of development
+ * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+ *
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ *
+ * License as published by the Free Software Foundation; either
+ *
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ *
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ *
+ */
+
 package ar.com.fdvs.dj.domain.builders;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
@@ -18,6 +35,16 @@ import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.Subreport;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 public class SubReportBuilder {
 	/**
@@ -27,11 +54,11 @@ public class SubReportBuilder {
 
 
 	private Subreport subreport = new Subreport();
-	
+
 	public Subreport build() throws DJBuilderException {
 		if (subreport.getPath() == null && subreport.getDynamicReport() == null && subreport.getReport() == null)
 			throw new DJBuilderException("No subreport origin defined (path, dynamicReport, jasperReport)");
-		
+
 		//If the subreport comes from a file, then we load it now
 		if (subreport.getPath() != null) {
 			JasperReport jr = null;
@@ -54,16 +81,16 @@ public class SubReportBuilder {
 					throw new DJBuilderException("Could not load subreport.",e);
 				}
 			}
-			
+
 			subreport.setReport(jr);
 		}
-		
+
 		return subreport;
 	}
-	
+
 	/**
 	 * Indicates from where to get the data source.<br>
-	 * 
+	 *
 	 * @param origin Must be one of these constans located in DJConstants inteface<br>
 	 * - SUBREPORT_DATAS_OURCE_ORIGIN_PARAMETER<br>
 	 * - SUBREPORT_DATAS_OURCE_ORIGIN_FIELD<br>
@@ -102,7 +129,7 @@ public class SubReportBuilder {
 	public SubReportBuilder setDataSource(String expression) {
 		return setDataSource(DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE, expression);
 	}
-	
+
 	public SubReportBuilder setReport(JasperReport jasperReport) {
 		subreport.setReport(jasperReport);
 		return this;
@@ -118,8 +145,8 @@ public class SubReportBuilder {
 		subreport.setPath(path);
 		return this;
 	}
-	
-	
-	
-	
+
+
+
+
 }

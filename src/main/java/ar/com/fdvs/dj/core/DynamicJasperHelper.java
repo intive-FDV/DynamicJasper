@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,20 +29,18 @@
 
 package ar.com.fdvs.dj.core;
 
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
-import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
+import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
+import ar.com.fdvs.dj.core.registration.ColumnsGroupRegistrationManager;
+import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.DynamicReportOptions;
+import ar.com.fdvs.dj.domain.constants.Page;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.util.DJCompilerFactory;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
@@ -59,23 +57,23 @@ import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.core.layout.LayoutManager;
-import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
-import ar.com.fdvs.dj.core.registration.ColumnsGroupRegistrationManager;
-import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
-import ar.com.fdvs.dj.domain.constants.Page;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.Subreport;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.util.DJCompilerFactory;
+import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.ResourceBundle;
 
 
 /**
@@ -158,7 +156,7 @@ public final class DynamicJasperHelper {
 		des.setSummary(new JRDesignBand());
 
 		des.setTitleNewPage(options.isTitleNewPage());
-		
+
 		des.setIgnorePagination(options.isIgnorePagination());
 
 		des.setName("DynamicReport");
@@ -231,13 +229,13 @@ public final class DynamicJasperHelper {
 				} catch (JRException e) {	}
 
 			}
-			
+
 			//Add all existing styles in the design to the new one
 			for (Iterator iterator = jd.getStylesList().iterator(); iterator.hasNext();) {
 				JRStyle style = (JRStyle) iterator.next();
 				try {
 					djd.addStyle(style);
-				} catch (JRException e) {					
+				} catch (JRException e) {
 					log.warn("Duplicated style (style name \""+ style.getName()+"\") when loading design: " + e.getMessage(), e);
 				}
 			}
@@ -267,7 +265,7 @@ public final class DynamicJasperHelper {
 
 	/**
 	 * Compiles and fills the reports design.
-	 * 
+	 *
 	 * @param dr the DynamicReport
 	 * @param layoutManager the object in charge of doing the layout
 	 * @param ds The datasource
@@ -278,12 +276,12 @@ public final class DynamicJasperHelper {
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, JRDataSource ds, Map _parameters) throws JRException {
 		log.info("generating JasperPrint");
 		JasperPrint jp = null;
-			
+
 			if (_parameters == null)
 				_parameters = new HashMap();
-			
+
 			compileOrLoadSubreports(dr, _parameters);
-		
+
 			DynamicJasperDesign jd = generateJasperDesign(dr);
 			Map params = new HashMap();
 			if (!_parameters.isEmpty()){
@@ -303,31 +301,31 @@ public final class DynamicJasperHelper {
     protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters) throws JRException {
     	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext();) {
 			ColumnsGroup group = (ColumnsGroup) iterator.next();
-			
+
 			//Header Subreports
 			for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext();) {
 				Subreport subreport = (Subreport) iterator2.next();
-				
+
 				if (subreport.getDynamicReport() != null){
 					 compileOrLoadSubreports(subreport.getDynamicReport(),_parameters);
 					 JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
 					 _parameters.put(jp.toString(), jp);
 					 subreport.setReport(jp);
 				}
-				
+
 			}
 
 			//Footer Subreports
 			for (Iterator iterator2 = group.getFooterSubreports().iterator(); iterator2.hasNext();) {
 				Subreport subreport = (Subreport) iterator2.next();
-				
+
 				if (subreport.getDynamicReport() != null){
 					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters);
 					JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
 					_parameters.put(jp.toString(), jp);
 					subreport.setReport(jp);
 				}
-				
+
 			}
 		}
 	}
@@ -378,9 +376,9 @@ public final class DynamicJasperHelper {
 		JasperReport jr = null;
 			if (generatedParams == null)
 				generatedParams = new HashMap();
-			
-			compileOrLoadSubreports(dr, generatedParams);			
-			
+
+			compileOrLoadSubreports(dr, generatedParams);
+
 			DynamicJasperDesign jd = generateJasperDesign(dr);
 			registerEntities(jd, dr);
 			layoutManager.applyLayout(jd, dr);

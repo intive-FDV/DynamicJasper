@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,18 +29,6 @@
 
 package ar.com.fdvs.dj.test.subreport;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -54,6 +42,18 @@ import ar.com.fdvs.dj.test.ChartReportTest;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.test.domain.Product;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConcatenatedReportTest extends TestCase {
 
@@ -61,8 +61,8 @@ public class ConcatenatedReportTest extends TestCase {
 
 	public DynamicReport buildReport() throws Exception {
 
-		
-		
+
+
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(24, Font._FONT_VERDANA, true));
 
@@ -74,22 +74,22 @@ public class ConcatenatedReportTest extends TestCase {
 		drb
 			.setTitleStyle(titleStyle)
 			.setTitle("Concatenated reports")					//defines the title of the report
-			.setSubtitle("All the reports shown here are concatenated as sub reports")				
+			.setSubtitle("All the reports shown here are concatenated as sub reports")
 			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setUseFullPageWidth(true)
 			.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER,AutoText.ALIGMENT_CENTER)
-			.addConcatenatedReport(createSubreport1(), new ClassicLayoutManager(), "statistics", 
+			.addConcatenatedReport(createSubreport1(), new ClassicLayoutManager(), "statistics",
 									DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
-			.addConcatenatedReport(createSubreport2(), "statistics", 
+			.addConcatenatedReport(createSubreport2(), "statistics",
 									DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
-		
+
 
 		//Add the data source of the sub-report as a parameter
 		params.put("statistics", Product.statistics_ );
 		//add the subreport to the main report builder
-		
-		//Add the data source of the sub-report as a parameter		
+
+		//Add the data source of the sub-report as a parameter
 		params.put("statisticsArray", Product.statistics_.toArray() );
 
 		/**
@@ -98,17 +98,17 @@ public class ConcatenatedReportTest extends TestCase {
 		//Create a subreport
 		ChartReportTest crt = new ChartReportTest();
 		JasperReport chartJr = DynamicJasperHelper.generateJasperReport(crt.buildReport(), new ClassicLayoutManager());
-		drb.addConcatenatedReport(chartJr, "subreportsDataSource", 
+		drb.addConcatenatedReport(chartJr, "subreportsDataSource",
 									DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
-		//Add the data source of the sub-report as a parameter		
+		//Add the data source of the sub-report as a parameter
 		params.put("subreportsDataSource", TestRepositoryProducts.getDummyCollection()  );
 
 		//thats it!!!!
 		DynamicReport dr = drb.build();
-		
+
 		return dr;
 	}
-	
+
 	public void testReport() throws Exception {
 			DynamicReport dr = buildReport();
 			Collection mainDataSource = new ArrayList();
@@ -120,7 +120,7 @@ public class ConcatenatedReportTest extends TestCase {
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/ConcatenatedReportTest.pdf");
 			JasperViewer.viewReport(jp);
-	}	
+	}
 
 	/**
 	 * Creates a dynamic reports and compiles it in order to be used

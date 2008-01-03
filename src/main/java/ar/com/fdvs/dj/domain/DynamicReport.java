@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -44,7 +44,7 @@ public class DynamicReport {
 	private String subtitle;
 	private Style titleStyle = new Style("reportTitleStyle");
 	private Style subtitleStyle = new Style("reportSubtitleStyle");
-	
+
 	private Locale reportLocale = Locale.getDefault();
 	private String resourceBundle = null;
 
@@ -52,19 +52,19 @@ public class DynamicReport {
 	private List columns = new ArrayList();
 	//<ColumnsGroup>
 	private List columnsGroups = new ArrayList();
-	
+
 	//<DJChart>
 	private List charts = new ArrayList();
-	
+
 	private DynamicReportOptions options;
-	
+
 	//Other fields to register, not necesary aigned to columns
 	private List fields = new ArrayList();
 
 	private String templateFileName = null;
-	
+
 	private List autoTexts = new ArrayList();
-	
+
 	private Map styles = new HashMap();
 
 	public void addStyle(Style style) {

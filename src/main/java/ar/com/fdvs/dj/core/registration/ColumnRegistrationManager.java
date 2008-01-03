@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,16 +29,6 @@
 
 package ar.com.fdvs.dj.core.registration;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRField;
-import net.sf.jasperreports.engine.design.JRDesignField;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -47,6 +37,14 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRField;
+import net.sf.jasperreports.engine.design.JRDesignField;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Manager invoked to register columns. An AbstractColumn is read and </br>
@@ -96,7 +94,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 						SimpleColumn simpleColumn = new SimpleColumn();
 						simpleColumn.setColumnProperty(columnProperty);
 						l.add(simpleColumn);
-						
+
 					}
 					expressionColumn.setColumns( l );
 					registerExpressionColumnParameter(expressionColumn.getColumnProperty().getProperty(), expressionColumn.getExpression());

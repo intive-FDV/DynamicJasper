@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,12 +29,12 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entity created to handle groups of columns.</br>
@@ -66,17 +66,17 @@ public class ColumnsGroup implements Entity {
 
 	private List headerCrosstabs = new ArrayList();
 	private List footerCrosstabs = new ArrayList();
-	
+
 	private Boolean startInNewPage = Boolean.FALSE;
 	private Boolean startInNewColumn = Boolean.FALSE;
-	
+
 	/**
 	 * Default Style for variables when showing in footer.
 	 * Firts looks for the style at the ColumnsGroupVariable, then the default, finally
 	 * it usses the columns style.
 	 */
 	private Style defaulFooterStyle;
-	
+
 	/**
 	 * Default Style for variables when showing in header.
 	 * The lookup order is the same as for "defaulFooterStyle"

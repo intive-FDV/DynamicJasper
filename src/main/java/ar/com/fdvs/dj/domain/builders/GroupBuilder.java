@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,8 +29,6 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.util.Iterator;
-
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
@@ -39,6 +37,8 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+
+import java.util.Iterator;
 
 /**
  * Builder created to give users a friendly way of adding groups to a report.</br>
@@ -57,7 +57,7 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 public class GroupBuilder {
 
 	private ColumnsGroup group = new ColumnsGroup();
-	
+
 	private Style defaultFooterVariableStyle;
 	private Style defaultHeaderVariableStyle;
 
@@ -68,13 +68,13 @@ public class GroupBuilder {
 			if (defaultHeaderVariableStyle != null)
 				var.setStyle(defaultHeaderVariableStyle);
 		}
-		
+
 		for (Iterator iterator = group.getFooterVariables().iterator(); iterator.hasNext();) {
 			ColumnsGroupVariable var = (ColumnsGroupVariable) iterator.next();
 			if (defaultFooterVariableStyle != null)
 				var.setStyle(defaultFooterVariableStyle);
 		}
-		
+
 		return group;
 	}
 
@@ -210,12 +210,12 @@ public class GroupBuilder {
 		group.setStartInNewPage(Boolean.valueOf(bool));
 		return this;
 	}
-	
+
 	public GroupBuilder setStartInNewColumn(Boolean bool) {
 		group.setStartInNewColumn(bool);
 		return this;
 	}
-	
+
 	public GroupBuilder setStartInNewColumn(boolean bool) {
 		group.setStartInNewColumn(Boolean.valueOf(bool));
 		return this;

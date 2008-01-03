@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,13 +29,6 @@
 
 package ar.com.fdvs.dj.test;
 
-import java.awt.Color;
-import java.util.Collection;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -57,6 +50,12 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.awt.Color;
+import java.util.Collection;
 
 public class ChartReportTest extends TestCase {
 
@@ -84,7 +83,7 @@ public class ChartReportTest extends TestCase {
 				.setTitleStyle(titleStyle)
 				.setTitle("November 2006 sales report")					//defines the title of the report
 				.setSubtitle("The items in this report correspond "
-					+"to the main products: DVDs, Books, Foods and Magazines")				
+					+"to the main products: DVDs, Books, Foods and Magazines")
 				.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 				.setMargins(margin, margin, margin, margin)
 				.setPrintBackgroundOnOddRows(true)
@@ -128,7 +127,7 @@ public class ChartReportTest extends TestCase {
 						headerStyle).build();
 
 		GroupBuilder gb1 = new GroupBuilder();
-		
+
 //		 define the criteria column to group by (columnState)
 		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState).addFooterVariable(columnAmount,
 						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
@@ -136,8 +135,8 @@ public class ChartReportTest extends TestCase {
 						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
 				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
-		
-		
+
+
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
 		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,
@@ -157,7 +156,7 @@ public class ChartReportTest extends TestCase {
 		drb.addGroup(g2); // add group g2
 
 		drb.setUseFullPageWidth(true);
-		
+
 		DJChartBuilder cb = new DJChartBuilder();
 		DJChart chart =  cb.addType(DJChart.BAR_CHART)
 						.addOperation(DJChart.CALCULATION_SUM)
@@ -170,7 +169,7 @@ public class ChartReportTest extends TestCase {
 		drb.addChart(chart); //add chart
 
 		DynamicReport dr = drb.build();
-		
+
 		return dr;
 	}
 

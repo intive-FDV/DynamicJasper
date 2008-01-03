@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,11 +29,12 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
-import java.util.ArrayList;
-import java.util.List;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.Entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract Class used as base for the different Column types.

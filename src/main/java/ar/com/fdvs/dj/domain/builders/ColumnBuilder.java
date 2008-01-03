@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,11 +29,6 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.ColumnProperty;
@@ -48,6 +43,11 @@ import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
+
 /**
  * Builder created to give users a friendly way of adding columns to a report.</br>
  * </br>
@@ -61,7 +61,7 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
  * </br>
  */
 public class ColumnBuilder {
-	
+
 	public static final int COLUMN_TYPE_DEFAULT = 0;
 	public static final int COLUMN_TYPE_IMAGE = 1;
 	public static final int COLUMN_TYPE_BARCODE = 2;
@@ -80,12 +80,12 @@ public class ColumnBuilder {
 	private ColumnOperation operation;
 	private List operationColumns;
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
-	
+
 	private int columnType = COLUMN_TYPE_DEFAULT;
-	
-	
+
+
 	/**
-	 * For BARCODE columns 
+	 * For BARCODE columns
 	 */
 	private int barcodeType;
 	private String applicationIdentifier;
@@ -103,10 +103,10 @@ public class ColumnBuilder {
 
 		if (columnType == COLUMN_TYPE_IMAGE){
 			return buildSimpleImageColumn();
-		}		
+		}
 		else if (columnType == COLUMN_TYPE_BARCODE){
 			return buildSimpleBarcodeColumn();
-		}		
+		}
 		else if (columnProperty != null) {
 			return buildSimpleColumn();
 		} else if (customExpression==null) {
@@ -115,7 +115,7 @@ public class ColumnBuilder {
 			return buildExpressionColumn();
 		}
 	}
-	
+
 	/**
 	 * When creating barcode columns
 	 * @return
@@ -215,12 +215,12 @@ public class ColumnBuilder {
 		this.pattern = pattern;
 		return this;
 	}
-	
+
 	public ColumnBuilder setPattern(String pattern) {
 		this.pattern = pattern;
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param bool
@@ -230,12 +230,12 @@ public class ColumnBuilder {
 		this.printRepeatedValues = bool;
 		return this;
 	}
-	
+
 	public ColumnBuilder setPrintRepeatedValues(boolean bool) {
 		this.printRepeatedValues = bool;
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param bool
@@ -263,7 +263,7 @@ public class ColumnBuilder {
 		this.width = width;
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param width
@@ -383,21 +383,21 @@ public class ColumnBuilder {
 		}
 		return this;
 	}
-	
+
 /**
  * @deprecated
  * @param bool
  * @return
- */	
+ */
 	public ColumnBuilder addFixedWidth(boolean bool) {
 		this.fixedWidth = Boolean.valueOf(bool);
 		return this;
-	}	
+	}
 	public ColumnBuilder setFixedWidth(boolean bool) {
 		this.fixedWidth = Boolean.valueOf(bool);
 		return this;
-	}	
-	
+	}
+
 	/**
 	 * @deprecated
 	 * @param bool
@@ -406,11 +406,11 @@ public class ColumnBuilder {
 	public ColumnBuilder addFixedWidth(Boolean bool) {
 		this.fixedWidth = bool;
 		return this;
-	}	
+	}
 	public ColumnBuilder setFixedWidth(Boolean bool) {
 		this.fixedWidth = bool;
 		return this;
-	}	
+	}
 
 	/**
 	 * For image columns use: {@link #COLUMN_TYPE_IMAGE} or {@link #COLUMN_TYPE_BARCODE}
@@ -420,43 +420,43 @@ public class ColumnBuilder {
 	public ColumnBuilder setColumnType(int columnType) {
 		this.columnType = columnType;
 		return this;
-	}	
+	}
 
 	public ColumnBuilder setImageScaleMode(ImageScaleMode imageScaleMode) {
 		this.imageScaleMode = imageScaleMode;
 		return this;
-	}	
-	
+	}
+
 	public ColumnBuilder setCommonProperties(String title, String property, String className, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
 		setColumnProperty(new ColumnProperty(property, className));
 		setWidth(Integer.valueOf(width));
 		setTitle(title);
 		setFixedWidth(Boolean.valueOf(fixedWidth));
 		return this;
-	}	
-	
-	
-	
+	}
+
+
+
 	/**
-	 * 
+	 *
 	 * @param barcodeType use constanst defined in {@link BarcodeTypes}
 	 * @return
 	 */
 	public ColumnBuilder setBarcodeType(int barcodeType) {
 		this.barcodeType = barcodeType;
 		return this;
-	}	
+	}
 
 	public ColumnBuilder setShowText(boolean showText) {
 		this.showText  = showText;
 		return this;
-	}	
+	}
 	public ColumnBuilder setCheckSum(boolean checkSum) {
 		this.checkSum  = checkSum;
 		return this;
-	}	
-	
-	
+	}
+
+
 	/**
 	 * Only used when barcode type is UCCEAN128
 	 * @param applicationIdentifier
@@ -465,6 +465,6 @@ public class ColumnBuilder {
 	public ColumnBuilder setApplicationIdentifier(String applicationIdentifier) {
 		this.applicationIdentifier = applicationIdentifier;
 		return this;
-	}	
+	}
 
 }

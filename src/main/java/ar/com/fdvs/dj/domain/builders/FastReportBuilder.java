@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,13 +29,6 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.awt.Color;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
-
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -53,6 +46,13 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+
+import java.awt.Color;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Builder created to give users a friendly way of creating a DynamicReport.</br>
@@ -79,7 +79,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	Style subtitleStyle;
 
 	protected int groupCount = 0;
-	
+
 //	protected Map headerGroupVariables = new TreeMap();
 //	protected Map footerGroupVariables = new TreeMap();
 
@@ -144,14 +144,14 @@ public class FastReportBuilder extends DynamicReportBuilder {
 			.setTitle(title)
 			.setFixedWidth(Boolean.valueOf(fixedWidth))
 			.build();
-		
+
 		guessStyle(className, column);
-		
+
 		addColumn(column);
-		
+
 		return this;
 	}
-	
+
 	public FastReportBuilder addImageColumn(String title, String property, int width, boolean fixedWidth, ImageScaleMode imageScaleMode) throws ColumnBuilderException, ClassNotFoundException {
 		String className = InputStream.class.getName();
 		AbstractColumn column = ColumnBuilder.getInstance()
@@ -162,14 +162,14 @@ public class FastReportBuilder extends DynamicReportBuilder {
 			.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
 			.setImageScaleMode(imageScaleMode)
 			.build();
-		
+
 		guessStyle(className, column);
-		
+
 		addColumn(column);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * By default uses InputStream as the type of the image
 	 * @param title
@@ -192,16 +192,16 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
 		.setStyle(style)
 		.build();
-		
+
 		guessStyle(className, column);
-		
+
 		addColumn(column);
-		
+
 		return this;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param title
 	 * @param property
 	 * @param className valid class names are: InputStream and java.awt.Image
@@ -222,15 +222,15 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
 		.setStyle(style)
 		.build();
-		
+
 		if (style == null)
 			guessStyle(className, column);
-		
+
 		addColumn(column);
-		
+
 		return this;
 	}
-	
+
 	public FastReportBuilder addBarcodeColumn(String title, String property, String className, int barcodeType, boolean showText, int width, boolean fixedWidth, ImageScaleMode imageScaleMode) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getInstance()
 		.setColumnProperty(property, className)
@@ -242,14 +242,14 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.setBarcodeType(barcodeType)
 		.setShowText(showText)
 		.build();
-		
+
 //		guessStyle(className, column); //NOT FOR BARCODE!!!
-		
+
 		addColumn(column);
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * By default uses InputStream as the type of the image
 	 * @param title
@@ -273,17 +273,17 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.setBarcodeType(barcodeType)
 		.setShowText(showText)
 		.build();
-		
+
 		if (style == null)
 			guessStyle(className, column);
-		
+
 		addColumn(column);
-		
+
 		return this;
 	}
-	
+
 /**
- * 
+ *
  * @param title
  * @param property
  * @param className  valid class names are: InputStream and java.awt.Image
@@ -312,16 +312,16 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.setShowText(showText)
 		.setCheckSum(checkSum)
 		.build();
-		
+
 		if (applicationIdentifier != null){
 			addField(applicationIdentifier,  Object.class.getName());
 		}
-		
+
 		if (style == null)
 			guessStyle(className, column);
-		
+
 		addColumn(column);
-		
+
 		return this;
 	}
 
@@ -333,11 +333,11 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.setFixedWidth(Boolean.valueOf(fixedWidth))
 		.setPattern(pattern)
 		.build();
-		
+
 		guessStyle(className, column);
-		
+
 		addColumn(column);
-		
+
 		return this;
 	}
 
@@ -350,17 +350,17 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.setPattern(pattern)
 		.setStyle(style)
 		.build();
-		
+
 		if (style == null)
 			guessStyle(className, column);
-		
+
 		addColumn(column);
-		
+
 		return this;
 	}
 
 	protected void guessStyle(String className, AbstractColumn column) throws ClassNotFoundException {
-		
+
 		Class clazz = Class.forName(className);
 		if (BigDecimal.class.isAssignableFrom(clazz) || Float.class.isAssignableFrom(clazz) || Double.class.isAssignableFrom(clazz)) {
 			if (column.getPattern() == null)
@@ -390,15 +390,15 @@ public class FastReportBuilder extends DynamicReportBuilder {
 			PropertyColumn col = (PropertyColumn) report.getColumns().get(i);
 			gb.setCriteriaColumn(col);
 			report.getColumnsGroups().add(gb.build());
-		}		
+		}
 		return this;
 	}
-	
+
 	public FastReportBuilder setGroupLayout(int groupNumber, GroupLayout layout) throws BuilderException {
 		ColumnsGroup group = getGroupByNumber(groupNumber);
 		group.setLayout(layout);
 		return this;
-	}	
+	}
 
 	public FastReportBuilder addGlobalHeaderVariable(int colNumber, ColumnsGroupVariableOperation op, Style style) {
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
@@ -410,7 +410,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		this.globalHeaderVariables.add(new ColumnsGroupVariable(column, op, style));
 		return this;
 	}
-	
+
 	public FastReportBuilder addHeaderVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style) throws BuilderException {
 		ColumnsGroup group = getGroupByNumber(groupNum);
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
@@ -436,24 +436,24 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		}
 		return group;
 	}
-	
+
 	public FastReportBuilder addGlobalFooterVariable(int colNumber, ColumnsGroupVariableOperation op, Style style) {
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
 		if (this.globalFooterVariables == null)
 			this.globalFooterVariables = new ArrayList();
 		if (style == null)
 			style = numberStyle;
-		
+
 		this.globalFooterVariables.add(new ColumnsGroupVariable(column, op, style));
 		return this;
 	}
-	
+
 	public FastReportBuilder addFooterVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style) throws BuilderException {
-		ColumnsGroup group = getGroupByNumber(groupNum);		
+		ColumnsGroup group = getGroupByNumber(groupNum);
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
 		if (style == null)
 			style = numberStyle;
-		
+
 		ColumnsGroupVariable columnsGroupVariable = new ColumnsGroupVariable(column, op, style);
 		group.getFooterVariables().add(columnsGroupVariable);
 		return this;

@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,13 +29,6 @@
 
 package ar.com.fdvs.dj.test.groups;
 
-import java.awt.Color;
-import java.util.Collection;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -56,6 +49,13 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+import java.awt.Color;
+import java.util.Collection;
 
 public class HiddenColumnReportTest2 extends TestCase {
 
@@ -70,7 +70,7 @@ public class HiddenColumnReportTest2 extends TestCase {
 //		specialHeaderStyle.setBackgroundColor(Color.DARK_GRAY);
 //		specialHeaderStyle.setTextColor(Color.WHITE);
 //		specialHeaderStyle.setTransparency(Transparency.OPAQUE);
-		
+
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
 		headerStyle.setBorderBottom(Border.PEN_2_POINT);
@@ -78,7 +78,7 @@ public class HiddenColumnReportTest2 extends TestCase {
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		headerStyle.setBackgroundColor(Color.DARK_GRAY);
 		headerStyle.setTextColor(Color.WHITE);
-		headerStyle.setTransparency(Transparency.OPAQUE);		
+		headerStyle.setTransparency(Transparency.OPAQUE);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
@@ -88,7 +88,7 @@ public class HiddenColumnReportTest2 extends TestCase {
 		oddRowStyle.setBorder(Border.NO_BORDER);
 		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
-		
+
 		Style specialDetailStyle = new Style();
 		specialDetailStyle.setFont(new Font(20,"Arial",true));
 
@@ -102,7 +102,7 @@ public class HiddenColumnReportTest2 extends TestCase {
 			.setTitleStyle(titleStyle)
 			.setTitle("November 2006 sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
-					+"to the main products: DVDs, Books, Foods and Magazines")				
+					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
@@ -147,7 +147,7 @@ public class HiddenColumnReportTest2 extends TestCase {
 						headerStyle).build();
 
 		GroupBuilder gb1 = new GroupBuilder();
-		
+
 //		 define the criteria column to group by (columnState)
 		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState).addFooterVariable(columnAmount,
 						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
@@ -185,7 +185,7 @@ public class HiddenColumnReportTest2 extends TestCase {
 		DynamicReport dr = buildReport();
 		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-		
+
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/HiddenColumnReportTest.pdf");

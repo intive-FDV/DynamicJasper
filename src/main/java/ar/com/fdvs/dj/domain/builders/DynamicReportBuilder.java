@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,15 +29,6 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import net.sf.jasperreports.engine.JasperReport;
-
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -56,6 +47,14 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
+import net.sf.jasperreports.engine.JasperReport;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Builder created to give users a friendly way of creating a DynamicReport.</br>
@@ -90,31 +89,31 @@ public class DynamicReportBuilder {
 
 	protected ArrayList concatenatedReports = new ArrayList();
 	private Style grandTotalStyle;
-	
+
 	public DynamicReportBuilder addAutoText(AutoText text) {
 		if (this.autoTexts == null)
 			this.autoTexts = new ArrayList();
 		autoTexts.add(text);
 		return this;
 	}
-	
+
 	/**
 	 * Adds an autotext to the Report, this are common texts such us "Page X/Y", "Created on 07/25/2007", etc.
 	 * <br>
 	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
-	 * 
+	 *
 	 * @param type  One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br> AUTOTEXT_PAGE_X_SLASH_Y <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
-	 * 
+	 *
 	 * @param position  POSITION_HEADER or POSITION_FOOTER
 	 * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
 	 * @param pattern   only for dates:  <br>PATTERN_DATE_DATE_ONLY <br> PATTERN_DATE_TIME_ONLY <br> PATTERN_DATE_DATE_TIME
-	 * @return 
+	 * @return
 	 */
 	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment,byte pattern) {
 		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
 		AutoText text = new AutoText(type,position,alignment_,pattern);
 		addAutoText(text);
-		
+
 		return this;
 	}
 
@@ -126,7 +125,7 @@ public class DynamicReportBuilder {
 	 * @param message   The text to show
 	 * @param position  POSITION_HEADER or POSITION_FOOTER
 	 * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
-	 * @return 
+	 * @return
 	 */
 	public DynamicReportBuilder addAutoText(String message, byte position, byte alignment) {
 		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
@@ -134,17 +133,17 @@ public class DynamicReportBuilder {
 		addAutoText(text);
 		return this;
 	}
-	
+
 	/**
  	 * Adds an autotext to the Report, this are common texts such us "Page X/Y", "Created on 07/25/2007", etc.
 	 * <br>
 	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
-	 * 
-	 * @param type       One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br> AUTOTEXT_PAGE_X_SLASH_Y 
+	 *
+	 * @param type       One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br> AUTOTEXT_PAGE_X_SLASH_Y
 	 * <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
 	 * @param position   POSITION_HEADER or POSITION_FOOTER
 	 * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
-	 * @return 
+	 * @return
 	 */
 	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment) {
 		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
@@ -152,22 +151,22 @@ public class DynamicReportBuilder {
 		addAutoText(text);
 		return this;
 	}
-	
+
 	public DynamicReport build(){
 		report.setOptions(options);
 		if (globalFooterVariables != null || globalHeaderVariables != null) {
 			ColumnsGroup globalGroup = createDummyGroup();
-			report.getColumnsGroups().add(0,globalGroup);			
+			report.getColumnsGroups().add(0,globalGroup);
 		}
-		
-		
+
+
 		addGlobalCrosstabs();
-		
+
 		addSubreportsToGroups();
-		
+
 		concatenateReports();
-		
-		
+
+
 		report.setAutoTexts(autoTexts);
 		return report;
 	}
@@ -180,7 +179,7 @@ public class DynamicReportBuilder {
 				DJCrosstab djcross = (DJCrosstab) iterator.next();
 				ColumnsGroup globalGroup = createDummyGroupForCrosstabs("crosstabHeaderGroup-" + globalHeaderCrosstabs.indexOf(djcross));
 				globalGroup.getHeaderCrosstabs().add(djcross);
-				report.getColumnsGroups().add(0,globalGroup);			
+				report.getColumnsGroups().add(0,globalGroup);
 			}
 		}
 
@@ -190,10 +189,10 @@ public class DynamicReportBuilder {
 				DJCrosstab djcross = (DJCrosstab) iterator.next();
 				ColumnsGroup globalGroup = createDummyGroupForCrosstabs("crosstabFooterGroup-" + globalFooterCrosstabs.indexOf(djcross));
 				globalGroup.getFooterCrosstabs().add(djcross);
-				report.getColumnsGroups().add(0,globalGroup);			
+				report.getColumnsGroups().add(0,globalGroup);
 			}
 		}
-		
+
 	}
 
 	/**
@@ -204,19 +203,19 @@ public class DynamicReportBuilder {
 		for (Iterator iterator = groupFooterSubreports.keySet().iterator(); iterator.hasNext();) {
 			Integer groupNum = (Integer) iterator.next();
 			List list = (List) groupFooterSubreports.get(groupNum);
-			
+
 			ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
-			group.getFooterSubreports().addAll(list);			
+			group.getFooterSubreports().addAll(list);
 		}
-		
+
 		for (Iterator iterator = groupHeaderSubreports.keySet().iterator(); iterator.hasNext();) {
 			Integer groupNum = (Integer) iterator.next();
 			List list = (List) groupHeaderSubreports.get(groupNum);
-			
+
 			ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
-			group.getHeaderSubreports().addAll(list);			
+			group.getHeaderSubreports().addAll(list);
 		}
-		
+
 	}
 
 	/**
@@ -243,22 +242,22 @@ public class DynamicReportBuilder {
 		globalCol.setTitle(grandTotalLegend);
 		globalCol.setHeaderStyle(grandTotalStyle);
 		globalCol.setStyle(grandTotalStyle);
-		
+
 		globalGroup.setColumnToGroupBy(globalCol);
 		globalGroup.setHeaderVariables(globalHeaderVariables);
 		globalGroup.setFooterVariables(globalFooterVariables);
 		return globalGroup;
 	}
-	
+
 	private ColumnsGroup createDummyGroupForCrosstabs(String name) {
 		ColumnsGroup globalGroup = new ColumnsGroup();
 		globalGroup.setLayout(GroupLayout.EMPTY);
 		GlobalGroupColumn globalCol = new GlobalGroupColumn(name );
-		
+
 		globalCol.setTitle(grandTotalLegend);
 		globalCol.setHeaderStyle(grandTotalStyle);
 		globalCol.setStyle(grandTotalStyle);
-		
+
 		globalGroup.setColumnToGroupBy(globalCol);
 		return globalGroup;
 	}
@@ -271,7 +270,7 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addTitle(String title) {
 		return setTitle(title);
 	}
-	
+
 	public DynamicReportBuilder setTitle(String title) {
 		report.setTitle(title);
 		return this;
@@ -285,7 +284,7 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addSubtitle(String subtitle) {
 		return setSubtitle(subtitle);
 	}
-	
+
 	public DynamicReportBuilder setSubtitle(String subtitle) {
 		report.setSubtitle(subtitle);
 		return this;
@@ -309,12 +308,12 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addHeaderHeight(Integer height) {
 		return setHeaderHeight(height);
 	}
-	
+
 	public DynamicReportBuilder setHeaderHeight(Integer height) {
 		options.setHeaderHeight(height);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param height
@@ -343,7 +342,7 @@ public class DynamicReportBuilder {
 		options.setFooterHeight(height);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param height
@@ -368,12 +367,12 @@ public class DynamicReportBuilder {
 		options.setDetailHeight(height);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setDetailHeight(Integer height) {
 		options.setDetailHeight(height);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param height
@@ -383,7 +382,7 @@ public class DynamicReportBuilder {
 		options.setDetailHeight(Integer.valueOf(height));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setDetailHeight(int height) {
 		options.setDetailHeight(Integer.valueOf(height));
 		return this;
@@ -398,12 +397,12 @@ public class DynamicReportBuilder {
 		options.setLeftMargin(margin);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setLeftMargin(Integer margin) {
 		options.setLeftMargin(margin);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param margin
@@ -413,7 +412,7 @@ public class DynamicReportBuilder {
 		options.setLeftMargin(Integer.valueOf(margin));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setLeftMargin(int margin) {
 		options.setLeftMargin(Integer.valueOf(margin));
 		return this;
@@ -433,7 +432,7 @@ public class DynamicReportBuilder {
 		options.setRightMargin(margin);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param margin
@@ -443,7 +442,7 @@ public class DynamicReportBuilder {
 		options.setRightMargin(Integer.valueOf(margin));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setRightMargin(int margin) {
 		options.setRightMargin(Integer.valueOf(margin));
 		return this;
@@ -458,12 +457,12 @@ public class DynamicReportBuilder {
 		options.setTopMargin(margin);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setTopMargin(Integer margin) {
 		options.setTopMargin(margin);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param margin
@@ -491,7 +490,7 @@ public class DynamicReportBuilder {
 		options.setBottomMargin(margin);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param margin
@@ -519,7 +518,7 @@ public class DynamicReportBuilder {
 		options.setColumnsPerPage(numColumns);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param numColumns
@@ -533,7 +532,7 @@ public class DynamicReportBuilder {
 		options.setColumnsPerPage(Integer.valueOf(numColumns));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setColumnsPerPage(int numColumns, int columnSpace) {
 		options.setColumnsPerPage(Integer.valueOf(numColumns));
 		options.setColumnSpace(Integer.valueOf(columnSpace));
@@ -592,7 +591,7 @@ public class DynamicReportBuilder {
 		options.setIgnorePagination(bool);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param useFullwidth
@@ -606,7 +605,7 @@ public class DynamicReportBuilder {
 		options.setUseFullPageWidth(useFullwidth);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param useFullwidth
@@ -662,7 +661,7 @@ public class DynamicReportBuilder {
 		this.options.setPrintBackgroundOnOddRows(printBackgroundOnOddRows);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param printBackgroundOnOddRows
@@ -736,7 +735,7 @@ public class DynamicReportBuilder {
 		this.globalFooterVariables.add(new ColumnsGroupVariable(col, op));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, ColumnsGroupVariableOperation op, Style style) {
 		if (this.globalFooterVariables == null)
 			this.globalFooterVariables = new ArrayList();
@@ -775,7 +774,7 @@ public class DynamicReportBuilder {
 	/**
 	 * Defines the page size and orientation.<br/>
 	 * Common pages size and orientation are constants of ar.com.fdvs.dj.domain.constants.Page
-	 *  
+	 *
 	 * @param page
 	 * @return
 	 */
@@ -783,7 +782,7 @@ public class DynamicReportBuilder {
 		options.setPage(page);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param page
@@ -807,7 +806,7 @@ public class DynamicReportBuilder {
 	}
 
 	/**
-	 * Registers a field that is not necesary bound to a column, it can be used in a 
+	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
 	 * @param name
 	 * @param className
@@ -819,7 +818,7 @@ public class DynamicReportBuilder {
 	}
 
 	/**
-	 * Registers a field that is not necesary bound to a column, it can be used in a 
+	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
 	 * @param name
 	 * @param className
@@ -839,7 +838,7 @@ public class DynamicReportBuilder {
 		report.setTemplateFileName(path);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param path
@@ -849,7 +848,7 @@ public class DynamicReportBuilder {
 		report.setTemplateFileName(path);
 		return this;
 	}
-	
+
 	/**
 	 * @deprecated
 	 * @param top
@@ -859,39 +858,39 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addMargins(int top, int bottom, int left, int right) {
-		
+
 		options.setTopMargin(Integer.valueOf(top));
 		options.setBottomMargin(Integer.valueOf(bottom));
 		options.setLeftMargin(Integer.valueOf(left));
 		options.setRightMargin(Integer.valueOf(right));
-		
+
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setMargins(int top, int bottom, int left, int right) {
-		
+
 		options.setTopMargin(Integer.valueOf(top));
 		options.setBottomMargin(Integer.valueOf(bottom));
 		options.setLeftMargin(Integer.valueOf(left));
 		options.setRightMargin(Integer.valueOf(right));
-		
+
 		return this;
 	}
-	
-	
+
+
 	public DynamicReportBuilder setDefaultStyles(Style title, Style subtitle, Style columnHeader, Style columDetail) {
-		if (columDetail != null) 
+		if (columDetail != null)
 			options.setDefaultDetailStyle(columDetail);
-		
+
 		if (columnHeader != null)
 			options.setDefaultHeaderStyle(columnHeader);
-		
+
 		if (subtitle != null)
 			report.setSubtitleStyle(subtitle);
 
 		if (title != null)
 			report.setTitleStyle(title);
-		
+
 		return this;
 	}
 	/**
@@ -941,7 +940,7 @@ public class DynamicReportBuilder {
 		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setDynamicReport(dynamicReport,layoutManager)
 		.build();
-	
+
 		concatenatedReports.add(subreport);
 		return this;
 	}
@@ -951,11 +950,11 @@ public class DynamicReportBuilder {
 		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setReport(jasperReport)
 		.build();
-		
+
 		concatenatedReports.add(subreport);
 		return this;
 	}
-	
+
 
 	/**
 	 * Adds in the group (starts with 1) "groupNumber" a subreport in the footer band
@@ -971,29 +970,29 @@ public class DynamicReportBuilder {
 			list = new ArrayList();
 			groupFooterSubreports.put(groupNum, list);
 		}
-		list.add(subreport);	
+		list.add(subreport);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
 		Subreport subreport = new SubReportBuilder()
 			.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 			.setDynamicReport(dynamicReport,layoutManager)
 			.build();
-		
+
 		return addSubreportInGroupFooter(groupNumber, subreport);
 	}
 
 	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, String pathToSubreport, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
-		
+
 		Subreport subreport = new SubReportBuilder()
 		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setPathToReport(pathToSubreport)
 		.build();
-		
+
 		return addSubreportInGroupFooter(groupNumber, subreport);
 	}
-	
+
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, Subreport subreport) {
 		Integer groupNum = Integer.valueOf(groupNumber);
 		List list = (List) groupHeaderSubreports.get(groupNum);
@@ -1001,29 +1000,29 @@ public class DynamicReportBuilder {
 			list = new ArrayList();
 			groupHeaderSubreports.put(groupNum, list);
 		}
-		list.add(subreport);	
+		list.add(subreport);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
 		Subreport subreport = new SubReportBuilder()
 		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setDynamicReport(dynamicReport,layoutManager)
 		.build();
-		
+
 		return addSubreportInGroupHeader(groupNumber, subreport);
 	}
-	
+
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, String pathToSubreport, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
-		
+
 		Subreport subreport = new SubReportBuilder()
 		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setPathToReport(pathToSubreport)
 		.build();
-		
+
 		return addSubreportInGroupHeader(groupNumber, subreport);
 	}
-	
+
 	/**
 	 * You can register styles object for later reference them directly.
 	 * Parent styles should be registered this way
@@ -1034,9 +1033,9 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addStyle(Style style) throws DJBuilderException {
 		if (style.getName() == null)
 			throw new DJBuilderException("Invalid style. The style must have a name");
-		
+
 		report.addStyle(style);
-		
+
 		return this;
 	}
 
@@ -1049,7 +1048,7 @@ public class DynamicReportBuilder {
 		this.grandTotalStyle = grandTotalStyle;
 		return this;
 	}
-	
+
 	/**
 	 * Adds a crosstab in the header, before the the data
 	 * @param cross
@@ -1060,8 +1059,8 @@ public class DynamicReportBuilder {
 			this.globalHeaderCrosstabs = new ArrayList();
 		this.globalHeaderCrosstabs.add(cross);
 		return this;
-	}	
-	
+	}
+
 	/**
 	 * Adds a crosstab in the footer of the report (at the end of all data)
 	 * @param cross
@@ -1072,6 +1071,6 @@ public class DynamicReportBuilder {
 			this.globalFooterCrosstabs = new ArrayList();
 		this.globalFooterCrosstabs.add(cross);
 		return this;
-	}	
+	}
 
 }

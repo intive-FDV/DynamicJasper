@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,41 +29,27 @@
 
 package ar.com.fdvs.dj.test.subreport;
 
-import java.awt.Color;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
+import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.builders.SubReportBuilder;
+import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.test.ReportExporter;
+import ar.com.fdvs.dj.test.TestRepositoryProducts;
+import ar.com.fdvs.dj.test.domain.Product;
+import ar.com.fdvs.dj.util.SortUtils;
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
-import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
-import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.builders.GroupBuilder;
-import ar.com.fdvs.dj.domain.builders.SubReportBuilder;
-import ar.com.fdvs.dj.domain.constants.Border;
-import ar.com.fdvs.dj.domain.constants.Font;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.constants.Stretching;
-import ar.com.fdvs.dj.domain.constants.Transparency;
-import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.Subreport;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.test.ReportExporter;
-import ar.com.fdvs.dj.test.TestRepositoryProducts;
-import ar.com.fdvs.dj.test.domain.Product;
-import ar.com.fdvs.dj.util.SortUtils;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SubReportBuilderTest extends TestCase {
 
@@ -82,8 +68,8 @@ public class SubReportBuilderTest extends TestCase {
 			.addGroups(2)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
-			.setUseFullPageWidth(true);	
-		
+			.setUseFullPageWidth(true);
+
 		/**
 		 * Create the subreport. Note that the "subreport" object is then passed
 		 * as parameter to the GroupBuilder
@@ -94,22 +80,22 @@ public class SubReportBuilderTest extends TestCase {
 										"statistics")
 						.setDynamicReport(createFooterSubreport(), new ClassicLayoutManager())
 						.build();
-		
+
 		drb.addSubreportInGroupFooter(1, subreport);
 
 		/**
 		 * add in a map the paramter with the data source to use in the subreport.
 		 * The "params" map is later passed to the DynamicJasperHelper.generateJasperPrint(...)
 		 */
-		params.put("statistics", Product.statistics_  ); // the 2nd param is a static Collection	
+		params.put("statistics", Product.statistics_  ); // the 2nd param is a static Collection
 
 		/**
 		 * Create the group and add the subreport (as a Fotter subreport)
 		 */
 		drb.setUseFullPageWidth(true);
-		
+
 		DynamicReport dr = drb.build();
-		
+
 		return dr;
 	}
 
@@ -117,13 +103,13 @@ public class SubReportBuilderTest extends TestCase {
 		DynamicReport dr = buildReport();
 		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 		dummyCollection = SortUtils.sortCollection(dummyCollection, dr.getColumns());
-		
+
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/SubReportBuilderTest.pdf");
 		JasperViewer.viewReport(jp);
 	}
-	
+
 	/**
 	 * Created and compiles dynamically a report to be used as subreportr
 	 * @return

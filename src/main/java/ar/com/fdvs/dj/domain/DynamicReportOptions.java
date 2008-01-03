@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,9 +29,9 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.util.HashMap;
-
 import ar.com.fdvs.dj.domain.constants.Page;
+
+import java.util.HashMap;
 
 /**
  * Class that defines the report configuration.
@@ -59,35 +59,35 @@ public class DynamicReportOptions {
 	private Integer titleHeight =  new Integer(30);
 	private boolean titleNewPage =  false;
 	private Integer subtitleHeight = new Integer(15);
-	
+
 	/**
 	 * When false, no main column names (usefull for excel)
 	 */
 	private boolean printColumnNames =  true;
-	
+
 	/**
 	 * When true, no page break at all
 	 */
 	private boolean ignorePagination =  false;
-	
+
 	private Style defaultHeaderStyle = new Style("defaultHeaderStyle");
 	private Style defaultDetailStyle = new Style("defaultDetailStyle");
 	private Style defaultFooterStyle = new Style("defaultFooterStyle");
 	private Style defaultGroupHeaderStyle = new Style("defaultGroupHeaderStyle");
 	private Style defaultGroupFooterStyle = new Style("defaultGroupFooterStyle");
-	
+
 	/**
 	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
 	 * value: ImageBanner
 	 */
 	private HashMap imageBanners = new HashMap();
-	
+
 	/**
 	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
 	 * value: ImageBanner
-	 */	
+	 */
 	private HashMap firstPageImageBanners = new HashMap();
-	
+
 	public HashMap getImageBanners() {
 		return imageBanners;
 	}

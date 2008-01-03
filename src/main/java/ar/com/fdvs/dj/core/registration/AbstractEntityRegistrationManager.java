@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,20 +29,19 @@
 
 package ar.com.fdvs.dj.core.registration;
 
-import java.util.Collection;
-import java.util.Iterator;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.design.JRDesignParameter;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.design.JRDesignParameter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.Collection;
+import java.util.Iterator;
 
 /**
  * Abstract Class used as base for the different Entities Registration Managers.</br>
@@ -64,7 +63,7 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 	private static final Log log = LogFactory.getLog(AbstractEntityRegistrationManager.class);
 
 	private DynamicJasperDesign djd;
-	
+
 	private Collection columns;
 
 	private DynamicReport dynamicReport;

@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,13 +29,6 @@
 
 package ar.com.fdvs.dj.test;
 
-import java.awt.Color;
-import java.util.Collection;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -55,6 +48,13 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+import java.awt.Color;
+import java.util.Collection;
 
 public class ImageBannerReportTest extends TestCase {
 
@@ -68,7 +68,7 @@ public class ImageBannerReportTest extends TestCase {
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		headerStyle.setBackgroundColor(Color.DARK_GRAY);
 		headerStyle.setTextColor(Color.WHITE);
-		headerStyle.setTransparency(Transparency.OPAQUE);	
+		headerStyle.setTransparency(Transparency.OPAQUE);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18,Font._FONT_VERDANA,true));
@@ -82,7 +82,7 @@ public class ImageBannerReportTest extends TestCase {
 			drb.setTitleStyle(titleStyle)
 			.setTitle("November 2006 sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
-					+"to the main products: DVDs, Books, Foods and Magazines")			
+					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setDetailHeight(new Integer(15))
 			.setLeftMargin(margin)
 			.setRightMargin(margin)
@@ -129,14 +129,14 @@ public class ImageBannerReportTest extends TestCase {
 			.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)		//tell the group place a variable in the footer
 																					//of the column "columnAmount" with the SUM of all
 																					//values of the columnAmount in this group.
-			
+
 			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)	//idem for the columnaQuantity column
 			.setGroupLayout(GroupLayout.DEFAULT)				//tells the group how to be shown, there are many
 																					//posibilities, see the GroupLayout for more.
 			.build();
-		
+
 		GroupBuilder gb2 = new GroupBuilder();										//Create another group (using another column as criteria)
-		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch)		//and we add the same operations for the columnAmount and 
+		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch)		//and we add the same operations for the columnAmount and
 			.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)		//columnaQuantity columns
 			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
 			.build();
@@ -164,7 +164,7 @@ public class ImageBannerReportTest extends TestCase {
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);	//Create a JRDataSource, the Collection used
-			
+
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ImageBannerReportTest.pdf");
 //			JasperViewer.viewReport(jp);

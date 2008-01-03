@@ -1,11 +1,9 @@
-package ar.com.fdvs.dj.test;
-
 /*
  * Dynamic Jasper: A library for creating reports dynamically by specifying
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,11 +27,14 @@ package ar.com.fdvs.dj.test;
  *
  */
 
+package ar.com.fdvs.dj.test;
+
+import ar.com.fdvs.dj.test.domain.Product;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import ar.com.fdvs.dj.test.domain.Product;
 
 public class TestMockRepository {
 

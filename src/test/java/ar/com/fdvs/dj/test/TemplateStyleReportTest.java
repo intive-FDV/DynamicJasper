@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,16 +29,6 @@
 
 package ar.com.fdvs.dj.test;
 
-import java.awt.Color;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -51,6 +41,16 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.awt.Color;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TemplateStyleReportTest extends TestCase {
 
@@ -58,7 +58,7 @@ public class TemplateStyleReportTest extends TestCase {
 
 //		Style detailStyle = new Style();
 		Style headerStyle = new Style();
-		
+
 		headerStyle.setBackgroundColor(new Color(230,230,230));
 		headerStyle.setBorderBottom(Border.THIN);
 		headerStyle.setBorderColor(Color.black);
@@ -67,7 +67,7 @@ public class TemplateStyleReportTest extends TestCase {
 
 		/**
 		 * "titleStyle" exists in the template .jrxml file
-		 * The title should be seen in a big font size, violet foreground and light green background 
+		 * The title should be seen in a big font size, violet foreground and light green background
 		 */
 		Style titleStyle = new Style("titleStyle");
 
@@ -78,10 +78,10 @@ public class TemplateStyleReportTest extends TestCase {
 		Style subtitleStyleParent = new Style("subtitleParent");
 		subtitleStyleParent.setBackgroundColor(Color.CYAN);
 		subtitleStyleParent.setTransparency(Transparency.OPAQUE);
-		
+
 		Style subtitleStyle = Style.createBlankStyle("subtitleStyle","subtitleParent");
 		subtitleStyle.setFont(Font.GEORGIA_SMALL_BOLD);
-		
+
 		Style amountStyle = new Style(); amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 
 		/**
@@ -96,7 +96,7 @@ public class TemplateStyleReportTest extends TestCase {
 			.setMargins(30, 20, 30, 15)
 			.setDefaultStyles(titleStyle, subtitleStyle, headerStyle, null)
 			.addStyle(subtitleStyleParent); //register the parent style
-			
+
 
 		/**
 		 * Note that we didn't call the build() method yet
@@ -110,7 +110,7 @@ public class TemplateStyleReportTest extends TestCase {
 		AbstractColumn columnState = ColumnBuilder.getInstance()		//creates a new instance of a ColumnBuilder
 			.setColumnProperty("state", String.class.getName())			//defines the field of the data source that this column will show, also its type
 			.setTitle("State")											//the title for the column
-			.setWidth(85)									//the width of the column		
+			.setWidth(85)									//the width of the column
 			.build();													//builds and return a new AbstractColumn
 
 		//Create more columns
@@ -166,7 +166,7 @@ public class TemplateStyleReportTest extends TestCase {
 
 		//This look for the resource in the classpath
 		drb.setTemplateFile("templates/TemplateReportTestWithStyles.jrxml");
-		
+
 		DynamicReport dr = drb.build();	//Finally build the report!
 
 		return dr;

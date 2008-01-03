@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,13 +29,6 @@
 
 package ar.com.fdvs.dj.test;
 
-import java.awt.Color;
-import java.util.Collection;
-import java.util.Locale;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -58,6 +51,13 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.awt.Color;
+import java.util.Collection;
+import java.util.Locale;
 
 public class FullFeatureReportTest extends TestCase {
 
@@ -80,7 +80,7 @@ public class FullFeatureReportTest extends TestCase {
 			drb.setTitleStyle(titleStyle)
 			.setTitle("November 2006 sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
-					+"to the main products: DVDs, Books, Foods and Magazines")			
+					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setDetailHeight(new Integer(15))
 			.setLeftMargin(margin)
 			.setRightMargin(margin)
@@ -128,14 +128,14 @@ public class FullFeatureReportTest extends TestCase {
 			.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)		//tell the group place a variable in the footer
 																					//of the column "columnAmount" with the SUM of all
 																					//values of the columnAmount in this group.
-			
+
 			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)	//idem for the columnaQuantity column
 			.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)				//tells the group how to be shown, there are many
 																					//posibilities, see the GroupLayout for more.
 			.build();
-		
+
 		GroupBuilder gb2 = new GroupBuilder();										//Create another group (using another column as criteria)
-		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch)		//and we add the same operations for the columnAmount and 
+		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch)		//and we add the same operations for the columnAmount and
 			.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)		//columnaQuantity columns
 			.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
 			.build();
@@ -152,14 +152,14 @@ public class FullFeatureReportTest extends TestCase {
 		drb.addGroup(g2);	//add group g2
 
 		drb.setUseFullPageWidth(true);
-		
+
 		//Autotext
 		drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
 		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT);
-		
+
 		//i18N
 		drb.setReportLocale(Locale.ENGLISH);
-		
+
 		//Charts
 		DJChartBuilder cb = new DJChartBuilder();
 		DJChart chart =  cb.addType(DJChart.BAR_CHART)
@@ -168,8 +168,8 @@ public class FullFeatureReportTest extends TestCase {
 						.addColumn(columnAmount)
 						.build();
 
-		drb.addChart(chart); //add chart	
-		
+		drb.addChart(chart); //add chart
+
 		DynamicReport dr = drb.build();
 		return dr;
 	}
@@ -179,7 +179,7 @@ public class FullFeatureReportTest extends TestCase {
 			DynamicReport dr = buildReport();
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-			
+
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), dummyCollection);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/fullFeatureReportTest.pdf");
 			JasperViewer.viewReport(jp);

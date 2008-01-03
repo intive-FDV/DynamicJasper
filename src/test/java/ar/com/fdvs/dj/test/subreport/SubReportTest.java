@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,15 +29,6 @@
 
 package ar.com.fdvs.dj.test.subreport;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -46,6 +37,15 @@ import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 public class SubReportTest extends TestCase {
 
@@ -64,8 +64,8 @@ public class SubReportTest extends TestCase {
 			.setMargins(5, 5, 20, 20)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
-			.setUseFullPageWidth(true);	
-		
+			.setUseFullPageWidth(true);
+
 		drb.addField("statistics", List.class.getName());
 
 		DynamicReport drHeaderSubreport = createHeaderSubreport();
@@ -73,9 +73,9 @@ public class SubReportTest extends TestCase {
 				"statistics", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
 		 DynamicReport drFooterSubreport = createFooterSubreport();
-		 drb.addSubreportInGroupFooter(2, drFooterSubreport,  new ClassicLayoutManager(), 
+		 drb.addSubreportInGroupFooter(2, drFooterSubreport,  new ClassicLayoutManager(),
 				 "statistics", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
-		
+
 		drb.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
@@ -116,7 +116,7 @@ public class SubReportTest extends TestCase {
 		DynamicReport dr = buildReport();
 		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-		
+
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/SubReportTest.pdf");

@@ -1,20 +1,33 @@
+/*
+ * Dynamic Jasper: A library for creating reports dynamically by specifying
+ * columns, groups, styles, etc. at runtime. It also saves a lot of development
+ * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+ *
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ *
+ * License as published by the Free Software Foundation; either
+ *
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ *
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ *
+ */
+
 package ar.com.fdvs.dj.webwork;
-
-import java.io.IOException;
-import java.util.HashMap;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -24,13 +37,25 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.output.FormatInfoRegistry;
 import ar.com.fdvs.dj.output.ReportWriter;
 import ar.com.fdvs.dj.output.ReportWriterFactory;
-
 import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.views.jasperreports.JasperReportsResult;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.TextParseUtil;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * @author Alejandro Gomez
@@ -42,7 +67,7 @@ public class DJResult extends JasperReportsResult {
 	private static final long serialVersionUID = -5135527859073133975L;
 
 	private static final Log LOG = LogFactory.getLog(DJResult.class);
-	
+
 	public static final String LAYOUT_CLASSIC = "classic";
 	public static final String LAYOUT_LIST = "list";
 
@@ -105,29 +130,29 @@ public class DJResult extends JasperReportsResult {
 		String los = conditionalParse(layoutManager, _invocation);
 		if (LAYOUT_CLASSIC.equals(los))
 			return new ClassicLayoutManager();
-		
+
 		if (LAYOUT_LIST.equals(los))
 			return new ListLayoutManager();
-		
-		
+
+
 		LayoutManager lo = (LayoutManager) conditionalParse(layoutManager, _invocation, LayoutManager.class);
-		
+
 		if (lo != null)
 			return lo;
-		
+
 		if (los != null){
 			try {
 				lo = (LayoutManager) Class.forName(los).newInstance();
 			} catch (Exception e) {
 				LOG.warn("No valid LayoutManager: " + e.getMessage(),e);
-			} 
+			}
 		}
-		
+
 		if (lo == null){
 			LOG.warn("No valid LayoutManager, using ClassicLayoutManager");
 			lo = new ClassicLayoutManager();
 		}
-		
+
 		return lo;
 	}
 

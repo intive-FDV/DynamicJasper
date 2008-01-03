@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,8 +29,9 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.util.TreeMap;
 import net.sf.jasperreports.engine.design.JasperDesign;
+
+import java.util.TreeMap;
 
 /**
  * Custom implementation of JasperDesign class. It adds the concept of registerd </br>

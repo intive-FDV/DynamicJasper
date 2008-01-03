@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -45,14 +45,14 @@ public class Product {
 	private String branch;
 	private Long quantity;
 	private Float amount;
-	
+
 	public static List statistics_ = new ArrayList();
 	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-	
+
 	static String[] images = {"confused.gif","cool.gif","happy.gif","puaj.gif","ungry.gif","what.gif"};
 	static int counter = 0;
 	static {
-		
+
 		try {
 			statistics_.add(new Statistic(formatter.parse("01/01/2003"),"West",14.3f,50.4f,43.1f));
 			statistics_.add(new Statistic(formatter.parse("01/01/2004"),"West",40.0f,49.4f,44.5f));
@@ -63,7 +63,7 @@ public class Product {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List getStatistics(){
 		return statistics_;
 	}

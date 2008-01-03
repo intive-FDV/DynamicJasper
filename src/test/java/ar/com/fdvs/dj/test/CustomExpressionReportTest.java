@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,15 +29,6 @@
 
 package ar.com.fdvs.dj.test;
 
-import java.awt.Color;
-import java.util.Collection;
-import java.util.Map;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
@@ -52,6 +43,15 @@ import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.awt.Color;
+import java.util.Collection;
+import java.util.Map;
 
 public class CustomExpressionReportTest extends TestCase {
 
@@ -76,7 +76,7 @@ public class CustomExpressionReportTest extends TestCase {
 		drb
 			.setTitle("November 2006 sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
-					+"to the main products: DVDs, Books, Foods and Magazines")			
+					+"to the main products: DVDs, Books, Foods and Magazines")
 					.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
 			.setSubtitleHeight(new Integer(20))
 			.setDetailHeight(new Integer(15))
@@ -116,12 +116,12 @@ public class CustomExpressionReportTest extends TestCase {
 		AbstractColumn columnAmount = ColumnBuilder.getInstance().setColumnProperty("amount", Float.class.getName())
 			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
 			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
-		
+
 		AbstractColumn columnaCustomExpression = ColumnBuilder.getInstance()
 		.addCustomExpression(getCustomExpression())
 		//.setColumnProperty("item", String.class.getName())
 		.setTitle("CustomExp").setWidth(new Integer(90))
-		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();		
+		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);
 //		drb.addColumn(columnBranch);
@@ -133,7 +133,7 @@ public class CustomExpressionReportTest extends TestCase {
 		drb.addColumn(columnaCustomExpression);
 
 		drb.setUseFullPageWidth(true);
-		
+
 		drb.addField("productLine", String.class.getName());
 		drb.addField("branch", String.class.getName());
 
@@ -143,7 +143,7 @@ public class CustomExpressionReportTest extends TestCase {
 
 	private CustomExpression getCustomExpression() {
 		return new CustomExpression() {
-		
+
 			public Object evaluate(Object object) {
 				Map map = (Map) object;
 				String state = (String) map.get("state");
@@ -151,7 +151,7 @@ public class CustomExpressionReportTest extends TestCase {
 				String productLine = (String) map.get("productLine");
 				return state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
 			}
-		
+
 		};
 	}
 
@@ -160,7 +160,7 @@ public class CustomExpressionReportTest extends TestCase {
 			DynamicReport dr = buildReport();
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-			
+
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/CustomExpressionReportTest.pdf");

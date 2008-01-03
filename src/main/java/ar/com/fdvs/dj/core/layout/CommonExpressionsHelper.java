@@ -1,12 +1,41 @@
+/*
+ * Dynamic Jasper: A library for creating reports dynamically by specifying
+ * columns, groups, styles, etc. at runtime. It also saves a lot of development
+ * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+ *
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ *
+ * License as published by the Free Software Foundation; either
+ *
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ *
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ *
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+ *
+ *
+ */
+
 package ar.com.fdvs.dj.core.layout;
 
+import ar.com.fdvs.dj.domain.AutoText;
+import ar.com.fdvs.dj.domain.DynamicReport;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import ar.com.fdvs.dj.domain.AutoText;
-import ar.com.fdvs.dj.domain.DynamicReport;
 
 //TODO: Design not being used
 /**
@@ -20,9 +49,9 @@ public class CommonExpressionsHelper {
 	private static String KEY_autotext_created_on = "autotext.created_on";
 
 	/**
-	 * @param yOffset 
-	 * @param report 
-	 * @param design 
+	 * @param yOffset
+	 * @param report
+	 * @param design
 	 * @param footerband
 	 */
 	public static void addPageXofY(int yOffset, final JasperDesign design, final DynamicReport report, JRDesignBand band, AutoText autoText) {
@@ -31,13 +60,13 @@ public class CommonExpressionsHelper {
 
 		JRDesignTextField pageNumber = new JRDesignTextField();
 		pageNumber.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
-		
+
 		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression(KEY_autotext_page, KEY_autotext_of,true));
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(80);
 		pageNumber.setY(yOffset);
 		pageNumber.setPositionType(JRDesignTextField.POSITION_TYPE_FLOAT);
-		
+
 		JRDesignTextField pageCounter = new JRDesignTextField();
 
 		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
@@ -53,7 +82,7 @@ public class CommonExpressionsHelper {
 		HorizontalBandAlignment alignment = autoText.getAlignment();
 		if (alignment == HorizontalBandAlignment.RIGHT) pageNumberOffset = pageCounter.getWidth();
 		else if (alignment == HorizontalBandAlignment.CENTER) pageNumberOffset = -pageCounter.getWidth()/2;
-		
+
 		int pageCounterOffset = 0;
 		if (alignment == HorizontalBandAlignment.LEFT) pageCounterOffset = pageNumber.getWidth();
 		else if (alignment == HorizontalBandAlignment.CENTER) pageCounterOffset = pageNumber.getWidth()/2;
@@ -62,20 +91,20 @@ public class CommonExpressionsHelper {
 		alignment.align(report.getOptions().getPrintableWidth(), pageCounterOffset, band, pageCounter);
 
 		band.setHeight(band.getHeight() + height);
-		
+
 	}
-	
+
 	public static void addPageXSlashY(int yOffset, final JasperDesign design, final DynamicReport report, JRDesignBand band, AutoText autoText) {
-		
+
 		int height = autoText.getHeight().intValue();
-		
+
 		JRDesignTextField pageNumber = new JRDesignTextField();
 		pageNumber.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
 		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(20);
 		pageNumber.setY(yOffset);
-		
+
 		JRDesignTextField pageCounter = new JRDesignTextField();
 		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("/", "",false));
 		pageCounter.setHeight(height);
@@ -89,20 +118,20 @@ public class CommonExpressionsHelper {
 		HorizontalBandAlignment alignment = autoText.getAlignment();
 		if (alignment  == HorizontalBandAlignment.RIGHT) pageNumberOffset = pageCounter.getWidth();
 		else if (alignment == HorizontalBandAlignment.CENTER) pageNumberOffset = -pageCounter.getWidth()/2;
-		
+
 		int pageCounterOffset = 0;
 		if (alignment == HorizontalBandAlignment.LEFT) pageCounterOffset = pageNumber.getWidth();
 		else if (alignment == HorizontalBandAlignment.CENTER) pageCounterOffset = pageNumber.getWidth()/2;
-		
+
 		alignment.align(report.getOptions().getPrintableWidth(), pageNumberOffset, band, pageNumber);
 		alignment.align(report.getOptions().getPrintableWidth(), pageCounterOffset, band, pageCounter);
-		
+
 		band.setHeight(band.getHeight() + height);
-		
+
 	}
-	
+
 	/**
-	 * @param yOffset 
+	 * @param yOffset
 	 * @param design
 	 * @param report
 	 * @param footerband
@@ -110,23 +139,23 @@ public class CommonExpressionsHelper {
 	 */
 	public static void addPageX(int yOffset, JasperDesign design, DynamicReport report, JRDesignBand band,  AutoText autoText) {
 		int height = autoText.getHeight().intValue();
-		
+
 		JRDesignTextField pageNumber = new JRDesignTextField();
 		pageNumber.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
 		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(20);
 		pageNumber.setY(yOffset);
-		
+
 		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, pageNumber);
-		
+
 		band.setHeight(band.getHeight() + height);
-		
+
 	}
-	
+
 	public static void addCreationDate(int yOffset, final JasperDesign design, final DynamicReport report, JRDesignBand band,  AutoText autoText) {
 		int height = autoText.getHeight().intValue();
-		
+
 		JRDesignTextField dateTf = new JRDesignTextField();
 
 		dateTf.setExpression(AutoTextExpressionUtils.getDateExpression(KEY_autotext_created_on, "", report.getReportLocale(),autoText.getPattern()));
@@ -138,11 +167,11 @@ public class CommonExpressionsHelper {
 
 		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, dateTf);
 		band.setHeight(band.getHeight() + height);
-		
+
 	}
 
 	/**
-	 * @param offset 
+	 * @param offset
 	 * @param design
 	 * @param report
 	 * @param footerband
@@ -150,7 +179,7 @@ public class CommonExpressionsHelper {
 	 */
 	public static void addMessage(int yOffset, JasperDesign design, DynamicReport report, JRDesignBand band, AutoText autoText) {
 		int height = autoText.getHeight().intValue();
-		
+
 		JRDesignTextField textfield = new JRDesignTextField();
 		JRDesignExpression expression = new JRDesignExpression();
 		expression.setValueClass(String.class);
@@ -161,15 +190,15 @@ public class CommonExpressionsHelper {
 		textfield.setWidth(report.getOptions().getPrintableWidth());
 		textfield.setY(yOffset);
 		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, textfield);
-		
+
 		textfield.setHorizontalAlignment(autoText.getAlignment().getAlignment());
 
 		band.setHeight(band.getHeight() + height);
-		
+
 	}
 
 	/**
-	 * @param offset 
+	 * @param offset
 	 * @param design
 	 * @param report
 	 * @param text

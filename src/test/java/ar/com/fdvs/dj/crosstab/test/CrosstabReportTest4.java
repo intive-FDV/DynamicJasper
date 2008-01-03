@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -30,31 +30,14 @@
 package ar.com.fdvs.dj.crosstab.test;
 
 
-import java.awt.Color;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJCrosstabColumn;
-import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.CrosstabBuilder;
-import ar.com.fdvs.dj.domain.builders.CrosstabColumnBuilder;
-import ar.com.fdvs.dj.domain.builders.CrosstabRowBuilder;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
@@ -66,6 +49,19 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.awt.Color;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CrosstabReportTest4 extends TestCase {
 
@@ -78,7 +74,7 @@ public class CrosstabReportTest4 extends TestCase {
 	private Style titleStyle;
 
 	public DynamicReport buildReport() throws Exception {
-		initStyles(); //init some styles to be used 
+		initStyles(); //init some styles to be used
 
 		/**
 		 * Create an empty report (no columns)!
@@ -91,7 +87,7 @@ public class CrosstabReportTest4 extends TestCase {
 			.setPrintColumnNames(false)
 			.setUseFullPageWidth(true)
 			.setDefaultStyles(titleStyle, null, null, null);
-		
+
 		DJCrosstab djcross = new CrosstabBuilder()
 			.setHeight(200)
 			.setWidth(500)
@@ -104,8 +100,8 @@ public class CrosstabReportTest4 extends TestCase {
 			.addColumn("State","state",String.class.getName(),false)
 			.addColumn("Branch","branch",String.class.getName(),true)
 			.addRow("Product Line", "productLine", String.class.getName(),false)
-			.addRow("Item", "item", String.class.getName(),true)			
-			.addRow("Id", "id", Long.class.getName(),true)			
+			.addRow("Item", "item", String.class.getName(),true)
+			.addRow("Id", "id", Long.class.getName(),true)
 			.addMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount",measureStyle)
 			.setRowStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
 			.setColumnStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
@@ -115,18 +111,18 @@ public class CrosstabReportTest4 extends TestCase {
 			.build();
 
 		drb.addHeaderCrosstab(djcross); //add the crosstab in the header band of the report
-		
+
 		DynamicReport dr = drb.build();
-		
+
 		//put a collection in the parameters map to be used by the crosstab
 		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
-		
+
 		return dr;
 	}
 
 
 	/**
-	 * 
+	 *
 	 */
 	private void initStyles() {
 		titleStyle =  new StyleBuilder(false)
@@ -136,7 +132,7 @@ public class CrosstabReportTest4 extends TestCase {
 			.setTransparency(Transparency.OPAQUE)
 			.setBorderBottom(Border.PEN_2_POINT)
 			.build();
-		
+
 		totalHeaderStyle = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.CENTER)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
@@ -169,13 +165,13 @@ public class CrosstabReportTest4 extends TestCase {
 			DynamicReport dr = buildReport();
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-						
+
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
 																											//here contains dummy hardcoded objects...
-			
+
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params );	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
-																											//one does the magic) and the JRDataSource 
+																											//one does the magic) and the JRDataSource
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/CrosstabReportTest4.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
 			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());

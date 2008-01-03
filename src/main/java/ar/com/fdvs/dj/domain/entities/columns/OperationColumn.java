@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,10 +29,11 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
-import java.util.Iterator;
-import java.util.List;
 import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Column created to handle numerical operations between two or more </br>

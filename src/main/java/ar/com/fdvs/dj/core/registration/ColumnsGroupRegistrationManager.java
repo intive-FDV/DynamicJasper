@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,21 +29,19 @@
 
 package ar.com.fdvs.dj.core.registration;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignVariable;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Manager invoked to register groups of columns. A ColumnsGroup is read and </br>
@@ -85,7 +83,7 @@ public class ColumnsGroupRegistrationManager extends AbstractEntityRegistrationM
 		} else {
 			group.setName( "group_for_column_" + getDynamicReport().getColumnsGroups().indexOf(columnsGroup) + "-" +  column.getTitle());
 		}
-		
+
 		group.setCountVariable(new JRDesignVariable());
 		group.setGroupFooter(new JRDesignBand());
 		group.setGroupHeader(new JRDesignBand());

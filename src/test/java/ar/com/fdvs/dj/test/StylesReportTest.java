@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,14 +29,6 @@
 
 package ar.com.fdvs.dj.test;
 
-import java.awt.Color;
-import java.util.Collection;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -50,6 +42,14 @@ import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.awt.Color;
+import java.util.Collection;
 
 public class StylesReportTest extends TestCase {
 
@@ -57,13 +57,13 @@ public class StylesReportTest extends TestCase {
 
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); 
+		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
 		headerStyle.setBorderTop(Border.PEN_2_POINT);
 		headerStyle.setBorderBottom(Border.THIN);
 		headerStyle.setBackgroundColor(Color.blue);
 		headerStyle.setTransparency(Transparency.OPAQUE);
 		headerStyle.setTextColor(Color.white);
-		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); 
+		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 
 		Style titleStyle = new Style();
@@ -85,7 +85,7 @@ public class StylesReportTest extends TestCase {
 		Integer margin = new Integer(20);
 		drb.setTitle("November 2006 sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
-					+"to the main products: DVDs, Books, Foods and Magazines")			
+					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
 			.setSubtitleHeight(new Integer(20))
 			.setDetailHeight(new Integer(15))
@@ -145,7 +145,7 @@ public class StylesReportTest extends TestCase {
 			DynamicReport dr = buildReport();
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-			
+
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/StylesReportTest.pdf");

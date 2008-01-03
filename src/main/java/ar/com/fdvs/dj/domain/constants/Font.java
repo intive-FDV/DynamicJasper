@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -97,9 +97,9 @@ public class Font {
 		this.fontName = fontName;
 		this.bold = bold;
 		this.italic= italic;
-		this.underline= underline;		
+		this.underline= underline;
 	}
-	
+
 	public Font(int fontSize, String fontName, boolean bold) {
 		this.fontSize = fontSize;
 		this.fontName = fontName;
@@ -144,7 +144,7 @@ public class Font {
 	public void setUnderline(boolean underline) {
 		this.underline = underline;
 	}
-	
+
 	/**
 	 * Returns a string that describes the font like indicated in
 	 *  java.awt.Font.decode(...)
@@ -158,7 +158,7 @@ public class Font {
 		decoration = "BOLD";
 		else if (isItalic())
 			decoration = "ITALIC";
-		
+
 		return fontName + "-" + decoration + "-" + this.fontSize;
 	}
 

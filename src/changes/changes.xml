@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ Dynamic Jasper: A library for creating reports dynamically by specifying
+  ~ columns, groups, styles, etc. at runtime. It also saves a lot of development
+  ~ time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+  ~
+  ~ Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
+  ~
+  ~ This library is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~
+  ~ License as published by the Free Software Foundation; either
+  ~
+  ~ version 2.1 of the License, or (at your option) any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this library; if not, write to the Free Software
+  ~
+  ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+  ~
+  ~
+  -->
+
 <document>
    <properties>
       <title>FDV Solutions - DynamicJasper</title>
@@ -7,13 +36,13 @@
    <body>
          <release version="2.0.2" date="2007-12-28"	desc="Crosstab release">
          	<action dev="Juan Manuel Alvarez" type="add">
-         		pom.xml cleanup :: Unnecesary depenencies are optional now. Thanks danttran!!! 
+         		pom.xml cleanup :: Unnecesary depenencies are optional now. Thanks danttran!!!
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
-         		BarCode Column :: Hability to show bar codes in the detail band 
+         		BarCode Column :: Hability to show bar codes in the detail band
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
-         		Image Column :: Hability to show images in the detail band 
+         		Image Column :: Hability to show images in the detail band
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
 				Bug with group names: https://sourceforge.net/forum/message.php?msg_id=4684608
@@ -67,24 +96,24 @@
                  Convinient methods in FastReportBuilder to add columns with more options
              </action>
              <action dev="Juan Manuel Alvarez" type="fix">
-                 FastReportBuilder no guess in styles is the column already has a style 
+                 FastReportBuilder no guess in styles is the column already has a style
              </action>
              <action dev="Juan Manuel Alvarez" type="fix">
-                 odd rows background border and foreground color was not working 
+                 odd rows background border and foreground color was not working
              </action>
           </release>
          <release version="1.4.0" date="2007-10-31" desc="Styles release">
            	<action dev="Juan Manuel Alvarez" type="add">
-              Groups can start in new page or in new column. 
+              Groups can start in new page or in new column.
             </action>
            	<action dev="Juan Manuel Alvarez" type="add">
-              Existing styles in .jrxml files can be referenced from a DynamicReport 
+              Existing styles in .jrxml files can be referenced from a DynamicReport
             </action>
            	<action dev="Juan Manuel Alvarez" type="fix">
-              Anoying loggin information when using repeated styles 
+              Anoying loggin information when using repeated styles
             </action>
            	<action dev="Juan Manuel Alvarez" type="add">
-              Support for inherited styles 
+              Support for inherited styles
             </action>
            	<action dev="Mariano Simone" type="add">
               Convinient method in the FastReportBuilder to pass a style whe adding a new column.
@@ -113,16 +142,16 @@
               You could have many subreports, but not recursive subreports
             </action>
            	<action dev="Juan Manuel Alvarez" type="fix">
-              Deprecated methods in builders (DynamicReportBuilder, etc) and create new ones to give meaninfull names 
+              Deprecated methods in builders (DynamicReportBuilder, etc) and create new ones to give meaninfull names
             </action>
            	<action dev="Juan Manuel Alvarez" type="update">
-              DynamicJasperHelper methods now throws exceptions as they should always do 
+              DynamicJasperHelper methods now throws exceptions as they should always do
             </action>
            	<action dev="Juan Manuel Alvarez" type="update">
-              DynamicJasperHelper methods are not "final" anymore. 
+              DynamicJasperHelper methods are not "final" anymore.
             </action>
            	<action dev="Juan Manuel Alvarez" type="update">
-              DynamicJasperHelper convinience methods changed from "private" to "protected" 
+              DynamicJasperHelper convinience methods changed from "private" to "protected"
             </action>
            	<action dev="Alejandro Gomez" type="fix">
               Issue with file encoding is fixed for every compiler, not just eclipse jdt compiler.

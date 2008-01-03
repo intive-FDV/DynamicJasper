@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,13 +29,11 @@
 
 package ar.com.fdvs.dj.core.layout;
 
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
 /**
  * Simple Layout Manager recommended when we want to get a ready to operate </br>
@@ -70,7 +68,7 @@ public class ListLayoutManager extends AbstractLayoutManager {
 			throw new LayoutException(e.getMessage());
 		}
 	}
-	
+
 	private void generateHeaderBand() {
 		log.debug("generating header band...");
 		JRDesignBand header = (JRDesignBand) getDesign().getColumnHeader();
@@ -80,5 +78,5 @@ public class ListLayoutManager extends AbstractLayoutManager {
 		}
 //		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))
 			generateHeaderBand(header);
-	}	
+	}
 }

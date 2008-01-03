@@ -3,7 +3,7 @@
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
- * Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+ * Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -29,12 +29,6 @@
 
 package ar.com.fdvs.dj.test;
 
-import java.util.Collection;
-
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -44,6 +38,12 @@ import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.util.SortUtils;
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+import java.util.Collection;
 
 public class PlainReportTest extends TestCase {
 
@@ -63,7 +63,7 @@ public class PlainReportTest extends TestCase {
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		drb.setTitle("November 2006 sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
-					+"to the main products: DVDs, Books, Foods and Magazines")					
+					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setDetailHeight(15)						//defines the height for each record of the report
 			.setMargins(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
 			.setDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
@@ -81,7 +81,7 @@ public class PlainReportTest extends TestCase {
 		AbstractColumn columnState = ColumnBuilder.getInstance()		//creates a new instance of a ColumnBuilder
 			.setColumnProperty("state", String.class.getName())			//defines the field of the data source that this column will show, also its type
 			.setTitle("State")											//the title for the column
-			.setWidth(85)									//the width of the column		
+			.setWidth(85)									//the width of the column
 			.build();													//builds and return a new AbstractColumn
 
 		//Create more columns
