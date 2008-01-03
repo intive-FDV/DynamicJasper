@@ -114,7 +114,7 @@ public class CrosstabReportTest3 extends TestCase {
 		DynamicReport dr = drb.build();
 
 		ColumnsGroup g = (ColumnsGroup) dr.getColumnsGroups().get(0);
-		g.setHeaderHeight(Integer.valueOf(40));
+		g.setHeaderHeight(new Integer(40));
 		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
 
 		return dr;
