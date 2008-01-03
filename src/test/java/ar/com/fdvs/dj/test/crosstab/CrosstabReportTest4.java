@@ -83,7 +83,7 @@ public class CrosstabReportTest4 extends TestCase {
 			drb
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
-			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
+//			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setPrintColumnNames(false)
 			.setUseFullPageWidth(true)
 			.setDefaultStyles(titleStyle, null, null, null);

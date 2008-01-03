@@ -24,7 +24,7 @@ DynamicJasper
 	content and layout of the report elements are handled by the DJ
 	API.
 
-[images/dynamicjasper-examples.jpg]			
+[images/dj_flavors.jpg]			
 			
 
 Online Demo - DynamicJasper Playground
@@ -38,33 +38,37 @@ Online Demo - DynamicJasper Playground
  
 Snapshots
 
- The snapshots found here are corresponds to test that are available in the source code
+ The snapshots found here corresponds to test that are available in the source code
  
+ Report with repeating groups
+ 
+[images/snapshots/group-report.png] Report with repeating groups
+
  Report with image banner
  
-[images/snapshots/ImageBannerReportTest.jpg] Report with image banner 
+[images/snapshots/image-banner.png] Report with image banner
 
- Report with styles
+ Report with styles (inherited from template jrxml)
  
-[images/snapshots/StylesReportTest.jpg] Report with styles
+[images/snapshots/style-report.png] Report with styles (inherited from template jrxml)
 
- Report with repeating groups and variables
+ Report with subreport
  
-[images/snapshots/GroupsReportTest.jpg] Report with repeating groups and variables
+[images/snapshots/subreport-report.png] Report with subreport
 
- Report with conditional styles
+ Report with a column of images
  
-[images/snapshots/ConditionalStylesReportTest.jpg] Report with conditional styles
+[images/snapshots/image-column.png] Report with a column of images
 
- Report that uses as tempalte a jrxml file
+ A report with cross tabs
  
-[images/snapshots/TemplateFileReportTest.jpg] Report that uses as tempalte a jrxml file
+[images/snapshots/crosstab-report.png] A report with cross tabs
 
- A report with charts
+ Report with charts
  
-[images/snapshots/ChartReportTest.jpg] Report with charts
+[images/snapshots/chart-report.png] Report with charts
 
- Plain report
+ Report with bar code
  
-[images/snapshots/PlainReportTest.jpg] Plain report
+[images/snapshots/barcode-report.png] Report with bar code
 
