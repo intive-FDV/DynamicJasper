@@ -29,6 +29,14 @@
 
 package ar.com.fdvs.dj.test;
 
+import java.awt.Color;
+import java.util.Collection;
+
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -48,13 +56,6 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
-import java.awt.Color;
-import java.util.Collection;
 
 public class ImageBannerReportTest extends TestCase {
 
@@ -150,7 +151,7 @@ public class ImageBannerReportTest extends TestCase {
 		drb.addColumn(columnAmount);
 
 		drb.addGroup(g1);	//add group g1
-		drb.addGroup(g2);	//add group g2
+//		drb.addGroup(g2);	//add group g2
 
 		drb.setUseFullPageWidth(true);
 
@@ -167,7 +168,7 @@ public class ImageBannerReportTest extends TestCase {
 
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ImageBannerReportTest.pdf");
-//			JasperViewer.viewReport(jp);
+			JasperViewer.viewReport(jp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

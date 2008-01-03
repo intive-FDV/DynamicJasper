@@ -27,7 +27,7 @@
  *
  */
 
-package ar.com.fdvs.dj.crosstab.test;
+package ar.com.fdvs.dj.test.crosstab;
 
 
 import ar.com.fdvs.dj.core.DJConstants;
@@ -35,17 +35,22 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJCrosstabColumn;
+import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.CrosstabBuilder;
+import ar.com.fdvs.dj.domain.builders.CrosstabColumnBuilder;
+import ar.com.fdvs.dj.domain.builders.CrosstabRowBuilder;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Page;
-import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
@@ -63,77 +68,140 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CrosstabReportTest4 extends TestCase {
+public class CrosstabReportTest3 extends TestCase {
 
 	private Map params = new HashMap();
-	private Style totalHeaderStyle;
+	private Style totalHeader;
 	private Style colAndRowHeaderStyle;
 	private Style mainHeaderStyle;
 	private Style totalStyle;
 	private Style measureStyle;
-	private Style titleStyle;
-
 	public DynamicReport buildReport() throws Exception {
-		initStyles(); //init some styles to be used
+
+
 
 		/**
-		 * Create an empty report (no columns)!
+		 * Creates the DynamicReportBuilder and sets the basic options for
+		 * the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 			drb
+			.addColumn("State", "state", String.class.getName(),30)
+			.addColumn("Branch", "branch", String.class.getName(),30)
+			.addColumn("Product Line", "productLine", String.class.getName(),50)
+			.addColumn("Item", "item", String.class.getName(),50)
+			.addColumn("Item Code", "id", Long.class.getName(),30,true)
+			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
+			.addColumn("Amount", "amount", Float.class.getName(),80,true)
+			.addGroups(1)
+			.setGroupLayout(1, GroupLayout.DEFAULT_WITH_HEADER)
+			.addFooterVariable(1, 7, ColumnsGroupVariableOperation.SUM, null)
+			.addFooterVariable(1, 6, ColumnsGroupVariableOperation.SUM, null)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setPrintColumnNames(false)
-			.setUseFullPageWidth(true)
-			.setDefaultStyles(titleStyle, null, null, null);
+			.setUseFullPageWidth(true);
 
-		DJCrosstab djcross = new CrosstabBuilder()
-			.setHeight(200)
-			.setWidth(500)
-			.setHeaderStyle(mainHeaderStyle)
-			.setDatasource("sr",DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
-			.setUseFullWidth(true)
-			.setColorScheme(DJConstants.COLOR_SCHEMA_LIGHT_GREEN)
-			.setAutomaticTitle(true)
-			.setCellBorder(Border.THIN)
-			.addColumn("State","state",String.class.getName(),false)
-			.addColumn("Branch","branch",String.class.getName(),true)
-			.addRow("Product Line", "productLine", String.class.getName(),false)
-			.addRow("Item", "item", String.class.getName(),true)
-			.addRow("Id", "id", Long.class.getName(),true)
-			.addMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount",measureStyle)
-			.setRowStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
-			.setColumnStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
-			.setCellDimension(17, 60)
-			.setColumnHeaderHeight(30)
-			.setRowHeaderWidth(80)
-			.build();
 
-		drb.addHeaderCrosstab(djcross); //add the crosstab in the header band of the report
+		initStyles();
+
+		DJCrosstab djcross = createCrosstab();
+
+		drb.addHeaderCrosstab(1,djcross);
+
 
 		DynamicReport dr = drb.build();
 
-		//put a collection in the parameters map to be used by the crosstab
+		ColumnsGroup g = (ColumnsGroup) dr.getColumnsGroups().get(0);
+		g.setHeaderHeight(Integer.valueOf(40));
 		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
 
 		return dr;
 	}
 
+	/**
+	 * Creates s DJCrosstab object, ready to be inserted in the main report
+	 * @return
+	 *
+	 */
+	private DJCrosstab createCrosstab() {
+		CrosstabBuilder cb = new CrosstabBuilder();
+
+		cb.setHeight(100)
+			.setWidth(500)
+			.setHeaderStyle(mainHeaderStyle)
+			.setDatasource("sr",DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
+			.setUseFullWidth(true)
+			.setColorScheme(2)
+			.setAutomaticTitle(true)
+			.setCellBorder(Border.THIN);
+
+		cb.addMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount",measureStyle);
+
+		DJCrosstabRow row = new CrosstabRowBuilder().setProperty("productLine",String.class.getName())
+			.setHeaderWidth(100).setHeight(0)
+			.setTitle("Product Line my mother teressa")
+			.setShowTotals(true).setTotalStyle(totalStyle)
+			.setTotalHeaderStyle(totalHeader).setHeaderStyle(colAndRowHeaderStyle)
+			.build();
+
+		cb.addRow(row);
+
+		row = new CrosstabRowBuilder().setProperty("item",String.class.getName())
+			.setHeaderWidth(100).setHeight(20)
+			.setTitle("Item").setShowTotals(true)
+			.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
+			.setHeaderStyle(colAndRowHeaderStyle)
+			.build();
+
+		cb.addRow(row);
+
+//		row = new CrosstabRowBuilder().setProperty("id",Long.class.getName())
+//			.setHeaderWidth(100).setHeight(30)
+//			.setTitle("ID").setShowTotals(true)
+//			.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
+//			.setHeaderStyle(colAndRowHeaderStyle)
+//			.build();
+
+//		cb.addRow(row);
+
+		DJCrosstabColumn col = new CrosstabColumnBuilder().setProperty("state",String.class.getName())
+			.setHeaderHeight(60).setWidth(80)
+			.setTitle("State").setShowTotals(true)
+			.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
+			.setHeaderStyle(colAndRowHeaderStyle)
+			.build();
+
+
+//		cb.addColumn(col);
+
+		col = new CrosstabColumnBuilder().setProperty("branch",String.class.getName())
+			.setHeaderHeight(30).setWidth(70)
+			.setShowTotals(true).setTitle("Branch")
+			.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
+			.setHeaderStyle(colAndRowHeaderStyle)
+			.build();
+
+		cb.addColumn(col);
+
+//		col = new CrosstabColumnBuilder().setProperty("id",Long.class.getName())
+//			.setHeaderHeight(40).setWidth(70)
+//			.setShowTotals(true).setTitle("ID")
+//			.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
+//			.setHeaderStyle(colAndRowHeaderStyle)
+//			.build();
+
+//		cb.addColumn(col);
+
+		return cb.build();
+	}
 
 	/**
 	 *
 	 */
 	private void initStyles() {
-		titleStyle =  new StyleBuilder(false)
-			.setFont(Font.ARIAL_BIG_BOLD)
-			.setHorizontalAlign(HorizontalAlign.LEFT)
-			.setVerticalAlign(VerticalAlign.MIDDLE)
-			.setTransparency(Transparency.OPAQUE)
-			.setBorderBottom(Border.PEN_2_POINT)
-			.build();
-
-		totalHeaderStyle = new StyleBuilder(false)
+		totalHeader = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.CENTER)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
@@ -172,7 +240,7 @@ public class CrosstabReportTest4 extends TestCase {
 			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params );	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/CrosstabReportTest4.pdf");
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/CrosstabReportTest2.pdf");
 			JasperViewer.viewReport(jp);	//finally display the report report
 			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
 			JasperDesignViewer.viewReportDesign(jr);
@@ -183,7 +251,7 @@ public class CrosstabReportTest4 extends TestCase {
 	}
 
 	public static void main(String[] args) {
-		CrosstabReportTest4 test = new CrosstabReportTest4();
+		CrosstabReportTest3 test = new CrosstabReportTest3();
 		test.testReport();
 	}
 
