@@ -29,19 +29,19 @@
 
 package ar.com.fdvs.dj.test;
 
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
+import junit.framework.TestCase;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrint;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.ReflectiveReportBuilder;
 import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperPrint;
-
-import java.io.FileNotFoundException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 public class ReflectiveReportTest extends TestCase {
 

@@ -31,81 +31,44 @@ package ar.com.fdvs.dj.test;
 
 
 import java.util.Collection;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.builders.StyleBuilder;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.util.SortUtils;
 
-public class BarcodeColumnReportTest extends BaseDjReportTest {
+public abstract class BaseDjReportTest extends TestCase {
 
-	private JasperPrint jp;
-	private JasperReport jr;
+	protected JasperPrint jp;
+	protected JasperReport jr;
+	protected Map params = new HashMap();
+	protected DynamicReport dr;
 
-	public DynamicReport buildReport() throws Exception {
+	public abstract DynamicReport buildReport() throws Exception;
 
-
-		Style style = new StyleBuilder(true).setHorizontalAlign(HorizontalAlign.CENTER).build();
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
-		 */
-		FastReportBuilder drb = new FastReportBuilder();
-		drb.addColumn("State", "state", String.class.getName(),20)
-			.addColumn("Branch", "branch", String.class.getName(),30)
-			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
-			.addColumn("Amount", "amount", Float.class.getName(),70,true)
-			.addBarcodeColumn("Bar-Code", "amount", Long.class.getName(), BarcodeTypes.USD3, true, false,null, 100, true, ImageScaleMode.FILL, null)
-			.addGroups(1)
-			.setDetailHeight(30)
-			.addField("productLine",  String.class.getName())
-			.setTitle("November 2006 sales report")
-			.setSubtitle("This report was generated at " + new Date())
-			.setUseFullPageWidth(true);
-
-		DynamicReport dr = drb.build();
-
-		return dr;
-	}
-
-	public void testReport() {
+	public void testReport() throws Exception {
 		try {
-			DynamicReport dr = buildReport();
+			dr = buildReport();
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
 																											//here contains dummy hardcoded objects...
 
-			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
+			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds,params );	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/BarcodeColumnReportTest.pdf");
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void main(String[] args) throws JRException {
-		BarcodeColumnReportTest test = new BarcodeColumnReportTest();
-		test.testReport();
-		JasperViewer.viewReport(test.jp);	//finally display the report report
-		JasperDesignViewer.viewReportDesign(test.jr);
-	}
-
 }
