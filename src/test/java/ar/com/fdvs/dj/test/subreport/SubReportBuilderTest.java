@@ -36,11 +36,12 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.SubReportBuilder;
 import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.test.BaseDjReportTest;
 import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.test.domain.Product;
 import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -51,7 +52,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SubReportBuilderTest extends TestCase {
+public class SubReportBuilderTest extends BaseDjReportTest {
 
 	private Map params = new HashMap();
 
@@ -99,17 +100,6 @@ public class SubReportBuilderTest extends TestCase {
 		return dr;
 	}
 
-	public void testReport() throws Exception {
-		DynamicReport dr = buildReport();
-		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-		dummyCollection = SortUtils.sortCollection(dummyCollection, dr.getColumns());
-
-		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
-		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params);
-		ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/SubReportBuilderTest.pdf");
-		JasperViewer.viewReport(jp);
-	}
-
 	/**
 	 * Created and compiles dynamically a report to be used as subreportr
 	 * @return
@@ -134,6 +124,7 @@ public class SubReportBuilderTest extends TestCase {
 	public static void main(String[] args) throws Exception {
 		SubReportBuilderTest test = new SubReportBuilderTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);
 	}
 
 }

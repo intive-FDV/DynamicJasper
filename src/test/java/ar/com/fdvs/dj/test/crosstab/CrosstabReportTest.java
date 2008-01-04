@@ -30,9 +30,12 @@
 package ar.com.fdvs.dj.test.crosstab;
 
 
+import java.awt.Color;
+import java.util.Date;
+
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
@@ -49,26 +52,12 @@ import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.test.ReportExporter;
+import ar.com.fdvs.dj.test.BaseDjReportTest;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
 
-import java.awt.Color;
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+public class CrosstabReportTest extends BaseDjReportTest {
 
-public class CrosstabReportTest extends TestCase {
-
-	private Map params = new HashMap();
 	private DJCrosstab djcross;
 	private Style totalHeader;
 	private Style colAndRowHeaderStyle;
@@ -98,7 +87,7 @@ public class CrosstabReportTest extends TestCase {
 			.setSubtitle("This report was generated at " + new Date())
 			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setUseFullPageWidth(true);
-			drb.setTemplateFile("templates/crosstab2-test.jrxml");
+//			drb.setTemplateFile("templates/crosstab2-test.jrxml");
 
 
 		initStyles();
@@ -182,6 +171,7 @@ public class CrosstabReportTest extends TestCase {
 
 		DynamicReport dr = drb.build();
 
+		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
 		return dr;
 	}
 
@@ -216,32 +206,12 @@ public class CrosstabReportTest extends TestCase {
 			.build();
 	}
 
-	public void testReport() {
-		try {
-			DynamicReport dr = buildReport();
-			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 
-			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
-																											//here contains dummy hardcoded objects...
-			params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
-
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params );	//Creates the JasperPrint object, we pass as a Parameter
-																											//the DynamicReport, a new ClassicLayoutManager instance (this
-																											//one does the magic) and the JRDataSource
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/CrosstabReportTest.pdf");
-			JasperViewer.viewReport(jp);	//finally display the report report
-			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
-			JasperDesignViewer.viewReportDesign(jr);
-		} catch (Exception e) {
-//			e.getCause().printStackTrace();
-			e.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		CrosstabReportTest test = new CrosstabReportTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);	//finally display the report report
+		JasperDesignViewer.viewReportDesign(test.jr);
 	}
 
 }

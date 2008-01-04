@@ -153,7 +153,7 @@ public class Dj2JrCrosstabBuilder {
 		JRDesignCellContents contents = new JRDesignCellContents();
 
 		contents.setBackcolor(colors[colors.length-1][colors[0].length-1]);
-		contents.setMode(Byte.valueOf(Transparency.OPAQUE.getValue()));
+		contents.setMode(new Byte(Transparency.OPAQUE.getValue()));
 
 		jrcross.setHeaderCell(contents);
 
@@ -347,8 +347,8 @@ public class Dj2JrCrosstabBuilder {
 
 				JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
 
-				cell.setWidth(Integer.valueOf(crosstabColumn.getWidth()));
-				cell.setHeight(Integer.valueOf(crosstabRow.getHeight()));
+				cell.setWidth(new Integer(crosstabColumn.getWidth()));
+				cell.setHeight(new Integer(crosstabRow.getHeight()));
 
 				if (crosstabColumn.getProperty() != null)
 					cell.setColumnTotalGroup(crosstabColumn.getProperty().getProperty());
@@ -394,7 +394,7 @@ public class Dj2JrCrosstabBuilder {
 //				}
 
 
-				contents.setMode(Byte.valueOf(Transparency.OPAQUE.getValue()));
+				contents.setMode(new Byte(Transparency.OPAQUE.getValue()));
 				contents.setBackcolor(colors[i][j]);
 				contents.addElement(element);
 
@@ -477,7 +477,7 @@ public class Dj2JrCrosstabBuilder {
 
 			rowHeaderContents.addElement(rowTitle);
 			rowHeaderContents.setBackcolor(colors[i][rows.length-1]);
-			rowHeaderContents.setMode(Byte.valueOf(Transparency.OPAQUE.getValue()));
+			rowHeaderContents.setMode(new Byte(Transparency.OPAQUE.getValue()));
 			applyCellBorder(rowHeaderContents);
 
 			ctRowGroup.setHeader(rowHeaderContents );
@@ -559,7 +559,7 @@ public class Dj2JrCrosstabBuilder {
 
 			colHeaerContent.addElement(colTitle);
 			colHeaerContent.setBackcolor(colors[0][i]);
-			colHeaerContent.setMode(Byte.valueOf(Transparency.OPAQUE.getValue()));
+			colHeaerContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 			applyCellBorder(colHeaerContent);
 
 			ctColGroup.setHeader(colHeaerContent);
@@ -613,7 +613,7 @@ public class Dj2JrCrosstabBuilder {
 		ctRowGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END); //FIXME the total can be at the end of a group or at the beginin
 
 		totalHeaderContent.setBackcolor(colors[colors[0].length/2][0]);
-		totalHeaderContent.setMode(Byte.valueOf(Transparency.OPAQUE.getValue()));
+		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 
 		JRDesignTextField element = new JRDesignTextField();
 		JRDesignExpression exp = ExpressionUtils.createExpression("\"Total "+crosstabRow.getTitle()+"\"",String.class);
@@ -663,7 +663,7 @@ public class Dj2JrCrosstabBuilder {
 		ctColGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END);
 
 		totalHeaderContent.setBackcolor(colors[colors[0].length/2][colors[0].length/2]);
-		totalHeaderContent.setMode(Byte.valueOf(Transparency.OPAQUE.getValue()));
+		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 
 		JRDesignExpression exp = ExpressionUtils.createExpression("\"Total "+crosstabColumn.getTitle()+"\"",String.class);
 		JRDesignTextField element = new JRDesignTextField();

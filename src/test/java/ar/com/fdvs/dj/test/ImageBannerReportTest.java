@@ -32,7 +32,7 @@ package ar.com.fdvs.dj.test;
 import java.awt.Color;
 import java.util.Collection;
 
-import junit.framework.TestCase;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -57,7 +57,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.SortUtils;
 
-public class ImageBannerReportTest extends TestCase {
+public class ImageBannerReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -159,25 +159,10 @@ public class ImageBannerReportTest extends TestCase {
 		return dr;
 	}
 
-	public void testReport() {
-		try {
-			DynamicReport dr = buildReport();
-			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);	//Create a JRDataSource, the Collection used
-
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ImageBannerReportTest.pdf");
-			JasperViewer.viewReport(jp);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		ImageBannerReportTest test = new ImageBannerReportTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);
 	}
 
 }

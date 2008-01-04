@@ -35,7 +35,7 @@ import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -44,7 +44,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import java.util.Collection;
 import java.util.Date;
 
-public class FastReportTest extends TestCase {
+public class FastReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -71,31 +71,11 @@ public class FastReportTest extends TestCase {
 		return dr;
 	}
 
-	public void testReport() {
-		try {
-			DynamicReport dr = buildReport();
-			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-
-			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
-																											//here contains dummy hardcoded objects...
-
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
-																											//the DynamicReport, a new ClassicLayoutManager instance (this
-																											//one does the magic) and the JRDataSource
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/FastReportTest.pdf");
-			JasperViewer.viewReport(jp);	//finally display the report report
-//			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
-//			JasperDesignViewer.viewReportDesign(jr);
-		} catch (Exception e) {
-//			e.getCause().printStackTrace();
-			e.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		FastReportTest test = new FastReportTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);	//finally display the report report
+//			JasperDesignViewer.viewReportDesign(jr);
 	}
 
 }
