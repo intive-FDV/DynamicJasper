@@ -36,7 +36,7 @@
    <body>
          <release version="2.0.3" date="2008-01-04"	desc="urgent fix">
          	<action dev="Juan Manuel Alvarez" type="fix">
-         		Error on 2.0.2 build :: was compiled in java 5
+         		Error on 2.0.2 build :: was compiled in java 5, it is java 1.4 now
          	</action>
        	</release>
          <release version="2.0.2" date="2007-12-28"	desc="Image column release">
