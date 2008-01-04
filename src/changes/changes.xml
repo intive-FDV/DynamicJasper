@@ -34,7 +34,12 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.2" date="2007-12-28"	desc="Crosstab release">
+         <release version="2.0.3" date="2008-01-04"	desc="urgent fix">
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Error on 2.0.2 build :: was compiled in java 5
+         	</action>
+       	</release>
+         <release version="2.0.2" date="2007-12-28"	desc="Image column release">
          	<action dev="Juan Manuel Alvarez" type="add">
          		pom.xml cleanup :: Unnecesary depenencies are optional now. Thanks danttran!!!
          	</action>
