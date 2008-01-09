@@ -34,6 +34,11 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="2.0.4" date="2008-01-04"	desc="urgent fix">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Added report query to work the same as JasperReports
+         	</action>
+       	</release>
          <release version="2.0.3" date="2008-01-04"	desc="urgent fix">
          	<action dev="Juan Manuel Alvarez" type="fix">
          		Error on 2.0.2 build :: was compiled in java 5, it is java 1.4 now
