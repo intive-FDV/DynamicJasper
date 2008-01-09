@@ -54,7 +54,6 @@ public abstract class BaseDjReportTest extends TestCase {
 	public abstract DynamicReport buildReport() throws Exception;
 
 	public void testReport() throws Exception {
-		try {
 			dr = buildReport();
 			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
@@ -67,8 +66,5 @@ public abstract class BaseDjReportTest extends TestCase {
 																											//one does the magic) and the JRDataSource
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 }
