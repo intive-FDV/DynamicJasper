@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -36,6 +37,7 @@ import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJQuery;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.ImageBanner;
@@ -1070,6 +1072,17 @@ public class DynamicReportBuilder {
 		if (this.globalFooterCrosstabs == null)
 			this.globalFooterCrosstabs = new ArrayList();
 		this.globalFooterCrosstabs.add(cross);
+		return this;
+	}
+
+	/**
+	 * Adds main report query.
+	 * @param text
+	 * @param language use constants from {@link DJConstants}
+	 * @return
+	 */
+	public DynamicReportBuilder setQuery(String text, String language) {
+		this.report.setQuery(new DJQuery(text,language));
 		return this;
 	}
 
