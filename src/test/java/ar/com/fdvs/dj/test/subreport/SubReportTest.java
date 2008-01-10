@@ -29,23 +29,15 @@
 
 package ar.com.fdvs.dj.test.subreport;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
-import ar.com.fdvs.dj.test.ReportExporter;
-import ar.com.fdvs.dj.test.TestRepositoryProducts;
-import ar.com.fdvs.dj.util.SortUtils;
 
 public class SubReportTest extends BaseDjReportTest {
 

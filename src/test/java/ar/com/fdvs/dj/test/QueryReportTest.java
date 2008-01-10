@@ -39,7 +39,6 @@ import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.domain.DJQuery;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 
@@ -58,10 +57,10 @@ public class QueryReportTest extends BaseDjReportTest {
 			.addColumn("Apellido", "apellido", String.class.getName(),50)
 			.addColumn("Password", "password", String.class.getName(),50)
 			.setTitle("Usuarios del sistema")
+			.setQuery("select * from usuario", DJConstants.QUERY_LANGUAGE_SQL)
 			.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
-		dr.setQuery(new DJQuery("select * from usuario",DJConstants.QUERY_LANGUAGE_SQL));
 		return dr;
 	}
 

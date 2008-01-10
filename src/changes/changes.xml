@@ -34,9 +34,12 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.4" date="2008-01-04"	desc="urgent fix">
+         <release version="2.0.4" date="2008-01-10"	desc="Report quert release">
          	<action dev="Juan Manuel Alvarez" type="add">
-         		Added report query to work the same as JasperReports
+         		Report query :: Added report query to work the same as JasperReports
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Export to jrxml file :: You can export your design to jrxml (for retouching in iReport) from the DynamicJasperHelper 
          	</action>
        	</release>
          <release version="2.0.3" date="2008-01-04"	desc="urgent fix">
