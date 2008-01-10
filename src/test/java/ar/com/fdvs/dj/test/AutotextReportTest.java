@@ -29,21 +29,19 @@
 
 package ar.com.fdvs.dj.test;
 
+import java.util.Date;
+import java.util.Locale;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Locale;
-
-public class AutotextReportTest extends TestCase {
+public class AutotextReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -87,24 +85,11 @@ public class AutotextReportTest extends TestCase {
 		return dr;
 	}
 
-	public void testReport() {
-	try {
-		DynamicReport dr = buildReport();
-		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-
-		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), dummyCollection);
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/AutotextReportTest.pdf");
-		JasperViewer.viewReport(jp);
-//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-}
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		AutotextReportTest test = new AutotextReportTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);
+		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, new ClassicLayoutManager()));
 	}
 
 }

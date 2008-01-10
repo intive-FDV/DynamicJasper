@@ -76,5 +76,11 @@ public interface DJConstants {
 	int COLOR_SCHEMA_LIGHT_GREEN = 4;
 	int COLOR_SCHEMA_BLUE = 5;
 	int COLOR_SCHEMA_GRAY = 6;
+	
+	String QUERY_LANGUAGE_SQL = "sql";
+	String QUERY_LANGUAGE_EJBQL = "ejbql";
+	String QUERY_LANGUAGE_HQL = "hql";
+	String QUERY_LANGUAGE_XPATH = "xPath";
+	String QUERY_LANGUAGE_MONDRIAN = "mdx";
 
 }

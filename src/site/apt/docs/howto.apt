@@ -9,6 +9,10 @@ HOW TO Guide
 
 * Content
 
+ * {{{HOWTO use report query.html}Use report query}} <<new!>>
+
+ * {{{HOWTO export to jrxml.html}Export report design to jrxml}} <<new!>>
+ 
  * {{{HOWTO image column.html}Use images in columns}} <<new!>>
  
  * {{{HOWTO barcode column.html}Use barcodes}} <<new!>>

@@ -66,6 +66,8 @@ public class DynamicReport {
 	private List autoTexts = new ArrayList();
 
 	private Map styles = new HashMap();
+	
+	private DJQuery query;
 
 	public void addStyle(Style style) {
 		styles.put(style.getName(), style);
@@ -191,6 +193,14 @@ public class DynamicReport {
 
 	public void setResourceBundle(String resourceBundle) {
 		this.resourceBundle = resourceBundle;
+	}
+
+	public DJQuery getQuery() {
+		return query;
+	}
+
+	public void setQuery(DJQuery query) {
+		this.query = query;
 	}
 
 }
