@@ -34,6 +34,11 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="2.0.5" date="2008-01-28"	desc="Report quert release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Parameter registration :: Whatever is in the "params map" will be registered as a parameter, thanks Charles Abreu
+         	</action>
+       	</release>
          <release version="2.0.4" date="2008-01-10"	desc="Report quert release">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Report query :: Added report query to work the same as JasperReports

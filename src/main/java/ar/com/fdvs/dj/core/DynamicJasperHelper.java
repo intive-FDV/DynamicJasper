@@ -470,6 +470,11 @@ public final class DynamicJasperHelper {
 			Object key = iterator.next();
 			if (key instanceof String){
 				try {
+					if (jd.getParametersMap().get(key) != null){
+						log.warn("Parameter \"" + key + "\" already registered, skipping this one.");
+						continue;
+					}
+					
 					JRDesignParameter parameter = new JRDesignParameter();
 					Object value = _parameters.get(key);
 //					parameter.setValueClassName(value.getClass().getCanonicalName());
@@ -518,6 +523,9 @@ public final class DynamicJasperHelper {
 
 			DynamicJasperDesign jd = generateJasperDesign(dr);
 			registerEntities(jd, dr);
+			
+			registerParams(jd, generatedParams); //if we have parameters from the outside, we register them			
+			
 			layoutManager.applyLayout(jd, dr);
 			JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
 			jr = JasperCompileManager.compileReport(jd);
