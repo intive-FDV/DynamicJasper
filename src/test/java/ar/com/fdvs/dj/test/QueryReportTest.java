@@ -57,10 +57,13 @@ public class QueryReportTest extends BaseDjReportTest {
 			.addColumn("Apellido", "apellido", String.class.getName(),50)
 			.addColumn("Password", "password", String.class.getName(),50)
 			.setTitle("Usuarios del sistema")
-			.setQuery("select * from usuario", DJConstants.QUERY_LANGUAGE_SQL)
+			.setQuery("select * from usuario where nombre = $P{nom}", DJConstants.QUERY_LANGUAGE_SQL)
 			.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
+		
+		params.put("nom", "Juan"); //Note that the query has a parameter, by putting in the map
+		//an item with the proper key, it will be automatically registered
 		return dr;
 	}
 
