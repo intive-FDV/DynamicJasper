@@ -89,6 +89,7 @@ public class DynamicReportBuilder {
 	protected Map groupFooterSubreports = new HashMap();
 	protected Map groupHeaderSubreports = new HashMap();
 
+
 	protected ArrayList concatenatedReports = new ArrayList();
 	private Style grandTotalStyle;
 
@@ -161,13 +162,12 @@ public class DynamicReportBuilder {
 			report.getColumnsGroups().add(0,globalGroup);
 		}
 
-
+				
 		addGlobalCrosstabs();
 
 		addSubreportsToGroups();
 
 		concatenateReports();
-
 
 		report.setAutoTexts(autoTexts);
 		return report;
@@ -1085,5 +1085,11 @@ public class DynamicReportBuilder {
 		this.report.setQuery(new DJQuery(text,language));
 		return this;
 	}
+
+	public DynamicReportBuilder addFont(String fontName, java.awt.Font font) {
+		this.report.getFontsMap().put(fontName, font);
+		return this;
+	}
+
 
 }

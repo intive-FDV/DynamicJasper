@@ -47,6 +47,8 @@ public class DynamicReport {
 
 	private Locale reportLocale = Locale.getDefault();
 	private String resourceBundle = null;
+	
+	protected Map fontsMap = new HashMap(); //<String, java.awt.Font>
 
 	//<AbstractColumn>
 	private List columns = new ArrayList();
@@ -201,6 +203,14 @@ public class DynamicReport {
 
 	public void setQuery(DJQuery query) {
 		this.query = query;
+	}
+
+	public Map getFontsMap() {
+		return fontsMap;
+	}
+
+	public void setFontsMap(Map fontsMap) {
+		this.fontsMap = fontsMap;
 	}
 
 }

@@ -34,9 +34,13 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.5" date="2008-01-28"	desc="Report quert release">
+         <release version="2.0.5" date="2008-01-30"	desc="Report quert release">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Parameter registration :: Whatever is in the "params map" will be registered as a parameter, thanks Charles Abreu
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Fonts handling :: The fonts now have the properties pdfFontName, pdfFontEmbedded and pdfFontEncodding. You can now export to PDF with any encoding. See FontReportTest.
+         		Thanks Sagara for asking!
          	</action>
        	</release>
          <release version="2.0.4" date="2008-01-10"	desc="Report quert release">

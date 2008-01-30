@@ -161,6 +161,9 @@ public class TemplateFileReportTest extends BaseDjReportTest {
 
 		DynamicReport dr = drb.build();	//Finally build the report!
 
+		params.put("leftHeader", "DynamicJasper is the Best!!!");
+		params.put("rightHeader", "This is the right header");
+		
 		return dr;
 	}
 
