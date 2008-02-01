@@ -44,7 +44,8 @@ public class FontReportTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 
 
-		Style titleStyle = new StyleBuilder(false).setFont(new Font(28,"Colonna MT","/fonts/COLONNA.TTF",Font.PDF_ENCODING_Identity_H_Unicode_with_horizontal_writing,true)).build();
+		Font font = new Font(28,"Colonna MT","/fonts/COLONNA.TTF",Font.PDF_ENCODING_Identity_H_Unicode_with_horizontal_writing,true);
+		Style titleStyle = new StyleBuilder(false).setFont(font).build();
 		
 		/**
 		 * Creates the DynamicReportBuilder and sets the basic options for

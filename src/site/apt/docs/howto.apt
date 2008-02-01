@@ -9,6 +9,8 @@ HOW TO Guide
 
 * Content
 
+ * {{{HOWTO Use custom fonts.html}Use custom fonts (internationalization)}} <<new!>>
+
  * {{{HOWTO use report query.html}Use report query}} <<new!>>
 
  * {{{HOWTO export to jrxml.html}Export report design to jrxml}} <<new!>>
