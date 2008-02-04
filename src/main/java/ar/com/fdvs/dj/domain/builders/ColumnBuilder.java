@@ -80,6 +80,7 @@ public class ColumnBuilder {
 	private ColumnOperation operation;
 	private List operationColumns;
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
+	private String fieldDescription;
 
 	private int columnType = COLUMN_TYPE_DEFAULT;
 
@@ -169,6 +170,7 @@ public class ColumnBuilder {
 		populateCommonAttributes(column);
 		column.setColumnProperty(columnProperty);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
+		column.setFieldDescription(fieldDescription);
 		return column;
 	}
 
@@ -339,6 +341,17 @@ public class ColumnBuilder {
 		return this;
 	}
 
+	public ColumnBuilder setFieldDescription(String fieldDescription){
+		this.fieldDescription = fieldDescription;
+		return this;
+	}
+	public ColumnBuilder setColumnProperty(String propertyName, String valueClassName, String fieldDescription ){
+		ColumnProperty columnProperty = new ColumnProperty(propertyName,valueClassName);
+		this.columnProperty = columnProperty;
+		this.fieldDescription = fieldDescription;
+		return this;
+	}
+
 //	//FIXME This method should belong to the GroupBuilder.
 //	public ColumnBuilder addCustomExpressionToGroupBy(CustomExpression customExpression){
 //		this.customExpressionToGroupBy = customExpression;
@@ -429,7 +442,7 @@ public class ColumnBuilder {
 
 	public ColumnBuilder setCommonProperties(String title, String property, String className, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
 		setColumnProperty(new ColumnProperty(property, className));
-		setWidth(Integer.valueOf(width));
+		setWidth(new Integer(width));
 		setTitle(title);
 		setFixedWidth(Boolean.valueOf(fixedWidth));
 		return this;

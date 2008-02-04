@@ -1,33 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"  ?>
-<!--
-  ~ Dynamic Jasper: A library for creating reports dynamically by specifying
-  ~ columns, groups, styles, etc. at runtime. It also saves a lot of development
-  ~ time in many cases! (http://sourceforge.net/projects/dynamicjasper)
-  ~
-  ~ Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
-  ~
-  ~ This library is free software; you can redistribute it and/or
-  ~ modify it under the terms of the GNU Lesser General Public
-  ~
-  ~ License as published by the Free Software Foundation; either
-  ~
-  ~ version 2.1 of the License, or (at your option) any later version.
-  ~
-  ~ This library is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-  ~
-  ~ Lesser General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Lesser General Public
-  ~ License along with this library; if not, write to the Free Software
-  ~
-  ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-  ~
-  ~
-  -->
-
 <!-- Created with iReport - A designer for JasperReports -->
 <!DOCTYPE jasperReport PUBLIC "//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 <jasperReport
@@ -96,7 +67,7 @@
 						key="textField-6"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font/>
+						<font fontName="Colonna MT" size="14"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{leftHeader}]]></textFieldExpression>
 				</textField>

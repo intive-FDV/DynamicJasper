@@ -1,0 +1,49 @@
+HOW-TO use report query
+
+ //TODO Complete this, make this test portable (use HSQL)
+
++------------------------------------------------------------------------------------------------------------+
+	public DynamicReport buildReport() throws Exception {
+
+
+		/**
+		 * Creates the DynamicReportBuilder and sets the basic options for
+		 * the report
+		 */
+		FastReportBuilder drb = new FastReportBuilder();
+		drb.addColumn("Id", "id", Integer.class.getName(),30)
+			.addColumn("Nombre", "nombre", String.class.getName(),30)
+			.addColumn("Apellido", "apellido", String.class.getName(),50)
+			.addColumn("Password", "password", String.class.getName(),50)
+			.setTitle("Usuarios del sistema")
+			.setQuery("select * from usuario", DJConstants.QUERY_LANGUAGE_SQL)
+			.setUseFullPageWidth(true);
+
+		DynamicReport dr = drb.build();
+		return dr;
+	}
++------------------------------------------------------------------------------------------------------------+
+
+ Note the line
+ 
++------------------------------------------------------------------------------------------------------------+
+ .setQuery("select * from usuario", DJConstants.QUERY_LANGUAGE_SQL)
++------------------------------------------------------------------------------------------------------------+
+
+ 
+ Later you must pass the connection when filling the report  
+ 
++------------------------------------------------------------------------------------------------------------+
+ jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), connection ,params );
++------------------------------------------------------------------------------------------------------------+
+ 
+ 
+ If you use some other type of query (hibernate) you pass the Session and other properties as parameter, 
+ then call this version of the <<generateJasperPrint>> method:
+ 
++------------------------------------------------------------------------------------------------------------+
+ jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), params );
++------------------------------------------------------------------------------------------------------------+
+
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/QueryReportTest.html}QueryReportTest.html}} for a working example.
+ 

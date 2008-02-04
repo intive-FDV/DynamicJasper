@@ -245,6 +245,9 @@ public class Style implements Serializable, Cloneable {
 			transformedStyle.setBold(font.isBold());
 			transformedStyle.setItalic(font.isItalic());
 			transformedStyle.setUnderline(font.isUnderline());
+			transformedStyle.setPdfFontName(font.getPdfFontName());
+			transformedStyle.setPdfEmbedded(font.isPdfFontEmbedded());
+			transformedStyle.setPdfEncoding(font.getPdfFontEncoding());
 		}
 
 		transformedStyle.setBackcolor(getBackgroundColor());

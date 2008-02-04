@@ -113,6 +113,8 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 				.getValueClassName());
 		log.debug("transforming column: " + propertyColumn.getColumnProperty().getProperty() + " / " + propertyColumn.getColumnProperty()
 				.getValueClassName());
+		
+		field.setDescription(propertyColumn.getFieldDescription()); //hack for XML data source
 		return field;
 	}
 

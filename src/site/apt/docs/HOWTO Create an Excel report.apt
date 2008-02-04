@@ -1,12 +1,12 @@
 HOW-TO Create an Excel report
  
- DynamicJasper is useful for creting plain Excel sheets, the main diference is that we have to use 
+ DynamicJasper is useful for creting plain Excel sheets, the only diference is that we have to use 
  the <<ListLayoutManager>> class instead of the <<ClassicLayoutManager>>. The main difference is that the former
- prevents JasperReport to leave blank spaces or have missaligned cells. You can still the ClassicLayoutManager
- when generating XLS files, it depends on what you need
+ prevents JasperReport to leave blank spaces or have missaligned cells. You can still use the ClassicLayoutManager
+ when generating XLS files, it will generate the XLS with all the formatting stuff, it depends on what you need.
  
  The <<ListLayoutManager>> does not pay attention to groups information, and some of the formatting options, its main
- purpose is to give as result an XLS sheet as clean as possible 
+ purpose is to give as result an XLS sheet as clean as possible (best for dynamic tables, etc)
   
 *----------+--------------+
 | <<Test>> | <<Description>> |

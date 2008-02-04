@@ -30,6 +30,16 @@
 package ar.com.fdvs.dj.test;
 
 
+import java.util.Collection;
+import java.util.Date;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
@@ -40,18 +50,11 @@ import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
 
-import java.util.Collection;
-import java.util.Date;
+public class BarcodeColumnReportTest extends BaseDjReportTest {
 
-public class BarcodeColumnReportTest extends TestCase {
+	private JasperPrint jp;
+	private JasperReport jr;
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -88,22 +91,21 @@ public class BarcodeColumnReportTest extends TestCase {
 			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
 																											//here contains dummy hardcoded objects...
 
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
+			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/BarcodeColumnReportTest.pdf");
-			JasperViewer.viewReport(jp);	//finally display the report report
-			JasperReport jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
-			JasperDesignViewer.viewReportDesign(jr);
+			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
 		} catch (Exception e) {
-//			e.getCause().printStackTrace();
 			e.printStackTrace();
 		}
 	}
-
-	public static void main(String[] args) {
+	
+	public static void main(String[] args) throws JRException {
 		BarcodeColumnReportTest test = new BarcodeColumnReportTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);	//finally display the report report
+		JasperDesignViewer.viewReportDesign(test.jr);
 	}
 
 }

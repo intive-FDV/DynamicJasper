@@ -27,23 +27,30 @@
  *
  */
 
-package ar.com.fdvs.dj.test.subreport;
+package ar.com.fdvs.dj.test;
+
 
 import java.util.Date;
-import java.util.List;
 
 import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.test.BaseDjReportTest;
+import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import ar.com.fdvs.dj.domain.constants.Font;
 
-public class SubReportTest extends BaseDjReportTest {
+public class FontReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
 
+		Font font = new Font(28,"Colonna MT","/fonts/COLONNA.TTF",Font.PDF_ENCODING_Identity_H_Unicode_with_horizontal_writing,true);
+		Style titleStyle = new StyleBuilder(false).setFont(font).build();
+		
+		/**
+		 * Creates the DynamicReportBuilder and sets the basic options for
+		 * the report
+		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
@@ -53,61 +60,22 @@ public class SubReportTest extends BaseDjReportTest {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
-			.setMargins(5, 5, 20, 20)
 			.setTitle("November 2006 sales report")
+			.setTitleStyle(titleStyle)
 			.setSubtitle("This report was generated at " + new Date())
+			
 			.setUseFullPageWidth(true);
 
-		drb.addField("statistics", List.class.getName());
-
-		DynamicReport drHeaderSubreport = createHeaderSubreport();
-		drb.addSubreportInGroupHeader(2, drHeaderSubreport, new ClassicLayoutManager(),
-				"statistics", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
-
-		 DynamicReport drFooterSubreport = createFooterSubreport();
-		 drb.addSubreportInGroupFooter(2, drFooterSubreport,  new ClassicLayoutManager(),
-				 "statistics", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
-
-		drb.setUseFullPageWidth(true);
-
 		DynamicReport dr = drb.build();
+		
 		return dr;
 	}
-
-	private DynamicReport createHeaderSubreport() throws Exception {
-		FastReportBuilder rb = new FastReportBuilder();
-		DynamicReport dr = rb
-			.addColumn("Date", "date", Date.class.getName(), 100)
-			.addColumn("Average", "average", Float.class.getName(), 50)
-			.addColumn("%", "percentage", Float.class.getName(), 50)
-			.addColumn("Amount", "amount", Float.class.getName(), 50)
-			.setMargins(5, 5, 20, 20)
-			.setUseFullPageWidth(true)
-			.setTitle("Subreport for this group")
-			.build();
-		return dr;
-	}
-
-	private DynamicReport createFooterSubreport() throws Exception {
-		FastReportBuilder rb = new FastReportBuilder();
-		DynamicReport dr = rb
-		.addColumn("Area", "name", String.class.getName(), 100)
-		.addColumn("Average", "average", Float.class.getName(), 50)
-		.addColumn("%", "percentage", Float.class.getName(), 50)
-		.addColumn("Amount", "amount", Float.class.getName(), 50)
-		.addGroups(1)
-		.setMargins(5, 5, 20, 20)
-		.setUseFullPageWidth(true)
-		.setTitle("Subreport for this group")
-		.build();
-		return dr;
-	}
-
 
 	public static void main(String[] args) throws Exception {
-		SubReportTest test = new SubReportTest();
+		FontReportTest test = new FontReportTest();
 		test.testReport();
-		JasperViewer.viewReport(test.jp);
+		JasperViewer.viewReport(test.jp);	//finally display the report report
+//			JasperDesignViewer.viewReportDesign(jr);
 	}
 
 }

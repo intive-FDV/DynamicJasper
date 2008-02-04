@@ -41,7 +41,7 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -52,7 +52,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TemplateStyleReportTest extends TestCase {
+public class TemplateStyleReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -169,34 +169,15 @@ public class TemplateStyleReportTest extends TestCase {
 
 		DynamicReport dr = drb.build();	//Finally build the report!
 
+		params.put("leftHeader", "My Company - My Area");
+		params.put("rightHeader", "User: Jack Sparrow");
 		return dr;
 	}
 
-	public void testReport() {
-		try {
-			DynamicReport dr = buildReport();
-
-			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-
-			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);	//Create a JRDataSource, the Collection used
-																											//here contains dummy hardcoded objects...
-
-			Map parameters = new HashMap();
-			parameters.put("leftHeader", "My Company - My Area");
-			parameters.put("rightHeader", "User: Jack Sparrow");
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters );	//Creates the JasperPrint object, we pass as a Parameter
-																											//one does the magic) and the JRDataSource
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/TemplateReportTestWithStyles.pdf");
-			JasperViewer.viewReport(jp);	//finally display the report report
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 		TemplateStyleReportTest test = new TemplateStyleReportTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);	//finally display the report report
 	}
 
 }

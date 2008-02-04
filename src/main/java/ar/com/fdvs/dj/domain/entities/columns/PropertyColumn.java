@@ -41,6 +41,20 @@ public abstract class PropertyColumn extends AbstractColumn {
 
 	private ColumnProperty columnProperty;
 	private CustomExpression expressionToGroupBy;
+	
+	
+	/**
+	 * This parameter goes to JRField.description, needed when using XML dataSources 
+	 */
+	private String fieldDescription;
+
+	public String getFieldDescription() {
+		return fieldDescription;
+	}
+
+	public void setFieldDescription(String fieldDescription) {
+		this.fieldDescription = fieldDescription;
+	}
 
 	public ColumnProperty getColumnProperty() {
 		return columnProperty;
