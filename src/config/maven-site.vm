@@ -334,13 +334,16 @@
     </div>
     <div id="breadcrumbs">
       #publishDate( "left" $decoration.publishDate $decoration.version )
-      <div class="xright">#links( $decoration.body.links )#publishDate( "right" $decoration.publishDate $decoration.version )</div>
+      <div class="xright">#links( $decoration.body.links ) 
+         | <a href="https://sourceforge.net/project/showfiles.php?group_id=188060">Current version: ${project.version}</a>
+      #publishDate( "right" $decoration.publishDate $decoration.version )</div>
       <div class="clear">
         <hr/>
       </div>
     </div>
     <div id="leftColumn">
       <div id="navcolumn">
+       
        #publishDate( "navigation-top" $decoration.publishDate $decoration.version )
        #mainMenu( $decoration.body.menus )
        #publishDate( "navigation-bottom" $decoration.publishDate $decoration.version )
