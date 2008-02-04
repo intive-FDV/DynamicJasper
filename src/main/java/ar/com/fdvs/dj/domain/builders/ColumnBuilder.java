@@ -80,6 +80,7 @@ public class ColumnBuilder {
 	private ColumnOperation operation;
 	private List operationColumns;
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
+	private String fieldDescription;
 
 	private int columnType = COLUMN_TYPE_DEFAULT;
 
@@ -169,6 +170,7 @@ public class ColumnBuilder {
 		populateCommonAttributes(column);
 		column.setColumnProperty(columnProperty);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
+		column.setFieldDescription(fieldDescription);
 		return column;
 	}
 
@@ -336,6 +338,17 @@ public class ColumnBuilder {
 	public ColumnBuilder setColumnProperty(String propertyName, String valueClassName ){
 		ColumnProperty columnProperty = new ColumnProperty(propertyName,valueClassName);
 		this.columnProperty = columnProperty;
+		return this;
+	}
+
+	public ColumnBuilder setFieldDescription(String fieldDescription){
+		this.fieldDescription = fieldDescription;
+		return this;
+	}
+	public ColumnBuilder setColumnProperty(String propertyName, String valueClassName, String fieldDescription ){
+		ColumnProperty columnProperty = new ColumnProperty(propertyName,valueClassName);
+		this.columnProperty = columnProperty;
+		this.fieldDescription = fieldDescription;
 		return this;
 	}
 

@@ -9,6 +9,8 @@ HOW TO Guide
 
 * Content
 
+ * {{{HOWTO Setup colums when using a XML data sources.html}Setup colums when using a XML data sources}} <<new!>>
+ 
  * {{{HOWTO Use custom fonts.html}Use custom fonts (internationalization)}} <<new!>>
 
  * {{{HOWTO use report query.html}Use report query}} <<new!>>
@@ -54,4 +56,5 @@ HOW TO Guide
  * {{{HOWTO Use inherited styles.html}Use inherited styles}}
 
  * {{{HOWTO Create a grand total.html}Create a grand total (with no groups)}}
+
  

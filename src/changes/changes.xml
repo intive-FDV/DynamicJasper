@@ -36,6 +36,10 @@
    <body>
          <release version="2.0.5" date="2008-01-30"	desc="Report quert release">
          	<action dev="Juan Manuel Alvarez" type="add">
+         		Field desctiption for XML datasources :: XML Data sources need that the fields had the property "description" defined. 
+         		Though ColumBuilder and FastReport builder "description" can be defined, thanks gustav_b
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
          		Parameter registration :: Whatever is in the "params map" will be registered as a parameter, thanks Charles Abreu
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">

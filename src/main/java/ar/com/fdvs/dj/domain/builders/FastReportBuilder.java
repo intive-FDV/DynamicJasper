@@ -358,6 +358,25 @@ public class FastReportBuilder extends DynamicReportBuilder {
 
 		return this;
 	}
+	
+	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth, String pattern, Style style, String fieldDescription) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getInstance()
+		.setColumnProperty(new ColumnProperty(property, className))
+		.setWidth(new Integer(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setPattern(pattern)
+		.setStyle(style)
+		.setFieldDescription(fieldDescription)
+		.build();
+		
+		if (style == null)
+			guessStyle(className, column);
+		
+		addColumn(column);
+		
+		return this;
+	}
 
 	protected void guessStyle(String className, AbstractColumn column) throws ClassNotFoundException {
 
