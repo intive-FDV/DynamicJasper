@@ -56,7 +56,6 @@ API.
 		]]>
 	</description>
 	<url>http://sourceforge.net/projects/dynamicjasper</url>
-
     <issueManagement>
 		<system>SourceForge Tracker</system>
 		<url>http://sourceforge.net/tracker/?group_id=188060</url>
@@ -340,7 +339,7 @@ API.
 				GNU Library or Lesser General Public License (LGPL)
 			</name>
 			<url>http://www.gnu.org/licenses/lgpl.txt</url>
-			<!--      <distribution>repo</distribution>-->
+			<distribution>repo</distribution>
 		</license>
 	</licenses>
 	<scm>
@@ -394,6 +393,7 @@ API.
 			<email>alejandro.gomez@fdvsolutions.com</email>
 			<organization>FDV Solutions</organization>
 			<roles>
+				<role>Super Gurú</role>
 				<role>Doc supervisor</role>
 				<role>webwork Integration</role>
 			</roles>
