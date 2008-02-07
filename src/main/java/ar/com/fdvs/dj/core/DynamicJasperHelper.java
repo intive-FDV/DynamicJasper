@@ -168,9 +168,7 @@ public final class DynamicJasperHelper {
 		des.setIgnorePagination(options.isIgnorePagination());
 		
 		if (dr.getQuery() != null){
-			JRDesignQuery query = new JRDesignQuery();
-			query.setText(dr.getQuery().getText());
-			query.setLanguage(dr.getQuery().getLanguage());
+			JRDesignQuery query = getJRDesignQuery(dr);
 			des.setQuery(query);
 		}
 
@@ -196,6 +194,7 @@ public final class DynamicJasperHelper {
 					jd = downCast(jdesign);
 				}
 				populateReportOptionsFromDesign(jd,dr);
+				
 			} else {
 				//Create new JasperDesign from the scratch
 				jd = getNewDesign(dr);
@@ -227,6 +226,22 @@ public final class DynamicJasperHelper {
 
 		options.setPage(new Page(jd.getPageHeight(),jd.getPageWidth()));
 		
+		if (dr.getQuery() != null){
+			JRDesignQuery query = getJRDesignQuery(dr);
+			jd.setQuery(query);
+		}
+		
+	}
+
+	/**
+	 * @param dr
+	 * @return
+	 */
+	private static JRDesignQuery getJRDesignQuery(DynamicReport dr) {
+		JRDesignQuery query = new JRDesignQuery();
+		query.setText(dr.getQuery().getText());
+		query.setLanguage(dr.getQuery().getLanguage());
+		return query;
 	}
 
 	protected static DynamicJasperDesign downCast(JasperDesign jd) throws CoreException {
@@ -503,6 +518,15 @@ public final class DynamicJasperHelper {
 
 	}
 
+	/**
+	 * Generates a JasperReport object.
+	 * If you have unregistered parameters (ie: inside a query) you should the overloaded version of this method passing
+	 * in a parameter map the objects expected in order for DJ to register them.
+	 * @param dr
+	 * @param layoutManager
+	 * @return
+	 * @throws JRException
+	 */
 	public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager) throws JRException {
 		log.info("generating JasperReport");
 		JasperReport jr = null;
@@ -513,9 +537,10 @@ public final class DynamicJasperHelper {
             jr = JasperCompileManager.compileReport(jd);
 		return jr;
 	}
-
+	
 	/**
 	 * Compiles the report and applies the layout. <b>generatedParams</b> MUST NOT BE NULL
+	 * All the key objects from the generatedParams map that are String, will be registered as parameters of the report. 
 	 * @param dr
 	 * @param layoutManager
 	 * @param generatedParams

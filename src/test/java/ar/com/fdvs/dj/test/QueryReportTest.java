@@ -57,7 +57,9 @@ public class QueryReportTest extends BaseDjReportTest {
 			.addColumn("Apellido", "apellido", String.class.getName(),50)
 			.addColumn("Password", "password", String.class.getName(),50)
 			.setTitle("Usuarios del sistema")
-			.setQuery("select * from usuario where nombre = $P{nom}", DJConstants.QUERY_LANGUAGE_SQL)
+//			.setQuery("select * from usuario where nombre = $P{nom}", DJConstants.QUERY_LANGUAGE_SQL)
+			.setTemplateFile("templates/TemplateReportTest.jrxml")
+			.setQuery("select * from usuario where nombre = 'juan'", DJConstants.QUERY_LANGUAGE_SQL)
 			.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
@@ -88,7 +90,7 @@ public class QueryReportTest extends BaseDjReportTest {
 			con.close();
 			
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
-			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
+			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager(),params);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

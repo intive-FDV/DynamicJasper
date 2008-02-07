@@ -34,7 +34,13 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.5" date="2008-01-30"	desc="Report quert release">
+         <release version="2.0.6" date="2008-02-04"	desc="Minor bug fixes and features">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Problem with dynamically added queries when using template files :: the query added dinamically got lost when
+         		using templates files, thanks gustav_b
+         	</action>
+         </release>
+         <release version="2.0.5" date="2008-02-04"	desc="Minor users requests">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Field desctiption for XML datasources :: XML Data sources need that the fields had the property "description" defined. 
          		Though ColumBuilder and FastReport builder "description" can be defined, thanks gustav_b
@@ -47,7 +53,7 @@
          		Thanks Sagara for asking!
          	</action>
        	</release>
-         <release version="2.0.4" date="2008-01-10"	desc="Report quert release">
+         <release version="2.0.4" date="2008-01-10"	desc="Report query release">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Report query :: Added report query to work the same as JasperReports
          	</action>
