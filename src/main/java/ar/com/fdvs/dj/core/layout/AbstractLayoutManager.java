@@ -593,6 +593,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			DJChart djChart = (DJChart) iter.next();
 			JRDesignChart chart = createChart(djChart);
 			JRDesignBand band = getPositionBand(djChart);
+			int yOffset = findVerticalOffset(band);
+			chart.setY(yOffset); //The chart will be located at the very end of the band so far
 			band.addElement(chart);
 		}
 	}
@@ -624,7 +626,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
 			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroup, getParent(jrGroup), registerChartVariable(djChart)));
 			interpeterOptions(djChart, chart);
-
+			
 			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
 			chart.setEvaluationGroup(jrGroup);
 			return chart;
@@ -709,7 +711,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		var.setCalculation(chart.getOperation());
 		var.setResetGroup(group);
 		var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
-		var.setName("CHART_" + group.getName() + "_" + chart.getColumn().getTitle() + "_" + chart.getOperation());
+		int chartIndex = getReport().getCharts().indexOf(chart); //use the index as part of the name just because I may want 2 
+		//different types of chart from the very same column (with the same operation also) making the variables name to be duplicated 
+		var.setName("CHART_[" + chartIndex + "+]_" + group.getName() + "_" + chart.getColumn().getTitle() + "_" + chart.getOperation());
 //		JRDesignExpression initExp = new JRDesignExpression();
 //		initExp.setText("new Float(0)");
 //		initExp.setValueClass(clazz);

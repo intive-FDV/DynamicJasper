@@ -48,7 +48,6 @@ import java.util.ResourceBundle;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JRReportFont;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -60,7 +59,6 @@ import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JRDesignReportFont;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -526,6 +524,8 @@ public final class DynamicJasperHelper {
 	 * @param layoutManager
 	 * @return
 	 * @throws JRException
+	 * 
+	 * @deprecated use the overloaded version that needs a parameters Map 
 	 */
 	public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager) throws JRException {
 		log.info("generating JasperReport");

@@ -35,9 +35,12 @@
       </properties>
    <body>
          <release version="2.0.6" date="2008-02-04"	desc="Minor bug fixes and features">
-         	<action dev="Juan Manuel Alvarez" type="add">
+         	<action dev="Juan Manuel Alvarez" type="fix">
          		Problem with dynamically added queries when using template files :: the query added dinamically got lost when
          		using templates files, thanks gustav_b
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		More than one chart in a group :: You can now create more than one chart in the same group, thanks Sagara!
          	</action>
          </release>
          <release version="2.0.5" date="2008-02-04"	desc="Minor users requests">
