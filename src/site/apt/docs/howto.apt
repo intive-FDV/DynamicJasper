@@ -9,6 +9,10 @@ HOW TO Guide
 
 * Content
 
+ * {{{HOWTO Define behaviour when a resource is missing.html}Define behaviour when a resource is missing}} <<new!>>
+
+ * {{{HOWTO Define behaviour when empty data source.html}Define behaviour when empty data source}} <<new!>>
+ 
  * {{{HOWTO Setup colums when using a XML data sources.html}Setup colums when using a XML data sources}} <<new!>>
  
  * {{{HOWTO Use custom fonts.html}Use custom fonts (internationalization)}} <<new!>>

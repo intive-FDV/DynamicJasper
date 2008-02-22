@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import ar.com.fdvs.dj.core.DJConstants;
+
 /**
  * One of the main classes of this product. It represents the report itself.
  */
@@ -70,6 +72,29 @@ public class DynamicReport {
 	private Map styles = new HashMap();
 	
 	private DJQuery query;
+	
+	/**
+	 * Defines the behaviour when the datasource is empty.
+	 * Valid values are: 
+	 * DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES
+	 * DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE
+	 * DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL
+	 * DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION
+	 * 
+	 * Defatul is: DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES
+	 */
+	private byte whenNoDataType = DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES;
+
+	/**********************
+	 * Defines what to show if a missing resource is referenced
+	 * Possible values are:<br>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY: Leaves and empty field.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR: Throwns and exception.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY: Shows the key of the missing resource.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL: returns NULL
+	 **********************/
+	private byte whenResourceMissing = DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY;
+	
 
 	public void addStyle(Style style) {
 		styles.put(style.getName(), style);
@@ -211,6 +236,22 @@ public class DynamicReport {
 
 	public void setFontsMap(Map fontsMap) {
 		this.fontsMap = fontsMap;
+	}
+
+	public byte getWhenNoDataType() {
+		return whenNoDataType;
+	}
+
+	public void setWhenNoDataType(byte whenNoDataType) {
+		this.whenNoDataType = whenNoDataType;
+	}
+
+	public byte getWhenResourceMissing() {
+		return whenResourceMissing;
+	}
+
+	public void setWhenResourceMissing(byte whenResourceMissing) {
+		this.whenResourceMissing = whenResourceMissing;
 	}
 
 }

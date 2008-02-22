@@ -1091,5 +1091,82 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	
+	/**
+	 * Defines the behaviour when the datasource is empty.
+	 * Defatul vaue is {@link DJConstants#WHEN_NO_DATA_TYPE_NO_PAGES}
+	 * @param whenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataType(byte whenNoDataType) {
+		this.report.setWhenNoDataType(whenNoDataType);
+		return this;
+	}
+	
+	/**
+	 * @see setWhenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataNoPages() {
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES);
+		return this;
+	}
+	/**
+	 * @see setWhenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataBlankPage() {
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE);
+		return this;
+	}
+	/**
+	 * @see setWhenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataAllSectionNoDetail() {
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL);
+		return this;
+	}
+	/**
+	 * @see setWhenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataShowNoDataSection() {
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
+		return this;
+	}
 
+	/**
+	 * Defines what to show if a missing resource is referenced Possible values
+	 * are:<br>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY: Leaves and empty field.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR: Throwns and exception.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY: Shows the key of the missing
+	 * resource.<br/> DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL: returns NULL
+	 * 
+	 * @param whenResourceMissing
+	 * @return
+	 */	
+	public DynamicReportBuilder setWhenResourceMissing(byte whenResourceMissing) {
+		this.report.setWhenResourceMissing(whenResourceMissing);
+		return this;
+	}
+	public DynamicReportBuilder setWhenResourceMissingLeaveEmptySpace() {
+		this.report.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY);
+		return this;
+	}
+	public DynamicReportBuilder setWhenResourceMissingThrowException() {
+		this.report.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR);
+		return this;
+	}
+	public DynamicReportBuilder setWhenResourceMissingShowKey() {
+		this.report.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY);
+		return this;
+	}
+	public DynamicReportBuilder setWhenResourceMissingReturnNull() {
+		this.report.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL);
+		return this;
+	}
+	
+	
 }

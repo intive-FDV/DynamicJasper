@@ -55,16 +55,24 @@ public abstract class BaseDjReportTest extends TestCase {
 
 	public void testReport() throws Exception {
 			dr = buildReport();
-			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-
-			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
-																											//here contains dummy hardcoded objects...
+			JRDataSource ds = getDataSource();
 
 			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds,params );	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
+	}
+
+	/**
+	 * @return
+	 */
+	protected JRDataSource getDataSource() {
+		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
+		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
+
+		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
+																										//here contains dummy hardcoded objects...
+		return ds;
 	}
 }

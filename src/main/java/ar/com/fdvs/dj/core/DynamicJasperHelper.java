@@ -152,7 +152,9 @@ public final class DynamicJasperHelper {
 		des.setTopMargin(options.getTopMargin().intValue());
 		des.setBottomMargin(options.getBottomMargin().intValue());
 
-		des.setWhenNoDataType(JasperDesign.WHEN_NO_DATA_TYPE_NO_PAGES);
+		des.setWhenNoDataType(dr.getWhenNoDataType());
+		des.setWhenResourceMissingType(dr.getWhenResourceMissing());
+		
 		des.setTitleNewPage(false);
 		des.setSummaryNewPage(false);
 

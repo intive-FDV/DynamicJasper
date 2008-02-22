@@ -1,0 +1,25 @@
+HOW-TO Define behaviour when empty data source
+
+ JasperReport define 4 possible actions when the data source is empty. These actions are described below.
+ 
+ Using the <DynamicReportBuilder>
++------------------------------------------------------------------------------------------------------------+
+DynamicReportBuilder setWhenNoDataType(byte whenNoDataType)
++------------------------------------------------------------------------------------------------------------+
+ 
+ * <<DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES>>: No pages at all
+ 
+ * <<DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE>>: A blank page
+ 
+ * <<DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL>>: Shows everything but hides the detail section.
+ 
+ * <<DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION>>: Hides the detail band and shows the "NoData" section.
+ 
+ []
+ 
+ These convinient methods are also available:
+ 
+ setWhenNoDataNoPages(), setWhenNoDataBlankPage(), setWhenNoDataAllSectionNoDetail() and setWhenNoDataShowNoDataSection()
+ 
+ 
+

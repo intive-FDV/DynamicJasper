@@ -358,13 +358,13 @@ public class ColumnBuilder {
 //		return this;
 //	}
 
-	/**
-	 * @deprecated
-	 */
 	public ColumnBuilder setCustomExpression(CustomExpression customExpression){
 		this.customExpression = customExpression;
 		return this;
 	}
+	/**
+	 * @deprecated
+	 */
 	public ColumnBuilder addCustomExpression(CustomExpression customExpression){
 		this.customExpression = customExpression;
 		return this;

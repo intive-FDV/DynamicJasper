@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.core;
 
+import net.sf.jasperreports.engine.JRReport;
+
 public interface DJConstants {
 
 	String HEADER = "header";
@@ -82,5 +84,17 @@ public interface DJConstants {
 	String QUERY_LANGUAGE_HQL = "hql";
 	String QUERY_LANGUAGE_XPATH = "xPath";
 	String QUERY_LANGUAGE_MONDRIAN = "mdx";
+	
+	public static byte WHEN_NO_DATA_TYPE_NO_PAGES = JRReport.WHEN_NO_DATA_TYPE_NO_PAGES;
+	public static byte WHEN_NO_DATA_TYPE_BLANK_PAGE = JRReport.WHEN_NO_DATA_TYPE_BLANK_PAGE;
+	public static byte WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL = JRReport.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL;
+	public static byte WHEN_NO_DATA_TYPE_NO_DATA_SECTION = JRReport.WHEN_NO_DATA_TYPE_NO_DATA_SECTION;
+
+	public static byte WHEN_RESOURCE_MISSING_TYPE_EMPTY = JRReport.WHEN_RESOURCE_MISSING_TYPE_EMPTY;
+	public static byte WHEN_RESOURCE_MISSING_TYPE_ERROR = JRReport.WHEN_RESOURCE_MISSING_TYPE_ERROR;
+	public static byte WHEN_RESOURCE_MISSING_TYPE_KEY = JRReport.WHEN_RESOURCE_MISSING_TYPE_KEY;
+	public static byte WHEN_RESOURCE_MISSING_TYPE_NULL = JRReport.WHEN_RESOURCE_MISSING_TYPE_NULL;
+	
+	
 
 }

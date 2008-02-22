@@ -34,13 +34,23 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.6" date="2008-02-04"	desc="Minor bug fixes and features">
+         <release version="2.0.6" date="2008-02-22"	desc="Minor bug fixes and features">
          	<action dev="Juan Manuel Alvarez" type="fix">
          		Problem with dynamically added queries when using template files :: the query added dinamically got lost when
          		using templates files, thanks gustav_b
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
          		More than one chart in a group :: You can now create more than one chart in the same group, thanks Sagara!
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Define behaviour when datasource is empty :: just a passthough to the JasperReports options. Use DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES, DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE, 
+         		DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL, DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION.
+         		Thanks Dorin Scutarasu!!!
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Define behaviour when missing resource is found :: just a passthough to the JasperReports options. Use DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY, DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR, 
+         		DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY, DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL.
+         		Thanks Dorin Scutarasu!!!
          	</action>
          </release>
          <release version="2.0.5" date="2008-02-04"	desc="Minor users requests">
