@@ -71,7 +71,7 @@ public class CommonExpressionsHelper {
 
 		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
 		pageCounter.setHeight(height);
-		pageCounter.setWidth(20);
+		pageCounter.setWidth(30);
 		pageCounter.setY(yOffset);
 		pageCounter.setEvaluationTime(JRExpression.EVALUATION_TIME_REPORT);
 		pageCounter.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_LEFT);

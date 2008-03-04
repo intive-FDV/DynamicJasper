@@ -1168,5 +1168,36 @@ public class DynamicReportBuilder {
 		return this;
 	}
 	
+	/**
+	 * Defines the text to show when the data source is empty.<br> 
+	 * By default the title and column headers are shown
+	 * @param text
+	 * @param style : the style of the text
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoData(String text, Style style) {
+		this.report.setWhenNoDataStyle(style);
+		this.report.setWhenNoDataText(text);
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
+		return this;
+	}
+	
+/**
+ * Defines the text to show when the data source is empty.<br> 
+ * @param text
+ * @param style : the style of the text
+ * @param showTitle : if true, the title is shown
+ * @param showColumnHeader : if true, the column headers are shown
+ * @return
+ */	
+	public DynamicReportBuilder setWhenNoData(String text, Style style, boolean showTitle, boolean showColumnHeader) {
+		this.report.setWhenNoDataStyle(style);
+		this.report.setWhenNoDataText(text);
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
+		this.report.setWhenNoDataShowColumnHeader(showColumnHeader);
+		this.report.setWhenNoDataShowTitle(showTitle);
+		return this;
+	}
+	
 	
 }

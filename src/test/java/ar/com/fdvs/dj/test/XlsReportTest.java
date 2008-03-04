@@ -33,10 +33,11 @@ public class XlsReportTest extends TestCase {
 		drb.addColumn("State"			, "state"		, String.class.getName(), 30)
 			.addColumn("Branch"			, "branch"		, String.class.getName(), 30)
 			.addColumn("Product Line"	, "productLine"	, String.class.getName(), 50)
-			.addColumn("Item"			, "item"		, String.class.getName(), 50)
-			.addColumn("Item Code"		, "id"			, Long.class.getName()	, 30, true)
-			.addColumn("Quantity"		, "quantity"	, Long.class.getName()	, 60, true)
+//			.addColumn("Item"			, "item"		, String.class.getName(), 50)
+//			.addColumn("Item Code"		, "id"			, Long.class.getName()	, 30, true)
+//			.addColumn("Quantity"		, "quantity"	, Long.class.getName()	, 60, true)
 			.addColumn("Amount"			, "amount"		, Float.class.getName()	, 70, true)
+			.addColumn("Date"			, "date"		, Date.class.getName()	, 70, true, "dd/MM/yyyy",null)
 			.addGroups(2) //Not used by the ListLayoutManager
 			.setPrintColumnNames(true)
 			.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list

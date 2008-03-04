@@ -73,6 +73,11 @@ public class DynamicReport {
 	
 	private DJQuery query;
 	
+	private String whenNoDataText;
+	private Style  whenNoDataStyle;
+	private boolean whenNoDataShowTitle = true;
+	private boolean whenNoDataShowColumnHeader = true;
+	
 	/**
 	 * Defines the behaviour when the datasource is empty.
 	 * Valid values are: 
@@ -252,6 +257,38 @@ public class DynamicReport {
 
 	public void setWhenResourceMissing(byte whenResourceMissing) {
 		this.whenResourceMissing = whenResourceMissing;
+	}
+
+	public String getWhenNoDataText() {
+		return whenNoDataText;
+	}
+
+	public void setWhenNoDataText(String whenNoDataText) {
+		this.whenNoDataText = whenNoDataText;
+	}
+
+	public Style getWhenNoDataStyle() {
+		return whenNoDataStyle;
+	}
+
+	public void setWhenNoDataStyle(Style whenNoDataStyle) {
+		this.whenNoDataStyle = whenNoDataStyle;
+	}
+
+	public boolean isWhenNoDataShowTitle() {
+		return whenNoDataShowTitle;
+	}
+
+	public void setWhenNoDataShowTitle(boolean whenNoDataShowTitle) {
+		this.whenNoDataShowTitle = whenNoDataShowTitle;
+	}
+
+	public boolean isWhenNoDataShowColumnHeader() {
+		return whenNoDataShowColumnHeader;
+	}
+
+	public void setWhenNoDataShowColumnHeader(boolean whenNoDataShowColumnHeader) {
+		this.whenNoDataShowColumnHeader = whenNoDataShowColumnHeader;
 	}
 
 }

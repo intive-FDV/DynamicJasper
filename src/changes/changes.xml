@@ -34,6 +34,14 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="2.0.7" date="2008-03-04"	desc="when no data section release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		When no data section feature :: you can set up what to show when the data source is empty. See WhenNoDataTest for a working example
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		javadoc jar generated always :: javadoc jar is generated when a new release is out (pom.xml configuration)
+         	</action>
+         </release>
          <release version="2.0.6" date="2008-02-22"	desc="Minor bug fixes and features">
          	<action dev="Juan Manuel Alvarez" type="fix">
          		Problem with dynamically added queries when using template files :: the query added dinamically got lost when
