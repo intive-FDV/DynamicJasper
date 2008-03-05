@@ -22,5 +22,3 @@ DynamicReportBuilder setWhenResourceMissing(byte whenResourceMissing)
  
  setWhenResourceMissingLeaveEmptySpace(), setWhenResourceMissingThrowException(), setWhenResourceMissingShowKey() and setWhenResourceMissingReturnNull()
  
- 
-

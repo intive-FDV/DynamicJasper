@@ -19,13 +19,13 @@ Dependencies
 
  Libraries to run DynamicJasper
 
- * {Jakarta Commons BeanUtils Component{http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar}} (version 1.7 or later)
+ * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar}Jakarta Commons BeanUtils Component}} (version 1.7 or later)
 
- * {Jakarta Commons Collections Component {http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-collections/commons-collections/3.0/commons-collections-3.0.jar}} (version 3.0 or later)
+ * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-collections/commons-collections/3.0/commons-collections-3.0.jar}Jakarta Commons Collections Component}} (version 3.0 or later)
 
- * {Jakarta Commons Logging Component{http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.jar}} (version 1.0 or later)
+ * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.jar}Jakarta Commons Logging Component}} (version 1.0 or later)
    
- * {Eclipse jdt-core compiler{http://mirrors.ibiblio.org/pub/mirrors/maven2/eclipse/jdtcore/3.1.0/jdtcore-3.1.0.jar}}
+ * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/eclipse/jdtcore/3.1.0/jdtcore-3.1.0.jar}Eclipse jdt-core compiler}}
 
  Libraries for exporting 
  

@@ -32,7 +32,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>2.0.7-SNAPSHOT</version>
+	<version>2.0.7</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -61,6 +61,7 @@ API.
 		<url>http://sourceforge.net/tracker/?group_id=188060</url>
 	</issueManagement>
 	<inceptionYear>2006</inceptionYear>
+<!-- 
 	<repositories>
 		<repository>
 			<id>djmaven2</id>
@@ -68,6 +69,7 @@ API.
 			<name>DynamicJasper public Repository</name>
 		</repository>
 	</repositories>
+	-->
 	<build>
 		<plugins>
 			<plugin>
@@ -222,22 +224,6 @@ API.
 				          <locales>en,es</locales>
 				        </configuration>
 				      </plugin>
-
-					<!--			    <plugin>-->
-					<!--			      <groupId>org.codehaus.mojo</groupId>-->
-					<!--			      <artifactId>changelog-maven-plugin</artifactId>-->
-					<!--			    </plugin>-->
-
-					<!-- checkstyle -->
-					<!--			    <plugin>-->
-					<!--			      <artifactId>maven-checkstyle-plugin</artifactId>-->
-					<!--			    </plugin>-->
-
-					<!-- surefire unit tests -->
-					<!--			    <plugin>-->
-					<!--			      <groupId>org.codehaus.mojo</groupId>-->
-					<!--			      <artifactId>surefire-report-maven-plugin</artifactId>-->
-					<!--			    </plugin>					-->
 				</plugins>
 			</reporting>
 		</profile>
