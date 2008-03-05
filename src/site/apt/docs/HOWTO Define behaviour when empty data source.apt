@@ -22,7 +22,7 @@ DynamicReportBuilder setWhenNoDataType(byte whenNoDataType)
  
  setWhenNoDataNoPages(), setWhenNoDataBlankPage(), setWhenNoDataAllSectionNoDetail() and setWhenNoDataShowNoDataSection()
  
- * Define When No Data Section text
+* Define When No Data Section text
 
  Whe can also define a text to be shown when the datasource is empty. Using the DynamicReportBuilder we can do like this
 
