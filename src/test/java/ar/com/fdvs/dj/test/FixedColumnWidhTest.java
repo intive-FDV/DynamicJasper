@@ -29,8 +29,9 @@
 
 package ar.com.fdvs.dj.test;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import java.awt.Color;
+
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
@@ -39,16 +40,8 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
-import java.awt.Color;
-import java.util.Collection;
-
-public class FixedColumnWidhTest extends TestCase {
+public class FixedColumnWidhTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -146,29 +139,10 @@ public class FixedColumnWidhTest extends TestCase {
 		return dr;
 	}
 
-	public void testReport() {
-		try {
-			DynamicReport dr = buildReport();
-
-			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-
-			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);	//Create a JRDataSource, the Collection used
-																											//here contains dummy hardcoded objects...
-
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
-																											//the DynamicReport, a new ClassicLayoutManager instance (this
-																											//one does the magic) and the JRDataSource
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/FixedColumnWidhTest.pdf");
-//			JasperViewer.viewReport(jp);	//finally display the report report
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		FixedColumnWidhTest test = new FixedColumnWidhTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);	//finally display the report report
 	}
 
 }

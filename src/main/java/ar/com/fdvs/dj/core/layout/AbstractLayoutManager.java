@@ -29,20 +29,15 @@
 
 package ar.com.fdvs.dj.core.layout;
 
-import ar.com.fdvs.dj.domain.CustomExpression;
-import ar.com.fdvs.dj.domain.DJChart;
-import ar.com.fdvs.dj.domain.DJChartOptions;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.builders.DataSetFactory;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
-import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
+import net.sf.jasperreports.engine.JRBand;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
@@ -62,23 +57,27 @@ import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sourceforge.barbecue.Barcode;
-import net.sourceforge.barbecue.BarcodeException;
-import net.sourceforge.barbecue.BarcodeFactory;
-import net.sourceforge.barbecue.BarcodeImageHandler;
-import net.sourceforge.barbecue.linear.code39.Code39Barcode;
-import net.sourceforge.barbecue.output.OutputException;
+
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJChartOptions;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.DynamicReportOptions;
+import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.builders.DataSetFactory;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
  * Abstract Class used as base for the different Layout Managers.</br>
@@ -116,6 +115,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			ensureDJStyles();
 			startLayout();
 			transformDetailBand();
+			setWhenNoDataBand();
 			endLayout();
 			registerRemainingStyles();
 		} catch (RuntimeException e) {
@@ -123,6 +123,61 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		}
 	}
 
+
+	/**
+	 * Creates the graphic element to be shown when the datasource is empty
+	 */
+	protected void setWhenNoDataBand() {
+		log.debug("setting up WHEN NO DATA band");
+		String whenNoDataText = getReport().getWhenNoDataText();
+		Style style = getReport().getWhenNoDataStyle();
+		if (whenNoDataText == null || "".equals(whenNoDataText))
+			return;
+		JRDesignBand band = new JRDesignBand();
+		getDesign().setNoData(band);
+		
+		JRDesignTextField text = new JRDesignTextField();
+		JRDesignExpression expression = ExpressionUtils.createStringExpression("\""+whenNoDataText+"\"");
+		text.setExpression(expression);
+		
+		if (style == null){
+			style = getReport().getOptions().getDefaultDetailStyle();
+		}
+		
+		if (getReport().isWhenNoDataShowTitle())
+			copyBandElements(band, getDesign().getPageHeader());
+		if (getReport().isWhenNoDataShowColumnHeader())
+			copyBandElements(band, getDesign().getColumnHeader());
+		
+		int offset = findVerticalOffset(band);
+		text.setY(offset);
+		applyStyleToElement(style, text);
+		text.setWidth(getReport().getOptions().getPrintableWidth());
+		text.setHeight(50);
+		band.addElement(text);
+		log.debug("OK setting up WHEN NO DATA band");
+		
+	}
+
+	/**
+	 * @param destBand
+	 * @param sourceBand
+	 */
+	private void copyBandElements(JRDesignBand destBand, JRBand sourceBand) {
+		int offset = findVerticalOffset(destBand);
+		for (Iterator iterator = sourceBand.getChildren().iterator(); iterator.hasNext();) {
+			JRDesignElement element = (JRDesignElement) iterator.next();
+			JRDesignElement dest = null;
+			try {
+				dest = (JRDesignElement) element.getClass().newInstance();
+				BeanUtils.copyProperties(dest, element);
+				dest.setY(dest.getY() + offset);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			destBand.addElement((JRDesignElement) dest);
+		}
+	}
 
 	protected void startLayout() {
 		setColumnsFinalWidth();
@@ -503,6 +558,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		setBandFinalHeight((JRDesignBand) design.getLastPageFooter());
 		setBandFinalHeight((JRDesignBand) design.getTitle());
 		setBandFinalHeight((JRDesignBand) design.getPageFooter());
+		setBandFinalHeight((JRDesignBand) design.getNoData());
 
 		for (Iterator iter = design.getGroupsList().iterator(); iter.hasNext();) {
 			JRGroup jrgroup = (JRGroup) iter.next();
@@ -593,6 +649,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			DJChart djChart = (DJChart) iter.next();
 			JRDesignChart chart = createChart(djChart);
 			JRDesignBand band = getPositionBand(djChart);
+			int yOffset = findVerticalOffset(band);
+			chart.setY(yOffset); //The chart will be located at the very end of the band so far
 			band.addElement(chart);
 		}
 	}
@@ -624,7 +682,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
 			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroup, getParent(jrGroup), registerChartVariable(djChart)));
 			interpeterOptions(djChart, chart);
-
+			
 			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
 			chart.setEvaluationGroup(jrGroup);
 			return chart;
@@ -709,7 +767,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		var.setCalculation(chart.getOperation());
 		var.setResetGroup(group);
 		var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
-		var.setName("CHART_" + group.getName() + "_" + chart.getColumn().getTitle() + "_" + chart.getOperation());
+		int chartIndex = getReport().getCharts().indexOf(chart); //use the index as part of the name just because I may want 2 
+		//different types of chart from the very same column (with the same operation also) making the variables name to be duplicated 
+		var.setName("CHART_[" + chartIndex + "+]_" + group.getName() + "_" + chart.getColumn().getTitle() + "_" + chart.getOperation());
 //		JRDesignExpression initExp = new JRDesignExpression();
 //		initExp.setText("new Float(0)");
 //		initExp.setValueClass(clazz);

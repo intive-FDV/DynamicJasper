@@ -34,7 +34,60 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.2" date="2007-12-28"	desc="Crosstab release">
+         <release version="2.0.7" date="2008-03-04"	desc="when no data section release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		When no data section feature :: you can set up what to show when the data source is empty. See WhenNoDataTest for a working example
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		javadoc jar generated always :: javadoc jar is generated when a new release is out (pom.xml configuration)
+         	</action>
+         </release>
+         <release version="2.0.6" date="2008-02-22"	desc="Minor bug fixes and features">
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Problem with dynamically added queries when using template files :: the query added dinamically got lost when
+         		using templates files, thanks gustav_b
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		More than one chart in a group :: You can now create more than one chart in the same group, thanks Sagara!
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Define behaviour when datasource is empty :: just a passthough to the JasperReports options. Use DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES, DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE, 
+         		DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL, DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION.
+         		Thanks Dorin Scutarasu!!!
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Define behaviour when missing resource is found :: just a passthough to the JasperReports options. Use DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY, DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR, 
+         		DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY, DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL.
+         		Thanks Dorin Scutarasu!!!
+         	</action>
+         </release>
+         <release version="2.0.5" date="2008-02-04"	desc="Minor users requests">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Field desctiption for XML datasources :: XML Data sources need that the fields had the property "description" defined. 
+         		Though ColumBuilder and FastReport builder "description" can be defined, thanks gustav_b
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Parameter registration :: Whatever is in the "params map" will be registered as a parameter, thanks Charles Abreu
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Fonts handling :: The fonts now have the properties pdfFontName, pdfFontEmbedded and pdfFontEncodding. You can now export to PDF with any encoding. See FontReportTest.
+         		Thanks Sagara for asking!
+         	</action>
+       	</release>
+         <release version="2.0.4" date="2008-01-10"	desc="Report query release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Report query :: Added report query to work the same as JasperReports
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Export to jrxml file :: You can export your design to jrxml (for retouching in iReport) from the DynamicJasperHelper 
+         	</action>
+       	</release>
+         <release version="2.0.3" date="2008-01-04"	desc="urgent fix">
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Error on 2.0.2 build :: was compiled in java 5, it is java 1.4 now
+         	</action>
+       	</release>
+         <release version="2.0.2" date="2007-12-28"	desc="Image column release">
          	<action dev="Juan Manuel Alvarez" type="add">
          		pom.xml cleanup :: Unnecesary depenencies are optional now. Thanks danttran!!!
          	</action>

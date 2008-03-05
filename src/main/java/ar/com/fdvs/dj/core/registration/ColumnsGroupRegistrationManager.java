@@ -78,10 +78,12 @@ public class ColumnsGroupRegistrationManager extends AbstractEntityRegistrationM
 		PropertyColumn column = columnsGroup.getColumnToGroupBy();
 		JRDesignGroup group = new JRDesignGroup();
 
+		int groupIndex = getDynamicReport().getColumnsGroups().indexOf(columnsGroup);
+		int columnIndex = getDynamicReport().getColumns().indexOf(columnsGroup.getColumnToGroupBy());
 		if (column instanceof GlobalGroupColumn){
-			group.setName("global_column_" + getDynamicReport().getColumnsGroups().indexOf(columnsGroup));
+			group.setName("global_column_" + groupIndex);
 		} else {
-			group.setName( "group_for_column_" + getDynamicReport().getColumnsGroups().indexOf(columnsGroup) + "-" +  column.getTitle());
+			group.setName( "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getTitle());
 		}
 
 		group.setCountVariable(new JRDesignVariable());

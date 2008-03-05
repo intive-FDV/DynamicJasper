@@ -32,7 +32,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>2.0.2</version>
+	<version>2.0.7</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -56,12 +56,12 @@ API.
 		]]>
 	</description>
 	<url>http://sourceforge.net/projects/dynamicjasper</url>
-
     <issueManagement>
 		<system>SourceForge Tracker</system>
 		<url>http://sourceforge.net/tracker/?group_id=188060</url>
 	</issueManagement>
 	<inceptionYear>2006</inceptionYear>
+<!-- 
 	<repositories>
 		<repository>
 			<id>djmaven2</id>
@@ -69,8 +69,20 @@ API.
 			<name>DynamicJasper public Repository</name>
 		</repository>
 	</repositories>
+	-->
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<source>1.4</source>
+					<target>1.4</target>
+					<debug>true</debug>
+					<executable>${JAVA_1_4_HOME}/bin/javac</executable>
+				</configuration>
+			</plugin>		
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -120,6 +132,21 @@ API.
 							</execution>
 						</executions>
 					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<source>1.4</source>
+						</configuration>
+						<executions>
+							<execution>
+								<id>javadoc</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>					
 				</plugins>
 			</build>
 		</profile>
@@ -165,6 +192,7 @@ API.
 						</reportSets>
 					</plugin>
 					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
 							<source>1.4</source>
@@ -196,22 +224,6 @@ API.
 				          <locales>en,es</locales>
 				        </configuration>
 				      </plugin>
-
-					<!--			    <plugin>-->
-					<!--			      <groupId>org.codehaus.mojo</groupId>-->
-					<!--			      <artifactId>changelog-maven-plugin</artifactId>-->
-					<!--			    </plugin>-->
-
-					<!-- checkstyle -->
-					<!--			    <plugin>-->
-					<!--			      <artifactId>maven-checkstyle-plugin</artifactId>-->
-					<!--			    </plugin>-->
-
-					<!-- surefire unit tests -->
-					<!--			    <plugin>-->
-					<!--			      <groupId>org.codehaus.mojo</groupId>-->
-					<!--			      <artifactId>surefire-report-maven-plugin</artifactId>-->
-					<!--			    </plugin>					-->
 				</plugins>
 			</reporting>
 		</profile>
@@ -294,6 +306,12 @@ API.
 			<version>2.6</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>3.1.12</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 	<distributionManagement>
 		<repository>
@@ -323,7 +341,7 @@ API.
 				GNU Library or Lesser General Public License (LGPL)
 			</name>
 			<url>http://www.gnu.org/licenses/lgpl.txt</url>
-			<!--      <distribution>repo</distribution>-->
+			<distribution>repo</distribution>
 		</license>
 	</licenses>
 	<scm>
@@ -377,6 +395,7 @@ API.
 			<email>alejandro.gomez@fdvsolutions.com</email>
 			<organization>FDV Solutions</organization>
 			<roles>
+				<role>Super Gurú</role>
 				<role>Doc supervisor</role>
 				<role>webwork Integration</role>
 			</roles>

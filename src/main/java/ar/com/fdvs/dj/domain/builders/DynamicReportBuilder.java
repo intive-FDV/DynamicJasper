@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -36,6 +37,7 @@ import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJQuery;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.ImageBanner;
@@ -86,6 +88,7 @@ public class DynamicReportBuilder {
 	protected ArrayList autoTexts;
 	protected Map groupFooterSubreports = new HashMap();
 	protected Map groupHeaderSubreports = new HashMap();
+
 
 	protected ArrayList concatenatedReports = new ArrayList();
 	private Style grandTotalStyle;
@@ -159,13 +162,12 @@ public class DynamicReportBuilder {
 			report.getColumnsGroups().add(0,globalGroup);
 		}
 
-
+				
 		addGlobalCrosstabs();
 
 		addSubreportsToGroups();
 
 		concatenateReports();
-
 
 		report.setAutoTexts(autoTexts);
 		return report;
@@ -324,7 +326,7 @@ public class DynamicReportBuilder {
 	}
 
 	public DynamicReportBuilder setHeaderHeight(int height) {
-		options.setHeaderHeight(Integer.valueOf(height));
+		options.setHeaderHeight(new Integer(height));
 		return this;
 	}
 
@@ -349,12 +351,12 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addFooterHeight(int height) {
-		options.setFooterHeight(Integer.valueOf(height));
+		options.setFooterHeight(new Integer(height));
 		return this;
 	}
 
 	public DynamicReportBuilder setFooterHeight(int height) {
-		options.setFooterHeight(Integer.valueOf(height));
+		options.setFooterHeight(new Integer(height));
 		return this;
 	}
 
@@ -379,12 +381,12 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addDetailHeight(int height) {
-		options.setDetailHeight(Integer.valueOf(height));
+		options.setDetailHeight(new Integer(height));
 		return this;
 	}
 
 	public DynamicReportBuilder setDetailHeight(int height) {
-		options.setDetailHeight(Integer.valueOf(height));
+		options.setDetailHeight(new Integer(height));
 		return this;
 	}
 
@@ -409,12 +411,12 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addLeftMargin(int margin) {
-		options.setLeftMargin(Integer.valueOf(margin));
+		options.setLeftMargin(new Integer(margin));
 		return this;
 	}
 
 	public DynamicReportBuilder setLeftMargin(int margin) {
-		options.setLeftMargin(Integer.valueOf(margin));
+		options.setLeftMargin(new Integer(margin));
 		return this;
 	}
 
@@ -439,12 +441,12 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addRightMargin(int margin) {
-		options.setRightMargin(Integer.valueOf(margin));
+		options.setRightMargin(new Integer(margin));
 		return this;
 	}
 
 	public DynamicReportBuilder setRightMargin(int margin) {
-		options.setRightMargin(Integer.valueOf(margin));
+		options.setRightMargin(new Integer(margin));
 		return this;
 	}
 
@@ -469,11 +471,11 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addTopMargin(int margin) {
-		options.setTopMargin(Integer.valueOf(margin));
+		options.setTopMargin(new Integer(margin));
 		return this;
 	}
 	public DynamicReportBuilder setTopMargin(int margin) {
-		options.setTopMargin(Integer.valueOf(margin));
+		options.setTopMargin(new Integer(margin));
 		return this;
 	}
 
@@ -497,11 +499,11 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addBottomMargin(int margin) {
-		options.setBottomMargin(Integer.valueOf(margin));
+		options.setBottomMargin(new Integer(margin));
 		return this;
 	}
 	public DynamicReportBuilder setBottomMargin(int margin) {
-		options.setBottomMargin(Integer.valueOf(margin));
+		options.setBottomMargin(new Integer(margin));
 		return this;
 	}
 
@@ -525,17 +527,17 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addColumnsPerPage(int numColumns) {
-		options.setColumnsPerPage(Integer.valueOf(numColumns));
+		options.setColumnsPerPage(new Integer(numColumns));
 		return this;
 	}
 	public DynamicReportBuilder setColumnsPerPage(int numColumns) {
-		options.setColumnsPerPage(Integer.valueOf(numColumns));
+		options.setColumnsPerPage(new Integer(numColumns));
 		return this;
 	}
 
 	public DynamicReportBuilder setColumnsPerPage(int numColumns, int columnSpace) {
-		options.setColumnsPerPage(Integer.valueOf(numColumns));
-		options.setColumnSpace(Integer.valueOf(columnSpace));
+		options.setColumnsPerPage(new Integer(numColumns));
+		options.setColumnSpace(new Integer(columnSpace));
 		return this;
 	}
 	public DynamicReportBuilder setColumnsPerPage(Integer numColumns, Integer columnSpace) {
@@ -563,11 +565,11 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addColumnSpace(int columSpace) {
-		options.setColumnSpace(Integer.valueOf(columSpace));
+		options.setColumnSpace(new Integer(columSpace));
 		return this;
 	}
 	public DynamicReportBuilder setColumnSpace(int columSpace) {
-		options.setColumnSpace(Integer.valueOf(columSpace));
+		options.setColumnSpace(new Integer(columSpace));
 		return this;
 	}
 
@@ -859,20 +861,20 @@ public class DynamicReportBuilder {
 	 */
 	public DynamicReportBuilder addMargins(int top, int bottom, int left, int right) {
 
-		options.setTopMargin(Integer.valueOf(top));
-		options.setBottomMargin(Integer.valueOf(bottom));
-		options.setLeftMargin(Integer.valueOf(left));
-		options.setRightMargin(Integer.valueOf(right));
+		options.setTopMargin(new Integer(top));
+		options.setBottomMargin(new Integer(bottom));
+		options.setLeftMargin(new Integer(left));
+		options.setRightMargin(new Integer(right));
 
 		return this;
 	}
 
 	public DynamicReportBuilder setMargins(int top, int bottom, int left, int right) {
 
-		options.setTopMargin(Integer.valueOf(top));
-		options.setBottomMargin(Integer.valueOf(bottom));
-		options.setLeftMargin(Integer.valueOf(left));
-		options.setRightMargin(Integer.valueOf(right));
+		options.setTopMargin(new Integer(top));
+		options.setBottomMargin(new Integer(bottom));
+		options.setLeftMargin(new Integer(left));
+		options.setRightMargin(new Integer(right));
 
 		return this;
 	}
@@ -964,7 +966,7 @@ public class DynamicReportBuilder {
 	 */
 
 	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, Subreport subreport) {
-		Integer groupNum = Integer.valueOf(groupNumber);
+		Integer groupNum = new Integer(groupNumber);
 		List list = (List) groupFooterSubreports.get(groupNum);
 		if (list == null) {
 			list = new ArrayList();
@@ -994,7 +996,7 @@ public class DynamicReportBuilder {
 	}
 
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, Subreport subreport) {
-		Integer groupNum = Integer.valueOf(groupNumber);
+		Integer groupNum = new Integer(groupNumber);
 		List list = (List) groupHeaderSubreports.get(groupNum);
 		if (list == null) {
 			list = new ArrayList();
@@ -1073,4 +1075,129 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * Adds main report query.
+	 * @param text
+	 * @param language use constants from {@link DJConstants}
+	 * @return
+	 */
+	public DynamicReportBuilder setQuery(String text, String language) {
+		this.report.setQuery(new DJQuery(text,language));
+		return this;
+	}
+
+	public DynamicReportBuilder addFont(String fontName, java.awt.Font font) {
+		this.report.getFontsMap().put(fontName, font);
+		return this;
+	}
+
+	
+	/**
+	 * Defines the behaviour when the datasource is empty.
+	 * Defatul vaue is {@link DJConstants#WHEN_NO_DATA_TYPE_NO_PAGES}
+	 * @param whenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataType(byte whenNoDataType) {
+		this.report.setWhenNoDataType(whenNoDataType);
+		return this;
+	}
+	
+	/**
+	 * @see setWhenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataNoPages() {
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES);
+		return this;
+	}
+	/**
+	 * @see setWhenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataBlankPage() {
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE);
+		return this;
+	}
+	/**
+	 * @see setWhenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataAllSectionNoDetail() {
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL);
+		return this;
+	}
+	/**
+	 * @see setWhenNoDataType
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoDataShowNoDataSection() {
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
+		return this;
+	}
+
+	/**
+	 * Defines what to show if a missing resource is referenced Possible values
+	 * are:<br>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY: Leaves and empty field.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR: Throwns and exception.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY: Shows the key of the missing
+	 * resource.<br/> DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL: returns NULL
+	 * 
+	 * @param whenResourceMissing
+	 * @return
+	 */	
+	public DynamicReportBuilder setWhenResourceMissing(byte whenResourceMissing) {
+		this.report.setWhenResourceMissing(whenResourceMissing);
+		return this;
+	}
+	public DynamicReportBuilder setWhenResourceMissingLeaveEmptySpace() {
+		this.report.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY);
+		return this;
+	}
+	public DynamicReportBuilder setWhenResourceMissingThrowException() {
+		this.report.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR);
+		return this;
+	}
+	public DynamicReportBuilder setWhenResourceMissingShowKey() {
+		this.report.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY);
+		return this;
+	}
+	public DynamicReportBuilder setWhenResourceMissingReturnNull() {
+		this.report.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL);
+		return this;
+	}
+	
+	/**
+	 * Defines the text to show when the data source is empty.<br> 
+	 * By default the title and column headers are shown
+	 * @param text
+	 * @param style : the style of the text
+	 * @return
+	 */
+	public DynamicReportBuilder setWhenNoData(String text, Style style) {
+		this.report.setWhenNoDataStyle(style);
+		this.report.setWhenNoDataText(text);
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
+		return this;
+	}
+	
+/**
+ * Defines the text to show when the data source is empty.<br> 
+ * @param text
+ * @param style : the style of the text
+ * @param showTitle : if true, the title is shown
+ * @param showColumnHeader : if true, the column headers are shown
+ * @return
+ */	
+	public DynamicReportBuilder setWhenNoData(String text, Style style, boolean showTitle, boolean showColumnHeader) {
+		this.report.setWhenNoDataStyle(style);
+		this.report.setWhenNoDataText(text);
+		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
+		this.report.setWhenNoDataShowColumnHeader(showColumnHeader);
+		this.report.setWhenNoDataShowTitle(showTitle);
+		return this;
+	}
+	
+	
 }

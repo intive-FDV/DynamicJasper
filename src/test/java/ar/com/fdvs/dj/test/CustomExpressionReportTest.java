@@ -29,8 +29,10 @@
 
 package ar.com.fdvs.dj.test;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import java.awt.Color;
+import java.util.Map;
+
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
@@ -42,18 +44,8 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
 
-import java.awt.Color;
-import java.util.Collection;
-import java.util.Map;
-
-public class CustomExpressionReportTest extends TestCase {
+public class CustomExpressionReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -155,24 +147,10 @@ public class CustomExpressionReportTest extends TestCase {
 		};
 	}
 
-	public void testReport() {
-		try {
-			DynamicReport dr = buildReport();
-			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-
-			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/CustomExpressionReportTest.pdf");
-			JasperViewer.viewReport(jp);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		CustomExpressionReportTest test = new CustomExpressionReportTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);
 	}
 
 }

@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import ar.com.fdvs.dj.core.DJConstants;
+
 /**
  * One of the main classes of this product. It represents the report itself.
  */
@@ -47,6 +49,8 @@ public class DynamicReport {
 
 	private Locale reportLocale = Locale.getDefault();
 	private String resourceBundle = null;
+	
+	protected Map fontsMap = new HashMap(); //<String, java.awt.Font>
 
 	//<AbstractColumn>
 	private List columns = new ArrayList();
@@ -66,6 +70,36 @@ public class DynamicReport {
 	private List autoTexts = new ArrayList();
 
 	private Map styles = new HashMap();
+	
+	private DJQuery query;
+	
+	private String whenNoDataText;
+	private Style  whenNoDataStyle;
+	private boolean whenNoDataShowTitle = true;
+	private boolean whenNoDataShowColumnHeader = true;
+	
+	/**
+	 * Defines the behaviour when the datasource is empty.
+	 * Valid values are: 
+	 * DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES
+	 * DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE
+	 * DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL
+	 * DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION
+	 * 
+	 * Defatul is: DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES
+	 */
+	private byte whenNoDataType = DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES;
+
+	/**********************
+	 * Defines what to show if a missing resource is referenced
+	 * Possible values are:<br>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY: Leaves and empty field.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR: Throwns and exception.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY: Shows the key of the missing resource.<br/>
+	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL: returns NULL
+	 **********************/
+	private byte whenResourceMissing = DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY;
+	
 
 	public void addStyle(Style style) {
 		styles.put(style.getName(), style);
@@ -191,6 +225,70 @@ public class DynamicReport {
 
 	public void setResourceBundle(String resourceBundle) {
 		this.resourceBundle = resourceBundle;
+	}
+
+	public DJQuery getQuery() {
+		return query;
+	}
+
+	public void setQuery(DJQuery query) {
+		this.query = query;
+	}
+
+	public Map getFontsMap() {
+		return fontsMap;
+	}
+
+	public void setFontsMap(Map fontsMap) {
+		this.fontsMap = fontsMap;
+	}
+
+	public byte getWhenNoDataType() {
+		return whenNoDataType;
+	}
+
+	public void setWhenNoDataType(byte whenNoDataType) {
+		this.whenNoDataType = whenNoDataType;
+	}
+
+	public byte getWhenResourceMissing() {
+		return whenResourceMissing;
+	}
+
+	public void setWhenResourceMissing(byte whenResourceMissing) {
+		this.whenResourceMissing = whenResourceMissing;
+	}
+
+	public String getWhenNoDataText() {
+		return whenNoDataText;
+	}
+
+	public void setWhenNoDataText(String whenNoDataText) {
+		this.whenNoDataText = whenNoDataText;
+	}
+
+	public Style getWhenNoDataStyle() {
+		return whenNoDataStyle;
+	}
+
+	public void setWhenNoDataStyle(Style whenNoDataStyle) {
+		this.whenNoDataStyle = whenNoDataStyle;
+	}
+
+	public boolean isWhenNoDataShowTitle() {
+		return whenNoDataShowTitle;
+	}
+
+	public void setWhenNoDataShowTitle(boolean whenNoDataShowTitle) {
+		this.whenNoDataShowTitle = whenNoDataShowTitle;
+	}
+
+	public boolean isWhenNoDataShowColumnHeader() {
+		return whenNoDataShowColumnHeader;
+	}
+
+	public void setWhenNoDataShowColumnHeader(boolean whenNoDataShowColumnHeader) {
+		this.whenNoDataShowColumnHeader = whenNoDataShowColumnHeader;
 	}
 
 }

@@ -29,8 +29,9 @@
 
 package ar.com.fdvs.dj.test;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import java.awt.Color;
+
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJChartOptions;
@@ -49,15 +50,8 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
 
-import java.awt.Color;
-import java.util.Collection;
-
-public class ChartReportTest extends TestCase {
+public class ChartReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -173,24 +167,11 @@ public class ChartReportTest extends TestCase {
 		return dr;
 	}
 
-	public void testReport() {
-	try {
-		DynamicReport dr = buildReport();
-		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-
-		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), dummyCollection);
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/ChartReportTest.pdf");
-		JasperViewer.viewReport(jp);
-//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-}
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		ChartReportTest test = new ChartReportTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);
+//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	}
 
 }

@@ -29,13 +29,16 @@
 
 package ar.com.fdvs.dj.test;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.domain.AutoText;
+import java.awt.Color;
+
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
+import ar.com.fdvs.dj.domain.builders.DJChartBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.GroupBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
@@ -47,37 +50,17 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.util.SortUtils;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
-
-import java.awt.Color;
-import java.util.Collection;
-
-public class GroupsReportTest extends BaseDjReportTest {
+public class ChartsMultipleReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
 		Style detailStyle = new Style();
-
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorderBottom(Border.PEN_1_POINT);
-		headerStyle.setBackgroundColor(Color.gray);
-		headerStyle.setTextColor(Color.white);
+		headerStyle.setBorder(Border.PEN_2_POINT);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
-		headerStyle.setTransparency(Transparency.OPAQUE);
-
-		Style headerVariables = new Style();
-		headerVariables.setFont(Font.ARIAL_SMALL_BOLD);
-		headerVariables.setBorderBottom(Border.THIN);
-		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
-		headerVariables.setVerticalAlign(VerticalAlign.MIDDLE);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
@@ -89,24 +72,22 @@ public class GroupsReportTest extends BaseDjReportTest {
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		int margin = 20;
 		drb
-			.setTitleStyle(titleStyle)
-			.setTitle("November 2006 sales report")					//defines the title of the report
-			.setSubtitle("The items in this report correspond "
+				.setTitleStyle(titleStyle)
+				.setTitle("November 2006 sales report")					//defines the title of the report
+				.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
-			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
-			.setPrintBackgroundOnOddRows(false)
-			.setGrandTotalLegend("Grand Total")
-			.setGrandTotalLegendStyle(headerVariables)
-			.setOddRowBackgroundStyle(oddRowStyle);
-
+				.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+				.setMargins(margin, margin, margin, margin)
+				.setPrintBackgroundOnOddRows(true)
+				.setPrintColumnNames(false)
+				.setOddRowBackgroundStyle(oddRowStyle);
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.setColumnProperty("state", String.class.getName()).setTitle(
 						"State").setWidth(new Integer(85))
-				.setStyle(titleStyle).setHeaderStyle(titleStyle).build();
+				.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
 				.setColumnProperty("branch", String.class.getName()).setTitle(
@@ -139,25 +120,16 @@ public class GroupsReportTest extends BaseDjReportTest {
 				.setPattern("$ 0.00").setStyle(importeStyle).setHeaderStyle(
 						headerStyle).build();
 
-		drb.addGlobalHeaderVariable(columnAmount, ColumnsGroupVariableOperation.SUM,headerVariables);
-		drb.addGlobalHeaderVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
-		drb.addGlobalFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM,headerVariables);
-		drb.addGlobalFooterVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
-
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
-		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState).addFooterVariable(columnAmount,
-						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addFooterVariable(columnaQuantity,
-						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+				.setGroupLayout(GroupLayout.EMPTY) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
-
+		
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
 		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
-				.addFooterVariable(columnAmount,
-						ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
+				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
 				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM)
 				.build();
 
@@ -170,19 +142,56 @@ public class GroupsReportTest extends BaseDjReportTest {
 		drb.addColumn(columnAmount);
 
 		drb.addGroup(g1); // add group g1
-//		drb.addGroup(g2); // add group g2
+		drb.addGroup(g2); // add group g2
 
 		drb.setUseFullPageWidth(true);
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);
+
+		DJChartBuilder cb = new DJChartBuilder();
+		DJChart chart =  cb.addType(DJChart.BAR_CHART)
+						.addOperation(DJChart.CALCULATION_SUM)
+						.addColumnsGroup(g1)
+						.addColumn(columnAmount)
+						.setPosition(DJChartOptions.POSITION_FOOTER)
+						.setShowLabels(true)
+						.setHeight(200)
+						.build();
+
+		drb.addChart(chart); //add chart
+		
+		DJChartBuilder cb2 = new DJChartBuilder();
+		DJChart chart2 =  cb2.addType(DJChart.PIE_CHART)
+						.addOperation(DJChart.CALCULATION_SUM)
+						.addColumnsGroup(g1)
+						.addColumn(columnAmount)
+						.setPosition(DJChartOptions.POSITION_FOOTER)
+						.setShowLabels(true)
+						.setHeight(200)
+						.build();
+
+		drb.addChart(chart2); //add chart	
+		
+		DJChartBuilder cb3 = new DJChartBuilder();
+		DJChart chart3 =  cb3.addType(DJChart.PIE_CHART)
+		.addOperation(DJChart.CALCULATION_SUM)
+		.addColumnsGroup(g1)
+		.addColumn(columnAmount)
+		.setPosition(DJChartOptions.POSITION_FOOTER)
+		.setShowLabels(true)
+		.setHeight(200)
+		.build();
+		
+		drb.addChart(chart3); //add chart		
 
 		DynamicReport dr = drb.build();
+
 		return dr;
 	}
 
 	public static void main(String[] args) throws Exception {
-		GroupsReportTest test = new GroupsReportTest();
+		ChartsMultipleReportTest test = new ChartsMultipleReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
+//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	}
 
 }

@@ -29,26 +29,17 @@
 
 package ar.com.fdvs.dj.test.subreport;
 
+import java.util.Collection;
+import java.util.Date;
+
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.test.ReportExporter;
-import ar.com.fdvs.dj.test.TestRepositoryProducts;
-import ar.com.fdvs.dj.util.SortUtils;
-import junit.framework.TestCase;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
+import ar.com.fdvs.dj.test.BaseDjReportTest;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-
-public class SubReportRecursiveTest extends TestCase {
+public class SubReportRecursiveTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -108,27 +99,10 @@ public class SubReportRecursiveTest extends TestCase {
 		return dr;
 	}
 
-	public void testReport() {
-	try {
-		DynamicReport dr = buildReport();
-		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-
-		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);
-		JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds );
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/SubReportRecursiveTest.pdf");
-		JasperViewer.viewReport(jp);
-
-		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager(), new HashMap()));
-
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-}
-
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		SubReportRecursiveTest test = new SubReportRecursiveTest();
 		test.testReport();
+		JasperViewer.viewReport(test.jp);
 	}
 
 }

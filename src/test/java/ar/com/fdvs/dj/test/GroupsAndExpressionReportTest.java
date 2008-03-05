@@ -29,10 +29,12 @@
 
 package ar.com.fdvs.dj.test;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import java.awt.Color;
+
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
@@ -47,18 +49,8 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.util.SortUtils;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
-
-import java.awt.Color;
-import java.util.Collection;
-
-public class GroupsReportTest extends BaseDjReportTest {
+public class GroupsAndExpressionReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -105,8 +97,8 @@ public class GroupsReportTest extends BaseDjReportTest {
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.setColumnProperty("state", String.class.getName()).setTitle(
-						"State").setWidth(new Integer(85))
-				.setStyle(titleStyle).setHeaderStyle(titleStyle).build();
+						"State").setWidth(new Integer(100))
+				.setStyle(detailStyle).setHeaderStyle(titleStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
 				.setColumnProperty("branch", String.class.getName()).setTitle(
@@ -144,23 +136,35 @@ public class GroupsReportTest extends BaseDjReportTest {
 		drb.addGlobalFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM,headerVariables);
 		drb.addGlobalFooterVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
 
+		CustomExpression customExpression = new CustomExpression(){
+			private final int PAGE_SIZE = 2*20;
+			private int actual = PAGE_SIZE;
+			private int counter = 0;
+			public Object evaluate(Object object) {
+				actual--;
+				if (actual <= 0) {
+					actual = PAGE_SIZE;
+					counter++;
+				}
+				return "" + counter;
+			}
+			
+		};
+		AbstractColumn exprCol = ColumnBuilder.getInstance().setCustomExpression(customExpression)
+		.build();		
+		
+		
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
-		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState).addFooterVariable(columnAmount,
-						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addFooterVariable(columnaQuantity,
-						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
-				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) exprCol)
+				.setGroupLayout(GroupLayout.EMPTY) 
+				.setStartInNewPage(true)
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
-		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
-				.addFooterVariable(columnAmount,
-						ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
-				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM)
-				.build();
 
+		drb.addColumn(exprCol);
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
 		drb.addColumn(columnaProductLine);
@@ -170,7 +174,6 @@ public class GroupsReportTest extends BaseDjReportTest {
 		drb.addColumn(columnAmount);
 
 		drb.addGroup(g1); // add group g1
-//		drb.addGroup(g2); // add group g2
 
 		drb.setUseFullPageWidth(true);
 		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);
@@ -180,7 +183,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		GroupsReportTest test = new GroupsReportTest();
+		GroupsAndExpressionReportTest test = new GroupsAndExpressionReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
 	}

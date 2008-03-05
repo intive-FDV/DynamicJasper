@@ -1,0 +1,23 @@
+HOW-TO export to jrxml
+
+ //TODO Complete this
+
+ Since DJ 2.0.4, JasperReports writing JRXML feature is enabled and can be used for later design retouching (in iReport maybe)
+
+ Once you have your design ready, use any of these:
+ 
++------------------------------------------------------------------------------------------------------------+
+ String xmlData =	DynamicJasperHelper.generateJRXML(dr, new ClassicLayoutManager(), parameters, "UTF-8");
++------------------------------------------------------------------------------------------------------------+
+
+ or
+
++------------------------------------------------------------------------------------------------------------+
+ DynamicJasperHelper.generateJRXML(dr, new ClassicLayoutManager() , parameters, "UTF-8", outputStream);
++------------------------------------------------------------------------------------------------------------+
+
+ or
+
++------------------------------------------------------------------------------------------------------------+
+ DynamicJasperHelper.generateJRXML(dr, new ClassicLayoutManager() , parameters, "UTF-8", destinationFilePath);
++------------------------------------------------------------------------------------------------------------+
