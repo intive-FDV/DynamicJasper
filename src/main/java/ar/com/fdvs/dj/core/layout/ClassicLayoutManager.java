@@ -29,6 +29,32 @@
 
 package ar.com.fdvs.dj.core.layout;
 
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
+import net.sf.jasperreports.engine.JRElement;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExpression;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignElement;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignImage;
+import net.sf.jasperreports.engine.design.JRDesignRectangle;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.design.JRDesignSubreport;
+import net.sf.jasperreports.engine.design.JRDesignSubreportParameter;
+import net.sf.jasperreports.engine.design.JRDesignTextField;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.FontHelper;
@@ -49,31 +75,6 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.ExpressionUtils;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabCell;
-import net.sf.jasperreports.engine.JRElement;
-import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.base.JRBaseQuery;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignDataset;
-import net.sf.jasperreports.engine.design.JRDesignElement;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignImage;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JRDesignRectangle;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.design.JRDesignSubreport;
-import net.sf.jasperreports.engine.design.JRDesignTextField;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * Main Layout Manager recommended for most cases.</br>
@@ -545,7 +546,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignSubreport subreport = new JRDesignSubreport(new JRDesignStyle().getDefaultStyleProvider());
 
 			//The data source
-			subreport.setDataSourceExpression(ExpressionUtils.getDataSourceExpression(sr.getDatasource()));
+			//subreport.setDataSourceExpression(ExpressionUtils.getDataSourceExpression(sr.getDatasource()));
+			JRDesignExpression connectionExpression = new JRDesignExpression();
+			connectionExpression.setText("$P{REPORT_CONNECTION}");
+			connectionExpression.setValueClass(Connection.class);
+			subreport.setConnectionExpression(connectionExpression);
 
 //			int random_ = subReportRandom.nextInt();
 			//the subreport design
@@ -558,6 +563,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			//set the parameters
 			subreport.setParametersMapExpression(ExpressionUtils.getParameterExpression(sr));
+			
+			JRDesignSubreportParameter subreportParameter = new JRDesignSubreportParameter();
+			subreportParameter.setName("idUsuario");
+			JRExpression expression2 = ExpressionUtils.createExpression("$F{id}", Integer.class.getName());
+			subreportParameter.setExpression(expression2);
+			try {
+				subreport.addParameter(subreportParameter );
+			} catch (JRException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
 
 			//some other options (cosmetical)

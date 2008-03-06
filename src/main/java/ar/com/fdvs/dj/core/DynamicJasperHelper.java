@@ -77,6 +77,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.util.DJCompilerFactory;
@@ -199,12 +200,29 @@ public final class DynamicJasperHelper {
 				//Create new JasperDesign from the scratch
 				jd = getNewDesign(dr);
 			}
+			registerParameters(jd,dr);
 		} catch (JRException e) {
-			throw new CoreException(e.getMessage());
+			throw new CoreException(e.getMessage(),e);
 		} catch (IOException e) {
-			throw new CoreException(e.getMessage());
+			throw new CoreException(e.getMessage(),e);
 		}
 		return jd;
+	}
+
+	protected static void registerParameters(DynamicJasperDesign jd, DynamicReport dr) {
+		for (Iterator iterator = dr.getParameters().iterator(); iterator.hasNext();) {
+			Parameter param= (Parameter) iterator.next();
+			JRDesignParameter jrparam = new JRDesignParameter();
+			jrparam.setName(param.getName());
+			jrparam.setValueClassName(param.getClassName());
+			
+			try {
+				jd.addParameter(jrparam);
+			} catch (JRException e) {
+				throw new CoreException(e.getMessage(),e);
+			}			
+		}
+		
 	}
 
 	/**

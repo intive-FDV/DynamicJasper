@@ -27,12 +27,14 @@
  *
  */
 
-package ar.com.fdvs.dj.test;
+package ar.com.fdvs.dj.test.subreport;
 
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Date;
 
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 import net.sf.jasperreports.view.JasperViewer;
@@ -41,8 +43,12 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.test.BaseDjReportTest;
+import ar.com.fdvs.dj.test.ReportExporter;
 
-public class QueryReportTest extends BaseDjReportTest {
+public class SubreportWithParametersReportTest extends BaseDjReportTest {
+
+	private Connection con;
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -56,21 +62,41 @@ public class QueryReportTest extends BaseDjReportTest {
 			.addColumn("Nombre", "nombre", String.class.getName(),30)
 			.addColumn("Apellido", "apellido", String.class.getName(),50)
 			.addColumn("Password", "password", String.class.getName(),50)
-			.setTitle("Usuarios del sistema")
+			.addGroups(1)
+			.setTitle("Usuarios del sistema")			
 //			.setQuery("select * from usuario where nombre = $P{nom}", DJConstants.QUERY_LANGUAGE_SQL)
 			.setTemplateFile("templates/TemplateReportTest.jrxml")
 			.setQuery("select * from usuario where nombre = 'juan'", DJConstants.QUERY_LANGUAGE_SQL)
 			.setUseFullPageWidth(true);
+		
+		DynamicReport drLevel2 = createLevel2Subreport();
+
+		drb.addSubreportInGroupFooter(1, drLevel2, new ClassicLayoutManager(),
+				"con", DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_RESULTSET);
 
 		DynamicReport dr = drb.build();
 		
 		params.put("nom", "Juan"); //Note that the query has a parameter, by putting in the map
+		params.put("con", con); //Note that the query has a parameter, by putting in the map
 		//an item with the proper key, it will be automatically registered as a parameter
 		return dr;
 	}
 
+	private DynamicReport createLevel2Subreport() throws Exception {
+		FastReportBuilder rb = new FastReportBuilder();
+		DynamicReport dr = rb
+			.addColumn("Calle", "calle", String.class.getName(), 200)
+			.addColumn("Numero", "numero", Integer.class.getName(), 50)
+			.setMargins(5, 5, 20, 20)
+			.setQuery("select * from direccion where id_usuario = $P{idUsuario}", DJConstants.QUERY_LANGUAGE_SQL)
+			.setUseFullPageWidth(false)		
+			.addParameter("idUsuario", Integer.class.getName())
+			.build();
+		return dr;
+	}	
+	
 	public static void main(String[] args) throws Exception {
-		QueryReportTest test = new QueryReportTest();
+		SubreportWithParametersReportTest test = new SubreportWithParametersReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
 //			JasperDesignViewer.viewReportDesign(jr);
@@ -81,9 +107,10 @@ public class QueryReportTest extends BaseDjReportTest {
 	
 	public void testReport() throws Exception {
 		try {
+			con = creatMySQLConnection();
+			
 			dr = buildReport();
 
-			Connection con = creatMySQLConnection();
 			
 			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), con,params );
 			
@@ -93,6 +120,10 @@ public class QueryReportTest extends BaseDjReportTest {
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager(),params);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				con.close();
+			}
 		}
 	}	
 	

@@ -46,6 +46,7 @@ import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
+import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
@@ -1196,6 +1197,11 @@ public class DynamicReportBuilder {
 		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
 		this.report.setWhenNoDataShowColumnHeader(showColumnHeader);
 		this.report.setWhenNoDataShowTitle(showTitle);
+		return this;
+	}
+
+	public DynamicReportBuilder addParameter(String name, String className){
+		this.report.getParameters().add(new Parameter(name, className));
 		return this;
 	}
 	

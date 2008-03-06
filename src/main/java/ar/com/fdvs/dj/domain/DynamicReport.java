@@ -65,6 +65,9 @@ public class DynamicReport {
 	//Other fields to register, not necesary aigned to columns
 	private List fields = new ArrayList();
 
+	//Other parameters needed (E.g. Subreports)
+	private List parameters = new ArrayList();
+
 	private String templateFileName = null;
 
 	private List autoTexts = new ArrayList();
@@ -289,6 +292,14 @@ public class DynamicReport {
 
 	public void setWhenNoDataShowColumnHeader(boolean whenNoDataShowColumnHeader) {
 		this.whenNoDataShowColumnHeader = whenNoDataShowColumnHeader;
+	}
+
+	public List getParameters() {
+		return parameters;
+	}
+
+	public void setParameters(List parameters) {
+		this.parameters = parameters;
 	}
 
 }
