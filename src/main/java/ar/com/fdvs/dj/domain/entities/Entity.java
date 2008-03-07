@@ -36,5 +36,5 @@ package ar.com.fdvs.dj.domain.entities;
  * @see AbstractEntityRegistrationManager
  */
 public interface Entity {
-	//TODO: Define common expected behaviour
+
 }

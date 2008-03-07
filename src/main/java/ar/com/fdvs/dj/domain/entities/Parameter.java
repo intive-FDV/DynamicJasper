@@ -1,6 +1,6 @@
 package ar.com.fdvs.dj.domain.entities;
 
-public class Parameter {
+public class Parameter implements Entity {
 	
 	private String name;
 	private String className;

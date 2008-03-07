@@ -43,6 +43,7 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 import ar.com.fdvs.dj.test.ReportExporter;
 
@@ -65,19 +66,19 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 			.addGroups(1)
 			.setTitle("Usuarios del sistema")			
 //			.setQuery("select * from usuario where nombre = $P{nom}", DJConstants.QUERY_LANGUAGE_SQL)
-			.setTemplateFile("templates/TemplateReportTest.jrxml")
-			.setQuery("select * from usuario where nombre = 'juan'", DJConstants.QUERY_LANGUAGE_SQL)
+			.setQuery("select * from usuario", DJConstants.QUERY_LANGUAGE_SQL)
 			.setUseFullPageWidth(true);
 		
 		DynamicReport drLevel2 = createLevel2Subreport();
 
+		SubreportParameter[] subreportParameters = new SubreportParameter[]{new SubreportParameter("idUsuario","id",Integer.class.getName(),DJConstants.SUBREPORT_PARAM_ORIGIN_FIELD)};
 		drb.addSubreportInGroupFooter(1, drLevel2, new ClassicLayoutManager(),
-				"con", DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_RESULTSET);
+				null, DJConstants.DATA_SOURCE_ORIGIN_USE_REPORT_CONNECTION, DJConstants.DATA_SOURCE_TYPE_SQL_CONNECTION, subreportParameters);
 
 		DynamicReport dr = drb.build();
 		
 		params.put("nom", "Juan"); //Note that the query has a parameter, by putting in the map
-		params.put("con", con); //Note that the query has a parameter, by putting in the map
+		params.put("con2", con); //Note that the query has a parameter, by putting in the map
 		//an item with the proper key, it will be automatically registered as a parameter
 		return dr;
 	}
@@ -87,10 +88,10 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 		DynamicReport dr = rb
 			.addColumn("Calle", "calle", String.class.getName(), 200)
 			.addColumn("Numero", "numero", Integer.class.getName(), 50)
-			.setMargins(5, 5, 20, 20)
 			.setQuery("select * from direccion where id_usuario = $P{idUsuario}", DJConstants.QUERY_LANGUAGE_SQL)
 			.setUseFullPageWidth(false)		
 			.addParameter("idUsuario", Integer.class.getName())
+			.setTitle("Adresses for user id = \"+$P{idUsuario} +\"")
 			.build();
 		return dr;
 	}	

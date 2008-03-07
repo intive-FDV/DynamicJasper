@@ -32,12 +32,15 @@ package ar.com.fdvs.dj.util;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignParameter;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 
 public class ExpressionUtils {
@@ -93,11 +96,35 @@ public class ExpressionUtils {
 			expText = dsType + "$F{" + ds.getDataSourceExpression() + "})";
 		} else if (ds.getDataSourceOrigin() == DJConstants.DATA_SOURCE_ORIGIN_PARAMETER){
 			expText = dsType + REPORT_PARAMETERS_MAP + ".get( \""+ ds.getDataSourceExpression() +"\" ) )";
+		} else if (ds.getDataSourceOrigin() == DJConstants.DATA_SOURCE_TYPE_SQL_CONNECTION) {
+			expText = dsType + REPORT_PARAMETERS_MAP + ".get( \""+ ds.getDataSourceExpression() +"\" ) )";
 		}
 
 		exp.setText(expText);
 
 		return exp;
+	}
+	public static JRDesignExpression getConnectionExpression(DJDataSource ds) {
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setValueClass(Connection.class);
+		
+		String dsType = getDataSourceTypeStr(ds.getDataSourceType());
+		String expText = dsType + REPORT_PARAMETERS_MAP + ".get( \""+ ds.getDataSourceExpression() +"\" ) )";
+		
+		exp.setText(expText);
+		
+		return exp;
+	}
+	
+	/**
+	 * Returns a JRDesignExpression that points to the main report connection
+	 * @return
+	 */
+	public static JRDesignExpression getReportConnectionExpression() {
+		JRDesignExpression connectionExpression = new JRDesignExpression();
+		connectionExpression.setText("$P{"+JRDesignParameter.REPORT_CONNECTION+"}");
+		connectionExpression.setValueClass(Connection.class);
+		return connectionExpression;
 	}
 
 	protected static String getDataSourceTypeStr(int datasourceType) {
@@ -114,6 +141,9 @@ public class ExpressionUtils {
 		}
 		else if (DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE == datasourceType){
 			dsType = "(("+JRDataSource.class.getName() +")";
+		}
+		else if (DJConstants.DATA_SOURCE_TYPE_SQL_CONNECTION == datasourceType){
+			dsType = "(("+Connection.class.getName() +")";
 		}
 		return dsType;
 	}
@@ -133,6 +163,23 @@ public class ExpressionUtils {
 	public static JRDesignExpression createExpression(String text, String className) {
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setValueClassName(className);
+		exp.setText(text);
+		return exp;
+	}
+	
+	public static JRDesignExpression createExpression(SubreportParameter sp) {
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setValueClassName(sp.getClassName());
+		String text = null;
+		if (sp.getParameterOrigin()== DJConstants.SUBREPORT_PARAM_ORIGIN_FIELD){
+			text = "$F{" + sp.getExpression() + "}";
+		} else if (sp.getParameterOrigin()== DJConstants.SUBREPORT_PARAM_ORIGIN_PARAMETER){
+			text = REPORT_PARAMETERS_MAP + ".get( \""+ sp.getExpression() +"\")";
+		} else if (sp.getParameterOrigin()== DJConstants.SUBREPORT_PARAM_ORIGIN_VARIABLE){
+			text = "$V{" + sp.getExpression() + "}";
+		} else { //CUSTOM
+			text = sp.getExpression();
+		}
 		exp.setText(text);
 		return exp;
 	}

@@ -29,12 +29,15 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.sf.jasperreports.engine.JasperReport;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
-import net.sf.jasperreports.engine.JasperReport;
 
 public class Subreport {
 
@@ -57,18 +60,12 @@ public class Subreport {
 
 
 	private DJDataSource datasource;
-//	/**
-//	 * This expression must point to a JRDataSource object
-//	 */
-//	private String dataSourceExpression;
-//
-//	/**
-//	 * Tells form where to look up the data source expression
-//	 */
-//	private int dataSourceOrigin = DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER;
-//
-//	private int dataSourceType = DJConstants.DATA_SOURCE_TYPE_COLLECTION;
 
+	/**
+	 * List<SubreportParamter>
+	 * The objects from the parent report that will be visible as parameters in the subreport
+	 */
+	private List parameters = new ArrayList();
 
 	private Style style;
 
@@ -161,6 +158,12 @@ public class Subreport {
 	}
 	public void setDatasource(DJDataSource datasource) {
 		this.datasource = datasource;
+	}
+	public List getParameters() {
+		return parameters;
+	}
+	public void setParameters(List parameters) {
+		this.parameters = parameters;
 	}
 
 }

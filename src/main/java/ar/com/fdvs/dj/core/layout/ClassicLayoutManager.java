@@ -37,6 +37,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
+import net.sf.jasperreports.engine.JRConstants;
 import net.sf.jasperreports.engine.JRElement;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
@@ -46,6 +47,7 @@ import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
+import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignRectangle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignSubreport;
@@ -55,6 +57,7 @@ import net.sf.jasperreports.engine.design.JRDesignTextField;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.CoreException;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.FontHelper;
@@ -71,6 +74,7 @@ import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
@@ -546,11 +550,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignSubreport subreport = new JRDesignSubreport(new JRDesignStyle().getDefaultStyleProvider());
 
 			//The data source
-			//subreport.setDataSourceExpression(ExpressionUtils.getDataSourceExpression(sr.getDatasource()));
-			JRDesignExpression connectionExpression = new JRDesignExpression();
-			connectionExpression.setText("$P{REPORT_CONNECTION}");
-			connectionExpression.setValueClass(Connection.class);
-			subreport.setConnectionExpression(connectionExpression);
+			int dataSourceOrigin = sr.getDatasource().getDataSourceOrigin();
+			if (DJConstants.DATA_SOURCE_ORIGIN_USE_REPORT_CONNECTION == dataSourceOrigin){
+				JRDesignExpression connectionExpression = ExpressionUtils.getReportConnectionExpression();
+				subreport.setConnectionExpression(connectionExpression);
+			} else if (DJConstants.DATA_SOURCE_TYPE_SQL_CONNECTION == sr.getDatasource().getDataSourceType()) {
+				JRDesignExpression connectionExpression = ExpressionUtils.getConnectionExpression(sr.getDatasource());
+				subreport.setConnectionExpression(connectionExpression);				
+			} else {
+				JRDesignExpression dataSourceExpression = ExpressionUtils.getDataSourceExpression(sr.getDatasource());
+				subreport.setDataSourceExpression(dataSourceExpression);
+			}
 
 //			int random_ = subReportRandom.nextInt();
 			//the subreport design
@@ -563,17 +573,20 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			//set the parameters
 			subreport.setParametersMapExpression(ExpressionUtils.getParameterExpression(sr));
-			
-			JRDesignSubreportParameter subreportParameter = new JRDesignSubreportParameter();
-			subreportParameter.setName("idUsuario");
-			JRExpression expression2 = ExpressionUtils.createExpression("$F{id}", Integer.class.getName());
-			subreportParameter.setExpression(expression2);
-			try {
-				subreport.addParameter(subreportParameter );
-			} catch (JRException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			for (Iterator subreportParamsIter = sr.getParameters().iterator(); subreportParamsIter.hasNext();) {
+				SubreportParameter srparam = (SubreportParameter) subreportParamsIter.next();
+				JRDesignSubreportParameter subreportParameter = new JRDesignSubreportParameter();
+				subreportParameter.setName(srparam.getName());
+				JRExpression expression2 = ExpressionUtils.createExpression(srparam);
+				subreportParameter.setExpression(expression2);
+				try {
+					subreport.addParameter(subreportParameter );
+				} catch (JRException e) {
+					log.error("Error registering parameter for subreport, there must be another parameter with the same name");
+					throw new CoreException(e.getMessage(),e);
+				}
 			}
+			
 
 
 			//some other options (cosmetical)

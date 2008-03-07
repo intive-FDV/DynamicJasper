@@ -35,6 +35,7 @@ import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperReport;
@@ -143,6 +144,17 @@ public class SubReportBuilder {
 
 	public SubReportBuilder setPathToReport(String path) {
 		subreport.setPath(path);
+		return this;
+	}
+
+	public SubReportBuilder addParameter(SubreportParameter sp) {
+		subreport.getParameters().add(sp);
+		return this;
+	}
+
+	public SubReportBuilder addParameterFieldType(String propertyName, String paramName) {
+		SubreportParameter sp = new SubreportParameter(paramName,propertyName,null,DJConstants.SUBREPORT_PARAM_ORIGIN_FIELD);
+		subreport.getParameters().add(sp);
 		return this;
 	}
 

@@ -48,6 +48,7 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import net.sf.jasperreports.engine.JasperReport;
@@ -983,6 +984,22 @@ public class DynamicReportBuilder {
 			.setDynamicReport(dynamicReport,layoutManager)
 			.build();
 
+		return addSubreportInGroupFooter(groupNumber, subreport);
+	}
+	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, SubreportParameter[] params) throws DJBuilderException {
+		SubReportBuilder srb = new SubReportBuilder();
+		
+		srb.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setDynamicReport(dynamicReport,layoutManager);
+		
+		if (params != null){
+			for (int i = 0; i < params.length; i++) {
+				srb.addParameter(params[i]);
+			}
+		}
+		
+		Subreport subreport = srb.build();
+		
 		return addSubreportInGroupFooter(groupNumber, subreport);
 	}
 
