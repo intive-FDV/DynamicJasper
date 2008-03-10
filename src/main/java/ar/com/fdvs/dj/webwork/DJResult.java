@@ -29,6 +29,23 @@
 
 package ar.com.fdvs.dj.webwork;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
@@ -37,25 +54,13 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.output.FormatInfoRegistry;
 import ar.com.fdvs.dj.output.ReportWriter;
 import ar.com.fdvs.dj.output.ReportWriterFactory;
+
 import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.views.jasperreports.JasperReportsResult;
 import com.opensymphony.xwork.ActionInvocation;
 import com.opensymphony.xwork.util.TextParseUtil;
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * @author Alejandro Gomez
@@ -79,6 +84,8 @@ public class DJResult extends JasperReportsResult {
      * The layout manager to use. Possible values are: classic, list, or a fully qualified java name
      */
     private String layoutManager;
+
+    private String exportParams;
 
     public void setDynamicReport(final String _dynamicReport) {
         dynamicReport = _dynamicReport;
@@ -197,10 +204,18 @@ public class DJResult extends JasperReportsResult {
 
     private void writeReponse(final HttpServletRequest _request, final HttpServletResponse _response, final JasperPrint _jasperPrint, final ActionInvocation _invocation) throws JRException, IOException {
         setResponseHeaders(_response, _invocation);
-        final HashMap parameters = new HashMap();
+        final HashMap parameters = new HashMap(getExportParams(_invocation));
         parameters.put(JRHtmlExporterParameter.IMAGES_URI, _request.getContextPath() + imageServletUrl);
         final ReportWriter reportWriter = ReportWriterFactory.getInstance().getReportWriter(_jasperPrint, documentFormat, parameters);
         reportWriter.writeTo(_response);
+    }
+
+    private Map getExportParams(final ActionInvocation _invocation) {
+    	Map params = (Map)conditionalParse(exportParams, _invocation, Map.class);
+    	if (params == null) {
+    		params = new HashMap();
+    	}
+		return params;
     }
 
     private DynamicReport getDynamicReport(final ActionInvocation _invocation) {
@@ -247,5 +262,13 @@ public class DJResult extends JasperReportsResult {
 
 	public void setLayoutManager(String layoutManager) {
 		this.layoutManager = layoutManager;
+	}
+
+	public String getExportParams() {
+		return exportParams;
+	}
+
+	public void setExportParams(String exportParams) {
+		this.exportParams = exportParams;
 	}
 }

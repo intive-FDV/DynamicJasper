@@ -34,6 +34,14 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="2.0.8" date="2008-03-10"	desc="Subreport parameters release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Subreport parameters :: You can pass parameters to subreports using values from current row. Thanks Marcos Reyes!
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		WebWork integration :: Added "exportParams" feature, so you can pass custom parameters to the exporter used.
+         	</action>
+         </release>
          <release version="2.0.7" date="2008-03-04"	desc="when no data section release">
          	<action dev="Juan Manuel Alvarez" type="add">
          		When no data section feature :: you can set up what to show when the data source is empty. See WhenNoDataTest for a working example
