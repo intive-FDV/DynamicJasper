@@ -78,7 +78,7 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 		DynamicReport dr = drb.build();
 		
 		params.put("nom", "Juan"); //Note that the query has a parameter, by putting in the map
-		params.put("con2", con); //Note that the query has a parameter, by putting in the map
+//		params.put("con2", con); //Note that the query has a parameter, by putting in the map
 		//an item with the proper key, it will be automatically registered as a parameter
 		return dr;
 	}

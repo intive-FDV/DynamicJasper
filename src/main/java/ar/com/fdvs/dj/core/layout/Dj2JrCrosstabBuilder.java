@@ -476,7 +476,9 @@ public class Dj2JrCrosstabBuilder {
 				layoutManager.applyStyleToElement(crosstabRow.getHeaderStyle(), rowTitle);
 
 			rowHeaderContents.addElement(rowTitle);
-			rowHeaderContents.setBackcolor(colors[i][rows.length-1]);
+			rowHeaderContents.setBackcolor(colors[cols.length-1][i]);
+//			rowHeaderContents.setBackcolor(colors[0][0]);
+//			rowHeaderContents.setBackcolor(Color.blue);
 			rowHeaderContents.setMode(new Byte(Transparency.OPAQUE.getValue()));
 			applyCellBorder(rowHeaderContents);
 
@@ -558,7 +560,7 @@ public class Dj2JrCrosstabBuilder {
 
 
 			colHeaerContent.addElement(colTitle);
-			colHeaerContent.setBackcolor(colors[0][i]);
+			colHeaerContent.setBackcolor(colors[i][rows.length-1]);
 			colHeaerContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 			applyCellBorder(colHeaerContent);
 
@@ -612,7 +614,7 @@ public class Dj2JrCrosstabBuilder {
 		ctRowGroup.setTotalHeader(totalHeaderContent);
 		ctRowGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END); //FIXME the total can be at the end of a group or at the beginin
 
-		totalHeaderContent.setBackcolor(colors[colors[0].length/2][0]);
+		totalHeaderContent.setBackcolor(colors[colors.length/2][0]);
 		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 
 		JRDesignTextField element = new JRDesignTextField();
@@ -662,7 +664,7 @@ public class Dj2JrCrosstabBuilder {
 		ctColGroup.setTotalHeader(totalHeaderContent);
 		ctColGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END);
 
-		totalHeaderContent.setBackcolor(colors[colors[0].length/2][colors[0].length/2]);
+		totalHeaderContent.setBackcolor(colors[colors.length/2][colors[0].length/2]);
 		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 
 		JRDesignExpression exp = ExpressionUtils.createExpression("\"Total "+crosstabColumn.getTitle()+"\"",String.class);

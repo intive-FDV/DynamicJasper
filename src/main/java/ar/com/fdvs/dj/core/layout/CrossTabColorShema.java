@@ -201,10 +201,10 @@ class Schema6 extends CrossTabColorShema{
 	public void create(int numCols, int numRows) {
 		int base = 200;
 
-		int coli =(255-base) / (numCols);
+		int coli =(255-base) / (numCols + numRows);
 		for (int i = numCols-1; i >= 0; i--) {
-			int auxi = base + coli * i;
 			for (int j =  numRows-1; j >= 0; j--) {
+				int auxi = base + coli * (j + i);
 				colors[i][j] = new Color(auxi,auxi,auxi);
 			}
 		}
