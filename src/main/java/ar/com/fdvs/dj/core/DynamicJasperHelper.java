@@ -160,6 +160,9 @@ public final class DynamicJasperHelper {
 		des.setSummaryNewPage(false);
 
 		des.setDetail(new JRDesignBand());
+		
+		des.getDetail().setSplitAllowed(dr.isAllowDetailSplit());
+		
 		des.setPageHeader(new JRDesignBand());
 		des.setPageFooter(new JRDesignBand());
 		des.setSummary(new JRDesignBand());

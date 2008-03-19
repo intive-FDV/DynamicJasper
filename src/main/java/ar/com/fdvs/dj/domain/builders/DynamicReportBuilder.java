@@ -1221,6 +1221,17 @@ public class DynamicReportBuilder {
 		this.report.getParameters().add(new Parameter(name, className));
 		return this;
 	}
+
+	/**
+	 * If true and there is no room for a textfield at the end of a page in the detail band, it will be splitted and continued in
+	 * next page.
+	 * @param split
+	 * @return
+	 */
+	public DynamicReportBuilder setAllowDetailSplit(boolean split){
+		this.report.setAllowDetailSplit(split);
+		return this;
+	}
 	
 	
 }

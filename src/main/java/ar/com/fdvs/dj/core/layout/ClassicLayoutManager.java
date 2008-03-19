@@ -813,7 +813,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		 * You may dont want this option if you have groups that prints column names.
 		 */
 		if (getReport().getOptions().isPrintColumnNames()){
-			generateHeaderBand(header);
+			generateHeaderBand(header);			
 		}
 
 //		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))
