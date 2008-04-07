@@ -61,8 +61,6 @@ public class ConcatenatedReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
-
-
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(24, Font._FONT_VERDANA, true));
 
@@ -104,20 +102,21 @@ public class ConcatenatedReportTest extends BaseDjReportTest {
 		params.put("subreportsDataSource", TestRepositoryProducts.getDummyCollection()  );
 
 		//thats it!!!!
-		DynamicReport dr = drb.build();
+//		DynamicReport dr = drb.build();
+		dr = drb.build();
 
 		return dr;
 	}
 
 	public void testReport() throws Exception {
-			DynamicReport dr = buildReport();
+			dr = buildReport();
 			Collection mainDataSource = new ArrayList();
 			// One trick: we must use as data source for the main report a
 			// collection with one object (anything)
 			mainDataSource.add("");
 
 			JRDataSource ds = new JRBeanCollectionDataSource(mainDataSource);
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params);
+			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, params);
 			ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/ConcatenatedReportTest.pdf");
 
 	}
@@ -160,7 +159,7 @@ public class ConcatenatedReportTest extends BaseDjReportTest {
 		.setUseFullPageWidth(true)
 		.setTitle("Subreport for this group")
 		.build();
-		return DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager());
+		return DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager(),null);
 	}
 
 	public static void main(String[] args) throws Exception {
