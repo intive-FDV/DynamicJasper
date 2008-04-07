@@ -47,6 +47,12 @@
          	<action dev="Juan Manuel Alvarez" type="add">
          		Allow control over detail band split :: thanks balazsborbely.
          	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Crosstab measure type peroblem :: Only java.lang.Float was working. Thanks my_aro!
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Removed static dependency Eclipse JST compiler :: Thanks Tito (enjuto).
+         	</action>
          </release>
          <release version="2.0.7" date="2008-03-04"	desc="when no data section release">
          	<action dev="Juan Manuel Alvarez" type="add">

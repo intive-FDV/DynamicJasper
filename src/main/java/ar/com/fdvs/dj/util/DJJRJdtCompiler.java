@@ -31,7 +31,7 @@ package ar.com.fdvs.dj.util;
 
 import net.sf.jasperreports.engine.design.JRJdtCompiler;
 import net.sf.jasperreports.engine.util.JRClassLoader;
-import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
+//import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
 
 import java.util.Map;
 
@@ -46,7 +46,8 @@ public class DJJRJdtCompiler extends JRJdtCompiler {
         final Map settings = super.getJdtSettings();
         final String encoding = System.getProperty("file.encoding");
         if (encoding != null) {
-            settings.put(CompilerOptions.OPTION_Encoding, encoding);
+//            settings.put(CompilerOptions.OPTION_Encoding, encoding); //this needs and import from here: import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
+            settings.put("org.eclipse.jdt.core.encoding", encoding);
         }
         return settings;
     }

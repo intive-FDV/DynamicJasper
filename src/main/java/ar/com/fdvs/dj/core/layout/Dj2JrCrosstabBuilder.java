@@ -423,8 +423,8 @@ public class Dj2JrCrosstabBuilder {
 
 			JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
 			measure.setName(djmeasure.getProperty().getProperty());
-			measure.setCalculation(JRDesignVariable.CALCULATION_SUM);
-			measure.setValueClassName(Float.class.getName());
+			measure.setCalculation(djmeasure.getOperation().getValue());
+			measure.setValueClassName(djmeasure.getProperty().getValueClassName());
 			JRDesignExpression valueExp = new JRDesignExpression();
 			valueExp.setValueClassName(djmeasure.getProperty().getValueClassName());
 			valueExp.setText("$F{"+djmeasure.getProperty().getProperty()+"}");
