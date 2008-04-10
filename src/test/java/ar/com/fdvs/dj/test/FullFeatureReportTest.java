@@ -53,6 +53,8 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.SortUtils;
 
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.xml.JRXmlWriter;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.awt.Color;
@@ -178,6 +180,8 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 		FullFeatureReportTest test = new FullFeatureReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
+//		JasperDesignViewer.viewReportDesign(test.jr);
+//		JRXmlWriter.writeReport(test.jr, "e:\\temp\\reporte.jrxml", "UTF-8");
 	}
 
 }

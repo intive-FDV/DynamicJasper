@@ -53,6 +53,12 @@
          	<action dev="Juan Manuel Alvarez" type="fix">
          		Removed static dependency Eclipse JST compiler :: Thanks Tito (enjuto).
          	</action>
+         	<action dev="Juan Manuel Alvarez" type="remove">
+         		Java 1.2 is no longer supported :: This is from jasperReports 2.0.5 (they removed the class JRJdk12Compiler. Thanks mikea59. 
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Header Charts :: they where leaving a blank space before the column titles.  
+         	</action>
          </release>
          <release version="2.0.7" date="2008-03-04"	desc="when no data section release">
          	<action dev="Juan Manuel Alvarez" type="add">

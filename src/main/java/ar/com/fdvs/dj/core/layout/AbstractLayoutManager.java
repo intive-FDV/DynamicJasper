@@ -649,8 +649,13 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			DJChart djChart = (DJChart) iter.next();
 			JRDesignChart chart = createChart(djChart);
 			JRDesignBand band = getPositionBand(djChart);
-			int yOffset = findVerticalOffset(band);
+			
+			//If it is a HEADER chart, then Y remains 0. If FOOTER chart, need yOffset
+			int yOffset = 0;
+			if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_FOOTER)
+				yOffset = findVerticalOffset(band);			
 			chart.setY(yOffset); //The chart will be located at the very end of the band so far
+			
 			band.addElement(chart);
 		}
 	}
@@ -729,7 +734,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			for (int i = 0; i < band.getElements().length; i++) {
 				JRDesignElement element = (JRDesignElement) band.getElements()[i];
 				element.setY(element.getY() + chart.getY() + chart.getHeight() + 5);
-			}
+			}			
 		}
 		else {
 			JRDesignBand band = (JRDesignBand) getParent(((JRDesignGroup)getDesign().getGroupsList().get(index))).getGroupFooter();
