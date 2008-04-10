@@ -1002,6 +1002,56 @@ public class DynamicReportBuilder {
 		
 		return addSubreportInGroupFooter(groupNumber, subreport);
 	}
+	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, SubreportParameter[] params) throws DJBuilderException {
+		SubReportBuilder srb = new SubReportBuilder();
+		
+		srb.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setDynamicReport(dynamicReport,layoutManager);
+		
+		if (params != null){
+			for (int i = 0; i < params.length; i++) {
+				srb.addParameter(params[i]);
+			}
+		}
+		
+		Subreport subreport = srb.build();
+		
+		return addSubreportInGroupHeader(groupNumber, subreport);
+	}
+	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, SubreportParameter[] params, boolean startInNewPage) throws DJBuilderException {
+		SubReportBuilder srb = new SubReportBuilder();
+		
+		srb.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setStartInNewPage(startInNewPage)
+		.setDynamicReport(dynamicReport,layoutManager);
+		
+		if (params != null){
+			for (int i = 0; i < params.length; i++) {
+				srb.addParameter(params[i]);
+			}
+		}
+		
+		Subreport subreport = srb.build();
+		
+		return addSubreportInGroupFooter(groupNumber, subreport);
+	}
+	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, SubreportParameter[] params, boolean startInNewPage) throws DJBuilderException {
+		SubReportBuilder srb = new SubReportBuilder();
+		
+		srb.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setStartInNewPage(startInNewPage)
+		.setDynamicReport(dynamicReport,layoutManager);
+		
+		if (params != null){
+			for (int i = 0; i < params.length; i++) {
+				srb.addParameter(params[i]);
+			}
+		}
+		
+		Subreport subreport = srb.build();
+		
+		return addSubreportInGroupHeader(groupNumber, subreport);
+	}
 
 	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, String pathToSubreport, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
 
@@ -1010,6 +1060,16 @@ public class DynamicReportBuilder {
 		.setPathToReport(pathToSubreport)
 		.build();
 
+		return addSubreportInGroupFooter(groupNumber, subreport);
+	}
+	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, String pathToSubreport, String dataSourcePath, int dataSourceOrigin, int dataSourceType, boolean startInNewPage) throws DJBuilderException {
+		
+		Subreport subreport = new SubReportBuilder()
+		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setPathToReport(pathToSubreport)
+		.setStartInNewPage(startInNewPage)
+		.build();
+		
 		return addSubreportInGroupFooter(groupNumber, subreport);
 	}
 

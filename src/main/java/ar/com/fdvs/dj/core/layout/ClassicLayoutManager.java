@@ -43,6 +43,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignBreak;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
@@ -603,6 +604,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				applyStyleToElement(sr.getStyle(), subreport);
 
 			//adding to the band
+			if (sr.isStartInNewPage()) {
+				JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider()); 
+				band.addElement(pageBreak); 
+			}
 			band.addElement(subreport);
 		}
 	}

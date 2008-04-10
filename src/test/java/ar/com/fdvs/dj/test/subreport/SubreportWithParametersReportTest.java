@@ -120,7 +120,7 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager(),params);
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace(); //This only works on my PC (Dj)
 		} finally {
 			if (con != null) {
 				con.close();

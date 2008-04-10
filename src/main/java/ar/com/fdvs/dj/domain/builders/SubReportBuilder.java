@@ -147,6 +147,11 @@ public class SubReportBuilder {
 		return this;
 	}
 
+	public SubReportBuilder setStartInNewPage(boolean startInNewPage) {
+		subreport.setStartInNewPage(startInNewPage);
+		return this;
+	}
+
 	public SubReportBuilder addParameter(SubreportParameter sp) {
 		subreport.getParameters().add(sp);
 		return this;

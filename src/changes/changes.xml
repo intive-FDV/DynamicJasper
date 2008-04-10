@@ -42,7 +42,7 @@
          		WebWork integration :: Added "exportParams" feature, so you can pass custom parameters to the exporter used.
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
-         		Crosstabs NPI :: 1xX and Xx1 crosstabs thorws NPE, thanks Marcos Reyes
+         		Crosstabs NPE :: 1xX and Xx1 crosstabs thorws NPE, thanks Marcos Reyes
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
          		Allow control over detail band split :: thanks balazsborbely.
@@ -58,6 +58,9 @@
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
          		Header Charts :: they where leaving a blank space before the column titles.  
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Sub reports can start in new page :: thanks jacklty!
          	</action>
          </release>
          <release version="2.0.7" date="2008-03-04"	desc="when no data section release">
