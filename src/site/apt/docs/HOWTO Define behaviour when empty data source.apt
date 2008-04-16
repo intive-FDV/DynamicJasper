@@ -12,8 +12,8 @@ DynamicReportBuilder setWhenNoDataType(byte whenNoDataType)
  
  * <<DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE>>: A blank page
  
- * <<DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL>>: Shows everything but hides the detail section.
- 
+ * <<DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL>>: Shows everything but hides the detail section and shows a special band called "WHEN NO DATA".
+    
  * <<DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION>>: Hides the detail band and shows the "NoData" section.
  
  []
