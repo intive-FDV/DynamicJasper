@@ -34,7 +34,7 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.8" date="2008-03-18"	desc="Subreport parameters release">
+         <release version="2.0.8" date="2008-04-14"	desc="Subreport parameters release">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Subreport parameters :: You can pass parameters to subreports using values from current row. Thanks Marcos Reyes!
          	</action>
