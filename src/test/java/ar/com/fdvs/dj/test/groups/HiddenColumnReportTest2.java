@@ -100,6 +100,7 @@ public class HiddenColumnReportTest2 extends BaseDjReportTest {
 			.setPrintBackgroundOnOddRows(true)
 			.setPrintColumnNames(false)
 //			.addHeaderHeight(100)
+			.setAllowDetailSplit(false)
 			.setOddRowBackgroundStyle(oddRowStyle);
 
 		AbstractColumn columnState = ColumnBuilder.getInstance()
@@ -166,7 +167,7 @@ public class HiddenColumnReportTest2 extends BaseDjReportTest {
 		drb.addGroup(g1); // add group g1
 		drb.addGroup(g2); // add group g2
 
-		drb.setUseFullPageWidth(true);
+		drb.setUseFullPageWidth(false);
 
 		DynamicReport dr = drb.build();
 		return dr;

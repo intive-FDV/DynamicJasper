@@ -29,7 +29,7 @@ drb.addSubreportInGroupHeader(2, drHeaderSubreport, new ClassicLayoutManager(),
 drb.addField("statistics", List.class.getName());
 +-----------------------------------------------------------------------------+
 
- The first call to the builer is:
+* The first call to the builer is:
  
 +-----------------------------------------------------------------------------+ 
  .addSubreportInGroupHeader( <group number>, <dynamicReport>, <LayOutManager>
@@ -57,7 +57,13 @@ drb.addField("statistics", List.class.getName());
  has a name like DATA_SOURCE_TYPE_\<XXX\>, where \<XXX\> represents the type. Most known types are
  java.sql.ResultSet, Collection, Array, Xml, etc.
  
- The 2nd call is:
+** An overloaded way of this method also lets you pass the following:
+ 
+ <<SubreportParameter[] params>> An array of parameters (in parent report) to make available in child report.
+ 
+ <<boolean startInNewPage>> tells the DJ to make the sub report to start in a new page. 
+ 
+* The 2nd call is:
   
 +-----------------------------------------------------------------------------+ 
  drb.addField("statistics", List.class.getName());

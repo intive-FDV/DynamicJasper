@@ -78,7 +78,7 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 		DynamicReport dr = drb.build();
 		
 		params.put("nom", "Juan"); //Note that the query has a parameter, by putting in the map
-		params.put("con2", con); //Note that the query has a parameter, by putting in the map
+//		params.put("con2", con); //Note that the query has a parameter, by putting in the map
 		//an item with the proper key, it will be automatically registered as a parameter
 		return dr;
 	}
@@ -120,7 +120,7 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager(),params);
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace(); //This only works on my PC (Dj)
 		} finally {
 			if (con != null) {
 				con.close();

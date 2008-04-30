@@ -50,8 +50,8 @@ public class DJCompilerFactory {
 
     	if (DJJRJdk13Compiler.isValid()) {
             return DJJRJdk13Compiler.class.getName();
-        } else if (DJJRJdk12Compiler.isValid()) {
-            return DJJRJdk12Compiler.class.getName();
+//        } else if (DJJRJdk12Compiler.isValid()) {
+//            return DJJRJdk12Compiler.class.getName();
         } else {
             return DJJRJavacCompiler.class.getName();
         }

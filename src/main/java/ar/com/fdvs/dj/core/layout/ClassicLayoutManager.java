@@ -43,6 +43,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignBreak;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
@@ -603,6 +604,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				applyStyleToElement(sr.getStyle(), subreport);
 
 			//adding to the band
+			if (sr.isStartInNewPage()) {
+				JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider()); 
+				band.addElement(pageBreak); 
+			}
 			band.addElement(subreport);
 		}
 	}
@@ -813,7 +818,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		 * You may dont want this option if you have groups that prints column names.
 		 */
 		if (getReport().getOptions().isPrintColumnNames()){
-			generateHeaderBand(header);
+			generateHeaderBand(header);			
 		}
 
 //		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))

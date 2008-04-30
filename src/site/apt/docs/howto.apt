@@ -9,23 +9,25 @@ HOW TO Guide
 
 * Content
 
- * {{{HOWTO Define behaviour when a resource is missing.html}Define behaviour when a resource is missing}} <<new!>>
+ * {{{HOWTO Avoid row splitting.html}Avoid row splitting}}
 
- * {{{HOWTO Define behaviour when empty data source.html}Define behaviour when empty data source}} <<new!>>
- 
- * {{{HOWTO Setup colums when using a XML data sources.html}Setup colums when using a XML data sources}} <<new!>>
- 
- * {{{HOWTO Use custom fonts.html}Use custom fonts (internationalization)}} <<new!>>
+ * {{{HOWTO Define behaviour when a resource is missing.html}Define behaviour when a resource is missing}}
 
- * {{{HOWTO use report query.html}Use report query}} <<new!>>
+ * {{{HOWTO Define behaviour when empty data source.html}Define behaviour when empty data source}}
+ 
+ * {{{HOWTO Setup colums when using a XML data sources.html}Setup colums when using a XML data sources}}
+ 
+ * {{{HOWTO Use custom fonts.html}Use custom fonts (internationalization)}} 
 
- * {{{HOWTO export to jrxml.html}Export report design to jrxml}} <<new!>>
+ * {{{HOWTO use report query.html}Use report query}}
+
+ * {{{HOWTO export to jrxml.html}Export report design to jrxml}}
  
- * {{{HOWTO image column.html}Use images in columns}} <<new!>>
+ * {{{HOWTO image column.html}Use images in columns}}
  
- * {{{HOWTO barcode column.html}Use barcodes}} <<new!>>
+ * {{{HOWTO barcode column.html}Use barcodes}}
  
- * {{{HOWTO Crosstabs.html}Use Crosstabs}} <<new!>>
+ * {{{HOWTO Crosstabs.html}Use Crosstabs}}
  
  * {{{HOWTO Use conditional Styles.html}Use conditional Styles}}
  

@@ -58,6 +58,10 @@ public class Subreport {
 	 */
 	private LayoutManager layoutManager = null;
 
+	/**
+	 * If true, a page-break will be added before placing the sub-report
+	 */
+	private boolean startInNewPage = false;
 
 	private DJDataSource datasource;
 
@@ -164,6 +168,12 @@ public class Subreport {
 	}
 	public void setParameters(List parameters) {
 		this.parameters = parameters;
+	}
+	public boolean isStartInNewPage() {
+		return startInNewPage;
+	}
+	public void setStartInNewPage(boolean startInNewPage) {
+		this.startInNewPage = startInNewPage;
 	}
 
 }

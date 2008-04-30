@@ -80,6 +80,8 @@ public class DynamicReport {
 	private Style  whenNoDataStyle;
 	private boolean whenNoDataShowTitle = true;
 	private boolean whenNoDataShowColumnHeader = true;
+
+	private boolean allowDetailSplit = true;
 	
 	/**
 	 * Defines the behaviour when the datasource is empty.
@@ -300,6 +302,14 @@ public class DynamicReport {
 
 	public void setParameters(List parameters) {
 		this.parameters = parameters;
+	}
+
+	public boolean isAllowDetailSplit() {
+		return allowDetailSplit;
+	}
+
+	public void setAllowDetailSplit(boolean allowDetailSplit) {
+		this.allowDetailSplit = allowDetailSplit;
 	}
 
 }
