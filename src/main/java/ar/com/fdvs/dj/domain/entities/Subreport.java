@@ -63,6 +63,12 @@ public class Subreport {
 	 */
 	private boolean startInNewPage = false;
 
+	/**
+	 * When the sub-report is dynamic (and no template), we can tell the report to
+	 * fit its parent report width
+	 */
+	private boolean fitToParentPrintableArea = true;
+
 	private DJDataSource datasource;
 
 	/**
@@ -174,6 +180,12 @@ public class Subreport {
 	}
 	public void setStartInNewPage(boolean startInNewPage) {
 		this.startInNewPage = startInNewPage;
+	}
+	public boolean isFitToParentPrintableArea() {
+		return fitToParentPrintableArea;
+	}
+	public void setFitToParentPrintableArea(boolean fitToParentPrintableArea) {
+		this.fitToParentPrintableArea = fitToParentPrintableArea;
 	}
 
 }

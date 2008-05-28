@@ -39,7 +39,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 
-public class SubReportTest extends BaseDjReportTest {
+public class SubReportWithTemplateTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -53,9 +53,10 @@ public class SubReportTest extends BaseDjReportTest {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
-			.setMargins(5, 5, 20, 20)
+			.setMargins(5, 5, 40, 20)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
+//			.setTemplateFile("templates/TemplateReportTest.jrxml")			
 			.setUseFullPageWidth(true);
 
 		drb.addField("statistics", List.class.getName());
@@ -69,6 +70,9 @@ public class SubReportTest extends BaseDjReportTest {
 				 "statistics", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
 		drb.setUseFullPageWidth(true);
+		
+		params.put("leftHeader", "DynamicJasper is the Best!!!");
+		params.put("rightHeader", "This is the right header");		
 
 		DynamicReport dr = drb.build();
 		return dr;
@@ -105,7 +109,7 @@ public class SubReportTest extends BaseDjReportTest {
 
 
 	public static void main(String[] args) throws Exception {
-		SubReportTest test = new SubReportTest();
+		SubReportWithTemplateTest test = new SubReportWithTemplateTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
 	}

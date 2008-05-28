@@ -34,6 +34,11 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="2.0.9" date="2008-05-31"	desc="Subreport parameters release">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Dynamic Subreport fits automatically to parent report printable area :: Use Subreport.fitToParentPrintableArea flag. 
+         	</action>
+         </release>
          <release version="2.0.8" date="2008-04-14"	desc="Subreport parameters release">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Subreport parameters :: You can pass parameters to subreports using values from current row. Thanks Marcos Reyes!

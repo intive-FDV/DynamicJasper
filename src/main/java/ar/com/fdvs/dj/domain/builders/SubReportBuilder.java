@@ -128,7 +128,7 @@ public class SubReportBuilder {
 	 * @return
 	 */
 	public SubReportBuilder setDataSource(String expression) {
-		return setDataSource(DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE, expression);
+		return setDataSource(DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE, expression);
 	}
 
 	public SubReportBuilder setReport(JasperReport jasperReport) {
@@ -163,6 +163,15 @@ public class SubReportBuilder {
 		return this;
 	}
 
+	/**
+	 * When true, and id the subreport is dynamic, it's page size and margins will match with the parent report 
+	 * @param fitparent
+	 * @return
+	 */
+	public SubReportBuilder setFitToParentPrintableArea(boolean  fitparent) {
+		subreport.setFitToParentPrintableArea(fitparent);
+		return this;
+	}
 
 
 

@@ -331,6 +331,7 @@ public final class DynamicJasperHelper {
 			if (_parameters == null)
 				_parameters = new HashMap();
 
+			visitSubreports(dr, _parameters);
 			compileOrLoadSubreports(dr, _parameters);
 
 			DynamicJasperDesign jd = generateJasperDesign(dr);
@@ -372,6 +373,7 @@ public final class DynamicJasperHelper {
     	if (_parameters == null)
     		_parameters = new HashMap();
     	
+    	visitSubreports(dr, _parameters);
     	compileOrLoadSubreports(dr, _parameters);
     	
     	DynamicJasperDesign jd = generateJasperDesign(dr);
@@ -406,6 +408,7 @@ public final class DynamicJasperHelper {
     	if (_parameters == null)
     		_parameters = new HashMap();
     	
+    	visitSubreports(dr, _parameters);
     	compileOrLoadSubreports(dr, _parameters);
     	
     	DynamicJasperDesign jd = generateJasperDesign(dr);
@@ -576,6 +579,7 @@ public final class DynamicJasperHelper {
 			if (generatedParams == null)
 				generatedParams = new HashMap();
 
+			visitSubreports(dr, generatedParams);
 			compileOrLoadSubreports(dr, generatedParams);
 
 			DynamicJasperDesign jd = generateJasperDesign(dr);
@@ -588,6 +592,51 @@ public final class DynamicJasperHelper {
 			jr = JasperCompileManager.compileReport(jd);
 			generatedParams.putAll(jd.getParametersWithValues());
 		return jr;
+	}
+
+/**
+ * Performs any needed operation on subreports after they are built like ensuring proper subreport with
+ * if "fitToParentPrintableArea" flag is set to true
+ * @param dr
+ * @param _parameters
+ * @throws JRException
+ */
+	protected static void visitSubreports(DynamicReport dr, Map _parameters) throws JRException{
+    	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext();) {
+			ColumnsGroup group = (ColumnsGroup) iterator.next();
+
+			//Header Subreports
+			for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext();) {
+				Subreport subreport = (Subreport) iterator2.next();
+
+				if (subreport.getDynamicReport() != null){
+					visitSubreport(dr,subreport,_parameters);
+					visitSubreports(subreport.getDynamicReport(),_parameters);
+				}
+
+			}
+
+			//Footer Subreports
+			for (Iterator iterator2 = group.getFooterSubreports().iterator(); iterator2.hasNext();) {
+				Subreport subreport = (Subreport) iterator2.next();
+
+				if (subreport.getDynamicReport() != null){
+					visitSubreport(dr,subreport,_parameters);
+					visitSubreports(subreport.getDynamicReport(),_parameters);
+				}
+
+			}
+		}
+		
+	}
+
+	protected static void visitSubreport(DynamicReport parentDr, Subreport subreport, Map _parameters) {
+		DynamicReport childDr = subreport.getDynamicReport();
+		if (subreport.isFitToParentPrintableArea()){
+			childDr.getOptions().setPage(parentDr.getOptions().getPage());
+			childDr.getOptions().setLeftMargin(parentDr.getOptions().getLeftMargin());
+			childDr.getOptions().setRightMargin(parentDr.getOptions().getRightMargin());
+		}
 	}
 
 	public static ColumnsGroup getColumnGroup(AbstractColumn col, List groups) {
