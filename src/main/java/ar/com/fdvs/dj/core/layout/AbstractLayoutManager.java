@@ -241,19 +241,19 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 			JRStyle old = (JRStyle) design.getStylesMap().get(jrstyle.getName());
 			if (old != null && style.isOverridesExistingStyle()){
-				log.info("Overriding style with name \""+ style.getName() +"\"");
+				log.debug("Overriding style with name \""+ style.getName() +"\"");
 
 				design.removeStyle(style.getName());
 				design.addStyle(jrstyle);
 			} else if (old == null){
-				log.info("Registering new style with name \""+ style.getName() +"\"");
+				log.debug("Registering new style with name \""+ style.getName() +"\"");
 				design.addStyle(jrstyle);
 			} else {
 				if (style.getName() != null)
-					log.info("Using existing style for style with name \""+ style.getName() +"\"");
+					log.debug("Using existing style for style with name \""+ style.getName() +"\"");
 			}
 		} catch (JRException e) {
-			log.info("Duplicated style (it's ok): " + e.getMessage());
+			log.debug("Duplicated style (it's ok): " + e.getMessage());
 		}
 	}
 
