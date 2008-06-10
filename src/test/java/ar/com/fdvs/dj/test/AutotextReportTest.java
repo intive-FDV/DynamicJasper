@@ -30,9 +30,9 @@
 package ar.com.fdvs.dj.test;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
 
-import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
@@ -80,7 +80,8 @@ public class AutotextReportTest extends BaseDjReportTest {
 		DynamicReport dr = drb.build();
 
 		//i18N, you can set a Locale, different than the default in the VM
-		drb.setReportLocale(new Locale("es","AR"));
+//		drb.setReportLocale(new Locale("es","AR"));
+		drb.setReportLocale(new Locale("pr","BR"));
 
 		return dr;
 	}
@@ -89,7 +90,7 @@ public class AutotextReportTest extends BaseDjReportTest {
 		AutotextReportTest test = new AutotextReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
-		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, new ClassicLayoutManager()));
+		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, new ClassicLayoutManager(),new HashMap()));
 	}
 
 }

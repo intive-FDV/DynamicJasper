@@ -48,10 +48,20 @@ public class ReportExporter {
 	 */
 	private static final Log logger = LogFactory.getLog(ReportExporter.class);
 
+	/**
+	 * The path to the file must exist.
+	 * @param jp
+	 * @param path
+	 * @throws JRException
+	 * @throws FileNotFoundException
+	 */
 	public static void exportReport(JasperPrint jp, String path) throws JRException, FileNotFoundException{
 		JRPdfExporter exporter = new JRPdfExporter();
 
 		File outputFile = new File(path);
+		File parentFile = outputFile.getParentFile();
+		if (parentFile != null)
+			parentFile.mkdirs();
 		FileOutputStream fos = new FileOutputStream(outputFile);
 
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
@@ -68,6 +78,9 @@ public class ReportExporter {
 		JExcelApiExporter exporter = new JExcelApiExporter();
 
 		File outputFile = new File(path);
+		File parentFile = outputFile.getParentFile();
+		if (parentFile != null)
+			parentFile.mkdirs();
 		FileOutputStream fos = new FileOutputStream(outputFile);
 
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);

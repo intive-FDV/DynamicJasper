@@ -29,20 +29,20 @@
 
 package ar.com.fdvs.dj.test.xml;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.test.ReportExporter;
+import java.beans.XMLDecoder;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.util.Collection;
+
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-
-import java.beans.XMLDecoder;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Collection;
+import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.test.ReportExporter;
 
 public class XMLReportTest extends TestCase {
 

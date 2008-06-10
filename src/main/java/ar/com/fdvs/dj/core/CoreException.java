@@ -31,6 +31,12 @@ package ar.com.fdvs.dj.core;
 
 public class CoreException extends RuntimeException {
 
+	public CoreException() {
+		super();
+	}
+	public CoreException(Throwable cause) {
+		super(cause);
+	}
 	private static final long serialVersionUID = -5674432237257954632L;
 
 	public CoreException(String arg0) {

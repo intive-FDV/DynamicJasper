@@ -60,8 +60,9 @@ public abstract class BaseDjReportTest extends TestCase {
 			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds,params );	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
-			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager());
+			
+			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".pdf");
+			jr = DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager(), params);
 	}
 
 	/**

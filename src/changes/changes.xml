@@ -38,6 +38,12 @@
          	<action dev="Juan Manuel Alvarez" type="add">
          		Dynamic Subreport fits automatically to parent report printable area :: Use Subreport.fitToParentPrintableArea flag. 
          	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		New Exception ar.com.fdvs.dj.core.DJExpection for generics problems inside the API  
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Tests: path to output file was not being created  
+         	</action>
          </release>
          <release version="2.0.8" date="2008-04-14"	desc="Subreport parameters release">
          	<action dev="Juan Manuel Alvarez" type="add">
