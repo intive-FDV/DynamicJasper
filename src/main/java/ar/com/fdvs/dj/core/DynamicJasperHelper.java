@@ -96,6 +96,9 @@ public final class DynamicJasperHelper {
 		new ColumnsGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());
 		registerOtherFields(jd,dr.getFields());
 		Locale locale = dr.getReportLocale() == null ? Locale.getDefault() : dr.getReportLocale();
+//		if (log.isDebugEnabled()){
+			log.debug("Requested Locale = " + dr.getReportLocale() + ", Locale to use: "+ locale);
+//		}
 		ResourceBundle messages = null;
 		if (dr.getResourceBundle() != null ){
 			try {
@@ -110,7 +113,6 @@ public final class DynamicJasperHelper {
 			finally {
 				try {
 					messages = ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, Locale.ENGLISH); //this cannot fail because is included in the DJ jar
-					System.out.println(messages.getLocale());
 				} catch (MissingResourceException e) {
 					log.error("Default messajes not found: " + DJ_RESOURCE_BUNDLE + ", " + e.getMessage(), e);
 					throw new DJException("Default messajes file not found: "+ DJ_RESOURCE_BUNDLE + "en.properties",e);

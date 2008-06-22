@@ -89,7 +89,7 @@ public abstract class HorizontalBandAlignment {
 		}
 	};
 
-	public abstract void align(int totalWidth, int offset, JRDesignBand band, JRDesignElement element);
 	public abstract byte getAlignment();
+	public abstract void align(int totalWidth, int offset, JRDesignBand band, JRDesignElement element);
 
 }

@@ -335,7 +335,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * Adds title and subtitle to the TitleBand when it applies.
 	 * If title is not present then subtitle will be ignored
 	 */
-	private void generateTitleBand() {
+	protected void generateTitleBand() {
 		log.debug("Generating title band...");
 		JRDesignBand band = (JRDesignBand) getDesign().getPageHeader();
 		int yOffset = 0;

@@ -44,6 +44,9 @@
          	<action dev="Juan Manuel Alvarez" type="fix">
          		Tests: path to output file was not being created  
          	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Report Locale: made some fixes to ensure that at least the default locale is loaded.  
+         	</action>
          </release>
          <release version="2.0.8" date="2008-04-14"	desc="Subreport parameters release">
          	<action dev="Juan Manuel Alvarez" type="add">

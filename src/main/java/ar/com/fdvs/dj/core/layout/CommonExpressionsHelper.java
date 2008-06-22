@@ -187,7 +187,11 @@ public class CommonExpressionsHelper {
 		textfield.setExpression(expression);
 		textfield.setHeight(autoText.getHeight().intValue());
 		textfield.setStyledText(true);
-		textfield.setWidth(report.getOptions().getPrintableWidth());
+		if (autoText.getWith() == null){
+			textfield.setWidth(report.getOptions().getPrintableWidth());
+		} else {
+			textfield.setWidth(autoText.getWith().intValue());
+		}
 		textfield.setY(yOffset);
 		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, textfield);
 

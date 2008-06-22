@@ -69,7 +69,7 @@ public class ListLayoutManager extends AbstractLayoutManager {
 		}
 	}
 
-	private void generateHeaderBand() {
+	protected void generateHeaderBand() {
 		log.debug("generating header band...");
 		JRDesignBand header = (JRDesignBand) getDesign().getColumnHeader();
 		if (header == null) {

@@ -68,6 +68,25 @@ public class AutoText {
 
 	private Integer height = new Integer(15);
 
+	private Integer with;
+	
+	/**
+	 * tells if the API can modify the with if needed
+	 */
+	private boolean fixedWith = true;
+
+	public boolean isFixedWith() {
+		return fixedWith;
+	}
+	public void setFixedWith(boolean fixedWith) {
+		this.fixedWith = fixedWith;
+	}
+	public Integer getWith() {
+		return with;
+	}
+	public void setWith(Integer with) {
+		this.with = with;
+	}
 	public Integer getHeight() {
 		return height;
 	}
@@ -91,6 +110,16 @@ public class AutoText {
 		this.position = position;
 		this.alignment = alignment;
 		this.messageKey = message;
+		this.fixedWith = false;
+	}
+
+	public AutoText(String message, byte position, HorizontalBandAlignment alignment, Integer with) {
+		this.type = AUTOTEXT_CUSTOM_MESSAGE;
+		this.position = position;
+		this.alignment = alignment;
+		this.messageKey = message;
+		this.with = with;
+		this.fixedWith = false;
 	}
 
 	public HorizontalBandAlignment getAlignment() {
