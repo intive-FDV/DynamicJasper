@@ -34,7 +34,9 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Abstract Class used as base for the different Column types.
@@ -55,7 +57,20 @@ public abstract class AbstractColumn implements Entity {
 	private Boolean printRepeatedValues = Boolean.TRUE;
 	private Boolean blankWhenNull = Boolean.TRUE;
 
+	/**
+	 * Field properties are passed directly to JasperReports JRField
+	 */
+	private Map fieldProperties = new HashMap();
+
 	private List conditionalStyles = new ArrayList();
+
+	public Map getFieldProperties() {
+		return fieldProperties;
+	}
+
+	public void setFieldProperties(Map fieldProperties) {
+		this.fieldProperties = fieldProperties;
+	}
 
 	public List getConditionalStyles() {
 		return conditionalStyles;

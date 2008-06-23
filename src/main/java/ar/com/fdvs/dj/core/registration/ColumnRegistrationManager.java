@@ -115,6 +115,11 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 				.getValueClassName());
 		
 		field.setDescription(propertyColumn.getFieldDescription()); //hack for XML data source
+		Iterator iter = propertyColumn.getFieldProperties().keySet().iterator();
+		while (iter.hasNext()) {
+			String key = (String) iter.next();
+			field.getPropertiesMap().setProperty(key, (String) propertyColumn.getFieldProperties().get(key)); 
+		}
 		return field;
 	}
 

@@ -45,7 +45,9 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -79,6 +81,7 @@ public class ColumnBuilder {
 	private ArrayList conditionalStyles = new ArrayList();
 	private ColumnOperation operation;
 	private List operationColumns;
+	private Map fieldProperties = new HashMap();
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	private String fieldDescription;
 
@@ -190,6 +193,7 @@ public class ColumnBuilder {
 		column.setStyle(style);
 		column.setPrintRepeatedValues(Boolean.valueOf(printRepeatedValues));
 		column.getConditionalStyles().addAll(conditionalStyles);
+		column.getFieldProperties().putAll(fieldProperties);
 		column.setFixedWidth(fixedWidth);
 	}
 
@@ -352,6 +356,11 @@ public class ColumnBuilder {
 		return this;
 	}
 
+	public ColumnBuilder addFieldProperty(String propertyName, String value) {
+		fieldProperties.put(propertyName, value);
+		return this;
+	}
+	
 //	//FIXME This method should belong to the GroupBuilder.
 //	public ColumnBuilder addCustomExpressionToGroupBy(CustomExpression customExpression){
 //		this.customExpressionToGroupBy = customExpression;

@@ -47,6 +47,9 @@
          	<action dev="Juan Manuel Alvarez" type="fix">
          		Report Locale: made some fixes to ensure that at least the default locale is loaded.  
          	</action>
+         	<action dev="Juan Manuel Alvarez" type="add" due-to="Eric Bartley">
+         		Field properties: JRField properties can be passed to the column builder or the column object itself. Thanks Eric Bartley!
+         	</action>
          </release>
          <release version="2.0.8" date="2008-04-14"	desc="Subreport parameters release">
          	<action dev="Juan Manuel Alvarez" type="add">
