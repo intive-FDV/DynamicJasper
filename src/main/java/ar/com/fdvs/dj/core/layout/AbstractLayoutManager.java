@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.core.layout;
 
 import java.awt.Color;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ import java.util.List;
 
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.engine.JRBand;
+import net.sf.jasperreports.engine.JRConditionalStyle;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
@@ -47,6 +49,7 @@ import net.sf.jasperreports.engine.base.JRBaseChartPlot;
 import net.sf.jasperreports.engine.base.JRBaseVariable;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
@@ -64,6 +67,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJChartOptions;
@@ -265,10 +269,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		JRDesignBand detail = (JRDesignBand) design.getDetail();
 		detail.setHeight(report.getOptions().getDetailHeight().intValue());
 
-		if (getReport().getOptions().isPrintBackgroundOnOddRows()){
-			decorateOddRows(detail);
-		}
-
 		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
 
 			AbstractColumn column = (AbstractColumn)iter.next();
@@ -352,37 +352,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 
 	/**
-	 * Places a square as DetailBand background for odd rows.
-	 * @param JRDesignBand detail
-	 */
-	private void decorateOddRows(JRDesignBand detail) {
-		JRDesignExpression expression = new JRDesignExpression();
-		expression.setValueClass(Boolean.class);
-		expression.setText(EXPRESSION_TRUE_WHEN_ODD);
-
-		JRDesignRectangle rectangle = new JRDesignRectangle();
-		rectangle.setPrintWhenExpression(expression);
-		DynamicReportOptions options = getReport().getOptions();
-		rectangle.setHeight(options.getDetailHeight().intValue());
-		rectangle.setWidth(options.getColumnWidth());
-		rectangle.setStretchType(JRDesignRectangle.STRETCH_TYPE_RELATIVE_TO_TALLEST_OBJECT);
-		Style oddRowBackgroundStyle = options.getOddRowBackgroundStyle();
-
-		addStyleToDesign(oddRowBackgroundStyle);//register this style in the jasperDesign
-
-		JRDesignStyle style = oddRowBackgroundStyle.transform();
-		style.setForecolor(oddRowBackgroundStyle.getBackgroundColor());
-
-		applyStyleToElement(oddRowBackgroundStyle, rectangle);
-//		rectangle.setStyle(style);
-		rectangle.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
-		rectangle.setForecolor(oddRowBackgroundStyle.getBorderColor());
-		rectangle.setPen(oddRowBackgroundStyle.getBorder().getValue());
-		rectangle.setMode(JRDesignElement.MODE_OPAQUE);
-		detail.addElement(rectangle);
-	}
-
-	/**
 	 * Creates and returns the expression used to apply a conditional style.
 	 * @param String paramName
 	 * @param String textForExpression
@@ -433,18 +402,18 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		}
 	}
 
-	public void applyStyleToElement(Style style, JRDesignElement designElemen) {
+	public JRDesignStyle applyStyleToElement(Style style, JRDesignElement designElemen) {
 		if (style == null){
 			log.warn("NULL style passed to object");
-			return;
+			return null;
 		}
 		boolean existsInDesign = style.getName() != null
-		&& design.getStylesMap().get(style.getName()) != null;
-//		&& !style.isOverridesExistingStyle();
+								&& design.getStylesMap().get(style.getName()) != null;
+						//		&& !style.isOverridesExistingStyle();
 
-		JRStyle jrstyle = null;
+		JRDesignStyle jrstyle = null;
 		if (existsInDesign && !style.isOverridesExistingStyle()){
-			jrstyle = (JRStyle) design.getStylesMap().get(style.getName());
+			jrstyle = (JRDesignStyle) design.getStylesMap().get(style.getName());
 		} else {
 			addStyleToDesign(style); //Order maters. This line fist
 			jrstyle = style.transform();
@@ -465,6 +434,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			if (textField.isBlankWhenNull() == false && style.isBlankWhenNull())
 				textField.setBlankWhenNull(true);
 		}
+		return jrstyle;
 	}
 
 
@@ -631,12 +601,49 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         if (columnStyle == null)
         	columnStyle = report.getOptions().getDefaultDetailStyle();
 
-		applyStyleToElement(columnStyle, textField);
+        JRDesignStyle jrstyle = applyStyleToElement(columnStyle, textField);
 
         if (group != null) {
         	int index = getReport().getColumnsGroups().indexOf(group);
             JRDesignGroup previousGroup = (JRDesignGroup) getDesign().getGroupsList().get(index);
             textField.setPrintWhenGroupChanges(previousGroup);
+            
+            /**
+             * Since a group column can share the style with non group columns, if oddRow coloring is enabled,
+             * we modified this shared style to have a colored background on odd rows. We dont want that for group 
+             * columns, that's why we create our own style from the existing one, and remove proper odd-row conditional 
+             * style if present
+             */
+            JRDesignStyle groupStyle = new JRDesignStyle();
+            try {
+				BeanUtils.copyProperties(groupStyle, jrstyle);
+			} catch (Exception e) {
+				throw new DJException("Could not copy properties for shared group style: " + e.getMessage(),e);	
+			} 
+			
+			groupStyle.setName(groupStyle.getFontName() +"_for_group_"+index);
+			textField.setStyle(groupStyle);
+			try {
+				design.addStyle(groupStyle);
+			} catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
+            
+        } else {
+        	if (getReport().getOptions().isPrintBackgroundOnOddRows() && 
+        			(jrstyle.getConditionalStyles() == null || jrstyle.getConditionalStyles().length == 0)) {
+	        	// No group column so this is a detail text field
+	    		JRDesignExpression expression = new JRDesignExpression();
+	    		expression.setValueClass(Boolean.class);
+	    		expression.setText(EXPRESSION_TRUE_WHEN_ODD);
+	
+	    		Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
+	    		
+	    		JRDesignConditionalStyle condStyle = new JRDesignConditionalStyle();
+	    		condStyle.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
+	    		condStyle.setMode(JRDesignElement.MODE_OPAQUE);
+	    		
+	    		condStyle.setConditionExpression(expression);
+	    		jrstyle.addConditionalStyle(condStyle);
+        	}
         }
         return textField;
 	}

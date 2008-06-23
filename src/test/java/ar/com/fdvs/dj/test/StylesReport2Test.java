@@ -39,6 +39,7 @@ import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.GroupBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Transparency;
@@ -148,9 +149,9 @@ public class StylesReport2Test extends BaseDjReportTest {
 			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);
+		drb.addColumn(columnaItem);
 		drb.addColumn(columnBranch);
 		drb.addColumn(columnaProductLine);
-		drb.addColumn(columnaItem);
 		drb.addColumn(columnCode);
 		drb.addColumn(columnaCantidad);
 		drb.addColumn(columnAmount);
@@ -161,7 +162,7 @@ public class StylesReport2Test extends BaseDjReportTest {
 		drb.addGroup(group);
 
 		ColumnsGroup group2 = new GroupBuilder()
-		.setCriteriaColumn((PropertyColumn) columnBranch)
+		.setCriteriaColumn((PropertyColumn) columnaItem)
 		.addFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM).build();
 		drb.addGroup(group2);
 
