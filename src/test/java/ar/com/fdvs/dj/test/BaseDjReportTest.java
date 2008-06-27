@@ -62,6 +62,7 @@ public abstract class BaseDjReportTest extends TestCase {
 																											//one does the magic) and the JRDataSource
 			
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".pdf");
+			ReportExporter.exportReportXls(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".xls");
 			jr = DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager(), params);
 	}
 

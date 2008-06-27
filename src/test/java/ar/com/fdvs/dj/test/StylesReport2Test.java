@@ -29,17 +29,21 @@
 
 package ar.com.fdvs.dj.test;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import java.awt.Color;
+
+import net.sf.jasperreports.view.JasperViewer;
+
+import org.apache.commons.beanutils.BeanUtils;
+
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.GroupBuilder;
+import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
-import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Transparency;
@@ -47,22 +51,13 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.util.SortUtils;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
-import org.apache.commons.beanutils.BeanUtils;
-
-import java.awt.Color;
-import java.util.Collection;
 
 public class StylesReport2Test extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
-		Style detailStyle = new Style();
+//		Style detailStyle = new Style();
+		Style detailStyle = new StyleBuilder(false).setTransparency(Transparency.OPAQUE).setBackgroundColor(new Color(200,200,230)).build();
 
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
@@ -105,10 +100,12 @@ public class StylesReport2Test extends BaseDjReportTest {
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
+		
 		drb.setTitle("November 2006 sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
+			.setDefaultStyles(null, null, null, detailStyle)
 			.setSubtitleHeight(new Integer(20))
 			.setDetailHeight(new Integer(15))
 			.setLeftMargin(margin)
