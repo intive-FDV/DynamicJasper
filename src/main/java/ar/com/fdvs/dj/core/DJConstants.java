@@ -29,7 +29,10 @@
 
 package ar.com.fdvs.dj.core;
 
+import net.sf.jasperreports.engine.JRQuery;
 import net.sf.jasperreports.engine.JRReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.util.JRProperties;
 
 public interface DJConstants {
 
