@@ -1,0 +1,84 @@
+Grouping Styles
+ 
+ DynamicJasper comes with predefined grouping layots. Different combinations in layouts among nested groups
+ can give to your reports a high visual impact. 
+
+1 Group
+
+* Default layout
+
+  Code: {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T1.html}ar.com.fdvs.dj.test.groups.GroupsReportTestG1T1}} 
+
+*----------+--------------+--------------+
+| <<Atribute>> | <<Value>> | <<Description>> |
+*----------+--------------+--------------+
+| printColumnNames | true | The column names will be shown at the top of each page
+*----------+--------------+--------------+
+| groupLayout | DEFAULT | 
+*----------+--------------+--------------+
+| footerVariable | SUM on column <Quanity> and <Amount>| On each group break, the sum of each column   
+*----------+--------------+--------------+
+ 
+[../images/examples/grouping/1g-default.jpg] Hidden column 
+
+** Default layout with headers on each group break 
+
+*----------+--------------+--------------+
+| <<Atribute>> | <<Value>> | <<Description>> |
+*----------+--------------+--------------+
+| printColumnNames | false | Because each group prints its own header, we dont need this.
+*----------+--------------+--------------+
+| groupLayout | DEFAULT_WITH_HEADER | 
+*----------+--------------+--------------+
+ 
+[../images/examples/grouping/1g-DEFAULT_WITH_HEADER.jpg] Hidden column 
+ 
++-----------------------------------------------------------------------------+ 
+FastReportBuilder drb = new FastReportBuilder();
+drb.addColumn("State"			, "state"		, String.class.getName(), 30)
+	.addColumn("Branch"		, "branch"		, String.class.getName(), 30)
+	.addColumn("Product Line"	, "productLine"	, String.class.getName(), 50)
+	.addColumn("Item"		, "item"		, String.class.getName(), 50)
+	.addColumn("Item Code"		, "id"			, Long.class.getName()	, 30, true)
+	.addColumn("Quantity"		, "quantity"	, Long.class.getName()	, 60, true)
+	.addColumn("Amount"		, "amount"		, Float.class.getName()	, 70, true)
+	.setPrintColumnNames(true)
+	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
+	.addMargins(0, 0, 0, 0)
+	.addTitle("November 2006 sales report")
+	.addSubtitle("This report was generated at " + new Date())
+	.addUseFullPageWidth(true);	
++-----------------------------------------------------------------------------+ 
+
+ Note this two lines:
+ 
++-----------------------------------------------------------------------------+ 
+	.setPrintColumnNames(true)
+	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
++-----------------------------------------------------------------------------+ 
+ 
+ The first tells DJ if to print or not the header with the colum names. You may don't want this
+ if the purpose is to create a plain Excel with only data and no header.
+ 
+ The second line tells DJ if to use JasperReports paginationo or not. For Excel you may don't want this
+ so your final result is a whole list with no empty spaces rows (page breaks.)
+ 
+ The final blow to get the Excel file are these lines
+ 
++-----------------------------------------------------------------------------+ 
+	JRXlsExporter exporter = new JRXlsExporter();
+	
+	File outputFile = new File(path);
+	FileOutputStream fos = new FileOutputStream(outputFile);
+	
+	exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+	exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos); //and output stream
+	
+	//Excel specific parameter
+	exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+	exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+	exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
++-----------------------------------------------------------------------------+ 
+ 
+ or use <ReportExporter.exportReportPlainXls(jp, "path to output file");> which contains the very same lines as above
+ 

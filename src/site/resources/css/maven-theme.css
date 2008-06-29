@@ -55,10 +55,10 @@ h3 {
 }
 h4 {
   padding: 4px 4px 4px 6px;
-  border: 1px solid #bbb;
+#  border: 1px solid #bbb;
   color: #900;
   background-color: #fff;
-  font-weight: normal;
+  font-weight: bold;
   font-size: large;
 }
 h5 {
