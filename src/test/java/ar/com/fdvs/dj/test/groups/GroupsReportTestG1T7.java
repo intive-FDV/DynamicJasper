@@ -51,7 +51,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 
-public class GroupsReportTestG1T5 extends BaseDjReportTest {
+public class GroupsReportTestG1T7 extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -103,7 +103,7 @@ public class GroupsReportTestG1T5 extends BaseDjReportTest {
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.setColumnProperty("state", String.class.getName())
 				.setTitle("State").setWidth(new Integer(85))
-				//.setStyle(titleStyle).setHeaderStyle(titleStyle)
+				.setStyle(titleStyle).setHeaderStyle(titleStyle)
 				.build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
@@ -154,7 +154,7 @@ public class GroupsReportTestG1T5 extends BaseDjReportTest {
 		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables) 
 				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables) 
-				.setGroupLayout(GroupLayout.VALUE_FOR_EACH_WITH_HEADERS) 
+				.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) 
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
@@ -182,7 +182,7 @@ public class GroupsReportTestG1T5 extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		GroupsReportTestG1T5 test = new GroupsReportTestG1T5();
+		GroupsReportTestG1T7 test = new GroupsReportTestG1T7();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
 	}

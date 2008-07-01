@@ -51,7 +51,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 
-public class GroupsReportTestG1T5 extends BaseDjReportTest {
+public class GroupsReportTestG1T6 extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -95,7 +95,7 @@ public class GroupsReportTestG1T5 extends BaseDjReportTest {
 			.setGrandTotalLegend("Grand Total")
 			.setGrandTotalLegendStyle(headerVariables)
 			.setDefaultStyles(titleStyle, null, headerStyle, detailStyle)
-			.setPrintColumnNames(false)
+			.setPrintColumnNames(true)
 			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_RIGHT)
 			.setOddRowBackgroundStyle(oddRowStyle);
 
@@ -103,7 +103,7 @@ public class GroupsReportTestG1T5 extends BaseDjReportTest {
 		AbstractColumn columnState = ColumnBuilder.getInstance()
 				.setColumnProperty("state", String.class.getName())
 				.setTitle("State").setWidth(new Integer(85))
-				//.setStyle(titleStyle).setHeaderStyle(titleStyle)
+				.setStyle(titleStyle).setHeaderStyle(titleStyle)
 				.build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
@@ -154,7 +154,7 @@ public class GroupsReportTestG1T5 extends BaseDjReportTest {
 		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables) 
 				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables) 
-				.setGroupLayout(GroupLayout.VALUE_FOR_EACH_WITH_HEADERS) 
+				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) 
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
@@ -182,7 +182,7 @@ public class GroupsReportTestG1T5 extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		GroupsReportTestG1T5 test = new GroupsReportTestG1T5();
+		GroupsReportTestG1T6 test = new GroupsReportTestG1T6();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
 	}
