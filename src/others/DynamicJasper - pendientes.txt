@@ -1,0 +1,10 @@
+* Documentacion: query con parametros no esta claro
+* Documentacion: Ejemplo gráfico de los distintos group layouts
+* Documentación: Como crear grupos, debe estar en los HOW-TO
+* FEATURE: charts más complejos (con series)
+OK * ENCUESTA: Opcion pregunta 1) Havent used before
+* ENCUESTA: Agregar codigo Analytics
+* ENCUESTA: Modificar script DB para guardar el IP
+OK * VENTAS: Anotarme en el market-place de SourceForge
+* WEB/documentacion: actualizar palabras clave para indexación de google: dynamic column pdf merge pdf, etc.
+* POSICIONAMIENTO: Revisar foro jasperReports, siempre hay gente que pregunta por columnas dinámicas.
