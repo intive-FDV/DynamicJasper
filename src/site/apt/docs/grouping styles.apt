@@ -7,7 +7,7 @@ Grouping Styles
 
 * Default layout
 
-  Code: {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T1.html}ar.com.fdvs.dj.test.groups.GroupsReportTestG1T1}} 
+ Code: {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T1.html}GroupsReportTestG1T1}} 
 
 *----------+--------------+--------------+
 | <<Atribute>> | <<Value>> | <<Description>> |
@@ -19,9 +19,11 @@ Grouping Styles
 | footerVariable | SUM on column <Quanity> and <Amount>| On each group break, the sum of each column   
 *----------+--------------+--------------+
  
-[../images/examples/grouping/1g-default.jpg] Hidden column 
+[../images/examples/grouping/1g-default.jpg] Default group layout
 
 ** Default layout with headers on each group break 
+
+ Code: {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T2.html}GroupsReportTestG1T2}}
 
 *----------+--------------+--------------+
 | <<Atribute>> | <<Value>> | <<Description>> |
@@ -31,7 +33,35 @@ Grouping Styles
 | groupLayout | DEFAULT_WITH_HEADER | 
 *----------+--------------+--------------+
  
-[../images/examples/grouping/1g-DEFAULT_WITH_HEADER.jpg] Hidden column 
+[../images/examples/grouping/1g-DEFAULT_WITH_HEADER.jpg]  Default group layout with headers
+ 
+** Empty layout, grouped column gets hidden
+
+ Code: {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T3.html}GroupsReportTestG1T3}}
+
+*----------+--------------+--------------+
+| <<Atribute>> | <<Value>> | <<Description>> |
+*----------+--------------+--------------+
+| printColumnNames | true | The column names will be shown at the top of each page
+*----------+--------------+--------------+
+| groupLayout | EMPTY | makes the column used as grouping criteria to be hidden. Note that on each group breaks there are totals for that group 
+*----------+--------------+--------------+
+ 
+[../images/examples/grouping/1g-EMPTY.jpg]  Empty group layout
+ 
+** Simple <Value For Each> layout
+
+ Code: {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T4.html}GroupsReportTestG1T4}}
+
+*----------+--------------+--------------+
+| <<Atribute>> | <<Value>> | <<Description>> |
+*----------+--------------+--------------+
+| printColumnNames | true | The column names will be shown at the top of each page
+*----------+--------------+--------------+
+| groupLayout | VALUE_FOR_EACH | The column used as grouping criteria repeats its value on each row. 
+*----------+--------------+--------------+
+ 
+[../images/examples/grouping/1g-VALUE_FOR_EACH.jpg]  Value For Each group layout
  
 +-----------------------------------------------------------------------------+ 
 FastReportBuilder drb = new FastReportBuilder();
