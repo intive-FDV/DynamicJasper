@@ -3,9 +3,9 @@ Grouping Styles
  DynamicJasper comes with predefined grouping layots. Different combinations in layouts among nested groups
  can give to your reports a high visual impact. 
 
-1 Group
+The simplest case: 1 group
 
-* Default layout
+* <Default> layout
 
  <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T1.html}GroupsReportTestG1T1}} 
 
@@ -38,7 +38,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
   
 [../images/examples/grouping/1g-default.jpg] Default group layout
 
-* Default layout with headers on each group break 
+* <Default With Headers> (on each group break) Layout 
 
  <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T2.html}GroupsReportTestG1T2}}
 
@@ -69,7 +69,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
    
 [../images/examples/grouping/1g-DEFAULT_WITH_HEADER.jpg]  Default group layout with headers
  
-* Empty layout, grouped column gets hidden
+* <Empty> layout (grouped column gets hidden)
 
  <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T3.html}GroupsReportTestG1T3}}
 

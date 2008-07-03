@@ -45,11 +45,11 @@ Content
 | ar.com.fdvs.dj.test.ReflectiveReportTest | With almoust no code, you get an instant report! it uses the ReflectiveReportBuilder wich make some guesses upon the data type of the elements contained in the datasource and apply a style to them | {{{../examples/ReflectiveReportTest.pdf}download}} |
 *----------+--------------+
  
- {{{../xref-test/ar/com/fdvs/dj/test/package-summary.html}Here}} is the online sourcecode off the tests 
+ {{{../xref-test/ar/com/fdvs/dj/test/package-summary.html}Here}} is the online source code off the tests 
 
- <<Note>>
-  This tests extends junit.framework.TestCase, but they also contain a main(...) method, we recommend to execute the test through the main method because the JUnit framework closes the JasperViewer (a window that shows the report) 
-  inmeadiatly after exiting the program.
+*------+
+|<<Note>>: This tests extends junit.framework.TestCase, but they also contain a main(...) method, we recommend to execute the test through the main method because the JUnit framework closes the JasperViewer (a window that shows the report) inmeadiatly after exiting the program.
+*------+
 
 {Creating a simple Report}
  
@@ -196,7 +196,7 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
  Each column holds basic data like the column title, the field from the datasource to show (it uses BeanUtils, so "a.b.c" can be passed as a property parameter), and how to show this data (style, pattern to apply, etc).  
  
 *-----+
-|Note that the property_name passed to ColumnBuilder.addColumnProperty("property_name", "property_class_name") method must match the name of a field/property in the elements contained in the datasource|
+|<<Note>> that the property_name passed to ColumnBuilder.addColumnProperty("property_name", "property_class_name") method must match the name of a field/property in the elements contained in the datasource|
 *-----+
 
 {Adding groups}
@@ -209,7 +209,7 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
  drb.addGroup(g1); 		//add the group to the DynamicReportBuilder
 +------------------------------------------------------------------------------------------------------------+
 
- Up to here, the DJ API will handle how to do the grouping stuf, but this isn't enough for most of the users
+ Up to here, the DJ API will handle how to do the grouping stuff, but this isn't enough for most of the users
  so lets see how to put some variables (totals) in the footer and header of the group
 
 +------------------------------------------------------------------------------------------------------------+
@@ -237,10 +237,13 @@ GroupBuilder gb1 = new GroupBuilder();
 +------------------------------------------------------------------------------------------------------------+
 
  Here the order of the group registration is important and should be consistent with the order of the registration of the columns. If we mess here, the resultant report wont have any meaning.
-	
- <<Note:>>
- It's important to remember tha the data from the datasource must be ordered with the same criteria we want to group them.
+
+*------+
+|<<Note:>> It's important to remember tha the data from the datasource must be ordered with the same criteria we want to group them.
+*------+
  
+ Many more examples on <<groups>>: {{{grouping styles.html}Grouping Styles}}
+
 {Adding charts}
 
  Using the same code as before, we add this few lines. {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}see the code}}
