@@ -1,5 +1,8 @@
 HOW-TO Add Concatenated Subreports
 
+ Concatenating many reports in a single one (eg: a single PDF) can be a hard task. 
+ Using DynamicJasper it is really easy get reports of different nature in a single one.
+
  Usefull examples:
  
 *----------+--------------+-------+
@@ -7,9 +10,6 @@ HOW-TO Add Concatenated Subreports
 *----------+--------------+-------+
 | {{{../xref-test/ar/com/fdvs/dj/test/subreport/ConcatenatedReportTest.html}ar.com.fdvs.dj.test.subreport.ConcatenatedReportTest}} | Creates a single PDF that concatenates 3 reports | {{{../examples/ConcatenatedReportTest.pdf}download}} |
 *----------+--------------+-------+ 
-
- Concatenating reports can be useful to have in a single reports (ef. single PDF) many different subreports. Using DynamicJasper is
- really easy to have aim this task.
 
 +-----------------------------------------------------------------------------+
 DynamicReport dynamicReport = createSubreport1();

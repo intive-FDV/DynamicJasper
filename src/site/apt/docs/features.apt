@@ -3,7 +3,7 @@
 		------
 		Juan Manuel Alvarez
 		------
-		 Date
+		Date
 
 Report Concept
 
@@ -17,20 +17,29 @@ Features
 
  Most of the features are provided directly by Jasper Reports, but through the DJ API, some of the results are achieved with much less effort.                                     
  
- * <<Column Title styles>>
+ * <<Dynamic column report>>
 		
- Each column title can have its own style (defining border, border color, font size, type and color, background color, etc.)
+ Columns can be defined at runtime, which means you also control (at runtime) the column positioning, witdh, title, etc.
 	
-	  
- * <<Column style>>
-	
- As before but for the data shown in the column (the report data)
-	  
- * <<Repeating groups>>
+ * <<Repeating groups, Breaking groups>>
 	
   You can create repeating groups dynamically using simple expressions as criteria or complex custom expressions.
   Each repeating group may have a header and/or footer, which can have a variable showing the result of and operation (SUM, COUNT or any other provided by Jasper Reports).
 	  
+ * <<Dynamic Crosstabs>>
+	
+  JasperReport's popular crostabs can now be created dynamically in a ver easy and convinient way.
+	  
+ * <<Sub reports>>
+
+ Sub reports are supported, they can also be dynamically created. 
+ Concatenating many reports in a single one (eg: a single PDF) can be a hard task. 
+ Using DynamicJasper it is really easy get reports of different nature in a single one.
+ 	  
+ * <<Elemnt styles>>
+		
+ Each column can have its own style for its title and detail data (defining border, border color, font size, type and color, background color, etc.)
+
  * <<Variables>>
 	
  As told before, repeating groups can have variables that hold the result of and operation on a given field (column).
