@@ -102,6 +102,12 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	protected abstract void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField);
 
 	private HashMap reportStyles = new HashMap();
+	
+	/**
+	 * Holds the original groups binded to a column.
+	 * Needed for later reference 
+	 */
+	protected List realGroups = new ArrayList();
 
 	public HashMap getReportStyles() {
 		return reportStyles;
@@ -185,6 +191,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 	protected void startLayout() {
 		setColumnsFinalWidth();
+		realGroups.addAll(getDesign().getGroupsList()); //Hold the original groups
 	}
 
 	protected void endLayout() {
@@ -549,7 +556,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 	/**
-	 * Finds "Y" corrdinate value in with more elements could be added in the band
+	 * Finds "Y" coordinate value in which more elements could be added in the band
 	 * @param band
 	 * @return
 	 */
@@ -655,16 +662,52 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		for (Iterator iter = getReport().getCharts().iterator(); iter.hasNext();) {
 			DJChart djChart = (DJChart) iter.next();
 			JRDesignChart chart = createChart(djChart);
-			JRDesignBand band = getPositionBand(djChart);
+			
+//			JRDesignBand band = getPositionBand(djChart);
+			JRDesignBand band = createGroupForChartAndGetBand(djChart);
 			
 			//If it is a HEADER chart, then Y remains 0. If FOOTER chart, need yOffset
-			int yOffset = 0;
-			if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_FOOTER)
-				yOffset = findVerticalOffset(band);			
-			chart.setY(yOffset); //The chart will be located at the very end of the band so far
+//			int yOffset = 0;
+//			if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_FOOTER)
+//				yOffset = findVerticalOffset(band);			
+//			chart.setY(yOffset); //The chart will be located at the very end of the band so far
 			
 			band.addElement(chart);
 		}
+	}
+
+	protected JRDesignBand createGroupForChartAndGetBand(DJChart djChart) {
+		JRDesignGroup jrGroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
+		JRDesignGroup parentGroup = getParent(jrGroup);
+		JRDesignGroup jrGroupChart = null;
+		try {
+			jrGroupChart = (JRDesignGroup) BeanUtils.cloneBean(parentGroup);
+			jrGroupChart.setGroupFooter( new JRDesignBand());
+			jrGroupChart.setGroupHeader( new JRDesignBand());
+		} catch (Exception e) {				
+			e.printStackTrace();
+		}
+		
+		//Charts should be added in its own band (to ensure page break, etc)
+		//To achieve that, we create a group and insert it right before to the criteria group.  
+		//I need to find parent group of the criteria group, clone and insert after.
+		//The only precaution is that if parent == child (only one group in the report) the we insert before
+		if (jrGroup.equals(parentGroup)){
+			getDesign().getGroupsList().add( getDesign().getGroupsList().indexOf(jrGroup) , jrGroupChart);
+		} else {
+			int index = getDesign().getGroupsList().indexOf(parentGroup);
+			getDesign().getGroupsList().add(index, jrGroupChart);
+		}
+		
+		JRDesignBand band = null;
+		switch (djChart.getOptions().getPosition()) {
+		case DJChartOptions.POSITION_HEADER:
+			band = (JRDesignBand) jrGroupChart.getGroupHeader();
+			break;
+		case DJChartOptions.POSITION_FOOTER:
+			band = (JRDesignBand) jrGroupChart.getGroupFooter();
+		}
+		return band;
 	}
 
 	/**
@@ -688,15 +731,28 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 	private JRDesignChart createChart(DJChart djChart){
-
-			JRDesignGroup jrGroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
-
+			JRDesignGroup jrGroupChart = getGroupFromColumnsGroup(djChart.getColumnsGroup());
+			
+//			JRDesignGroup jrGroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
+//			JRDesignGroup jrGroupChart = null;
+//			try {
+//				jrGroupChart = (JRDesignGroup) BeanUtils.cloneBean(jrGroup);
+//				jrGroupChart.setGroupFooter( new JRDesignBand());
+//				jrGroupChart.setGroupHeader( new JRDesignBand());
+//			} catch (Exception e) {				
+//				e.printStackTrace();
+//			}
+//			getDesign().getGroupsList().add(getDesign().getGroupsList().indexOf(jrGroup), jrGroupChart);
+			
 			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
-			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroup, getParent(jrGroup), registerChartVariable(djChart)));
+//			JRDesignGroup parentGroup = getParent(jrGroup);
+			JRDesignGroup parentGroup = getParent(jrGroupChart);
+			JRDesignVariable chartVariable = registerChartVariable(djChart);
+			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroupChart, parentGroup, chartVariable));
 			interpeterOptions(djChart, chart);
 			
 			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
-			chart.setEvaluationGroup(jrGroup);
+			chart.setEvaluationGroup(jrGroupChart);
 			return chart;
 	}
 
@@ -712,7 +768,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		chart.setX(options.getX());
 		chart.setPadding(10);
 		chart.setY(options.getY());
-		arrangeBand(djChart, chart);
+//		arrangeBand(djChart, chart);
 
 		//options
 		chart.setShowLegend(options.isShowLegend());
@@ -732,28 +788,29 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 	//TODO: 5's must be replaced by a constant or a configurable number
-	private void arrangeBand(DJChart djChart, JRDesignChart chart) {
-		int index = getReport().getColumnsGroups().indexOf(djChart.getColumnsGroup());
-
-		if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_HEADER){
-			JRDesignBand band = (JRDesignBand) getParent(((JRDesignGroup)getDesign().getGroupsList().get(index))).getGroupHeader();
-
-			for (int i = 0; i < band.getElements().length; i++) {
-				JRDesignElement element = (JRDesignElement) band.getElements()[i];
-				element.setY(element.getY() + chart.getY() + chart.getHeight() + 5);
-			}			
-		}
-		else {
-			JRDesignBand band = (JRDesignBand) getParent(((JRDesignGroup)getDesign().getGroupsList().get(index))).getGroupFooter();
-			int max = 0;
-			for (int i = 0; i < band.getElements().length; i++) {
-				JRDesignElement element = (JRDesignElement) band.getElements()[i];
-				if ( (element.getHeight() + element.getY()) > max)
-					max = element.getHeight() + element.getY();
-			}
-			chart.setY(max +5 );
-		}
-	}
+	//FIXME Delte this dead code
+//	private void arrangeBand(DJChart djChart, JRDesignChart chart) {
+//		int index = getReport().getColumnsGroups().indexOf(djChart.getColumnsGroup());
+//
+//		if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_HEADER){
+//			JRDesignBand band = (JRDesignBand) getParent(((JRDesignGroup)getDesign().getGroupsList().get(index))).getGroupHeader();
+//
+//			for (int i = 0; i < band.getElements().length; i++) {
+//				JRDesignElement element = (JRDesignElement) band.getElements()[i];
+//				element.setY(element.getY() + chart.getY() + chart.getHeight() + 5);
+//			}			
+//		}
+//		else {
+//			JRDesignBand band = (JRDesignBand) getParent(((JRDesignGroup)getDesign().getGroupsList().get(index))).getGroupFooter();
+//			int max = 0;
+//			for (int i = 0; i < band.getElements().length; i++) {
+//				JRDesignElement element = (JRDesignElement) band.getElements()[i];
+//				if ( (element.getHeight() + element.getY()) > max)
+//					max = element.getHeight() + element.getY();
+//			}
+//			chart.setY(max +5 );
+//		}
+//	}
 
 	/**
 	 * Creates and registers a variable to be used by the Chart
@@ -806,20 +863,18 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @return The parent group of the given one. If the given one is the first one, it returns the same group
 	 */
 	private JRDesignGroup getParent(JRDesignGroup group){
-		int index = getDesign().getGroupsList().indexOf(group);
-		JRDesignGroup parentGroup = (index > 0) ? (JRDesignGroup) getDesign().getGroupsList().get(index-1): group;
+//		int index = getDesign().getGroupsList().indexOf(group);
+//		JRDesignGroup parentGroup = (index > 0) ? (JRDesignGroup) getDesign().getGroupsList().get(index-1): group;
+		int index = realGroups.indexOf(group);
+		JRDesignGroup parentGroup = (index > 0) ? (JRDesignGroup) realGroups.get(index-1): group;
 		return parentGroup;
 	}
 
 	protected JRDesignGroup getGroupFromColumnsGroup(ColumnsGroup group){
 		int index = getReport().getColumnsGroups().indexOf(group);
-		return (JRDesignGroup) getDesign().getGroupsList().get(index);
+//		return (JRDesignGroup) getDesign().getGroupsList().get(index);
+		return (JRDesignGroup) realGroups.get(index);
 	}
-
-	//TODO: Maybe a helper could calculate this (up to here)
-
-
-
 
 
 	protected JasperDesign getDesign() {
