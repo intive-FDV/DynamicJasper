@@ -204,7 +204,6 @@ public class ChartReportTest2 extends BaseDjReportTest {
 		.setHeight(chartHeight)
 		.addColumn(columnaQuantity)
 		.setPosition(DJChartOptions.POSITION_FOOTER)
-//		.setShowLabels(true)
 		.build();
 		
 		drb.addChart(chart); //add chart

@@ -29,7 +29,6 @@
 
 package ar.com.fdvs.dj.core.layout;
 
-import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -37,7 +36,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
-import net.sf.jasperreports.engine.JRConstants;
 import net.sf.jasperreports.engine.JRElement;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
@@ -48,7 +46,6 @@ import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
-import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignRectangle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignSubreport;
@@ -80,6 +77,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import ar.com.fdvs.dj.util.LayoutUtils;
 
 /**
  * Main Layout Manager recommended for most cases.</br>
@@ -130,7 +128,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		Collections.reverse(autotexts);
 
 		int totalYoffset = findTotalOffset(positions,autotexts, AutoText.POSITION_HEADER);
-		moveBandsElemnts(totalYoffset, headerband);
+		LayoutUtils.moveBandsElemnts(totalYoffset, headerband);
 
 		for (Iterator iterator = positions.iterator(); iterator.hasNext();) {
 			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) iterator.next();
@@ -149,7 +147,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	/**
-	 * Finds the highest sum of height for each posible aligment (left, center, right)
+	 * Finds the highest sum of height for each possible alignment (left, center, right)
 	 * @param aligments
 	 * @param autotexts
 	 * @return
@@ -169,21 +167,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				total = aux;
 		}
 		return total;
-	}
-
-	/**
-	 * Moves the elements contained in "band" in the Y axis "yOffset"
-	 * @param intValue
-	 * @param band
-	 */
-	private void moveBandsElemnts(int yOffset, JRDesignBand band) {
-		if (band == null)
-			return;
-
-		for (Iterator iterator = band.getChildren().iterator(); iterator.hasNext();) {
-			JRDesignElement elem = (JRDesignElement) iterator.next();
-			elem.setY(elem.getY()+yOffset);
-		}
 	}
 
 	protected void endLayout() {
@@ -441,13 +424,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignBand band = (JRDesignBand) jgroup.getGroupHeader();
 			if (djcross.getBottomSpace() != 0){
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), 0);
-				moveBandsElemnts(rect.getHeight(), band);
+				LayoutUtils.moveBandsElemnts(rect.getHeight(), band);
 				band.addElement(rect);
 			}
-			moveBandsElemnts(crosst.getHeight(), band);
+			LayoutUtils.moveBandsElemnts(crosst.getHeight(), band);
 			band.addElement(crosst);
 			if (djcross.getTopSpace() != 0){
-				moveBandsElemnts(djcross.getTopSpace(), band);
+				LayoutUtils.moveBandsElemnts(djcross.getTopSpace(), band);
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), 0);
 				band.addElement(rect);
 			}
@@ -461,7 +444,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
 			JRDesignBand band = (JRDesignBand) jgroup.getGroupFooter();
-			int yOffset = findVerticalOffset(band);
+			int yOffset = LayoutUtils.findVerticalOffset(band);
 			if (djcross.getTopSpace() != 0){
 //				moveBandsElemnts(djcross.getTopSpace(), band);
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), yOffset);
@@ -540,7 +523,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param band
 	 * @param position
 	 */
-	private void layOutSubReportInBand(ColumnsGroup columnsGroup, JRDesignBand band, String position) {
+	protected void layOutSubReportInBand(ColumnsGroup columnsGroup, JRDesignBand band, String position) {
 
 		List footerSubreportsList = DJConstants.FOOTER.equals(position)
 				? columnsGroup.getFooterSubreports()
@@ -587,12 +570,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					throw new CoreException(e.getMessage(),e);
 				}
 			}
-			
 
-
-			//some other options (cosmetical)
+			//some other options (cosmetic)
 			//subreport.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH);
-			int offset = findVerticalOffset(band);
+			int offset = LayoutUtils.findVerticalOffset(band);
 			subreport.setY(offset);
 			subreport.setX(-getReport().getOptions().getLeftMargin().intValue());
 			subreport.setWidth(getReport().getOptions().getPage().getWidth());
@@ -619,7 +600,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param JRDesignGroup jgroup
 	 * @throws LayoutException
 	 */
-	private void layoutGroupVariables(ColumnsGroup group, JRDesignGroup jgroup) {
+	protected void layoutGroupVariables(ColumnsGroup group, JRDesignGroup jgroup) {
 		log.debug("Starting groups variables layout...");
 		JRDesignBand headerBand = (JRDesignBand) jgroup.getGroupHeader();
 		JRDesignBand footerBand = (JRDesignBand) jgroup.getGroupFooter();
@@ -649,7 +630,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			yOffset += currentValue.getHeight();
 
 			//Move down exisiting elements in the band.
-			moveBandsElemnts(yOffset-1, headerBand); //Dont know why, but without the "-1" it wont show the headers
+			LayoutUtils.moveBandsElemnts(yOffset-1, headerBand); //Dont know why, but without the "-1" it wont show the headers
 
 			headerBand.addElement(currentValue);
 		}
@@ -679,7 +660,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			yOffset += currentValue.getHeight();
 
 			//Move down exisiting elements in the band.
-			moveBandsElemnts(yOffset, headerBand);
+			LayoutUtils.moveBandsElemnts(yOffset, headerBand);
 
 			headerBand.addElement(columnNameTf);
 			headerBand.addElement(currentValue);

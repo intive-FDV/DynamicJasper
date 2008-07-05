@@ -361,12 +361,6 @@ public class ColumnBuilder {
 		return this;
 	}
 	
-//	//FIXME This method should belong to the GroupBuilder.
-//	public ColumnBuilder addCustomExpressionToGroupBy(CustomExpression customExpression){
-//		this.customExpressionToGroupBy = customExpression;
-//		return this;
-//	}
-
 	public ColumnBuilder setCustomExpression(CustomExpression customExpression){
 		this.customExpression = customExpression;
 		return this;

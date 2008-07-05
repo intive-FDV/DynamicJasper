@@ -30,7 +30,6 @@
 package ar.com.fdvs.dj.core.layout;
 
 import java.awt.Color;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -39,7 +38,6 @@ import java.util.List;
 
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.engine.JRBand;
-import net.sf.jasperreports.engine.JRConditionalStyle;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
@@ -54,7 +52,6 @@ import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
-import net.sf.jasperreports.engine.design.JRDesignRectangle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
@@ -63,6 +60,8 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.MultiHashMap;
+import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -72,7 +71,6 @@ import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
@@ -82,6 +80,7 @@ import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import ar.com.fdvs.dj.util.LayoutUtils;
 
 /**
  * Abstract Class used as base for the different Layout Managers.</br>
@@ -155,11 +154,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		}
 		
 		if (getReport().isWhenNoDataShowTitle())
-			copyBandElements(band, getDesign().getPageHeader());
+			LayoutUtils.copyBandElements(band, getDesign().getPageHeader());
 		if (getReport().isWhenNoDataShowColumnHeader())
-			copyBandElements(band, getDesign().getColumnHeader());
+			LayoutUtils.copyBandElements(band, getDesign().getColumnHeader());
 		
-		int offset = findVerticalOffset(band);
+		int offset = LayoutUtils.findVerticalOffset(band);
 		text.setY(offset);
 		applyStyleToElement(style, text);
 		text.setWidth(getReport().getOptions().getPrintableWidth());
@@ -167,26 +166,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		band.addElement(text);
 		log.debug("OK setting up WHEN NO DATA band");
 		
-	}
-
-	/**
-	 * @param destBand
-	 * @param sourceBand
-	 */
-	private void copyBandElements(JRDesignBand destBand, JRBand sourceBand) {
-		int offset = findVerticalOffset(destBand);
-		for (Iterator iterator = sourceBand.getChildren().iterator(); iterator.hasNext();) {
-			JRDesignElement element = (JRDesignElement) iterator.next();
-			JRDesignElement dest = null;
-			try {
-				dest = (JRDesignElement) element.getClass().newInstance();
-				BeanUtils.copyProperties(dest, element);
-				dest.setY(dest.getY() + offset);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			destBand.addElement((JRDesignElement) dest);
-		}
 	}
 
 	protected void startLayout() {
@@ -202,7 +181,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	protected void registerRemainingStyles() {
 		//TODO: troll all elements in the JRDesing and for elements that has styles with null name
 		//or not registered, register them in the design
-
 	}
 
 	/**
@@ -210,7 +188,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @throws JRException
 	 */
 	protected void ensureDJStyles()  {
-
 		//first of all, register all parent styles if any
 		for (Iterator iterator = getReport().getStyles().values().iterator(); iterator.hasNext();) {
 			Style style = (Style) iterator.next();
@@ -220,19 +197,13 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		Style defaultDetailStyle = getReport().getOptions().getDefaultDetailStyle();
 
 			Style defaultHeaderStyle = getReport().getOptions().getDefaultHeaderStyle();
-	//		Style defaultFooterStyle = getReport().getOptions().getDefaultFooterStyle();
 			for (Iterator iter = report.getColumns().iterator(); iter.hasNext();) {
 				AbstractColumn column = (AbstractColumn) iter.next();
 				if (column.getStyle() == null)
 					column.setStyle(defaultDetailStyle);
 				if (column.getHeaderStyle() == null)
 					column.setHeaderStyle(defaultHeaderStyle);
-	//			if (column.getFooterStyle() == null) column.setFooterStyle(defaulyFooterStyle);
-
-//				addStyleToDesign(column.getStyle().transform());
-//				addStyleToDesign(column.getHeaderStyle().transform());
 			}
-
 	}
 
 	/**
@@ -550,27 +521,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 */
 	protected void setBandFinalHeight(JRDesignBand band) {
 		if (band != null) {
-			int finalHeight = findVerticalOffset(band);
+			int finalHeight = LayoutUtils.findVerticalOffset(band);
 			band.setHeight(finalHeight);
 		}
-	}
-
-	/**
-	 * Finds "Y" coordinate value in which more elements could be added in the band
-	 * @param band
-	 * @return
-	 */
-	protected int findVerticalOffset(JRDesignBand band) {
-		int finalHeight = 0;
-		if (band != null) {
-			for (Iterator iter = band.getChildren().iterator(); iter.hasNext();) {
-				JRDesignElement element = (JRDesignElement) iter.next();
-				int currentHeight = element.getY() + element.getHeight();
-				if (currentHeight > finalHeight) finalHeight = currentHeight;
-			}
-			return finalHeight;
-		}
-		return finalHeight;
 	}
 
 	/**
@@ -659,20 +612,26 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * Takes all the report's charts and inserts them in their corresponding bands
 	 */
 	protected void layoutCharts() {
+		//Pre-sort charts by group column 
+		MultiMap mmap = new MultiHashMap(); 
 		for (Iterator iter = getReport().getCharts().iterator(); iter.hasNext();) {
 			DJChart djChart = (DJChart) iter.next();
-			JRDesignChart chart = createChart(djChart);
-			
-//			JRDesignBand band = getPositionBand(djChart);
-			JRDesignBand band = createGroupForChartAndGetBand(djChart);
-			
-			//If it is a HEADER chart, then Y remains 0. If FOOTER chart, need yOffset
-//			int yOffset = 0;
-//			if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_FOOTER)
-//				yOffset = findVerticalOffset(band);			
-//			chart.setY(yOffset); //The chart will be located at the very end of the band so far
-			
-			band.addElement(chart);
+			mmap.put(djChart.getColumnsGroup(), djChart);
+		}		
+		
+		for (Iterator iterator = mmap.keySet().iterator(); iterator.hasNext();) {
+			Object key =  iterator.next();
+			Collection charts = (Collection) mmap.get(key);
+			ArrayList l = new ArrayList(charts);
+			//Reverse iteration of the charts to meet insertion order
+			for (int i = l.size(); i > 0; i--) {
+				DJChart djChart = (DJChart) l.get(i-1);
+				JRDesignChart chart = createChart(djChart);
+
+				//Charts has their own band, so they are added in the band at Y=0
+				JRDesignBand band = createGroupForChartAndGetBand(djChart);
+				band.addElement(chart);				
+			}
 		}
 	}
 
@@ -684,8 +643,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			jrGroupChart = (JRDesignGroup) BeanUtils.cloneBean(parentGroup);
 			jrGroupChart.setGroupFooter( new JRDesignBand());
 			jrGroupChart.setGroupHeader( new JRDesignBand());
+			jrGroupChart.setName(jrGroupChart.getName()+"_Chart" + getReport().getCharts().indexOf(djChart));
 		} catch (Exception e) {				
-			e.printStackTrace();
+			throw new DJException("Problem creating band for chart: " + e.getMessage(),e);
 		}
 		
 		//Charts should be added in its own band (to ensure page break, etc)
@@ -711,41 +671,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 	/**
-	 * Calculates and returns the band where the band is to be inserted
+	 * Creates the JRDesignChart from the DJChart. To do so it also creates needed variables and data-set
 	 * @param djChart
 	 * @return
 	 */
-	private JRDesignBand getPositionBand(DJChart djChart) {
-		JRDesignGroup jgroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
-		JRDesignGroup parentGroup = getParent(jgroup);
-
-		JRDesignBand band = null;
-		switch (djChart.getOptions().getPosition()) {
-		case DJChartOptions.POSITION_HEADER:
-			band = (JRDesignBand) ((parentGroup.equals(jgroup)) ? getDesign().getSummary(): parentGroup.getGroupHeader());
-			break;
-		case DJChartOptions.POSITION_FOOTER:
-			band = (JRDesignBand) ((parentGroup.equals(jgroup)) ? getDesign().getSummary(): parentGroup.getGroupFooter());
-		}
-		return band;
-	}
-
-	private JRDesignChart createChart(DJChart djChart){
+	protected JRDesignChart createChart(DJChart djChart){
 			JRDesignGroup jrGroupChart = getGroupFromColumnsGroup(djChart.getColumnsGroup());
 			
-//			JRDesignGroup jrGroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
-//			JRDesignGroup jrGroupChart = null;
-//			try {
-//				jrGroupChart = (JRDesignGroup) BeanUtils.cloneBean(jrGroup);
-//				jrGroupChart.setGroupFooter( new JRDesignBand());
-//				jrGroupChart.setGroupHeader( new JRDesignBand());
-//			} catch (Exception e) {				
-//				e.printStackTrace();
-//			}
-//			getDesign().getGroupsList().add(getDesign().getGroupsList().indexOf(jrGroup), jrGroupChart);
-			
 			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
-//			JRDesignGroup parentGroup = getParent(jrGroup);
 			JRDesignGroup parentGroup = getParent(jrGroupChart);
 			JRDesignVariable chartVariable = registerChartVariable(djChart);
 			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroupChart, parentGroup, chartVariable));
@@ -756,7 +689,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			return chart;
 	}
 
-	private void interpeterOptions(DJChart djChart, JRDesignChart chart) {
+	protected void interpeterOptions(DJChart djChart, JRDesignChart chart) {
 		DJChartOptions options = djChart.getOptions();
 
 		//size
@@ -768,7 +701,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		chart.setX(options.getX());
 		chart.setPadding(10);
 		chart.setY(options.getY());
-//		arrangeBand(djChart, chart);
 
 		//options
 		chart.setShowLegend(options.isShowLegend());
@@ -783,41 +715,17 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(i, color));
 			}
 		}
-		//Chart-dependant options
+		//Chart-dependent options
 		if (djChart.getType() == DJChart.BAR_CHART) ((JRDesignBarPlot) chart.getPlot()).setShowTickLabels(options.isShowLabels());
 	}
 
-	//TODO: 5's must be replaced by a constant or a configurable number
-	//FIXME Delte this dead code
-//	private void arrangeBand(DJChart djChart, JRDesignChart chart) {
-//		int index = getReport().getColumnsGroups().indexOf(djChart.getColumnsGroup());
-//
-//		if (djChart.getOptions().getPosition() == DJChartOptions.POSITION_HEADER){
-//			JRDesignBand band = (JRDesignBand) getParent(((JRDesignGroup)getDesign().getGroupsList().get(index))).getGroupHeader();
-//
-//			for (int i = 0; i < band.getElements().length; i++) {
-//				JRDesignElement element = (JRDesignElement) band.getElements()[i];
-//				element.setY(element.getY() + chart.getY() + chart.getHeight() + 5);
-//			}			
-//		}
-//		else {
-//			JRDesignBand band = (JRDesignBand) getParent(((JRDesignGroup)getDesign().getGroupsList().get(index))).getGroupFooter();
-//			int max = 0;
-//			for (int i = 0; i < band.getElements().length; i++) {
-//				JRDesignElement element = (JRDesignElement) band.getElements()[i];
-//				if ( (element.getHeight() + element.getY()) > max)
-//					max = element.getHeight() + element.getY();
-//			}
-//			chart.setY(max +5 );
-//		}
-//	}
 
 	/**
 	 * Creates and registers a variable to be used by the Chart
 	 * @param chart Chart that needs a variable to be generated
 	 * @return the generated variable
 	 */
-	private JRDesignVariable registerChartVariable(DJChart chart) {
+	protected JRDesignVariable registerChartVariable(DJChart chart) {
 
 		JRDesignGroup group = getGroupFromColumnsGroup(chart.getColumnsGroup());
 
@@ -853,18 +761,12 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 
-
-
-
-	//TODO: Maybe a helper could calculate the following
 	/**
 	 * Finds the parent group of the given one and returns it
 	 * @param group Group for which the parent is needed
 	 * @return The parent group of the given one. If the given one is the first one, it returns the same group
 	 */
-	private JRDesignGroup getParent(JRDesignGroup group){
-//		int index = getDesign().getGroupsList().indexOf(group);
-//		JRDesignGroup parentGroup = (index > 0) ? (JRDesignGroup) getDesign().getGroupsList().get(index-1): group;
+	protected JRDesignGroup getParent(JRDesignGroup group){
 		int index = realGroups.indexOf(group);
 		JRDesignGroup parentGroup = (index > 0) ? (JRDesignGroup) realGroups.get(index-1): group;
 		return parentGroup;
@@ -872,7 +774,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 	protected JRDesignGroup getGroupFromColumnsGroup(ColumnsGroup group){
 		int index = getReport().getColumnsGroups().indexOf(group);
-//		return (JRDesignGroup) getDesign().getGroupsList().get(index);
 		return (JRDesignGroup) realGroups.get(index);
 	}
 
