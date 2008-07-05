@@ -47,6 +47,7 @@ import net.sf.jasperreports.engine.base.JRBaseChartPlot;
 import net.sf.jasperreports.engine.base.JRBaseVariable;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.engine.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
@@ -681,7 +682,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
 			JRDesignGroup parentGroup = getParent(jrGroupChart);
 			JRDesignVariable chartVariable = registerChartVariable(djChart);
-			chart.setDataset(DataSetFactory.getDataset(djChart.getType(), jrGroupChart, parentGroup, chartVariable));
+			JRDesignChartDataset chartDataset = DataSetFactory.getDataset(djChart.getType(), jrGroupChart, parentGroup, chartVariable);
+			chart.setDataset(chartDataset);
 			interpeterOptions(djChart, chart);
 			
 			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
