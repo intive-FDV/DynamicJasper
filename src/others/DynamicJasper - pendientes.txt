@@ -1,6 +1,7 @@
 * Documentacion: query con parametros no esta claro
 * Documentacion: Ejemplo grafico de los distintos group layouts
 * Documentacion: Como crear grupos, debe estar en los HOW-TO
+* Documentacion: Crosstabs HOW-TO, dejar en claro que tiene que haber si o si un MEASURE
 * FEATURE: charts mas complejos (con series)
 OK * ENCUESTA: Opcion pregunta 1) Havent used before
 * ENCUESTA: Agregar codigo Analytics
