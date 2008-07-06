@@ -31,7 +31,10 @@ package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
 
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
+import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJChartOptions;
@@ -80,7 +83,7 @@ public class ChartReportTest extends BaseDjReportTest {
 					+"to the main products: DVDs, Books, Foods and Magazines")
 				.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 				.setMargins(margin, margin, margin, margin)
-				.setPrintBackgroundOnOddRows(true)
+//				.setPrintBackgroundOnOddRows(true)
 				.setPrintColumnNames(false)
 				.setOddRowBackgroundStyle(oddRowStyle);
 
@@ -156,6 +159,7 @@ public class ChartReportTest extends BaseDjReportTest {
 						.addOperation(DJChart.CALCULATION_SUM)
 						.addColumnsGroup(g2)
 						.addColumn(columnAmount)
+						.addColumn(columnaQuantity)
 						.setPosition(DJChartOptions.POSITION_FOOTER)
 						.setShowLabels(true)
 						.build();
@@ -171,7 +175,7 @@ public class ChartReportTest extends BaseDjReportTest {
 		ChartReportTest test = new ChartReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
-//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
+		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, new ClassicLayoutManager(),test.params));
 	}
 
 }

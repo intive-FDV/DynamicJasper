@@ -29,10 +29,13 @@
 
 package ar.com.fdvs.dj.domain;
 
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
+import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
 /**
  * Charts to be displayed by dynamicjasper
@@ -51,7 +54,14 @@ public class DJChart {
 	//How to build the chart?
 	private byte type;
 	private ColumnsGroup columnsGroup;
-	private AbstractColumn column;
+//	private AbstractColumn column;
+	
+	/**
+	 * List<AbstractColumn>
+	 */
+	private List columns = new ArrayList();
+	
+
 	private byte operation;
 
 	//How to show the chart?
@@ -62,18 +72,32 @@ public class DJChart {
 	public DJChart(byte type, ColumnsGroup columnsGroup, AbstractColumn column, byte operation, DJChartOptions chartOptions){
 		this.type = type;
 		this.columnsGroup = columnsGroup;
-		this.column = column;
+		
+		if (column != null)
+			this.columns.add(column);
+		
+		this.operation = operation;
+		this.chartOptions = chartOptions;
+	}
+	
+	public DJChart(byte type, ColumnsGroup columnsGroup, List columns, byte operation, DJChartOptions chartOptions){
+		this.type = type;
+		this.columnsGroup = columnsGroup;
+		
+		if (columns != null)
+			this.columns.addAll(columns);
+		
 		this.operation = operation;
 		this.chartOptions = chartOptions;
 	}
 
-	public AbstractColumn getColumn() {
-		return column;
-	}
-
-	public void setColumn(AbstractColumn column) {
-		this.column = column;
-	}
+//	public AbstractColumn getColumn() {
+//		return column;
+//	}
+//
+//	public void setColumn(AbstractColumn column) {
+//		this.column = column;
+//	}
 
 	public byte getOperation() {
 		return operation;
@@ -106,4 +130,13 @@ public class DJChart {
 	public void setOptions(DJChartOptions options) {
 		this.chartOptions = options;
 	}
+	
+	public List getColumns() {
+		return columns;
+	}
+
+	public void setColumns(List columns) {
+		this.columns = columns;
+	}
+	
 }

@@ -681,8 +681,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			
 			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
 			JRDesignGroup parentGroup = getParent(jrGroupChart);
-			JRDesignVariable chartVariable = registerChartVariable(djChart);
-			JRDesignChartDataset chartDataset = DataSetFactory.getDataset(djChart.getType(), jrGroupChart, parentGroup, chartVariable);
+			List chartVariables = registerChartVariable(djChart);
+			JRDesignChartDataset chartDataset = DataSetFactory.getDataset(djChart, jrGroupChart, parentGroup, chartVariables);
 			chart.setDataset(chartDataset);
 			interpeterOptions(djChart, chart);
 			
@@ -695,8 +695,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		DJChartOptions options = djChart.getOptions();
 
 		//size
-		if (options.isCentered()) chart.setWidth(getReport().getOptions().getPrintableWidth());
-		else chart.setWidth(options.getWidth());
+		if (options.isCentered())
+			chart.setWidth(getReport().getOptions().getPrintableWidth());
+		else 
+			chart.setWidth(options.getWidth());
+			
 		chart.setHeight(options.getHeight());
 
 		//position
@@ -718,48 +721,58 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			}
 		}
 		//Chart-dependent options
-		if (djChart.getType() == DJChart.BAR_CHART) ((JRDesignBarPlot) chart.getPlot()).setShowTickLabels(options.isShowLabels());
+		if (djChart.getType() == DJChart.BAR_CHART) 
+			((JRDesignBarPlot) chart.getPlot()).setShowTickLabels(options.isShowLabels());
 	}
 
 
 	/**
 	 * Creates and registers a variable to be used by the Chart
 	 * @param chart Chart that needs a variable to be generated
-	 * @return the generated variable
+	 * @return the generated variables
 	 */
-	protected JRDesignVariable registerChartVariable(DJChart chart) {
-
+	protected List registerChartVariable(DJChart chart) {
+		//FIXME aca hay que iterar por cada columna. Cambiar DJChart para que tome muchas
 		JRDesignGroup group = getGroupFromColumnsGroup(chart.getColumnsGroup());
+		List vars = new ArrayList();
+		
+		int serieNum = 0;
+		for (Iterator iterator = chart.getColumns().iterator(); iterator.hasNext();) {
+			AbstractColumn col = (AbstractColumn) iterator.next();
+			
+		
+			Class clazz = null;
+			try { clazz = Class.forName(col.getValueClassNameForExpression());
+			} catch (ClassNotFoundException e) { 
+				throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
+			}
+	
+			JRDesignExpression expression = new JRDesignExpression();
+			//FIXME Only PropertyColumn allowed?
+			expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
+			expression.setValueClass(clazz);
+	
+			JRDesignVariable var = new JRDesignVariable();
+			var.setValueClass(clazz);
+			var.setExpression(expression);
+			var.setCalculation(chart.getOperation());
+			var.setResetGroup(group);
+			var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
 
-		Class clazz = null;
-		try { clazz = Class.forName(chart.getColumn().getValueClassNameForExpression());
-		} catch (ClassNotFoundException e) { /*Should never happen*/ }
-
-		JRDesignExpression expression = new JRDesignExpression();
-//		expression.setText("$F{" + chart.getColumn().getTitle().toLowerCase() + "}");
-		expression.setText("$F{" + ((PropertyColumn) chart.getColumn()).getColumnProperty().getProperty()  + "}");
-		expression.setValueClass(clazz);
-
-		JRDesignVariable var = new JRDesignVariable();
-		var.setValueClass(clazz);
-		var.setExpression(expression);
-		var.setCalculation(chart.getOperation());
-		var.setResetGroup(group);
-		var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
-		int chartIndex = getReport().getCharts().indexOf(chart); //use the index as part of the name just because I may want 2 
-		//different types of chart from the very same column (with the same operation also) making the variables name to be duplicated 
-		var.setName("CHART_[" + chartIndex + "+]_" + group.getName() + "_" + chart.getColumn().getTitle() + "_" + chart.getOperation());
-//		JRDesignExpression initExp = new JRDesignExpression();
-//		initExp.setText("new Float(0)");
-//		initExp.setValueClass(clazz);
-//		var.setInitialValueExpression(initExp);
-
-		try {
-			getDesign().addVariable(var);
-		} catch (JRException e) {
-			throw new LayoutException(e.getMessage());
-		}
-		return var;
+			//use the index as part of the name just because I may want 2 
+			//different types of chart from the very same column (with the same operation also) making the variables name to be duplicated 
+			int chartIndex = getReport().getCharts().indexOf(chart); 
+			var.setName("CHART_[" + chartIndex +"_s" +serieNum + "+]_" + group.getName() + "_" + col.getTitle() + "_" + chart.getOperation());
+	
+			try {
+				getDesign().addVariable(var);
+				vars.add(var);
+			} catch (JRException e) {
+				throw new LayoutException(e.getMessage());
+			}
+			serieNum++;
+		}		
+		return vars;
 	}
 
 

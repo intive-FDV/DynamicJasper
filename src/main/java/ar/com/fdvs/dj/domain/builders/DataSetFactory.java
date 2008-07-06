@@ -29,7 +29,9 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import ar.com.fdvs.dj.domain.DJChart;
+import java.util.Iterator;
+import java.util.List;
+
 import net.sf.jasperreports.charts.design.JRDesignCategoryDataset;
 import net.sf.jasperreports.charts.design.JRDesignCategorySeries;
 import net.sf.jasperreports.charts.design.JRDesignPieDataset;
@@ -38,59 +40,78 @@ import net.sf.jasperreports.engine.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
+import ar.com.fdvs.dj.core.DJException;
+import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
 public class DataSetFactory {
 
-	public static JRDesignChartDataset getDataset(byte chartType, JRDesignGroup group, JRDesignGroup parentGroup, JRDesignVariable var){
+	public static JRDesignChartDataset getDataset(DJChart djchart, JRDesignGroup group, JRDesignGroup parentGroup, List vars){
 
 		JRDesignChartDataset dataSet = null;
-
+		
+		byte chartType = djchart.getType();
+		
 		if (chartType == DJChart.PIE_CHART){
-			dataSet = createPieDataset(group,parentGroup, var);
+			dataSet = createPieDataset(group,parentGroup, vars, djchart);
 		}
 		else if (chartType == DJChart.BAR_CHART) {
-			dataSet = createBarDataset(group,parentGroup, var);
+			dataSet = createBarDataset(group,parentGroup, vars, djchart);
 		}
 
-		//if (dataSet == null); //TODO: exception "Unknown chart type"
+		if (dataSet == null){
+			throw new DJException("Error creating dataset for chart, no valid dataset type.");
+		}
 
 		return dataSet;
 	}
 
-	private static JRDesignChartDataset createBarDataset(JRDesignGroup group, JRDesignGroup parentGroup, JRDesignVariable var) {
+	private static JRDesignChartDataset createBarDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {
 		JRDesignCategoryDataset data = new JRDesignCategoryDataset(null);
-		JRDesignCategorySeries serie = new JRDesignCategorySeries();
 
-		//And use it as value for each bar
-		serie.setValueExpression(getExpressionFromVariable(var));
-
-		//The key for each bar
-		JRExpression exp2 = group.getExpression();
-
-		/*JRDesignExpression exp3 = new JRDesignExpression();
-		exp3.setText("$F{productLine}");
-		exp3.setValueClass(String.class);*/
-
-		//Here you can set subgroups of bars
-		//serie.setCategoryExpression(exp3);
-		serie.setCategoryExpression(exp2);
-
-		serie.setLabelExpression(exp2);
-		serie.setSeriesExpression(exp2);
-
-		data.addCategorySeries(serie);
+		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
+			JRDesignCategorySeries serie = new JRDesignCategorySeries();
+			JRDesignVariable var = (JRDesignVariable) iterator.next();
+			
+			//And use it as value for each bar
+			JRDesignExpression varExp = getExpressionFromVariable(var);
+			serie.setValueExpression(varExp);
+	
+			//The key for each bar
+			JRExpression exp2 = group.getExpression();
+	
+			JRDesignExpression exp3 = new JRDesignExpression();
+			int index = vars.indexOf(var);
+			AbstractColumn col = (AbstractColumn) djchart.getColumns().get(index);
+			exp3.setText("\"" + col.getTitle() + "\"");
+			exp3.setValueClass(String.class);
+	
+			//Here you can set subgroups of bars
+			serie.setCategoryExpression(exp3);
+	
+			serie.setLabelExpression(exp2);
+			serie.setSeriesExpression(exp2);
+				
+			data.addCategorySeries(serie);
+		}
 
 		setResetStyle(data, group, parentGroup);
 
 		return data;
 	}
 
-	private static JRDesignChartDataset createPieDataset(JRDesignGroup group, JRDesignGroup parentGroup, JRDesignVariable var) {
+	private static JRDesignChartDataset createPieDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {		
 		JRDesignPieDataset data = new JRDesignPieDataset(null);
 
-		//And transform it in the value for each pie slice
-		data.setValueExpression(getExpressionFromVariable(var));
+		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
+			JRDesignVariable var = (JRDesignVariable) iterator.next();
+			
+			//And transform it in the value for each pie slice
+			JRDesignExpression expression = getExpressionFromVariable(var);
+			data.setValueExpression(expression);
 
+			break; //PIE data set uses only one series
+		}
 		//The key for each pie slice
 		data.setKeyExpression(group.getExpression());
 
@@ -104,7 +125,7 @@ public class DataSetFactory {
 	 * @param var The variable from which to generate the expression
 	 * @return A expression that represents the given variable
 	 */
-	private static JRExpression getExpressionFromVariable(JRDesignVariable var){
+	private static JRDesignExpression getExpressionFromVariable(JRDesignVariable var){
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setText("$V{" + var.getName() + "}");
 		exp.setValueClass(var.getValueClass());

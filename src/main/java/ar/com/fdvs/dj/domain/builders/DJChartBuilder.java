@@ -36,23 +36,24 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DJChartBuilder {
 	private Byte type;
 	private ColumnsGroup columnsGroup;
-	private AbstractColumn column;
+	private List columns = new ArrayList();
 	private Byte operation;
 	private DJChartOptions chartOptions;
 
 	public DJChart build() throws ChartBuilderException {
 		if (type == null) throw new ChartBuilderException("Chart type must be specified");
 		if (columnsGroup == null) throw new ChartBuilderException("The group to wich the chart is related must be specified");
-		if (column == null) throw new ChartBuilderException("The column to wich the chart is related must be specified");
+		if (columns.isEmpty()) throw new ChartBuilderException("At least one column to wich the chart is related must be specified");
 		if (operation == null) throw new ChartBuilderException("The operation for the chart must be specified");
 		if (chartOptions == null) chartOptions = createDefaultOptions();
 
-		DJChart chart = new DJChart(type.byteValue(),columnsGroup,column,operation.byteValue(),chartOptions);
+		DJChart chart = new DJChart(type.byteValue(),columnsGroup,columns,operation.byteValue(),chartOptions);
 		return chart;
 	}
 
@@ -61,12 +62,8 @@ public class DJChartBuilder {
 		return options;
 	}
 
-	public AbstractColumn getColumn() {
-		return column;
-	}
-
 	public DJChartBuilder addColumn(AbstractColumn column) {
-		this.column = column;
+		this.columns.add(column);
 		return this;
 	}
 

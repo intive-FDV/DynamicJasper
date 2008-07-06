@@ -90,6 +90,7 @@ public class Product {
 
 	public Float getAmount() {
 		return amount;
+//		return new Float(quantity.floatValue());
 	}
 
 	public void setAmount(Float amount) {

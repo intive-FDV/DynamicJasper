@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import ar.com.fdvs.dj.core.layout.LayoutException;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
@@ -45,6 +46,9 @@ public class CrosstabBuilder {
 	private DJCrosstab crosstab = new DJCrosstab();
 
 	public DJCrosstab build(){
+		if (crosstab.getMeasures().isEmpty()){
+			throw new LayoutException("Crosstabs must have at least one measure");
+		}
 		return crosstab;
 	}
 

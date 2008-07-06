@@ -176,6 +176,7 @@ public class ChartReportTest2 extends BaseDjReportTest {
 						.addOperation(DJChart.CALCULATION_SUM)
 						.addColumnsGroup(g2)
 						.addColumn(columnaQuantity)
+						.addColumn(columnAmount)
 						.setHeight(chartHeight)
 						.setPosition(DJChartOptions.POSITION_FOOTER)
 						.setShowLabels(true)
@@ -184,29 +185,29 @@ public class ChartReportTest2 extends BaseDjReportTest {
 		drb.addChart(chart); //add chart
 		
 		//2nd chart
-		cb = new DJChartBuilder();
-		chart =  cb.addType(DJChart.PIE_CHART)
-		.addOperation(DJChart.CALCULATION_SUM)
-		.addColumnsGroup(g2)
-		.setHeight(chartHeight)
-		.addColumn(columnAmount)
-		.setPosition(DJChartOptions.POSITION_FOOTER)
+//		cb = new DJChartBuilder();
+//		chart =  cb.addType(DJChart.PIE_CHART)
+//		.addOperation(DJChart.CALCULATION_SUM)
+//		.addColumnsGroup(g2)
+//		.setHeight(chartHeight)
+//		.addColumn(columnAmount)
+//		.setPosition(DJChartOptions.POSITION_FOOTER)
 //		.setShowLabels(true)
-		.build();
+//		.build();
 		
-		drb.addChart(chart); //add chart
+//		drb.addChart(chart); //add chart
 
 		//3rd Chart
-		cb = new DJChartBuilder();
-		chart =  cb.addType(DJChart.BAR_CHART)
-		.addOperation(DJChart.CALCULATION_SUM)
-		.addColumnsGroup(g2)
-		.setHeight(chartHeight)
-		.addColumn(columnaQuantity)
-		.setPosition(DJChartOptions.POSITION_FOOTER)
-		.build();
-		
-		drb.addChart(chart); //add chart
+//		cb = new DJChartBuilder();
+//		chart =  cb.addType(DJChart.BAR_CHART)
+//		.addOperation(DJChart.CALCULATION_SUM)
+//		.addColumnsGroup(g2)
+//		.setHeight(chartHeight)
+//		.addColumn(columnaQuantity)
+//		.setPosition(DJChartOptions.POSITION_FOOTER)
+//		.build();
+//		
+//		drb.addChart(chart); //add chart
 
 		DynamicReport dr = drb.build();
 
@@ -217,7 +218,7 @@ public class ChartReportTest2 extends BaseDjReportTest {
 		ChartReportTest2 test = new ChartReportTest2();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
-		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, new ClassicLayoutManager(),test.params));
+		//JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, new ClassicLayoutManager(),test.params));
 	}
 
 }

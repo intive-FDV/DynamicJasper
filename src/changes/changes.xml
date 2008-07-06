@@ -34,7 +34,7 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.9" date="2008-05-31"	desc="Subreport parameters release">
+         <release version="2.0.9" date="2008-07-07"	desc="Many improvements">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Dynamic Subreport fits automatically to parent report printable area :: Use Subreport.fitToParentPrintableArea flag. 
          	</action>
@@ -52,6 +52,12 @@
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix" due-to="Eric Bartley">
          		Odd rows on HTML: Coloring was not working properly. Thanks Eric Bartley!
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Charts with many categories: more than one column can be added to charts (one column per category) 
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Many charts for a given group may exceed band allowed height.
          	</action>
          </release>
          <release version="2.0.8" date="2008-04-14"	desc="Subreport parameters release">
