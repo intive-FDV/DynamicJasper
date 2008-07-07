@@ -11,7 +11,7 @@ Report Concept
  Some columns may have variables (with operations such as SUM or COUNT) for some of the fields. 
  All this tasks can be done automatically by the DJ through a very easy-to-use API.
 
- You can redefine at runtime the column order, the "repeating groups", the variables, styles, conditional styles, etc. Its completely dynamic!!!
+ You can redefine at runtime the column order, "repeating groups", variables, styles, conditional styles, etc. Its completely dynamic!!!
  
 Features
 
