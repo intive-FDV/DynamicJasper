@@ -1,0 +1,50 @@
+	----------
+	HOW-TO Add a chart
+	----------
+
+HOW-TO Add a chart
+
++------------------------------------------------------------------------------------------------------------+
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+//Group and columns creation
+
+DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
+DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // define the type of chart (Pie)
+			.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
+			.addColumnsGroup(g1)                           // define the group that will enclose values
+			.addColumn(columnAmount)                       // define the column used for series and categories
+			.build();
+			
+drb.addChart(chart);	//add the chart to the dynamic report
++------------------------------------------------------------------------------------------------------------+
+ 
+
+ <<DJChartBuilder>> is the builder class, very convenient. To create a chart these parameters are needed
+ 
+ * <<type>>: A constant of <DJChart>; indicates the type of chart. So far only valid values are:
+ 
+   * PIE_CHART 
+   
+   * BAR_CHART
+ 
+ * <<Operation>>: A constant of <DJChart>; indicates the operation over the values the chart will perform.
+ 
+   * CALCULATION_SUM
+
+   * CALCULATION_COUNT
+   
+ * <<ColumnsGroup>>: The group that will enclose the values used in the chart. Each time the group changes, a new chart will be printed. 
+ 
+ * <<Column>>: You can pass one or more. Each column will define a new series. Column title is used as <category>
+ 
+ []
+
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}ChartReportTest}} for a working example.
+
+ Also refer to {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest2.html}ChartReportTest2}} for a multiple series chart working example.
+ 
+ This code generate a report like this:
+ 
+[../images/examples/chart-report-test.jpg] Chart Report
+ 
