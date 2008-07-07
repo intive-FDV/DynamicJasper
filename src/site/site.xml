@@ -32,7 +32,7 @@
   <bannerLeft>
     <name>DynamicJasper</name>
     <src>images/fdvsolutions_dynamicjasper_project.png</src>
-    <href>http://dynamicjasper.sourceforge.net/</href>
+    <href>http://www.fdvsolutions.com/</href>
   </bannerLeft>
  <!-- <bannerRight>
     <src>http://maven.apache.org/images/maven-small.gif</src>
@@ -52,6 +52,7 @@
       <item name="Requeriments" href="requeriments.html"/>
       <item name="Download" href="http://www.fdvs.com.ar/download.html" />
       <item name="Project info" href="project-info.html"/>
+	  <item name="Paid Support" href="https://sourceforge.net/services/service_details.php?service_listing_id=2055"/>      
     </menu>
     <menu name="Playground (GUI)">
       <item name="Introduction" href="docs/playground.html"/>
@@ -70,7 +71,8 @@
       <item name="Setting up the project" href="docs/project-setup.html" />
     </menu>
     <menu name="Support">
-      <item name="Forums" href="https://sourceforge.net/forum/?group_id=188060" external="true"/>
+      <item name="Paid Support" href="https://sourceforge.net/services/service_details.php?service_listing_id=2055"/>
+      <item name="Forums" href="https://sourceforge.net/forum/?group_id=188060" />
       <item name="Issue Tracker" href="https://sourceforge.net/tracker/?group_id=188060"/>
       <item name="DJ@SourceForge" href="https://sourceforge.net/projects/dynamicjasper" />
     </menu>

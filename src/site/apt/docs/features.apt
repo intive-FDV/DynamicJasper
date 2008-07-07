@@ -46,7 +46,7 @@ Features
 	  
  * <<Calculated Columns>>
 	
- The DJ API provides a very friendly way to create calculated columns, this columns may shown the result of an operation between one, two or more columns. I.e.: for some reason the data source does not provide a column that should contain the result of �column A * column B�, you can create a calculated column to solve this problem.
+ The DJ API provides a very friendly way to create calculated columns, this columns may shown the result of an operation between one, two or more columns. I.e.: for some reason the data source does not provide a column that should contain the result of "column A * column B", you can create a calculated column to solve this problem.
  The operation can also be a custom operation (created in Java) that can't (for example) concatenate or more columns, transform it contents, etc.
       
  * <<JRXML template file>>
