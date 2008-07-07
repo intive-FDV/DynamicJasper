@@ -1,3 +1,7 @@
+	------------
+	HOW-TO Use images in columns
+	------------
+
 HOW-TO Use images in columns
 
  This new feature enables DynamicJasper to use images in the detail band.
@@ -31,19 +35,19 @@ drb.addColumn("State", "state", String.class.getName(),30)
  
  * <title> is the title of the column.
  
- * <property> is the property of the current element to use as the input for the barcode. By default the class type is <<InputStream>>
+ * <property> is the property of the current element to use as the input for the image. By default the class type is <<InputStream>>
  
  * <width> of the column
  
  * <fixed column> (boolean) if true, the width is mandatory and no resize will be done.
  
- * <fill mode> specifies how to deal with the size of the barcode: 
+ * <fill mode> specifies how to deal with the size of the bar code: 
  
-   * ImageScaleMode.NO_RESIZE: no rezise of the barcode
+   * ImageScaleMode.NO_RESIZE: no resize of the image
    
-   * ImageScaleMode.FILL: streches the barcode to fill the rectangle (the with of the column and the height of the detil band)
+   * ImageScaleMode.FILL: stretches the image to fill the rectangle (the with of the column and the height of the detail band)
    
-   * ImageScaleMode.FILL_PROPORTIONALLY: streches the barcode <proportionally> as much as it can to fill the area given to the column. 
+   * ImageScaleMode.FILL_PROPORTIONALLY: stretches the image <proportionally> as much as it can to fill the area given to the column. 
 
    []
     

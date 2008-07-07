@@ -1,8 +1,12 @@
-HOW-TO Create barcode columns
+		------
+		HOW-TO Create bar code columns
+		------
+		
+HOW-TO Create bar code columns
 
  This new feature makes the existing JasperReports and Barbecue integration available in DynamicJasper.
  
- In the following example, we are adding a barcode column (the last one)
+ In the following example, we are adding a bar code column (the last one)
 
 +------------------------------------------------------------------------------------------------------------+
 FastReportBuilder drb = new FastReportBuilder();
@@ -33,30 +37,30 @@ DynamicReport dr = drb.build();
  
  * <column title> is the title of the column.
  
- * <property> is the property of the current element to use as the input for the barcode
+ * <property> is the property of the current element to use as the input for the bar code
  
- * <class> is the <<class type>> of <property>. Regardles off the barcode specific valid input (character), 
- a String is needed for the barcode.
+ * <class> is the <<class type>> of <property>. Regardles off the bar code specific valid input (character), 
+ a String is needed for the bar code.
  
  * <barcode type> is a constant from <ar.com.fdvs.dj.core.BarcodeTypes>
  
- * <show text> is boolean that when true, the text is displayed bellow the barcode (only available in some barcode types)
+ * <show text> is boolean that when true, the text is displayed bellow the bar code (only available in some bar code types)
  
- * <checksum> (boolean) if true and the barcode type allows it, the checksum is added to the barcode.
+ * <checksum> (boolean) if true and the bar code type allows it, the checksum is added to the bar code.
  
- * <application identifier>: (Optional) only for <<UCCEAN128>>, this must be a property from the datarource to a String object. The field is registered automatically.
+ * <application identifier>: (Optional) only for <<UCCEAN128>>, this must be a property from the data source to a String object. The field is registered automatically.
  
  * <width> of the column
  
  * <fixed column> (boolean) if true, the width is mandatory and no resize will be done.
  
- * <fill mode> specifies how to deal with the size of the barcode: 
+ * <fill mode> specifies how to deal with the size of the bar code: 
  
-   * ImageScaleMode.NO_RESIZE: no rezise of the barcode
+   * ImageScaleMode.NO_RESIZE: no resize of the bar code
    
-   * ImageScaleMode.FILL: streches the barcode to fill the rectangle (the with of the column and the height of the detil band)
+   * ImageScaleMode.FILL: stretches the bar code to fill the rectangle (the with of the column and the height of the detail band)
    
-   * ImageScaleMode.FILL_PROPORTIONALLY: streches the barcode <proportionally> as much as it can to fill the area given to the column. 
+   * ImageScaleMode.FILL_PROPORTIONALLY: stretches the bar code <proportionally> as much as it can to fill the area given to the column. 
 
    []
     

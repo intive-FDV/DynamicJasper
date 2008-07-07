@@ -15,7 +15,7 @@ Dependencies
  
  Note that JasperReports need some other files in order to export the report to pdf, xls (Excel), rtf (MS Word), etc. 
  
- Below there is a list for the minimun libraries needed
+ Below there is a list for the minimum libraries needed
 
  Libraries to run DynamicJasper
 

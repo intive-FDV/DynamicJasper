@@ -1,9 +1,13 @@
+	----------
+	HOW-TO Add Concatenated Subreports
+	----------
+
 HOW-TO Add Concatenated Subreports
 
  Concatenating many reports in a single one (eg: a single PDF) can be a hard task. 
  Using DynamicJasper it is really easy get reports of different nature in a single one.
 
- Usefull examples:
+ Useful examples:
  
 *----------+--------------+-------+
 | <<Test>> | <<Description>> | <<Download PDF>> |
@@ -22,7 +26,7 @@ params.put("statistics", getStatisticsList() );
 
  <<dynamicReport>>: A DynamicReport object to use as a subreport. In this example we create it in the call to <createHeaderSubreport()>
 
- <<LayOutManager>>: Since the subreport is goin to be a DynamicReport, a LayOutManager is needed
+ <<LayOutManager>>: Since the subreport is going to be a DynamicReport, a LayOutManager is needed
  
  <<path to the data source>>: A string that points to the data source.
  

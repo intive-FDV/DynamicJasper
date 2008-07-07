@@ -58,6 +58,9 @@ public class DataSetFactory {
 		else if (chartType == DJChart.BAR_CHART) {
 			dataSet = createBarDataset(group,parentGroup, vars, djchart);
 		}
+//		else if (chartType ==  DJChart.LINE_CHART) {
+//			dataSet = createLineDataset(group,parentGroup, vars, djchart);
+//		}
 
 		if (dataSet == null){
 			throw new DJException("Error creating dataset for chart, no valid dataset type.");
@@ -66,7 +69,54 @@ public class DataSetFactory {
 		return dataSet;
 	}
 
-	private static JRDesignChartDataset createBarDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {
+	/**
+	 * Use vars[0] as value, user vars[1] as series
+	 * @param group
+	 * @param parentGroup
+	 * @param vars
+	 * @param djchart
+	 * @return
+	 */
+	protected static JRDesignChartDataset createLineDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {
+		JRDesignCategoryDataset data = new JRDesignCategoryDataset(null);
+
+//		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
+			JRDesignCategorySeries serie = new JRDesignCategorySeries();
+//			JRDesignVariable var = (JRDesignVariable) iterator.next();
+			JRDesignVariable var = (JRDesignVariable) vars.get(0);
+			JRDesignVariable var1 = (JRDesignVariable) vars.get(0);
+			if (vars.size() > 1)
+				var1 = (JRDesignVariable) vars.get(1);
+			
+			//And use it as value for each bar
+			JRDesignExpression varExp = getExpressionFromVariable(var);
+			JRExpression varExp1 = var1.getExpression();
+			serie.setValueExpression(varExp);
+	
+			//The key for each bar
+			JRExpression exp2 = group.getExpression();
+	
+			JRDesignExpression exp3 = new JRDesignExpression();
+			int index = vars.indexOf(var);
+			AbstractColumn col = (AbstractColumn) djchart.getColumns().get(index);
+			exp3.setText("\"" + col.getTitle() + "\"");
+			exp3.setValueClass(String.class);
+	
+			//Here you can set subgroups of bars
+			serie.setCategoryExpression(exp2);
+//			serie.setCategoryExpression(varExp1);
+	
+			serie.setLabelExpression(exp2);
+			serie.setSeriesExpression(varExp1);
+				
+			data.addCategorySeries(serie);
+//		}
+
+		setResetStyle(data, group, parentGroup);
+		return data;
+	}
+
+	protected static JRDesignChartDataset createBarDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {
 		JRDesignCategoryDataset data = new JRDesignCategoryDataset(null);
 
 		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
@@ -100,7 +150,7 @@ public class DataSetFactory {
 		return data;
 	}
 
-	private static JRDesignChartDataset createPieDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {		
+	protected static JRDesignChartDataset createPieDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {		
 		JRDesignPieDataset data = new JRDesignPieDataset(null);
 
 		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {

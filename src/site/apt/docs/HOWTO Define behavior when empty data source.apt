@@ -1,4 +1,8 @@
-HOW-TO Define behaviour when empty data source
+	-----------
+	HOW-TO Define behavior when empty data source
+	-----------
+
+HOW-TO Define behavior when empty data source
 
  JasperReport define 4 possible actions when the data source is empty. These actions are described below.
  
@@ -18,13 +22,13 @@ DynamicReportBuilder setWhenNoDataType(byte whenNoDataType)
  
  []
  
- These convinient methods are also available:
+ These convenient methods are also available:
  
  setWhenNoDataNoPages(), setWhenNoDataBlankPage(), setWhenNoDataAllSectionNoDetail() and setWhenNoDataShowNoDataSection()
  
 * Define When No Data Section text
 
- Whe can also define a text to be shown when the datasource is empty. Using the DynamicReportBuilder we can do like this
+ Whe can also define a text to be shown when the data source is empty. Using the DynamicReportBuilder we can do like this
 
 +------------------------------------------------------------------------------------------------------------+
  DynamicReportBuilder setWhenNoData(String text, Style style)

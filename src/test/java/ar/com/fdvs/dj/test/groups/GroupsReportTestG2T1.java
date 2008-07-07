@@ -60,10 +60,14 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 
 		Style groupTitleStyle = new Style();
 		groupTitleStyle.setFont(Font.ARIAL_BIG);
+		
+		Style col2Style = new Style();
+		col2Style.setFont(Font.ARIAL_BIG_BOLD);
+		col2Style.setBorderBottom(Border.THIN);
+		col2Style.setVerticalAlign(VerticalAlign.TOP);
 
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorderBottom(Border.PEN_1_POINT);
 		headerStyle.setBackgroundColor(Color.gray);
 		headerStyle.setTextColor(Color.white);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
@@ -120,7 +124,7 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
 				.setColumnProperty("branch", String.class.getName())
 				.setTitle("Branch").setWidth(new Integer(85))
-				.setStyle(detailStyle).setHeaderStyle(headerStyle)
+				.setStyle(col2Style).setHeaderStyle(col2Style)
 				.build();
 
 		AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
@@ -153,12 +157,6 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 				.setStyle(importeStyle).setHeaderStyle(headerStyle)
 				.build();
 
-// drb.addGlobalHeaderVariable(columnAmount,
-// ColumnsGroupVariableOperation.SUM,headerVariables);
-//		drb.addGlobalHeaderVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
-//		drb.addGlobalFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM,headerVariables);
-//		drb.addGlobalFooterVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
-
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
@@ -172,7 +170,7 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,g2VariablesStyle) // columnaQuantity columns
 				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM,g2VariablesStyle)
-				.setGroupLayout(GroupLayout.DEFAULT) 
+				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) 
 				.build();
 
 		drb.addColumn(columnState);

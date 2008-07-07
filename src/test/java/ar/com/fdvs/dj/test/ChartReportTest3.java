@@ -51,7 +51,7 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
-public class ChartReportTest2 extends BaseDjReportTest {
+public class ChartReportTest3 extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -170,16 +170,17 @@ public class ChartReportTest2 extends BaseDjReportTest {
 		DJChartBuilder cb = new DJChartBuilder();
 		int chartHeight = 200;
 		DJChart chart = null;
-		chart =  cb.addType(DJChart.BAR_CHART)
-						.addOperation(DJChart.CALCULATION_SUM)
-						.addColumnsGroup(g1)
-						.addColumn(columnaQuantity)
-						.setHeight(chartHeight)
-						.setPosition(DJChartOptions.POSITION_HEADER)
-						.setShowLabels(true)
-						.build();
-
-		drb.addChart(chart); //add chart
+//		chart =  cb.addType(DJChart.BAR_CHART)
+//						.addOperation(DJChart.CALCULATION_SUM)
+//						.addColumnsGroup(g1)
+//						.addColumn(columnaQuantity)
+//						.addColumn(columnAmount)
+//						.setHeight(chartHeight)
+//						.setPosition(DJChartOptions.POSITION_HEADER)
+//						.setShowLabels(true)
+//						.build();
+//
+//		drb.addChart(chart); //add chart
 		
 		//2nd chart
 		cb = new DJChartBuilder();
@@ -196,16 +197,16 @@ public class ChartReportTest2 extends BaseDjReportTest {
 		drb.addChart(chart); //add chart
 
 		//3rd Chart
-		cb = new DJChartBuilder();
-		chart =  cb.addType(DJChart.PIE_CHART)
-		.addOperation(DJChart.CALCULATION_SUM)
-		.addColumnsGroup(g2)
-		.addColumn(columnaQuantity)
-		.setHeight(chartHeight)		
-		.setPosition(DJChartOptions.POSITION_HEADER)
-		.build();
-		
-		drb.addChart(chart); //add chart
+//		cb = new DJChartBuilder();
+//		chart =  cb.addType(DJChart.BAR_CHART)
+//		.addOperation(DJChart.CALCULATION_SUM)
+//		.addColumnsGroup(g2)
+//		.setHeight(chartHeight)
+//		.addColumn(columnaQuantity)
+//		.setPosition(DJChartOptions.POSITION_FOOTER)
+//		.build();
+//		
+//		drb.addChart(chart); //add chart
 
 		DynamicReport dr = drb.build();
 
@@ -213,7 +214,7 @@ public class ChartReportTest2 extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		ChartReportTest2 test = new ChartReportTest2();
+		ChartReportTest3 test = new ChartReportTest3();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
 		//JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, new ClassicLayoutManager(),test.params));

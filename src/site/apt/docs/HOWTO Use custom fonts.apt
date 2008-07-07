@@ -1,6 +1,10 @@
+	------------
+	HOW-TO Use custom fonts
+	------------
+
 HOW-TO Use custom fonts
  
- JasperReports gives the posibility to use custom fonts (like true type fonts) and also embed them to the resulting
+ JasperReports gives the possibility to use custom fonts (like true type fonts) and also embed them to the resulting
  pdf report. DynamicJasper also allows this feature.
  
    
@@ -27,7 +31,7 @@ public Font(int fontSize, String fontName, String pdfFontName, String pdfFontEnc
  
  * <<fontSize>> is the size of the font is points
 
- * <<fontName>> is the name of the font (as shown by the sytem font viewer, not just the filename)
+ * <<fontName>> is the name of the font (as shown by the system font viewer, not just the filename)
 
  * <<pdfFontName>> is the relative path inside the classpath to the ttf font. You can also point to other file
  types supported by JasperReports

@@ -1,3 +1,7 @@
+	----------
+	HOW-TO Create a grand total (with no groups)
+	----------
+
 HOW-TO Create a grand total (with no groups)
 
  If there is a need for grand totals and no grouping in the project, DynamicJasper provides a way to get that. 
@@ -17,7 +21,7 @@ drb.addGlobalFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM);
  
  * The column to use for the calculation
  
- * The opration to apply (SUM, COUNT, etc)
+ * The operation to apply (SUM, COUNT, etc)
  
  * The style to use for this total (optional)
  

@@ -1,3 +1,7 @@
+	-----------
+	HOW-TO Crosstabs
+	-----------
+
 HOW-TO Crosstabs
 
  Crosstabs are a great feature introduced by JasperReports, now it is possible to create crosstabs
@@ -48,7 +52,7 @@ params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollect
  
  There is no limit about how many columns or rows the crosstab contains.
  
- The data <<must>> be sorted whith the following criteria: <row(1)>, ..., <row(n)>, <column(1)>, ..., <column(m)>
+ The data <<must>> be sorted with the following criteria: <row(1)>, ..., <row(n)>, <column(1)>, ..., <column(m)>
  
  <row(1)> will be the outer-most row, <row(n)> will be the inner-most row
 

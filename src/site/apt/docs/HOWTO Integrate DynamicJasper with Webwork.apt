@@ -1,6 +1,9 @@
+	------------
+	HOW-TO Integrate DynamicJasper with Webwork
+	------------
 HOW-TO Integrate DynamicJasper with Webwork
 
- Webwork actually integrates with jasper reports through the JasperReportsResult result-type, we extended this class to support
+ Webwork actually integrates with Jasper Reports through the JasperReportsResult result-type, we extended this class to support
  DynamicJasper also.
  
  Firt you have to register the <<dynamic-jasper>> result-type in you <xwork.xml> like this
@@ -29,11 +32,11 @@ HOW-TO Integrate DynamicJasper with Webwork
 </action>
 +-----------------------------------------------------------------------------+
  
- The three important parameters here are <<dynamicReport>> wich is the name of the property of the action wich is an instance of DynamicReport
+ The three important parameters here are <<dynamicReport>> wich is the name of the property of the action which is an instance of DynamicReport
  
- The 2nd is <<format>> wich tells the output format to generate.
+ The 2nd is <<format>> which tells the output format to generate.
  
- The 3rd is <<dataSource>> wich is the name of the property in the action that is an instance of any 
+ The 3rd is <<dataSource>> which is the name of the property in the action that is an instance of any 
  of the supported classes to be used as a data source (Collection, Object arrays, ResultSet, etc).
  
  The <<layoutManager>> parameter defines the layout manager to use. The default value is <classic> (<<ClassicLayoutManager>>).

@@ -1,3 +1,7 @@
+	-----------
+	HOW-TO Hide a column
+	-----------
+
 HOW-TO Hide a column
 
  Its possible to hide a column when it's used for grouping, printing only the current value on the header of the group
@@ -5,7 +9,7 @@ HOW-TO Hide a column
 
  This can be achieved through the different "group layouts".
  
- There are many posibilities, one example that hides the column is like this:
+ There are many possibilities, one example that hides the column is like this:
  
 +-----------------------------------------------------------------------------+ 
 		drb.setPrintColumnNames(true); //Show the column names on the top of every page
@@ -37,9 +41,9 @@ HOW-TO Hide a column
  
 [../images/examples/hidden-column.jpg] Hidden column
 
-* Other example of hidding a column
+* Other example of hiding a column
 
- In this exmple:
+ In this example:
  
  * DynamicReportBuilder uses <setPrintColumnNames(false)>
  
@@ -70,32 +74,8 @@ HOW-TO Hide a column
 
 [../images/examples/hidden-column03.jpg] Hidden column example 2
  
-* More about the GroupLayout
+* {More about the GroupLayout}
 
- Combining of the different <<GroupLayout>> posibilities with nested groups can end in very interesting results
- 
- The following matrix shows the different aspects used in each template.
-
-*----------+--------------+-------+-------+-------+-------+
-| <<Template>> | <<show Value In Header>> | <<show Value For Each Row>> | <<show ColumnName>> | <<hide Column>> | <<printHeaders>> |
-*----------+--------------+-------+-------+-------+-------+
-| EMPTY | NO | NO | NO | YES | NO |
-*----------+--------------+-------+-------+-------+-------+
-| DEFAULT | YES | NO | NO | NO | NO |
-*----------+--------------+-------+-------+-------+-------+
-| DEFAULT_WITH_HEADER | YES | NO | NO | YES | NO |
-*----------+--------------+-------+-------+-------+-------+
-| VALUE_IN_HEADER_WITH_HEADERS | YES | NO | NO | YES | YES |
-*----------+--------------+-------+-------+-------+-------+
-| VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME | YES | NO | YES | YES | YES |
-*----------+--------------+-------+-------+-------+-------+
-| VALUE_FOR_EACH | NO | YES | NO | NO | NO |
-*----------+--------------+-------+-------+-------+-------+
-| VALUE_FOR_EACH_WITH_HEADERS | NO | YES | NO | NO | YES |
-*----------+--------------+-------+-------+-------+-------+
-| VALUE_IN_HEADER_AND_FOR_EACH | YES | YES | NO | NO | NO |
-*----------+--------------+-------+-------+-------+-------+
-| VALUE_IN_HEADER_AND_FOR_EACH_WITH_HEADERS | YES | YES | NO | NO | YES |
-*----------+--------------+-------+-------+-------+-------+
+ More information about {{grouping styles.html}}grouping styles}
 
  

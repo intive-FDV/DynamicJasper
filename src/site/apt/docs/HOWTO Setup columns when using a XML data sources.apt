@@ -1,8 +1,12 @@
-HOW-TO Setup colums when using a XML data sources
+	------------
+	HOW-TO Setup columns when using a XML data sources
+	------------
+
+HOW-TO Setup columns when using a XML data sources
 
  <Since DJ v.2.0.5>
 
- When using XML data sources, JasperReports need the fields to have a descripton property setted (besides the "property name" parameter), 
+ When using XML data sources, JasperReports need the fields to have "description" property set (besides the "property name" parameter), 
  so that JasperReport can access the properties of the current object using XPath
   
  To achieve that, two methods were created

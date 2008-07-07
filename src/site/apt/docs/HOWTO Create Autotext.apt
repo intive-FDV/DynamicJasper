@@ -1,6 +1,10 @@
+	----------
+	HOW-TO Create Autotext (ie: Page x/y) out of the box
+	----------
+
 HOW-TO Create Autotext (ie: Page x/y) out of the box
 
- To add common autotext expressions in header and footer such as "<Page X of Y>", "<Created on 07/23/2007>", etc. Just use the
+ To add common auto text expressions in header and footer such as "<Page X of Y>", "<Created on 07/23/2007>", etc. Just use the
  <<DynamicReportBuilder>> like this:
 
  For page counter
@@ -48,7 +52,7 @@ drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALI
 	 * AUTOTEXT_CREATED_ON
 	 
 	   Adds "<<Created on \<date\>>>"
-       The date will be formatted deppending on the <pattern> parameter (see bellow)
+       The date will be formatted depending on the <pattern> parameter (see bellow)
 
  * <<Fixed message>>
      
@@ -64,7 +68,7 @@ drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALI
  
 ** Alignment
  
- The 3rd parameter is the Aligment, it determines the horizontal alignment (left, right, center).
+ The 3rd parameter is the Alignment, it determines the horizontal alignment (left, right, center).
  
  * ALIGMENT_LEFT
  
@@ -74,7 +78,7 @@ drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALI
  
 ** Pattern
  
- The 4th parameter is optional, is only usefull when usign AUTOTEXT_CREATED_ON. It determines how to format the creation date/time
+ The 4th parameter is optional, is only useful when using AUTOTEXT_CREATED_ON. It determines how to format the creation date/time
    
  * PATTERN_DATE_DATE_ONLY
      
@@ -97,7 +101,7 @@ drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALI
 |  To localize your messages, you have to create a file named "dj-messages_<<\<locale\>>>.properties" where \<locale\> must be
 |  the desired language-country pair (ie: en_US, es_ES, fr_FR, etc). This file must be in the classpath.
 | \ 
-| Another posibility is to tell the DJ wich resource bundle to use like this:
+| Another possibility is to tell the DJ wich resource bundle to use like this:
 | \ 
 | \ \  <<drb.addResourceBundle("other_messages");>>
 | \ 

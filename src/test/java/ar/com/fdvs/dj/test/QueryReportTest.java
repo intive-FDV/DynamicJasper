@@ -45,8 +45,6 @@ import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 public class QueryReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
-
-
 		/**
 		 * Creates the DynamicReportBuilder and sets the basic options for
 		 * the report
@@ -57,15 +55,16 @@ public class QueryReportTest extends BaseDjReportTest {
 			.addColumn("Apellido", "apellido", String.class.getName(),50)
 			.addColumn("Password", "password", String.class.getName(),50)
 			.setTitle("Usuarios del sistema")
-//			.setQuery("select * from usuario where nombre = $P{nom}", DJConstants.QUERY_LANGUAGE_SQL)
+			.setQuery("select * from usuario where nombre = $P{nom}", DJConstants.QUERY_LANGUAGE_SQL)
 			.setTemplateFile("templates/TemplateReportTest.jrxml")
-			.setQuery("select * from usuario where nombre = 'juan'", DJConstants.QUERY_LANGUAGE_SQL)
 			.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
 		
-		params.put("nom", "Juan"); //Note that the query has a parameter, by putting in the map
+		//Note that the query has a parameter, by putting in the map
 		//an item with the proper key, it will be automatically registered as a parameter
+		params.put("nom", "Juan");
+		
 		return dr;
 	}
 

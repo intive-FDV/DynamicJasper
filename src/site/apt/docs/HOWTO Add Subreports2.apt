@@ -1,6 +1,10 @@
+	----------
+	HOW-TO Add Subreports (fast way)
+	----------
+
 HOW-TO Add Subreports (fast way)
 
- Usefull examples:
+ Useful examples:
  
 *----------+--------------+-------+
 | <<Test>> | <<Description>> | <<Download PDF>> |
@@ -29,7 +33,7 @@ drb.addSubreportInGroupHeader(2, drHeaderSubreport, new ClassicLayoutManager(),
 drb.addField("statistics", List.class.getName());
 +-----------------------------------------------------------------------------+
 
-* The first call to the builer is:
+* The first call to the builder is:
  
 +-----------------------------------------------------------------------------+ 
  .addSubreportInGroupHeader( <group number>, <dynamicReport>, <LayOutManager>
@@ -40,7 +44,7 @@ drb.addField("statistics", List.class.getName());
  
  <<dynamicReport>>: A DynamicReport object to use as a subreport. In this example we create it in the call to <createHeaderSubreport()>
 
- <<LayOutManager>>: Since the subreport is goin to be a DynamicReport, a LayOutManager is needed
+ <<LayOutManager>>: Since the subreport is going to be a DynamicReport, a LayOutManager is needed
  
  <<path to the data source>>: A string that points to the data source.
  

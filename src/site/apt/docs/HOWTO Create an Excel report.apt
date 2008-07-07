@@ -1,8 +1,12 @@
+	----------
+	HOW-TO Create an Excel report
+	----------
+
 HOW-TO Create an Excel report
  
- DynamicJasper is a useful tool when creting plain Excel sheets. The only diference with regular reports, is that we have to use 
+ DynamicJasper is a useful tool when creating plain Excel sheets. The only difference with regular reports, is that we have to use 
  the <<ListLayoutManager>> class instead of the <<ClassicLayoutManager>>. This is because the former layout manager
- prevents JasperReport to leave blank spaces or have missaligned cells. You can still use the ClassicLayoutManager
+ prevents JasperReport to leave blank spaces or have miss aligned cells. You can still use the ClassicLayoutManager
  when generating XLS files, it will generate the XLS with all the formatting stuff, it depends on what you need.
  
  The <<ListLayoutManager>> does not pay attention to groups information, and some of the formatting options, its main
@@ -40,10 +44,10 @@ drb.addColumn("State"			, "state"		, String.class.getName(), 30)
 	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
 +-----------------------------------------------------------------------------+ 
  
- The first tells DJ if to print or not the header with the colum names. You may don't want this
+ The first tells DJ if to print or not the header with the column names. You may don't want this
  if the purpose is to create a plain Excel with only data and no header.
  
- The second line tells DJ if to use JasperReports paginationo or not. For Excel you may don't want this
+ The second line tells DJ if to use JasperReports pagination or not. For Excel you may don't want this
  so your final result is a whole list with no empty spaces rows (page breaks.)
  
  The final blow to get the Excel file are these lines

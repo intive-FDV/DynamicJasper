@@ -1,3 +1,7 @@
+	------------
+	HOW-TO Use inherited styles
+	------------
+
 HOW-TO Use inherited styles
 
  A great feature of JasperReport is styles inheritance, such feature is supported by DynamicJasper also.
@@ -28,9 +32,9 @@ drb.setTitle("November 2006 sales report")					//defines the title of the report
 +------------------------------------------------------------------------------------------------------------+
  
  Note that in this example we are using a factory method of the <Style> class: <<Style.createBlankStyle(...)>>, this
- is usefull for creating styles that are going to have parent because most of its properties are set to null.
+ is useful for creating styles that are going to have parent because most of its properties are set to null.
  
- The styles created with the operator <new (new Style())> have default values for almo	st everything and this makes
+ The styles created with the operator <new (new Style())> have default values for almost everything and this makes
  useless for the style inheritance mechanism, since a style uses its parent values for <<all non defined values>>
  
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateStyleReportTest.html}TemplateStyleReportTest.html}} for a working example.

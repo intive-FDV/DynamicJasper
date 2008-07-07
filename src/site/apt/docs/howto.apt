@@ -9,13 +9,30 @@ HOW TO Guide
 
 * Content
 
+*------+--------
+| * {{{grouping styles.html}Grouping styles}} |
+| * {{{HOWTO Avoid row splitting.html}Avoid row splitting}} |
+| * {{{HOWTO Define behavior when a resource is missing.html}Define behavior when a resource is missing}} |
+*------+--------
+| * {{{HOWTO Define behavior when empty data source.html}Define behavior when empty data source}} |
+| * {{{HOWTO Setup columns when using a XML data sources.html}Setup columns when using a XML data sources}} |
+| * {{{HOWTO Use custom fonts.html}Use custom fonts (internationalization)}} |
+*------+--------
+ 
+ 
+HOW TO Guide
+
+* Content
+
+ * {{{grouping styles.html}Grouping styles}}
+
  * {{{HOWTO Avoid row splitting.html}Avoid row splitting}}
 
- * {{{HOWTO Define behaviour when a resource is missing.html}Define behaviour when a resource is missing}}
+ * {{{HOWTO Define behavior when a resource is missing.html}Define behavior when a resource is missing}}
 
- * {{{HOWTO Define behaviour when empty data source.html}Define behaviour when empty data source}}
+ * {{{HOWTO Define behavior when empty data source.html}Define behavior when empty data source}}
  
- * {{{HOWTO Setup colums when using a XML data sources.html}Setup colums when using a XML data sources}}
+ * {{{HOWTO Setup columns when using a XML data sources.html}Setup columns when using a XML data sources}}
  
  * {{{HOWTO Use custom fonts.html}Use custom fonts (internationalization)}} 
 
@@ -25,7 +42,7 @@ HOW TO Guide
  
  * {{{HOWTO image column.html}Use images in columns}}
  
- * {{{HOWTO barcode column.html}Use barcodes}}
+ * {{{HOWTO bar code column.html}Use bar codes}}
  
  * {{{HOWTO Crosstabs.html}Use Crosstabs}}
  

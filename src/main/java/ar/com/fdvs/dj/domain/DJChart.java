@@ -46,6 +46,7 @@ public class DJChart {
 	//The possible chart types
 	public static final byte PIE_CHART = JRDesignChart.CHART_TYPE_PIE;
 	public static final byte BAR_CHART = JRDesignChart.CHART_TYPE_BAR;
+//	public static final byte LINE_CHART = JRDesignChart.CHART_TYPE_LINE; //not yet... to much to think left
 
 	//The possible calculation types
 	public static final byte CALCULATION_COUNT = JRDesignVariable.CALCULATION_COUNT;

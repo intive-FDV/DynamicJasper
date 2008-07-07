@@ -1,3 +1,7 @@
+	------------
+	HOW-TO Use conditional Styles
+	------------
+
 HOW-TO Use conditional Styles
 
  Suppose you need a Column that contains numerical values. If you want to use conditional styles (in order to have different colors depending on the value, for example) you can do this:

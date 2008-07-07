@@ -1,3 +1,7 @@
+	------------
+	HOW-TO Reference a style that exists in a jrxml file
+	------------
+
 HOW-TO Reference a style that exists in a jrxml file
 
  In the following fragment we create the <titleStyle> object with the name <<"titleStyle">> and just leave
