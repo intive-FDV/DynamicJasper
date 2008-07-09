@@ -41,6 +41,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.util.SortUtils;
 
@@ -57,13 +58,17 @@ public abstract class BaseDjReportTest extends TestCase {
 			dr = buildReport();
 			JRDataSource ds = getDataSource();
 
-			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds,params );	//Creates the JasperPrint object, we pass as a Parameter
+			jp = DynamicJasperHelper.generateJasperPrint(dr, getLayoutManager(), ds,params );	//Creates the JasperPrint object, we pass as a Parameter
 																											//the DynamicReport, a new ClassicLayoutManager instance (this
 																											//one does the magic) and the JRDataSource
-			
+
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".pdf");
-			ReportExporter.exportReportXls(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".xls");
-			jr = DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager(), params);
+//			ReportExporter.exportReportXls(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".xls");
+			jr = DynamicJasperHelper.generateJasperReport(dr, getLayoutManager(), params);
+	}
+
+	protected LayoutManager getLayoutManager() {
+		return new ClassicLayoutManager();
 	}
 
 	/**
