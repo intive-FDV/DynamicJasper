@@ -175,7 +175,7 @@ public class ChartReportTest extends BaseDjReportTest {
 		ChartReportTest test = new ChartReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
-		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, new ClassicLayoutManager(),test.params));
+		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, test.getLayoutManager(),test.params));
 	}
 
 }

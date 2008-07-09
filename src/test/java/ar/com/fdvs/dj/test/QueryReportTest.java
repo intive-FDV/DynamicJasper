@@ -33,7 +33,10 @@ package ar.com.fdvs.dj.test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Collection;
 
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
@@ -41,6 +44,7 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.util.SortUtils;
 
 public class QueryReportTest extends BaseDjReportTest {
 
@@ -60,11 +64,11 @@ public class QueryReportTest extends BaseDjReportTest {
 			.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
-		
+
 		//Note that the query has a parameter, by putting in the map
 		//an item with the proper key, it will be automatically registered as a parameter
 		params.put("nom", "Juan");
-		
+
 		return dr;
 	}
 
@@ -73,28 +77,29 @@ public class QueryReportTest extends BaseDjReportTest {
 		test.testReport();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
 //			JasperDesignViewer.viewReportDesign(jr);
-		
+
 		String jrxml = JRXmlWriter.writeReport(test.jr, "UTF-8");
 		System.out.println(jrxml);
 	}
-	
+
 	public void testReport() throws Exception {
+		Connection con = null;
 		try {
 			dr = buildReport();
 
-			Connection con = creatMySQLConnection();
-			
+			con = creatMySQLConnection();
+
 			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), con,params );
-			
-			con.close();
-			
+
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager(),params);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			con.close();
 		}
-	}	
-	
+	}
+
   public static Connection creatMySQLConnection() {
 	Connection con = null;
 	try {
@@ -107,6 +112,6 @@ public class QueryReportTest extends BaseDjReportTest {
 	}
 	return con;
 }
-		  
+
 
 }

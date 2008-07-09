@@ -36,7 +36,6 @@ import java.util.Locale;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
@@ -90,7 +89,7 @@ public class AutotextReportTest extends BaseDjReportTest {
 		AutotextReportTest test = new AutotextReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
-		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, new ClassicLayoutManager(),new HashMap()));
+		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, test.getLayoutManager(),new HashMap()));
 	}
 
 }

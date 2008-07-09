@@ -141,24 +141,7 @@ public class PlainReportTest extends BaseDjReportTest {
 		return dr;
 	}
 
-	public void testReport() {
-		try {
-			DynamicReport dr = buildReport();
-
-			Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
-			dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
-
-			JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);	//Create a JRDataSource, the Collection used
-			JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);	//Creates the JasperPrint object, we pass as a Parameter
-																											//one does the magic) and the JRDataSource
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/PlainReportTest.pdf");
-//			JasperViewer.viewReport(test.jp);	//finally display the report report
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 		PlainReportTest test = new PlainReportTest();
 		test.testReport();
 	}
