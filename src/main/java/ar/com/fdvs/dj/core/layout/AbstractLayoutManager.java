@@ -344,7 +344,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		 return expression;
 	}
 
-	protected final void generateHeaderBand(JRDesignBand band) {
+	protected void generateHeaderBand(JRDesignBand band) {
 		log.debug("Generating header band...");
 		band.setHeight(report.getOptions().getHeaderHeight().intValue());
 
@@ -383,7 +383,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 	public JRDesignStyle applyStyleToElement(Style style, JRDesignElement designElemen) {
 		if (style == null){
-			log.warn("NULL style passed to object");
+			log.warn("NULL style passed to design element: " + designElemen.getClass());
 			return null;
 		}
 		boolean existsInDesign = style.getName() != null
@@ -422,7 +422,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * printableArea and useFullPageWidth.
 	 * columns with fixedWidth property set in TRUE will not be modified
 	 */
-	private void setColumnsFinalWidth() {
+	protected void setColumnsFinalWidth() {
 		log.debug("Setting columns final width...");
 		float factor = 1;
 		int printableArea = report.getOptions().getColumnWidth();
@@ -534,7 +534,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @param ColumnsGroup group
 	 * @return JRDesignTextField
 	 */
-	protected final JRDesignTextField generateTextFieldFromColumn(AbstractColumn col, int height, ColumnsGroup group) {
+	protected JRDesignTextField generateTextFieldFromColumn(AbstractColumn col, int height, ColumnsGroup group) {
 		JRDesignTextField textField = new JRDesignTextField();
 		JRDesignExpression exp = new JRDesignExpression();
 

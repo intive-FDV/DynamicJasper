@@ -38,11 +38,15 @@ import java.util.HashMap;
  */
 public class DynamicReportOptions {
 
-	private Integer headerHeight = new Integer(30);
-	private Integer footerHeight = new Integer(30);
-	private Integer detailHeight = new Integer(15);
+	public static final Integer DEFAULT_HEADER_HEIGHT = new Integer(30);
+	public static final Integer DEFAULT_FOOTER_HEIGHT = new Integer(30);
+	public static final Integer DEFAULT_DETAIL_HEIGHT = new Integer(15);
+	
+	private Integer headerHeight = DEFAULT_HEADER_HEIGHT;
+	private Integer footerHeight = DEFAULT_FOOTER_HEIGHT;
+	private Integer detailHeight = DEFAULT_DETAIL_HEIGHT;
 
-	private Integer leftMargin = new Integer(30);
+	private Integer leftMargin = DEFAULT_HEADER_HEIGHT;
 	private Integer rightMargin =  new Integer(10);
 	private Integer topMargin =  new Integer(20);
 	private Integer bottomMargin =  new Integer(10);
@@ -56,9 +60,9 @@ public class DynamicReportOptions {
 
 	private boolean printBackgroundOnOddRows = false;
 	private Style oddRowBackgroundStyle = new Style("defaultOddRowStyle");
-	private Integer titleHeight =  new Integer(30);
+	private Integer titleHeight =  DEFAULT_HEADER_HEIGHT;
 	private boolean titleNewPage =  false;
-	private Integer subtitleHeight = new Integer(15);
+	private Integer subtitleHeight = DEFAULT_DETAIL_HEIGHT;
 
 	/**
 	 * When false, no main column names (usefull for excel)
@@ -113,6 +117,8 @@ public class DynamicReportOptions {
 	}
 
 	public void setDetailHeight(Integer detailHeight) {
+		if (detailHeight == null)
+			detailHeight = DEFAULT_DETAIL_HEIGHT;
 		this.detailHeight = detailHeight;
 	}
 
@@ -239,6 +245,10 @@ public class DynamicReportOptions {
 		return defaultDetailStyle;
 	}
 
+	/**
+	 * Should not be null
+	 * @param defaultDetailStyle
+	 */
 	public void setDefaultDetailStyle(Style defaultDetailStyle) {
 		this.defaultDetailStyle = defaultDetailStyle;
 	}
@@ -247,6 +257,10 @@ public class DynamicReportOptions {
 		return defaultFooterStyle;
 	}
 
+	/**
+	 * Should not be null
+	 * @param defaultFooterStyle
+	 */
 	public void setDefaultFooterStyle(Style defaultFooterStyle) {
 		this.defaultFooterStyle = defaultFooterStyle;
 	}
@@ -255,6 +269,10 @@ public class DynamicReportOptions {
 		return defaultHeaderStyle;
 	}
 
+	/***
+	 * Should not be null
+	 * @param defaultHeaderStyle
+	 */
 	public void setDefaultHeaderStyle(Style defaultHeaderStyle) {
 		this.defaultHeaderStyle = defaultHeaderStyle;
 	}
@@ -263,6 +281,10 @@ public class DynamicReportOptions {
 		return defaultGroupHeaderStyle;
 	}
 
+	/**
+	 * Should not be null
+	 * @param defaultGroupHeaderStyle
+	 */
 	public void setDefaultGroupHeaderStyle(Style defaultGroupHeaderStyle) {
 		this.defaultGroupHeaderStyle = defaultGroupHeaderStyle;
 	}
@@ -271,6 +293,10 @@ public class DynamicReportOptions {
 		return defaultGroupFooterStyle;
 	}
 
+	/**
+	 * Should not be null
+	 * @param defaultGroupFooterStyle
+	 */
 	public void setDefaultGroupFooterStyle(Style defaultGroupFooterStyle) {
 		this.defaultGroupFooterStyle = defaultGroupFooterStyle;
 	}

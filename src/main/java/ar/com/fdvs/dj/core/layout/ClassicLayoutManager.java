@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.core.layout;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -52,6 +53,7 @@ import net.sf.jasperreports.engine.design.JRDesignSubreport;
 import net.sf.jasperreports.engine.design.JRDesignSubreportParameter;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -152,15 +154,15 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param autotexts
 	 * @return
 	 */
-	private int findTotalOffset(ArrayList aligments, ArrayList autotexts, byte position) {
+	protected int findTotalOffset(ArrayList aligments, ArrayList autotexts, byte position) {
 		int total = 0;
 		for (Iterator iterator = aligments.iterator(); iterator.hasNext();) {
 			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) iterator.next();
 			int aux = 0;
 			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
-				AutoText text = (AutoText) iter.next();
-				if (text.getPosition() == position && currentAlignment.equals(text.getAlignment())) {
-					aux += text.getHeight().intValue();
+				AutoText autotext = (AutoText) iter.next();
+				if (autotext.getPosition() == position && currentAlignment.equals(autotext.getAlignment())) {
+					aux += autotext.getHeight().intValue();
 				}
 			}
 			if (aux > total)
@@ -198,10 +200,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			 * Apply the autotext in footer if any
 			 */
 			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
-				AutoText text = (AutoText) iter.next();
-				if (text.getPosition() == AutoText.POSITION_FOOTER && text.getAlignment().equals(currentAlignment) ) {
-					CommonExpressionsHelper.add(yOffset,getDesign(), getReport(), footerband, text);
-					yOffset += text.getHeight().intValue();
+				AutoText autotext = (AutoText) iter.next();
+				if (autotext.getPosition() == AutoText.POSITION_FOOTER && autotext.getAlignment().equals(currentAlignment) ) {
+					CommonExpressionsHelper.add(yOffset,getDesign(), getReport(), footerband, autotext);
+					yOffset += autotext.getHeight().intValue();
 				}
 			}
 
@@ -377,7 +379,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * Layout columns in groups by reading the corresponding report options.
 	 * @throws LayoutException
 	 */
-	private void layoutGroups() {
+	protected void layoutGroups() {
 		log.debug("Starting groups layout...");
 		int i = 0;
 		for (Iterator iter = getReport().getColumnsGroups().iterator(); iter.hasNext();) {
@@ -470,7 +472,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param crosst
 	 * @return
 	 */
-	private JRDesignRectangle createBlankRectableCrosstab(int amount,int yOffset) {
+	protected JRDesignRectangle createBlankRectableCrosstab(int amount,int yOffset) {
 		JRDesignRectangle rect = new JRDesignRectangle();
 		rect.setPen(Border.NO_BORDER.getValue());
 		rect.setMode(Transparency.TRANSPARENT.getValue());
@@ -488,7 +490,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param col
 	 * @return
 	 */
-	private JRDesignTextField createColumnNameTextField(ColumnsGroup columnsGroup, AbstractColumn col) {
+	protected JRDesignTextField createColumnNameTextField(ColumnsGroup columnsGroup, AbstractColumn col) {
 		JRDesignTextField designStaticText = new JRDesignTextField();
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setText("\"" + col.getTitle() + "\"");
@@ -508,7 +510,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param columnsGroup
 	 * @param jgroup
 	 */
-	private void layoutGroupSubreports(ColumnsGroup columnsGroup, JRDesignGroup jgroup) {
+	protected void layoutGroupSubreports(ColumnsGroup columnsGroup, JRDesignGroup jgroup) {
 		log.debug("Starting subreport layout...");
 		JRDesignBand footerBand = (JRDesignBand) jgroup.getGroupFooter();
 		JRDesignBand headerBand = (JRDesignBand) jgroup.getGroupHeader();
@@ -611,7 +613,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		//Show the current value above the column name
 		int yOffset = 0;
 		GroupLayout layout = group.getLayout();
-		//Only the value in heaeder
+		//Only the value in header
 		PropertyColumn column = group.getColumnToGroupBy();
 
 		//VALUE_IN_HEADER,
@@ -619,7 +621,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		//VALUE_IN_HEADER_AND_FOR_EACH,
 		//VALUE_IN_HEADER_AND_FOR_EACH_WITH_HEADERS
 		if (layout.isShowValueInHeader() && layout.isHideColumn() && !layout.isShowColumnName()){
-			//textvield for the current value
+			//textfield for the current value
 			JRDesignTextField currentValue = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), group);
 
 			//The width will be all the page
@@ -629,8 +631,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont()));
 			yOffset += currentValue.getHeight();
 
-			//Move down exisiting elements in the band.
-			LayoutUtils.moveBandsElemnts(yOffset-1, headerBand); //Dont know why, but without the "-1" it wont show the headers
+			//Move down existing elements in the band.
+			LayoutUtils.moveBandsElemnts(yOffset-1, headerBand); //Don't know why, but without the "-1" it wont show the headers
 
 			headerBand.addElement(currentValue);
 		}
@@ -645,7 +647,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignTextField columnNameTf = createColumnNameTextField(group, column);
 			columnNameTf.setY(columnNameTf.getY() + headerOffset);
 
-			//textvield for the current value
+			//textfield for the current value
 			JRDesignTextField currentValue = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), group);
 
 			//The width will be (width of the page) - (column name width)
@@ -659,7 +661,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			yOffset += currentValue.getHeight();
 
-			//Move down exisiting elements in the band.
+			//Move down existing elements in the band.
 			LayoutUtils.moveBandsElemnts(yOffset, headerBand);
 
 			headerBand.addElement(columnNameTf);
@@ -670,9 +672,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		placeVariableInBand(group.getFooterVariables(), group, jgroup, DJConstants.FOOTER, footerBand, 0);
 	}
 
-	private void placeVariableInBand(List variables, ColumnsGroup columnsGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
+	protected void placeVariableInBand(List variables, ColumnsGroup columnsGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
 		log.debug("Placing variables in "+type+" band...");
-		if ((variables != null)&&(variables.size()>0)) {
+		if ((variables != null) && (!variables.isEmpty())) {
 			Iterator it = variables.iterator();
 			while (it.hasNext()) {
 				ColumnsGroupVariable var = (ColumnsGroupVariable) it.next();
@@ -714,8 +716,16 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					applyStyleToElement(var.getStyle(), textField);
 				else if (defStyle != null)
 					applyStyleToElement(defStyle, textField);
-				else
-					applyStyleToElement(col.getStyle(), textField);
+				else {
+					//Last resource is tu use the column style, but a copy of it because
+					//the one in the internal cache can get modified by the layout manager (like in the odd row case)
+					Style style = col.getStyle();
+					try {
+						style = (Style) BeanUtils.cloneBean(style);
+						style.setName(null); //set to null to make applyStyleToElement(...) assign a name 
+					} catch (Exception e) {	}
+					applyStyleToElement(style, textField);
+				}
 
 
 				band.addElement(textField);
@@ -752,7 +762,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		}
 	}
 
-	private ColumnsGroupVariable findLeftMostColumn(List variables) {
+	protected ColumnsGroupVariable findLeftMostColumn(List variables) {
 		int mostLeftX = Integer.MAX_VALUE;
 		ColumnsGroupVariable mostLeftColumn =  null;
 		for (Iterator iterator = variables.iterator(); iterator.hasNext();) {
@@ -765,7 +775,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		return mostLeftColumn;
 	}
 
-	private void insertValueInHeader(JRDesignBand headerBand, ColumnsGroup columnsGroup, int headerOffset) {
+	protected void insertValueInHeader(JRDesignBand headerBand, ColumnsGroup columnsGroup, int headerOffset) {
 //		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), columnsGroup.getHeaderHeight().intValue(), columnsGroup);
 		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), getReport().getOptions().getDetailHeight().intValue(), columnsGroup);
 		textField.setHorizontalAlignment(columnsGroup.getColumnToGroupBy().getStyle().getHorizontalAlign().getValue());
@@ -774,7 +784,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		headerBand.addElement(textField);
 	}
 
-	private int changeHeaderBandHeightForVariables(JRDesignBand headerBand, ColumnsGroup columnsGroup) {
+	protected int changeHeaderBandHeightForVariables(JRDesignBand headerBand, ColumnsGroup columnsGroup) {
 		int result = 0;
 		if (!headerBand.getChildren().isEmpty()) {
 			int acu = headerBand.getHeight();
@@ -785,7 +795,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		return result;
 	}
 
-	private void generateHeaderBand() {
+	protected void generateHeaderBand() {
 		log.debug("generating header band...");
 		JRDesignBand header = (JRDesignBand) getDesign().getColumnHeader();
 		if (header == null) {

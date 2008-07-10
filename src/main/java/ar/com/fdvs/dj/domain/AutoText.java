@@ -39,6 +39,9 @@ import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
  *
  */
 public class AutoText {
+	public static final Integer WIDTH_NOT_SET = new Integer(Integer.MIN_VALUE);
+	public static final Integer DEFAULT_WIDTH = new Integer(80);
+	public static final Integer DEFAULT_WIDTH2 = new Integer(30);
 	public static final byte POSITION_FOOTER = 0;
 	public static final byte POSITION_HEADER = 1;
 
@@ -68,8 +71,22 @@ public class AutoText {
 
 	private Integer height = new Integer(15);
 
-	private Integer with;
+	/**
+	 * 
+	 */
+	private Integer width = WIDTH_NOT_SET;
 	
+	/**
+	 * For autotexts that consists in two parts (like: "page x of y" and "x / y"). <br>
+	 * These autotext are compound by 2 text-fields with different render time (one is immediate, the other generally "time-report")<br> 
+	 * The first part is the "immediate" second part is the "y" (time-report)<br>
+	 * width2 defines how width is the second part. This is for fine tuning of the layout. depending on the size of report
+	 * the total pages can be a small or big number, making this width wide enough should prevent the text to
+	 * override the space given 
+	 */
+	private Integer width2 = WIDTH_NOT_SET;
+	
+
 	/**
 	 * tells if the API can modify the with if needed
 	 */
@@ -81,11 +98,17 @@ public class AutoText {
 	public void setFixedWith(boolean fixedWith) {
 		this.fixedWith = fixedWith;
 	}
-	public Integer getWith() {
-		return with;
+	public Integer getWidth() {
+		return width;
 	}
-	public void setWith(Integer with) {
-		this.with = with;
+	public void setWidth(Integer width) {
+		this.width = width;
+	}
+	public Integer getWidth2() {
+		return width2;
+	}
+	public void setWidth2(Integer width2) {
+		this.width2 = width2;
 	}
 	public Integer getHeight() {
 		return height;
@@ -104,6 +127,21 @@ public class AutoText {
 		this.alignment = alignment;
 		this.pattern = pattern;
 	}
+	public AutoText(byte type, byte position, HorizontalBandAlignment alignment,byte pattern, int width){
+		this.type = type;
+		this.position = position;
+		this.alignment = alignment;
+		this.pattern = pattern;
+		this.width = new Integer(width);
+	}
+	public AutoText(byte type, byte position, HorizontalBandAlignment alignment,byte pattern, int width, int width2){
+		this.type = type;
+		this.position = position;
+		this.alignment = alignment;
+		this.pattern = pattern;
+		this.width = new Integer(width);
+		this.width2 = new Integer(width2);
+	}
 
 	public AutoText(String message, byte position, HorizontalBandAlignment alignment) {
 		this.type = AUTOTEXT_CUSTOM_MESSAGE;
@@ -118,7 +156,7 @@ public class AutoText {
 		this.position = position;
 		this.alignment = alignment;
 		this.messageKey = message;
-		this.with = with;
+		this.width = with;
 		this.fixedWith = false;
 	}
 

@@ -29,8 +29,9 @@
 
 package ar.com.fdvs.dj.test;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import java.awt.Color;
+
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -47,24 +48,14 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.util.SortUtils;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
-
-import java.awt.Color;
-import java.util.Collection;
 
 public class GroupsReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
-		Style detailStyle = new Style();
+		Style detailStyle = new Style("detail");
 
-		Style headerStyle = new Style();
+		Style headerStyle = new Style("header");
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
 		headerStyle.setBorderBottom(Border.PEN_1_POINT);
 		headerStyle.setBackgroundColor(Color.gray);
@@ -73,13 +64,13 @@ public class GroupsReportTest extends BaseDjReportTest {
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		headerStyle.setTransparency(Transparency.OPAQUE);
 
-		Style headerVariables = new Style();
+		Style headerVariables = new Style("headerVariables");
 		headerVariables.setFont(Font.ARIAL_SMALL_BOLD);
 		headerVariables.setBorderBottom(Border.THIN);
 		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
 		headerVariables.setVerticalAlign(VerticalAlign.MIDDLE);
 
-		Style titleStyle = new Style();
+		Style titleStyle = new Style("titleStyle");
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
 		Style importeStyle = new Style();
 		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
@@ -97,7 +88,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
-			.setPrintBackgroundOnOddRows(false)
+			.setPrintBackgroundOnOddRows(true)
 			.setGrandTotalLegend("Grand Total")
 			.setGrandTotalLegendStyle(headerVariables)
 			.setOddRowBackgroundStyle(oddRowStyle);
@@ -147,10 +138,10 @@ public class GroupsReportTest extends BaseDjReportTest {
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
-		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState).addFooterVariable(columnAmount,
-						ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addFooterVariable(columnaQuantity,
-						ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
+		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+				.addHeaderVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
+				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
+				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM) // idem for the columnaQuantity column
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
 

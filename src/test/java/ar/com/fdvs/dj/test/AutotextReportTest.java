@@ -61,21 +61,22 @@ public class AutotextReportTest extends BaseDjReportTest {
 		/**
 		 * Adding many autotexts in the same position (header/footer and aligment) makes them to be one on top of the other
 		 */
-		//First add in the header
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT);
+		//First add in the FOOTER
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT,100,40);
 		drb.addAutoText("Autotext below Page counter", AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT);
 
 		//Note the styled text: <b>msimone</b>, valid tags are: <b>, <i> and <u>
-		drb.addAutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);
+		drb.addAutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT,200);
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT,30,30);
 
 		drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
 
-		//Now in FOOTER
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT);
-		drb.addAutoText("Autotext at top-left", AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT);
-		drb.addAutoText("Autotext at top-left (2)", AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT);
-		drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALIGMENT_CENTER);
+		//Now in HEADER
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT,100,40);
+		drb.addAutoText("Autotext at top-left", AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT,200);
+		
+		drb.addAutoText("Autotext at top-left (2)", AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT,200);
+		drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALIGMENT_CENTER,200);
 		DynamicReport dr = drb.build();
 
 		//i18N, you can set a Locale, different than the default in the VM

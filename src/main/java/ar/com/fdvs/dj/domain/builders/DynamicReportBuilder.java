@@ -121,9 +121,31 @@ public class DynamicReportBuilder {
 
 		return this;
 	}
+	
+	/**
+	 * Adds an autotext to the Report, this are common texts such us "Page X/Y", "Created on 07/25/2007", etc.
+	 * <br>
+	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
+	 *
+	 * @param type  One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br> AUTOTEXT_PAGE_X_SLASH_Y <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
+	 *
+	 * @param position  POSITION_HEADER or POSITION_FOOTER
+	 * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
+	 * @param pattern   only for dates:  <br>PATTERN_DATE_DATE_ONLY <br> PATTERN_DATE_TIME_ONLY <br> PATTERN_DATE_DATE_TIME
+	 * @param width with of the autotext. If autotext is of the type AUTOTEXT_PAGE_X_OF_Y or AUTOTEXT_PAGE_X_SLASH_Y then is the width of the first part
+	 * @param width2  If autotext is of the type AUTOTEXT_PAGE_X_OF_Y or AUTOTEXT_PAGE_X_SLASH_Y, this defines the width given to the "total page" variable
+	 * @return
+	 */
+	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment,byte pattern, int width, int width2) {
+		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
+		AutoText text = new AutoText(type,position,alignment_,pattern,width,width2);
+		addAutoText(text);
+		
+		return this;
+	}
 
 	/**
-	 * Adds a custom fixed message (literal) in header or footer.<br>
+	 * Adds a custom fixed message (literal) in header or footer. The message width will be the page witdth<br>
 	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
 	 * <br>
 	 * <br>
@@ -135,6 +157,25 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addAutoText(String message, byte position, byte alignment) {
 		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
 		AutoText text = new AutoText(message,position,alignment_);
+		text.setWidth(AutoText.WIDTH_NOT_SET);
+		addAutoText(text);
+		return this;
+	}
+	
+	/**
+	 * Adds a custom fixed message (literal) in header or footer. The message width will be the page width<br>
+	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
+	 * <br>
+	 * <br>
+	 * @param message   The text to show
+	 * @param position  POSITION_HEADER or POSITION_FOOTER
+	 * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
+	 * @param width the width of the message
+	 * @return
+	 */	
+	public DynamicReportBuilder addAutoText(String message, byte position, byte alignment, int width) {
+		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
+		AutoText text = new AutoText(message,position,alignment_,new Integer(width));
 		addAutoText(text);
 		return this;
 	}
@@ -150,9 +191,30 @@ public class DynamicReportBuilder {
 	 * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
 	 * @return
 	 */
+	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment, int width, int width2) {
+		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
+		AutoText text = new AutoText(type,position,alignment_);
+		text.setWidth(new Integer(width));
+		text.setWidth2(new Integer(width2));
+		addAutoText(text);
+		return this;
+	}
+	/**
+	 * Adds an autotext to the Report, this are common texts such us "Page X/Y", "Created on 07/25/2007", etc.
+	 * <br>
+	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
+	 *
+	 * @param type       One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br> AUTOTEXT_PAGE_X_SLASH_Y
+	 * <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
+	 * @param position   POSITION_HEADER or POSITION_FOOTER
+	 * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
+	 * @return
+	 */
 	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment) {
 		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
 		AutoText text = new AutoText(type,position,alignment_);
+		text.setWidth(AutoText.WIDTH_NOT_SET);
+		text.setWidth2(AutoText.WIDTH_NOT_SET);
 		addAutoText(text);
 		return this;
 	}

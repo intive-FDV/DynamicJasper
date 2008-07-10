@@ -62,7 +62,7 @@ public class CommonExpressionsHelper {
 
 		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression(KEY_autotext_page, KEY_autotext_of,true));
 		pageNumber.setHeight(height);
-		pageNumber.setWidth(80);
+		pageNumber.setWidth(autoText.getWidth().intValue());
 		pageNumber.setY(yOffset);
 		pageNumber.setPositionType(JRDesignTextField.POSITION_TYPE_FLOAT);
 
@@ -70,7 +70,7 @@ public class CommonExpressionsHelper {
 
 		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
 		pageCounter.setHeight(height);
-		pageCounter.setWidth(30);
+		pageCounter.setWidth(autoText.getWidth2().intValue());
 		pageCounter.setY(yOffset);
 		pageCounter.setEvaluationTime(JRExpression.EVALUATION_TIME_REPORT);
 		pageCounter.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_LEFT);
@@ -101,13 +101,13 @@ public class CommonExpressionsHelper {
 		pageNumber.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
 		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
 		pageNumber.setHeight(height);
-		pageNumber.setWidth(20);
+		pageNumber.setWidth(autoText.getWidth().intValue());
 		pageNumber.setY(yOffset);
 
 		JRDesignTextField pageCounter = new JRDesignTextField();
 		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("/", "",false));
 		pageCounter.setHeight(height);
-		pageCounter.setWidth(20);
+		pageCounter.setWidth(autoText.getWidth().intValue());
 		pageCounter.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_LEFT);
 		pageCounter.setEvaluationTime(JRExpression.EVALUATION_TIME_REPORT);
 		pageCounter.setX(pageNumber.getX() + pageNumber.getWidth());
@@ -143,7 +143,11 @@ public class CommonExpressionsHelper {
 		pageNumber.setHorizontalAlignment(JRDesignTextField.HORIZONTAL_ALIGN_RIGHT);
 		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
 		pageNumber.setHeight(height);
-		pageNumber.setWidth(20);
+		if (AutoText.WIDTH_NOT_SET.equals(autoText.getWidth())){
+			pageNumber.setWidth(report.getOptions().getPrintableWidth());
+		} else {
+			pageNumber.setWidth(autoText.getWidth().intValue());
+		}		
 		pageNumber.setY(yOffset);
 
 		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, pageNumber);
@@ -159,7 +163,11 @@ public class CommonExpressionsHelper {
 
 		dateTf.setExpression(AutoTextExpressionUtils.getDateExpression(KEY_autotext_created_on, "", report.getReportLocale(),autoText.getPattern()));
 		dateTf.setHeight(height);
-		dateTf.setWidth(report.getOptions().getColumnWidth());
+		if (AutoText.WIDTH_NOT_SET.equals(autoText.getWidth())){
+			dateTf.setWidth(report.getOptions().getPrintableWidth());
+		} else {
+			dateTf.setWidth(autoText.getWidth().intValue());
+		}		
 		dateTf.setHorizontalAlignment(autoText.getAlignment().getAlignment());
 		dateTf.setY(yOffset);
 		dateTf.setPositionType(JRDesignTextField.POSITION_TYPE_FLOAT);
@@ -186,10 +194,10 @@ public class CommonExpressionsHelper {
 		textfield.setExpression(expression);
 		textfield.setHeight(autoText.getHeight().intValue());
 		textfield.setStyledText(true);
-		if (autoText.getWith() == null){
+		if (AutoText.WIDTH_NOT_SET.equals(autoText.getWidth())){
 			textfield.setWidth(report.getOptions().getPrintableWidth());
 		} else {
-			textfield.setWidth(autoText.getWith().intValue());
+			textfield.setWidth(autoText.getWidth().intValue());
 		}
 		textfield.setY(yOffset);
 		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, textfield);

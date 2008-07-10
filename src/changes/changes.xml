@@ -34,6 +34,11 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
+         <release version="2.0.10" date="2008-07-10"	desc="Autotext improvements">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Autotext :: More control over the width of Autotext components. No more chucked total page numbers. 
+         	</action>
+         </release>
          <release version="2.0.9" date="2008-07-07"	desc="Many improvements">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Dynamic Subreport fits automatically to parent report printable area :: Use Subreport.fitToParentPrintableArea flag. 

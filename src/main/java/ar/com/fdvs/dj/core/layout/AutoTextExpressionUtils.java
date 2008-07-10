@@ -73,7 +73,6 @@ public abstract class AutoTextExpressionUtils {
 		return expression;
 	}
 
-    //TODO: use string utils
     private static boolean emptyString(String str) {
 		if (str == null)
 			return true;
