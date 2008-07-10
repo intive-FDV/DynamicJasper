@@ -38,6 +38,9 @@
          	<action dev="Juan Manuel Alvarez" type="add">
          		Autotext :: More control over the width of Autotext components. No more chucked total page numbers. 
          	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		odd rows was also painting groups header and footers variables :: This bug was introduced in 2.0.9 
+         	</action>
          </release>
          <release version="2.0.9" date="2008-07-07"	desc="Many improvements">
          	<action dev="Juan Manuel Alvarez" type="add">
