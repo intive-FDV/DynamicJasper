@@ -96,7 +96,9 @@ public class QueryReportTest extends BaseDjReportTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			con.close();
+			try {
+				con.close();
+			} catch (Exception e1) { }
 		}
 	}
 
