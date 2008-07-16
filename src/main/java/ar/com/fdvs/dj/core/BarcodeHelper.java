@@ -29,15 +29,16 @@
 
 package ar.com.fdvs.dj.core;
 
+import java.awt.image.BufferedImage;
+
 import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;
 import net.sourceforge.barbecue.BarcodeImageHandler;
 import net.sourceforge.barbecue.linear.code39.Code39Barcode;
 import net.sourceforge.barbecue.linear.ean.UCCEAN128Barcode;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import java.awt.image.BufferedImage;
 
 public class BarcodeHelper implements BarcodeTypes {
 	/**

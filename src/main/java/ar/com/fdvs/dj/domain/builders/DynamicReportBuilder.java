@@ -29,6 +29,14 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import net.sf.jasperreports.engine.JasperReport;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
@@ -51,14 +59,6 @@ import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
-import net.sf.jasperreports.engine.JasperReport;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * Builder created to give users a friendly way of creating a DynamicReport.</br>

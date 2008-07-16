@@ -32,12 +32,12 @@
  */
 package ar.com.fdvs.dj.core.layout;
 
-import ar.com.fdvs.dj.domain.AutoText;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import ar.com.fdvs.dj.domain.AutoText;
 
 /**
  * @author msimone

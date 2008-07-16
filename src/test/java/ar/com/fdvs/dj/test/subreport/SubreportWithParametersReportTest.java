@@ -33,8 +33,6 @@ package ar.com.fdvs.dj.test.subreport;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Collection;
-import java.util.Date;
 
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 import net.sf.jasperreports.view.JasperViewer;

@@ -29,6 +29,16 @@
 
 package ar.com.fdvs.dj.core.registration;
 
+import java.util.List;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignVariable;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -36,14 +46,6 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import java.util.List;
 
 /**
  * Manager invoked to register variables for groups of columns. </br>

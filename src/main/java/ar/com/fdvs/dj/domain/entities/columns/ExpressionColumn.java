@@ -29,13 +29,14 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
-import ar.com.fdvs.dj.domain.CustomExpression;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import ar.com.fdvs.dj.domain.CustomExpression;
 
 /**
  * Column created to handle Custom Expressions.</br>

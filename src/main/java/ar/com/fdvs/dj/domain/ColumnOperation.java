@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain;
 
+import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
+
 /**
  * Numerical operations that can be applied by an OperationColumn.</br>
  * </br>

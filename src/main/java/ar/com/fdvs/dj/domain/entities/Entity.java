@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
+import ar.com.fdvs.dj.core.registration.AbstractEntityRegistrationManager;
+
 /**
  * Top of Dj's domain hierarchy. Base interface that acts as a hook to apply </br>
  * polymorphism with the Registration Managers.</br>

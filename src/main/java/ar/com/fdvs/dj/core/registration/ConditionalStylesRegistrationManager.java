@@ -29,13 +29,14 @@
 
 package ar.com.fdvs.dj.core.registration;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Manager invoked to register conditional styles. </br>

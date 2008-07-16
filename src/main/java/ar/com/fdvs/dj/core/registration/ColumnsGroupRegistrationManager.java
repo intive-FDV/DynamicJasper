@@ -29,19 +29,21 @@
 
 package ar.com.fdvs.dj.core.registration;
 
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignVariable;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Manager invoked to register groups of columns. A ColumnsGroup is read and </br>

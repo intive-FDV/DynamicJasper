@@ -29,13 +29,13 @@
 
 package ar.com.fdvs.dj.core.layout;
 
-import ar.com.fdvs.dj.domain.AutoText;
-import ar.com.fdvs.dj.domain.DynamicReport;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import ar.com.fdvs.dj.domain.AutoText;
+import ar.com.fdvs.dj.domain.DynamicReport;
 
 /**
  * @author msimone

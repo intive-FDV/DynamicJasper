@@ -29,12 +29,12 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Entity created to handle groups of columns.</br>

@@ -32,17 +32,11 @@ package ar.com.fdvs.dj.test;
 import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Collection;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
@@ -55,7 +49,6 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
-import ar.com.fdvs.dj.util.SortUtils;
 
 public class ConditionalStylesReportTest extends BaseDjReportTest {
 

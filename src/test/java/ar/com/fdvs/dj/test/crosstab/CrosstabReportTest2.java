@@ -31,21 +31,11 @@ package ar.com.fdvs.dj.test.crosstab;
 
 
 import java.awt.Color;
-import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
@@ -64,7 +54,6 @@ import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
-import ar.com.fdvs.dj.test.ReportExporter;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
 

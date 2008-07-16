@@ -29,14 +29,13 @@
 
 package ar.com.fdvs.dj.core.layout;
 
-import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJCrosstabColumn;
-import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
-import ar.com.fdvs.dj.domain.DJCrosstabRow;
-import ar.com.fdvs.dj.domain.constants.Border;
-import ar.com.fdvs.dj.domain.constants.Transparency;
-import ar.com.fdvs.dj.util.ExpressionUtils;
-import net.sf.jasperreports.crosstabs.JRCellContents;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
+
 import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabBucket;
@@ -46,7 +45,6 @@ import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabDataset;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabMeasure;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
 import net.sf.jasperreports.crosstabs.fill.calculation.BucketDefinition;
-import net.sf.jasperreports.engine.JRBox;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.base.JRBaseBox;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
@@ -55,18 +53,19 @@ import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
+
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Random;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJCrosstabColumn;
+import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
+import ar.com.fdvs.dj.domain.DJCrosstabRow;
+import ar.com.fdvs.dj.domain.constants.Border;
+import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 public class Dj2JrCrosstabBuilder {
 

@@ -33,10 +33,7 @@ package ar.com.fdvs.dj.test;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Collection;
 
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
@@ -44,7 +41,6 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.util.SortUtils;
 
 public class QueryReportTest extends BaseDjReportTest {
 

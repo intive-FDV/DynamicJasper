@@ -29,6 +29,10 @@
 
 package ar.com.fdvs.dj.domain;
 
+import java.awt.Color;
+import java.io.Serializable;
+
+import net.sf.jasperreports.engine.design.JRDesignStyle;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
@@ -36,10 +40,6 @@ import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-
-import java.awt.Color;
-import java.io.Serializable;
 
 /**
  * Class that should be used to define the different styles in a friendly </br>

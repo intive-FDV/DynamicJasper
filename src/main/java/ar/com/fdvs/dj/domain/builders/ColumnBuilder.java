@@ -29,6 +29,13 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.ColumnProperty;
@@ -42,13 +49,6 @@ import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * Builder created to give users a friendly way of adding columns to a report.</br>

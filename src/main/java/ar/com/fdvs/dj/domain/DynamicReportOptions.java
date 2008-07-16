@@ -29,9 +29,9 @@
 
 package ar.com.fdvs.dj.domain;
 
-import ar.com.fdvs.dj.domain.constants.Page;
-
 import java.util.HashMap;
+
+import ar.com.fdvs.dj.domain.constants.Page;
 
 /**
  * Class that defines the report configuration.

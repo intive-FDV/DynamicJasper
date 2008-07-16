@@ -29,13 +29,13 @@
 
 package ar.com.fdvs.dj.util;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.Comparator;
 import java.util.List;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * @author Alejandro Gomez

@@ -29,14 +29,14 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.entities.Entity;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Abstract Class used as base for the different Column types.

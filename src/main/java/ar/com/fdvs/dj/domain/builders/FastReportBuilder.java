@@ -29,6 +29,13 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import java.awt.Color;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
@@ -46,13 +53,6 @@ import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-
-import java.awt.Color;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Builder created to give users a friendly way of creating a DynamicReport.</br>

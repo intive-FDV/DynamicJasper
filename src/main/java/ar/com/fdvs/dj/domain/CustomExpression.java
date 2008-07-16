@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain;
 
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
+
 /**
  * Powerful interface. The idea behind this is that anybody could extend </br>
  * this class and redefine the evaluate method to show different results in a cell. </br>

@@ -2,11 +2,11 @@ package ar.com.fdvs.dj.util;
 
 import java.util.Iterator;
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import net.sf.jasperreports.engine.JRBand;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
+
+import org.apache.commons.beanutils.BeanUtils;
 
 public class LayoutUtils {
 	

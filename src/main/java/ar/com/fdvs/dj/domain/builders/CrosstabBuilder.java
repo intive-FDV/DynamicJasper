@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import java.util.Iterator;
+
 import ar.com.fdvs.dj.core.layout.LayoutException;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
@@ -38,8 +40,6 @@ import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
-
-import java.util.Iterator;
 
 public class CrosstabBuilder {
 

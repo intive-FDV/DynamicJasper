@@ -29,11 +29,11 @@
 
 package ar.com.fdvs.dj.test;
 
-import ar.com.fdvs.dj.test.domain.Product;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
+import ar.com.fdvs.dj.test.domain.Product;
 
 public class TestRepositoryProducts {
 

@@ -5,14 +5,12 @@ import java.util.Date;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
-import net.sf.jasperreports.engine.query.JRXPathQueryExecuterFactory;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
 import net.sf.jasperreports.view.JasperViewer;
 
 import org.w3c.dom.Document;
 
-import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;

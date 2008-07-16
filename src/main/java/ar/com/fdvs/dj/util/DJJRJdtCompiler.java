@@ -29,11 +29,10 @@
 
 package ar.com.fdvs.dj.util;
 
+import java.util.Map;
+
 import net.sf.jasperreports.engine.design.JRJdtCompiler;
 import net.sf.jasperreports.engine.util.JRClassLoader;
-//import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;
-
-import java.util.Map;
 
 /**
  * @author Alejandro Gomez (alejandro.gomez@fdvsolutions.com)

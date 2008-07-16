@@ -29,9 +29,9 @@
 
 package ar.com.fdvs.dj.domain;
 
-import net.sf.jasperreports.engine.design.JasperDesign;
-
 import java.util.TreeMap;
+
+import net.sf.jasperreports.engine.design.JasperDesign;
 
 /**
  * Custom implementation of JasperDesign class. It adds the concept of registerd </br>

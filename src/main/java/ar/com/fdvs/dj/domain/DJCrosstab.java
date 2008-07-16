@@ -29,10 +29,10 @@
 
 package ar.com.fdvs.dj.domain;
 
-import ar.com.fdvs.dj.domain.constants.Border;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import ar.com.fdvs.dj.domain.constants.Border;
 
 public class DJCrosstab {
 

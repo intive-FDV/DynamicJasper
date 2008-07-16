@@ -29,28 +29,19 @@
 
 package ar.com.fdvs.dj.test.subreport;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.SubReportBuilder;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
-import ar.com.fdvs.dj.test.ReportExporter;
-import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.test.domain.Product;
-import ar.com.fdvs.dj.util.SortUtils;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.view.JasperViewer;
-
-import java.util.Collection;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SubReportBuilderTest extends BaseDjReportTest {
 

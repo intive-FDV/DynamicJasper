@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain;
 
+import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
+
 /**
  * Operations that can be shown as a group variable.</br>
  * </br>

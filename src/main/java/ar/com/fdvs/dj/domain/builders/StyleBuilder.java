@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import java.awt.Color;
+
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
@@ -37,8 +39,6 @@ import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-
-import java.awt.Color;
 
 public class StyleBuilder {
 

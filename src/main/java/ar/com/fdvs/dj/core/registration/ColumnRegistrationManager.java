@@ -29,6 +29,16 @@
 
 package ar.com.fdvs.dj.core.registration;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRField;
+import net.sf.jasperreports.engine.design.JRDesignField;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -37,14 +47,6 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRField;
-import net.sf.jasperreports.engine.design.JRDesignField;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Manager invoked to register columns. An AbstractColumn is read and </br>

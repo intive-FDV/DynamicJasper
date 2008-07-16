@@ -29,13 +29,13 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import java.beans.PropertyDescriptor;
 import java.util.Collection;
 import java.util.Date;
+
+import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Builder created to give users an easy way of creating a DynamicReport based on a collection.</br>
