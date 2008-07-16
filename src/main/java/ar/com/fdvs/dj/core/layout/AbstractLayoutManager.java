@@ -37,7 +37,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
-import net.sf.jasperreports.engine.JRBand;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
@@ -102,10 +101,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	protected abstract void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField);
 
 	private HashMap reportStyles = new HashMap();
-	
+
 	/**
 	 * Holds the original groups binded to a column.
-	 * Needed for later reference 
+	 * Needed for later reference
 	 */
 	protected List realGroups = new ArrayList();
 
@@ -145,20 +144,20 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			return;
 		JRDesignBand band = new JRDesignBand();
 		getDesign().setNoData(band);
-		
+
 		JRDesignTextField text = new JRDesignTextField();
 		JRDesignExpression expression = ExpressionUtils.createStringExpression("\""+whenNoDataText+"\"");
 		text.setExpression(expression);
-		
+
 		if (style == null){
 			style = getReport().getOptions().getDefaultDetailStyle();
 		}
-		
+
 		if (getReport().isWhenNoDataShowTitle())
 			LayoutUtils.copyBandElements(band, getDesign().getPageHeader());
 		if (getReport().isWhenNoDataShowColumnHeader())
 			LayoutUtils.copyBandElements(band, getDesign().getColumnHeader());
-		
+
 		int offset = LayoutUtils.findVerticalOffset(band);
 		text.setY(offset);
 		applyStyleToElement(style, text);
@@ -166,7 +165,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		text.setHeight(50);
 		band.addElement(text);
 		log.debug("OK setting up WHEN NO DATA band");
-		
+
 	}
 
 	protected void startLayout() {
@@ -215,7 +214,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		JRDesignStyle jrstyle = style.transform();
 		try {
 			if (jrstyle.getName() == null) {
-				String name = "dj_style_" + (getReportStyles().values().size() + 1);
+				String name = createUniqueStyleName();
 				jrstyle.setName(name);
 				style.setName(name);
 				getReportStyles().put(name, jrstyle);
@@ -238,6 +237,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		} catch (JRException e) {
 			log.debug("Duplicated style (it's ok): " + e.getMessage());
 		}
+	}
+
+	protected synchronized String createUniqueStyleName() {
+		String tryName = "dj_style_" + (getReportStyles().values().size() + 1);
+		return tryName;
 	}
 
 	/**
@@ -381,10 +385,28 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		}
 	}
 
-	public JRDesignStyle applyStyleToElement(Style style, JRDesignElement designElemen) {
+	/**
+	 * Given a dj-Style, it is applied to the jasper element.
+	 * If the style is being used by the first time, it is registered in the jasper-design,
+	 * if it is the second time, the one created before is used  (cached one)
+	 *
+	 *
+	 * @param style
+	 * @param designElemen
+	 */
+	public void applyStyleToElement(Style style, JRDesignElement designElemen) {
 		if (style == null){
-			log.warn("NULL style passed to design element: " + designElemen.getClass());
-			return null;
+//			log.warn("NULL style passed to object");
+			JRDesignStyle style_ = new JRDesignStyle();
+			style_.setName( createUniqueStyleName());
+			designElemen.setStyle(style_);
+			try {
+				getDesign().addStyle(style_);
+			} catch (JRException e) {
+				//duplicated style, its ok
+			}
+//			return null;
+			return;
 		}
 		boolean existsInDesign = style.getName() != null
 								&& design.getStylesMap().get(style.getName()) != null;
@@ -413,7 +435,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			if (textField.isBlankWhenNull() == false && style.isBlankWhenNull())
 				textField.setBlankWhenNull(true);
 		}
-		return jrstyle;
+//		return jrstyle;
+		return;
 	}
 
 
@@ -562,46 +585,48 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         if (columnStyle == null)
         	columnStyle = report.getOptions().getDefaultDetailStyle();
 
-        JRDesignStyle jrstyle = applyStyleToElement(columnStyle, textField);
+        applyStyleToElement(columnStyle, textField);
+        JRDesignStyle jrstyle = (JRDesignStyle) textField.getStyle();
 
         if (group != null) {
         	int index = getReport().getColumnsGroups().indexOf(group);
             JRDesignGroup previousGroup = (JRDesignGroup) getDesign().getGroupsList().get(index);
             textField.setPrintWhenGroupChanges(previousGroup);
-            
+
             /**
              * Since a group column can share the style with non group columns, if oddRow coloring is enabled,
-             * we modified this shared style to have a colored background on odd rows. We dont want that for group 
-             * columns, that's why we create our own style from the existing one, and remove proper odd-row conditional 
+             * we modified this shared style to have a colored background on odd rows. We dont want that for group
+             * columns, that's why we create our own style from the existing one, and remove proper odd-row conditional
              * style if present
              */
             JRDesignStyle groupStyle = new JRDesignStyle();
             try {
-				BeanUtils.copyProperties(groupStyle, jrstyle);
+            	if (jrstyle != null)
+            		BeanUtils.copyProperties(groupStyle, jrstyle);
 			} catch (Exception e) {
-				throw new DJException("Could not copy properties for shared group style: " + e.getMessage(),e);	
-			} 
-			
+				throw new DJException("Could not copy properties for shared group style: " + e.getMessage(),e);
+			}
+
 			groupStyle.setName(groupStyle.getFontName() +"_for_group_"+index);
 			textField.setStyle(groupStyle);
 			try {
 				design.addStyle(groupStyle);
 			} catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
-            
+
         } else {
-        	if (getReport().getOptions().isPrintBackgroundOnOddRows() && 
+        	if (getReport().getOptions().isPrintBackgroundOnOddRows() &&
         			(jrstyle.getConditionalStyles() == null || jrstyle.getConditionalStyles().length == 0)) {
 	        	// No group column so this is a detail text field
 	    		JRDesignExpression expression = new JRDesignExpression();
 	    		expression.setValueClass(Boolean.class);
 	    		expression.setText(EXPRESSION_TRUE_WHEN_ODD);
-	
+
 	    		Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
-	    		
+
 	    		JRDesignConditionalStyle condStyle = new JRDesignConditionalStyle();
 	    		condStyle.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
 	    		condStyle.setMode(JRDesignElement.MODE_OPAQUE);
-	    		
+
 	    		condStyle.setConditionExpression(expression);
 	    		jrstyle.addConditionalStyle(condStyle);
         	}
@@ -613,13 +638,13 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * Takes all the report's charts and inserts them in their corresponding bands
 	 */
 	protected void layoutCharts() {
-		//Pre-sort charts by group column 
-		MultiMap mmap = new MultiHashMap(); 
+		//Pre-sort charts by group column
+		MultiMap mmap = new MultiHashMap();
 		for (Iterator iter = getReport().getCharts().iterator(); iter.hasNext();) {
 			DJChart djChart = (DJChart) iter.next();
 			mmap.put(djChart.getColumnsGroup(), djChart);
-		}		
-		
+		}
+
 		for (Iterator iterator = mmap.keySet().iterator(); iterator.hasNext();) {
 			Object key =  iterator.next();
 			Collection charts = (Collection) mmap.get(key);
@@ -631,7 +656,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 				//Charts has their own band, so they are added in the band at Y=0
 				JRDesignBand band = createGroupForChartAndGetBand(djChart);
-				band.addElement(chart);				
+				band.addElement(chart);
 			}
 		}
 	}
@@ -645,12 +670,12 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			jrGroupChart.setGroupFooter( new JRDesignBand());
 			jrGroupChart.setGroupHeader( new JRDesignBand());
 			jrGroupChart.setName(jrGroupChart.getName()+"_Chart" + getReport().getCharts().indexOf(djChart));
-		} catch (Exception e) {				
+		} catch (Exception e) {
 			throw new DJException("Problem creating band for chart: " + e.getMessage(),e);
 		}
-		
+
 		//Charts should be added in its own band (to ensure page break, etc)
-		//To achieve that, we create a group and insert it right before to the criteria group.  
+		//To achieve that, we create a group and insert it right before to the criteria group.
 		//I need to find parent group of the criteria group, clone and insert after.
 		//The only precaution is that if parent == child (only one group in the report) the we insert before
 		if (jrGroup.equals(parentGroup)){
@@ -659,7 +684,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			int index = getDesign().getGroupsList().indexOf(parentGroup);
 			getDesign().getGroupsList().add(index, jrGroupChart);
 		}
-		
+
 		JRDesignBand band = null;
 		switch (djChart.getOptions().getPosition()) {
 		case DJChartOptions.POSITION_HEADER:
@@ -678,14 +703,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 */
 	protected JRDesignChart createChart(DJChart djChart){
 			JRDesignGroup jrGroupChart = getGroupFromColumnsGroup(djChart.getColumnsGroup());
-			
+
 			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
 			JRDesignGroup parentGroup = getParent(jrGroupChart);
 			List chartVariables = registerChartVariable(djChart);
 			JRDesignChartDataset chartDataset = DataSetFactory.getDataset(djChart, jrGroupChart, parentGroup, chartVariables);
 			chart.setDataset(chartDataset);
 			interpeterOptions(djChart, chart);
-			
+
 			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
 			chart.setEvaluationGroup(jrGroupChart);
 			return chart;
@@ -697,9 +722,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		//size
 		if (options.isCentered())
 			chart.setWidth(getReport().getOptions().getPrintableWidth());
-		else 
+		else
 			chart.setWidth(options.getWidth());
-			
+
 		chart.setHeight(options.getHeight());
 
 		//position
@@ -721,7 +746,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			}
 		}
 		//Chart-dependent options
-		if (djChart.getType() == DJChart.BAR_CHART) 
+		if (djChart.getType() == DJChart.BAR_CHART)
 			((JRDesignBarPlot) chart.getPlot()).setShowTickLabels(options.isShowLabels());
 	}
 
@@ -735,23 +760,23 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		//FIXME aca hay que iterar por cada columna. Cambiar DJChart para que tome muchas
 		JRDesignGroup group = getGroupFromColumnsGroup(chart.getColumnsGroup());
 		List vars = new ArrayList();
-		
+
 		int serieNum = 0;
 		for (Iterator iterator = chart.getColumns().iterator(); iterator.hasNext();) {
 			AbstractColumn col = (AbstractColumn) iterator.next();
-			
-		
+
+
 			Class clazz = null;
 			try { clazz = Class.forName(col.getValueClassNameForExpression());
-			} catch (ClassNotFoundException e) { 
+			} catch (ClassNotFoundException e) {
 				throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
 			}
-	
+
 			JRDesignExpression expression = new JRDesignExpression();
 			//FIXME Only PropertyColumn allowed?
 			expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
 			expression.setValueClass(clazz);
-	
+
 			JRDesignVariable var = new JRDesignVariable();
 			var.setValueClass(clazz);
 			var.setExpression(expression);
@@ -759,11 +784,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			var.setResetGroup(group);
 			var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
 
-			//use the index as part of the name just because I may want 2 
-			//different types of chart from the very same column (with the same operation also) making the variables name to be duplicated 
-			int chartIndex = getReport().getCharts().indexOf(chart); 
+			//use the index as part of the name just because I may want 2
+			//different types of chart from the very same column (with the same operation also) making the variables name to be duplicated
+			int chartIndex = getReport().getCharts().indexOf(chart);
 			var.setName("CHART_[" + chartIndex +"_s" +serieNum + "+]_" + group.getName() + "_" + col.getTitle() + "_" + chart.getOperation());
-	
+
 			try {
 				getDesign().addVariable(var);
 				vars.add(var);
@@ -771,7 +796,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				throw new LayoutException(e.getMessage());
 			}
 			serieNum++;
-		}		
+		}
 		return vars;
 	}
 
