@@ -89,6 +89,7 @@ import ar.com.fdvs.dj.util.DJCompilerFactory;
 public final class DynamicJasperHelper {
 
 	private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
+	public static final String DEFAULT_XML_ENCODING = "UTF-8";
 	private static final String DJ_RESOURCE_BUNDLE ="dj-messages";
 
 	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
@@ -163,14 +164,14 @@ public final class DynamicJasperHelper {
 
 		des.setWhenNoDataType(dr.getWhenNoDataType());
 		des.setWhenResourceMissingType(dr.getWhenResourceMissing());
-		
+
 		des.setTitleNewPage(false);
 		des.setSummaryNewPage(false);
 
 		des.setDetail(new JRDesignBand());
-		
+
 		des.getDetail().setSplitAllowed(dr.isAllowDetailSplit());
-		
+
 		des.setPageHeader(new JRDesignBand());
 		des.setPageFooter(new JRDesignBand());
 		des.setSummary(new JRDesignBand());
@@ -178,7 +179,7 @@ public final class DynamicJasperHelper {
 		des.setTitleNewPage(options.isTitleNewPage());
 
 		des.setIgnorePagination(options.isIgnorePagination());
-		
+
 		if (dr.getQuery() != null){
 			JRDesignQuery query = getJRDesignQuery(dr);
 			des.setQuery(query);
@@ -206,7 +207,7 @@ public final class DynamicJasperHelper {
 					jd = downCast(jdesign);
 				}
 				populateReportOptionsFromDesign(jd,dr);
-				
+
 			} else {
 				//Create new JasperDesign from the scratch
 				jd = getNewDesign(dr);
@@ -226,14 +227,14 @@ public final class DynamicJasperHelper {
 			JRDesignParameter jrparam = new JRDesignParameter();
 			jrparam.setName(param.getName());
 			jrparam.setValueClassName(param.getClassName());
-			
+
 			try {
 				jd.addParameter(jrparam);
 			} catch (JRException e) {
 				throw new CoreException(e.getMessage(),e);
-			}			
+			}
 		}
-		
+
 	}
 
 	/**
@@ -254,12 +255,12 @@ public final class DynamicJasperHelper {
 		options.setColumnsPerPage(new Integer(jd.getColumnCount()));
 
 		options.setPage(new Page(jd.getPageHeight(),jd.getPageWidth()));
-		
+
 		if (dr.getQuery() != null){
 			JRDesignQuery query = getJRDesignQuery(dr);
 			jd.setQuery(query);
 		}
-		
+
 	}
 
 	/**
@@ -348,16 +349,16 @@ public final class DynamicJasperHelper {
 				registerParams(jd,_parameters);
 				params.putAll(_parameters);
 			}
-			
+
 			registerEntities(jd, dr);
 			layoutManager.applyLayout(jd, dr);
             JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
-            
+
 //            JRDesignReportFont reportFont = new JRDesignReportFont();
 //            reportFont.setName("Cocaine Sans Normal");
-//            reportFont.setFontSize(28);            
+//            reportFont.setFontSize(28);
 //			jd.addFont(reportFont);
-            
+
             JasperReport jr = JasperCompileManager.compileReport(jd);
             params.putAll(jd.getParametersWithValues());
             jp = JasperFillManager.fillReport(jr, params, ds);
@@ -377,13 +378,13 @@ public final class DynamicJasperHelper {
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Connection con, Map _parameters) throws JRException {
     	log.info("generating JasperPrint");
     	JasperPrint jp = null;
-    	
+
     	if (_parameters == null)
     		_parameters = new HashMap();
-    	
+
     	visitSubreports(dr, _parameters);
     	compileOrLoadSubreports(dr, _parameters);
-    	
+
     	DynamicJasperDesign jd = generateJasperDesign(dr);
     	Map params = new HashMap();
     	if (!_parameters.isEmpty()){
@@ -396,11 +397,11 @@ public final class DynamicJasperHelper {
     	JasperReport jr = JasperCompileManager.compileReport(jd);
     	params.putAll(jd.getParametersWithValues());
     	jp = JasperFillManager.fillReport(jr, params, con);
-    	
+
     	return jp;
     }
 
-    
+
     /**
      * For compiling and filling reports whose datasource is passed as parameter (e.g. Hibernate, Mondrean, etc.)
      * @param dr
@@ -412,13 +413,13 @@ public final class DynamicJasperHelper {
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Map _parameters) throws JRException {
     	log.info("generating JasperPrint");
     	JasperPrint jp = null;
-    	
+
     	if (_parameters == null)
     		_parameters = new HashMap();
-    	
+
     	visitSubreports(dr, _parameters);
     	compileOrLoadSubreports(dr, _parameters);
-    	
+
     	DynamicJasperDesign jd = generateJasperDesign(dr);
     	Map params = new HashMap();
     	if (!_parameters.isEmpty()){
@@ -431,7 +432,7 @@ public final class DynamicJasperHelper {
     	JasperReport jr = JasperCompileManager.compileReport(jd);
     	params.putAll(jd.getParametersWithValues());
     	jp = JasperFillManager.fillReport(jr, params);
-    	
+
     	return jp;
     }
 
@@ -446,8 +447,8 @@ public final class DynamicJasperHelper {
 	 */
     public static String generateJRXML(DynamicReport dr, LayoutManager layoutManager, Map _parameters, String xmlEncoding) throws JRException {
     	JasperReport jr = generateJasperReport(dr, layoutManager, _parameters);
-    	if (xmlEncoding == null) 
-    		xmlEncoding = "UTF-8";
+    	if (xmlEncoding == null)
+    		xmlEncoding = DEFAULT_XML_ENCODING;
     	return JRXmlWriter.writeReport(jr, xmlEncoding);
     }
 
@@ -462,8 +463,8 @@ public final class DynamicJasperHelper {
      */
     public static void generateJRXML(DynamicReport dr, LayoutManager layoutManager, Map _parameters, String xmlEncoding, OutputStream outputStream) throws JRException {
     	JasperReport jr = generateJasperReport(dr, layoutManager, _parameters);
-    	if (xmlEncoding == null) 
-    		xmlEncoding = "UTF-8";
+    	if (xmlEncoding == null)
+    		xmlEncoding = DEFAULT_XML_ENCODING;
     	 JRXmlWriter.writeReport(jr, outputStream, xmlEncoding);
     }
 
@@ -478,8 +479,8 @@ public final class DynamicJasperHelper {
      */
     public static void generateJRXML(DynamicReport dr, LayoutManager layoutManager, Map _parameters, String xmlEncoding, String filename) throws JRException {
     	JasperReport jr = generateJasperReport(dr, layoutManager, _parameters);
-    	if (xmlEncoding == null) 
-    		xmlEncoding = "UTF-8";
+    	if (xmlEncoding == null)
+    		xmlEncoding = DEFAULT_XML_ENCODING;
     	JRXmlWriter.writeReport(jr, filename, xmlEncoding);
     }
 
@@ -530,7 +531,7 @@ public final class DynamicJasperHelper {
 						log.warn("Parameter \"" + key + "\" already registered, skipping this one.");
 						continue;
 					}
-					
+
 					JRDesignParameter parameter = new JRDesignParameter();
 					Object value = _parameters.get(key);
 //					parameter.setValueClassName(value.getClass().getCanonicalName());
@@ -558,8 +559,8 @@ public final class DynamicJasperHelper {
 	 * @param layoutManager
 	 * @return
 	 * @throws JRException
-	 * 
-	 * @deprecated use the overloaded version that needs a parameters Map 
+	 *
+	 * @deprecated use the overloaded version that needs a parameters Map
 	 */
 	public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager) throws JRException {
 		log.info("generating JasperReport");
@@ -571,10 +572,10 @@ public final class DynamicJasperHelper {
             jr = JasperCompileManager.compileReport(jd);
 		return jr;
 	}
-	
+
 	/**
 	 * Compiles the report and applies the layout. <b>generatedParams</b> MUST NOT BE NULL
-	 * All the key objects from the generatedParams map that are String, will be registered as parameters of the report. 
+	 * All the key objects from the generatedParams map that are String, will be registered as parameters of the report.
 	 * @param dr
 	 * @param layoutManager
 	 * @param generatedParams
@@ -592,9 +593,9 @@ public final class DynamicJasperHelper {
 
 			DynamicJasperDesign jd = generateJasperDesign(dr);
 			registerEntities(jd, dr);
-			
-			registerParams(jd, generatedParams); //if we have parameters from the outside, we register them			
-			
+
+			registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
+
 			layoutManager.applyLayout(jd, dr);
 			JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
 			jr = JasperCompileManager.compileReport(jd);
@@ -635,7 +636,7 @@ public final class DynamicJasperHelper {
 
 			}
 		}
-		
+
 	}
 
 	protected static void visitSubreport(DynamicReport parentDr, Subreport subreport, Map _parameters) {

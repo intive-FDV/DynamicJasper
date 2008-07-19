@@ -32,10 +32,16 @@ package ar.com.fdvs.dj.domain;
 import java.awt.Color;
 import java.io.Serializable;
 
+import net.sf.jasperreports.engine.JRConstants;
+import net.sf.jasperreports.engine.JRElement;
+import net.sf.jasperreports.engine.JRReport;
+import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
+import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
@@ -263,6 +269,13 @@ public class Style implements Serializable, Cloneable {
 			transformedStyle.setRadius(getRadius().intValue());
 
 		transformedStyle.setPattern(this.pattern);
+
+		/**
+		 * This values are needed when exporting to JRXML
+		 */
+		transformedStyle.setPen((byte)1);
+		transformedStyle.setFill((byte)1);
+		transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());
 
 		return transformedStyle;
 	}
