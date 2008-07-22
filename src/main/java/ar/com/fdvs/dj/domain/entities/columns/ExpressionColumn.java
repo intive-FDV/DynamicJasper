@@ -36,6 +36,7 @@ import java.util.Iterator;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.CustomExpression;
 
 /**
@@ -97,8 +98,10 @@ public class ExpressionColumn extends SimpleColumn {
 				String propname = propcol.getColumnProperty().getProperty();
 				sb.append(".with(\"" +  propname + "\",$F{" + propname + "})");
 			}
-
 		}
+
+		sb.append(".with(\"" +  DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP + "\",$P{" + DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP + "})");
+
 		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+getColumnProperty().getProperty()+"})."+CustomExpression.EVAL_METHOD_NAME+"( "+ sb.toString() +" ))";
 		//		return "(("+getValueClassNameForExpression()+")$P{"+getColumnProperty().getProperty()+"})."+CustomExpression.EVAL_METHOD_NAME+"( "+ sb.toString() +" )";
 		log.debug("Expression for CustomExpression = " + stringExpression);

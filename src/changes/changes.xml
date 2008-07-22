@@ -36,24 +36,27 @@
    <body>
          <release version="2.0.10" date="2008-07-10"	desc="Autotext improvements">
          	<action dev="Juan Manuel Alvarez" type="add">
-         		Autotext :: More control over the width of Autotext components. No more chucked total page numbers. 
+         		Autotext :: More control over the width of Autotext components. No more chucked total page numbers.
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
-         		odd rows was also painting groups header and footers variables :: This bug was introduced in 2.0.9 
+         		odd rows was also painting groups header and footers variables :: This bug was introduced in 2.0.9
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Parameter Map available in Custom Expression :: It is stored in the Map under the key DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP
          	</action>
          </release>
          <release version="2.0.9" date="2008-07-07"	desc="Many improvements">
          	<action dev="Juan Manuel Alvarez" type="add">
-         		Dynamic Subreport fits automatically to parent report printable area :: Use Subreport.fitToParentPrintableArea flag. 
+         		Dynamic Subreport fits automatically to parent report printable area :: Use Subreport.fitToParentPrintableArea flag.
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
-         		New Exception ar.com.fdvs.dj.core.DJExpection for generics problems inside the API  
+         		New Exception ar.com.fdvs.dj.core.DJExpection for generics problems inside the API
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
-         		Tests: path to output file was not being created  
+         		Tests: path to output file was not being created
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
-         		Report Locale: made some fixes to ensure that at least the default locale is loaded.  
+         		Report Locale: made some fixes to ensure that at least the default locale is loaded.
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add" due-to="Eric Bartley">
          		Field properties: JRField properties can be passed to the column builder or the column object itself. Thanks Eric Bartley!
@@ -62,7 +65,7 @@
          		Odd rows on HTML: Coloring was not working properly. Thanks Eric Bartley!
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
-         		Charts with many categories: more than one column can be added to charts (one column per category) 
+         		Charts with many categories: more than one column can be added to charts (one column per category)
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
          		Many charts for a given group may exceed band allowed height.
@@ -88,10 +91,10 @@
          		Removed static dependency Eclipse JST compiler :: Thanks Tito (enjuto).
          	</action>
          	<action dev="Juan Manuel Alvarez" type="remove">
-         		Java 1.2 is no longer supported :: This is from jasperReports 2.0.5 (they removed the class JRJdk12Compiler. Thanks mikea59. 
+         		Java 1.2 is no longer supported :: This is from jasperReports 2.0.5 (they removed the class JRJdk12Compiler. Thanks mikea59.
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
-         		Header Charts :: they where leaving a blank space before the column titles.  
+         		Header Charts :: they where leaving a blank space before the column titles.
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
          		Sub reports can start in new page :: thanks jacklty!
@@ -114,19 +117,19 @@
          		More than one chart in a group :: You can now create more than one chart in the same group, thanks Sagara!
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
-         		Define behaviour when datasource is empty :: just a passthough to the JasperReports options. Use DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES, DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE, 
+         		Define behaviour when datasource is empty :: just a passthough to the JasperReports options. Use DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES, DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE,
          		DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL, DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION.
          		Thanks Dorin Scutarasu!!!
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
-         		Define behaviour when missing resource is found :: just a passthough to the JasperReports options. Use DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY, DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR, 
+         		Define behaviour when missing resource is found :: just a passthough to the JasperReports options. Use DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY, DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR,
          		DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY, DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL.
          		Thanks Dorin Scutarasu!!!
          	</action>
          </release>
          <release version="2.0.5" date="2008-02-04"	desc="Minor users requests">
          	<action dev="Juan Manuel Alvarez" type="add">
-         		Field desctiption for XML datasources :: XML Data sources need that the fields had the property "description" defined. 
+         		Field desctiption for XML datasources :: XML Data sources need that the fields had the property "description" defined.
          		Though ColumBuilder and FastReport builder "description" can be defined, thanks gustav_b
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
@@ -142,7 +145,7 @@
          		Report query :: Added report query to work the same as JasperReports
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
-         		Export to jrxml file :: You can export your design to jrxml (for retouching in iReport) from the DynamicJasperHelper 
+         		Export to jrxml file :: You can export your design to jrxml (for retouching in iReport) from the DynamicJasperHelper
          	</action>
        	</release>
          <release version="2.0.3" date="2008-01-04"	desc="urgent fix">
