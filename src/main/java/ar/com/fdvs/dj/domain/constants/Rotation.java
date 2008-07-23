@@ -1,5 +1,5 @@
 /*
- * Dynamic Jasper: A library for creating reports dynamically by specifying
+ * DynamicJasper: A library for creating reports dynamically by specifying
  * columns, groups, styles, etc. at runtime. It also saves a lot of development
  * time in many cases! (http://sourceforge.net/projects/dynamicjasper)
  *
