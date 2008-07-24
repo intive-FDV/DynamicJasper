@@ -44,6 +44,9 @@
          	<action dev="Juan Manuel Alvarez" type="add">
          		Parameter Map available in Custom Expression :: It is stored in the Map under the key DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP
          	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		NPE when cloning styles :: this bug was introduced in version 2.0.9
+         	</action>
          </release>
          <release version="2.0.9" date="2008-07-07"	desc="Many improvements">
          	<action dev="Juan Manuel Alvarez" type="add">
