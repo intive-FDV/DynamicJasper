@@ -47,9 +47,11 @@ import java.util.ResourceBundle;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JRStyle;
+import net.sf.jasperreports.engine.JRVariable;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -59,6 +61,7 @@ import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -286,8 +289,38 @@ public final class DynamicJasperHelper {
 				JRParameter element = (JRParameter) iter.next();
 				try {
 					djd.addParameter(element);
-				} catch (JRException e) {	}
+				} catch (JRException e) {	
+					if (log.isDebugEnabled()){
+						log.warn(e.getMessage());
+					}
+				}
 
+			}
+			//BeanUtils.copyProperties does not perform deep copy,
+			//adding original fiels definitions manually
+			for (Iterator iter = jd.getFieldsList().iterator(); iter.hasNext();) {
+				JRField element = (JRField) iter.next();
+				try {
+					djd.addField(element);
+				} catch (JRException e) {	
+					if (log.isDebugEnabled()){
+						log.warn(e.getMessage());
+					}
+				}
+			}
+			//BeanUtils.copyProperties does not perform deep copy,
+			//adding original fiels definitions manually
+			for (Iterator iter = jd.getVariablesList().iterator(); iter.hasNext();) {
+				JRVariable element = (JRVariable) iter.next();
+				try {
+					if (element instanceof JRDesignVariable){
+						djd.addVariable((JRDesignVariable) element);
+					}
+				} catch (JRException e) {	
+					if (log.isDebugEnabled()){
+						log.warn(e.getMessage());
+					}
+				}
 			}
 
 			//Add all existing styles in the design to the new one
@@ -296,7 +329,9 @@ public final class DynamicJasperHelper {
 				try {
 					djd.addStyle(style);
 				} catch (JRException e) {
-					log.warn("Duplicated style (style name \""+ style.getName()+"\") when loading design: " + e.getMessage(), e);
+					if (log.isDebugEnabled()){
+						log.warn("Duplicated style (style name \""+ style.getName()+"\") when loading design: " + e.getMessage(), e);
+					}
 				}
 			}
 

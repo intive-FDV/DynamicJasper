@@ -47,14 +47,14 @@
 	<!--		<appender-ref ref="console" />-->
 	<!--	</category>-->
 
-	<category name="ar.com" additivity="false">
-		<priority value="DEBUG" />
+	<category name="ar.com.fdvs">
+		<priority value="ERROR" />
 		<appender-ref ref="console" />
 	</category>
-	<category name="ar.com.fdvs.dj.core.layout" additivity="false">
-		<priority value="DEBUG" />
-		<appender-ref ref="console" />
-	</category>
+<!--	<category name="ar.com.fdvs.dj.core.layout">-->
+<!--		<priority value="DEBUG" />-->
+<!--		<appender-ref ref="console" />-->
+<!--	</category>-->
 	<category name="com.opensymphony.xwork2" additivity="false">
 		<priority value="DEBUG" />
 	</category>
