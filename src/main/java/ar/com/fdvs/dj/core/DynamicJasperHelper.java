@@ -309,7 +309,30 @@ public final class DynamicJasperHelper {
 				}
 			}
 			//BeanUtils.copyProperties does not perform deep copy,
-			//adding original fiels definitions manually
+			//adding original fiedls definitions manually
+			for (Iterator iter = jd.getVariablesList().iterator(); iter.hasNext();) {
+				JRVariable element = (JRVariable) iter.next();
+				try {
+					if (element instanceof JRDesignVariable){
+						djd.addVariable((JRDesignVariable) element);
+					}
+				} catch (JRException e) {	
+					if (log.isDebugEnabled()){
+						log.warn(e.getMessage());
+					}
+				}
+			}
+			//BeanUtils.copyProperties does not perform deep copy,
+			//adding original properties definitions manually
+			String[] properties = jd.getPropertyNames();
+			for (int i = 0; i < properties.length; i++) {
+				String propName = properties[i];
+				String propValue = jd.getProperty(propName);
+				djd.setProperty(propName, propValue);				
+			}
+			
+			//BeanUtils.copyProperties does not perform deep copy,
+			//adding original variables definitions manually			
 			for (Iterator iter = jd.getVariablesList().iterator(); iter.hasNext();) {
 				JRVariable element = (JRVariable) iter.next();
 				try {
