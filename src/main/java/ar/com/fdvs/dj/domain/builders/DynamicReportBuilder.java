@@ -912,6 +912,9 @@ public class DynamicReportBuilder {
 	 */
 	public DynamicReportBuilder setTemplateFile(String path, boolean importFields, boolean importVariables, boolean importParameters) {
 		report.setTemplateFileName(path);
+		report.setTemplateImportFields(importFields);
+		report.setTemplateImportParameters(importParameters);
+		report.setTemplateImportVariables(importVariables);
 		return this;
 	}
 
