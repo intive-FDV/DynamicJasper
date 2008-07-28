@@ -49,7 +49,7 @@ public class DynamicReport {
 
 	private Locale reportLocale = Locale.getDefault();
 	private String resourceBundle = null;
-	
+
 	protected Map fontsMap = new HashMap(); //<String, java.awt.Font>
 
 	//<AbstractColumn>
@@ -62,35 +62,38 @@ public class DynamicReport {
 
 	private DynamicReportOptions options;
 
-	//Other fields to register, not necesary aigned to columns
+	//Other fields to register, not necessary assigned to columns
 	private List fields = new ArrayList();
 
 	//Other parameters needed (E.g. Subreports)
 	private List parameters = new ArrayList();
 
 	private String templateFileName = null;
+	private boolean templateImportFields = false;
+	private boolean templateImportVariables = false;
+	private boolean templateImportParameters = true;
 
 	private List autoTexts = new ArrayList();
 
 	private Map styles = new HashMap();
-	
+
 	private DJQuery query;
-	
+
 	private String whenNoDataText;
 	private Style  whenNoDataStyle;
 	private boolean whenNoDataShowTitle = true;
 	private boolean whenNoDataShowColumnHeader = true;
 
 	private boolean allowDetailSplit = true;
-	
+
 	/**
 	 * Defines the behaviour when the datasource is empty.
-	 * Valid values are: 
+	 * Valid values are:
 	 * DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES
 	 * DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE
 	 * DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL
 	 * DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION
-	 * 
+	 *
 	 * Defatul is: DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES
 	 */
 	private byte whenNoDataType = DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES;
@@ -104,7 +107,7 @@ public class DynamicReport {
 	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL: returns NULL
 	 **********************/
 	private byte whenResourceMissing = DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY;
-	
+
 
 	public void addStyle(Style style) {
 		styles.put(style.getName(), style);
@@ -310,6 +313,30 @@ public class DynamicReport {
 
 	public void setAllowDetailSplit(boolean allowDetailSplit) {
 		this.allowDetailSplit = allowDetailSplit;
+	}
+
+	public boolean isTemplateImportFields() {
+		return templateImportFields;
+	}
+
+	public void setTemplateImportFields(boolean templateImportFields) {
+		this.templateImportFields = templateImportFields;
+	}
+
+	public boolean isTemplateImportVariables() {
+		return templateImportVariables;
+	}
+
+	public void setTemplateImportVariables(boolean templateImportVariables) {
+		this.templateImportVariables = templateImportVariables;
+	}
+
+	public boolean isTemplateImportParameters() {
+		return templateImportParameters;
+	}
+
+	public void setTemplateImportParameters(boolean templateImportParameters) {
+		this.templateImportParameters = templateImportParameters;
 	}
 
 }

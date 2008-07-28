@@ -26,6 +26,12 @@
 	<parameter name="rightHeader" isForPrompting="false" class="java.lang.String"/>
 	<parameter name="leftHeader" isForPrompting="false" class="java.lang.String"/>
 
+	<field name="id" class="java.lang.Long"/>
+
+	<variable name="myVar" class="java.lang.Integer" resetType="Report" calculation="Count">
+		<variableExpression><![CDATA[new Integer($V{REPORT_COUNT}.intValue()+1)]]></variableExpression>
+		<initialValueExpression><![CDATA[new Integer(0)]]></initialValueExpression>
+	</variable>
 		<background>
 			<band height="0"  isSplitAllowed="true" >
 			</band>
@@ -43,7 +49,7 @@
 						width="482"
 						height="0"
 						key="line-2"/>
-					<graphicElement stretchType="NoStretch" pen="1Point" fill="Solid" />
+					<graphicElement stretchType="NoStretch" fill="Solid" />
 				</line>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="true" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -62,7 +68,7 @@
 					<reportElement
 						x="0"
 						y="5"
-						width="170"
+						width="246"
 						height="18"
 						key="textField-6"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
@@ -91,7 +97,7 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="100"  isSplitAllowed="true" >
+			<band height="35"  isSplitAllowed="true" >
 			</band>
 		</detail>
 		<columnFooter>
@@ -107,7 +113,7 @@
 						width="482"
 						height="0"
 						key="line-1"/>
-					<graphicElement stretchType="NoStretch" pen="1Point" fill="Solid" />
+					<graphicElement stretchType="NoStretch" fill="Solid" />
 				</line>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
@@ -150,9 +156,9 @@
 				</textField>
 				<textField isStretchWithOverflow="false" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
-						x="281"
+						x="237"
 						y="3"
-						width="97"
+						width="141"
 						height="18"
 						key="textField-1"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>

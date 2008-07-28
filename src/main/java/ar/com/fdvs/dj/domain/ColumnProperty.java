@@ -29,10 +29,13 @@
 
 package ar.com.fdvs.dj.domain;
 
+import ar.com.fdvs.dj.util.PropertiesMap;
+
 public class ColumnProperty {
 
 	private String property;
 	private String valueClassName;
+	private PropertiesMap fieldProperties = new PropertiesMap();
 
     public ColumnProperty(String property, String valueClass) {
     	this.setProperty(property);
@@ -57,6 +60,18 @@ public class ColumnProperty {
 
     public void setValueClassName(String valueClass) {
 		this.valueClassName = valueClass;
+	}
+
+	public PropertiesMap getFieldProperties() {
+		return fieldProperties;
+	}
+
+	public void setFieldProperties(PropertiesMap fieldProperties) {
+		this.fieldProperties = fieldProperties;
+	}
+
+	public Object addFieldProperty(String key, String value) {
+		return fieldProperties.put(key, value);
 	}
 
 }

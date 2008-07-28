@@ -32,7 +32,6 @@ package ar.com.fdvs.dj.core;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -47,27 +46,19 @@ import java.util.ResourceBundle;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRField;
-import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
-import net.sf.jasperreports.engine.JRStyle;
-import net.sf.jasperreports.engine.JRVariable;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -77,8 +68,6 @@ import ar.com.fdvs.dj.core.registration.ColumnsGroupRegistrationManager;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
-import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
@@ -146,51 +135,6 @@ public final class DynamicJasperHelper {
 
 	}
 
-	protected static DynamicJasperDesign getNewDesign(DynamicReport dr) {
-		log.info("obtaining DynamicJasperDesign instance");
-		DynamicJasperDesign des = new DynamicJasperDesign();
-		DynamicReportOptions options = dr.getOptions();
-		Page page = options.getPage();
-
-		des.setColumnCount(options.getColumnsPerPage().intValue());
-		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
-
-		des.setPageWidth(page.getWidth());
-		des.setPageHeight(page.getHeight());
-
-		des.setColumnWidth(options.getColumnWidth());
-		des.setColumnSpacing(options.getColumnSpace().intValue());
-		des.setLeftMargin(options.getLeftMargin().intValue());
-		des.setRightMargin(options.getRightMargin().intValue());
-		des.setTopMargin(options.getTopMargin().intValue());
-		des.setBottomMargin(options.getBottomMargin().intValue());
-
-		des.setWhenNoDataType(dr.getWhenNoDataType());
-		des.setWhenResourceMissingType(dr.getWhenResourceMissing());
-
-		des.setTitleNewPage(false);
-		des.setSummaryNewPage(false);
-
-		des.setDetail(new JRDesignBand());
-
-		des.getDetail().setSplitAllowed(dr.isAllowDetailSplit());
-
-		des.setPageHeader(new JRDesignBand());
-		des.setPageFooter(new JRDesignBand());
-		des.setSummary(new JRDesignBand());
-
-		des.setTitleNewPage(options.isTitleNewPage());
-
-		des.setIgnorePagination(options.isIgnorePagination());
-
-		if (dr.getQuery() != null){
-			JRDesignQuery query = getJRDesignQuery(dr);
-			des.setQuery(query);
-		}
-
-		des.setName("DynamicReport");
-		return des;
-	}
 
 	protected static DynamicJasperDesign generateJasperDesign(DynamicReport dr) throws CoreException {
 		DynamicJasperDesign jd = null;
@@ -201,19 +145,19 @@ public final class DynamicJasperHelper {
 				File file = new File(dr.getTemplateFileName());
 				if (file.exists()){
 					JasperDesign jdesign = JRXmlLoader.load(file);
-					jd = downCast(jdesign);
+					jd = DJJRDesignHelper.downCast(jdesign,dr);
 				} else {
 					log.info("Not found: Attemping to find the file in the classpath...");
 					URL url = DynamicJasperHelper.class.getClassLoader().getResource(
 							dr.getTemplateFileName());
 					JasperDesign jdesign = JRXmlLoader.load(url.openStream());
-					jd = downCast(jdesign);
+					jd = DJJRDesignHelper.downCast(jdesign,dr);
 				}
-				populateReportOptionsFromDesign(jd,dr);
+				DJJRDesignHelper.populateReportOptionsFromDesign(jd,dr);
 
 			} else {
 				//Create new JasperDesign from the scratch
-				jd = getNewDesign(dr);
+				jd = DJJRDesignHelper.getNewDesign(dr);
 			}
 			registerParameters(jd,dr);
 		} catch (JRException e) {
@@ -238,133 +182,6 @@ public final class DynamicJasperHelper {
 			}
 		}
 
-	}
-
-	/**
-	 * Becasuse all the layout calculations are made from the Domain Model of DynamicJasper, when loading
-	 * a template file, we have to populate the "ReportOptions" with the settings from the template file (ie: margins, etc)
-	 * @param jd
-	 * @param dr
-	 */
-	protected static void populateReportOptionsFromDesign(DynamicJasperDesign jd, DynamicReport dr) {
-		DynamicReportOptions options = dr.getOptions();
-
-		options.setBottomMargin(new Integer(jd.getBottomMargin()));
-		options.setTopMargin(new Integer(jd.getTopMargin()));
-		options.setLeftMargin(new Integer(jd.getLeftMargin()));
-		options.setRightMargin(new Integer(jd.getRightMargin()));
-
-		options.setColumnSpace(new Integer(jd.getColumnSpacing()));
-		options.setColumnsPerPage(new Integer(jd.getColumnCount()));
-
-		options.setPage(new Page(jd.getPageHeight(),jd.getPageWidth()));
-
-		if (dr.getQuery() != null){
-			JRDesignQuery query = getJRDesignQuery(dr);
-			jd.setQuery(query);
-		}
-
-	}
-
-	/**
-	 * @param dr
-	 * @return
-	 */
-	private static JRDesignQuery getJRDesignQuery(DynamicReport dr) {
-		JRDesignQuery query = new JRDesignQuery();
-		query.setText(dr.getQuery().getText());
-		query.setLanguage(dr.getQuery().getLanguage());
-		return query;
-	}
-
-	protected static DynamicJasperDesign downCast(JasperDesign jd) throws CoreException {
-		DynamicJasperDesign djd = new DynamicJasperDesign();
-		log.info("downcasting JasperDesign");
-		try {
-			BeanUtils.copyProperties(djd, jd);
-
-			//BeanUtils.copyProperties does not perform deep copy,
-			//adding original parameter definitions manually
-			for (Iterator iter = jd.getParametersList().iterator(); iter.hasNext();) {
-				JRParameter element = (JRParameter) iter.next();
-				try {
-					djd.addParameter(element);
-				} catch (JRException e) {
-					if (log.isDebugEnabled()){
-						log.warn(e.getMessage());
-					}
-				}
-
-			}
-			//BeanUtils.copyProperties does not perform deep copy,
-			//adding original fiels definitions manually
-			for (Iterator iter = jd.getFieldsList().iterator(); iter.hasNext();) {
-				JRField element = (JRField) iter.next();
-				try {
-					djd.addField(element);
-				} catch (JRException e) {
-					if (log.isDebugEnabled()){
-						log.warn(e.getMessage());
-					}
-				}
-			}
-			//BeanUtils.copyProperties does not perform deep copy,
-			//adding original fiedls definitions manually
-			for (Iterator iter = jd.getVariablesList().iterator(); iter.hasNext();) {
-				JRVariable element = (JRVariable) iter.next();
-				try {
-					if (element instanceof JRDesignVariable){
-						djd.addVariable((JRDesignVariable) element);
-					}
-				} catch (JRException e) {
-					if (log.isDebugEnabled()){
-						log.warn(e.getMessage());
-					}
-				}
-			}
-			//BeanUtils.copyProperties does not perform deep copy,
-			//adding original properties definitions manually
-			String[] properties = jd.getPropertyNames();
-			for (int i = 0; i < properties.length; i++) {
-				String propName = properties[i];
-				String propValue = jd.getProperty(propName);
-				djd.setProperty(propName, propValue);
-			}
-
-			//BeanUtils.copyProperties does not perform deep copy,
-			//adding original variables definitions manually
-			for (Iterator iter = jd.getVariablesList().iterator(); iter.hasNext();) {
-				JRVariable element = (JRVariable) iter.next();
-				try {
-					if (element instanceof JRDesignVariable){
-						djd.addVariable((JRDesignVariable) element);
-					}
-				} catch (JRException e) {
-					if (log.isDebugEnabled()){
-						log.warn(e.getMessage());
-					}
-				}
-			}
-
-			//Add all existing styles in the design to the new one
-			for (Iterator iterator = jd.getStylesList().iterator(); iterator.hasNext();) {
-				JRStyle style = (JRStyle) iterator.next();
-				try {
-					djd.addStyle(style);
-				} catch (JRException e) {
-					if (log.isDebugEnabled()){
-						log.warn("Duplicated style (style name \""+ style.getName()+"\") when loading design: " + e.getMessage(), e);
-					}
-				}
-			}
-
-		} catch (IllegalAccessException e) {
-			throw new CoreException(e.getMessage());
-		} catch (InvocationTargetException e) {
-			throw new CoreException(e.getMessage());
-		}
-
-		return djd;
 	}
 
 	public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, JRDataSource ds) throws JRException {
@@ -411,11 +228,6 @@ public final class DynamicJasperHelper {
 			registerEntities(jd, dr);
 			layoutManager.applyLayout(jd, dr);
             JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
-
-//            JRDesignReportFont reportFont = new JRDesignReportFont();
-//            reportFont.setName("Cocaine Sans Normal");
-//            reportFont.setFontSize(28);
-//			jd.addFont(reportFont);
 
             JasperReport jr = JasperCompileManager.compileReport(jd);
             params.putAll(jd.getParametersWithValues());

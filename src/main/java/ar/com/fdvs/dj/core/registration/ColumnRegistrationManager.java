@@ -110,17 +110,18 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 	protected Object transformEntity(Entity entity) {
 		PropertyColumn propertyColumn = (PropertyColumn) entity;
 		JRDesignField field = new JRDesignField();
-		field.setName(propertyColumn.getColumnProperty().getProperty());
-		field.setValueClassName(propertyColumn.getColumnProperty()
+		ColumnProperty columnProperty = propertyColumn.getColumnProperty();
+		field.setName(columnProperty.getProperty());
+		field.setValueClassName(columnProperty
 				.getValueClassName());
-		log.debug("transforming column: " + propertyColumn.getColumnProperty().getProperty() + " / " + propertyColumn.getColumnProperty()
+		log.debug("transforming column: " + columnProperty.getProperty() + " / " + columnProperty
 				.getValueClassName());
-		
+
 		field.setDescription(propertyColumn.getFieldDescription()); //hack for XML data source
-		Iterator iter = propertyColumn.getFieldProperties().keySet().iterator();
+		Iterator iter = columnProperty.getFieldProperties().keySet().iterator();
 		while (iter.hasNext()) {
 			String key = (String) iter.next();
-			field.getPropertiesMap().setProperty(key, (String) propertyColumn.getFieldProperties().get(key)); 
+			field.getPropertiesMap().setProperty(key, (String) columnProperty.getFieldProperties().get(key));
 		}
 		return field;
 	}

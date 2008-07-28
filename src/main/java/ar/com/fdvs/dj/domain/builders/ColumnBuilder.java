@@ -49,6 +49,7 @@ import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
+import ar.com.fdvs.dj.util.PropertiesMap;
 
 /**
  * Builder created to give users a friendly way of adding columns to a report.</br>
@@ -81,7 +82,7 @@ public class ColumnBuilder {
 	private ArrayList conditionalStyles = new ArrayList();
 	private ColumnOperation operation;
 	private List operationColumns;
-	private Map fieldProperties = new HashMap();
+	private PropertiesMap fieldProperties = new PropertiesMap();
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	private String fieldDescription;
 
@@ -124,7 +125,7 @@ public class ColumnBuilder {
 	 * When creating barcode columns
 	 * @return
 	 */
-	private AbstractColumn buildSimpleBarcodeColumn() {
+	protected AbstractColumn buildSimpleBarcodeColumn() {
 		BarCodeColumn column = new BarCodeColumn();
 		populateCommonAttributes(column);
 		column.setColumnProperty(columnProperty);
@@ -141,7 +142,7 @@ public class ColumnBuilder {
 	 * When creating image columns
 	 * @return
 	 */
-	private AbstractColumn buildSimpleImageColumn() {
+	protected AbstractColumn buildSimpleImageColumn() {
 		ImageColumn column = new ImageColumn();
 		populateCommonAttributes(column);
 		column.setColumnProperty(columnProperty);
@@ -154,13 +155,14 @@ public class ColumnBuilder {
 	 * For creating expression columns
 	 * @return
 	 */
-	private AbstractColumn buildExpressionColumn() {
+	protected AbstractColumn buildExpressionColumn() {
 		ExpressionColumn column = new ExpressionColumn();
 		populateCommonAttributes(column);
 		int random = new Random().nextInt();
 		column.setColumnProperty(new ColumnProperty("expressionColumn" + random,CustomExpression.class.getName()));
 		column.setExpression(customExpression);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
+//		column.getFieldProperties().putAll(fieldProperties);
 		return column;
 	}
 
@@ -168,16 +170,17 @@ public class ColumnBuilder {
 	 * For creating regular columns
 	 * @return
 	 */
-	private AbstractColumn buildSimpleColumn() {
+	protected AbstractColumn buildSimpleColumn() {
 		SimpleColumn column = new SimpleColumn();
 		populateCommonAttributes(column);
+		columnProperty.getFieldProperties().putAll(fieldProperties);
 		column.setColumnProperty(columnProperty);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
 		column.setFieldDescription(fieldDescription);
 		return column;
 	}
 
-	private AbstractColumn buildOperationColumn() {
+	protected AbstractColumn buildOperationColumn() {
 		OperationColumn column = new OperationColumn();
 		populateCommonAttributes(column);
 		column.setColumnOperation(operation);
@@ -185,7 +188,7 @@ public class ColumnBuilder {
 		return column;
 	}
 
-	private void populateCommonAttributes(AbstractColumn column) {
+	protected void populateCommonAttributes(AbstractColumn column) {
 		column.setTitle(title);
 		column.setWidth(width);
 		column.setPattern(pattern);
@@ -193,7 +196,6 @@ public class ColumnBuilder {
 		column.setStyle(style);
 		column.setPrintRepeatedValues(Boolean.valueOf(printRepeatedValues));
 		column.getConditionalStyles().addAll(conditionalStyles);
-		column.getFieldProperties().putAll(fieldProperties);
 		column.setFixedWidth(fixedWidth);
 	}
 
@@ -356,11 +358,17 @@ public class ColumnBuilder {
 		return this;
 	}
 
+	/**
+	 * When the JRField needs properties, use this method.
+	 * @param propertyName
+	 * @param value
+	 * @return
+	 */
 	public ColumnBuilder addFieldProperty(String propertyName, String value) {
 		fieldProperties.put(propertyName, value);
 		return this;
 	}
-	
+
 	public ColumnBuilder setCustomExpression(CustomExpression customExpression){
 		this.customExpression = customExpression;
 		return this;

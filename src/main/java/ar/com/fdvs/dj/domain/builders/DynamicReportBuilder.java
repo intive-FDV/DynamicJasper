@@ -121,7 +121,7 @@ public class DynamicReportBuilder {
 
 		return this;
 	}
-	
+
 	/**
 	 * Adds an autotext to the Report, this are common texts such us "Page X/Y", "Created on 07/25/2007", etc.
 	 * <br>
@@ -140,7 +140,7 @@ public class DynamicReportBuilder {
 		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
 		AutoText text = new AutoText(type,position,alignment_,pattern,width,width2);
 		addAutoText(text);
-		
+
 		return this;
 	}
 
@@ -161,7 +161,7 @@ public class DynamicReportBuilder {
 		addAutoText(text);
 		return this;
 	}
-	
+
 	/**
 	 * Adds a custom fixed message (literal) in header or footer. The message width will be the page width<br>
 	 * The parameters are all constants from the <code>ar.com.fdvs.dj.domain.AutoText</code> class
@@ -172,7 +172,7 @@ public class DynamicReportBuilder {
 	 * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br> ALIGMENT_RIGHT
 	 * @param width the width of the message
 	 * @return
-	 */	
+	 */
 	public DynamicReportBuilder addAutoText(String message, byte position, byte alignment, int width) {
 		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
 		AutoText text = new AutoText(message,position,alignment_,new Integer(width));
@@ -226,7 +226,7 @@ public class DynamicReportBuilder {
 			report.getColumnsGroups().add(0,globalGroup);
 		}
 
-				
+
 		addGlobalCrosstabs();
 
 		addSubreportsToGroups();
@@ -906,6 +906,16 @@ public class DynamicReportBuilder {
 	}
 
 	/**
+	 * The full path of a jrxml file, or the path in the classpath of a jrxml resource.
+	 * @param path
+	 * @return
+	 */
+	public DynamicReportBuilder setTemplateFile(String path, boolean importFields, boolean importVariables, boolean importParameters) {
+		report.setTemplateFileName(path);
+		return this;
+	}
+
+	/**
 	 * @deprecated
 	 * @param path
 	 * @return
@@ -1050,37 +1060,37 @@ public class DynamicReportBuilder {
 	}
 	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, SubreportParameter[] params) throws DJBuilderException {
 		SubReportBuilder srb = new SubReportBuilder();
-		
+
 		srb.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setDynamicReport(dynamicReport,layoutManager);
-		
+
 		if (params != null){
 			for (int i = 0; i < params.length; i++) {
 				srb.addParameter(params[i]);
 			}
 		}
-		
+
 		Subreport subreport = srb.build();
-		
+
 		return addSubreportInGroupFooter(groupNumber, subreport);
 	}
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, SubreportParameter[] params) throws DJBuilderException {
 		SubReportBuilder srb = new SubReportBuilder();
-		
+
 		srb.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setDynamicReport(dynamicReport,layoutManager);
-		
+
 		if (params != null){
 			for (int i = 0; i < params.length; i++) {
 				srb.addParameter(params[i]);
 			}
 		}
-		
+
 		Subreport subreport = srb.build();
-		
+
 		return addSubreportInGroupHeader(groupNumber, subreport);
 	}
-	
+
 	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber,
 			DynamicReport dynamicReport, LayoutManager layoutManager,
 			String dataSourcePath, int dataSourceOrigin, int dataSourceType,
@@ -1124,48 +1134,48 @@ public class DynamicReportBuilder {
 
 		return addSubreportInGroupHeader(groupNumber, subreport);
 	}
-	
+
 	public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber,
 			DynamicReport dynamicReport, LayoutManager layoutManager,
 			String dataSourcePath, int dataSourceOrigin, int dataSourceType,
 			SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
 	throws DJBuilderException {
 		SubReportBuilder srb = new SubReportBuilder();
-		
+
 		srb.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setStartInNewPage(startInNewPage).setDynamicReport(
 				dynamicReport, layoutManager).setFitToParentPrintableArea(fitParent);
-		
+
 		if (params != null) {
 			for (int i = 0; i < params.length; i++) {
 				srb.addParameter(params[i]);
 			}
 		}
-		
+
 		Subreport subreport = srb.build();
-		
+
 		return addSubreportInGroupFooter(groupNumber, subreport);
 	}
-	
+
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber,
 			DynamicReport dynamicReport, LayoutManager layoutManager,
 			String dataSourcePath, int dataSourceOrigin, int dataSourceType,
 			SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
 	throws DJBuilderException {
 		SubReportBuilder srb = new SubReportBuilder();
-		
+
 		srb.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setStartInNewPage(startInNewPage).setDynamicReport(
 				dynamicReport, layoutManager).setFitToParentPrintableArea(fitParent);
-		
+
 		if (params != null) {
 			for (int i = 0; i < params.length; i++) {
 				srb.addParameter(params[i]);
 			}
 		}
-		
+
 		Subreport subreport = srb.build();
-		
+
 		return addSubreportInGroupHeader(groupNumber, subreport);
 	}
 
@@ -1192,7 +1202,7 @@ public class DynamicReportBuilder {
 
 		return addSubreportInGroupFooter(groupNumber, subreport);
 	}
-	
+
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, Subreport subreport) {
 		Integer groupNum = new Integer(groupNumber);
 		List list = (List) groupHeaderSubreports.get(groupNum);
@@ -1289,7 +1299,7 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	
+
 	/**
 	 * Defines the behaviour when the datasource is empty.
 	 * Defatul vaue is {@link DJConstants#WHEN_NO_DATA_TYPE_NO_PAGES}
@@ -1300,7 +1310,7 @@ public class DynamicReportBuilder {
 		this.report.setWhenNoDataType(whenNoDataType);
 		return this;
 	}
-	
+
 	/**
 	 * @see setWhenNoDataType
 	 * @return
@@ -1341,10 +1351,10 @@ public class DynamicReportBuilder {
 	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR: Throwns and exception.<br/>
 	 * DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY: Shows the key of the missing
 	 * resource.<br/> DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL: returns NULL
-	 * 
+	 *
 	 * @param whenResourceMissing
 	 * @return
-	 */	
+	 */
 	public DynamicReportBuilder setWhenResourceMissing(byte whenResourceMissing) {
 		this.report.setWhenResourceMissing(whenResourceMissing);
 		return this;
@@ -1365,9 +1375,9 @@ public class DynamicReportBuilder {
 		this.report.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL);
 		return this;
 	}
-	
+
 	/**
-	 * Defines the text to show when the data source is empty.<br> 
+	 * Defines the text to show when the data source is empty.<br>
 	 * By default the title and column headers are shown
 	 * @param text
 	 * @param style : the style of the text
@@ -1379,15 +1389,15 @@ public class DynamicReportBuilder {
 		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
 		return this;
 	}
-	
+
 /**
- * Defines the text to show when the data source is empty.<br> 
+ * Defines the text to show when the data source is empty.<br>
  * @param text
  * @param style : the style of the text
  * @param showTitle : if true, the title is shown
  * @param showColumnHeader : if true, the column headers are shown
  * @return
- */	
+ */
 	public DynamicReportBuilder setWhenNoData(String text, Style style, boolean showTitle, boolean showColumnHeader) {
 		this.report.setWhenNoDataStyle(style);
 		this.report.setWhenNoDataText(text);
@@ -1412,6 +1422,6 @@ public class DynamicReportBuilder {
 		this.report.setAllowDetailSplit(split);
 		return this;
 	}
-	
-	
+
+
 }

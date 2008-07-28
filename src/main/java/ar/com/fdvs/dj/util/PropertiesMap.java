@@ -40,6 +40,10 @@ public class PropertiesMap extends HashMap {
 		return this;
 	}
 
+	public Object put(String key, String value) {
+		return super.put(key, value);
+	}
+
 	public static void main(String[] args) {
 		String a = new PropertiesMap().with("a","a").with("b", "b").toString();
 		System.out.println(a);

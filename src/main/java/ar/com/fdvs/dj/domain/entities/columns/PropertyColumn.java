@@ -41,12 +41,14 @@ public abstract class PropertyColumn extends AbstractColumn {
 
 	private ColumnProperty columnProperty;
 	private CustomExpression expressionToGroupBy;
-	
-	
+
 	/**
-	 * This parameter goes to JRField.description, needed when using XML dataSources 
+	 * This parameter goes to JRField.description, needed when using XML dataSources
 	 */
 	private String fieldDescription;
+	/**
+	 * Field properties are passed directly to JasperReports JRField
+	 */
 
 	public String getFieldDescription() {
 		return fieldDescription;
