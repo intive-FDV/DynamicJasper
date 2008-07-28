@@ -34,7 +34,12 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.10" date="2008-07-10"	desc="Autotext improvements">
+         <release version="2.0.11" date="2008-07-27"	desc="fixes">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		JRXML Templates :: Now bringing existing parameters, variables and fields from jrxml templates
+         	</action>
+         </release>
+         <release version="2.0.10" date="2008-07-24"	desc="Autotext improvements, many fixes">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Autotext :: More control over the width of Autotext components. No more chucked total page numbers.
          	</action>

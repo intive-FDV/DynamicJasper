@@ -100,9 +100,9 @@ public final class DynamicJasperHelper {
 		new ColumnsGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());
 		registerOtherFields(jd,dr.getFields());
 		Locale locale = dr.getReportLocale() == null ? Locale.getDefault() : dr.getReportLocale();
-//		if (log.isDebugEnabled()){
+		if (log.isDebugEnabled()){
 			log.debug("Requested Locale = " + dr.getReportLocale() + ", Locale to use: "+ locale);
-//		}
+		}
 		ResourceBundle messages = null;
 		if (dr.getResourceBundle() != null ){
 			try {
@@ -289,7 +289,7 @@ public final class DynamicJasperHelper {
 				JRParameter element = (JRParameter) iter.next();
 				try {
 					djd.addParameter(element);
-				} catch (JRException e) {	
+				} catch (JRException e) {
 					if (log.isDebugEnabled()){
 						log.warn(e.getMessage());
 					}
@@ -302,7 +302,7 @@ public final class DynamicJasperHelper {
 				JRField element = (JRField) iter.next();
 				try {
 					djd.addField(element);
-				} catch (JRException e) {	
+				} catch (JRException e) {
 					if (log.isDebugEnabled()){
 						log.warn(e.getMessage());
 					}
@@ -316,7 +316,7 @@ public final class DynamicJasperHelper {
 					if (element instanceof JRDesignVariable){
 						djd.addVariable((JRDesignVariable) element);
 					}
-				} catch (JRException e) {	
+				} catch (JRException e) {
 					if (log.isDebugEnabled()){
 						log.warn(e.getMessage());
 					}
@@ -328,18 +328,18 @@ public final class DynamicJasperHelper {
 			for (int i = 0; i < properties.length; i++) {
 				String propName = properties[i];
 				String propValue = jd.getProperty(propName);
-				djd.setProperty(propName, propValue);				
+				djd.setProperty(propName, propValue);
 			}
-			
+
 			//BeanUtils.copyProperties does not perform deep copy,
-			//adding original variables definitions manually			
+			//adding original variables definitions manually
 			for (Iterator iter = jd.getVariablesList().iterator(); iter.hasNext();) {
 				JRVariable element = (JRVariable) iter.next();
 				try {
 					if (element instanceof JRDesignVariable){
 						djd.addVariable((JRDesignVariable) element);
 					}
-				} catch (JRException e) {	
+				} catch (JRException e) {
 					if (log.isDebugEnabled()){
 						log.warn(e.getMessage());
 					}
