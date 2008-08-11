@@ -34,9 +34,15 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.11" date="2008-07-27"	desc="fixes">
+         <release version="2.0.11" date="2008-08-11"	desc="fixes">
          	<action dev="Juan Manuel Alvarez" type="add">
-         		JRXML Templates :: Now bringing existing parameters, variables and fields from jrxml templates
+         		Report Properties :: Now the DynamicReport has a setProperty(String, String) method which passes the properties to the JasperReportDesign.
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix">
+         		Page Orientation :: Orientation is working now
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add" due-to="yaro">
+         		JRXML Templates :: Now bringing existing parameters, variables and fields and datasets from jrxml templates :: thanks yaro!
          	</action>
          	<action dev="Juan Manuel Alvarez" type="update">
          		Field Properties Refactor :: Only PropertyColumn and its children are worthless to have field properties

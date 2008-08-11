@@ -29,8 +29,10 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class Font {
+public class Font  extends BaseDomainConstant {
 
+	private static final long serialVersionUID = 1L;
+	
 	private int fontSize;
 	private String fontName;
 	private boolean bold = false;

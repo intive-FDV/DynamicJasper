@@ -148,8 +148,7 @@ public final class DynamicJasperHelper {
 					jd = DJJRDesignHelper.downCast(jdesign,dr);
 				} else {
 					log.info("Not found: Attemping to find the file in the classpath...");
-					URL url = DynamicJasperHelper.class.getClassLoader().getResource(
-							dr.getTemplateFileName());
+					URL url = DynamicJasperHelper.class.getClassLoader().getResource(dr.getTemplateFileName());
 					JasperDesign jdesign = JRXmlLoader.load(url.openStream());
 					jd = DJJRDesignHelper.downCast(jdesign,dr);
 				}
@@ -212,26 +211,28 @@ public final class DynamicJasperHelper {
 		log.info("generating JasperPrint");
 		JasperPrint jp = null;
 
-			if (_parameters == null)
-				_parameters = new HashMap();
-
-			visitSubreports(dr, _parameters);
-			compileOrLoadSubreports(dr, _parameters);
-
-			DynamicJasperDesign jd = generateJasperDesign(dr);
-			Map params = new HashMap();
-			if (!_parameters.isEmpty()){
-				registerParams(jd,_parameters);
-				params.putAll(_parameters);
-			}
-
-			registerEntities(jd, dr);
-			layoutManager.applyLayout(jd, dr);
-            JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
-
-            JasperReport jr = JasperCompileManager.compileReport(jd);
-            params.putAll(jd.getParametersWithValues());
-            jp = JasperFillManager.fillReport(jr, params, ds);
+//			if (_parameters == null)
+//				_parameters = new HashMap();
+//
+//			visitSubreports(dr, _parameters);
+//			compileOrLoadSubreports(dr, _parameters);
+//
+//			DynamicJasperDesign jd = generateJasperDesign(dr);
+//			Map params = new HashMap();
+//			if (!_parameters.isEmpty()){
+//				registerParams(jd,_parameters);
+//				params.putAll(_parameters);
+//			}
+//
+//			registerEntities(jd, dr);
+//			layoutManager.applyLayout(jd, dr);
+//            JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
+//
+//            JasperReport jr = JasperCompileManager.compileReport(jd);            
+//            params.putAll(jd.getParametersWithValues());
+		
+            JasperReport jr = DynamicJasperHelper.generateJasperReport(dr, layoutManager, _parameters);
+            jp = JasperFillManager.fillReport(jr, _parameters, ds);
 
             return jp;
 	}

@@ -29,8 +29,10 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class Border {
+public class Border  extends BaseDomainConstant {
 
+	private static final long serialVersionUID = 1L;
+	
 	public static Border NO_BORDER = new Border((byte)0);
 	public static Border THIN = new Border((byte)5);
 

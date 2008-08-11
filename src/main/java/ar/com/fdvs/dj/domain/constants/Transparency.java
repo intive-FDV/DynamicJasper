@@ -29,8 +29,10 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class Transparency {
+public class Transparency  extends BaseDomainConstant {
 
+	private static final long serialVersionUID = 1L;
+	
 	public static Transparency TRANSPARENT = new Transparency((byte) 2);
 	public static Transparency OPAQUE = new Transparency((byte) 1);
 

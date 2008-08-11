@@ -36,6 +36,7 @@ import java.util.Map;
 
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -58,17 +59,32 @@ public abstract class BaseDjReportTest extends TestCase {
 			dr = buildReport();
 			JRDataSource ds = getDataSource();
 
-			jp = DynamicJasperHelper.generateJasperPrint(dr, getLayoutManager(), ds,params );	//Creates the JasperPrint object, we pass as a Parameter
-																											//the DynamicReport, a new ClassicLayoutManager instance (this
-																											//one does the magic) and the JRDataSource
-
-			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".pdf");
-//			ReportExporter.exportReportXls(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".xls");
+			jp = DynamicJasperHelper.generateJasperPrint(dr, getLayoutManager(), ds,params );	
+																											
+																											
+			/**
+			 * Creates the JasperReport object, we pass as a Parameter
+			 * the DynamicReport, a new ClassicLayoutManager instance (this
+			 * one does the magic) and the JRDataSource
+			 */
 			jr = DynamicJasperHelper.generateJasperReport(dr, getLayoutManager(), params);
+			
+			/**
+			 * Creates the JasperPrint object, we pass as a Parameter
+			 * the JasperReport object, and the JRDataSource
+			 */
+            jp = JasperFillManager.fillReport(jr, params, ds);		
+            
+            exportReport();
+			
 	}
 
 	protected LayoutManager getLayoutManager() {
 		return new ClassicLayoutManager();
+	}
+	
+	protected void exportReport() throws Exception {
+		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".pdf");
 	}
 
 	/**

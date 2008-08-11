@@ -34,10 +34,10 @@
     <src>images/fdvsolutions_dynamicjasper_project.png</src>
     <href>http://www.fdvsolutions.com/</href>
   </bannerLeft>
- <!-- <bannerRight>
-    <src>http://maven.apache.org/images/maven-small.gif</src>
+  <bannerRight>
+    <src>http://sflogo.sourceforge.net/sflogo.php?group_id=188060&amp;type=4</src>
+    <href>http://sourceforge.net</href>
   </bannerRight>
-  -->
 
   <body>
     <links>

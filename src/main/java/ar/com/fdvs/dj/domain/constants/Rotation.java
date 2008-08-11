@@ -29,8 +29,10 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class Rotation {
+public class Rotation  extends BaseDomainConstant {
 
+	private static final long serialVersionUID = 1L;
+	
 	public static Rotation NONE = new Rotation((byte)0);
 	public static Rotation LEFT = new Rotation((byte)1);
 	public static Rotation RIGHT = new Rotation((byte)2);

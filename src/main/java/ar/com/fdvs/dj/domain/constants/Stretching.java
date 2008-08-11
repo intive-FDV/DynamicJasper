@@ -29,8 +29,10 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class Stretching {
+public class Stretching  extends BaseDomainConstant {
 
+	private static final long serialVersionUID = 1L;
+	
 	public static Stretching NO_STRETCH = new Stretching((byte)0);
 	public static Stretching RELATIVE_TO_TALLEST_OBJECT = new Stretching((byte)1);
 	public static Stretching RELATIVE_TO_BAND_HEIGHT = new Stretching((byte)2);

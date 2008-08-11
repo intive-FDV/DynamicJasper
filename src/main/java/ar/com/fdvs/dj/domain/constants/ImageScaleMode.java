@@ -31,7 +31,9 @@ package ar.com.fdvs.dj.domain.constants;
 
 import net.sf.jasperreports.engine.design.JRDesignImage;
 
-public class ImageScaleMode {
+public class ImageScaleMode  extends BaseDomainConstant{
+
+	private static final long serialVersionUID = 1L;
 
 	private byte value = JRDesignImage.SCALE_IMAGE_RETAIN_SHAPE;
 

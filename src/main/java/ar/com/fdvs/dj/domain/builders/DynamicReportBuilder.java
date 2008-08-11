@@ -910,11 +910,12 @@ public class DynamicReportBuilder {
 	 * @param path
 	 * @return
 	 */
-	public DynamicReportBuilder setTemplateFile(String path, boolean importFields, boolean importVariables, boolean importParameters) {
+	public DynamicReportBuilder setTemplateFile(String path, boolean importFields, boolean importVariables, boolean importParameters, boolean importDatasets) {
 		report.setTemplateFileName(path);
 		report.setTemplateImportFields(importFields);
 		report.setTemplateImportParameters(importParameters);
 		report.setTemplateImportVariables(importVariables);
+		report.setTemplateImportDatasets(importDatasets);
 		return this;
 	}
 
@@ -1426,5 +1427,19 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * Adds a property to report design, this properties are mostly used by exporters
+	 * to know if any specific configuration is needed
+	 * 
+	 * @param name
+	 * @param value
+	 * @return
+	 */
+	public DynamicReportBuilder setProperty(String name, String value) {
+		this.report.setProperty(name, value);
+		return this;
+	}
 
+
+	
 }

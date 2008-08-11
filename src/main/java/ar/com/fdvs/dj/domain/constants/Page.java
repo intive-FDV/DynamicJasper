@@ -29,10 +29,21 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class Page {
+public class Page extends BaseDomainConstant {
 
+	private static final long serialVersionUID = 1L;
+	
 	private int height = 0;
 	private int width = 0;
+	private boolean orientationPortrait = true;
+
+	public boolean isOrientationPortrait() {
+		return orientationPortrait;
+	}
+
+	public void setOrientationPortrait(boolean orientationPortrait) {
+		this.orientationPortrait = orientationPortrait;
+	}
 
 	public int getHeight() {
 		return height;
@@ -57,10 +68,17 @@ public class Page {
 	public Page(int height, int width) {
 		this.height = height;
 		this.width = width;
+		this.orientationPortrait = true;
 	}
 
+	public Page(int height, int width, boolean portrait) {
+		this.height = height;
+		this.width = width;
+		this.orientationPortrait = portrait;
+	}
+	
 	public static Page Page_A4_Portrait(){
-		return new Page(842,595);
+		return new Page(842,595,true);
 	}
 
 	public static Page Page_A4_Landscape(){
@@ -68,19 +86,19 @@ public class Page {
 	}
 
 	public static Page Page_Legal_Portrait(){
-		return new Page(1008,612);
+		return new Page(1008,612,false);
 	}
 
 	public static Page Page_Legal_Landscape(){
-		return new Page(612,1008);
+		return new Page(612,1008,false);
 	}
 
 	public static Page Page_Letter_Portrait(){
-		return new Page(792,612);
+		return new Page(792,612,true);
 	}
 
 	public static Page Page_Letter_Landscape(){
-		return new Page(612,792);
+		return new Page(612,792,false);
 	}
 
 }

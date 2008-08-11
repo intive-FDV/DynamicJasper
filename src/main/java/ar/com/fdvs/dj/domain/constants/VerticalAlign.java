@@ -29,7 +29,10 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class VerticalAlign {
+public class VerticalAlign  extends BaseDomainConstant {
+	
+	private static final long serialVersionUID = 1L;
+	
 	public static VerticalAlign TOP = new VerticalAlign((byte)1);
 	public static VerticalAlign BOTTOM = new VerticalAlign((byte)3);
 	public static VerticalAlign MIDDLE = new VerticalAlign((byte)2);

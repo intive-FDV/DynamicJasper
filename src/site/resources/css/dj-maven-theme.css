@@ -3,11 +3,11 @@ body {
 }
 body, td, select, input, li{
   font-family: Verdana, Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 10pt;
 }
 code{
   font-family: Courier, monospace;
-  font-size: 13px;
+  font-size: 10pt;
 }
 a {
   text-decoration: none;
@@ -55,7 +55,7 @@ h3 {
 }
 h4 {
   padding: 4px 4px 4px 6px;
-#  border: 1px solid #bbb;
+/*  border: 1px solid #bbb; */
   color: #900;
   background-color: #fff;
   font-weight: bold;
@@ -94,7 +94,7 @@ table.bodyTable th {
 }
 
 table.bodyTable th, table.bodyTable td {
-  font-size: 1em;
+  font-size: 9pt;
 }
 
 table.bodyTable tr.a {

@@ -141,7 +141,7 @@ public class TemplateFileWithFieldsReportTest extends BaseDjReportTest {
 										//the columns width proportionally to meet the page width.
 
 		//This look for the resource in the classpath
-		drb.setTemplateFile("templates/TemplateWithProperties.jrxml",true,true,true);
+		drb.setTemplateFile("templates/TemplateWithProperties.jrxml",true,true,true,true);
 
 		//Portrait (looks the resource as a file in the filesystem)
 //		drb.setTemplateFile(System.getProperty("user.dir") + "/target/test-classes/templates/TemplateReportTest.jrxml");

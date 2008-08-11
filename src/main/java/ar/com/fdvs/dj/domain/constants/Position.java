@@ -29,10 +29,11 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class Position {
+public class Position  extends BaseDomainConstant {
+
+	private static final long serialVersionUID = 1L;
 
 	private byte value;
-
 
 	public static Position POSITION_TYPE_FIX_RELATIVE_TO_TOP = new Position((byte) 2);
 	public static Position POSITION_TYPE_FIX_RELATIVE_TO_BOTTOM = new Position((byte) 3);

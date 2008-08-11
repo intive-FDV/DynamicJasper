@@ -35,9 +35,12 @@ import java.util.Iterator;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JRQuery;
 import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JRVariable;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -46,6 +49,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.domain.DJQuery;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
@@ -63,6 +67,9 @@ public class DJJRDesignHelper {
 
 		des.setColumnCount(options.getColumnsPerPage().intValue());
 		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
+		
+		byte orientation = page.isOrientationPortrait() ? JasperReport.ORIENTATION_PORTRAIT : JasperReport.ORIENTATION_LANDSCAPE;
+		des.setOrientation(orientation);
 
 		des.setPageWidth(page.getWidth());
 		des.setPageHeight(page.getHeight());
@@ -95,6 +102,11 @@ public class DJJRDesignHelper {
 		if (dr.getQuery() != null){
 			JRDesignQuery query = getJRDesignQuery(dr);
 			des.setQuery(query);
+		}
+		
+		for (Iterator iterator = dr.getProperties().keySet().iterator(); iterator.hasNext();) {
+			String name = (String) iterator.next();
+			des.setProperty(name, (String) dr.getProperties().get(name));
 		}
 
 		des.setName("DynamicReport");
@@ -162,6 +174,29 @@ public class DJJRDesignHelper {
 				}
 			}
 
+  			//BeanUtils.copyProperties does not perform deep copy,
+			//adding original dataset definitions manually
+			if (dr.isTemplateImportDatasets()) {
+				// also copy query
+				JRQuery query = jd.getQuery();
+				if (query instanceof JRDesignQuery) {
+					djd.setQuery((JRDesignQuery) query);
+					dr.setQuery(new DJQuery(query.getText(), query
+							.getLanguage()));
+				}
+
+				for (Iterator iter = jd.getDatasetsList().iterator(); iter.hasNext();) {
+					JRDesignDataset dataset = (JRDesignDataset) iter.next();
+					try {
+						djd.addDataset(dataset);
+					} catch (JRException e) {
+						if (log.isDebugEnabled()) {
+							log.warn(e.getMessage());
+						}
+					}
+				}
+			}
+			
 			//BeanUtils.copyProperties does not perform deep copy,
 			//adding original properties definitions manually
 			String[] properties = jd.getPropertyNames();
@@ -171,6 +206,7 @@ public class DJJRDesignHelper {
 				djd.setProperty(propName, propValue);
 			}
 
+			
 			//Add all existing styles in the design to the new one
 			for (Iterator iterator = jd.getStylesList().iterator(); iterator.hasNext();) {
 				JRStyle style = (JRStyle) iterator.next();

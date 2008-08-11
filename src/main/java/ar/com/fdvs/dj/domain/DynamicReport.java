@@ -67,8 +67,11 @@ public class DynamicReport {
 
 	//Other parameters needed (E.g. Subreports)
 	private List parameters = new ArrayList();
+	
+	private Map properties = new HashMap();
 
 	private String templateFileName = null;
+	private boolean templateImportDatasets = false;
 	private boolean templateImportFields = false;
 	private boolean templateImportVariables = false;
 	private boolean templateImportParameters = true;
@@ -119,6 +122,10 @@ public class DynamicReport {
 
 	public void setStyles(Map styles) {
 		this.styles = styles;
+	}
+	
+	public void setProperty(String name, String value) {
+		properties.put(name, value);
 	}
 
 	public DynamicReport() {}
@@ -315,6 +322,14 @@ public class DynamicReport {
 		this.allowDetailSplit = allowDetailSplit;
 	}
 
+   public boolean isTemplateImportDatasets() {
+		return templateImportDatasets;
+	}
+
+	public void setTemplateImportDatasets(boolean templateImportDatasets) {
+		this.templateImportDatasets = templateImportDatasets;
+	}
+
 	public boolean isTemplateImportFields() {
 		return templateImportFields;
 	}
@@ -337,6 +352,18 @@ public class DynamicReport {
 
 	public void setTemplateImportParameters(boolean templateImportParameters) {
 		this.templateImportParameters = templateImportParameters;
+	}
+
+	public Map getProperties() {
+		return properties;
+	}
+
+	/**
+	 * Must be a Map<String, String>
+	 * @param properties
+	 */
+	public void setProperties(Map properties) {
+		this.properties = properties;
 	}
 
 }

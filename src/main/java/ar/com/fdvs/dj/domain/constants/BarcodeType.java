@@ -29,7 +29,9 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class BarcodeType {
+public class BarcodeType  extends BaseDomainConstant {
+
+	private static final long serialVersionUID = 1L;
 
 	public static BarcodeType _2of7 = new BarcodeType((byte)0);
 

@@ -29,7 +29,9 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class GroupLayout {
+public class GroupLayout extends BaseDomainConstant {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * When true, the column headers will be printed

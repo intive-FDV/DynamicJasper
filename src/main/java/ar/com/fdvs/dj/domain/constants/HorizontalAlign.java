@@ -29,8 +29,10 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class HorizontalAlign {
+public class HorizontalAlign  extends BaseDomainConstant {
 
+	private static final long serialVersionUID = 1L;
+	
 	public static HorizontalAlign LEFT = new HorizontalAlign((byte)1);
 	public static HorizontalAlign RIGHT = new HorizontalAlign((byte)3);
 	public static HorizontalAlign CENTER = new HorizontalAlign((byte)2);

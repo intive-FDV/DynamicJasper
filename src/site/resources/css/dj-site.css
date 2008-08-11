@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-:link,:visited,:hover,:active
+ 
+	:link,:visited,:hover,:active
     {
-    text-decoration:none
+    text-decoration:none;  
     }
 
 dl
@@ -40,7 +40,7 @@ dd
 
 h1,h2,h3,h4,h5,h6,pre,code
     {
-    font-size:1em;
+    font-size:9pt;
     }
 
 #li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,table,thead,tbody,tfoot,caption,th,tr,td,a,textarea,#breadcrumbs
@@ -342,17 +342,19 @@ div.clear
 
 h2, h3
     {
-    padding: 20px 4px 4px 0px;
+    padding: 10px 4px 4px 0px;
     border: 0px solid #999;
     border-bottom: 1px dotted #999;
     color: #1B6982;
     font-weight:900;
     font-size: large;
+    background-color: #eee;
     }
 
 h3
     {
     font-size: medium;
+    background-color: transparent;
     }
 
 #bodyColumn p
@@ -408,7 +410,7 @@ td
 
 th, thead, tr, td, ul, li
     {
-    font-size: x-small;
+    font-size: normal;
     }
 
 table.bodyTable th
