@@ -67,7 +67,7 @@ public class DJJRDesignHelper {
 
 		des.setColumnCount(options.getColumnsPerPage().intValue());
 		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
-		
+
 		byte orientation = page.isOrientationPortrait() ? JasperReport.ORIENTATION_PORTRAIT : JasperReport.ORIENTATION_LANDSCAPE;
 		des.setOrientation(orientation);
 
@@ -103,13 +103,13 @@ public class DJJRDesignHelper {
 			JRDesignQuery query = getJRDesignQuery(dr);
 			des.setQuery(query);
 		}
-		
+
 		for (Iterator iterator = dr.getProperties().keySet().iterator(); iterator.hasNext();) {
 			String name = (String) iterator.next();
-			des.setProperty(name, (String) dr.getProperties().get(name));			
+			des.setProperty(name, (String) dr.getProperties().get(name));
 		}
 
-		des.setName("DynamicReport");
+		des.setName(dr.getReportName() != null ? dr.getReportName() : "DynamicReport");
 		return des;
 	}
 
@@ -196,7 +196,7 @@ public class DJJRDesignHelper {
 					}
 				}
 			}
-			
+
 			//BeanUtils.copyProperties does not perform deep copy,
 			//adding original properties definitions manually
 			String[] properties = jd.getPropertyNames();
@@ -206,7 +206,7 @@ public class DJJRDesignHelper {
 				djd.setProperty(propName, propValue);
 			}
 
-			
+
 			//Add all existing styles in the design to the new one
 			for (Iterator iterator = jd.getStylesList().iterator(); iterator.hasNext();) {
 				JRStyle style = (JRStyle) iterator.next();
