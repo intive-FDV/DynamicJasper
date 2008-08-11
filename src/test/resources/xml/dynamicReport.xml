@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!--
+  ~ DynamicJasper: A library for creating reports dynamically by specifying
+  ~ columns, groups, styles, etc. at runtime. It also saves a lot of development
+  ~ time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+  ~
+  ~ Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
+  ~
+  ~ This library is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~
+  ~ License as published by the Free Software Foundation; either
+  ~
+  ~ version 2.1 of the License, or (at your option) any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this library; if not, write to the Free Software
+  ~
+  ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+  ~
+  ~
+  -->
+
+<java version="1.5.0_02" class="java.beans.XMLDecoder">
+ <object class="ar.com.fdvs.dj.domain.DynamicReport">
+  <void property="columns">
+   <void method="add">
+    <object id="SimpleColumn0" class="ar.com.fdvs.dj.domain.entities.columns.SimpleColumn">
+     <void property="columnProperty">
+      <object class="ar.com.fdvs.dj.domain.ColumnProperty">
+       <void property="property">
+        <string>state</string>
+       </void>
+       <void property="valueClassName">
+        <string>java.lang.String</string>
+       </void>
+      </object>
+     </void>
+     <void id="Style0" property="headerStyle">
+      <void property="backgroundColor">
+       <object class="java.awt.Color">
+        <int>0</int>
+        <int>0</int>
+        <int>255</int>
+        <int>255</int>
+       </object>
+      </void>
+      <void property="textColor">
+       <object class="java.awt.Color">
+        <int>255</int>
+        <int>255</int>
+        <int>255</int>
+        <int>255</int>
+       </object>
+      </void>
+     </void>
+     <void property="title">
+      <string>State</string>
+     </void>
+     <void property="width">
+      <int>85</int>
+     </void>
+     <void id="Style1" property="style"/>
+    </object>
+   </void>
+   <void method="add">
+    <object id="SimpleColumn1" class="ar.com.fdvs.dj.domain.entities.columns.SimpleColumn">
+     <void property="columnProperty">
+      <object class="ar.com.fdvs.dj.domain.ColumnProperty">
+       <void property="property">
+        <string>branch</string>
+       </void>
+       <void property="valueClassName">
+        <string>java.lang.String</string>
+       </void>
+      </object>
+     </void>
+     <void property="headerStyle">
+      <object idref="Style0"/>
+     </void>
+     <void property="style">
+      <object idref="Style1"/>
+     </void>
+     <void property="title">
+      <string>Branch</string>
+     </void>
+     <void property="width">
+      <int>85</int>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ar.com.fdvs.dj.domain.entities.columns.SimpleColumn">
+     <void property="columnProperty">
+      <object class="ar.com.fdvs.dj.domain.ColumnProperty">
+       <void property="property">
+        <string>productLine</string>
+       </void>
+       <void property="valueClassName">
+        <string>java.lang.String</string>
+       </void>
+      </object>
+     </void>
+     <void property="headerStyle">
+      <object idref="Style0"/>
+     </void>
+     <void property="style">
+      <object idref="Style1"/>
+     </void>
+     <void property="title">
+      <string>Product Line</string>
+     </void>
+     <void property="width">
+      <int>85</int>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ar.com.fdvs.dj.domain.entities.columns.SimpleColumn">
+     <void property="columnProperty">
+      <object class="ar.com.fdvs.dj.domain.ColumnProperty">
+       <void property="property">
+        <string>item</string>
+       </void>
+       <void property="valueClassName">
+        <string>java.lang.String</string>
+       </void>
+      </object>
+     </void>
+     <void property="headerStyle">
+      <object idref="Style0"/>
+     </void>
+     <void property="style">
+      <object idref="Style1"/>
+     </void>
+     <void property="title">
+      <string>item</string>
+     </void>
+     <void property="width">
+      <int>85</int>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ar.com.fdvs.dj.domain.entities.columns.SimpleColumn">
+     <void property="columnProperty">
+      <object class="ar.com.fdvs.dj.domain.ColumnProperty">
+       <void property="property">
+        <string>id</string>
+       </void>
+       <void property="valueClassName">
+        <string>java.lang.Long</string>
+       </void>
+      </object>
+     </void>
+     <void property="headerStyle">
+      <object idref="Style0"/>
+     </void>
+     <void property="title">
+      <string>ID</string>
+     </void>
+     <void property="width">
+      <int>40</int>
+     </void>
+     <void id="Style2" property="style"/>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ar.com.fdvs.dj.domain.entities.columns.SimpleColumn">
+     <void property="columnProperty">
+      <object class="ar.com.fdvs.dj.domain.ColumnProperty">
+       <void property="property">
+        <string>quantity</string>
+       </void>
+       <void property="valueClassName">
+        <string>java.lang.Long</string>
+       </void>
+      </object>
+     </void>
+     <void property="headerStyle">
+      <object idref="Style0"/>
+     </void>
+     <void property="style">
+      <object idref="Style2"/>
+     </void>
+     <void property="title">
+      <string>Quantity</string>
+     </void>
+     <void property="width">
+      <int>80</int>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ar.com.fdvs.dj.domain.entities.columns.SimpleColumn">
+     <void property="columnProperty">
+      <object class="ar.com.fdvs.dj.domain.ColumnProperty">
+       <void property="property">
+        <string>amount</string>
+       </void>
+       <void property="valueClassName">
+        <string>java.lang.Float</string>
+       </void>
+      </object>
+     </void>
+     <void property="headerStyle">
+      <object idref="Style0"/>
+     </void>
+     <void property="pattern">
+      <string>$ 0.00</string>
+     </void>
+     <void property="style">
+      <void property="backgroundColor">
+       <object class="java.awt.Color">
+        <int>0</int>
+        <int>255</int>
+        <int>255</int>
+        <int>255</int>
+       </object>
+      </void>
+     </void>
+     <void property="title">
+      <string>Amount</string>
+     </void>
+     <void property="width">
+      <int>90</int>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="columnsGroups">
+   <void method="add">
+    <object class="ar.com.fdvs.dj.domain.entities.ColumnsGroup">
+     <void property="columnToGroupBy">
+      <object idref="SimpleColumn0"/>
+     </void>
+    </object>
+   </void>
+   <void method="add">
+    <object class="ar.com.fdvs.dj.domain.entities.ColumnsGroup">
+     <void property="columnToGroupBy">
+      <object idref="SimpleColumn1"/>
+     </void>
+     <void property="defaulFooterStyle">
+      <object class="ar.com.fdvs.dj.domain.Style">
+       <void property="backgroundColor">
+        <object class="java.awt.Color">
+         <int>255</int>
+         <int>200</int>
+         <int>0</int>
+         <int>255</int>
+        </object>
+       </void>
+      </object>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="options">
+   <object class="ar.com.fdvs.dj.domain.DynamicReportOptions">
+    <void property="bottomMargin">
+     <int>20</int>
+    </void>
+    <void property="columnSpace">
+     <int>5</int>
+    </void>
+    <void property="leftMargin">
+     <int>20</int>
+    </void>
+    <void property="oddRowBackgroundStyle">
+     <void property="backgroundColor">
+      <object class="java.awt.Color">
+       <int>230</int>
+       <int>230</int>
+       <int>230</int>
+       <int>255</int>
+      </object>
+     </void>
+    </void>
+    <void property="printBackgroundOnOddRows">
+     <boolean>true</boolean>
+    </void>
+    <void property="rightMargin">
+     <int>20</int>
+    </void>
+    <void property="subtitleHeight">
+     <int>20</int>
+    </void>
+    <void property="useFullPageWidth">
+     <boolean>true</boolean>
+    </void>
+   </object>
+  </void>
+  <void property="subtitle">
+   <string>The items in this report correspond to the main products: DVDs, Books, Foods and Magazines</string>
+  </void>
+  <void property="title">
+   <string>November 2006 sales report</string>
+  </void>
+ </object>
+</java>

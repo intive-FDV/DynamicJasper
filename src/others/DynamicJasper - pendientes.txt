@@ -1,0 +1,19 @@
+OK * Documentacion: query con parametros no esta claro
+OK * Documentacion: Ejemplo grafico de los distintos group layouts
+* Documentacion: Como crear grupos, debe estar en los HOW-TO
+* Documentacion: Falta la documentción de las distintas opciones del report builder (e.g: printColumnNames, etc)
+* Documentacion: Crosstabs HOW-TO, dejar en claro que tiene que haber si o si un MEASURE
+OK * FEATURE: charts mas complejos (con series)
+* FEATURE: Faltarían mas chart, que el usuario pueda definir que usa de series y category
+OK * ENCUESTA: Opcion pregunta 1) Havent used before
+* ENCUESTA: Agregar codigo Analytics
+* ENCUESTA: Modificar script DB para guardar el IP
+OK * VENTAS: Anotarme en el market-place de SourceForge
+* WEB/documentacion: actualizar palabras clave para indexacion de google: dynamic column pdf merge pdf, etc.
+* POSICIONAMIENTO: Revisar foro jasperReports, siempre hay gente que pregunta por columnas dinamicas.
+* POSICIONAMIENTO: Configurar motores de busqueda/etc (Technorari?) para que nos envien informes periodicamente de los lugares donde aparece DynamicJasper o a fines
+* WEB/documentacion: La página de features está desactualizada, se podría poner un HTML que meche imagenes y texto
+* FEATURE: Marca de agua. Debería ser muy facil agregr una marca de agua como "CONFIDENTIAL", etc.
+* FEATURE: En cada grupo, debería poder redefinir los estilos de los headers
+* DOCUEMENTACION: jrxml templates :: booleanas para elejir si importar parameters, fields y variables
+* FIX: Page orientation:: ver https://sourceforge.net/forum/message.php?msg_id=5150094
