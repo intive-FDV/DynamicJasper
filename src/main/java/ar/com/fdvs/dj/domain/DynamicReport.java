@@ -42,6 +42,7 @@ import ar.com.fdvs.dj.core.DJConstants;
  */
 public class DynamicReport {
 
+	private String reportName;
 	private String title;
 	private String subtitle;
 	private Style titleStyle = new Style("reportTitleStyle");
@@ -67,7 +68,7 @@ public class DynamicReport {
 
 	//Other parameters needed (E.g. Subreports)
 	private List parameters = new ArrayList();
-	
+
 	private Map properties = new HashMap();
 
 	private String templateFileName = null;
@@ -123,7 +124,7 @@ public class DynamicReport {
 	public void setStyles(Map styles) {
 		this.styles = styles;
 	}
-	
+
 	public void setProperty(String name, String value) {
 		properties.put(name, value);
 	}
@@ -364,6 +365,14 @@ public class DynamicReport {
 	 */
 	public void setProperties(Map properties) {
 		this.properties = properties;
+	}
+
+	public String getReportName() {
+		return reportName;
+	}
+
+	public void setReportName(String reportName) {
+		this.reportName = reportName;
 	}
 
 }

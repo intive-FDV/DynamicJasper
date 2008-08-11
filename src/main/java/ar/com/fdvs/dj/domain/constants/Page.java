@@ -32,7 +32,7 @@ package ar.com.fdvs.dj.domain.constants;
 public class Page extends BaseDomainConstant {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private int height = 0;
 	private int width = 0;
 	private boolean orientationPortrait = true;
@@ -65,6 +65,11 @@ public class Page extends BaseDomainConstant {
 
 	}
 
+	/**
+	 * Default constructor for portrait orientation
+	 * @param height
+	 * @param width
+	 */
 	public Page(int height, int width) {
 		this.height = height;
 		this.width = width;
@@ -76,7 +81,7 @@ public class Page extends BaseDomainConstant {
 		this.width = width;
 		this.orientationPortrait = portrait;
 	}
-	
+
 	public static Page Page_A4_Portrait(){
 		return new Page(842,595,true);
 	}

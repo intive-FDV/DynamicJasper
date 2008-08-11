@@ -37,6 +37,7 @@ public class XlsReportTest extends BaseDjReportTest {
 			.setMargins(0, 0, 0, 0)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
+			.setReportName("My Excel Report")
 			.setDefaultStyles(null, null, null, columDetail)
 			.setUseFullPageWidth(true);
 
@@ -51,6 +52,11 @@ public class XlsReportTest extends BaseDjReportTest {
 	protected LayoutManager getLayoutManager() {
 		return new ListLayoutManager();
 	}
+
+	protected void exportReport() throws Exception {
+		ReportExporter.exportReportXls(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".xls");
+	}
+
 
 	public static void main(String[] args) throws Exception {
 		XlsReportTest test = new XlsReportTest();

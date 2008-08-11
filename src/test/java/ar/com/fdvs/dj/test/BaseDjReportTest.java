@@ -40,6 +40,10 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
@@ -47,6 +51,8 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public abstract class BaseDjReportTest extends TestCase {
+
+	protected static final Log log = LogFactory.getLog(BaseDjReportTest.class);
 
 	protected JasperPrint jp;
 	protected JasperReport jr;
@@ -57,32 +63,36 @@ public abstract class BaseDjReportTest extends TestCase {
 
 	public void testReport() throws Exception {
 			dr = buildReport();
+
+			/**
+			 * Get a JRDataSource implementation
+			 */
 			JRDataSource ds = getDataSource();
 
-			jp = DynamicJasperHelper.generateJasperPrint(dr, getLayoutManager(), ds,params );	
-																											
-																											
+
 			/**
 			 * Creates the JasperReport object, we pass as a Parameter
 			 * the DynamicReport, a new ClassicLayoutManager instance (this
 			 * one does the magic) and the JRDataSource
 			 */
 			jr = DynamicJasperHelper.generateJasperReport(dr, getLayoutManager(), params);
-			
+
 			/**
 			 * Creates the JasperPrint object, we pass as a Parameter
 			 * the JasperReport object, and the JRDataSource
 			 */
-            jp = JasperFillManager.fillReport(jr, params, ds);		
-            
+            jp = JasperFillManager.fillReport(jr, params, ds);
+
             exportReport();
-			
+
+            log.debug("test finished");
+
 	}
 
 	protected LayoutManager getLayoutManager() {
 		return new ClassicLayoutManager();
 	}
-	
+
 	protected void exportReport() throws Exception {
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".pdf");
 	}

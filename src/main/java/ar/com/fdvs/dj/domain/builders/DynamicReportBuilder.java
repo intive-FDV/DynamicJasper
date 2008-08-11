@@ -328,17 +328,20 @@ public class DynamicReportBuilder {
 		return globalGroup;
 	}
 
-	/**
-	 * @deprecated
-	 * @param title
-	 * @return
-	 */
-	public DynamicReportBuilder addTitle(String title) {
-		return setTitle(title);
-	}
-
 	public DynamicReportBuilder setTitle(String title) {
 		report.setTitle(title);
+		return this;
+	}
+
+	/**
+	 * Sets the name of the report.<br>
+	 * When exporting to Excel, this is going to be the sheet name. <b>Be careful</b> because
+	 * Excel only allows 32 alphanumeric characters
+	 * @param reportName
+	 * @return
+	 */
+	public DynamicReportBuilder setReportName(String reportName) {
+		report.setReportName(reportName);
 		return this;
 	}
 
@@ -1430,7 +1433,7 @@ public class DynamicReportBuilder {
 	/**
 	 * Adds a property to report design, this properties are mostly used by exporters
 	 * to know if any specific configuration is needed
-	 * 
+	 *
 	 * @param name
 	 * @param value
 	 * @return
@@ -1441,5 +1444,5 @@ public class DynamicReportBuilder {
 	}
 
 
-	
+
 }
