@@ -36,6 +36,10 @@
    <body>
          <release version="2.0.11" date="2008-08-11"	desc="fixes">
          	<action dev="Juan Manuel Alvarez" type="add">
+         		Report Name :: Report name can now be specified (dynamicReport.setReportName(...) ). When exporting to Excel,
+         		this name will be used as the sheet name
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="add">
          		Report Properties :: Now the DynamicReport has a setProperty(String, String) method which passes the properties to the JasperReportDesign.
          	</action>
          	<action dev="Juan Manuel Alvarez" type="fix">
