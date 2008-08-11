@@ -106,7 +106,7 @@ public class DJJRDesignHelper {
 		
 		for (Iterator iterator = dr.getProperties().keySet().iterator(); iterator.hasNext();) {
 			String name = (String) iterator.next();
-			des.setProperty(name, (String) dr.getProperties().get(name));
+			des.setProperty(name, (String) dr.getProperties().get(name));			
 		}
 
 		des.setName("DynamicReport");
