@@ -15,5 +15,6 @@ OK * VENTAS: Anotarme en el market-place de SourceForge
 * WEB/documentacion: La página de features está desactualizada, se podría poner un HTML que meche imagenes y texto
 * FEATURE: Marca de agua. Debería ser muy facil agregr una marca de agua como "CONFIDENTIAL", etc.
 * FEATURE: En cada grupo, debería poder redefinir los estilos de los headers
-* DOCUEMENTACION: jrxml templates :: booleanas para elejir si importar parameters, fields y variables
-* FIX: Page orientation:: ver https://sourceforge.net/forum/message.php?msg_id=5150094
+OK * DOCUEMENTACION: jrxml templates :: booleanas para elejir si importar parameters, fields y variables
+OK * FIX: Page orientation:: ver https://sourceforge.net/forum/message.php?msg_id=5150094
+FEATURE: LINE CHART pedido en post: https://sourceforge.net/forum/message.php?msg_id=5159978
