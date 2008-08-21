@@ -99,6 +99,7 @@ public class ExpressionColumn extends SimpleColumn {
 				sb.append(".with(\"" +  propname + "\",$F{" + propname + "})");
 			}
 		}
+		//XXX add variables!!!
 
 		sb.append(".with(\"" +  DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP + "\",$P{" + DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP + "})");
 
