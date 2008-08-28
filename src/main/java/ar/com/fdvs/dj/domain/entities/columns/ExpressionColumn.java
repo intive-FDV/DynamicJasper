@@ -33,6 +33,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+import net.sf.jasperreports.engine.JRVariable;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -50,6 +52,15 @@ public class ExpressionColumn extends SimpleColumn {
 	private CustomExpression expression;
 
 	private Collection columns;
+	private Collection variables; //List of JRVariables
+
+	public Collection getVariables() {
+		return variables;
+	}
+
+	public void setVariables(Collection variables) {
+		this.variables = variables;
+	}
 
 	public Collection getColumns() {
 		return columns;
@@ -85,12 +96,8 @@ public class ExpressionColumn extends SimpleColumn {
 				properties.add(propcol.getColumnProperty());
 			}
 		}
-//		for (Iterator iter = .iterator(); iter.hasNext();) {
-//			type element = (type) iter.next();
-//
-//		}
 
-
+		//add other columns
 		for (Iterator iter = columns.iterator(); iter.hasNext();) {
 			AbstractColumn col = (AbstractColumn) iter.next();
 			if (col instanceof SimpleColumn && !(col instanceof ExpressionColumn)) {
@@ -99,8 +106,15 @@ public class ExpressionColumn extends SimpleColumn {
 				sb.append(".with(\"" +  propname + "\",$F{" + propname + "})");
 			}
 		}
-		//XXX add variables!!!
+		
+		//Add Variables
+		for (Iterator iter = variables.iterator(); iter.hasNext();) {
+			JRVariable jrvar = (JRVariable) iter.next();
+				String varname = jrvar.getName();
+				sb.append(".with(\"v_" +  varname + "\",$V{" + varname + "})");
+		}
 
+		//Add the parameter MAP
 		sb.append(".with(\"" +  DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP + "\",$P{" + DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP + "})");
 
 		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+getColumnProperty().getProperty()+"})."+CustomExpression.EVAL_METHOD_NAME+"( "+ sb.toString() +" ))";

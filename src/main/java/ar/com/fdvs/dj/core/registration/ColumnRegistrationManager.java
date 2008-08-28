@@ -99,6 +99,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 
 					}
 					expressionColumn.setColumns( l );
+					expressionColumn.setVariables( new ArrayList(getDjd().getVariablesList()) );
 					registerExpressionColumnParameter(expressionColumn.getColumnProperty().getProperty(), expressionColumn.getExpression());
 				}
 			} catch (JRException e) {

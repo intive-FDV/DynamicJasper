@@ -30,10 +30,12 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
+import java.util.Date;
 import java.util.Map;
 
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJCustomExpression;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
@@ -45,7 +47,7 @@ import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
-public class CustomExpressionReportTest extends BaseDjReportTest {
+public class CustomExpressionReportTest2 extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -112,7 +114,7 @@ public class CustomExpressionReportTest extends BaseDjReportTest {
 		AbstractColumn columnaCustomExpression = ColumnBuilder.getInstance()
 		.setCustomExpression(getCustomExpression())
 		//.setColumnProperty("item", String.class.getName())
-		.setTitle("CustomExp").setWidth(new Integer(90))
+		.setTitle("CustomExp").setWidth(new Integer(200))
 		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);
@@ -130,26 +132,28 @@ public class CustomExpressionReportTest extends BaseDjReportTest {
 		drb.addField("branch", String.class.getName());
 
 		DynamicReport dr = drb.build();
+		
+		this.params.put("date", new Date());
 		return dr;
 	}
 
 	private CustomExpression getCustomExpression() {
-		return new CustomExpression() {
+		return new DJCustomExpression() {
 
-			public Object evaluate(Object object) {
-				Map map = (Map) object;
-				String state = (String) map.get("state");
-				String branch = (String) map.get("branch");
-				String productLine = (String) map.get("productLine");
-				Integer count = (Integer) map.get("v_REPORT_COUNT");
-				return count + ": " +state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+			public Object innerEvaluate(Map fields, Map variables, Map parameters) {
+				String state = (String) fields.get("state");
+				String branch = (String) fields.get("branch");
+				String productLine = (String) fields.get("productLine");
+				Integer count = (Integer) variables.get("REPORT_COUNT");
+				Date date = (Date) parameters.get("date");
+				return count + ": " + date + " - " +state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
 			}
 
 		};
 	}
 
 	public static void main(String[] args) throws Exception {
-		CustomExpressionReportTest test = new CustomExpressionReportTest();
+		CustomExpressionReportTest2 test = new CustomExpressionReportTest2();
 		
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
