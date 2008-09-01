@@ -51,11 +51,13 @@ public class QueryReportTest extends BaseDjReportTest {
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("Id", "id", Integer.class.getName(),30)
-			.addColumn("Nombre", "nombre", String.class.getName(),30)
-			.addColumn("Apellido", "apellido", String.class.getName(),50)
-			.addColumn("Password", "password", String.class.getName(),50)
-			.setTitle("Usuarios del sistema")
-			.setQuery("select * from usuario where nombre = $P{nom}", DJConstants.QUERY_LANGUAGE_SQL)
+			.addColumn("First Name", "firstname", String.class.getName(),30)
+			.addColumn("Last Name", "lastname", String.class.getName(),50)
+			.addColumn("Street", "street", String.class.getName(),50)
+			.addColumn("City", "city", String.class.getName(),50)
+			.setTitle("Customers")
+			.setQuery("select * from customer where firstname like $P{start}", DJConstants.QUERY_LANGUAGE_SQL)
+			//.setQuery("select * from customer", DJConstants.QUERY_LANGUAGE_SQL)
 			.setTemplateFile("templates/TemplateReportTest.jrxml")
 			.setUseFullPageWidth(true);
 
@@ -63,7 +65,7 @@ public class QueryReportTest extends BaseDjReportTest {
 
 		//Note that the query has a parameter, by putting in the map
 		//an item with the proper key, it will be automatically registered as a parameter
-		params.put("nom", "Juan");
+		params.put("start", "A%");
 
 		return dr;
 	}
@@ -75,22 +77,19 @@ public class QueryReportTest extends BaseDjReportTest {
 //			JasperDesignViewer.viewReportDesign(jr);
 
 		String jrxml = JRXmlWriter.writeReport(test.jr, "UTF-8");
-		System.out.println(jrxml);
+//		System.out.println(jrxml);
 	}
 
 	public void testReport() throws Exception {
 		Connection con = null;
 		try {
 			dr = buildReport();
-
-			con = creatMySQLConnection();
-
+			con = createSQLConnection();
 			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), con,params );
-
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager(),params);
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			try {
 				con.close();
@@ -98,18 +97,12 @@ public class QueryReportTest extends BaseDjReportTest {
 		}
 	}
 
-  public static Connection creatMySQLConnection() {
+  public static Connection createSQLConnection() throws Exception {
 	Connection con = null;
-	try {
-		Class.forName("com.mysql.jdbc.Driver");
-		con = DriverManager.getConnection("jdbc:mysql://localhost/test", "root", "");
-	} catch (ClassNotFoundException e) {
-		e.printStackTrace();
-	} catch (SQLException e) {
-		e.printStackTrace();
-	}
+	     Class.forName("org.hsqldb.jdbcDriver" );
+		 con = DriverManager.getConnection("jdbc:hsqldb:file:target/test-classes/hsql/test_dj_db", "sa", "");
 	return con;
-}
+  }
 
 
 }
