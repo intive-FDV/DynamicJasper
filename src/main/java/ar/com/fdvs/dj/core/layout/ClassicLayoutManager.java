@@ -398,7 +398,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					AbstractColumn col = (AbstractColumn) iterator.next();
 
 					JRDesignTextField designTextField = createColumnNameTextField(columnsGroup, col);
-					designTextField.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT); //XXX changeg to see what happens  (must come from the column position property)
+					designTextField.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT); //XXX changed to see what happens  (must come from the column position property)
 					designTextField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX changeg to see what happens (must come from the column property)
 					header.addElement(designTextField);
 				}
@@ -541,7 +541,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				subreport.setConnectionExpression(connectionExpression);
 			} else if (DJConstants.DATA_SOURCE_TYPE_SQL_CONNECTION == sr.getDatasource().getDataSourceType()) {
 				JRDesignExpression connectionExpression = ExpressionUtils.getConnectionExpression(sr.getDatasource());
-				subreport.setConnectionExpression(connectionExpression);				
+				subreport.setConnectionExpression(connectionExpression);
 			} else {
 				JRDesignExpression dataSourceExpression = ExpressionUtils.getDataSourceExpression(sr.getDatasource());
 				subreport.setDataSourceExpression(dataSourceExpression);
@@ -587,8 +587,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			//adding to the band
 			if (sr.isStartInNewPage()) {
-				JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider()); 
-				band.addElement(pageBreak); 
+				JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider());
+				band.addElement(pageBreak);
 			}
 			band.addElement(subreport);
 		}
@@ -721,7 +721,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					Style style = col.getStyle();
 					try {
 						style = (Style) BeanUtils.cloneBean(style);
-						style.setName(null); //set to null to make applyStyleToElement(...) assign a name 
+						style.setName(null); //set to null to make applyStyleToElement(...) assign a name
 					} catch (Exception e) {	}
 					applyStyleToElement(style, textField);
 				}
@@ -808,7 +808,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		 * You may dont want this option if you have groups that prints column names.
 		 */
 		if (getReport().getOptions().isPrintColumnNames()){
-			generateHeaderBand(header);			
+			generateHeaderBand(header);
 		}
 
 //		if (!DynamicJasperHelper.existsGroupWithColumnNames(getReport().getColumnsGroups()))

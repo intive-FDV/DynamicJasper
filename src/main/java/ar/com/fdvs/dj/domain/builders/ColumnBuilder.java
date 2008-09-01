@@ -112,7 +112,7 @@ public class ColumnBuilder {
 		else if (columnType == COLUMN_TYPE_BARCODE){
 			return buildSimpleBarcodeColumn();
 		}
-		else if (columnProperty != null) {
+		else if (columnProperty != null) { //FIXME Horrible!!! Can't I create an expression column with a propery also?
 			return buildSimpleColumn();
 		} else if (customExpression==null) {
 			return buildOperationColumn();

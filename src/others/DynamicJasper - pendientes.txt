@@ -18,3 +18,5 @@ OK * VENTAS: Anotarme en el market-place de SourceForge
 OK * DOCUEMENTACION: jrxml templates :: booleanas para elejir si importar parameters, fields y variables
 OK * FIX: Page orientation:: ver https://sourceforge.net/forum/message.php?msg_id=5150094
 FEATURE: LINE CHART pedido en post: https://sourceforge.net/forum/message.php?msg_id=5159978
+FEATURE: Arbitrary text on group footers/heaeder https://sourceforge.net/forum/message.php?msg_id=5168071
+FEATURE: Add native jasper report column where we pass directly a class type and a RAW jasper's like expression: e.g.: "$F{property}.toUpper()"

@@ -83,7 +83,7 @@ public class ExpressionColumn extends SimpleColumn {
 //	}
 
 	public String getValueClassNameForExpression() {
-		return String.class.getName();
+		return String.class.getName(); //FIXME these should depend on the custom expression return type
 	}
 
 	public String getTextForExpression() {
@@ -106,7 +106,7 @@ public class ExpressionColumn extends SimpleColumn {
 				sb.append(".with(\"" +  propname + "\",$F{" + propname + "})");
 			}
 		}
-		
+
 		//Add Variables
 		for (Iterator iter = variables.iterator(); iter.hasNext();) {
 			JRVariable jrvar = (JRVariable) iter.next();

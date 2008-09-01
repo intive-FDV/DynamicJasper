@@ -87,11 +87,11 @@ public class Page extends BaseDomainConstant {
 	}
 
 	public static Page Page_A4_Landscape(){
-		return new Page(595,842);
+		return new Page(595,842,false);
 	}
 
 	public static Page Page_Legal_Portrait(){
-		return new Page(1008,612,false);
+		return new Page(1008,612,true);
 	}
 
 	public static Page Page_Legal_Landscape(){

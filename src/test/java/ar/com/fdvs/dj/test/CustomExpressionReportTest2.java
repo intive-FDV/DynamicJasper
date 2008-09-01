@@ -117,14 +117,20 @@ public class CustomExpressionReportTest2 extends BaseDjReportTest {
 		.setTitle("CustomExp").setWidth(new Integer(200))
 		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-		drb.addColumn(columnState);
+		AbstractColumn columnaNumberCustomExpression = ColumnBuilder.getInstance()
+		.setCustomExpression(getNumberCustomExpression()).setColumnProperty("amount", Float.class.getName())
+		.setTitle("Numeric Custom Exp").setWidth(new Integer(200))
+		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
+
+//		drb.addColumn(columnState);
 //		drb.addColumn(columnBranch);
 //		drb.addColumn(columnaProductLine);
-		drb.addColumn(columnaItem);
-		drb.addColumn(columnCode);
-		drb.addColumn(columnaCantidad);
-		drb.addColumn(columnAmount);
-		drb.addColumn(columnaCustomExpression);
+//		drb.addColumn(columnaItem);
+//		drb.addColumn(columnCode);
+//		drb.addColumn(columnaCantidad);
+//		drb.addColumn(columnAmount);
+//		drb.addColumn(columnaCustomExpression);
+		drb.addColumn(columnaNumberCustomExpression);
 
 		drb.setUseFullPageWidth(true);
 
@@ -132,7 +138,7 @@ public class CustomExpressionReportTest2 extends BaseDjReportTest {
 		drb.addField("branch", String.class.getName());
 
 		DynamicReport dr = drb.build();
-		
+
 		this.params.put("date", new Date());
 		return dr;
 	}
@@ -152,9 +158,20 @@ public class CustomExpressionReportTest2 extends BaseDjReportTest {
 		};
 	}
 
+	private CustomExpression getNumberCustomExpression() {
+		return new DJCustomExpression() {
+
+			public Object innerEvaluate(Map fields, Map variables, Map parameters) {
+				Integer count = (Integer) variables.get("REPORT_COUNT");
+				return new Float(count.floatValue());
+			}
+
+		};
+	}
+
 	public static void main(String[] args) throws Exception {
 		CustomExpressionReportTest2 test = new CustomExpressionReportTest2();
-		
+
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
 	}
