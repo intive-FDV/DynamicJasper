@@ -30,6 +30,8 @@
 package ar.com.fdvs.dj.test;
 
 
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -108,4 +110,11 @@ public abstract class BaseDjReportTest extends TestCase {
 																										//here contains dummy hardcoded objects...
 		return ds;
 	}
+	
+	public static Connection createSQLConnection() throws Exception {
+		Connection con = null;
+		     Class.forName("org.hsqldb.jdbcDriver" );
+			 con = DriverManager.getConnection("jdbc:hsqldb:file:target/test-classes/hsql/test_dj_db", "sa", "");
+		return con;
+	  }	
 }
