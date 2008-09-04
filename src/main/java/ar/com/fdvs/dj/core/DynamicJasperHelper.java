@@ -405,6 +405,10 @@ public final class DynamicJasperHelper {
 
 					JRDesignParameter parameter = new JRDesignParameter();
 					Object value = _parameters.get(key);
+					
+					if (value == null) //There are some Map implementations that allows nulls values, just go on
+						continue;
+					
 //					parameter.setValueClassName(value.getClass().getCanonicalName());
 					Class clazz = value.getClass().getComponentType();
 					if (clazz == null)

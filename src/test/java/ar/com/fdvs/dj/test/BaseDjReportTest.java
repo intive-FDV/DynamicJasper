@@ -34,6 +34,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import junit.framework.TestCase;
@@ -53,6 +54,10 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.util.SortUtils;
 
 public abstract class BaseDjReportTest extends TestCase {
+
+	public Map getParams() {
+		return params;
+	}
 
 	protected static final Log log = LogFactory.getLog(BaseDjReportTest.class);
 
@@ -114,6 +119,16 @@ public abstract class BaseDjReportTest extends TestCase {
 		return ds;
 	}
 	
+	public Collection getDummyCollectionSorted(List columnlist) {
+		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
+		return SortUtils.sortCollection(dummyCollection,columnlist);
+		
+	}
+	
+	public DynamicReport getDynamicReport() {
+		return dr;
+	}
+
 	public static Connection createSQLConnection() throws Exception {
 		Connection con = null;
 		     Class.forName("org.hsqldb.jdbcDriver" );

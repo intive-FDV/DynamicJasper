@@ -30,6 +30,8 @@
 package ar.com.fdvs.dj.webwork;
 
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,12 +42,16 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
@@ -76,16 +82,18 @@ public class DJResult extends JasperReportsResult {
 	public static final String LAYOUT_CLASSIC = "classic";
 	public static final String LAYOUT_LIST = "list";
 
-    private String dynamicReport;
+    protected String dynamicReport;
 
-    private String documentFormat;
+    protected String documentFormat;
 
     /**
      * The layout manager to use. Possible values are: classic, list, or a fully qualified java name
      */
-    private String layoutManager;
+    protected String layoutManager;
 
-    private String exportParams;
+	protected String exportParams;
+
+    protected String parameters;
 
     public void setDynamicReport(final String _dynamicReport) {
         dynamicReport = _dynamicReport;
@@ -110,7 +118,8 @@ public class DJResult extends JasperReportsResult {
 
         //construct the dynamic report
         //final OgnlValueStack stack = _invocation.getStack();
-        final JRDataSource ds = (JRDataSource)conditionalParse(dataSource, _invocation, JRDataSource.class);
+        //final JRDataSource ds = (JRDataSource)conditionalParse(dataSource, _invocation, JRDataSource.class);
+        final JRDataSource ds = buildJRDataSource(_invocation.getStack().findValue(dataSource));
         //final OgnlValueStackDataSource stackDataSource = new OgnlValueStackDataSource(stack, dataSource);
 
         // (Map) ActionContext.getContext().getSession().get("IMAGES_MAP");
@@ -122,10 +131,12 @@ public class DJResult extends JasperReportsResult {
             handleConTypeRequest(response);
         } else {
             //final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(getDynamicReport(_invocation), new ClassicLayoutManager(), stackDataSource);
-            final HashMap parameters = new HashMap();
+//            final HashMap parameters = new HashMap();
+            Map parameters = _invocation.getStack().getContext(); //FIXME Extend HashMap so that if a key is not found, the look into the stack. Or just use a regular map.
             //TODO set the locale
             parameters.put(JRParameter.REPORT_LOCALE, _invocation.getInvocationContext().getLocale());
             LayoutManager layoutManagerObj = getLayOutManagerObj(_invocation);
+			//final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(getDynamicReport(_invocation), layoutManagerObj, ds, parameters);
 			final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(getDynamicReport(_invocation), layoutManagerObj, ds, parameters);
 
             // Export the print object to the desired output format
@@ -133,7 +144,28 @@ public class DJResult extends JasperReportsResult {
         }
     }
 
-    private LayoutManager getLayOutManagerObj(ActionInvocation _invocation) {
+    protected JRDataSource buildJRDataSource(Object dsCandidate) {
+		if (dsCandidate == null)
+			return null;
+		
+		if (dsCandidate instanceof JRDataSource)
+			return (JRDataSource) dsCandidate;
+    	
+		if (dsCandidate instanceof Collection)
+			return new JRBeanCollectionDataSource((Collection) dsCandidate);
+		
+		if (dsCandidate instanceof ResultSet)
+			return new JRResultSetDataSource((ResultSet) dsCandidate);
+		
+		if (dsCandidate.getClass().isArray())
+			return new JRBeanArrayDataSource((Object[]) dsCandidate);
+		
+		
+		throw new DJException("class " + dsCandidate.getClass().getName() + " is not supported " +
+				"from the DynamicJasper WebWorK result type. Provide a JRDataSource implementation instead");
+	}
+
+	protected LayoutManager getLayOutManagerObj(ActionInvocation _invocation) {
 		String los = conditionalParse(layoutManager, _invocation);
 		if (LAYOUT_CLASSIC.equals(los))
 			return new ClassicLayoutManager();
@@ -163,9 +195,9 @@ public class DJResult extends JasperReportsResult {
 		return lo;
 	}
 
-	private void handleConTypeRequest(final HttpServletResponse _response) throws ServletException {
+	protected void handleConTypeRequest(final HttpServletResponse _response) throws ServletException {
         try {
-            _response.setContentType("application/pdf");
+            _response.setContentType(FormatInfoRegistry.getInstance().getContentType(documentFormat)); //
             _response.setContentLength(0);
             _response.getOutputStream().close();
         } catch (IOException ex) {
@@ -174,7 +206,7 @@ public class DJResult extends JasperReportsResult {
         }
     }
 
-    private void checkParams() {
+    protected void checkParams() {
         if (dynamicReport == null) {
             final String message = "No dynamicReport specified...";
             LOG.error(message);
@@ -187,7 +219,7 @@ public class DJResult extends JasperReportsResult {
         }
     }
 
-    private void setResponseHeaders(final HttpServletResponse _response, final ActionInvocation _invocation) {
+    protected void setResponseHeaders(final HttpServletResponse _response, final ActionInvocation _invocation) {
         if (contentDisposition != null || documentName != null) {
             final StringBuffer buffer = new StringBuffer();
             buffer.append(getContentDisposition(_invocation));
@@ -202,7 +234,7 @@ public class DJResult extends JasperReportsResult {
         _response.setContentType(FormatInfoRegistry.getInstance().getContentType(documentFormat));
     }
 
-    private void writeReponse(final HttpServletRequest _request, final HttpServletResponse _response, final JasperPrint _jasperPrint, final ActionInvocation _invocation) throws JRException, IOException {
+    protected void writeReponse(final HttpServletRequest _request, final HttpServletResponse _response, final JasperPrint _jasperPrint, final ActionInvocation _invocation) throws JRException, IOException {
         setResponseHeaders(_response, _invocation);
         final HashMap parameters = new HashMap(getExportParams(_invocation));
         parameters.put(JRHtmlExporterParameter.IMAGES_URI, _request.getContextPath() + imageServletUrl);
@@ -210,7 +242,7 @@ public class DJResult extends JasperReportsResult {
         reportWriter.writeTo(_response);
     }
 
-    private Map getExportParams(final ActionInvocation _invocation) {
+    protected Map getExportParams(final ActionInvocation _invocation) {
     	Map params = (Map)conditionalParse(exportParams, _invocation, Map.class);
     	if (params == null) {
     		params = new HashMap();
@@ -218,24 +250,25 @@ public class DJResult extends JasperReportsResult {
 		return params;
     }
 
-    private DynamicReport getDynamicReport(final ActionInvocation _invocation) {
-        return (DynamicReport)conditionalParse(dynamicReport, _invocation, DynamicReport.class);
+    protected DynamicReport getDynamicReport(final ActionInvocation _invocation) {
+        //return (DynamicReport)conditionalParse(dynamicReport, _invocation, DynamicReport.class);
+        return (DynamicReport)_invocation.getStack().findValue(dynamicReport);
     }
 
 //    private String getDataSource(final ActionInvocation _invocation) {
 //        return conditionalParse(dataSource, _invocation);
 //    }
 
-    private String getFormat(final ActionInvocation _invocation) {
+    protected String getFormat(final ActionInvocation _invocation) {
         final String parsedFormat = conditionalParse(format == null ? FORMAT_PDF : format, _invocation);
         return TextUtils.stringSet(parsedFormat) ? parsedFormat : FORMAT_PDF;
     }
 
-    private String getDocumentName(final ActionInvocation _invocation) {
+    protected String getDocumentName(final ActionInvocation _invocation) {
         return conditionalParse(documentName, _invocation);
     }
 
-    private String getContentDisposition(final ActionInvocation _invocation) {
+    protected String getContentDisposition(final ActionInvocation _invocation) {
         final String parsedContentDisposition = conditionalParse(contentDisposition, _invocation);
         return parsedContentDisposition == null ? "inline" : parsedContentDisposition;
     }
@@ -248,7 +281,7 @@ public class DJResult extends JasperReportsResult {
 //        return conditionalParse(imageServletUrl, _invocation);
 //    }
 
-    private Object conditionalParse(final String _param, final ActionInvocation _invocation, final Class _type) {
+    protected Object conditionalParse(final String _param, final ActionInvocation _invocation, final Class _type) {
         if (parse && _param != null && _invocation != null) {
             return TextParseUtil.translateVariables('$', _param, _invocation.getStack(), _type, null);
         } else {
@@ -270,5 +303,9 @@ public class DJResult extends JasperReportsResult {
 
 	public void setExportParams(String exportParams) {
 		this.exportParams = exportParams;
+	}
+
+	public void setParameters(String parameters) {
+		this.parameters = parameters;
 	}
 }
