@@ -51,6 +51,10 @@
 		<priority value="ERROR" />
 		<appender-ref ref="console" />
 	</category>
+	<category name="ar.com.fdvs.dj.test">
+		<priority value="DEBUG" />
+		<appender-ref ref="console" />
+	</category>
 <!--	<category name="ar.com.fdvs.dj.core.layout">-->
 <!--		<priority value="DEBUG" />-->
 <!--		<appender-ref ref="console" />-->

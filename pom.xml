@@ -326,6 +326,18 @@ API.
 			<version>1.8.0.7</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.5.ga</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+			<scope>test</scope>
+		</dependency>		
 	</dependencies>
 	<distributionManagement>
 		<repository>
