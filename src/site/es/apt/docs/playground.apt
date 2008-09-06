@@ -1,0 +1,70 @@
+		------
+		UI - Playground
+		------
+		Martin Gorostegui
+		------
+		 Date
+		 
+Introduction
+
+ The DynamicJasper Playground is an example webapp made in GWT and it is inteded to show all the capabilities and potential that the DynamicJasper
+ API provides.
+ 
+ In a near future we will release this playground as a component ready to integrate to your web application.
+ 
+ {{{http://dynamicjasperplayground.fdvs.com.ar/}See it working online!!!}}
+		 
+Installation
+
+ {{{http://sourceforge.net/project/showfiles.php?group_id=188060}Download}} the war application and deploy it in an 2.3 servlet compatible servlet container (like Apache Tomcat 4.x or 5).
+ <<The source code is also available for download>>
+
+Usage
+
+ The Playground uses as example a report that lists movies, dvd and book titles. In the column selection area you can choose the columns you 
+ want to appear in the report, also the order you want them to appear.
+ 
+ More configuration can be made to the report: 
+ 
+ * Title and subtitle
+ 
+ * Output format (PDF, Excel, HTML and RTF)
+ 
+ * visual styles for every element in the report.
+ 
+ * Define column title
+ 
+ []
+ 
+ You can create groups (like in JasperReport), just click the button at the right  of the column you want to be grouped.
+ 
+*------+
+|Note: the grouping feature needs the data to be sorted in order to meat the group selection (ie: if whe group by column A, B and C, the data must be sorted by A, B and C columns).
+|In this playground we sort the data in the right way (because its a demo), but it's not responsability of this component nor JasperReport to sort the data.
+*------+
+
+Future features for the playground
+
+ * Variables in groups
+ 
+ * Component oriented design. So you can integrate to any web application
+ 
+ []
+ 
+Mini guide for playground
+
+ And now a mini guide...
+
+[../images/playground/Diapositiva1.jpg] Report Main options.
+
+[../images/playground/Diapositiva2.jpg] Defining some styles.
+
+[../images/playground/Diapositiva3.jpg] The column selection area.
+
+[../images/playground/Diapositiva4.jpg] Redefining styles per column
+
+[../images/playground/Diapositiva5.jpg] finally
+
+
+
+
