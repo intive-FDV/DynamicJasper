@@ -34,7 +34,7 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.11" date="2008-09-06"	desc="fixes">
+         <release version="2.1.0" date="2008-09-06"	desc="fixes">
          	<action dev="Juan Manuel Alvarez" type="add">
          		Tests enhancements :: To ensure product quality, the following technologies had been added to the automated tests:
          		* HSQL DB: for real JDBC and SQL report tests
