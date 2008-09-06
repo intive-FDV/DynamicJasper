@@ -49,7 +49,8 @@ public class QueryReportTest extends BaseDjReportTest {
 		 * the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
-		drb.addColumn("Id", "id", Integer.class.getName(),30)
+		drb
+			.addColumn("Id", "id", Integer.class.getName(),30)
 			.addColumn("First Name", "firstname", String.class.getName(),30)
 			.addColumn("Last Name", "lastname", String.class.getName(),50)
 			.addColumn("Street", "street", String.class.getName(),50)
