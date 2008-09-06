@@ -47,7 +47,11 @@ import net.sf.jasperreports.engine.JasperPrint;
  */
 public abstract class ReportWriter {
 
-    private static final int BUFFER_SIZE = 10 * 1024;
+    public JRExporter getExporter() {
+		return exporter;
+	}
+
+	private static final int BUFFER_SIZE = 10 * 1024;
 
     protected JasperPrint jasperPrint;
     protected JRExporter exporter;

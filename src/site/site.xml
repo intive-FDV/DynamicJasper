@@ -35,8 +35,9 @@
     <href>http://www.fdvsolutions.com/</href>
   </bannerLeft>
   <bannerRight>
+    <name>Source Forge</name>
     <src>http://sflogo.sourceforge.net/sflogo.php?group_id=188060&amp;type=4</src>
-    <href>http://sourceforge.net</href>
+    <href>http://www.sourceforge.net</href>
   </bannerRight>
 
   <body>
@@ -52,7 +53,7 @@
       <item name="Requeriments" href="requeriments.html"/>
       <item name="Download" href="http://www.fdvs.com.ar/download.html" />
       <item name="Project info" href="project-info.html"/>
-	  <item name="Paid Support" href="https://sourceforge.net/services/service_details.php?service_listing_id=2055"/>      
+	  <item name="Paid Support" href="https://sourceforge.net/services/service_details.php?service_listing_id=2055"/>
     </menu>
     <menu name="Playground (GUI)">
       <item name="Introduction" href="docs/playground.html"/>

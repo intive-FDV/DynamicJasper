@@ -3,7 +3,7 @@
 	<include file="webwork-default.xml" />
 
 	<package name="default" extends="webwork-default">
-	<result-types>     
+	<result-types>
      <result-type name="dynamic-jasper" class="ar.com.fdvs.dj.webwork.DJResult"/>
    </result-types>
 		<default-interceptor-ref name="commonInterceptor"></default-interceptor-ref>
@@ -16,14 +16,24 @@
 	     <result name="success" type="dynamic-jasper">
 	       <param name="dynamicReport">dynamicReport</param>
 	       <param name="dataSource">dataSource</param>
-	       <param name="documentName">The_final_name_of_the_file</param>
+		   <param name="documentName">Dynamic Report generated with webwork 1</param>
 	       <param name="format">PDF</param>
-	       <param name="parse">true</param>
 	       <param name="layoutManager">classic</param>
-	     </result>			
+	     </result>
 		</action>
 
-<!-- 
+		<action name="generateReportTemplate" class="ar.com.fdvs.dj.test.web.webwork.GenerateReportAction" method="doReportWithTemplate">
+	     <result name="success" type="dynamic-jasper">
+	       <param name="dynamicReport">dynamicReport</param>
+	       <param name="dataSource">dataSource</param>
+	       <param name="documentName">Dynamic Report generated with webwork 2</param>
+	       <param name="parameters">params</param>
+	       <param name="format">PDF</param>
+	       <param name="layoutManager">classic</param>
+	     </result>
+		</action>
+
+<!--
 		<action name="downloadCert" class="downloadCertificateAction" 	method="download">
 			<result name="input">/jsp/documents/myDocuments.jsp</result>
 			<result name="success" type="stream">
@@ -33,7 +43,7 @@
 			  <param name="contentLength">${contentLength}</param>
 			  <param name="bufferSize">4096</param>
 			</result>
-		</action>		
+		</action>
  -->
 
 	</package>

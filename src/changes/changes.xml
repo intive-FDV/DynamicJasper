@@ -34,10 +34,20 @@
       <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
       </properties>
    <body>
-         <release version="2.0.11" date="2008-08-28"	desc="fixes">
+         <release version="2.0.11" date="2008-09-06"	desc="fixes">
+         	<action dev="Juan Manuel Alvarez" type="add">
+         		Tests enhancements :: To ensure product quality, the following technologies had been added to the automated tests:
+         		* HSQL DB: for real JDBC and SQL report tests
+         		* Hibernate: HQL report test
+         		* HTTP Unit: to test webwork result type. Also enabling future testing to new http facilities.
+         	</action>
+         	<action dev="Juan Manuel Alvarez" type="fix" due-to="dongw">
+         		WebWork integration :: Fixed bug that had this feature broken. Also added new options to result type.
+         		Updated documentation (see "Integrate DynamicJasper with Webwork"). Thanks dongw!
+         	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
          		Custom Expressions :: Now variables also available in Custom Expression. Instead of implementing CustomExpression, use
-         		DJCustomExpression which already provides as parameter one map per family (fields, variables and parameters)         		
+         		DJCustomExpression which already provides as parameter one map per family (fields, variables and parameters)
          	</action>
          	<action dev="Juan Manuel Alvarez" type="add">
          		Report Name :: Report name can now be specified (dynamicReport.setReportName(...) ). When exporting to Excel,

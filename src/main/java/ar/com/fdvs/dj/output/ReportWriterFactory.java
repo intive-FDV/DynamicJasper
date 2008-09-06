@@ -29,10 +29,14 @@
 
 package ar.com.fdvs.dj.output;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 
 /**
  * @author Alejandro Gomez
@@ -48,6 +52,7 @@ public class ReportWriterFactory {
     public ReportWriter getReportWriter(final JasperPrint _jasperPrint, final String _format, final Map _parameters) {
         final JRExporter exporter = FormatInfoRegistry.getInstance().getExporter(_format);
         exporter.setParameters(_parameters);
+
         if (_jasperPrint.getPages().size() > PAGES_THRESHHOLD) {
             return new FileReportWriter(_jasperPrint, exporter);
         } else {
