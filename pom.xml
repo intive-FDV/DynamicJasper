@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	~ DynamicJasper: A library for creating reports dynamically by specifying
+	~ columns, groups, styles, etc. at runtime. It also saves a lot of development
+	~ time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+	~
+	~ Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
+	~
+	~ This library is free software; you can redistribute it and/or
+	~ modify it under the terms of the GNU Lesser General Public
+	~
+	~ License as published by the Free Software Foundation; either
+	~
+	~ version 2.1 of the License, or (at your option) any later version.
+	~
+	~ This library is distributed in the hope that it will be useful,
+	~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+	~
+	~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	~
+	~ Lesser General Public License for more details.
+	~
+	~ You should have received a copy of the GNU Lesser General Public
+	~ License along with this library; if not, write to the Free Software
+	~
+	~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+	~
+	~
+--><project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ar.com.fdvs</groupId>
+	<artifactId>DynamicJasper</artifactId>
+	<version>2.1.0</version>
+	<name>DynamicJasper</name>
+	<packaging>jar</packaging>
+	<description>
+
+DynamicJasper (DJ) is an API that hides the complexity of Jasper
+Reports, it helps developers to save time when designing
+simple/medium complexity reports generating the layout of the
+report elements automatically. It creates reports dynamically,
+defining at runtime the columns, column width (auto width), groups,
+variables, fonts, charts, crosstabs, sub reports (that can also be dynamic), page size
+and everything else that you can define at design time.
+
+DJ keeps full compatibility with Jasper Reports since
+it's a tool that helps create reports programmatically in
+a easy way (it only interferes with the creation of the report
+design doing the layout of the elements).
+
+You can use the classic .jrxml files as templates while the
+content and layout of the report elements are handled by the DJ
+API.
+
+	</description>
+	<url>http://sourceforge.net/projects/dynamicjasper</url>
+    <issueManagement>
+		<system>SourceForge Tracker</system>
+		<url>http://sourceforge.net/tracker/?group_id=188060</url>
+	</issueManagement>
+	<inceptionYear>2006</inceptionYear>
+<!--
+	<repositories>
+		<repository>
+			<id>djmaven2</id>
+			<url>http://www.fdvs.com.ar/djmaven2</url>
+			<name>DynamicJasper public Repository</name>
+		</repository>
+	</repositories>
+	-->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0</version>
+				<configuration>
+					<source>1.4</source>
+					<target>1.4</target>
+					<debug>true</debug>
+					<executable>${JAVA_1_4_HOME}/bin/javac</executable>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		  <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.0-beta-7</version>
+      </plugin>
+    </plugins>
+         <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+                <version>1.0-beta-2</version>
+            </extension>
+        </extensions>
+    </build>
+	<profiles>
+		<profile>
+			<id>sources</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-source</id>
+								<goals>
+									<goal>jar</goal>
+									<goal>test-jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<source>1.4</source>
+						</configuration>
+						<executions>
+							<execution>
+								<id>javadoc</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>test-jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>site</id>
+			<reporting>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>
+							maven-project-info-reports-plugin
+						</artifactId>
+						<reportSets>
+							<reportSet>
+								<reports>
+									<report>dependencies</report>
+									<report>project-team</report>
+									<report>mailing-list</report>
+									<!--									<report>cim</report>-->
+									<report>issue-tracking</report>
+									<report>license</report>
+									<report>scm</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<configuration>
+							<source>1.4</source>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jxr-maven-plugin</artifactId>
+					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>changes-maven-plugin</artifactId>
+						<reportSets>
+							<reportSet>
+								<reports>
+									<report>changes-report</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+					</plugin>
+				     <plugin>
+				        <groupId>org.apache.maven.plugins</groupId>
+				        <artifactId>maven-site-plugin</artifactId>
+				        <configuration>
+				          <templateDirectory>${basedir}/src/config/</templateDirectory>
+				          <template>maven-site.vm</template>
+				          <locales>en</locales>
+				        </configuration>
+				      </plugin>
+				</plugins>
+			</reporting>
+		</profile>
+		<profile>
+			<id>publicRepo</id>
+		<distributionManagement>
+			<repository>
+				<id>djmaven2</id>
+				<name>DynamicJasper public Repository</name>
+				<url>ftp://fdvs.com.ar/djmaven2/</url>
+			</repository>
+		</distributionManagement>
+		</profile>
+	</profiles>
+
+
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>2.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.1</version>
+			<scope>compile</scope>
+		</dependency>
+        <dependency>
+            <groupId>commons-beanutils</groupId>
+            <artifactId>commons-beanutils</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>xwork</artifactId>
+            <version>1.2.1</version>
+           <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>oscore</artifactId>
+            <version>2.2.4</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>opensymphony</groupId>
+            <artifactId>webwork</artifactId>
+            <version>2.2.4</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge</groupId>
+            <artifactId>barbecue</artifactId>
+            <version>1.1</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+			<groupId>poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>[2.0.0,)</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>2.7.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>3.1.12</version>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+			<scope>test</scope>
+		</dependency>
+        <dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.5.ga</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- FOR WEBWORK TESTING -->
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>webwork</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>httpunit</groupId>
+			<artifactId>httpunit</artifactId>
+			<version>1.6.2</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<distributionManagement>
+		<repository>
+			<id>embuRepo</id>
+			<name>Embu Deploy Repo</name>
+			<url>ftp://fdvs.com.ar/maven2</url>
+		</repository>
+	</distributionManagement>
+	<mailingLists>
+		<mailingList>
+			<name>DynamicJasper News List</name>
+			<post>dynamicjasper-news@lists.sourceforge.net</post>
+			<subscribe>
+				dynamicjasper-news-subscribe@lists.sourceforge.net
+			</subscribe>
+			<unsubscribe>
+				dynamicjasper-news-unsubscribe@lists.sourceforge.net
+			</unsubscribe>
+			<archive>
+				http://sourceforge.net/mailarchive/forum.php?forum=dynamicjasper-news
+			</archive>
+		</mailingList>
+	</mailingLists>
+	<licenses>
+		<license>
+			<name>
+				GNU Library or Lesser General Public License (LGPL)
+			</name>
+			<url>http://www.gnu.org/licenses/lgpl.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<scm>
+		<connection>
+			scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk
+		</connection>
+		<developerConnection>
+			scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk
+		</developerConnection>
+		<url>http://dynamicjasper.svn.sourceforge.net</url>
+	</scm>
+	<!-- =============================== -->
+	<!--	PEOPLE                      -->
+	<!-- =============================== -->
+	<developers>
+		<developer>
+			<name>Juan Manuel Alvarez</name>
+			<id>djmamana</id>
+			<email>juan.alvarez@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Project lead</role>
+				<role>Java Developer</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		<developer>
+			<name>Martin Gorostegui</name>
+			<id>martingoros</id>
+			<email>martin.gorostegui@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Project admin</role>
+				<role>Java Developer</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		 <developer>
+			<name>Mariano Simone</name>
+			<id>marianosimone</id>
+			<email>mariano.simone@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Java Developer</role>
+				<role>Charting integration</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		<developer>
+			<name>Alejandro Gomez</name>
+			<email>alejandro.gomez@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Super Gurú</role>
+				<role>Doc supervisor</role>
+				<role>webwork Integration</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
+
+
+	<organization>
+		<name>FDV Solutions</name>
+		<url>http://www.fdvsolutions.com/</url>
+	</organization>
+	<properties>
+		<google_analitics_url>
+
+				&lt;script src="http://www.google-analytics.com/urchin.js" type="text/javascript">&lt;/script>
+				&lt;script type="text/javascript">
+				_uacct = "UA-2140380-1";
+				urchinTracker();
+				&lt;/script>
+
+		</google_analitics_url>
+		<google_adSense_script>
+
+				&lt;script type="text/javascript">&lt;!--
+				google_ad_client = "pub-7228421883024969";
+				google_ad_width = 728;
+				google_ad_height = 85;
+				google_ad_format = "728x90_as";
+				google_ad_type = "text_image";
+				google_ad_channel = "";
+				google_ui_features = "rc:6";
+				//-->
+				&lt;/script>
+				&lt;script type="text/javascript"
+				  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				&lt;/script>
+
+		</google_adSense_script>
+		<jetbrains_idea_banner>
+
+					&lt;a href="http://www.jetbrains.com/idea/"
+						style="display:block; width:88px; height:31px; border:0; margin:0;padding:0;text-decoration:none;text-indent:0;">
+						&lt;img src="http://www.jetbrains.com/idea/opensource/img/banners/idea88x31_blue.gif" alt="The best Java IDE" border="0"/>
+					&lt;/a>
+
+		</jetbrains_idea_banner>
+	</properties>
+</project>
