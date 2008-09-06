@@ -1,0 +1,45 @@
+	------------
+	HOW-TO Reference a style that exists in a jrxml file
+	------------
+
+HOW-TO Reference a style that exists in a jrxml file
+
+ In the following fragment we create the <titleStyle> object with the name <<"titleStyle">> and just leave
+ it like this. The TemplateReportTestWithStyles.jrxml file has defined a style with the name <titleStyle>,
+ thats why we see the report title with this coloring
+ 
++------------------------------------------------------------------------------------------------------------+
+/**
+ * "titleStyle" exists in the template .jrxml file
+ * The title should be seen in a big font size, violet foreground and light green background 
+ */
+Style titleStyle = new Style("titleStyle");
+
+Style subtitleStyle = new Style();
+Style amountStyle = new Style(); amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
+
+DynamicReportBuilder drb = new DynamicReportBuilder();
+drb.setTitle("November 2006 sales report")					//defines the title of the report
+...
+...
+	.setDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
+	.setTemplateFile("templates/TemplateReportTestWithStyles.jrxml")
+...
++------------------------------------------------------------------------------------------------------------+
+ 
+ This code generate a report like this:
+ 
+[../images/examples/template-with-style.jpg] Template with styles
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateStyleReportTest.html}TemplateStyleReportTest.html}} for a working example.
+ 
+* Overriding an existing style
+
+ If we need to override an existing style, just set the Style's <<overridesExistingStyle>> property to <<true>>,
+ this tells the DJ API to override any existing style with the same name with the new one.
+ 
++------------------------------------------------------------------------------------------------------------+
+Style titleStyle = new Style("titleStyle");
+titleStyle.setOverridesExistingStyle(true);
++------------------------------------------------------------------------------------------------------------+
+ 
