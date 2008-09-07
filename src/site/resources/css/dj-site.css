@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 	:link,:visited,:hover,:active
     {
-    text-decoration:none;  
+    text-decoration:none;
     }
 
 dl
@@ -47,7 +47,7 @@ h1,h2,h3,h4,h5,h6,pre,code
     {
     margin:0;
     padding:0;
-    background: transparent;    
+    background: transparent;
     }
 
 a img,:link img,:visited img
@@ -93,7 +93,7 @@ body, td, select, input, li
 
 #banner
     {
-#    border: 10px solid #1B6982;
+/**    border: 10px solid #1B6982; **/
 	border-left-width: 0px;
 	border-right-width: 0px;
 	border-top-width: 0px;
@@ -102,7 +102,7 @@ body, td, select, input, li
     background: ;
     width: 95%;
     padding: 5px;
-   	
+
     }
 
 #breadcrumbs
@@ -131,7 +131,7 @@ body, td, select, input, li
     margin: 0;
     padding: 0;
     border: 0;
-    
+
     }
 
 #bodyColumn
@@ -254,7 +254,7 @@ div.clear
     padding: 0;
     font-size: small;
     border-bottom: 1px dashed #999999;
-   
+
     }
 
 #navcolumn h5
@@ -268,11 +268,11 @@ div.clear
 
 #navcolumn li
     {
-    list-style-type: none;
+    list-style-type: circle;
     background-repeat: no-repeat;
     background-position: 0 4px;
     padding-left: 10px;
-    list-style-position: outside;
+    list-style-position: inside;
     line-height: 1.2em;
     font-size: smaller;
     margin-bottom: 3px;

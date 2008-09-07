@@ -76,12 +76,12 @@ div.clear hr{
   font-size: small;
 }
 #navcolumn li {
-  list-style-type: none;
+  list-style-type: circle;
   background-image: none;
   background-repeat: no-repeat;
   background-position: 0 0.4em;
   padding-left: 16px;
-  list-style-position: outside;
+  list-style-position: inside;
   line-height: 1.2em;
   font-size: smaller;
 }
