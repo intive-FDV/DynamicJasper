@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain.entities.conditionalStyle;
 
+import java.util.Map;
+
 import ar.com.fdvs.dj.domain.CustomExpression;
 
 /**
@@ -53,8 +55,9 @@ public class StatusLightCondition implements CustomExpression {
 			mode = 2;
 	}
 
-	public Object evaluate(Object object) {
-		if (object == null)
+	public Object evaluate(Map fields, Map variables, Map parameters) {
+		//FIXME get this nasty logic working
+		/**if (object == null)
 			return null;
 
 		Number number = (Number)object;
@@ -66,7 +69,12 @@ public class StatusLightCondition implements CustomExpression {
 		} else {
 			return Boolean.valueOf(max.doubleValue() <= number.doubleValue());
 		}
+**/
+		return Boolean.TRUE;
+	}
 
+	public String getClassName() {
+		return Boolean.class.getName();
 	}
 
 }

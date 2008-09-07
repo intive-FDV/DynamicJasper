@@ -35,7 +35,6 @@ import java.util.Map;
 
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.CustomExpression;
-import ar.com.fdvs.dj.domain.DJCustomExpression;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
@@ -118,19 +117,19 @@ public class CustomExpressionReportTest2 extends BaseDjReportTest {
 		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaNumberCustomExpression = ColumnBuilder.getInstance()
-		.setCustomExpression(getNumberCustomExpression()).setColumnProperty("amount", Float.class.getName())
-		.setTitle("Numeric Custom Exp").setWidth(new Integer(200))
+		.setCustomExpression(getNumberCustomExpression())
+		.setTitle("Item Number").setWidth(new Integer(40))
 		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-//		drb.addColumn(columnState);
+		drb.addColumn(columnaNumberCustomExpression);
+		drb.addColumn(columnState);
 //		drb.addColumn(columnBranch);
 //		drb.addColumn(columnaProductLine);
-//		drb.addColumn(columnaItem);
-//		drb.addColumn(columnCode);
-//		drb.addColumn(columnaCantidad);
-//		drb.addColumn(columnAmount);
-//		drb.addColumn(columnaCustomExpression);
-		drb.addColumn(columnaNumberCustomExpression);
+		drb.addColumn(columnaItem);
+		drb.addColumn(columnCode);
+		drb.addColumn(columnaCantidad);
+		drb.addColumn(columnAmount);
+		drb.addColumn(columnaCustomExpression);
 
 		drb.setUseFullPageWidth(true);
 
@@ -144,26 +143,33 @@ public class CustomExpressionReportTest2 extends BaseDjReportTest {
 	}
 
 	private CustomExpression getCustomExpression() {
-		return new DJCustomExpression() {
+		return new CustomExpression() {
 
-			public Object innerEvaluate(Map fields, Map variables, Map parameters) {
+			public Object evaluate(Map fields, Map variables, Map parameters) {
 				String state = (String) fields.get("state");
 				String branch = (String) fields.get("branch");
 				String productLine = (String) fields.get("productLine");
 				Integer count = (Integer) variables.get("REPORT_COUNT");
-				Date date = (Date) parameters.get("date");
-				return count + ": " + date + " - " +state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+				return count + ": " +state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+			}
+
+			public String getClassName() {
+				return String.class.getName();
 			}
 
 		};
 	}
 
 	private CustomExpression getNumberCustomExpression() {
-		return new DJCustomExpression() {
+		return new CustomExpression() {
 
-			public Object innerEvaluate(Map fields, Map variables, Map parameters) {
+			public Object evaluate(Map fields, Map variables, Map parameters) {
 				Integer count = (Integer) variables.get("REPORT_COUNT");
-				return new Float(count.floatValue());
+				return count;
+			}
+
+			public String getClassName() {
+				return Integer.class.getName();
 			}
 
 		};

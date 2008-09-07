@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
+import java.util.Map;
 
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -137,28 +138,23 @@ public class GroupsAndExpressionReportTest extends BaseDjReportTest {
 		drb.addGlobalFooterVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
 
 		CustomExpression customExpression = new CustomExpression(){
-			private final int PAGE_SIZE = 2*20;
-			private int actual = PAGE_SIZE;
-			private int counter = 0;
-			public Object evaluate(Object object) {
-				actual--;
-				if (actual <= 0) {
-					actual = PAGE_SIZE;
-					counter++;
-				}
-				return "" + counter;
+			public Object evaluate(Map fields, Map variables, Map parameters) {
+				return variables.get("PAGE_NUMBER");
 			}
-			
+			public String getClassName() {
+				return Integer.class.getName();
+			}
+
 		};
 		AbstractColumn exprCol = ColumnBuilder.getInstance().setCustomExpression(customExpression)
-		.build();		
-		
-		
+		.build();
+
+
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
 		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) exprCol)
-				.setGroupLayout(GroupLayout.EMPTY) 
+				.setGroupLayout(GroupLayout.EMPTY)
 				.setStartInNewPage(true)
 				.build();
 

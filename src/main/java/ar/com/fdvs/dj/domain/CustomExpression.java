@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain;
 
+import java.util.Map;
+
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
 
 /**
@@ -43,6 +45,7 @@ public interface CustomExpression {
 
 	public static final String EVAL_METHOD_NAME = "evaluate";
 
-	public Object evaluate(Object object);
+	public Object evaluate(Map fields, Map variables, Map parameters);
+	public String getClassName();
 
 }

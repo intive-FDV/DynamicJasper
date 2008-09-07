@@ -136,13 +136,16 @@ public class CustomExpressionReportTest extends BaseDjReportTest {
 	private CustomExpression getCustomExpression() {
 		return new CustomExpression() {
 
-			public Object evaluate(Object object) {
-				Map map = (Map) object;
-				String state = (String) map.get("state");
-				String branch = (String) map.get("branch");
-				String productLine = (String) map.get("productLine");
-				Integer count = (Integer) map.get("v_REPORT_COUNT");
+			public Object evaluate(Map fields, Map variables, Map parameters) {
+				String state = (String) fields.get("state");
+				String branch = (String) fields.get("branch");
+				String productLine = (String) fields.get("productLine");
+				Integer count = (Integer) variables.get("REPORT_COUNT");
 				return count + ": " +state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+			}
+
+			public String getClassName() {
+				return String.class.getName();
 			}
 
 		};
@@ -150,7 +153,7 @@ public class CustomExpressionReportTest extends BaseDjReportTest {
 
 	public static void main(String[] args) throws Exception {
 		CustomExpressionReportTest test = new CustomExpressionReportTest();
-		
+
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
 	}

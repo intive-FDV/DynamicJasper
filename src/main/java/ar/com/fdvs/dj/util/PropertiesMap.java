@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.util;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class PropertiesMap extends HashMap {
 
@@ -47,5 +48,21 @@ public class PropertiesMap extends HashMap {
 	public static void main(String[] args) {
 		String a = new PropertiesMap().with("a","a").with("b", "b").toString();
 		System.out.println(a);
+	}
+
+	public PropertiesMap() {
+		super();
+	}
+
+	public PropertiesMap(int initialCapacity, float loadFactor) {
+		super(initialCapacity, loadFactor);
+	}
+
+	public PropertiesMap(int initialCapacity) {
+		super(initialCapacity);
+	}
+
+	public PropertiesMap(Map arg0) {
+		super(arg0);
 	}
 }
