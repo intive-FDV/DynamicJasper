@@ -54,6 +54,29 @@ public class StyleBuilder {
 
 	}
 
+	public StyleBuilder(boolean blank, String name) {
+		super();
+
+		if (blank)
+			style = Style.createBlankStyle(null);
+		else
+			style = new Style();
+
+		style.setName(name);
+	}
+
+	public StyleBuilder(boolean blank, String name, String parentName) {
+		super();
+
+		if (blank)
+			style = Style.createBlankStyle(null);
+		else
+			style = new Style();
+
+		style.setName(name);
+		style.setParentStyleName(parentName);
+	}
+
 	public Style build(){
 		return style;
 	}

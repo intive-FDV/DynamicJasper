@@ -34,16 +34,31 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 			</properties>
 	 <body>
+				 <release version="3.0.0" date="2008-09-07"	desc="New Mayor version - Breaking changes">
+					 <action dev="Juan Manuel Alvarez" type="change">
+						 Custom Expressions :: Cleaner interface, they receive 3 maps (fields, variables and parameters).
+						 They also have now a className attribute, so many types other than String can be returned (for formatting using patterns, etc)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="change">
+					 	Group Header Style :: Now each group can define it's own header when showing column names.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	StyleBuilder :: Convenient methods added for constructing
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="remove">
+					 	Deprecated methods in builders and DynamicJasperHelper were removed.
+					 </action>
+				 </release>
 				 <release version="2.1.0" date="2008-09-06"	desc="fixes">
 					 <action dev="Juan Manuel Alvarez" type="add">
-						 Tests enhancements :: To ensure product quality, the following technologies had been added to the automated tests:
-						 * HSQL DB: for real JDBC and SQL report tests
-						 * Hibernate: HQL report test
-						 * HTTP Unit: to test webwork result type. Also enabling future testing to new http facilities.
+						Tests enhancements :: To ensure product quality, the following technologies had been added to the automated tests:
+							* HSQL DB: for real JDBC and SQL report tests
+							* Hibernate: HQL report test
+							* HTTP Unit: to test Webwork result type. Also enabling future testing to new http facilities.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="dongw">
 						 WebWork integration :: Fixed bug that had this feature broken. Also added new options to result type.
-						 Updated documentation (see "Integrate DynamicJasper with Webwork"). Thanks dongw!
+						 Updated documentation (see "Integrate DynamicJasper with Webwork").
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
 						 Custom Expressions :: Now variables also available in Custom Expression. Instead of implementing CustomExpression, use

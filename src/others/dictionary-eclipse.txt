@@ -2,3 +2,4 @@ subreport
 generics
 crosstabs
 autotext
+deprecated

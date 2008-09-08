@@ -157,14 +157,21 @@ public class GroupsReportTest2 extends BaseDjReportTest {
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
-		Style styleg2Header = new StyleBuilder(false).setBackgroundColor(Color.GREEN).setTransparent(false).build();
-		Style styleg2HeaderDefault = new StyleBuilder(false).setBackgroundColor(Color.YELLOW).setTransparent(false).build();
+		Style styleg2HeaderDefault = new StyleBuilder(false).setName("g2Header")
+			.setBackgroundColor(Color.YELLOW)
+			.setTransparent(false)
+			.setFont(new Font(7,Font._FONT_ARIAL,false))
+			.setBorderBottom(Border.THIN)
+			.setHorizontalAlign(HorizontalAlign.CENTER)
+			.build();
+		Style styleg2Header = new StyleBuilder(true,"g2HeaderAmo","g2Header").setBackgroundColor(Color.GREEN).build();
 		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
 				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM)
 				.addColumnHeaderStyle(columnAmount, styleg2Header)
 				.setDefaultColumnHeaderStyle(styleg2HeaderDefault)
 				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)
+				.setHeaderHeight(new Integer(10))
 				.build();
 
 		drb.addColumn(columnState);

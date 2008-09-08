@@ -394,8 +394,26 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			footer.setHeight(columnsGroup.getFooterHeight().intValue());
 
 			if (columnsGroup.getLayout().isPrintHeaders()) {
+				boolean found = false;
+				boolean skipPreviousGroupHeaders = false;
+				int groupIdx = getReport().getColumnsGroups().indexOf(columnsGroup);
+				if (groupIdx>0){
+					ColumnsGroup prevG =  (ColumnsGroup) getReport().getColumnsGroups().get(groupIdx-1);
+					skipPreviousGroupHeaders = !prevG.getLayout().isShowValueForEachRow();
+				}
 				for (Iterator iterator =  getVisibleColumns().iterator(); iterator.hasNext();) {
 					AbstractColumn col = (AbstractColumn) iterator.next();
+
+					//If in a nested group, header for column prior to this groups column
+					//depends on configuration
+
+					if (col.equals(columnsGroup.getColumnToGroupBy())) {
+						found = true;
+					}
+
+					if (!found && skipPreviousGroupHeaders){
+						continue;
+					}
 
 					JRDesignTextField designTextField = createColumnNameTextField(columnsGroup, col);
 					designTextField.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT); //XXX changed to see what happens  (must come from the column position property)
