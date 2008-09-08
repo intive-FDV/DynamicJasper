@@ -31,9 +31,7 @@ package ar.com.fdvs.dj.domain.builders;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 
 import ar.com.fdvs.dj.core.BarcodeTypes;
@@ -199,28 +197,8 @@ public class ColumnBuilder {
 		column.setFixedWidth(fixedWidth);
 	}
 
-	/**
-	 * @deprecated
-	 * @param title
-	 * @return
-	 */
-	public ColumnBuilder addTitle(String title) {
-		this.title = title;
-		return this;
-	}
-
 	public ColumnBuilder setTitle(String title) {
 		this.title = title;
-		return this;
-	}
-
-	/**
-	 * @deprecated
-	 * @param pattern
-	 * @return
-	 */
-	public ColumnBuilder addPattern(String pattern) {
-		this.pattern = pattern;
 		return this;
 	}
 
@@ -229,86 +207,31 @@ public class ColumnBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param bool
-	 * @return
-	 */
-	public ColumnBuilder addPrintRepeatedValues(boolean bool) {
-		this.printRepeatedValues = bool;
-		return this;
-	}
-
 	public ColumnBuilder setPrintRepeatedValues(boolean bool) {
 		this.printRepeatedValues = bool;
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param bool
-	 * @return
-	 */
-	public ColumnBuilder addPrintRepeatedValues(Boolean bool) {
-		this.printRepeatedValues = bool.booleanValue();
-		return this;
-	}
 	public ColumnBuilder setPrintRepeatedValues(Boolean bool) {
 		this.printRepeatedValues = bool.booleanValue();
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param width
-	 * @return
-	 */
-	public ColumnBuilder addWidth(Integer width) {
-		this.width = width;
-		return this;
-	}
 	public ColumnBuilder setWidth(Integer width) {
 		this.width = width;
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param width
-	 * @return
-	 */
-	public ColumnBuilder addWidth(int width) {
-		this.width = new Integer(width);
-		return this;
-	}
 	public ColumnBuilder setWidth(int width) {
 		this.width = new Integer(width);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param style
-	 * @return
-	 */
-	public ColumnBuilder addStyle(Style style) {
-		this.style = style;
-		return this;
-	}
 	public ColumnBuilder setStyle(Style style) {
 		this.style = style;
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param style
-	 * @return
-	 */
-	public ColumnBuilder addHeaderStyle(Style style) {
-		this.headerStyle = style;
-		return this;
-	}
 	public ColumnBuilder setHeaderStyle(Style style) {
 		this.headerStyle = style;
 		return this;
@@ -318,12 +241,7 @@ public class ColumnBuilder {
 	 * Adds a property to the column being created.</br>
 	 * @param ColumnProperty columnProperty : BeanUtils like syntax allowed here
 	 * @return ColumnBuilder
-	 * @deprecated
 	 */
-	public ColumnBuilder addColumnProperty(ColumnProperty columnProperty ){
-		this.columnProperty = columnProperty;
-		return this;
-	}
 	public ColumnBuilder setColumnProperty(ColumnProperty columnProperty ){
 		this.columnProperty = columnProperty;
 		return this;
@@ -334,13 +252,7 @@ public class ColumnBuilder {
 	 * @param ColumnProperty columnProperty : BeanUtils like syntax allowed here
 	 * @param String valueClassName
 	 * @return ColumnBuilder
-	 * @deprecated
 	 */
-	public ColumnBuilder addColumnProperty(String propertyName, String valueClassName ){
-		ColumnProperty columnProperty = new ColumnProperty(propertyName,valueClassName);
-		this.columnProperty = columnProperty;
-		return this;
-	}
 	public ColumnBuilder setColumnProperty(String propertyName, String valueClassName ){
 		ColumnProperty columnProperty = new ColumnProperty(propertyName,valueClassName);
 		this.columnProperty = columnProperty;
@@ -373,13 +285,6 @@ public class ColumnBuilder {
 		this.customExpression = customExpression;
 		return this;
 	}
-	/**
-	 * @deprecated
-	 */
-	public ColumnBuilder addCustomExpression(CustomExpression customExpression){
-		this.customExpression = customExpression;
-		return this;
-	}
 
 /**
  * @param conditionalStyle
@@ -408,29 +313,11 @@ public class ColumnBuilder {
 		return this;
 	}
 
-/**
- * @deprecated
- * @param bool
- * @return
- */
-	public ColumnBuilder addFixedWidth(boolean bool) {
-		this.fixedWidth = Boolean.valueOf(bool);
-		return this;
-	}
 	public ColumnBuilder setFixedWidth(boolean bool) {
 		this.fixedWidth = Boolean.valueOf(bool);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param bool
-	 * @return
-	 */
-	public ColumnBuilder addFixedWidth(Boolean bool) {
-		this.fixedWidth = bool;
-		return this;
-	}
 	public ColumnBuilder setFixedWidth(Boolean bool) {
 		this.fixedWidth = bool;
 		return this;

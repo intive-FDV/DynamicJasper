@@ -30,10 +30,13 @@
 package ar.com.fdvs.dj.domain.entities;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 /**
@@ -54,6 +57,12 @@ public class ColumnsGroup implements Entity {
 		this.columnToGroupBy = columnToGroupBy;
 	}
 
+	/**
+	 * Map<Column, Style>
+	 */
+	private Map columnHeaderStyles = new HashMap();
+	private Style defaultColumnHeaederStyle;
+
 	//<ColumnsGroupVariable>
 	private List headerVariables = new ArrayList();
 	//<ColumnsGroupVariable>
@@ -72,31 +81,31 @@ public class ColumnsGroup implements Entity {
 
 	/**
 	 * Default Style for variables when showing in footer.
-	 * Firts looks for the style at the ColumnsGroupVariable, then the default, finally
-	 * it usses the columns style.
+	 * First looks for the style at the ColumnsGroupVariable, then the default, finally
+	 * it uses the columns style.
 	 */
-	private Style defaulFooterStyle;
+	private Style defaulFooterVariableStyle;
 
 	/**
 	 * Default Style for variables when showing in header.
 	 * The lookup order is the same as for "defaulFooterStyle"
 	 */
-	private Style defaulHeaderStyle;
+	private Style defaulHeaderVariableStyle;
 
-	public Style getDefaulFooterStyle() {
-		return defaulFooterStyle;
+	public Style getDefaulFooterVariableStyle() {
+		return defaulFooterVariableStyle;
 	}
 
-	public void setDefaulFooterStyle(Style defaulFooterStyle) {
-		this.defaulFooterStyle = defaulFooterStyle;
+	public void setDefaulFooterVariableStyle(Style defaulFooterStyle) {
+		this.defaulFooterVariableStyle = defaulFooterStyle;
 	}
 
-	public Style getDefaulHeaderStyle() {
-		return defaulHeaderStyle;
+	public Style getDefaulHeaderVariableStyle() {
+		return defaulHeaderVariableStyle;
 	}
 
-	public void setDefaulHeaderStyle(Style defaulHeaderStyle) {
-		this.defaulHeaderStyle = defaulHeaderStyle;
+	public void setDefaulHeaderVariableStyle(Style defaulHeaderStyle) {
+		this.defaulHeaderVariableStyle = defaulHeaderStyle;
 	}
 
 	public List getFooterVariables() {
@@ -177,6 +186,33 @@ public class ColumnsGroup implements Entity {
 
 	public void setFooterCrosstabs(List footerCrosstabs) {
 		this.footerCrosstabs = footerCrosstabs;
+	}
+
+	public Map getColumnHeaderStyles() {
+		return columnHeaderStyles;
+	}
+
+	public void setColumnHeaderStyles(Map columnHeaderStyles) {
+		this.columnHeaderStyles = columnHeaderStyles;
+	}
+
+	public void addColumHeaderStyle(AbstractColumn col, Style style) {
+		columnHeaderStyles.put(col, style);
+	}
+
+	public Style getColumnHeaderStyle(AbstractColumn col) {
+		if (this.columnHeaderStyles == null)
+			return null;
+
+		return (Style) this.columnHeaderStyles.get(col);
+	}
+
+	public Style getDefaultColumnHeaederStyle() {
+		return defaultColumnHeaederStyle;
+	}
+
+	public void setDefaultColumnHeaederStyle(Style defaultColumnHeaederStyle) {
+		this.defaultColumnHeaederStyle = defaultColumnHeaederStyle;
 	}
 
 }

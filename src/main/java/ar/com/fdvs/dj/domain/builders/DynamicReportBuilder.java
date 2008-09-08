@@ -345,15 +345,6 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param subtitle
-	 * @return
-	 */
-	public DynamicReportBuilder addSubtitle(String subtitle) {
-		return setSubtitle(subtitle);
-	}
-
 	public DynamicReportBuilder setSubtitle(String subtitle) {
 		report.setSubtitle(subtitle);
 		return this;
@@ -369,41 +360,13 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public DynamicReportBuilder addHeaderHeight(Integer height) {
-		return setHeaderHeight(height);
-	}
-
 	public DynamicReportBuilder setHeaderHeight(Integer height) {
 		options.setHeaderHeight(height);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public DynamicReportBuilder addHeaderHeight(int height) {
-		return setHeaderHeight(height);
-	}
-
 	public DynamicReportBuilder setHeaderHeight(int height) {
 		options.setHeaderHeight(new Integer(height));
-		return this;
-	}
-
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public DynamicReportBuilder addFooterHeight(Integer height) {
-		options.setFooterHeight(height);
 		return this;
 	}
 
@@ -412,28 +375,8 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public DynamicReportBuilder addFooterHeight(int height) {
-		options.setFooterHeight(new Integer(height));
-		return this;
-	}
-
 	public DynamicReportBuilder setFooterHeight(int height) {
 		options.setFooterHeight(new Integer(height));
-		return this;
-	}
-
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public DynamicReportBuilder addDetailHeight(Integer height) {
-		options.setDetailHeight(height);
 		return this;
 	}
 
@@ -442,28 +385,8 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public DynamicReportBuilder addDetailHeight(int height) {
-		options.setDetailHeight(new Integer(height));
-		return this;
-	}
-
 	public DynamicReportBuilder setDetailHeight(int height) {
 		options.setDetailHeight(new Integer(height));
-		return this;
-	}
-
-	/**
-	 * @deprecated
-	 * @param margin
-	 * @return
-	 */
-	public DynamicReportBuilder addLeftMargin(Integer margin) {
-		options.setLeftMargin(margin);
 		return this;
 	}
 
@@ -472,28 +395,8 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param margin
-	 * @return
-	 */
-	public DynamicReportBuilder addLeftMargin(int margin) {
-		options.setLeftMargin(new Integer(margin));
-		return this;
-	}
-
 	public DynamicReportBuilder setLeftMargin(int margin) {
 		options.setLeftMargin(new Integer(margin));
-		return this;
-	}
-
-	/**
-	 * @deprecated
-	 * @param margin
-	 * @return
-	 */
-	public DynamicReportBuilder addRightMargin(Integer margin) {
-		options.setRightMargin(margin);
 		return this;
 	}
 
@@ -502,28 +405,8 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param margin
-	 * @return
-	 */
-	public DynamicReportBuilder addRightMargin(int margin) {
-		options.setRightMargin(new Integer(margin));
-		return this;
-	}
-
 	public DynamicReportBuilder setRightMargin(int margin) {
 		options.setRightMargin(new Integer(margin));
-		return this;
-	}
-
-	/**
-	 * @deprecated
-	 * @param margin
-	 * @return
-	 */
-	public DynamicReportBuilder addTopMargin(Integer margin) {
-		options.setTopMargin(margin);
 		return this;
 	}
 
@@ -532,71 +415,26 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param margin
-	 * @return
-	 */
-	public DynamicReportBuilder addTopMargin(int margin) {
-		options.setTopMargin(new Integer(margin));
-		return this;
-	}
 	public DynamicReportBuilder setTopMargin(int margin) {
 		options.setTopMargin(new Integer(margin));
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param margin
-	 * @return
-	 */
-	public DynamicReportBuilder addBottomMargin(Integer margin) {
-		options.setBottomMargin(margin);
-		return this;
-	}
 	public DynamicReportBuilder setBottomMargin(Integer margin) {
 		options.setBottomMargin(margin);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param margin
-	 * @return
-	 */
-	public DynamicReportBuilder addBottomMargin(int margin) {
-		options.setBottomMargin(new Integer(margin));
-		return this;
-	}
 	public DynamicReportBuilder setBottomMargin(int margin) {
 		options.setBottomMargin(new Integer(margin));
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param numColumns
-	 * @return
-	 */
-	public DynamicReportBuilder addColumnsPerPage(Integer numColumns) {
-		options.setColumnsPerPage(numColumns);
-		return this;
-	}
 	public DynamicReportBuilder setColumnsPerPage(Integer numColumns) {
 		options.setColumnsPerPage(numColumns);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param numColumns
-	 * @return
-	 */
-	public DynamicReportBuilder addColumnsPerPage(int numColumns) {
-		options.setColumnsPerPage(new Integer(numColumns));
-		return this;
-	}
 	public DynamicReportBuilder setColumnsPerPage(int numColumns) {
 		options.setColumnsPerPage(new Integer(numColumns));
 		return this;
@@ -613,28 +451,11 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param columSpace
-	 * @return
-	 */
-	public DynamicReportBuilder addColumnSpace(Integer columSpace) {
-		options.setColumnSpace(columSpace);
-		return this;
-	}
 	public DynamicReportBuilder setColumnSpace(Integer columSpace) {
 		options.setColumnSpace(columSpace);
 		return this;
 	}
-	/**
-	 * @deprecated
-	 * @param columSpace
-	 * @return
-	 */
-	public DynamicReportBuilder addColumnSpace(int columSpace) {
-		options.setColumnSpace(new Integer(columSpace));
-		return this;
-	}
+
 	public DynamicReportBuilder setColumnSpace(int columSpace) {
 		options.setColumnSpace(new Integer(columSpace));
 		return this;
@@ -661,113 +482,41 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param useFullwidth
-	 * @return
-	 */
-	public DynamicReportBuilder addUseFullPageWidth(boolean useFullwidth) {
-		options.setUseFullPageWidth(useFullwidth);
-		return this;
-	}
 	public DynamicReportBuilder setUseFullPageWidth(boolean useFullwidth) {
 		options.setUseFullPageWidth(useFullwidth);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param useFullwidth
-	 * @return
-	 */
-	public DynamicReportBuilder addUseFullPageWidth(Boolean useFullwidth) {
-		options.setUseFullPageWidth(useFullwidth.booleanValue());
-		return this;
-	}
 	public DynamicReportBuilder setUseFullPageWidth(Boolean useFullwidth) {
 		options.setUseFullPageWidth(useFullwidth.booleanValue());
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param titleStyle
-	 * @return
-	 */
-	public DynamicReportBuilder addTitleStyle(Style titleStyle) {
-		this.report.setTitleStyle(titleStyle);
-		return this;
-	}
 	public DynamicReportBuilder setTitleStyle(Style titleStyle) {
 		this.report.setTitleStyle(titleStyle);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param subtitleStyle
-	 * @return
-	 */
-	public DynamicReportBuilder addSubtitleStyle(Style subtitleStyle) {
-		this.report.setSubtitleStyle(subtitleStyle);
-		return this;
-	}
 	public DynamicReportBuilder setSubtitleStyle(Style subtitleStyle) {
 		this.report.setSubtitleStyle(subtitleStyle);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param printBackgroundOnOddRows
-	 * @return
-	 */
-	public DynamicReportBuilder addPrintBackgroundOnOddRows(boolean printBackgroundOnOddRows) {
-		this.options.setPrintBackgroundOnOddRows(printBackgroundOnOddRows);
-		return this;
-	}
 	public DynamicReportBuilder setPrintBackgroundOnOddRows(boolean printBackgroundOnOddRows) {
 		this.options.setPrintBackgroundOnOddRows(printBackgroundOnOddRows);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param printBackgroundOnOddRows
-	 * @return
-	 */
-	public DynamicReportBuilder addPrintBackgroundOnOddRows(Boolean printBackgroundOnOddRows) {
-		this.options.setPrintBackgroundOnOddRows(printBackgroundOnOddRows.booleanValue());
-		return this;
-	}
 	public DynamicReportBuilder setPrintBackgroundOnOddRows(Boolean printBackgroundOnOddRows) {
 		this.options.setPrintBackgroundOnOddRows(printBackgroundOnOddRows.booleanValue());
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param oddRowBackgroundStyle
-	 * @return
-	 */
-	public DynamicReportBuilder addOddRowBackgroundStyle(Style oddRowBackgroundStyle) {
-		this.options.setOddRowBackgroundStyle(oddRowBackgroundStyle);
-		return this;
-	}
 	public DynamicReportBuilder setOddRowBackgroundStyle(Style oddRowBackgroundStyle) {
 		this.options.setOddRowBackgroundStyle(oddRowBackgroundStyle);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param title
-	 * @return
-	 */
-	public DynamicReportBuilder addGlobalTitle(String title) {
-		this.grandTotalLegend = title;
-		return this;
-	}
 	public DynamicReportBuilder setGrandTotalLegend(String title) {
 		this.grandTotalLegend = title;
 		return this;
@@ -812,29 +561,11 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public DynamicReportBuilder addTitleHeight(Integer height) {
-		options.setTitleHeight(height);
-		return this;
-	}
 	public DynamicReportBuilder setTitleHeight(Integer height) {
 		options.setTitleHeight(height);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public DynamicReportBuilder addSubtitleHeight(Integer height) {
-		options.setSubtitleHeight(height);
-		return this;
-	}
 	public DynamicReportBuilder setSubtitleHeight(Integer height) {
 		options.setSubtitleHeight(height);
 		return this;
@@ -848,16 +579,6 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder setPageSizeAndOrientation(Page page) {
-		options.setPage(page);
-		return this;
-	}
-
-	/**
-	 * @deprecated
-	 * @param page
-	 * @return
-	 */
-	public DynamicReportBuilder addPageSizeAndOrientation(Page page) {
 		options.setPage(page);
 		return this;
 	}
@@ -922,34 +643,6 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param path
-	 * @return
-	 */
-	public DynamicReportBuilder addTemplateFile(String path) {
-		report.setTemplateFileName(path);
-		return this;
-	}
-
-	/**
-	 * @deprecated
-	 * @param top
-	 * @param bottom
-	 * @param left
-	 * @param right
-	 * @return
-	 */
-	public DynamicReportBuilder addMargins(int top, int bottom, int left, int right) {
-
-		options.setTopMargin(new Integer(top));
-		options.setBottomMargin(new Integer(bottom));
-		options.setLeftMargin(new Integer(left));
-		options.setRightMargin(new Integer(right));
-
-		return this;
-	}
-
 	public DynamicReportBuilder setMargins(int top, int bottom, int left, int right) {
 
 		options.setTopMargin(new Integer(top));
@@ -976,17 +669,6 @@ public class DynamicReportBuilder {
 
 		return this;
 	}
-	/**
-	 * @deprecated
-	 * @param title
-	 * @param subtitle
-	 * @param columnHeader
-	 * @param columDetail
-	 * @return
-	 */
-	public DynamicReportBuilder addDefaultStyles(Style title, Style subtitle, Style columnHeader, Style columDetail) {
-		return setDefaultStyles(title,subtitle,columnHeader,columDetail);
-	}
 
 	/**
 	 * Adds the locale to use when filling the report.
@@ -994,16 +676,6 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder setReportLocale(Locale locale) {
-		report.setReportLocale(locale);
-		return this;
-	}
-
-	/**
-	 * @deprecated
-	 * @param locale
-	 * @return
-	 */
-	public DynamicReportBuilder addReportLocale(Locale locale) {
 		report.setReportLocale(locale);
 		return this;
 	}

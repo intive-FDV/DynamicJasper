@@ -31,7 +31,6 @@ package ar.com.fdvs.dj.test;
 
 
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
 import net.sf.jasperreports.view.JasperViewer;

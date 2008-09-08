@@ -29,14 +29,10 @@
 
 package ar.com.fdvs.dj.output;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 
 /**
  * @author Alejandro Gomez

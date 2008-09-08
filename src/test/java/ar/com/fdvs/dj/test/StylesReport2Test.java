@@ -163,7 +163,7 @@ public class StylesReport2Test extends BaseDjReportTest {
 		.addFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM).build();
 		drb.addGroup(group2);
 
-		group2.setDefaulFooterStyle(variableStyle2);
+		group2.setDefaulFooterVariableStyle(variableStyle2);
 
 		drb.setUseFullPageWidth(true);
 

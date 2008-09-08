@@ -78,15 +78,6 @@ public class GroupBuilder {
 		return group;
 	}
 
-	/**
-	 * @deprecated
-	 * @param column
-	 * @return
-	 */
-	public GroupBuilder addCriteriaColumn(PropertyColumn column) {
-		group.setColumnToGroupBy(column);
-		return this;
-	}
 	public GroupBuilder setCriteriaColumn(PropertyColumn column) {
 		group.setColumnToGroupBy(column);
 		return this;
@@ -121,71 +112,26 @@ public class GroupBuilder {
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public GroupBuilder addHeaderHeight(Integer height) {
-		group.setHeaderHeight(height);
-		return this;
-	}
 	public GroupBuilder setHeaderHeight(Integer height) {
 		group.setHeaderHeight(height);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param height
-	 * @return
-	 */
-	public GroupBuilder addFooterHeight(Integer height) {
-		group.setFooterHeight(height);
-		return this;
-	}
 	public GroupBuilder setFooterHeight(Integer height) {
 		group.setFooterHeight(height);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param layout
-	 * @return
-	 */
-	public GroupBuilder addGroupLayout(GroupLayout layout) {
-		group.setLayout(layout);
-		return this;
-	}
 	public GroupBuilder setGroupLayout(GroupLayout layout) {
 		group.setLayout(layout);
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param defaultFooterVariableStyle
-	 * @return
-	 */
-	public GroupBuilder addDefaultFooterVariableStyle(Style defaultFooterVariableStyle) {
-		this.defaultFooterVariableStyle = defaultFooterVariableStyle;
-		return this;
-	}
 	public GroupBuilder setDefaultFooterVariableStyle(Style defaultFooterVariableStyle) {
 		this.defaultFooterVariableStyle = defaultFooterVariableStyle;
 		return this;
 	}
 
-	/**
-	 * @deprecated
-	 * @param defaultHeaderVariableStyle
-	 * @return
-	 */
-	public GroupBuilder addDefaultHeaderVariableStyle(Style defaultHeaderVariableStyle) {
-		this.defaultHeaderVariableStyle = defaultHeaderVariableStyle;
-		return this;
-	}
 	public GroupBuilder setDefaultHeaderVariableStyle(Style defaultHeaderVariableStyle) {
 		this.defaultHeaderVariableStyle = defaultHeaderVariableStyle;
 		return this;
@@ -218,6 +164,16 @@ public class GroupBuilder {
 
 	public GroupBuilder setStartInNewColumn(boolean bool) {
 		group.setStartInNewColumn(Boolean.valueOf(bool));
+		return this;
+	}
+
+	public GroupBuilder addColumnHeaderStyle(AbstractColumn column, Style style) {
+		group.addColumHeaderStyle(column, style);
+		return this;
+	}
+
+	public GroupBuilder setDefaultColumnHeaderStyle(Style style) {
+		group.setDefaultColumnHeaederStyle(style);
 		return this;
 	}
 

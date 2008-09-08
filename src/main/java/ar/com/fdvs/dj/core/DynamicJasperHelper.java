@@ -228,9 +228,9 @@ public final class DynamicJasperHelper {
 //			layoutManager.applyLayout(jd, dr);
 //            JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
 //
-//            JasperReport jr = JasperCompileManager.compileReport(jd);            
+//            JasperReport jr = JasperCompileManager.compileReport(jd);
 //            params.putAll(jd.getParametersWithValues());
-		
+
             JasperReport jr = DynamicJasperHelper.generateJasperReport(dr, layoutManager, _parameters);
             jp = JasperFillManager.fillReport(jr, _parameters, ds);
 
@@ -405,10 +405,10 @@ public final class DynamicJasperHelper {
 
 					JRDesignParameter parameter = new JRDesignParameter();
 					Object value = _parameters.get(key);
-					
+
 					if (value == null) //There are some Map implementations that allows nulls values, just go on
 						continue;
-					
+
 //					parameter.setValueClassName(value.getClass().getCanonicalName());
 					Class clazz = value.getClass().getComponentType();
 					if (clazz == null)
@@ -424,28 +424,6 @@ public final class DynamicJasperHelper {
 
 		}
 
-	}
-
-	/**
-	 * Generates a JasperReport object.
-	 * If you have unregistered parameters (ie: inside a query) you should the overloaded version of this method passing
-	 * in a parameter map the objects expected in order for DJ to register them.
-	 * @param dr
-	 * @param layoutManager
-	 * @return
-	 * @throws JRException
-	 *
-	 * @deprecated use the overloaded version that needs a parameters Map
-	 */
-	public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager) throws JRException {
-		log.info("generating JasperReport");
-		JasperReport jr = null;
-			DynamicJasperDesign jd = generateJasperDesign(dr);
-			registerEntities(jd, dr);
-			layoutManager.applyLayout(jd, dr);
-            JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
-            jr = JasperCompileManager.compileReport(jd);
-		return jr;
 	}
 
 	/**

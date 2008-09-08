@@ -399,7 +399,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 					JRDesignTextField designTextField = createColumnNameTextField(columnsGroup, col);
 					designTextField.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT); //XXX changed to see what happens  (must come from the column position property)
-					designTextField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX changeg to see what happens (must come from the column property)
+					designTextField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX changed to see what happens (must come from the column property)
 					header.addElement(designTextField);
 				}
 			}
@@ -500,7 +500,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		designStaticText.setX(col.getPosX().intValue());
 		designStaticText.setY(col.getPosY().intValue());
 
-		applyStyleToElement(col.getHeaderStyle(), designStaticText);
+		Style headerStyle = columnsGroup.getColumnHeaderStyle(col);
+		if (headerStyle == null)
+			headerStyle = columnsGroup.getDefaultColumnHeaederStyle();
+		if (headerStyle == null)
+			headerStyle = col.getHeaderStyle();
+
+		applyStyleToElement(headerStyle, designStaticText);
 		return designStaticText;
 	}
 
@@ -709,7 +715,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				//Assign the style to the element.
 				//First we look for the specific element style, then the default style for the group variables
 				//and finally the column style.
-				Style defStyle = DJConstants.HEADER.equals(type)?columnsGroup.getDefaulHeaderStyle():columnsGroup.getDefaulFooterStyle();
+				Style defStyle = DJConstants.HEADER.equals(type)?columnsGroup.getDefaulHeaderVariableStyle():columnsGroup.getDefaulFooterVariableStyle();
 
 				if (var.getStyle() != null)
 					applyStyleToElement(var.getStyle(), textField);

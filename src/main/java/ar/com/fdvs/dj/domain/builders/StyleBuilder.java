@@ -104,6 +104,11 @@ public class StyleBuilder {
 		return this;
 	}
 
+	public StyleBuilder setTransparent(boolean isTransparent){
+		style.setTransparent(isTransparent);
+		return this;
+	}
+
 	public StyleBuilder setBorderBottom(Border borderBottom) {
 		style.setBorderBottom(borderBottom);
 		return this;

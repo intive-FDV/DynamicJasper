@@ -60,8 +60,7 @@ public class SubReportRecursiveTest extends BaseDjReportTest {
 
 		//now create and put level2 subreport in the main subreport
 		drb.addSubreportInGroupFooter(2, drLevel2, new ClassicLayoutManager(),
-				"statistics", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
-
+				"statistics", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
 		DynamicReport mainReport = drb.build();
 
@@ -82,7 +81,7 @@ public class SubReportRecursiveTest extends BaseDjReportTest {
 			.setUseFullPageWidth(true)
 			.setTitle("Level 2 Subreport")
 			.addSubreportInGroupFooter(1, createLevel3Subreport(), new ClassicLayoutManager(),
-				"dummy3", DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
+				"dummy3", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
 			.build();
 		return dr;
 	}

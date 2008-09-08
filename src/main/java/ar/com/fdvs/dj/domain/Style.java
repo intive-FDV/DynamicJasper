@@ -32,11 +32,6 @@ package ar.com.fdvs.dj.domain;
 import java.awt.Color;
 import java.io.Serializable;
 
-import net.sf.jasperreports.engine.JRConstants;
-import net.sf.jasperreports.engine.JRElement;
-import net.sf.jasperreports.engine.JRReport;
-import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
-import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
@@ -197,6 +192,17 @@ public class Style implements Serializable, Cloneable {
 
 	public void setTransparency(Transparency transparency) {
 		this.transparency = transparency;
+	}
+
+	public void setTransparent(boolean transparent) {
+		if (transparent)
+			this.setTransparency(Transparency.TRANSPARENT);
+		else
+			this.setTransparency(Transparency.OPAQUE);
+	}
+
+	public boolean isTransparent(){
+		return this.transparency.equals(Transparency.TRANSPARENT);
 	}
 
 	public VerticalAlign getVerticalAlign() {

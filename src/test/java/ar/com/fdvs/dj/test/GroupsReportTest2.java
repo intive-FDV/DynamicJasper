@@ -40,6 +40,7 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.GroupBuilder;
+import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
@@ -152,13 +153,18 @@ public class GroupsReportTest2 extends BaseDjReportTest {
 		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables) // idem for the columnaQuantity column
-				.setGroupLayout(GroupLayout.VALUE_FOR_EACH) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
+		Style styleg2Header = new StyleBuilder(false).setBackgroundColor(Color.GREEN).setTransparent(false).build();
+		Style styleg2HeaderDefault = new StyleBuilder(false).setBackgroundColor(Color.YELLOW).setTransparent(false).build();
 		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
 				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM)
+				.addColumnHeaderStyle(columnAmount, styleg2Header)
+				.setDefaultColumnHeaderStyle(styleg2HeaderDefault)
+				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)
 				.build();
 
 		drb.addColumn(columnState);
@@ -170,7 +176,7 @@ public class GroupsReportTest2 extends BaseDjReportTest {
 		drb.addColumn(columnAmount);
 
 		drb.addGroup(g1); // add group g1
-//		drb.addGroup(g2); // add group g2
+		drb.addGroup(g2); // add group g2
 
 		drb.setUseFullPageWidth(true);
 		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);

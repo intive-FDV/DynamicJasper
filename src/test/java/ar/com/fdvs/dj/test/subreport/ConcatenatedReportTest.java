@@ -77,9 +77,9 @@ public class ConcatenatedReportTest extends BaseDjReportTest {
 			.setUseFullPageWidth(true)
 			.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER,AutoText.ALIGMENT_CENTER)
 			.addConcatenatedReport(createSubreport1(), new ClassicLayoutManager(), "statistics",
-									DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
+									DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
 			.addConcatenatedReport(createSubreport2(), "statistics",
-									DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
+									DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
 
 		//Add the data source of the sub-report as a parameter
@@ -94,9 +94,9 @@ public class ConcatenatedReportTest extends BaseDjReportTest {
 		 */
 		//Create a subreport
 		ChartReportTest crt = new ChartReportTest();
-		JasperReport chartJr = DynamicJasperHelper.generateJasperReport(crt.buildReport(), new ClassicLayoutManager());
+		JasperReport chartJr = DynamicJasperHelper.generateJasperReport(crt.buildReport(), new ClassicLayoutManager(),new HashMap());
 		drb.addConcatenatedReport(chartJr, "subreportsDataSource",
-									DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
+									DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 		//Add the data source of the sub-report as a parameter
 		params.put("subreportsDataSource", TestRepositoryProducts.getDummyCollection()  );
 
