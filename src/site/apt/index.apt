@@ -5,6 +5,14 @@
 		------
 		Date
 
+IMPORTANT: New Version notes
+
+*---------------+
+|| IMPORTANT for version 2.X users ||
+*---------------+
+| Version 3.0.0 adds <<breaking changes>>, please read this {{{changes/v3_0_0 breaking changes.html}changes note}} to see what changed |
+*---------------+
+
 DynamicJasper
 
 	DynamicJasper (DJ) is an API that hides the complexity of Jasper

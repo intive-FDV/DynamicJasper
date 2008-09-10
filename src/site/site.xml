@@ -48,7 +48,7 @@
     </links>
 
     <menu name="Dynamic Jasper">
-      <item name="About" href="index.html"/>
+      <item name="Home" href="index.html"/>
       <item name="Features" href="docs/features.html"/>
       <item name="Requeriments" href="requeriments.html"/>
       <item name="Download" href="http://www.fdvs.com.ar/download.html" />
@@ -61,9 +61,10 @@
       <item name="Online Demo" href="http://dynamicjasperplayground.fdvs.com.ar/" external="true"/>
       <item name="Download" href="http://www.fdvs.com.ar/download.html" />
     </menu>
-    <menu name="Documentation - Examples">
+    <menu name="Documentation &amp; Examples">
       <item name="Getting Started" href="docs/getting_started.html"/>
       <item name="Howto" href="docs/howto.html"/>
+      <item name="Previous versions" href="old_docs.html"/>
     </menu>
     <menu name="Development">
       <item name="Changes" href="changes-report.html"/>
