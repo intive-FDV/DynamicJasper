@@ -40,6 +40,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.PropertiesMap;
 
 /**
@@ -93,38 +94,13 @@ public class ExpressionColumn extends SimpleColumn {
 		if (this.calculatedExpressionText != null)
 			return this.calculatedExpressionText;
 
-		StringBuffer fieldsMap = new StringBuffer("new  " + PropertiesMap.class.getName() + "()" );
-		StringBuffer parametersMap = new StringBuffer("new  " + PropertiesMap.class.getName() + "($P{" + DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP +"} )");
-		StringBuffer variablesMap = new StringBuffer("new  " + PropertiesMap.class.getName() + "()");
+		String fieldsMap = ExpressionUtils.getFieldsMapExpression(columns);
+		String parametersMap = ExpressionUtils.getParametersMapExpression();
+		String variablesMap = ExpressionUtils.getVariablesMapExpression(variables);
 
-		ArrayList properties = new ArrayList();
-		for (Iterator iter = columns.iterator(); iter.hasNext();) {
-			AbstractColumn col = (AbstractColumn) iter.next();
-			if (col instanceof SimpleColumn && !(col instanceof ExpressionColumn)) {
-				SimpleColumn propcol = (SimpleColumn) col;
-				properties.add(propcol.getColumnProperty());
-			}
-		}
-
-		//add other columns
-		for (Iterator iter = columns.iterator(); iter.hasNext();) {
-			AbstractColumn col = (AbstractColumn) iter.next();
-			if (col instanceof SimpleColumn && !(col instanceof ExpressionColumn)) {
-				SimpleColumn propcol = (SimpleColumn) col;
-				String propname = propcol.getColumnProperty().getProperty();
-				fieldsMap.append(".with(\"" +  propname + "\",$F{" + propname + "})");
-			}
-		}
-
-		//Add Variables
-		for (Iterator iter = variables.iterator(); iter.hasNext();) {
-			JRVariable jrvar = (JRVariable) iter.next();
-				String varname = jrvar.getName();
-				variablesMap.append(".with(\"" +  varname + "\",$V{" + varname + "})");
-		}
 
 		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+getColumnProperty().getProperty()+"})."
-				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap.toString() +", " + variablesMap.toString()+ ", " + parametersMap.toString() +" ))";
+				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
 
 		log.debug("Expression for CustomExpression = " + stringExpression);
 

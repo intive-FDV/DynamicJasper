@@ -36,7 +36,7 @@ import ar.com.fdvs.dj.domain.CustomExpression;
 /**
  * Special CustomExpression that complements very well with Conditionl Styles.
  */
-public class StatusLightCondition implements CustomExpression {
+public class StatusLightCondition extends ConditionStyleExpression implements CustomExpression {
 
 	private Double min;
 	private Double max;
@@ -56,11 +56,11 @@ public class StatusLightCondition implements CustomExpression {
 	}
 
 	public Object evaluate(Map fields, Map variables, Map parameters) {
-		//FIXME get this nasty logic working
-		/**if (object == null)
+		Object value = getCurrentValue();
+		if (value == null)
 			return null;
 
-		Number number = (Number)object;
+		Number number = (Number)value;
 
 		if (mode == 0){
 			return Boolean.valueOf((min.doubleValue() > number.doubleValue()));
@@ -69,8 +69,6 @@ public class StatusLightCondition implements CustomExpression {
 		} else {
 			return Boolean.valueOf(max.doubleValue() <= number.doubleValue());
 		}
-**/
-		return Boolean.TRUE;
 	}
 
 	public String getClassName() {

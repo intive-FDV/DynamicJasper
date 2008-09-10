@@ -76,8 +76,10 @@ import ar.com.fdvs.dj.domain.builders.DataSetFactory;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionStyleExpression;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.LayoutUtils;
@@ -319,7 +321,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 						JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
 						transformDetailBandTextField(column, textField);
 						applyStyleToElement(condition.getStyle(), textField);
-						textField.setPrintWhenExpression(getExpressionForConditionalStyle(condition.getName(), column.getTextForExpression()));
+						textField.setPrintWhenExpression(getExpressionForConditionalStyle(condition, column));
 						detail.addElement(textField);
 					}
 				} else {
@@ -340,8 +342,18 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @param String textForExpression
 	 * @return JRExpression
 	 */
-	private JRExpression getExpressionForConditionalStyle(String paramName, String textForExpression) {
-		 String text = "(("+CustomExpression.class.getName()+")$P{"+paramName+"})."+CustomExpression.EVAL_METHOD_NAME+"("+textForExpression+")";
+	private JRExpression getExpressionForConditionalStyle(ConditionalStyle condition, AbstractColumn column) {
+		 //String text = "(("+CustomExpression.class.getName()+")$P{"+paramName+"})."+CustomExpression.EVAL_METHOD_NAME+"("+textForExpression+")";
+		 String columExpression = column.getTextForExpression();
+		 //condition.getCondition().setFieldToEvaluate(exprParams)
+
+			String fieldsMap = ExpressionUtils.getFieldsMapExpression(getReport().getColumns());
+			String parametersMap = ExpressionUtils.getParametersMapExpression();
+			String variablesMap = ExpressionUtils.getVariablesMapExpression(getDesign().getVariablesList());
+
+			String evalMethodParams =  fieldsMap +", " + variablesMap + ", " + parametersMap + ", " + columExpression;
+
+		 String text = "(("+ConditionStyleExpression.class.getName()+")$P{"+condition.getName()+"})."+CustomExpression.EVAL_METHOD_NAME+"("+evalMethodParams+")";
 		 JRDesignExpression expression = new JRDesignExpression();
 		 expression.setValueClass(Boolean.class);
 		 expression.setText(text);

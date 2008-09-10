@@ -6,7 +6,6 @@
 	<result-types>
      <result-type name="dynamic-jasper" class="ar.com.fdvs.dj.webwork.DJResult"/>
    </result-types>
-		<default-interceptor-ref name="commonInterceptor"></default-interceptor-ref>
 		<global-results>
 			<result name="error">/common/error.jsp</result>
 			<result name="login" type="redirect">/LoginInput.do</result>
@@ -32,19 +31,6 @@
 	       <param name="layoutManager">classic</param>
 	     </result>
 		</action>
-
-<!--
-		<action name="downloadCert" class="downloadCertificateAction" 	method="download">
-			<result name="input">/jsp/documents/myDocuments.jsp</result>
-			<result name="success" type="stream">
-			  <param name="contentType">${contentType}</param>
-			  <param name="inputName">${inputName}</param>
-			  <param name="contentDisposition">${contentDisposition}</param>
-			  <param name="contentLength">${contentLength}</param>
-			  <param name="bufferSize">4096</param>
-			</result>
-		</action>
- -->
 
 	</package>
 

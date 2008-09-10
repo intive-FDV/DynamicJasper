@@ -29,7 +29,6 @@
 
 package ar.com.fdvs.dj.domain.entities.conditionalStyle;
 
-import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
@@ -38,13 +37,13 @@ import ar.com.fdvs.dj.domain.entities.Entity;
  */
 public class ConditionalStyle implements Entity {
 
-	private CustomExpression condition;
+	private ConditionStyleExpression condition;
 	private Style style;
 
 	//Internal condition name. ColumnName_style_ConditionNumber
 	private String name;
 
-	public ConditionalStyle(CustomExpression condition, Style style) {
+	public ConditionalStyle(ConditionStyleExpression condition, Style style) {
 		this.condition = condition;
 		this.style = style;
 	}
@@ -55,10 +54,10 @@ public class ConditionalStyle implements Entity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public CustomExpression getCondition() {
+	public ConditionStyleExpression getCondition() {
 		return condition;
 	}
-	public void setCondition(CustomExpression condition) {
+	public void setCondition(ConditionStyleExpression condition) {
 		this.condition = condition;
 	}
 	public Style getStyle() {

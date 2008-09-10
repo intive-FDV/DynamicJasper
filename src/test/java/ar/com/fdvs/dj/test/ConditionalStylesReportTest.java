@@ -156,7 +156,7 @@ public class ConditionalStylesReportTest extends BaseDjReportTest {
 		Style style2 = (Style) BeanUtils.cloneBean(baseStyle);
 		style2.setTextColor(new Color(0,128,0)); //dark green
 
-		StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(5000));
+		StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(5000)); //TODO ENHANCEMENT make it come from a parameter??? $P{...}
 		StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(7000));
 		StatusLightCondition status2 = new StatusLightCondition(new Double(7000),new Double(100000));
 

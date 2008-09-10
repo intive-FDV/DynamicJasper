@@ -31,9 +31,12 @@ package ar.com.fdvs.dj.util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Iterator;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JRVariable;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
@@ -42,6 +45,9 @@ import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
+import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
 public class ExpressionUtils {
 
@@ -107,15 +113,15 @@ public class ExpressionUtils {
 	public static JRDesignExpression getConnectionExpression(DJDataSource ds) {
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setValueClass(Connection.class);
-		
+
 		String dsType = getDataSourceTypeStr(ds.getDataSourceType());
 		String expText = dsType + REPORT_PARAMETERS_MAP + ".get( \""+ ds.getDataSourceExpression() +"\" ) )";
-		
+
 		exp.setText(expText);
-		
+
 		return exp;
 	}
-	
+
 	/**
 	 * Returns a JRDesignExpression that points to the main report connection
 	 * @return
@@ -166,7 +172,7 @@ public class ExpressionUtils {
 		exp.setText(text);
 		return exp;
 	}
-	
+
 	public static JRDesignExpression createExpression(SubreportParameter sp) {
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setValueClassName(sp.getClassName());
@@ -183,5 +189,42 @@ public class ExpressionUtils {
 		exp.setText(text);
 		return exp;
 	}
+
+
+	public static String getFieldsMapExpression(Collection columns) {
+		StringBuffer fieldsMap = new StringBuffer("new  " + PropertiesMap.class.getName() + "()" );
+		for (Iterator iter = columns.iterator(); iter.hasNext();) {
+			AbstractColumn col = (AbstractColumn) iter.next();
+			if (col instanceof SimpleColumn && !(col instanceof ExpressionColumn)) {
+				SimpleColumn propcol = (SimpleColumn) col;
+				String propname = propcol.getColumnProperty().getProperty();
+				fieldsMap.append(".with(\"" +  propname + "\",$F{" + propname + "})");
+			}
+		}
+
+		return fieldsMap.toString();
+	}
+
+	/**
+	 * Collection of JRVariable
+	 * @param variables
+	 * @return
+	 */
+	public static String getVariablesMapExpression(Collection variables) {
+		StringBuffer variablesMap = new StringBuffer("new  " + PropertiesMap.class.getName() + "()");
+		for (Iterator iter = variables.iterator(); iter.hasNext();) {
+			JRVariable jrvar = (JRVariable) iter.next();
+				String varname = jrvar.getName();
+				variablesMap.append(".with(\"" +  varname + "\",$V{" + varname + "})");
+		}
+		return variablesMap.toString();
+	}
+
+
+	public static String getParametersMapExpression() {
+		return "new  " + PropertiesMap.class.getName() + "($P{" + DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP +"} )";
+	}
+
+
 
 }

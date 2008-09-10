@@ -40,6 +40,9 @@
 						 They also have now a className attribute, so many types other than String can be returned (for formatting using patterns, etc)
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="change">
+					 	Conditional Styles :: Changes needed due to changes in CustomExpression. Custom implementations of ConditionStyles will need fixing and recompiling.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="change">
 					 	Group Header Style :: Now each group can define it's own header when showing column names.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
@@ -47,6 +50,9 @@
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="remove">
 					 	Deprecated methods in builders and DynamicJasperHelper were removed.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	Web Export to HTML :: DynamicJasperHelper.exportToHtml(...) generates and sets up everything for a clean web html response.
 					 </action>
 				 </release>
 				 <release version="2.1.0" date="2008-09-06"	desc="fixes">
