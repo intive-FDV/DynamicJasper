@@ -1,0 +1,82 @@
+		------
+		DynamicJasper :: Making Jasper Reports dynamic
+		------
+		Juan Manuel Alvarez
+		------
+		Date
+
+IMPORTANT: New Version notes
+
+*---------------+
+|| IMPORTANT for version 2.X users ||
+*---------------+
+| Version 3.0.0 adds <<breaking changes>>, please read this {{{changes/v3_0_0 breaking changes.html}changes note}} to see what changed |
+*---------------+
+
+DynamicJasper
+
+	DynamicJasper (DJ) is an API that hides the complexity of Jasper
+	Reports, it helps developers to save time when designing
+	simple/medium complexity reports generating the layout of the
+	report elements automatically. It creates reports dynamically,
+	defining at runtime the columns, column width (auto width), groups,
+	variables, fonts, charts, crosstabs, sub reports (that can also be dynamic), page size
+	and everything else that you can define at design time.
+
+	DJ keeps full compatibility with Jasper Reports since
+	it's a tool that helps create reports programmatically in
+	a easy way (it only interferes with the creation of the report
+	design doing the layout of the elements).
+
+	You can use the classic .jrxml files as templates while the
+	content and layout of the report elements are handled by the DJ
+	API.
+
+[images/dj_flavors.jpg]
+
+
+Online Demo - DynamicJasper Playground
+
+ The DynamicJasper Playground is an example webapp made in GWT and it is inteded to show all the capabilities and potential that the DynamicJasper
+ API provides.
+
+ In a near future we will release this playground as a component ready to integrate to your web application.
+
+ {{{http://dynamicjasperplayground.fdvs.com.ar/}See it working online!!!}} or  {{{http://sourceforge.net/project/showfiles.php?group_id=188060}download}} the war file or source code
+
+Snapshots
+
+ The snapshots found here corresponds to test that are available in the source code
+
+ Report with repeating groups
+
+[images/snapshots/group-report.png] Report with repeating groups
+
+ Report with image banner
+
+[images/snapshots/image-banner.png] Report with image banner
+
+ Report with styles (inherited from template jrxml)
+
+[images/snapshots/style-report.png] Report with styles (inherited from template jrxml)
+
+ Report with subreport
+
+[images/snapshots/subreport-report.png] Report with subreport
+
+ Report with a column of images
+
+[images/snapshots/image-column.png] Report with a column of images
+
+ A report with cross tabs
+
+[images/snapshots/crosstab-report.png] A report with cross tabs
+
+ Report with charts
+
+[images/snapshots/chart-report.png] Report with charts
+
+ Report with bar code
+
+[images/snapshots/barcode-report.png] Report with bar code
+
