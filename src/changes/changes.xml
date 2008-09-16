@@ -34,7 +34,7 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 			</properties>
 	 <body>
-				 <release version="3.0.0" date="2008-09-07"	desc="New Mayor version - Breaking changes">
+				 <release version="3.0.0-RC1" date="2008-09-07"	desc="New Mayor version - Breaking changes">
 					 <action dev="Juan Manuel Alvarez" type="change">
 						 Custom Expressions :: Cleaner interface, they receive 3 maps (fields, variables and parameters).
 						 They also have now a className attribute, so many types other than String can be returned (for formatting using patterns, etc)
