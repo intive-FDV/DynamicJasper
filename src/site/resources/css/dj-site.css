@@ -336,12 +336,12 @@ div.clear
 h2, h3
     {
     padding: 10px 4px 4px 0px;
-    border: 0px solid #999;
-    border-bottom: 1px dotted #999;
+    border: 0px none none;
+    border-top: 1px dotted #999;
     color: #1B6982;
     font-weight:900;
     font-size: large;
-    background-color: #eee;
+    /**background-color: #eee; **/
     }
 
 h3
@@ -505,4 +505,9 @@ div.section h2 a {
 }
 div.section h3 a {
 	text-decoration: none;
+}
+
+#div_images_bar img {
+	margin: 3px;
+	border: 0px;
 }

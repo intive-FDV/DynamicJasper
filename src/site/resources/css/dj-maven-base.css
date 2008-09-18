@@ -92,15 +92,18 @@ div.clear hr{
   text-align: center;
 }
 #navcolumn img {
-  margin-top: 10px;
+  margin-top: 3px;
   margin-bottom: 3px;
+  border: none;
 }
+
 #poweredBy img {
-  display:block;
+  /**display:block;
   margin: 20px 0 20px 17px;
   border: 1px solid black;
   width: 90px;
   height: 30px;
+  **/
 }
 #search img {
     margin: 0px;
