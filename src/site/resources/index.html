@@ -132,6 +132,7 @@ $(document).ready(function(){
 		    $("#breadcrumbs").html(content.parent().html()); //bread crumbs bar
 		    roundMenuBars();
 		    Rounded("div#breadcrumbs", "bottom", bgColor,frontColor,type);
+		    $("#leftColumn a[href=index.html]").css("font-weight","bold");
 		  },
 		  error: function (XMLHttpRequest, textStatus, errorThrown) {
 			  this; // the options for this ajax request
