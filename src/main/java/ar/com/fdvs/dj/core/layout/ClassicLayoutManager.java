@@ -605,6 +605,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			subreport.setHeight(100);
 			subreport.setPositionType(JRElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
 			subreport.setStretchType(JRElement.STRETCH_TYPE_NO_STRETCH);
+			subreport.setRemoveLineWhenBlank(true); //No subreport, no reserved space
 
 			if (sr.getStyle() != null)
 				applyStyleToElement(sr.getStyle(), subreport);

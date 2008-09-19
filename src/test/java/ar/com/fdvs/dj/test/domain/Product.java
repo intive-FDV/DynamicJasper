@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -66,6 +67,9 @@ public class Product {
 
 	public List getStatistics(){
 		return statistics_;
+	}
+	public List getEmptyStatistics(){
+		return Collections.EMPTY_LIST;
 	}
 
     public Product(){}

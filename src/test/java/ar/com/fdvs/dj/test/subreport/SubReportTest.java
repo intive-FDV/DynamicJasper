@@ -59,10 +59,11 @@ public class SubReportTest extends BaseDjReportTest {
 			.setUseFullPageWidth(true);
 
 		drb.addField("statistics", List.class.getName());
+		drb.addField("emptyStatistics", List.class.getName());
 
 		DynamicReport drHeaderSubreport = createHeaderSubreport();
 		drb.addSubreportInGroupHeader(2, drHeaderSubreport, new ClassicLayoutManager(),
-				"statistics", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
+				"emptyStatistics", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
 		 DynamicReport drFooterSubreport = createFooterSubreport();
 		 drb.addSubreportInGroupFooter(2, drFooterSubreport,  new ClassicLayoutManager(),
@@ -83,7 +84,8 @@ public class SubReportTest extends BaseDjReportTest {
 			.addColumn("Amount", "amount", Float.class.getName(), 50)
 			.setMargins(5, 5, 20, 20)
 			.setUseFullPageWidth(true)
-			.setTitle("Subreport for this group")
+			.setWhenNoDataNoPages()
+			.setTitle("Header Subreport for this group")
 			.build();
 		return dr;
 	}
@@ -98,7 +100,7 @@ public class SubReportTest extends BaseDjReportTest {
 		.addGroups(1)
 		.setMargins(5, 5, 20, 20)
 		.setUseFullPageWidth(true)
-		.setTitle("Subreport for this group")
+		.setTitle("Footer Subreport for this group")
 		.build();
 		return dr;
 	}
