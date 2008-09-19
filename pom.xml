@@ -472,13 +472,5 @@ API.
 				&lt;/script>
 
 		</google_adSense_script>
-		<jetbrains_idea_banner>
-
-					&lt;a href="http://www.jetbrains.com/idea/"
-						style="display:block; width:88px; height:31px; border:0; margin:0;padding:0;text-decoration:none;text-indent:0;">
-						&lt;img src="http://www.jetbrains.com/idea/opensource/img/banners/idea88x31_blue.gif" alt="The best Java IDE" border="0"/>
-					&lt;/a>
-
-		</jetbrains_idea_banner>
 	</properties>
 </project>

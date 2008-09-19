@@ -384,22 +384,16 @@ h3
     margin: 25px 0 0 0;
     }
 
-table,.bodyTable, tr, tr.b
+div.section td
     {
     font-size: x-small;
-    background: #ccc;
+}
+div.section table, div.section .bodyTable
+    {
+    font-size: x-small;
+    /**background: #ccc;**/
     vertical-align: top;
-    }
-
-th, thead, td
-    {
-    padding: 5px;
-    }
-
-td
-    {
-    background: #F5F9EF;
-    }
+}
 
 th, thead, tr, td, ul, li
     {
