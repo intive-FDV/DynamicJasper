@@ -1,0 +1,29 @@
+	----------
+	HOW-TO Create a grand total (with no groups)
+	----------
+
+HOW-TO Create a grand total (with no groups)
+
+ If there is a need for grand totals and no grouping in the project, DynamicJasper provides a way to get that. 
+ 
+ Grand totals can be located in the header or the footer of the report
+  
++------------------------------------------------------------------------------------------------------------+
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+
+drb.addGlobalHeaderVariable(columnAmount, ColumnsGroupVariableOperation.SUM);
+
+drb.addGlobalFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM);
++------------------------------------------------------------------------------------------------------------+
+
+ Where the parameters passed are:
+ 
+ * The column to use for the calculation
+ 
+ * The operation to apply (SUM, COUNT, etc)
+ 
+ * The style to use for this total (optional)
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/GroupsReportTest.html}GroupsReportTest.html}} for a working example.
+ 
