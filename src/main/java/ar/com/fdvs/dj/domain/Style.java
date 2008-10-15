@@ -279,7 +279,7 @@ public class Style implements Serializable, Cloneable {
 		/**
 		 * This values are needed when exporting to JRXML
 		 */
-		transformedStyle.setPen((byte)1);
+		transformedStyle.setPen((byte)0);
 		transformedStyle.setFill((byte)1);
 		transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());
 
@@ -402,6 +402,7 @@ public class Style implements Serializable, Cloneable {
 		Style style = new Style(name);
 
 		style.setBackgroundColor(null);
+		style.setBorderColor(null);
 		style.setTransparency(null);
 		style.setTextColor(null);
 		style.setBorder(null);
