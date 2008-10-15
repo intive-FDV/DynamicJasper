@@ -7,6 +7,7 @@ OK * DOCUEMENTACION: jrxml templates :: booleanas para elejir si importar parame
 OK * FIX: Page orientation:: ver https://sourceforge.net/forum/message.php?msg_id=5150094
 OK * FEATURE: En cada grupo, debería poder redefinir los estilos de los headers
 
+* Documentacion: exportToHtml no esta explicado.
 * Documentacion: Como crear grupos, debe estar en los HOW-TO
 * Documentacion: Falta la documentción de las distintas opciones del report builder (e.g: printColumnNames, etc)
 * Documentacion: Crosstabs HOW-TO, dejar en claro que tiene que haber si o si un MEASURE
