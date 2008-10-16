@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.test;
 
 
+import java.awt.Color;
 import java.util.Date;
 
 import net.sf.jasperreports.view.JasperViewer;
@@ -45,7 +46,8 @@ public class ImageColumnReportTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 
 
-		Style style = new StyleBuilder(true).setHorizontalAlign(HorizontalAlign.CENTER).build();
+		Style style = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.CENTER)
+		.setBorderColor(Color.WHITE) .build();
 		/**
 		 * Creates the DynamicReportBuilder and sets the basic options for
 		 * the report

@@ -19,6 +19,11 @@ OK * FEATURE: En cada grupo, debería poder redefinir los estilos de los headers
 * POSICIONAMIENTO: Configurar motores de busqueda/etc (Technorari?) para que nos envien informes periodicamente de los lugares donde aparece DynamicJasper o a fines
 * WEB/documentacion: La página de features está desactualizada, se podría poner un HTML que meche imagenes y texto
 * FEATURE: Marca de agua. Debería ser muy facil agregr una marca de agua como "CONFIDENTIAL", etc.
-FEATURE: LINE CHART pedido en post: https://sourceforge.net/forum/message.php?msg_id=5159978
+FEATURE: LINE CHART pedido en posts: 
+	https://sourceforge.net/forum/message.php?msg_id=5159978
+	https://sourceforge.net/forum/message.php?msg_id=5159700
 FEATURE: Arbitrary text on group footers/heaeder https://sourceforge.net/forum/message.php?msg_id=5168071
 FEATURE: Add native jasper report column where we pass directly a class type and a RAW jasper's like expression: e.g.: "$F{property}.toUpper()"
+FEATURE: Row merge: ver post https://sourceforge.net/forum/message.php?msg_id=5311327
+FEATURE/DOC: Agrupar por un criterio distinto del que se muestra. Posibilidad de que el grupo tenga su propia customExpression (opcional a la columnToGroupBy)
+
