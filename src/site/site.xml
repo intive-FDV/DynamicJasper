@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  ~ DynamicJasper: A library for creating reports dynamically by specifying
+  ~ columns, groups, styles, etc. at runtime. It also saves a lot of development
+  ~ time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+  ~
+  ~ Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
+  ~
+  ~ This library is free software; you can redistribute it and/or
+  ~ modify it under the terms of the GNU Lesser General Public
+  ~
+  ~ License as published by the Free Software Foundation; either
+  ~
+  ~ version 2.1 of the License, or (at your option) any later version.
+  ~
+  ~ This library is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+  ~
+  ~ Lesser General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Lesser General Public
+  ~ License along with this library; if not, write to the Free Software
+  ~
+  ~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+  ~
+  ~
+  -->
+
+<project name="DynamicJasper">
+  <bannerLeft>
+    <name>DynamicJasper</name>
+    <src>images/fdvsolutions_dynamicjasper_project.png</src>
+    <href>http://www.fdvsolutions.com/</href>
+  </bannerLeft>
+  <bannerRight>
+    <name>Source Forge</name>
+    <src>http://sflogo.sourceforge.net/sflogo.php?group_id=188060&amp;type=4</src>
+    <href>http://www.sourceforge.net</href>
+  </bannerRight>
+
+  <body>
+    <links>
+      <item name="FDV Solutions" href="http://www.fdvsolutions.com/" />
+      <item name="Maven 2" href="http://maven.apache.org/maven2/"/>
+      <item name="DJ@SourceForge" href="http://sourceforge.net/forum/?group_id=188060"/>
+    </links>
+
+    <menu name="Dynamic Jasper">
+      <item name="Home" href="index.html"/>
+      <item name="Features" href="docs/features.html"/>
+      <item name="Screen shots" href="screenshots.html"/>
+      <item name="Requeriments" href="requeriments.html"/>
+      <item name="Download" href="http://www.fdvs.com.ar/download.html" />
+      <item name="Project info" href="project-info.html"/>
+	  <item name="Paid Support" href="https://sourceforge.net/services/service_details.php?service_listing_id=2055"/>
+    </menu>
+    <menu name="Playground (GUI)">
+      <item name="Introduction" href="docs/playground.html"/>
+      <item name="Mini guide" href="docs/playground-mini-guide.html"/>
+      <item name="Online Demo" href="http://dynamicjasperplayground.fdvs.com.ar/" external="true"/>
+      <item name="Download" href="http://www.fdvs.com.ar/download.html" />
+    </menu>
+    <menu name="Documentation &amp; Examples">
+      <item name="Getting Started" href="docs/getting_started.html"/>
+      <item name="Howto" href="docs/howto.html"/>
+      <item name="Previous versions" href="old_docs.html"/>
+    </menu>
+    <menu name="Development">
+      <item name="Changes" href="changes-report.html"/>
+      <item name="Sources reference" href="jxr.html"/>
+      <item name="Javadoc" href="apidocs/index.html" />
+      <item name="Setting up the project" href="docs/project-setup.html" />
+    </menu>
+    <menu name="Support">
+      <item name="Paid Support" href="https://sourceforge.net/services/service_details.php?service_listing_id=2055"/>
+      <item name="Forums" href="https://sourceforge.net/forum/?group_id=188060" />
+      <item name="Issue Tracker" href="https://sourceforge.net/tracker/?group_id=188060"/>
+      <item name="DJ@SourceForge" href="https://sourceforge.net/projects/dynamicjasper" />
+    </menu>
+
+<!--
+    ${reports}
+ -->
+
+
+  </body>
+
+</project>
