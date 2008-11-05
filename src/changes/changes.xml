@@ -34,17 +34,13 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 			</properties>
 	 <body>
-				 <release version="3.0.0-RC3" date="2008-10-15"	desc="fix on images">
+				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
 					 <action dev="Juan Manuel Alvarez" type="fix">
 						 Images border were shown all the time
 					 </action>
-				 </release>
-				 <release version="3.0.0-RC2" date="2008-09-18"	desc="enhancements &amp; fixes">
 					 <action dev="Juan Manuel Alvarez" type="update">
 						 Subreport white space when empty :: Now removing white space when a subreport is empty
 					 </action>
-				 </release>
-				 <release version="3.0.0-RC1" date="2008-09-07"	desc="New Mayor version - Breaking changes">
 					 <action dev="Juan Manuel Alvarez" type="update">
 						 Custom Expressions :: Cleaner interface, they receive 3 maps (fields, variables and parameters).
 						 They also have now a className attribute, so many types other than String can be returned (for formatting using patterns, etc)
