@@ -7,6 +7,22 @@
 
 Previous versions API sources
 
+* DynamicJasper version 2.1.2
+
+** JavaDoc
+
+ * {{{v212/apidocs/index.html}Sources}}
+
+ []
+
+** Cross-reference Java source code
+
+ * {{{{v212/xref/index.html}Sources}}
+
+ * {{{v212/xref-tests/index.html}Tests}}
+
+ []
+ 
 * DynamicJasper version 2.1.0
 
 ** JavaDoc
