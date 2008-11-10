@@ -212,6 +212,11 @@ public class SubReportBuilder {
 		return this;
 	}
 
+	public SubReportBuilder setUserParentReportParameterMap(boolean useParent) {
+		subreport.setUseParentReportParameters(useParent);
+		return this;
+	}
+
 
 
 }

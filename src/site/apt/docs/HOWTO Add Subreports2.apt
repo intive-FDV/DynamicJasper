@@ -98,6 +98,9 @@ drb.addField("statistics", List.class.getName());
  we can tell the report to fit its parent report width.
 
  * <<setUseParentReportParameters(boolean useParentReportParameters)>>: Default is <<false>>. If true, parent and child report shares the parameters Map.
- If it is set to <false>, then <parametersExpression> and  <parametersMapOrigin> must be set.
+ If it is set to <false>, then <setParameterMapPath(...)> should be set.
+
+ * <<setParameterMapPath(String path)>> and <<setParameterMapPath(String path, int origin)>>: First assumes origin is relative to parent map,
+ on the second version we can tell the origin is from the parents MAP or from a FIELD (DJConstants.SUBREPORT_PARAMETER_MAP_ORIGIN_PARAMETER or DJConstants.SUBREPORT_PARAMETER_MAP_ORIGIN_FIELD)
 
  []
