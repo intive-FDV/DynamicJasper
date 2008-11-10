@@ -83,7 +83,7 @@ drb.addField("statistics", List.class.getName());
 
 [../images/examples/subreport.jpg] Chart Report
 
-* The SubReportBuilder class
+The SubReportBuilder class
 
  The SubReportBuilder class covers all possible configurations left behind by the DynamicReportBuilder, since the first one is the specific one to do this job.
 

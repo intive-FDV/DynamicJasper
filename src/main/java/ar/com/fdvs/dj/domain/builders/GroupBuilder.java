@@ -177,6 +177,45 @@ public class GroupBuilder {
 		return this;
 	}
 
+	/***
+	 * pass-through property to setup group header band "allowSplit" property.
+	 * When FALSE, if the content reaches end of the page, the whole band gets pushed
+	 * to the next page.
+	 * @param headerSplit
+	 * @return
+	 */
+	public GroupBuilder setAllowHeaderSplit(boolean headerSplit) {
+		group.setAllowHeaederSplit(headerSplit);
+		return this;
+	}
+
+
+	/***
+	 * pass-through property to setup group footer band "allowSplit" property.
+	 * When FALSE, if the content reaches end of the page, the whole band gets pushed
+	 * to the next page.
+	 * @param footerSplit
+	 * @return
+	 */
+	public GroupBuilder setAllowFooterSplit(boolean footerSplit) {
+		group.setAllowFooterSplit(footerSplit);
+		return this;
+	}
+
+	/***
+	 * pass-through property to setup group header and footer bands "allowSplit" property.
+	 * When FALSE, if the content reaches end of the page, the whole band gets pushed
+	 * to the next page.
+	 * @param headerSplit
+	 * @param footerSplit
+	 * @return
+	 */
+	public GroupBuilder setAllowSplitting(boolean headerSplit, boolean footerSplit) {
+		group.setAllowHeaederSplit(headerSplit);
+		group.setAllowFooterSplit(footerSplit);
+		return this;
+	}
+
 
 
 

@@ -41,6 +41,9 @@
 					 <action dev="Juan Manuel Alvarez" type="add">
 						 Added missing method to the SubreportBuilder set up the subreport parameter origin. See SubReportBuilder.setParameterMapPath(...) for more info.
 					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Group header and footer bands splitting configuration.
+					 </action>
 				 </release>
 				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
 					 <action dev="Juan Manuel Alvarez" type="fix">

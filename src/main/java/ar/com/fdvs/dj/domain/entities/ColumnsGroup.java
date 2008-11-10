@@ -80,6 +80,20 @@ public class ColumnsGroup implements Entity {
 	private Boolean startInNewColumn = Boolean.FALSE;
 
 	/**
+	 * pass-through property to setup group header band "allowSplit" property.
+	 * When FALSE, if the content reaches end of the page, the whole band gets pushed
+	 * to the next page.
+	 */
+	private boolean allowHeaderSplit = true;
+
+	/**
+	 * pass-through property to setup group footer band "allowSplit" property.
+	 * When FALSE, if the content reaches end of the page, the whole band gets pushed
+	 * to the next page.
+	 */
+	private boolean allowFooterSplit = true;
+
+	/**
 	 * Default Style for variables when showing in footer.
 	 * First looks for the style at the ColumnsGroupVariable, then the default, finally
 	 * it uses the columns style.
@@ -213,6 +227,22 @@ public class ColumnsGroup implements Entity {
 
 	public void setDefaultColumnHeaederStyle(Style defaultColumnHeaederStyle) {
 		this.defaultColumnHeaederStyle = defaultColumnHeaederStyle;
+	}
+
+	public boolean isAllowHeaderSplit() {
+		return allowHeaderSplit;
+	}
+
+	public void setAllowHeaederSplit(boolean allowHeaederSplit) {
+		this.allowHeaderSplit = allowHeaederSplit;
+	}
+
+	public boolean isAllowFooterSplit() {
+		return allowFooterSplit;
+	}
+
+	public void setAllowFooterSplit(boolean allowFooterSplit) {
+		this.allowFooterSplit = allowFooterSplit;
 	}
 
 }

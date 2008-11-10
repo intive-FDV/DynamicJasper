@@ -393,6 +393,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			header.setHeight(columnsGroup.getHeaderHeight().intValue());
 			footer.setHeight(columnsGroup.getFooterHeight().intValue());
 
+			header.setSplitAllowed(columnsGroup.isAllowHeaderSplit());
+			footer.setSplitAllowed(columnsGroup.isAllowFooterSplit());
+
 			if (columnsGroup.getLayout().isPrintHeaders()) {
 				boolean found = false;
 				boolean skipPreviousGroupHeaders = false;
