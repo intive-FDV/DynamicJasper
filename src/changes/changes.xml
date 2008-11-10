@@ -34,6 +34,11 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 			</properties>
 	 <body>
+				 <release version="3.0.1" date="2008-11-10"	desc="Enhancements and fixes">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Subreports allow split option :: We can tell the band which holds the subreport to not allow splitting of the content
+					 </action>
+				 </release>
 				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
 					 <action dev="Juan Manuel Alvarez" type="fix">
 						 Images border were shown all the time

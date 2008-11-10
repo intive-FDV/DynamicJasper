@@ -166,12 +166,25 @@ public class SubReportBuilder {
 	}
 
 	/**
-	 * When true, and id the subreport is dynamic, it's page size and margins will match with the parent report 
+	 * When true, and id the subreport is dynamic, it's page size and margins will match with the parent report
 	 * @param fitparent
 	 * @return
 	 */
 	public SubReportBuilder setFitToParentPrintableArea(boolean  fitparent) {
 		subreport.setFitToParentPrintableArea(fitparent);
+		return this;
+	}
+
+
+	/**
+	 * If false, and the report doesn't fit in the space given until end of page, it will be pushed to the next
+	 * page.
+	 * default is TRUE
+	 * @param splitAllowed
+	 * @return
+	 */
+	public SubReportBuilder setSplitAllowed(boolean  splitAllowed) {
+		subreport.setSplitAllowed(splitAllowed);
 		return this;
 	}
 

@@ -63,6 +63,12 @@ public class Subreport {
 	 */
 	private boolean startInNewPage = false;
 
+
+	/**
+	 * @since 3.0.1
+	 */
+	private boolean splitAllowed = true;
+
 	/**
 	 * When the sub-report is dynamic (and no template), we can tell the report to
 	 * fit its parent report width
@@ -186,6 +192,12 @@ public class Subreport {
 	}
 	public void setFitToParentPrintableArea(boolean fitToParentPrintableArea) {
 		this.fitToParentPrintableArea = fitToParentPrintableArea;
+	}
+	public boolean isSplitAllowed() {
+		return splitAllowed;
+	}
+	public void setSplitAllowed(boolean splitAllowed) {
+		this.splitAllowed = splitAllowed;
 	}
 
 }

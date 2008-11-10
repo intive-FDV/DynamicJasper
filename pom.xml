@@ -30,7 +30,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>3.0.0</version>
+	<version>3.0.1-SNAPSHOT</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -237,6 +237,15 @@ API.
 				<url>ftp://fdvs.com.ar/djmaven2/</url>
 			</repository>
 		</distributionManagement>
+		</profile>
+		<profile>
+			<id>internal</id>
+			<distributionManagement>
+		        <repository>
+		          <id>deployment.webdav</id>
+		          <url>http://archiva.fdvs.com.ar/repository/internal</url>
+		        </repository>
+			</distributionManagement>
 		</profile>
 	</profiles>
 

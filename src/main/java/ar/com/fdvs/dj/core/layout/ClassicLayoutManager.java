@@ -616,6 +616,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				band.addElement(pageBreak);
 			}
 			band.addElement(subreport);
+
+			/**
+			 * A subreport is placed in a group header or footer. This option configures the group's
+			 * header/footer band to allow it contents to be split. I'm not sure splitting logic works
+			 * inside complex object such as sub-reports since it has it's own bands inside
+			 */
+			band.setSplitAllowed(sr.isSplitAllowed());
 		}
 	}
 
