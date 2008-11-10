@@ -113,6 +113,8 @@ public class Subreport {
 		return parametersExpression;
 	}
 	public void setParametersExpression(String parametersExpression) {
+		if (parametersExpression != null)
+			useParentReportParameters = false;
 		this.parametersExpression = parametersExpression;
 	}
 	public boolean isUseParentReportParameters() {

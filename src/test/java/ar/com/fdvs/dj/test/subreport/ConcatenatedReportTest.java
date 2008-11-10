@@ -56,8 +56,6 @@ import ar.com.fdvs.dj.test.domain.Product;
 
 public class ConcatenatedReportTest extends BaseDjReportTest {
 
-	private Map params = new HashMap();
-
 	public DynamicReport buildReport() throws Exception {
 
 		Style titleStyle = new Style();

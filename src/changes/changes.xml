@@ -38,6 +38,9 @@
 					 <action dev="Juan Manuel Alvarez" type="add">
 						 Subreports allow split option :: We can tell the band which holds the subreport to not allow splitting of the content
 					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Added missing method to the SubreportBuilder set up the subreport parameter origin. See SubReportBuilder.setParameterMapPath(...) for more info.
+					 </action>
 				 </release>
 				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
 					 <action dev="Juan Manuel Alvarez" type="fix">

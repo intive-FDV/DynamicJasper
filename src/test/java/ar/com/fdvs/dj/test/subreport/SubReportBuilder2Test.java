@@ -43,7 +43,12 @@ import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 import ar.com.fdvs.dj.test.domain.Product;
 
-public class SubReportBuilderTest extends BaseDjReportTest {
+/**
+ * This tests makes the subreport to use it's own parameters map (which a map stored in the parent parameters map)
+ * @author mamana
+ *
+ */
+public class SubReportBuilder2Test extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -55,7 +60,7 @@ public class SubReportBuilderTest extends BaseDjReportTest {
 			.addColumn("Item Code", "id", Long.class.getName(),30,true)
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
-			.addGroups(2)
+			.addGroups(1)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
@@ -69,15 +74,21 @@ public class SubReportBuilderTest extends BaseDjReportTest {
 										DJConstants.DATA_SOURCE_TYPE_COLLECTION,
 										"statistics")
 						.setDynamicReport(createFooterSubreport(), new ClassicLayoutManager())
+						.setParameterMapPath("subreportParameterMap")
 						.build();
 
-		drb.addSubreportInGroupFooter(1, subreport);
+		drb.addSubreportInGroupHeader(1, subreport);
 
 		/**
 		 * add in a map the paramter with the data source to use in the subreport.
 		 * The "params" map is later passed to the DynamicJasperHelper.generateJasperPrint(...)
 		 */
 		params.put("statistics", Product.statistics_  ); // the 2nd param is a static Collection
+
+		Map subreportParameterMap = new HashMap();
+		subreportParameterMap.put("rightHeader", "Sub report right header");
+
+		params.put("subreportParameterMap", subreportParameterMap  ); // the 2nd param is a static Collection
 
 		/**
 		 * Create the group and add the subreport (as a Fotter subreport)
@@ -103,6 +114,7 @@ public class SubReportBuilderTest extends BaseDjReportTest {
 		.addColumn("Amount", "amount", Float.class.getName(), 50)
 		.addGroups(1)
 		.setMargins(5, 5, 20, 20)
+		.setTemplateFile("templates/TemplateReportTest.jrxml")
 		.setUseFullPageWidth(true)
 		.setTitle("Subreport for this group")
 		.build();
@@ -111,7 +123,7 @@ public class SubReportBuilderTest extends BaseDjReportTest {
 
 
 	public static void main(String[] args) throws Exception {
-		SubReportBuilderTest test = new SubReportBuilderTest();
+		SubReportBuilder2Test test = new SubReportBuilder2Test();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
 	}

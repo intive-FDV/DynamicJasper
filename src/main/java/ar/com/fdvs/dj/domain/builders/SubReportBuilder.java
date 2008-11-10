@@ -189,5 +189,29 @@ public class SubReportBuilder {
 	}
 
 
+	/**
+	 * defines the KEY in the parent report parameters map where to get the subreport parameters map.
+	 * @param path where to get the parameter map for the subrerpot.
+	 * @return
+	 */
+	public SubReportBuilder setParameterMapPath(String path) {
+		subreport.setParametersExpression(path);
+		subreport.setParametersMapOrigin(DJConstants.SUBREPORT_PARAMETER_MAP_ORIGIN_PARAMETER);
+		return this;
+	}
+
+	/**
+	 *
+	 * @param path where to get the parameter map for the subrerpot
+	 * @param origin where the paramters map comes from: DJConstants.SUBREPORT_PARAMETER_MAP_ORIGIN_PARAMETER or DJConstants.SUBREPORT_PARAMETER_MAP_ORIGIN_FIELD
+	 * @return
+	 */
+	public SubReportBuilder setParameterMapPath(String path, int origin) {
+		subreport.setParametersExpression(path);
+		subreport.setParametersMapOrigin(origin);
+		return this;
+	}
+
+
 
 }
