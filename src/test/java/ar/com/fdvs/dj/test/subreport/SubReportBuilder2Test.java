@@ -75,6 +75,8 @@ public class SubReportBuilder2Test extends BaseDjReportTest {
 										"statistics")
 						.setDynamicReport(createFooterSubreport(), new ClassicLayoutManager())
 						.setParameterMapPath("subreportParameterMap")
+						.setSplitAllowed(false)
+						.setStartInNewPage(true)
 						.build();
 
 		drb.addSubreportInGroupHeader(1, subreport);
