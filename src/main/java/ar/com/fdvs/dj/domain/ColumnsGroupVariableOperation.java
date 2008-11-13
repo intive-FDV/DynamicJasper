@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain;
 
+import net.sf.jasperreports.engine.JRVariable;
 import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
 
 /**
@@ -38,16 +39,17 @@ import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
  */
 public class ColumnsGroupVariableOperation {
 
-	public static ColumnsGroupVariableOperation AVERAGE = new ColumnsGroupVariableOperation( (byte) 3);
-	public static ColumnsGroupVariableOperation COUNT = new ColumnsGroupVariableOperation( (byte) 1);
-	public static ColumnsGroupVariableOperation FIRST = new ColumnsGroupVariableOperation((byte) 9);
-	public static ColumnsGroupVariableOperation HIGHEST = new ColumnsGroupVariableOperation((byte) 5);
-	public static ColumnsGroupVariableOperation LOWEST = new ColumnsGroupVariableOperation((byte) 4);
-	public static ColumnsGroupVariableOperation NOTHING = new ColumnsGroupVariableOperation((byte) 0);
-	public static ColumnsGroupVariableOperation STANDARD_DEVIATION = new ColumnsGroupVariableOperation((byte) 6);
-	public static ColumnsGroupVariableOperation SUM = new ColumnsGroupVariableOperation((byte)2);
-	public static ColumnsGroupVariableOperation SYSTEM = new ColumnsGroupVariableOperation((byte) 8);
-	public static ColumnsGroupVariableOperation VARIANCE = new ColumnsGroupVariableOperation((byte) 7);
+	public static ColumnsGroupVariableOperation AVERAGE = new ColumnsGroupVariableOperation( JRVariable.CALCULATION_AVERAGE);
+	public static ColumnsGroupVariableOperation COUNT = new ColumnsGroupVariableOperation( JRVariable.CALCULATION_COUNT);
+	public static ColumnsGroupVariableOperation FIRST = new ColumnsGroupVariableOperation(JRVariable.CALCULATION_FIRST);
+	public static ColumnsGroupVariableOperation HIGHEST = new ColumnsGroupVariableOperation(JRVariable.CALCULATION_HIGHEST);
+	public static ColumnsGroupVariableOperation LOWEST = new ColumnsGroupVariableOperation(JRVariable.CALCULATION_LOWEST);
+	public static ColumnsGroupVariableOperation NOTHING = new ColumnsGroupVariableOperation(JRVariable.CALCULATION_NOTHING);
+	public static ColumnsGroupVariableOperation STANDARD_DEVIATION = new ColumnsGroupVariableOperation(JRVariable.CALCULATION_STANDARD_DEVIATION);
+	public static ColumnsGroupVariableOperation SUM = new ColumnsGroupVariableOperation(JRVariable.CALCULATION_SUM);
+	public static ColumnsGroupVariableOperation SYSTEM = new ColumnsGroupVariableOperation(JRVariable.CALCULATION_SYSTEM);
+	public static ColumnsGroupVariableOperation VARIANCE = new ColumnsGroupVariableOperation(JRVariable.CALCULATION_VARIANCE);
+	public static ColumnsGroupVariableOperation DISTINCT_COUNT = new ColumnsGroupVariableOperation(JRVariable.CALCULATION_DISTINCT_COUNT);
 
 	private byte value;
 
