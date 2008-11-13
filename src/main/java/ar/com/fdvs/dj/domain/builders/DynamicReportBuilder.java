@@ -52,8 +52,8 @@ import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.Page;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
@@ -222,7 +222,7 @@ public class DynamicReportBuilder {
 	public DynamicReport build(){
 		report.setOptions(options);
 		if (globalFooterVariables != null || globalHeaderVariables != null) {
-			ColumnsGroup globalGroup = createDummyGroup();
+			DJGroup globalGroup = createDummyGroup();
 			report.getColumnsGroups().add(0,globalGroup);
 		}
 
@@ -243,7 +243,7 @@ public class DynamicReportBuilder {
 		if (globalHeaderCrosstabs != null) {
 			for (Iterator iterator = globalHeaderCrosstabs.iterator(); iterator.hasNext();) {
 				DJCrosstab djcross = (DJCrosstab) iterator.next();
-				ColumnsGroup globalGroup = createDummyGroupForCrosstabs("crosstabHeaderGroup-" + globalHeaderCrosstabs.indexOf(djcross));
+				DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabHeaderGroup-" + globalHeaderCrosstabs.indexOf(djcross));
 				globalGroup.getHeaderCrosstabs().add(djcross);
 				report.getColumnsGroups().add(0,globalGroup);
 			}
@@ -253,7 +253,7 @@ public class DynamicReportBuilder {
 		if (globalFooterCrosstabs != null) {
 			for (Iterator iterator = globalFooterCrosstabs.iterator(); iterator.hasNext();) {
 				DJCrosstab djcross = (DJCrosstab) iterator.next();
-				ColumnsGroup globalGroup = createDummyGroupForCrosstabs("crosstabFooterGroup-" + globalFooterCrosstabs.indexOf(djcross));
+				DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabFooterGroup-" + globalFooterCrosstabs.indexOf(djcross));
 				globalGroup.getFooterCrosstabs().add(djcross);
 				report.getColumnsGroups().add(0,globalGroup);
 			}
@@ -270,7 +270,7 @@ public class DynamicReportBuilder {
 			Integer groupNum = (Integer) iterator.next();
 			List list = (List) groupFooterSubreports.get(groupNum);
 
-			ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
+			DJGroup group = (DJGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
 			group.getFooterSubreports().addAll(list);
 		}
 
@@ -278,7 +278,7 @@ public class DynamicReportBuilder {
 			Integer groupNum = (Integer) iterator.next();
 			List list = (List) groupHeaderSubreports.get(groupNum);
 
-			ColumnsGroup group = (ColumnsGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
+			DJGroup group = (DJGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
 			group.getHeaderSubreports().addAll(list);
 		}
 
@@ -292,7 +292,7 @@ public class DynamicReportBuilder {
 
 		for (Iterator iterator = concatenatedReports.iterator(); iterator.hasNext();) {
 			Subreport subreport = (Subreport) iterator.next();
-			ColumnsGroup globalGroup = createDummyGroup();
+			DJGroup globalGroup = createDummyGroup();
 			globalGroup.getFooterSubreports().add(subreport);
 			report.getColumnsGroups().add(0,globalGroup);
 		}
@@ -301,8 +301,8 @@ public class DynamicReportBuilder {
 	/**
 	 * @return
 	 */
-	private ColumnsGroup createDummyGroup() {
-		ColumnsGroup globalGroup = new ColumnsGroup();
+	private DJGroup createDummyGroup() {
+		DJGroup globalGroup = new DJGroup();
 		globalGroup.setLayout(GroupLayout.EMPTY);
 		GlobalGroupColumn globalCol = new GlobalGroupColumn("global");
 		globalCol.setTitle(grandTotalLegend);
@@ -315,8 +315,8 @@ public class DynamicReportBuilder {
 		return globalGroup;
 	}
 
-	private ColumnsGroup createDummyGroupForCrosstabs(String name) {
-		ColumnsGroup globalGroup = new ColumnsGroup();
+	private DJGroup createDummyGroupForCrosstabs(String name) {
+		DJGroup globalGroup = new DJGroup();
 		globalGroup.setLayout(GroupLayout.EMPTY);
 		GlobalGroupColumn globalCol = new GlobalGroupColumn(name );
 
@@ -355,7 +355,7 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	public DynamicReportBuilder addGroup(ColumnsGroup group) {
+	public DynamicReportBuilder addGroup(DJGroup group) {
 		report.getColumnsGroups().add(group);
 		return this;
 	}
@@ -530,14 +530,14 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op) {
 		if (this.globalHeaderVariables == null)
 			this.globalHeaderVariables = new ArrayList();
-		this.globalHeaderVariables.add(new ColumnsGroupVariable(col, op));
+		this.globalHeaderVariables.add(new DJGroupVariable(col, op));
 		return this;
 	}
 
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op, Style style) {
 		if (this.globalHeaderVariables == null)
 			this.globalHeaderVariables = new ArrayList();
-		this.globalHeaderVariables.add(new ColumnsGroupVariable(col, op, style));
+		this.globalHeaderVariables.add(new DJGroupVariable(col, op, style));
 		return this;
 	}
 
@@ -550,14 +550,14 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, DJCalculation op) {
 		if (this.globalFooterVariables == null)
 			this.globalFooterVariables = new ArrayList();
-		this.globalFooterVariables.add(new ColumnsGroupVariable(col, op));
+		this.globalFooterVariables.add(new DJGroupVariable(col, op));
 		return this;
 	}
 
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, DJCalculation op, Style style) {
 		if (this.globalFooterVariables == null)
 			this.globalFooterVariables = new ArrayList();
-		this.globalFooterVariables.add(new ColumnsGroupVariable(col, op, style));
+		this.globalFooterVariables.add(new DJGroupVariable(col, op, style));
 		return this;
 	}
 

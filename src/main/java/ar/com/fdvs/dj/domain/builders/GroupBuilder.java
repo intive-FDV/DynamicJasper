@@ -34,8 +34,8 @@ import java.util.Iterator;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
@@ -56,21 +56,21 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
  */
 public class GroupBuilder {
 
-	private ColumnsGroup group = new ColumnsGroup();
+	private DJGroup group = new DJGroup();
 
 	private Style defaultFooterVariableStyle;
 	private Style defaultHeaderVariableStyle;
 
-	public ColumnsGroup build(){
+	public DJGroup build(){
 		//Apply Styles if any (for variables)
 		for (Iterator iterator = group.getHeaderVariables().iterator(); iterator.hasNext();) {
-			ColumnsGroupVariable var = (ColumnsGroupVariable) iterator.next();
+			DJGroupVariable var = (DJGroupVariable) iterator.next();
 			if (defaultHeaderVariableStyle != null)
 				var.setStyle(defaultHeaderVariableStyle);
 		}
 
 		for (Iterator iterator = group.getFooterVariables().iterator(); iterator.hasNext();) {
-			ColumnsGroupVariable var = (ColumnsGroupVariable) iterator.next();
+			DJGroupVariable var = (DJGroupVariable) iterator.next();
 			if (defaultFooterVariableStyle != null)
 				var.setStyle(defaultFooterVariableStyle);
 		}
@@ -83,32 +83,32 @@ public class GroupBuilder {
 		return this;
 	}
 
-	public GroupBuilder addHeaderVariable(ColumnsGroupVariable variable) {
+	public GroupBuilder addHeaderVariable(DJGroupVariable variable) {
 		group.getHeaderVariables().add(variable);
 		return this;
 	}
 
 	public GroupBuilder addHeaderVariable(AbstractColumn column, DJCalculation operation) {
-		group.getHeaderVariables().add(new ColumnsGroupVariable(column,operation));
+		group.getHeaderVariables().add(new DJGroupVariable(column,operation));
 		return this;
 	}
 
 	public GroupBuilder addHeaderVariable(AbstractColumn column, DJCalculation operation, Style style) {
-		group.getHeaderVariables().add(new ColumnsGroupVariable(column,operation,style));
+		group.getHeaderVariables().add(new DJGroupVariable(column,operation,style));
 		return this;
 	}
 
-	public GroupBuilder addFooterVariable(ColumnsGroupVariable variable) {
+	public GroupBuilder addFooterVariable(DJGroupVariable variable) {
 		group.getFooterVariables().add(variable);
 		return this;
 	}
 
 	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation) {
-		group.getFooterVariables().add(new ColumnsGroupVariable(column3,operation));
+		group.getFooterVariables().add(new DJGroupVariable(column3,operation));
 		return this;
 	}
 	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation, Style style) {
-		group.getFooterVariables().add(new ColumnsGroupVariable(column3,operation,style));
+		group.getFooterVariables().add(new DJGroupVariable(column3,operation,style));
 		return this;
 	}
 

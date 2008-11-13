@@ -53,7 +53,7 @@ import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
@@ -102,7 +102,7 @@ public class CrosstabReportTest3 extends BaseDjReportTest {
 
 		DynamicReport dr = drb.build();
 
-		ColumnsGroup g = (ColumnsGroup) dr.getColumnsGroups().get(0);
+		DJGroup g = (DJGroup) dr.getColumnsGroups().get(0);
 		g.setHeaderHeight(new Integer(40));
 		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
 

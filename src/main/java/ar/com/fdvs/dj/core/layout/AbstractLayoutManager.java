@@ -73,7 +73,7 @@ import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
@@ -566,10 +566,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * Creates a JasperReport DesignTextField from a DynamicJasper AbstractColumn.
 	 * @param AbstractColumn col
 	 * @param int height
-	 * @param ColumnsGroup group
+	 * @param DJGroup group
 	 * @return JRDesignTextField
 	 */
-	protected JRDesignTextField generateTextFieldFromColumn(AbstractColumn col, int height, ColumnsGroup group) {
+	protected JRDesignTextField generateTextFieldFromColumn(AbstractColumn col, int height, DJGroup group) {
 		JRDesignTextField textField = new JRDesignTextField();
 		JRDesignExpression exp = new JRDesignExpression();
 
@@ -824,7 +824,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		return parentGroup;
 	}
 
-	protected JRDesignGroup getGroupFromColumnsGroup(ColumnsGroup group){
+	protected JRDesignGroup getGroupFromColumnsGroup(DJGroup group){
 		int index = getReport().getColumnsGroups().indexOf(group);
 		return (JRDesignGroup) realGroups.get(index);
 	}

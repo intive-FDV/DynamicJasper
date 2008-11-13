@@ -47,7 +47,7 @@ import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
@@ -153,7 +153,7 @@ public class GroupsAndExpressionReportTest extends BaseDjReportTest {
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
-		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) exprCol)
+		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) exprCol)
 				.setGroupLayout(GroupLayout.EMPTY)
 				.setStartInNewPage(true)
 				.build();

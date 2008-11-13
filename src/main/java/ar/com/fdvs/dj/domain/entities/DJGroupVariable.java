@@ -39,18 +39,18 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
  * </br>
  * @see DJCalculation
  */
-public class ColumnsGroupVariable implements Entity {
+public class DJGroupVariable implements Entity {
 
 	private AbstractColumn columnToApplyOperation;
 	private DJCalculation operation;
 	private Style style;
 
-	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation) {
+	public DJGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation) {
 		this.columnToApplyOperation = columnToApplyOperation;
 		this.operation = operation;
 	}
 
-	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation, Style style) {
+	public DJGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation, Style style) {
 		this.columnToApplyOperation = columnToApplyOperation;
 		this.operation = operation;
 		this.style = style;

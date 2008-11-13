@@ -7,6 +7,20 @@
 
 Breaking Changes Since version 3.0.0
 
+* Class names that changed
+
+ The following classes where renamed for the sake of the human race:
+  
+ * ColumnsGroup -> DJGroup;
+ 
+ * ColumnsGroupVariable -> DJGroupVariable;
+ 
+ * ColumnsGroupVariableOperation -> DJCalculation;
+ 
+ * and some other classes you should not care...
+ 
+ []
+
 * Custom Expressions
 
   * The "<evaluate(...)>" method signature changed. All implementations of CustomExpresion needs to be updated.

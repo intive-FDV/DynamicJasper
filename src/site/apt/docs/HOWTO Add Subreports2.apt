@@ -87,7 +87,7 @@ The SubReportBuilder class
 
  The SubReportBuilder class covers all possible configurations left behind by the DynamicReportBuilder, since the first one is the specific one to do this job.
 
-** Builder methods
+* Builder methods
 
  * <<setSplitAllowed(boolean  splitAllowed)>>: Default is <<true>>. When false, if the subreport does not fit's in the space given up to the end of the page,
  it will  be pushed to start in the next page.

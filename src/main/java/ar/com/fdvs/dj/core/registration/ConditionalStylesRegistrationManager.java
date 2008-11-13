@@ -34,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 
@@ -42,7 +42,7 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
  * Manager invoked to register conditional styles. </br>
  * A ConditionalStyle is read and it's expression is registered. </br>
  * </br>
- * @see ColumnsGroup
+ * @see DJGroup
  */
 public class ConditionalStylesRegistrationManager extends AbstractEntityRegistrationManager {
 

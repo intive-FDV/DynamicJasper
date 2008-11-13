@@ -34,7 +34,7 @@ import java.util.List;
 
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
 /**
@@ -54,7 +54,7 @@ public class DJChart {
 
 	//How to build the chart?
 	private byte type;
-	private ColumnsGroup columnsGroup;
+	private DJGroup columnsGroup;
 //	private AbstractColumn column;
 	
 	/**
@@ -70,7 +70,7 @@ public class DJChart {
 
 	public DJChart(){}
 
-	public DJChart(byte type, ColumnsGroup columnsGroup, AbstractColumn column, byte operation, DJChartOptions chartOptions){
+	public DJChart(byte type, DJGroup columnsGroup, AbstractColumn column, byte operation, DJChartOptions chartOptions){
 		this.type = type;
 		this.columnsGroup = columnsGroup;
 		
@@ -81,7 +81,7 @@ public class DJChart {
 		this.chartOptions = chartOptions;
 	}
 	
-	public DJChart(byte type, ColumnsGroup columnsGroup, List columns, byte operation, DJChartOptions chartOptions){
+	public DJChart(byte type, DJGroup columnsGroup, List columns, byte operation, DJChartOptions chartOptions){
 		this.type = type;
 		this.columnsGroup = columnsGroup;
 		
@@ -116,11 +116,11 @@ public class DJChart {
 		this.type = type;
 	}
 
-	public ColumnsGroup getColumnsGroup() {
+	public DJGroup getColumnsGroup() {
 		return columnsGroup;
 	}
 
-	public void setColumnsGroup(ColumnsGroup columnsGroup) {
+	public void setColumnsGroup(DJGroup columnsGroup) {
 		this.columnsGroup = columnsGroup;
 	}
 

@@ -48,7 +48,7 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
@@ -153,12 +153,12 @@ public class StylesReport2Test extends BaseDjReportTest {
 		drb.addColumn(columnaCantidad);
 		drb.addColumn(columnAmount);
 
-		ColumnsGroup group = new GroupBuilder()
+		DJGroup group = new GroupBuilder()
 			.setCriteriaColumn((PropertyColumn) columnState)
 			.addFooterVariable(columnAmount, DJCalculation.SUM,variableStyle).build();
 		drb.addGroup(group);
 
-		ColumnsGroup group2 = new GroupBuilder()
+		DJGroup group2 = new GroupBuilder()
 		.setCriteriaColumn((PropertyColumn) columnaItem)
 		.addFooterVariable(columnAmount, DJCalculation.SUM).build();
 		drb.addGroup(group2);

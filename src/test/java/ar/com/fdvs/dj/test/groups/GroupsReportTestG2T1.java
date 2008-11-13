@@ -46,7 +46,7 @@ import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
@@ -160,14 +160,14 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
-		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 				.addFooterVariable(columnAmount,DJCalculation.SUM,g1VariablesStyle) 
 				.addFooterVariable(columnaQuantity,DJCalculation.SUM,g1VariablesStyle) 
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) 
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
-		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
+		DJGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,DJCalculation.SUM,g2VariablesStyle) // columnaQuantity columns
 				.addFooterVariable(columnaQuantity,	DJCalculation.SUM,g2VariablesStyle)
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) 

@@ -72,11 +72,11 @@ import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
 
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
-import ar.com.fdvs.dj.core.registration.ColumnsGroupRegistrationManager;
+import ar.com.fdvs.dj.core.registration.DJGroupRegistrationManager;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -96,7 +96,7 @@ public final class DynamicJasperHelper {
 
 	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
 		new ColumnRegistrationManager(jd,dr).registerEntities(dr.getColumns());
-		new ColumnsGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());
+		new DJGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());
 		registerOtherFields(jd,dr.getFields());
 		Locale locale = dr.getReportLocale() == null ? Locale.getDefault() : dr.getReportLocale();
 		if (log.isDebugEnabled()){
@@ -367,7 +367,7 @@ public final class DynamicJasperHelper {
 
     protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters) throws JRException {
     	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext();) {
-			ColumnsGroup group = (ColumnsGroup) iterator.next();
+			DJGroup group = (DJGroup) iterator.next();
 
 			//Header Subreports
 			for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext();) {
@@ -475,7 +475,7 @@ public final class DynamicJasperHelper {
  */
 	protected static void visitSubreports(DynamicReport dr, Map _parameters) throws JRException{
     	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext();) {
-			ColumnsGroup group = (ColumnsGroup) iterator.next();
+			DJGroup group = (DJGroup) iterator.next();
 
 			//Header Subreports
 			for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext();) {
@@ -511,10 +511,10 @@ public final class DynamicJasperHelper {
 		}
 	}
 
-	public static ColumnsGroup getColumnGroup(AbstractColumn col, List groups) {
+	public static DJGroup getColumnGroup(AbstractColumn col, List groups) {
 		Iterator it = groups.iterator();
 		while (it.hasNext()) {
-			ColumnsGroup group = (ColumnsGroup) it.next();
+			DJGroup group = (DJGroup) it.next();
 			if (group.getColumnToGroupBy().equals(col))
 				return group;
 		}
@@ -529,7 +529,7 @@ public final class DynamicJasperHelper {
 	public static boolean existsGroupWithColumnNames(List groups) {
 		Iterator it = groups.iterator();
 		while (it.hasNext()) {
-			ColumnsGroup group = (ColumnsGroup) it.next();
+			DJGroup group = (DJGroup) it.next();
 			if (group.getLayout().isShowColumnName())
 				return true;
 		}

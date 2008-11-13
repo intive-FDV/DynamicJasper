@@ -8,7 +8,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 
 public class XlsReportTest extends BaseDjReportTest {
 
@@ -43,7 +43,7 @@ public class XlsReportTest extends BaseDjReportTest {
 
 		DynamicReport dr = drb.build();
 
-		ColumnsGroup group = (ColumnsGroup) dr.getColumnsGroups().iterator().next();
+		DJGroup group = (DJGroup) dr.getColumnsGroups().iterator().next();
 		group.setLayout(GroupLayout.EMPTY); //not used by ListLayoutManager
 
 		return dr;

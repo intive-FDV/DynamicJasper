@@ -49,8 +49,8 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroupVariable;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
@@ -443,7 +443,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	}
 
 	public FastReportBuilder setGroupLayout(int groupNumber, GroupLayout layout) throws BuilderException {
-		ColumnsGroup group = getGroupByNumber(groupNumber);
+		DJGroup group = getGroupByNumber(groupNumber);
 		group.setLayout(layout);
 		return this;
 	}
@@ -455,17 +455,17 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		if (style == null)
 			style = numberStyle;
 
-		this.globalHeaderVariables.add(new ColumnsGroupVariable(column, op, style));
+		this.globalHeaderVariables.add(new DJGroupVariable(column, op, style));
 		return this;
 	}
 
 	public FastReportBuilder addHeaderVariable(int groupNum, int colNumber, DJCalculation op, Style style) throws BuilderException {
-		ColumnsGroup group = getGroupByNumber(groupNum);
+		DJGroup group = getGroupByNumber(groupNum);
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
 		if (style == null)
 			style = numberStyle;
 
-		ColumnsGroupVariable columnsGroupVariable = new ColumnsGroupVariable(column, op, style);
+		DJGroupVariable columnsGroupVariable = new DJGroupVariable(column, op, style);
 		group.getHeaderVariables().add(columnsGroupVariable);
 		return this;
 	}
@@ -475,10 +475,10 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	 * @return
 	 * @throws BuilderException
 	 */
-	private ColumnsGroup getGroupByNumber(int groupNum) throws BuilderException {
-		ColumnsGroup group;
+	private DJGroup getGroupByNumber(int groupNum) throws BuilderException {
+		DJGroup group;
 		try {
-			group = (ColumnsGroup) report.getColumnsGroups().get(groupNum-1);
+			group = (DJGroup) report.getColumnsGroups().get(groupNum-1);
 		} catch (IndexOutOfBoundsException e) {
 			throw new BuilderException("No such group, use addGroups(int) first");
 		}
@@ -492,28 +492,28 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		if (style == null)
 			style = numberStyle;
 
-		this.globalFooterVariables.add(new ColumnsGroupVariable(column, op, style));
+		this.globalFooterVariables.add(new DJGroupVariable(column, op, style));
 		return this;
 	}
 
 	public FastReportBuilder addFooterVariable(int groupNum, int colNumber, DJCalculation op, Style style) throws BuilderException {
-		ColumnsGroup group = getGroupByNumber(groupNum);
+		DJGroup group = getGroupByNumber(groupNum);
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
 		if (style == null)
 			style = numberStyle;
 
-		ColumnsGroupVariable columnsGroupVariable = new ColumnsGroupVariable(column, op, style);
+		DJGroupVariable columnsGroupVariable = new DJGroupVariable(column, op, style);
 		group.getFooterVariables().add(columnsGroupVariable);
 		return this;
 	}
 
 	public FastReportBuilder addHeaderCrosstab(int groupNumber, DJCrosstab djcross) throws BuilderException {
-		ColumnsGroup group = getGroupByNumber(groupNumber);
+		DJGroup group = getGroupByNumber(groupNumber);
 		group.getHeaderCrosstabs().add(djcross);
 		return this;
 	}
 	public FastReportBuilder addFooterCrosstab(int groupNumber, DJCrosstab djcross) throws BuilderException {
-		ColumnsGroup group = getGroupByNumber(groupNumber);
+		DJGroup group = getGroupByNumber(groupNumber);
 		group.getFooterCrosstabs().add(djcross);
 		return this;
 	}

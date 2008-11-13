@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
@@ -49,19 +49,19 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
  * Manager invoked to register groups of columns. A ColumnsGroup is read and </br>
  * transformed into a JRDesignGroup.</br>
  * </br>
- * @see ColumnsGroup
+ * @see DJGroup
  */
-public class ColumnsGroupRegistrationManager extends AbstractEntityRegistrationManager {
+public class DJGroupRegistrationManager extends AbstractEntityRegistrationManager {
 
-	private static final Log log = LogFactory.getLog(ColumnsGroupRegistrationManager.class);
+	private static final Log log = LogFactory.getLog(DJGroupRegistrationManager.class);
 
-	public ColumnsGroupRegistrationManager(DynamicJasperDesign jd, DynamicReport dr) {
+	public DJGroupRegistrationManager(DynamicJasperDesign jd, DynamicReport dr) {
 		super(jd,dr);
 	}
 
 	protected void registerEntity(Entity entity) {
 		log.debug("registering group...");
-		ColumnsGroup columnsGroup = (ColumnsGroup) entity;
+		DJGroup columnsGroup = (DJGroup) entity;
 		try {
 			JRDesignGroup group = (JRDesignGroup)transformEntity(columnsGroup);
 			getDjd().addGroup(group);
@@ -76,7 +76,7 @@ public class ColumnsGroupRegistrationManager extends AbstractEntityRegistrationM
 	//PropertyColumn only can be used for grouping (not OperationColumn)
 	protected Object transformEntity(Entity entity) {
 		log.debug("transforming group...");
-		ColumnsGroup columnsGroup = (ColumnsGroup) entity;
+		DJGroup columnsGroup = (DJGroup) entity;
 		PropertyColumn column = columnsGroup.getColumnToGroupBy();
 		JRDesignGroup group = new JRDesignGroup();
 

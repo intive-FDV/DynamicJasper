@@ -47,7 +47,7 @@ import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
@@ -141,7 +141,7 @@ public class ChartReportTest3 extends BaseDjReportTest {
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
-		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 					.addFooterVariable(columnAmount,DJCalculation.SUM,g1Variables)
 				.addFooterVariable(columnaQuantity,DJCalculation.SUM,g1Variables) 
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) 
@@ -149,7 +149,7 @@ public class ChartReportTest3 extends BaseDjReportTest {
 
 
 		GroupBuilder gb2 = new GroupBuilder(); 
-		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) 
+		DJGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) 
 				.addFooterVariable(columnAmount,DJCalculation.SUM,g2Variables) 
 				.addFooterVariable(columnaQuantity,DJCalculation.SUM,g2Variables)
 				.build();

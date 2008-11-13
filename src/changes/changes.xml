@@ -36,6 +36,16 @@
 	 <body>
 				 <release version="3.0.1" date="2008-11-10"	desc="Enhancements and fixes">
 					 <action dev="Juan Manuel Alvarez" type="add">
+						 Added DJCalculation.DISTINCT_COUNT (for use in groups header and footer totals)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="change">
+						 Refactor (BREAKING CHANGE):: The following classes where renamed for the sake of the human race: 
+						 ColumnsGroup -> DJGroup; 
+						 ColumnsGroupVariable -> DJGroupVariable; 
+						 ColumnsGroupVariableOperation -> DJCalculation; 
+						 and some other classes you should not care...
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
 						 Subreports allow split option :: We can tell the band which holds the subreport to not allow splitting of the content
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
