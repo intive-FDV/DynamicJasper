@@ -11,7 +11,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import org.w3c.dom.Document;
 
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
@@ -27,7 +27,7 @@ public class XmlReportTest extends BaseDjReportTest {
 	       drb.addColumn("Tipo", "ACTPAS",String.class.getName(),50,false,"",null,"ACTPAS");
 	       drb.setTitle("Plan Contable");
 	       drb.setSubtitle("This report was generated at " + new Date());
-	       drb.addGlobalFooterVariable(1, ColumnsGroupVariableOperation.COUNT, null);
+	       drb.addGlobalFooterVariable(1, DJCalculation.COUNT, null);
 	       drb.setUseFullPageWidth(true);
 //	       drb.setQuery("/data/linea", DJConstants.QUERY_LANGUAGE_XPATH);
 	       DynamicReport dr = drb.build();

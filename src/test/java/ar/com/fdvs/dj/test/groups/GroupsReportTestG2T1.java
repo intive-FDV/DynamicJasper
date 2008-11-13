@@ -33,7 +33,7 @@ import java.awt.Color;
 
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
@@ -161,15 +161,15 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 
 //		 define the criteria column to group by (columnState)
 		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
-				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,g1VariablesStyle) 
-				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,g1VariablesStyle) 
+				.addFooterVariable(columnAmount,DJCalculation.SUM,g1VariablesStyle) 
+				.addFooterVariable(columnaQuantity,DJCalculation.SUM,g1VariablesStyle) 
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) 
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
 		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
-				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,g2VariablesStyle) // columnaQuantity columns
-				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM,g2VariablesStyle)
+				.addFooterVariable(columnAmount,DJCalculation.SUM,g2VariablesStyle) // columnaQuantity columns
+				.addFooterVariable(columnaQuantity,	DJCalculation.SUM,g2VariablesStyle)
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) 
 				.build();
 

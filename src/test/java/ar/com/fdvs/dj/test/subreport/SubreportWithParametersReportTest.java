@@ -37,7 +37,7 @@ import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
@@ -105,12 +105,12 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 			.addColumn("Cost", "cost", Float.class.getName(), 80)
 			.addColumn("Total", "itemtotal", Float.class.getName(), 80)
 			.addGroups(1)
-			.addGlobalFooterVariable(3, ColumnsGroupVariableOperation.SUM, vstyle1)
-			.addGlobalFooterVariable(4, ColumnsGroupVariableOperation.SYSTEM, vstyle1)
-			.addGlobalFooterVariable(5, ColumnsGroupVariableOperation.SUM, vstyle1)
-			.addFooterVariable(1, 3, ColumnsGroupVariableOperation.SUM, vstyle)
-			.addFooterVariable(1, 4, ColumnsGroupVariableOperation.SYSTEM, vstyle)
-			.addFooterVariable(1, 5, ColumnsGroupVariableOperation.SUM, vstyle)
+			.addGlobalFooterVariable(3, DJCalculation.SUM, vstyle1)
+			.addGlobalFooterVariable(4, DJCalculation.SYSTEM, vstyle1)
+			.addGlobalFooterVariable(5, DJCalculation.SUM, vstyle1)
+			.addFooterVariable(1, 3, DJCalculation.SUM, vstyle)
+			.addFooterVariable(1, 4, DJCalculation.SYSTEM, vstyle)
+			.addFooterVariable(1, 5, DJCalculation.SUM, vstyle)
 			.setQuery("SELECT a.quantity, a.cost, b.name, b.price, a.invoiceid,  a.cost * b.price itemtotal, c.customerid " +
 						" FROM item a, product b, invoice c"+
 						" where a.productid = b.id and a.invoiceId = c.id and c.customerid = $P{custId} order by a.invoiceid, item", DJConstants.QUERY_LANGUAGE_SQL)

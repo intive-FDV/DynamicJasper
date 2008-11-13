@@ -35,7 +35,7 @@ import net.sf.jasperreports.view.JasperViewer;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
@@ -155,12 +155,12 @@ public class StylesReport2Test extends BaseDjReportTest {
 
 		ColumnsGroup group = new GroupBuilder()
 			.setCriteriaColumn((PropertyColumn) columnState)
-			.addFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM,variableStyle).build();
+			.addFooterVariable(columnAmount, DJCalculation.SUM,variableStyle).build();
 		drb.addGroup(group);
 
 		ColumnsGroup group2 = new GroupBuilder()
 		.setCriteriaColumn((PropertyColumn) columnaItem)
-		.addFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM).build();
+		.addFooterVariable(columnAmount, DJCalculation.SUM).build();
 		drb.addGroup(group2);
 
 		group2.setDefaulFooterVariableStyle(variableStyle2);

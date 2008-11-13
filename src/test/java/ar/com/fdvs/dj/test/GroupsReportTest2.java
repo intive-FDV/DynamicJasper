@@ -33,7 +33,7 @@ import java.awt.Color;
 
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
@@ -151,8 +151,8 @@ public class GroupsReportTest2 extends BaseDjReportTest {
 
 //		 define the criteria column to group by (columnState)
 		ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
-				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables) // idem for the columnaQuantity column
+				.addFooterVariable(columnAmount,DJCalculation.SUM,headerVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
+				.addFooterVariable(columnaQuantity,DJCalculation.SUM,headerVariables) // idem for the columnaQuantity column
 				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.build();
 
@@ -166,8 +166,8 @@ public class GroupsReportTest2 extends BaseDjReportTest {
 			.build();
 		Style styleg2Header = new StyleBuilder(true,"g2HeaderAmo","g2Header").setBackgroundColor(Color.GREEN).build();
 		ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
-				.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM) // columnaQuantity columns
-				.addFooterVariable(columnaQuantity,	ColumnsGroupVariableOperation.SUM)
+				.addFooterVariable(columnAmount,DJCalculation.SUM) // columnaQuantity columns
+				.addFooterVariable(columnaQuantity,	DJCalculation.SUM)
 				.addColumnHeaderStyle(columnAmount, styleg2Header)
 				.setDefaultColumnHeaderStyle(styleg2HeaderDefault)
 				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)

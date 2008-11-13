@@ -38,7 +38,7 @@ import java.util.Date;
 
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
@@ -448,7 +448,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 
-	public FastReportBuilder addGlobalHeaderVariable(int colNumber, ColumnsGroupVariableOperation op, Style style) {
+	public FastReportBuilder addGlobalHeaderVariable(int colNumber, DJCalculation op, Style style) {
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
 		if (this.globalHeaderVariables == null)
 			this.globalHeaderVariables = new ArrayList();
@@ -459,7 +459,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 
-	public FastReportBuilder addHeaderVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style) throws BuilderException {
+	public FastReportBuilder addHeaderVariable(int groupNum, int colNumber, DJCalculation op, Style style) throws BuilderException {
 		ColumnsGroup group = getGroupByNumber(groupNum);
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
 		if (style == null)
@@ -485,7 +485,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return group;
 	}
 
-	public FastReportBuilder addGlobalFooterVariable(int colNumber, ColumnsGroupVariableOperation op, Style style) {
+	public FastReportBuilder addGlobalFooterVariable(int colNumber, DJCalculation op, Style style) {
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
 		if (this.globalFooterVariables == null)
 			this.globalFooterVariables = new ArrayList();
@@ -496,7 +496,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 
-	public FastReportBuilder addFooterVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style) throws BuilderException {
+	public FastReportBuilder addFooterVariable(int groupNum, int colNumber, DJCalculation op, Style style) throws BuilderException {
 		ColumnsGroup group = getGroupByNumber(groupNum);
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
 		if (style == null)

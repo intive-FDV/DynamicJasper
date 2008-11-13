@@ -32,7 +32,7 @@ package ar.com.fdvs.dj.domain;
 public class DJCrosstabMeasure {
 
 	private ColumnProperty property;
-	private ColumnsGroupVariableOperation operation;
+	private DJCalculation operation;
 	private String title;
 
 	private Style style;
@@ -45,14 +45,14 @@ public class DJCrosstabMeasure {
 		this.style = style;
 	}
 
-	public DJCrosstabMeasure(String propertyName, String className, ColumnsGroupVariableOperation operation, String title) {
+	public DJCrosstabMeasure(String propertyName, String className, DJCalculation operation, String title) {
 		super();
 		this.property = new ColumnProperty(propertyName, className);
 		this.operation = operation;
 		this.title = title;
 	}
 
-	public DJCrosstabMeasure(ColumnProperty measure, ColumnsGroupVariableOperation operation, String title) {
+	public DJCrosstabMeasure(ColumnProperty measure, DJCalculation operation, String title) {
 		super();
 		this.property = measure;
 		this.operation = operation;
@@ -69,10 +69,10 @@ public class DJCrosstabMeasure {
 	public void setProperty(ColumnProperty measure) {
 		this.property = measure;
 	}
-	public ColumnsGroupVariableOperation getOperation() {
+	public DJCalculation getOperation() {
 		return operation;
 	}
-	public void setOperation(ColumnsGroupVariableOperation operation) {
+	public void setOperation(DJCalculation operation) {
 		this.operation = operation;
 	}
 	public String getTitle() {

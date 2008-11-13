@@ -34,7 +34,7 @@ import java.util.Map;
 
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
@@ -132,10 +132,10 @@ public class GroupsAndExpressionReportTest extends BaseDjReportTest {
 				.setPattern("$ 0.00").setStyle(importeStyle).setHeaderStyle(
 						headerStyle).build();
 
-		drb.addGlobalHeaderVariable(columnAmount, ColumnsGroupVariableOperation.SUM,headerVariables);
-		drb.addGlobalHeaderVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
-		drb.addGlobalFooterVariable(columnAmount, ColumnsGroupVariableOperation.SUM,headerVariables);
-		drb.addGlobalFooterVariable(columnaQuantity, ColumnsGroupVariableOperation.SUM,headerVariables);
+		drb.addGlobalHeaderVariable(columnAmount, DJCalculation.SUM,headerVariables);
+		drb.addGlobalHeaderVariable(columnaQuantity, DJCalculation.SUM,headerVariables);
+		drb.addGlobalFooterVariable(columnAmount, DJCalculation.SUM,headerVariables);
+		drb.addGlobalFooterVariable(columnaQuantity, DJCalculation.SUM,headerVariables);
 
 		CustomExpression customExpression = new CustomExpression(){
 			public Object evaluate(Map fields, Map variables, Map parameters) {

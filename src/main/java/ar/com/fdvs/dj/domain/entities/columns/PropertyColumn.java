@@ -30,7 +30,7 @@
 package ar.com.fdvs.dj.domain.entities.columns;
 
 import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.CustomExpression;
 
 /**
@@ -78,17 +78,17 @@ public abstract class PropertyColumn extends AbstractColumn {
 		return "variable-"+type+"_"+columnToGroupByProperty+"_"+getColumnProperty().getProperty();
 	}
 
-	public String getVariableClassName(ColumnsGroupVariableOperation op) {
-		if (op == ColumnsGroupVariableOperation.COUNT)
+	public String getVariableClassName(DJCalculation op) {
+		if (op == DJCalculation.COUNT)
 			return Long.class.getName();
 		else
 			return getColumnProperty().getValueClassName();
 	}
 
-	public String getInitialExpression(ColumnsGroupVariableOperation op) {
-		if (op == ColumnsGroupVariableOperation.COUNT)
+	public String getInitialExpression(DJCalculation op) {
+		if (op == DJCalculation.COUNT)
 			return "new java.lang.Long(\"0\")";
-		else if (op == ColumnsGroupVariableOperation.SUM)
+		else if (op == DJCalculation.SUM)
 			return "new " + getColumnProperty().getValueClassName()+"(\"0\")";
 		else return null;
 	}

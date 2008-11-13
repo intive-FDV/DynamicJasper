@@ -32,7 +32,7 @@ package ar.com.fdvs.dj.domain.builders;
 import java.util.Iterator;
 
 import ar.com.fdvs.dj.core.layout.LayoutException;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
@@ -78,7 +78,7 @@ public class CrosstabBuilder {
 		crosstab.setCellBorder(cellBorder);
 		return this;
 	}
-	public CrosstabBuilder addMeasure(String property, String className, ColumnsGroupVariableOperation operation, String title, Style style) {
+	public CrosstabBuilder addMeasure(String property, String className, DJCalculation operation, String title, Style style) {
 		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
 		measure.setStyle(style);
 		crosstab.getMeasures().add(measure);

@@ -29,7 +29,7 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
@@ -37,20 +37,20 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
  * Entity used to handle global and group variables that represent the value of </br>
  * an operation applied to the corresponding rows.</br>
  * </br>
- * @see ColumnsGroupVariableOperation
+ * @see DJCalculation
  */
 public class ColumnsGroupVariable implements Entity {
 
 	private AbstractColumn columnToApplyOperation;
-	private ColumnsGroupVariableOperation operation;
+	private DJCalculation operation;
 	private Style style;
 
-	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, ColumnsGroupVariableOperation operation) {
+	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation) {
 		this.columnToApplyOperation = columnToApplyOperation;
 		this.operation = operation;
 	}
 
-	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, ColumnsGroupVariableOperation operation, Style style) {
+	public ColumnsGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation, Style style) {
 		this.columnToApplyOperation = columnToApplyOperation;
 		this.operation = operation;
 		this.style = style;
@@ -73,11 +73,11 @@ public class ColumnsGroupVariable implements Entity {
 		this.columnToApplyOperation = columnToApplyOperation;
 	}
 
-	public ColumnsGroupVariableOperation getOperation() {
+	public DJCalculation getOperation() {
 		return operation;
 	}
 
-	public void setOperation(ColumnsGroupVariableOperation operation) {
+	public void setOperation(DJCalculation operation) {
 		this.operation = operation;
 	}
 

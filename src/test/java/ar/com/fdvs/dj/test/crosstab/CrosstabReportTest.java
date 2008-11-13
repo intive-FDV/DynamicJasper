@@ -36,7 +36,7 @@ import java.util.Date;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
@@ -81,8 +81,8 @@ public class CrosstabReportTest extends BaseDjReportTest {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(1)
-			.addFooterVariable(1, 7, ColumnsGroupVariableOperation.SUM, null)
-			.addFooterVariable(1, 6, ColumnsGroupVariableOperation.SUM, null)
+			.addFooterVariable(1, 7, DJCalculation.SUM, null)
+			.addFooterVariable(1, 6, DJCalculation.SUM, null)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
@@ -103,7 +103,7 @@ public class CrosstabReportTest extends BaseDjReportTest {
 			.setAutomaticTitle(true)
 			.setCellBorder(Border.THIN);
 
-		cb.addMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount",measureStyle);
+		cb.addMeasure("amount",Float.class.getName(), DJCalculation.SUM , "Amount",measureStyle);
 
 		DJCrosstabRow row = new CrosstabRowBuilder().setProperty("productLine",String.class.getName())
 			.setHeaderWidth(100).setHeight(0)

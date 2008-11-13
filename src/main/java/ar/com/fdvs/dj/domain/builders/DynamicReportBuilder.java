@@ -42,7 +42,7 @@ import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJQuery;
@@ -527,14 +527,14 @@ public class DynamicReportBuilder {
 	 * @param op
 	 * @return
 	 */
-	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, ColumnsGroupVariableOperation op) {
+	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op) {
 		if (this.globalHeaderVariables == null)
 			this.globalHeaderVariables = new ArrayList();
 		this.globalHeaderVariables.add(new ColumnsGroupVariable(col, op));
 		return this;
 	}
 
-	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, ColumnsGroupVariableOperation op, Style style) {
+	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op, Style style) {
 		if (this.globalHeaderVariables == null)
 			this.globalHeaderVariables = new ArrayList();
 		this.globalHeaderVariables.add(new ColumnsGroupVariable(col, op, style));
@@ -547,14 +547,14 @@ public class DynamicReportBuilder {
 	 * @param op
 	 * @return
 	 */
-	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, ColumnsGroupVariableOperation op) {
+	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, DJCalculation op) {
 		if (this.globalFooterVariables == null)
 			this.globalFooterVariables = new ArrayList();
 		this.globalFooterVariables.add(new ColumnsGroupVariable(col, op));
 		return this;
 	}
 
-	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, ColumnsGroupVariableOperation op, Style style) {
+	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, DJCalculation op, Style style) {
 		if (this.globalFooterVariables == null)
 			this.globalFooterVariables = new ArrayList();
 		this.globalFooterVariables.add(new ColumnsGroupVariable(col, op, style));

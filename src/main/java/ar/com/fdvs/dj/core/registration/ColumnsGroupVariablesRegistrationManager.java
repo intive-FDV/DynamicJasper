@@ -39,7 +39,7 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
@@ -79,7 +79,7 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 		log.debug("transforming group variable...");
 		ColumnsGroupVariable columnsGroupVariable = (ColumnsGroupVariable) entity;
 		AbstractColumn col = columnsGroupVariable.getColumnToApplyOperation();
-		ColumnsGroupVariableOperation op = columnsGroupVariable.getOperation();
+		DJCalculation op = columnsGroupVariable.getOperation();
 
 		JRDesignExpression expression = new JRDesignExpression();
 

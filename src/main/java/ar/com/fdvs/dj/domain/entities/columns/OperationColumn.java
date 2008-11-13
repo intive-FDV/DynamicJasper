@@ -33,7 +33,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import ar.com.fdvs.dj.domain.ColumnOperation;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 
 /**
  * Column created to handle numerical operations between two or more </br>
@@ -84,13 +84,13 @@ public class OperationColumn extends AbstractColumn {
 		return "variable-"+type+"_"+columnToGroupByProperty+"_"+columnOperation.getValue();
 	}
 
-	public String getVariableClassName(ColumnsGroupVariableOperation op) {
-		if (op == ColumnsGroupVariableOperation.COUNT)
+	public String getVariableClassName(DJCalculation op) {
+		if (op == DJCalculation.COUNT)
 			return Long.class.getName();
 		else return Number.class.getName();
 	}
 
-	public String getInitialExpression(ColumnsGroupVariableOperation op) {
+	public String getInitialExpression(DJCalculation op) {
 		return "new java.lang.Long(\"0\")";
 	}
 

@@ -32,7 +32,7 @@ package ar.com.fdvs.dj.domain.entities.columns;
 import java.util.ArrayList;
 import java.util.List;
 
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
@@ -135,9 +135,9 @@ public abstract class AbstractColumn implements Entity {
 
 	public abstract String getGroupVariableName(String type, String columnToGroupByProperty);
 
-	public abstract String getVariableClassName(ColumnsGroupVariableOperation op);
+	public abstract String getVariableClassName(DJCalculation op);
 
-	public abstract String getInitialExpression(ColumnsGroupVariableOperation op);
+	public abstract String getInitialExpression(DJCalculation op);
 
 	public String getName() {
 		return name;

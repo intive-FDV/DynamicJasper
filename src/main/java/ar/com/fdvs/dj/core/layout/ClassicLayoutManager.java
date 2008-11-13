@@ -62,7 +62,7 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.FontHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.AutoText;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.ImageBanner;
@@ -720,7 +720,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				JRDesignTextField textField = new JRDesignTextField();
 				expression.setText("$V{" + variableName + "}");
 				expression.setValueClassName(col.getVariableClassName(var.getOperation()));
-				if (var.getOperation() != ColumnsGroupVariableOperation.COUNT)
+				if (var.getOperation() != DJCalculation.COUNT)
 					textField.setPattern(col.getPattern());
 
 				textField.setKey(variableName);

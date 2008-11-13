@@ -30,7 +30,7 @@
 package ar.com.fdvs.dj.domain.entities.columns;
 
 import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 
 /**
  * Column created to handle global variables.
@@ -53,7 +53,7 @@ public class GlobalGroupColumn extends PropertyColumn {
 		return null;
 	}
 
-	public String getInitialExpression(ColumnsGroupVariableOperation op) {
+	public String getInitialExpression(DJCalculation op) {
 		return null;
 	}
 
@@ -65,7 +65,7 @@ public class GlobalGroupColumn extends PropertyColumn {
 		return String.class.getName();
 	}
 
-	public String getVariableClassName(ColumnsGroupVariableOperation op) {
+	public String getVariableClassName(DJCalculation op) {
 		return null;
 	}
 

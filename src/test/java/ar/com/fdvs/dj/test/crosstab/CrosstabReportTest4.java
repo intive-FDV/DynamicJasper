@@ -36,7 +36,7 @@ import java.util.Date;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
@@ -91,7 +91,7 @@ public class CrosstabReportTest4 extends BaseDjReportTest {
 			.addColumn("State","state",String.class.getName(),false)
 			.addColumn("Branch","branch",String.class.getName(),true)
 			.addColumn("Item", "item", String.class.getName(),true)
-			.addMeasure("amount",Float.class.getName(), ColumnsGroupVariableOperation.SUM , "Amount",measureStyle)
+			.addMeasure("amount",Float.class.getName(), DJCalculation.SUM , "Amount",measureStyle)
 			.setRowStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
 			.setColumnStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
 			.setCellDimension(17, 60)

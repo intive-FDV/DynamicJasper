@@ -31,7 +31,7 @@ package ar.com.fdvs.dj.domain.builders;
 
 import java.util.Iterator;
 
-import ar.com.fdvs.dj.domain.ColumnsGroupVariableOperation;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.ColumnsGroup;
@@ -88,12 +88,12 @@ public class GroupBuilder {
 		return this;
 	}
 
-	public GroupBuilder addHeaderVariable(AbstractColumn column, ColumnsGroupVariableOperation operation) {
+	public GroupBuilder addHeaderVariable(AbstractColumn column, DJCalculation operation) {
 		group.getHeaderVariables().add(new ColumnsGroupVariable(column,operation));
 		return this;
 	}
 
-	public GroupBuilder addHeaderVariable(AbstractColumn column, ColumnsGroupVariableOperation operation, Style style) {
+	public GroupBuilder addHeaderVariable(AbstractColumn column, DJCalculation operation, Style style) {
 		group.getHeaderVariables().add(new ColumnsGroupVariable(column,operation,style));
 		return this;
 	}
@@ -103,11 +103,11 @@ public class GroupBuilder {
 		return this;
 	}
 
-	public GroupBuilder addFooterVariable(AbstractColumn column3, ColumnsGroupVariableOperation operation) {
+	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation) {
 		group.getFooterVariables().add(new ColumnsGroupVariable(column3,operation));
 		return this;
 	}
-	public GroupBuilder addFooterVariable(AbstractColumn column3, ColumnsGroupVariableOperation operation, Style style) {
+	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation, Style style) {
 		group.getFooterVariables().add(new ColumnsGroupVariable(column3,operation,style));
 		return this;
 	}
