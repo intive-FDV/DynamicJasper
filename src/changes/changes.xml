@@ -39,10 +39,10 @@
 						 Added DJCalculation.DISTINCT_COUNT (for use in groups header and footer totals)
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="change">
-						 Refactor (BREAKING CHANGE):: The following classes where renamed for the sake of the human race: 
-						 ColumnsGroup -> DJGroup; 
-						 ColumnsGroupVariable -> DJGroupVariable; 
-						 ColumnsGroupVariableOperation -> DJCalculation; 
+						 Refactor (BREAKING CHANGE):: The following classes where renamed for the sake of the human race:
+						 ColumnsGroup -> DJGroup;
+						 ColumnsGroupVariable -> DJGroupVariable;
+						 ColumnsGroupVariableOperation -> DJCalculation;
 						 and some other classes you should not care...
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
@@ -53,6 +53,9 @@
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
 						 Group header and footer bands splitting configuration.
+					 </action>
+					 <action dev="Alejandro Gomez" type="add">
+                         DynamicJasper result type for Struts 2 integration
 					 </action>
 				 </release>
 				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
