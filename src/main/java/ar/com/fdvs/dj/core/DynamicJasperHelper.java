@@ -112,13 +112,13 @@ public final class DynamicJasperHelper {
 		if (messages == null) {
 			try {
 				messages =  ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, locale);
-			} catch (MissingResourceException e){ log.warn(e.getMessage() + ", usign defaut (dj-messages)");}
-			finally {
+			} catch (MissingResourceException e){ 
+				log.warn(e.getMessage() + ", usign defaut (dj-messages)");
 				try {
 					messages = ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, Locale.ENGLISH); //this cannot fail because is included in the DJ jar
-				} catch (MissingResourceException e) {
-					log.error("Default messajes not found: " + DJ_RESOURCE_BUNDLE + ", " + e.getMessage(), e);
-					throw new DJException("Default messajes file not found: "+ DJ_RESOURCE_BUNDLE + "en.properties",e);
+				} catch (MissingResourceException e2) {
+					log.error("Default messajes not found: " + DJ_RESOURCE_BUNDLE + ", " + e2.getMessage(), e2);
+					throw new DJException("Default messajes file not found: "+ DJ_RESOURCE_BUNDLE + "en.properties",e2);
 				}
 			}
 		}

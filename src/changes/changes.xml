@@ -57,6 +57,10 @@
 					 <action dev="Alejandro Gomez" type="add">
                          DynamicJasper result type for Struts 2 integration
 					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA">
+						  Report locale was not not working.  
+						  https://sourceforge.net/tracker/?func=detail&atid=923805&aid=2317770&group_id=188060
+					 </action>					 
 				 </release>
 				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
 					 <action dev="Juan Manuel Alvarez" type="fix">

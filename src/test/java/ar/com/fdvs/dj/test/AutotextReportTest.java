@@ -81,7 +81,8 @@ public class AutotextReportTest extends BaseDjReportTest {
 
 		//i18N, you can set a Locale, different than the default in the VM
 //		drb.setReportLocale(new Locale("es","AR"));
-		drb.setReportLocale(new Locale("pr","BR"));
+		drb.setReportLocale(new Locale("pt","BR"));
+//		drb.setReportLocale(new Locale("fr","FR"));
 
 		return dr;
 	}
