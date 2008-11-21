@@ -29,17 +29,25 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
+import net.sf.jasperreports.engine.JRGraphicElement;
+
+/**
+ * See value of constants here: 
+ * http://jasperreports.sourceforge.net/api/constant-values.html
+ * @author mamana
+ *
+ */
 public class Border  extends BaseDomainConstant {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static Border NO_BORDER = new Border((byte)0);
-	public static Border THIN = new Border((byte)5);
+	public static Border NO_BORDER = new Border(JRGraphicElement.PEN_NONE);
+	public static Border THIN = new Border(JRGraphicElement.PEN_THIN);
 
-	public static Border PEN_1_POINT = new Border((byte)2);
-	public static Border PEN_2_POINT = new Border((byte)2);
-	public static Border PEN_4_POINT = new Border((byte)3);
-	public static Border DOTTED = new Border((byte)4);
+	public static Border PEN_1_POINT = new Border(JRGraphicElement.PEN_1_POINT);
+	public static Border PEN_2_POINT = new Border(JRGraphicElement.PEN_2_POINT);
+	public static Border PEN_4_POINT = new Border(JRGraphicElement.PEN_4_POINT);
+	public static Border DOTTED = new Border(JRGraphicElement.PEN_DOTTED);
 
 	private byte value;
 

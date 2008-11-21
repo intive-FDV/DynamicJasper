@@ -30,7 +30,12 @@
 package ar.com.fdvs.dj.core;
 
 import net.sf.jasperreports.engine.JRReport;
-
+/**
+ * See value of constants here: 
+ * http://jasperreports.sourceforge.net/api/constant-values.html
+ * @author mamana
+ *
+ */
 public interface DJConstants {
 
 	String HEADER = "header";

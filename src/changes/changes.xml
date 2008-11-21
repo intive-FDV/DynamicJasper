@@ -61,6 +61,10 @@
 						  Report locale was not not working.  
 						  https://sourceforge.net/tracker/?func=detail&atid=923805&aid=2317770&group_id=188060
 					 </action>					 
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA">
+						  Border thickness is wrong.  
+						  https://sourceforge.net/forum/message.php?msg_id=5689553
+					 </action>					 
 				 </release>
 				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
 					 <action dev="Juan Manuel Alvarez" type="fix">
