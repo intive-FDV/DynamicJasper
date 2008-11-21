@@ -34,15 +34,16 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 			</properties>
 	 <body>
-				 <release version="3.0.1" date="2008-11-10"	desc="Enhancements and fixes">
+	 
+				 <release version="3.0.1" date="2008-11-21"	desc="Enhancements and fixes">
 					 <action dev="Juan Manuel Alvarez" type="add">
 						 Added DJCalculation.DISTINCT_COUNT (for use in groups header and footer totals)
 					 </action>
-					 <action dev="Juan Manuel Alvarez" type="change">
+					 <action dev="Juan Manuel Alvarez" type="update">
 						 Refactor (BREAKING CHANGE):: The following classes where renamed for the sake of the human race:
-						 ColumnsGroup -> DJGroup;
-						 ColumnsGroupVariable -> DJGroupVariable;
-						 ColumnsGroupVariableOperation -> DJCalculation;
+						 ColumnsGroup -- DJGroup
+						 ColumnsGroupVariable -- DJGroupVariable
+						 ColumnsGroupVariableOperation -- DJCalculation
 						 and some other classes you should not care...
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
@@ -57,13 +58,13 @@
 					 <action dev="Alejandro Gomez" type="add">
                          DynamicJasper result type for Struts 2 integration
 					 </action>
-					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA">
-						  Report locale was not not working.  
-						  https://sourceforge.net/tracker/?func=detail&atid=923805&aid=2317770&group_id=188060
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA" >					 
+						  Report locale was not not working.
+						  <![CDATA[https://sourceforge.net/tracker/?func=detail&atid=923805&aid=2317770&group_id=188060]]>
 					 </action>					 
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA">
-						  Border thickness is wrong.  
-						  https://sourceforge.net/forum/message.php?msg_id=5689553
+						  Border thickness is wrong.
+						  <![CDATA[https://sourceforge.net/forum/message.php?msg_id=5689553]]>
 					 </action>					 
 				 </release>
 				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
