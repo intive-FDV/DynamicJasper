@@ -90,15 +90,15 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 				if (entity instanceof ExpressionColumn) {
 					//The Custom Expression parameter must be registered
 					ExpressionColumn expressionColumn = (ExpressionColumn) entity;
-					ArrayList l = new ArrayList(getColumns());
-					for (Iterator iter = getDynamicReport().getFields().iterator(); iter.hasNext();) {
-						ColumnProperty columnProperty = (ColumnProperty) iter.next();
-						SimpleColumn simpleColumn = new SimpleColumn();
-						simpleColumn.setColumnProperty(columnProperty);
-						l.add(simpleColumn);
-
-					}
-					expressionColumn.setColumns( l );
+//					ArrayList l = new ArrayList(getColumns());
+//					for (Iterator iter = getDynamicReport().getFields().iterator(); iter.hasNext();) {
+//						ColumnProperty columnProperty = (ColumnProperty) iter.next();
+//						SimpleColumn simpleColumn = new SimpleColumn();
+//						simpleColumn.setColumnProperty(columnProperty);
+//						l.add(simpleColumn);
+//
+//					}
+					expressionColumn.setColumns( getDynamicReport().getAllFields() );
 					expressionColumn.setVariables( new ArrayList(getDjd().getVariablesList()) );
 					registerExpressionColumnParameter(expressionColumn.getColumnProperty().getProperty(), expressionColumn.getExpression());
 				}

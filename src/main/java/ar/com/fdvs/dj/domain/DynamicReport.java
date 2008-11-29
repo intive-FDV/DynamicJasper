@@ -31,11 +31,14 @@ package ar.com.fdvs.dj.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
+import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
 /**
  * One of the main classes of this product. It represents the report itself.
@@ -63,7 +66,10 @@ public class DynamicReport {
 
 	private DynamicReportOptions options;
 
-	//Other fields to register, not necessary assigned to columns
+	/**
+	 * List of ColumnProperty
+	 * Other fields to register, not necessary assigned to columns
+	 */
 	private List fields = new ArrayList();
 
 	//Other parameters needed (E.g. Subreports)
@@ -373,6 +379,29 @@ public class DynamicReport {
 
 	public void setReportName(String reportName) {
 		this.reportName = reportName;
+	}
+	
+	/**
+	 * 
+	 * @return List<ColumnProperty>
+	 */
+	public List getAllFields(){
+		ArrayList l = new ArrayList();
+		for (Iterator iter = this.columns.iterator(); iter.hasNext();) {
+			Object o = iter.next();
+			ColumnProperty columnProperty = null;
+
+			if (o instanceof SimpleColumn && !(o instanceof ExpressionColumn)) {
+				SimpleColumn propcol = (SimpleColumn)o;
+				columnProperty = propcol.getColumnProperty();
+				l.add(columnProperty);
+			}
+		}
+		
+		l.addAll(this.getFields());
+
+		return l;
+		
 	}
 
 }

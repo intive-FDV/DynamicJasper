@@ -35,6 +35,11 @@
 			</properties>
 	 <body>
 	 
+				 <release version="3.0.2" date="2008-11-21"	desc="Enhancements and fixes">
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Dale Cooper and PeS17" issue="https://sourceforge.net/forum/message.php?msg_id=5722095" >
+						 In CustomExpression's, non  visisble fields where not being populated 
+					 </action>
+				</release>
 				 <release version="3.0.1" date="2008-11-21"	desc="Enhancements and fixes">
 					 <action dev="Juan Manuel Alvarez" type="add">
 						 Added DJCalculation.DISTINCT_COUNT (for use in groups header and footer totals)

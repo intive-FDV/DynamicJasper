@@ -42,6 +42,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
@@ -191,13 +192,18 @@ public class ExpressionUtils {
 	}
 
 
-	public static String getFieldsMapExpression(Collection columns) {
+	/**
+	 * 
+	 * @param Collection of ColumnProperty
+	 * @return
+	 */
+	public static String getFieldsMapExpression(Collection columnsAndFields) {
 		StringBuffer fieldsMap = new StringBuffer("new  " + PropertiesMap.class.getName() + "()" );
-		for (Iterator iter = columns.iterator(); iter.hasNext();) {
-			AbstractColumn col = (AbstractColumn) iter.next();
-			if (col instanceof SimpleColumn && !(col instanceof ExpressionColumn)) {
-				SimpleColumn propcol = (SimpleColumn) col;
-				String propname = propcol.getColumnProperty().getProperty();
+		for (Iterator iter = columnsAndFields.iterator(); iter.hasNext();) {
+			ColumnProperty columnProperty = (ColumnProperty) iter.next();
+
+			if (columnProperty != null) {
+				String propname = columnProperty.getProperty();
 				fieldsMap.append(".with(\"" +  propname + "\",$F{" + propname + "})");
 			}
 		}
