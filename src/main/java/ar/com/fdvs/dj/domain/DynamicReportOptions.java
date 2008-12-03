@@ -29,8 +29,10 @@
 
 package ar.com.fdvs.dj.domain;
 
+import java.awt.Color;
 import java.util.HashMap;
 
+import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Page;
 
 /**
@@ -59,7 +61,9 @@ public class DynamicReportOptions {
 	private Page page = Page.Page_A4_Portrait();
 
 	private boolean printBackgroundOnOddRows = false;
-	private Style oddRowBackgroundStyle = new Style("defaultOddRowStyle");
+	private Style oddRowBackgroundStyle = new StyleBuilder(false,"defaultOddRowStyle")
+												.setBackgroundColor(new Color(200,200,200))
+												.build();
 	private Integer titleHeight =  DEFAULT_HEADER_HEIGHT;
 	private boolean titleNewPage =  false;
 	private Integer subtitleHeight = DEFAULT_DETAIL_HEIGHT;

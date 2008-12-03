@@ -37,6 +37,8 @@ import java.util.Locale;
 import java.util.Map;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
@@ -48,8 +50,12 @@ public class DynamicReport {
 	private String reportName;
 	private String title;
 	private String subtitle;
-	private Style titleStyle = new Style("reportTitleStyle");
-	private Style subtitleStyle = new Style("reportSubtitleStyle");
+	private Style titleStyle = new StyleBuilder(false,"reportTitleStyle")
+								.setStretching(Stretching.NO_STRETCH)
+								.build();
+	private Style subtitleStyle = new StyleBuilder(false,"reportSubtitleStyle")
+									.setStretching(Stretching.NO_STRETCH)
+									.build();
 
 	private Locale reportLocale = Locale.getDefault();
 	private String resourceBundle = null;

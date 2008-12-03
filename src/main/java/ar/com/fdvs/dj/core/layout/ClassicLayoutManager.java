@@ -39,6 +39,7 @@ import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
 import net.sf.jasperreports.engine.JRElement;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
+import net.sf.jasperreports.engine.JRGraphicElement;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignBreak;
@@ -355,6 +356,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		title.setPrintWhenExpression(printWhenExpression);
 		title.setRemoveLineWhenBlank(true);
 		applyStyleToElement(getReport().getTitleStyle(), title);
+		title.setStretchType(JRGraphicElement.STRETCH_TYPE_NO_STRETCH);
 		band.addElement(title);
 
 		JRDesignTextField subtitle = new JRDesignTextField();
@@ -369,6 +371,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			subtitle.setPrintWhenExpression(printWhenExpression);
 			subtitle.setRemoveLineWhenBlank(true);
 			applyStyleToElement(getReport().getSubtitleStyle(), subtitle);
+			title.setStretchType(JRGraphicElement.STRETCH_TYPE_NO_STRETCH);
 			band.addElement(subtitle);
 		}
 

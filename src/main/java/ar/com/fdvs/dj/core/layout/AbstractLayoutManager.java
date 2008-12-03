@@ -445,7 +445,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			JRDesignTextField textField = (JRDesignTextField) designElemen;
 			textField.setStretchWithOverflow(style.isStretchWithOverflow());
 
-			if (textField.isBlankWhenNull() == false && style.isBlankWhenNull())
+			if (textField.isBlankWhenNull() == false && style.isBlankWhenNull()) //TODO Re check if this condition is ok 
 				textField.setBlankWhenNull(true);
 		}
 //		return jrstyle;

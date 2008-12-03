@@ -32,11 +32,20 @@ package ar.com.fdvs.dj.test;
 
 import java.util.Date;
 
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 
-public class FastReportTest extends BaseDjReportTest {
+/**
+ * This test intends to show how to create multi line title and sub title
+ * @author mamana
+ *
+ */
+public class MultiLineTitleReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -46,6 +55,11 @@ public class FastReportTest extends BaseDjReportTest {
 		 * the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
+		Style subtitleStyle = new Style("subtitle_style");
+		subtitleStyle.setStretchWithOverflow(true);
+		subtitleStyle.setStreching(Stretching.NO_STRETCH);
+		subtitleStyle.setVerticalAlign(VerticalAlign.TOP);
+		
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
 			.addColumn("Product Line", "productLine", String.class.getName(),50)
@@ -54,9 +68,10 @@ public class FastReportTest extends BaseDjReportTest {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
-			.setTitle("November 2006 sales report")
-			.setSubtitle("This report was generated at " + new Date())
-			.setPrintBackgroundOnOddRows(true)			
+			.setTitle("November 2006 \\nsales report")
+			.setSubtitle("This report was generated at" + new Date() + "\\n*** This information is confidential ***")
+			.setSubtitleHeight(new Integer(20))
+			.setSubtitleStyle(subtitleStyle)
 			.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
@@ -65,10 +80,11 @@ public class FastReportTest extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		FastReportTest test = new FastReportTest();
+		MultiLineTitleReportTest test = new MultiLineTitleReportTest();
 		test.testReport();
+		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
-//			JasperDesignViewer.viewReportDesign(jr);
+		JasperDesignViewer.viewReportDesign(test.jr);
 	}
 
 }

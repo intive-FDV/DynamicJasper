@@ -106,6 +106,10 @@ public abstract class BaseDjReportTest extends TestCase {
 	protected void exportReport() throws Exception {
 		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".pdf");
 	}
+	
+	protected void exportToJRXML() throws Exception {
+		DynamicJasperHelper.generateJRXML(this.dr, this.getLayoutManager(), this.params, "UTF-8",System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".jrxml");
+	}	
 
 	/**
 	 * @return
