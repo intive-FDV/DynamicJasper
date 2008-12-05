@@ -66,6 +66,7 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJChart;
@@ -348,9 +349,13 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		//condition.getCondition().setFieldToEvaluate(exprParams)
 
 		// PeS17 patch, 2008-11-29: put all fields to fields map, including "invisible" i.e. only registered ones
-		String fieldsMap = ExpressionUtils.getFieldsMapExpression(getReport().getAllFields());
-		String parametersMap = ExpressionUtils.getParametersMapExpression();
-		String variablesMap = ExpressionUtils.getVariablesMapExpression(getDesign().getVariablesList());
+//		String fieldsMap = ExpressionUtils.getFieldsMapExpression(getReport().getAllFields());
+//		String parametersMap = ExpressionUtils.getParametersMapExpression();
+//		String variablesMap = ExpressionUtils.getVariablesMapExpression(getDesign().getVariablesList());
+		
+		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
+		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
+		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";		
 
 		String evalMethodParams =  fieldsMap +", " + variablesMap + ", " + parametersMap + ", " + columExpression;
 

@@ -168,6 +168,7 @@ public final class DynamicJasperHelper {
 				//Create new JasperDesign from the scratch
 				jd = DJJRDesignHelper.getNewDesign(dr);
 			}
+			jd.setScriptletClass(DJDefaultScriptlet.class.getName()); //XXX this is new, for testing
 			registerParameters(jd,dr);
 		} catch (JRException e) {
 			throw new CoreException(e.getMessage(),e);

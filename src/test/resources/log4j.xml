@@ -47,7 +47,7 @@
 	<!--	</category>-->
 
 	<category name="ar.com.fdvs" additivity="false">
-		<priority value="INFO" />
+		<priority value="DEBUG" />
 		<appender-ref ref="console" />
 	</category>
 	<category name="ar.com.fdvs.dj.test" additivity="false">

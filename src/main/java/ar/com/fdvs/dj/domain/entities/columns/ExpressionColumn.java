@@ -39,6 +39,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.PropertiesMap;
@@ -94,11 +95,14 @@ public class ExpressionColumn extends SimpleColumn {
 		if (this.calculatedExpressionText != null)
 			return this.calculatedExpressionText;
 
-		String fieldsMap = ExpressionUtils.getFieldsMapExpression(columns);
-		String parametersMap = ExpressionUtils.getParametersMapExpression();
-		String variablesMap = ExpressionUtils.getVariablesMapExpression(variables);
+//		String fieldsMap = ExpressionUtils.getFieldsMapExpression(columns);
+//		String parametersMap = ExpressionUtils.getParametersMapExpression();
+//		String variablesMap = ExpressionUtils.getVariablesMapExpression(variables);
 
-
+		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
+		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
+		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
+		
 		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+getColumnProperty().getProperty()+"})."
 				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
 
