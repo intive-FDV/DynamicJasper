@@ -61,7 +61,7 @@ public class MultiLineTitleReportTest extends BaseDjReportTest {
 		subtitleStyle.setVerticalAlign(VerticalAlign.TOP);
 		
 		drb.addColumn("State", "state", String.class.getName(),30)
-			.addColumn("Branch", "branch", String.class.getName(),30)
+			.addColumn("Branch", "branch.toString", String.class.getName(),30)
 			.addColumn("Product Line", "productLine", String.class.getName(),50)
 			.addColumn("Item", "item", String.class.getName(),50)
 			.addColumn("Item Code", "id", Long.class.getName(),30,true)

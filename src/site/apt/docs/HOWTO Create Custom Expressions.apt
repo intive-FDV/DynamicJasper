@@ -41,3 +41,16 @@ drb.addField("branch", String.class.getName());
  The resulting report would be something like this
  
 [../images/examples/custom-expression.jpg] Hidden column 
+
+* Out of the box CustomExpression
+
+ DJ already provides these implementations for common usages. They are in the package <ar.com.fdvs.dj.util.customexpression>
+ 
+*-----+-----+ 
+| RecordsInPageCustomExpression | returns the record number for the current page  
+*-----+-----+ 
+| RecordsInReportCustomExpression | returns the record number for the whole report  
+*-----+-----+ 
+| PageNumberCustomExpression | returns the page number  
+*-----+-----+ 
+ 

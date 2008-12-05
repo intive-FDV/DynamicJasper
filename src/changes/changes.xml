@@ -37,10 +37,11 @@
 	 
 				 <release version="3.0.2" date="2008-11-21"	desc="Enhancements and fixes">
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Dale Cooper and PeS17" issue="https://sourceforge.net/forum/message.php?msg_id=5722095" >
-						 In CustomExpression's, non  visisble fields where not being populated 
+						 In CustomExpression's, non  visible fields where not being populated 
 					 </action>
-					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA" issue="https://sourceforge.net/forum/forum.php?thread_id=2591976&forum_id=659589" >
-						 Fixed multi line title and subtitle :: Certain stytle attributes in the title made subtitle not to strech vertically. See MultiLineTitleReportTest 
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA">
+						 Fixed multi line title and subtitle :: Certain style attributes in the title made subtitle not to stretch vertically. See MultiLineTitleReportTest 
+						  <![CDATA[https://sourceforge.net/forum/forum.php?thread_id=2591976&forum_id=659589]]>
 					 </action>
 				</release>
 				 <release version="3.0.1" date="2008-11-21"	desc="Enhancements and fixes">
