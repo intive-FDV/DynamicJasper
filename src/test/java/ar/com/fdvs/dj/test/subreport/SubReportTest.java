@@ -66,7 +66,7 @@ public class SubReportTest extends BaseDjReportTest {
 				"emptyStatistics", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
 		 DynamicReport drFooterSubreport = createFooterSubreport();
-		 drb.addSubreportInGroupFooter(2, drFooterSubreport,  new ClassicLayoutManager(),
+		 drb.addSubreportInGroupHeader(2, drFooterSubreport,  new ClassicLayoutManager(),
 				 "statistics", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
 		drb.setUseFullPageWidth(true);

@@ -89,6 +89,10 @@ import ar.com.fdvs.dj.util.LayoutUtils;
  */
 public class ClassicLayoutManager extends AbstractLayoutManager {
 
+	protected static final String PAGE_BREAK_FOR_ = "pageBreak_for_";
+
+	protected static final int SUBREPORT_DEFAULT_HEIGHT = 30;
+
 	private static final Log log = LogFactory.getLog(ClassicLayoutManager.class);
 
 	protected static final String EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() != 1)";
@@ -556,11 +560,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected void layOutSubReportInBand(DJGroup columnsGroup, JRDesignBand band, String position) {
 
-		List footerSubreportsList = DJConstants.FOOTER.equals(position)
+		List subreportsList = DJConstants.FOOTER.equals(position)
 				? columnsGroup.getFooterSubreports()
 				: columnsGroup.getHeaderSubreports();
 
-		for (Iterator iterator = footerSubreportsList.iterator(); iterator.hasNext();) {
+		for (Iterator iterator = subreportsList.iterator(); iterator.hasNext();) {
 			Subreport sr = (Subreport) iterator.next();
 			JRDesignSubreport subreport = new JRDesignSubreport(new JRDesignStyle().getDefaultStyleProvider());
 
@@ -608,20 +612,48 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			subreport.setY(offset);
 			subreport.setX(-getReport().getOptions().getLeftMargin().intValue());
 			subreport.setWidth(getReport().getOptions().getPage().getWidth());
-			subreport.setHeight(100);
+			subreport.setHeight(SUBREPORT_DEFAULT_HEIGHT);
 			subreport.setPositionType(JRElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
 			subreport.setStretchType(JRElement.STRETCH_TYPE_NO_STRETCH);
 			subreport.setRemoveLineWhenBlank(true); //No subreport, no reserved space
 
+			band.setHeight(offset + subreport.getHeight());
+			
 			if (sr.getStyle() != null)
 				applyStyleToElement(sr.getStyle(), subreport);
 
 			//adding to the band
 			if (sr.isStartInNewPage()) {
+				JRDesignGroup jrgroup = getGroupFromColumnsGroup(columnsGroup);
+				JRDesignBand targetBand = null;
+				int idx = getDesign().getGroupsList().indexOf(jrgroup);
+				if (DJConstants.HEADER.equals(position)) { //concatenated report
+					if (idx == 0){
+						if (getDesign().getColumnHeader() != null)
+							targetBand = (JRDesignBand) getDesign().getColumnHeader();
+						else if (getDesign().getPageHeader() != null)
+							targetBand = (JRDesignBand) getDesign().getPageHeader();
+						else 
+							targetBand = band;
+					} 
+					else 
+						targetBand = (JRDesignBand) ((JRDesignGroup) getDesign().getGroupsList().get(idx-1)).getGroupHeader();
+				} 
+				else { //footer subreport
+					if (idx+1 <  getDesign().getGroupsList().size())
+						idx++;
+					targetBand = (JRDesignBand) ((JRDesignGroup) getDesign().getGroupsList().get(idx)).getGroupFooter();
+				}
+				
 				JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider());
-				band.addElement(pageBreak);
+				pageBreak.setKey(PAGE_BREAK_FOR_ + jrgroup.toString()); //set up a name to recognize the item later
+				pageBreak.setY(0);
+				targetBand.addElement(pageBreak);
+
 			}
 			band.addElement(subreport);
+			
+			sendPageBreakToBottom(band);
 
 			/**
 			 * A subreport is placed in a group header or footer. This option configures the group's
@@ -630,6 +662,24 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			 */
 			band.setSplitAllowed(sr.isSplitAllowed());
 		}
+	}
+
+	/**
+	 * page breaks should be near the bottom of the band, this method used while adding subreports
+	 * which has the "start on new page" option.
+	 * @param band
+	 */
+	protected void sendPageBreakToBottom(JRDesignBand band) {
+		JRElement[] elems = band.getElements();
+		JRElement aux = null;
+		for (int i = 0; i < elems.length; i++) {
+			if ((""+elems[i].getKey()).startsWith(PAGE_BREAK_FOR_)){
+				aux = elems[i];
+				break;
+			}
+		}
+		if (aux != null)
+			((JRDesignElement)aux).setY(band.getHeight());
 	}
 
 	/**

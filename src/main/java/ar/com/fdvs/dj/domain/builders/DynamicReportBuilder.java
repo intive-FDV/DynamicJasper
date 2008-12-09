@@ -290,6 +290,10 @@ public class DynamicReportBuilder {
 	 */
 	protected void concatenateReports() {
 
+		if (!concatenatedReports.isEmpty()){ // dummy group for page break if needed
+			DJGroup globalGroup = createDummyGroup();
+			report.getColumnsGroups().add(0,globalGroup);
+		}
 		for (Iterator iterator = concatenatedReports.iterator(); iterator.hasNext();) {
 			Subreport subreport = (Subreport) iterator.next();
 			DJGroup globalGroup = createDummyGroup();
@@ -700,12 +704,33 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	public DynamicReportBuilder addConcatenatedReport(DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, boolean startOnNewPage) throws DJBuilderException {
+		Subreport subreport = new SubReportBuilder()
+		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setDynamicReport(dynamicReport,layoutManager)
+		.setStartInNewPage(startOnNewPage)
+		.build();
+		
+		concatenatedReports.add(subreport);
+		return this;
+	}
+
 	public DynamicReportBuilder addConcatenatedReport(JasperReport jasperReport, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
 		Subreport subreport = new SubReportBuilder()
 		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
 		.setReport(jasperReport)
 		.build();
 
+		concatenatedReports.add(subreport);
+		return this;
+	}
+	public DynamicReportBuilder addConcatenatedReport(JasperReport jasperReport, String dataSourcePath, int dataSourceOrigin, int dataSourceType, boolean startOnNewPage) throws DJBuilderException {
+		Subreport subreport = new SubReportBuilder()
+		.setDataSource(dataSourceOrigin, dataSourceType, dataSourcePath)
+		.setReport(jasperReport)
+		.setStartInNewPage(startOnNewPage)
+		.build();
+		
 		concatenatedReports.add(subreport);
 		return this;
 	}
