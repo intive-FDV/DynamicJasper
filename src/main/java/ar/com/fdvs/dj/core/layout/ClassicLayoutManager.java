@@ -390,7 +390,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		int i = 0;
 		for (Iterator iter = getReport().getColumnsGroups().iterator(); iter.hasNext();) {
 			DJGroup columnsGroup = (DJGroup) iter.next();
-			JRDesignGroup jgroup = (JRDesignGroup) getDesign().getGroupsList().get(i++);
+//			JRDesignGroup jgroup = (JRDesignGroup) getDesign().getGroupsList().get(i++);
+			JRDesignGroup jgroup = getJRGroupFromDJGroup(columnsGroup);
 
 			jgroup.setStartNewPage(columnsGroup.getStartInNewPage().booleanValue());
 			jgroup.setStartNewColumn(columnsGroup.getStartInNewColumn().booleanValue());
@@ -613,7 +614,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			subreport.setX(-getReport().getOptions().getLeftMargin().intValue());
 			subreport.setWidth(getReport().getOptions().getPage().getWidth());
 			subreport.setHeight(SUBREPORT_DEFAULT_HEIGHT);
-			subreport.setPositionType(JRElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+			subreport.setPositionType(JRElement.POSITION_TYPE_FLOAT);
 			subreport.setStretchType(JRElement.STRETCH_TYPE_NO_STRETCH);
 			subreport.setRemoveLineWhenBlank(true); //No subreport, no reserved space
 
@@ -624,31 +625,37 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			//adding to the band
 			if (sr.isStartInNewPage()) {
-				JRDesignGroup jrgroup = getGroupFromColumnsGroup(columnsGroup);
+				JRDesignGroup jrgroup = getJRGroupFromDJGroup(columnsGroup);
 				JRDesignBand targetBand = null;
 				int idx = getDesign().getGroupsList().indexOf(jrgroup);
-				if (DJConstants.HEADER.equals(position)) { //concatenated report
-					if (idx == 0){
-						if (getDesign().getColumnHeader() != null)
-							targetBand = (JRDesignBand) getDesign().getColumnHeader();
-						else if (getDesign().getPageHeader() != null)
-							targetBand = (JRDesignBand) getDesign().getPageHeader();
-						else 
-							targetBand = band;
-					} 
-					else 
-						targetBand = (JRDesignBand) ((JRDesignGroup) getDesign().getGroupsList().get(idx-1)).getGroupHeader();
+				if (DJConstants.HEADER.equals(position)) { 
+//					if (idx == 0){
+//						if (getDesign().getColumnHeader() != null)
+//							targetBand = (JRDesignBand) getDesign().getColumnHeader();
+//						else if (getDesign().getPageHeader() != null)
+//							targetBand = (JRDesignBand) getDesign().getPageHeader();
+//						else 
+//							targetBand = band;
+//					} 
+//					else 
+//						targetBand = (JRDesignBand) ((JRDesignGroup) getDesign().getGroupsList().get(idx-1)).getGroupHeader();
 				} 
-				else { //footer subreport
+				else { //footer subreport (and concatenated report)
 					if (idx+1 <  getDesign().getGroupsList().size())
 						idx++;
 					targetBand = (JRDesignBand) ((JRDesignGroup) getDesign().getGroupsList().get(idx)).getGroupFooter();
 				}
-				
-				JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider());
-				pageBreak.setKey(PAGE_BREAK_FOR_ + jrgroup.toString()); //set up a name to recognize the item later
-				pageBreak.setY(0);
-				targetBand.addElement(pageBreak);
+
+				/**
+				 * There is no meaning in adding a page-break in header sub reports since
+				 * they will be placed right after the group header 
+				 */
+				if (DJConstants.FOOTER.equals(position)){
+					JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider());
+					pageBreak.setKey(PAGE_BREAK_FOR_ + jrgroup.toString()); //set up a name to recognize the item later
+					pageBreak.setY(0);
+					targetBand.addElement(pageBreak);
+				}
 
 			}
 			band.addElement(subreport);

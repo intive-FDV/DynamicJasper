@@ -33,12 +33,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.SubReportBuilder;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 import ar.com.fdvs.dj.test.domain.Product;
@@ -61,6 +64,7 @@ public class SubReportBuilder2Test extends BaseDjReportTest {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(1)
+			.setMargins(5, 5, 20, 20)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
@@ -75,11 +79,11 @@ public class SubReportBuilder2Test extends BaseDjReportTest {
 										"statistics")
 						.setDynamicReport(createFooterSubreport(), new ClassicLayoutManager())
 						.setParameterMapPath("subreportParameterMap")
-						.setSplitAllowed(false)
-						.setStartInNewPage(true)
+						.setSplitAllowed(false)						
+						.setStartInNewPage(false)
 						.build();
 
-		drb.addSubreportInGroupHeader(1, subreport);
+		drb.addSubreportInGroupFooter(1, subreport);
 
 		/**
 		 * add in a map the paramter with the data source to use in the subreport.
@@ -115,7 +119,7 @@ public class SubReportBuilder2Test extends BaseDjReportTest {
 		.addColumn("%", "percentage", Float.class.getName(), 50)
 		.addColumn("Amount", "amount", Float.class.getName(), 50)
 		.addGroups(1)
-		.setMargins(5, 5, 20, 20)
+//		.setMargins(5, 5, 20, 20)
 		.setTemplateFile("templates/TemplateReportTest.jrxml")
 		.setUseFullPageWidth(true)
 		.setTitle("Subreport for this group")
@@ -128,6 +132,7 @@ public class SubReportBuilder2Test extends BaseDjReportTest {
 		SubReportBuilder2Test test = new SubReportBuilder2Test();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
+		JasperDesignViewer.viewReportDesign(test.jr);
 	}
 
 }

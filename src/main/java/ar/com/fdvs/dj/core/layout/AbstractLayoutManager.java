@@ -608,7 +608,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         if (group != null) {
         	int index = getReport().getColumnsGroups().indexOf(group);
-            JRDesignGroup previousGroup = (JRDesignGroup) getDesign().getGroupsList().get(index);
+//            JRDesignGroup previousGroup = (JRDesignGroup) getDesign().getGroupsList().get(index);
+            JRDesignGroup previousGroup = getJRGroupFromDJGroup(group);
             textField.setPrintWhenGroupChanges(previousGroup);
 
             /**
@@ -680,7 +681,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 	protected JRDesignBand createGroupForChartAndGetBand(DJChart djChart) {
-		JRDesignGroup jrGroup = getGroupFromColumnsGroup(djChart.getColumnsGroup());
+		JRDesignGroup jrGroup = getJRGroupFromDJGroup(djChart.getColumnsGroup());
 		JRDesignGroup parentGroup = getParent(jrGroup);
 		JRDesignGroup jrGroupChart = null;
 		try {
@@ -720,7 +721,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @return
 	 */
 	protected JRDesignChart createChart(DJChart djChart){
-			JRDesignGroup jrGroupChart = getGroupFromColumnsGroup(djChart.getColumnsGroup());
+			JRDesignGroup jrGroupChart = getJRGroupFromDJGroup(djChart.getColumnsGroup());
 
 			JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
 			JRDesignGroup parentGroup = getParent(jrGroupChart);
@@ -776,7 +777,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 */
 	protected List registerChartVariable(DJChart chart) {
 		//FIXME aca hay que iterar por cada columna. Cambiar DJChart para que tome muchas
-		JRDesignGroup group = getGroupFromColumnsGroup(chart.getColumnsGroup());
+		JRDesignGroup group = getJRGroupFromDJGroup(chart.getColumnsGroup());
 		List vars = new ArrayList();
 
 		int serieNum = 0;
@@ -830,7 +831,12 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		return parentGroup;
 	}
 
-	protected JRDesignGroup getGroupFromColumnsGroup(DJGroup group){
+	/***
+	 * Finds JRDesignGroup associated to a DJGroup
+	 * @param group
+	 * @return
+	 */
+	protected JRDesignGroup getJRGroupFromDJGroup(DJGroup group){
 		int index = getReport().getColumnsGroups().indexOf(group);
 		return (JRDesignGroup) realGroups.get(index);
 	}
