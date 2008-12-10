@@ -15,7 +15,7 @@ HOW-TO Create Custom Expressions
  
 +------------------------------------------------------------------------------------------------------------+
 AbstractColumn columnaCustomExpression = ColumnBuilder.getInstance()
-.addCustomExpression( 
+.setCustomExpression( 
 	new CustomExpression() {
 		public Object evaluate(Object object) {
 			Map map = (Map) object;

@@ -31,10 +31,10 @@ drb.addColumn("State"			, "state"		, String.class.getName(), 30)
 	.addColumn("Amount"		, "amount"		, Float.class.getName()	, 70, true)
 	.setPrintColumnNames(true)
 	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
-	.addMargins(0, 0, 0, 0)
-	.addTitle("November 2006 sales report")
-	.addSubtitle("This report was generated at " + new Date())
-	.addUseFullPageWidth(true);
+	.setMargins(0, 0, 0, 0)
+	.setTitle("November 2006 sales report")
+	.setSubtitle("This report was generated at " + new Date())
+	.setUseFullPageWidth(true);
 +-----------------------------------------------------------------------------+
 
  Note this two lines:
@@ -79,7 +79,7 @@ drb.addColumn("State"			, "state"		, String.class.getName(), 30)
 drb.setReportName("My Report")
 +-----------------------------------------------------------------------------+
 
- If you need to export a multiple sheet Excel, the the names can be passed through JasperReport Exporter parameters (thanks Sérgio Berlotto)
+ If you need to export a multiple sheet Excel, the the names can be passed through JasperReport Exporter parameters (thanks Sï¿½rgio Berlotto)
 
 +-----------------------------------------------------------------------------+
 JRXlsExporter exporter = new JRXlsExporter();

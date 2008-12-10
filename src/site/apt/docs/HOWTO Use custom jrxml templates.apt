@@ -26,7 +26,7 @@ HOW-TO Use custom jrxml templates
 DynamicReportBuilder drb = new DynamicReportBuilder();
 //ReportBuilder initialization
 
-drb.addTemplateFile("pathToTemplate/TemplateName.jrxml");
+drb.setTemplateFile("pathToTemplate/TemplateName.jrxml");
 +------------------------------------------------------------------------------------------------------------+ 
 
  If the template has variables, parameters, fields or datasets you would like to import, you can specifically

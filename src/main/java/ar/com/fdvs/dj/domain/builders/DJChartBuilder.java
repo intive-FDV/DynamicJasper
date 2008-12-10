@@ -71,7 +71,17 @@ public class DJChartBuilder {
 		return operation.byteValue();
 	}
 
+	/**
+	 * @deprecated
+	 * @param operation
+	 * @return
+	 */
 	public DJChartBuilder addOperation(byte operation) {
+		this.operation = new Byte(operation);
+		return this;
+	}
+	
+	public DJChartBuilder setOperation(byte operation) {
 		this.operation = new Byte(operation);
 		return this;
 	}
@@ -80,7 +90,17 @@ public class DJChartBuilder {
 		return type.byteValue();
 	}
 
+	/***
+	 * @deprecated
+	 * @param type
+	 * @return
+	 */
 	public DJChartBuilder addType(byte type) {
+		this.type = new Byte(type);
+		return this;
+	}
+	
+	public DJChartBuilder setType(byte type) {
 		this.type = new Byte(type);
 		return this;
 	}
@@ -89,20 +109,43 @@ public class DJChartBuilder {
 		return columnsGroup;
 	}
 
+	/**
+	 * @deprecated
+	 * @param columnsGroup
+	 * @return
+	 */
 	public DJChartBuilder addColumnsGroup(DJGroup columnsGroup) {
 		this.columnsGroup = columnsGroup;
 		return this;
 	}
 
+	public DJChartBuilder setColumnsGroup(DJGroup columnsGroup) {
+		this.columnsGroup = columnsGroup;
+		return this;
+	}
+
 	public DJChartBuilder addParams(byte type, DJGroup columnsGroup, AbstractColumn column, byte operation, DJChartOptions chartOptions){
-		return this.addType(type).addColumnsGroup(columnsGroup).addColumn(column).addOperation(operation).addChartOptions(chartOptions);
+		return this.setType(type).setColumnsGroup(columnsGroup)
+			.addColumn(column)
+			.setOperation(operation)
+			.setChartOptions(chartOptions);
 	}
 
 	public DJChartOptions getChartOptions() {
 		return chartOptions;
 	}
 
+	/**
+	 * @deprecated
+	 * @param chartOptions
+	 * @return
+	 */
 	public DJChartBuilder addChartOptions(DJChartOptions chartOptions) {
+		this.chartOptions = chartOptions;
+		return this;
+	}
+
+	public DJChartBuilder setChartOptions(DJChartOptions chartOptions) {
 		this.chartOptions = chartOptions;
 		return this;
 	}

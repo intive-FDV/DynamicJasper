@@ -11,9 +11,9 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
 
 DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
 DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // define the type of chart (Pie)
-			.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
-			.addColumnsGroup(g1)                           // define the group that will enclose values
-			.addColumn(columnAmount)                       // define the column used for series and categories
+			.setOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
+			.setColumnsGroup(g1)                           // define the group that will enclose values
+			.setColumn(columnAmount)                       // define the column used for series and categories
 			.build();
 			
 drb.addChart(chart);	//add the chart to the dynamic report

@@ -58,16 +58,17 @@ Content
 +------------------------------------------------------------------------------------------------------------+ 
 	FastReportBuilder drb = new FastReportBuilder();
 	DynamicReport dr = drb.addColumn("State", "state", String.class.getName(),30)
-		.addColumn("Branch", "branch", String.class.getName(),30) // title, property to show, class of the property, width
-		.addColumn("Product Line", "productLine", String.class.getName(),50)
-		.addColumn("Item", "item", String.class.getName(),50)
-		.addColumn("Item Code", "id", Long.class.getName(),20)
-		.addColumn("Quantity", "quantity", Long.class.getName(),30)
-		.addColumn("Amount", "amount", Float.class.getName(),30)
-		.addGroups(2)   // Group by the first two columns
-		.addTitle("November 2006 sales report")
-		.addSubtitle("This report was generateed at" + new Date())
-		.addUseFullPageWidth(true) //make colums to fill the page width
+			.addColumn("Branch", "branch", String.class.getName(),30)
+			.addColumn("Product Line", "productLine", String.class.getName(),50)
+			.addColumn("Item", "item", String.class.getName(),50)
+			.addColumn("Item Code", "id", Long.class.getName(),30,true)
+			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
+			.addColumn("Amount", "amount", Float.class.getName(),70,true)
+			.addGroups(2)
+			.setTitle("November 2006 sales report")
+			.setSubtitle("This report was generated at " + new Date())
+			.setPrintBackgroundOnOddRows(true)			
+			.setUseFullPageWidth(true)
 		.build();	
 	
 	JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());   
@@ -81,15 +82,15 @@ Content
 
   The <<FastReportBuilder>> provides the methods to pass the basic parameters to the report:
   
-  * addColumn( <<\<title\>>>, <<\<field/property to show\>>>, <<\<class name of the propert to show\>>>, <<\<width of the column\>>> )
+  * addColumn( <<\<title\>>>, <<\<field/property to show\>>>, <<\<class name of the property to show\>>>, <<\<width of the column\>>> )
   
   * addGroups (<<\<number of columns to group by\>>>)
   
-  * addTitle(...) , addSubtitle( ...) : guess!!!
+  * setTitle(...) , setSubtitle( ...) : guess!!!
   
-  * addUseFullPageWidth( <<\<boolean\>>> ) : if true, the columns width will be resized proportionally untill meet the page width
+  * setUseFullPageWidth( <<\<boolean\>>> ) : if true, the columns width will be resized proportionally until meet the page width
 
- In the previuos report, the DynamicJasper API makes a lot of desicions setting default values to the styles in general (title, column header, report detail, etc).
+ In the previous report, the DynamicJasper API makes a lot of decisions setting default values to the styles in general (title, column header, report detail, etc).
  This defaults are defined in the <FastReportBuilder> class. More control in all this aspects can be achieved using the <DynamicReportBuilder> class, as shown in the next example
  
 {Getting more control on the report options}
@@ -97,97 +98,92 @@ Content
  This code shows how to create a simple report but taking more control on the report options, the code is self explained. {{{../xref-test/ar/com/fdvs/dj/test/PlainReportTest.html}see the code}}
 
 +------------------------------------------------------------------------------------------------------------+
-DynamicReportBuilder drb = new DynamicReportBuilder();
-        Integer margin = new Integer(20);
-        drb.addTitle("November 2006 sales report")                    //defines the title of the report
-            .addSubtitle("The items in this report correspond "
-                    +"to the main products: Bovine meat,"+
-                    " Chicken, Pig meat and Milky " )
-            .addTitleStyle(titleStyle)                                //defines the style of the title
-            .addDetailHeight(new Integer(15))                        //defines the height for each record of the report
-            .addLeftMargin(margin)                                    //define the margin space for each side (top, bottom, right and left)
-            .addRightMargin(margin)
-            .addTopMargin(margin)
-            .addBottomMargin(margin)
-            .addColumnsPerPage(new Integer(1));                        //defines columns per page (like in the telephone guide)
+	DynamicReportBuilder drb = new DynamicReportBuilder();
+	drb.setTitle("November 2006 sales report")					//defines the title of the report
+		.setSubtitle("The items in this report correspond "
+				+"to the main products: DVDs, Books, Foods and Magazines")
+		.setDetailHeight(15)						//defines the height for each record of the report
+		.setMargins(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
+		.setDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
+		.setColumnsPerPage(1);						//defines columns per page (like in the telephone guide)
 
-        /**
-         * Note that we still didn't call the build() method
-         */
+	/**
+	 * Note that we still didn't call the build() method
+	 */
 
-        /**
-         * Column definitions. We use a new ColumnBuilder instance for each
-         * column, the ColumnBuilder.getInstance() method returns a new instance
-         * of the builder
-         */
-        AbstractColumn columnState = ColumnBuilder.getInstance()        //creates a new instance of a ColumnBuilder
-            .addColumnProperty("state", String.class.getName())            //defines the field of the data source that this column will show, also its type
-            .addTitle("State")                                            //the title for the column
-            .addWidth(new Integer(85))                                    //the width of the column
-            .addStyle(detailStyle)                                        //defines the style for the records of this column
-            .addHeaderStyle(headerStyle)                                //defines the style for the title of this column
-            .build();                                                    //builds and return a new AbstractColumn
+	/**
+	 * Column definitions. We use a new ColumnBuilder instance for each
+	 * column, the ColumnBuilder.getInstance() method returns a new instance
+	 * of the builder
+	 */
+	AbstractColumn columnState = ColumnBuilder.getInstance()		//creates a new instance of a ColumnBuilder
+		.setColumnProperty("state", String.class.getName())			//defines the field of the data source that this column will show, also its type
+		.setTitle("State")											//the title for the column
+		.setWidth(85)									//the width of the column
+		.build();													//builds and return a new AbstractColumn
 
-        //Create more columns
-        AbstractColumn columnBranch = ColumnBuilder.getInstance()
-            .addColumnProperty("branch", String.class.getName())
-            .addTitle("Branch").addWidth(new Integer(85))
-            .addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+	//Create more columns
+	AbstractColumn columnBranch = ColumnBuilder.getInstance()
+		.setColumnProperty("branch", String.class.getName())
+		.setTitle("Branch").setWidth(85)
+		.build();
 
-        AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
-            .addColumnProperty("productLine", String.class.getName())
-            .addTitle("Product Line").addWidth(new Integer(85))
-            .addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+	AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
+		.setColumnProperty("productLine", String.class.getName())
+		.setTitle("Product Line").setWidth(85)
+		.build();
 
-        AbstractColumn columnaItem = ColumnBuilder.getInstance()
-            .addColumnProperty("item", String.class.getName())
-            .addTitle("Item").addWidth(new Integer(85))
-            .addStyle(detailStyle).addHeaderStyle(headerStyle).build();
+	AbstractColumn columnaItem = ColumnBuilder.getInstance()
+		.setColumnProperty("item", String.class.getName())
+		.setTitle("Item").setWidth(85)
+		.build();
 
-        AbstractColumn columnCode = ColumnBuilder.getInstance()
-            .addColumnProperty("id", Long.class.getName())
-            .addTitle("ID").addWidth(new Integer(40))
-            .addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+	AbstractColumn columnCode = ColumnBuilder.getInstance()
+		.setColumnProperty("id", Long.class.getName())
+		.setTitle("ID").setWidth(40)
+		.build();
 
-        AbstractColumn columnaCantidad = ColumnBuilder.getInstance()
-            .addColumnProperty("quantity", Long.class.getName())
-            .addTitle("Quantity").addWidth(new Integer(80))
-            .addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+	AbstractColumn columnaCantidad = ColumnBuilder.getInstance()
+		.setColumnProperty("quantity", Long.class.getName())
+		.setTitle("Quantity").setWidth(80)
+		.build();
 
-        AbstractColumn columnAmount = ColumnBuilder.getInstance()
-            .addColumnProperty("amount", Float.class.getName())
-            .addTitle("Amount").addWidth(new Integer(90))
-            .addPattern("$ 0.00")                                            //defines a pattern to apply to the values swhown (uses TextFormat)
-            .addStyle(amountStyle).addHeaderStyle(headerStyle).build();
+	AbstractColumn columnAmount = ColumnBuilder.getInstance()
+		.setColumnProperty("amount", Float.class.getName())
+		.setTitle("Amount").setWidth(90)
+		.setPattern("$ 0.00")		//defines a pattern to apply to the values swhown (uses TextFormat)
+		.setStyle(amountStyle)		//special style for this column (align right)
+		.build();
 
-        /**
-         * We add the columns to the report (through the builder) in the order
-         * we want them to appear
-         */
-        drb.addColumn(columnState);
-        drb.addColumn(columnBranch);
-        drb.addColumn(columnaProductLine);
-        drb.addColumn(columnaItem);
-        drb.addColumn(columnCode);
-        drb.addColumn(columnaCantidad);
-        drb.addColumn(columnAmount);
+	/**
+	 * We add the columns to the report (through the builder) in the order
+	 * we want them to appear
+	 */
+	drb.addColumn(columnState);
+	drb.addColumn(columnBranch);
+	drb.addColumn(columnaProductLine);
+	drb.addColumn(columnaItem);
+	drb.addColumn(columnCode);
+	drb.addColumn(columnaCantidad);
+	drb.addColumn(columnAmount);
 
-        /**
-         * add some more options to the report (through the builder)
-         */
-        drb.addUseFullPageWidth(true);    //we tell the report to use the full width of the page. this rezises
-                                        //the columns width proportionally to meat the page width.
+	/**
+	 * add some more options to the report (through the builder)
+	 */
+	drb.setUseFullPageWidth(true);	//we tell the report to use the full width of the page. this rezises
+									//the columns width proportionally to meat the page width.
 
 
-        DynamicReport dr = drb.build();    //Finally build the report!
+	DynamicReport dr = drb.build();	//Finally build the report!
 
-        JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());    //Create a JRDataSource, the Collection used
-                                                                                                            //here contains dummy hardcoded objects...
 
-        JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);    //Creates the JasperPrint object, we pass as a Parameter
-                                                                                                            //the DynamicReport, a new ClassicLayoutManager instance (this
-                                                                                                            //one does the magic) and the JRDataSource
-        JasperViewer.viewReport(jp);    //finally display the report report
+    JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());    //Create a JRDataSource, the Collection used
+                                                                                                        //here contains dummy hardcoded objects...
+
+    JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);    //Creates the JasperPrint object, we pass as a Parameter
+                                                                                                        //the DynamicReport, a new ClassicLayoutManager instance (this
+                                                                                                        //one does the magic) and the JRDataSource
+    JasperViewer.viewReport(jp);    //finally display the report report
 +------------------------------------------------------------------------------------------------------------+
 
  The <<DynamicReportBuilder>> builds <<DynamicReport>> objects, this object contains the main options of the report (title, subtitle, styles, page size, orientation and a list of columns and groups)
@@ -196,7 +192,7 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
  Each column holds basic data like the column title, the field from the datasource to show (it uses BeanUtils, so "a.b.c" can be passed as a property parameter), and how to show this data (style, pattern to apply, etc).  
  
 *-----+
-|<<Note>> that the property_name passed to ColumnBuilder.addColumnProperty("property_name", "property_class_name") method must match the name of a field/property in the elements contained in the datasource|
+|<<Note>> that the property_name passed to ColumnBuilder.setColumnProperty("property_name", "property_class_name") method must match the name of a field/property in the elements contained in the datasource|
 *-----+
 
 {Adding groups}
@@ -220,12 +216,12 @@ GroupBuilder gb1 = new GroupBuilder();
                                                                                     //values of the columnAmount in this group.
 
             .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)    //idem for the columnaQuantity column
-            .addGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)                //tells the group how to be shown, there are many
+            .setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)                //tells the group how to be shown, there are many
                                                                                     //posibilities, see the GroupLayout class for more.
             .build();
 
         GroupBuilder gb2 = new GroupBuilder();                                        //Create another group (using another column as criteria)
-        ColumnsGroup g2 = gb2.addCriteriaColumn((PropertyColumn) columnBranch)        //and we add the same operations for the columnAmount and
+        ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch)        //and we add the same operations for the columnAmount and
             .addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)        //columnaQuantity columns
             .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
             .build();
@@ -251,8 +247,8 @@ GroupBuilder gb1 = new GroupBuilder();
 +------------------------------------------------------------------------------------------------------------+
 DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
 DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // define the type of chart (Pie)
-				.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
-				.addColumnsGroup(g1)                           // define the group that will be represented
+				.setOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
+				.setColumnsGroup(g1)                           // define the group that will be represented
 				.addColumn(columnAmount)                       // define the column that will be represented
 				.build();
 +------------------------------------------------------------------------------------------------------------+
