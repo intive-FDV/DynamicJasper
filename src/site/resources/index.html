@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>DynamicJasper - DynamicJasper :: Making Jasper Reports dynamic</title>
+    <style type="text/css" media="all">
+      @import url("./css/dj-maven-base.css");
+      @import url("./css/dj-maven-theme.css");
+      @import url("./css/dj-site.css");
+    </style>
+
+    <link rel="stylesheet" href="./css/dj-print.css" type="text/css" media="print" />
+    <SCRIPT SRC="./js/niftyjsCode.js" type="text/javascript"></SCRIPT>
+    <script src="./js/jquery-1.2.6.min.js" type="text/javascript"></script>
+
+          <meta name="author" content="Juan Manuel Alvarez" />
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <script type="text/javascript">
+	function expand( item ) {
+		var expandIt = document.getElementById( item );
+		if( expandIt.style.display == "block" ) {
+			expandIt.style.display = "none";
+			expandIt.parentNode.className = "collapsed";
+		} else {
+			expandIt.style.display = "block";
+			expandIt.parentNode.className = "expanded";
+		}
+	}
+    </script>
+      </head>
+  <body class="composite">
+    <div id="banner">
+	    <div id="inner_banner">
+	                  <a href="http://www.fdvsolutions.com/" id="bannerLeft">
+
+                                            <img src="images/fdvsolutions_dynamicjasper_project.png" alt="" />
+
+            </a>
+      	                  <a href="http://www.sourceforge.net" id="bannerRight">
+
+                                    <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=188060&type=4" alt="" />
+
+            </a>
+      	      <div class="clear">
+	        <hr/>
+	      </div>
+	    </div>
+    </div>
+    <div id="breadcrumbs">
+	    <div id="inner_breadcrumbs">
+loading...
+	    </div>
+    </div>
+
+    <div id="leftColumn">
+		<div id="navcolumn_">
+			&nbsp;
+		</div>
+	    <div class="single_menu_spacer_div">&nbsp;</div>
+    </div>
+
+    <div id="bodyColumn">
+	  <div id="adSense">
+		  <script type="text/javascript"><!--
+				google_ad_client = "pub-7228421883024969";
+				google_ad_width = 728;
+				google_ad_height = 85;
+				google_ad_format = "728x90_as";
+				google_ad_type = "text_image";
+				google_ad_channel = "";
+				google_ui_features = "rc:6";
+				//-->
+				</script>
+				<script type="text/javascript"
+				  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>
+	  </div>
+      <div id="contentBox">
+        <div class="section"><h2>IMPORTANT: New Version notes</h2>
+<table class="bodyTable"><tbody><tr class="a"><th align="left">IMPORTANT for version 2.X users</th>
+</tr>
+<tr class="b"><td align="left">Version 3.0.0 adds <b>breaking changes</b>
+, please read this <a href="changes/v3_0_0 breaking changes.html">changes note</a>
+ to see what changed</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section"><h2>DynamicJasper</h2>
+<p>DynamicJasper (DJ) is an API that hides the complexity of Jasper Reports, it helps developers to save time when designing simple/medium complexity reports generating the layout of the report elements automatically. It creates reports dynamically, defining at runtime the columns, column width (auto width), groups, variables, fonts, charts, crosstabs, sub reports (that can also be dynamic), page size and everything else that you can define at design time.</p>
+<p>DJ keeps full compatibility with Jasper Reports since it's a tool that helps create reports programmatically in a easy way (it only interferes with the creation of the report design doing the layout of the elements).</p>
+<p>You can use the classic .jrxml files as templates while the content and layout of the report elements are handled by the DJ API.</p>
+<img src="images/dj_flavors.jpg" /></div>
+<div class="section"><h2>Online Demo - DynamicJasper Playground</h2>
+<p>The DynamicJasper Playground is an example webapp made in GWT and it is inteded to show all the capabilities and potential that the DynamicJasper API provides.</p>
+<p>In a near future we will release this playground as a component ready to integrate to your web application.</p>
+<p><a href="http://dynamicjasperplayground.fdvs.com.ar/" class="externalLink">See it working online!!!</a>
+ or <a href="http://sourceforge.net/project/showfiles.php?group_id=188060" class="externalLink">download</a>
+ the war file or source code</p>
+</div>
+
+      </div>
+    </div>
+	<div class="single_menu_spacer_div">&nbsp;</div>
+    <div id="footer">
+      <div class="xright">&#169;
+          2006-2008
+
+          FDV Solutions
+
+  </div>
+   <div class="single_menu_spacer_div">&nbsp;</div>
+    </div>
+
+   <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+				<script type="text/javascript">
+				_uacct = "UA-2140380-1";
+				urchinTracker();
+				</script>
+ <script type="text/javascript">
+$(document).ready(function(){
+	roundCorners();
+
+	$.ajax({
+		  url: "dummy_empty.html",
+		  dataType: 'html',
+		  cache: false,
+		  success: function(html){
+		  	var content = $("#navcolumn",$(html));
+		    $("#leftColumn").html(content.parent().html()); //menu bar
+
+		    content = $("#inner_breadcrumbs",$(html));
+		    $("#breadcrumbs").html(content.parent().html()); //bread crumbs bar
+		    roundMenuBars();
+		    Rounded("div#breadcrumbs", "bottom", bgColor,frontColor,type);
+		    $("#leftColumn a[href=index.html]").css("font-weight","bold");
+		  },
+		  error: function (XMLHttpRequest, textStatus, errorThrown) {
+			  this; // the options for this ajax request
+			}
+		});
+});
+
+var type = "smooth";
+var frontColor = "#E2EDF1";
+var bgColor = "#FFF";
+
+function roundCorners() {
+	if(!NiftyCheck())
+	    return;
+
+		Rounded("div#banner", "top", bgColor,frontColor,type);
+		Rounded("div#breadcrumbs", "bottom", bgColor,frontColor,type);
+
+		roundMenuBars();
+
+	}
+
+function roundMenuBars(){
+
+	$("#navcolumn .single_menu_div").each(function(){
+		Rounded("div#" + this.id,"all",bgColor,frontColor,type);
+	});
+
+}
+</script>
+  </body>
+</html>
