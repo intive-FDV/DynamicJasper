@@ -17,7 +17,7 @@
 
 	:link,:visited,:hover,:active
     {
-    text-decoration:none;
+    	text-decoration:none;
     }
 
 dl
@@ -188,7 +188,7 @@ a.newWindow, a.newWindow:link, a.newWindow:visited, a.newWindow:active, a.newWin
 
 a.externalLink:hover
     {
-    	font-weight: bolder;
+
     }
 
 div.clear
@@ -445,12 +445,14 @@ subsection
 #bodyColumn a
     {
     text-decoration: none;
+	font-weight: bolder;
     }
 
 #bodyColumn a:hover
     {
-    /**text-decoration: underline; **/
-    font-weight: bolder;
+    text-decoration: underline; 
+	cursor: pointer;
+
     }
 
 /* NIFTY CORNERS */
@@ -461,6 +463,7 @@ subsection
 div.single_menu_spacer_div {
 	  width:10px;
 	  height: 5px;
+	  font-size: 2px;
 }
 
 .rtop,.artop{display:block}
@@ -504,4 +507,25 @@ div.section h3 a {
 #div_images_bar img {
 	margin: 3px;
 	border: 0px;
+}
+
+div.columnSection 
+    {
+    width: 250px; 
+	float: left; 
+	padding: 4px;
+}
+
+div.columnSection2
+    {
+    width: 500px; 
+	float: left; 
+	padding: 4px;
+}
+
+div.columnSection3
+    {
+    width: 750px; 
+	float: left; 
+	padding: 4px;
 }
