@@ -95,10 +95,13 @@ HOW TO Guide
 
  []
 
- <<Other>>
+ <<Integration with other frameworks>>
+
+ * {{{HOWTO Integrate DynamicJasper with Groovy.html}Integrate DynamicJasper with Groovy}}
+
+ * {{{HOWTO Integrate DynamicJasper with Struts 2.html}Integrate DynamicJasper with Struts 2}}
 
  * {{{HOWTO Integrate DynamicJasper with Webwork.html}Integrate DynamicJasper with Webwork}}
 
- * {{{HOWTO Integrate DynamicJasper with Struts 2.html}Integrate DynamicJasper with Struts 2}}
 
  []
