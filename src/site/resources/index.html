@@ -58,75 +58,96 @@ loading...
 	    <div class="single_menu_spacer_div">&nbsp;</div>
     </div>
 
-    <div id="bodyColumn">
+    <div id="bodyColumn" style="position:relative">
 	  
-      <div id="contentBox">
-    <div id="content_top" class="section columnSection2">
-<h2>It's dynamic!</h2>
-    <p>DynamicJasper (DJ) is an API that hides the complexity of Jasper Reports, it helps developers to save time when designing simple/medium complexity reports generating the layout of the report elements automatically.</p>    
-    </div>
-     <div class="single_menu_spacer_div" style="clear:both">&nbsp;</div>
-      <div id="column_container1" >
+      <div id="contentBox" style="position:relative; float: left;">
+    
+      <div id="column_container1" style="clear:right" >
       
 <div id="bodyCol1"class="columnSection" >
     <div class="section">
     <h2>It's dynamic!</h2>
-    <p>DynamicJasper (DJ) is an API that hides the complexity of Jasper Reports, it helps developers to save time when designing simple/medium complexity reports generating the layout of the report elements automatically. It creates reports dynamically, defining at runtime the columns, column width (auto width), groups, variables, fonts, charts, crosstabs, sub reports (that can also be dynamic), page size and everything else that you can define at design time.</p>
-    <p>DJ keeps full compatibility with Jasper Reports since it's a tool that helps create reports programmatically in a easy way (it only interferes with the creation of the report design doing the layout of the elements).</p>
-    <p>You can use the classic .jrxml files as templates while the content and layout of the report elements are handled by the DJ API.</p>
-    <img src="images/dj_flavors.jpg" width="199" height="66" /></div>
+    <p><strong>DynamicJasper</strong> (DJ) is an open source library that hides the complexity of <a href="http://jasperreports.sourceforge.net/" target="_blank">Jasper Reports</a>, it helps developers to save time when designing simple/medium complexity reports generating the layout of the report elements automatically.</p>
+    <p> DJ creates reports dynamically, defining at runtime the columns, column width (auto width), groups, variables, fonts, charts, crosstabs, sub reports (that can also be dynamic), page size and everything else that you can define at design time (see <a href="docs/features.html">features</a>).</p>
+    <p>DJ keeps full compatibility with Jasper Reports since it's a tool that helps creating reports in a programmatic friendly way, taking care of the report design for you.</p>
+    <p>Classic .jrxml files can be used as templates while the content and layout of the report elements are handled by the DJ API.</p>
+    </div>
 </div> <!-- column 1 -->
 
 <div id="bodyCol2"class="columnSection" >
 	<div class="section" >
 <h2>Version 3+ notes</h2>
-<table class="bodyTable"><tbody><tr class="a"><th align="left">IMPORTANT for version 2.X users</th>
+<table class="bodyTable"><tbody><tr class="a"><th align="left">IMPORTANT for version 2.x users</th>
 </tr>
-<tr class="b"><td align="left">Version 3.0.0 adds <b>breaking changes</b>
-, please read this <a href="changes/v3_0_0 breaking changes.html">changes note</a>
- to see what changed</td>
+<tr class="b">
+  <td align="left">Version 3.0.0 introduces <b><a href="changes/v3_0_0 breaking changes.html">breaking changes</a></b></td>
 </tr>
 </tbody>
 </table>
 </div>
 
 <div class="section"><h2>Online Demo</h2>
-<p>The DynamicJasper Playground is an example webapp made in GWT and it is inteded to show all the capabilities and potential that the DynamicJasper API provides.</p>
-<p>In a near future we will release this playground as a component ready to integrate to your web application.</p>
-<p><a href="http://dynamicjasperplayground.fdvs.com.ar/" class="externalLink">See it working online!!!</a>
- or <a href="http://sourceforge.net/project/showfiles.php?group_id=188060" class="externalLink">download</a>
- the war file or source code</p>
+<p>The DJ Playground is an example web application intended to show some of the API capabilities and its full potential. <a href="http://dynamicjasperplayground.fdvs.com.ar/" target="_blank" class="externalLink">See it working online!!!</a> or <a href="http://sourceforge.net/project/showfiles.php?group_id=188060" class="externalLink">download</a>
+ it.</p>
+</div>
+
+<div class="section">
+  <h2>Integrate!</h2>
+  <h3 class="home">Groovy</h3>
+  <p>DJ integrates smoothly with groovy making reporting development as enjoyable as it can be.</p>
+  <p class="goToNote"><a href="docs/HOWTO Integrate DynamicJasper with Groovy.html">Read more</a></p>
+  <h3 class="home">Struts 2 and WebWork</h3>
+  <p>Get direct <em>Action mapping</em> to dynamic reports</p>
+  <p class="goToNote"><a href="docs/HOWTO Integrate DynamicJasper with Struts 2.html">Read more</a></p>  
 </div>
 
 </div> <!-- column 2 -->
 
 <div id="bodyCol3"class="columnSection" >
 
-<div class="section" style="background-color:#f1efc3; padding: 10px;">
-  <div align="center"><img src="images/get_pro.png" alt="get pro!" />
-  </div>
-  <h3 style="border: none; font-size: 13pt;">Reduce your project costs</h3>
-  <p>Outsource report development and get <strong>hi quality low cost dynamic reports.</strong></p>
+<div id="get_pro_div" class="section" style="background-color:#f1efc3; padding: 0px;">
+    <div style="padding: 10px;">
+      <div align="center"><a href="http://fdvsolutions.com/ing/contacto.php" target="_blank"><img src="images/get_pro.png" alt="get pro!" /></a>  </div>
+      <h2 class="home">Reduce your project costs</h2>
+      <p>Outsource report development and get <strong>hi quality low cost dynamic reports.</strong></p>
+    </div>
 </div>
-
 <div class="section">
   <h2>Documentation and examples</h2>
-  <p>Get your first report in minutes with the <a href="docs/getting_started.html">geting started</a> guide.</p>
-  <p><strong>Already coding?</strong> get the answer of your particular need in the <a href="docs/howto.html">HOW-TO</a> section.</p>
-  <p>Find support from the community in the <a href="https://sourceforge.net/forum/?group_id=188060">forums</a></p>
+  <p> <a href="docs/getting_started.html">Get started!</a> and have your first report in minutes.</p>
+  <p><strong>Already coding?</strong> find the twist you need in the <a href="docs/howto.html">HOW-TO</a> section.</p>
+  <p><strong>Community Support</strong>: <a href="https://sourceforge.net/forum/?group_id=188060" target="_blank">forums</a> and <a href="https://sourceforge.net/tracker/?group_id=188060" target="_blank">tracker</a> available</p>
+  <p><a href="xref-test/ar/com/fdvs/dj/test/package-summary.html">Code examples are available</a>, actually they are the tests we run on every build.</p>
 </div>
 
-</div>  <!-- column 3 -->      
-</div> <!-- column_container1 -->
-<div class="single_menu_spacer_div" style="clear:both">&nbsp;</div>
+</div>  <!-- column 3 -->     
 
-      </div>
-<div class="single_menu_spacer_div" style="clear:both">&nbsp;</div>      
-<div id="adSense">
+</div> <!-- column_container1 -->
+<div class="single_menu_spacer_div" style="clear:both;">&nbsp;</div> 
+<div id="content_top" class="section columnSection2" >
+    <h2>Quick crostabs</h2>
+    <div style="width: 330px; float:left">
+    
+        <p style="">Crosstabs are a double entry tables where columns and rows depends on the data. This great feature introduced by JasperReports is easyly available through DynamicJasper.</p>  
+        <p class="goToNote"><a href="docs/HOWTO Crosstabs.html">Read more</a></p>  
+    </div>
+    <div style="float:right; position:relative">
+        <img src="images/examples/crosstab-1x1_s.jpg" alt="crostab" width="160" height="74" />
+    </div>
+
+    </div>
+  <div class="section columnSection">
+    <h2>Flexible Subreports</h2>
+    <p>With DynamicJasper it is really easy to get reports of different nature concatenated in a single one</p>
+    <p class="goToNote"><a href="docs/HOWTO Add Concatenated subreports.html">Read more</a></p>
+</div>
+     <div class="single_menu_spacer_div" style="clear:both">&nbsp; </div>
+    
+<div id="adSense" style=" border-top: 1px dotted #999;">
 		  <script type="text/javascript"><!--
 				google_ad_client = "pub-7228421883024969";
 				google_ad_width = 728;
-				google_ad_height = 85;
+				google_ad_height = 90;
 				google_ad_format = "728x90_as";
 				google_ad_type = "text_image";
 				google_ad_channel = "";
@@ -136,7 +157,10 @@ loading...
 				<script type="text/javascript"
 				  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 				</script>
-	  </div>          
+	  </div>      
+      </div> <!-- content box -->
+
+        
       
     </div>
 	<div class="single_menu_spacer_div" style="clear:both">&nbsp;</div>
@@ -144,14 +168,84 @@ loading...
 
     <div id="footer" >
       <div class="xright">&#169;
-          2006-2008
-
-          FDV Solutions
-
+          2006-2008 FDV Solutions
   </div>
+  
    <div class="single_menu_spacer_div">&nbsp;</div>
     </div>
+<div id="fail_error" style="display:none">
 
+<textarea id="fail_error_text_area">
+              <div id="leftColumn">
+  <div id="navcolumn">
+    <div class="single_menu_div" id="div_menu_0" style="padding-top: 0pt; padding-bottom: 0pt;"><b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b>
+      <!-- <h5 onclick="expand('menu0')">Dynamic Jasper</h5> -->
+      <h5>Dynamic Jasper</h5>
+      <ul style="display: block;" id="menu0">
+        <li class="none"> <a href="index.html" style="font-weight: bold;">Home</a> </li>
+        <li class="none"> <a href="docs/features.html">Features</a> </li>
+        <li class="none"> <a href="screenshots.html">Screen shots</a> </li>
+        <li class="none"> <a href="requeriments.html">Requeriments</a> </li>
+        <li class="none"> <a href="http://www.fdvs.com.ar/download.html">Download</a> </li>
+        <li class="none"> <a href="project-info.html">Project info</a> </li>
+        <li class="none"> <a href="https://sourceforge.net/services/service_details.php?service_listing_id=2055">Paid Support</a> </li>
+      </ul>
+      <b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b></div>
+    <div class="single_menu_spacer_div">   </div>
+    <div class="single_menu_div" id="div_menu_1" style="padding-top: 0pt; padding-bottom: 0pt;"><b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b>
+      <!-- <h5 onclick="expand('menu1')">Playground (GUI)</h5> -->
+      <h5>Playground (GUI)</h5>
+      <ul style="display: block;" id="menu1">
+        <li class="none"> <a href="docs/playground.html">Introduction</a> </li>
+        <li class="none"> <a href="docs/playground-mini-guide.html">Mini guide</a> </li>
+        <li class="none"> <a href="http://dynamicjasperplayground.fdvs.com.ar/">Online Demo</a> </li>
+        <li class="none"> <a href="http://www.fdvs.com.ar/download.html">Download</a> </li>
+      </ul>
+      <b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b></div>
+    <div class="single_menu_spacer_div">   </div>
+    <div class="single_menu_div" id="div_menu_2" style="padding-top: 0pt; padding-bottom: 0pt;"><b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b>
+      <!-- <h5 onclick="expand('menu2')">Documentation & Examples</h5> -->
+      <h5>Documentation & Examples</h5>
+      <ul style="display: block;" id="menu2">
+        <li class="none"> <a href="docs/getting_started.html">Getting Started</a> </li>
+        <li class="none"> <a href="docs/howto.html">Howto</a> </li>
+        <li class="none"> <a href="old_docs.html">Previous versions</a> </li>
+      </ul>
+      <b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b></div>
+    <div class="single_menu_spacer_div">   </div>
+    <div class="single_menu_div" id="div_menu_3" style="padding-top: 0pt; padding-bottom: 0pt;"><b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b>
+      <!-- <h5 onclick="expand('menu3')">Development</h5> -->
+      <h5>Development</h5>
+      <ul style="display: block;" id="menu3">
+        <li class="none"> <a href="changes-report.html">Changes</a> </li>
+        <li class="none"> <a href="jxr.html">Sources reference</a> </li>
+        <li class="none"> <a href="apidocs/index.html">Javadoc</a> </li>
+        <li class="none"> <a href="docs/project-setup.html">Setting up the project</a> </li>
+      </ul>
+      <b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b></div>
+    <div class="single_menu_spacer_div">   </div>
+    <div class="single_menu_div" id="div_menu_4" style="padding-top: 0pt; padding-bottom: 0pt;"><b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b>
+      <!-- <h5 onclick="expand('menu4')">Support</h5> -->
+      <h5>Support</h5>
+      <ul style="display: block;" id="menu4">
+        <li class="none"> <a href="https://sourceforge.net/services/service_details.php?service_listing_id=2055">Paid Support</a> </li>
+        <li class="none"> <a href="https://sourceforge.net/forum/?group_id=188060">Forums</a> </li>
+        <li class="none"> <a href="https://sourceforge.net/tracker/?group_id=188060">Issue Tracker</a> </li>
+        <li class="none"> <a href="https://sourceforge.net/projects/dynamicjasper">DJ at SourceForge</a> </li>
+      </ul>
+      <b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b></div>
+    <div class="single_menu_spacer_div">   </div>
+    <div align="center" class="single_menu_div images_div" id="div_images_bar" style="padding-top: 0pt; padding-bottom: 0pt;"><b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b>
+      <div style="margin: 8px; padding: 5px; background-color: rgb(255, 255, 255);"> <a style="border: medium none ;" title="Built by Maven" href="http://maven.apache.org/"> <img style="border: medium none ;" src="./images/logos/maven-feather.png" alt="Built by Maven"/> </a> <a href="http://www.jaspersoft.com/JasperSoft_JasperReports.html"><img src="./images/logos/icon_pr_jasperreports_pro.gif"/></a> <a href="http://www.jetbrains.com/idea/" style="border: 0pt none ; text-decoration: none; text-indent: 0pt;"> <img border="0" src="http://www.jetbrains.com/idea/opensource/img/banners/idea88x31_blue.gif" alt="The best Java IDE"/> </a> <a href="http://eclipse.org/"><img src="./images/logos/eclipse.png"/></a> <a href="http://sourceforge.net/donate/index.php?group_id=188060"> <img height="32" border="0" width="88" alt="Support This Project" src="http://images.sourceforge.net/images/project-support.jpg"/> </a> </div>
+      <b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b></div>
+  </div>
+  <div class="single_menu_spacer_div"> </div>
+</div>
+
+
+</textarea>
+
+</div>
    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
 				<script type="text/javascript">
 				_uacct = "UA-2140380-1";
@@ -161,24 +255,35 @@ loading...
 $(document).ready(function(){
 	roundCorners();
 
-	$.ajax({
-		  url: "dummy_empty.html",
-		  dataType: 'html',
-		  cache: false,
-		  success: function(html){
-		  	var content = $("#navcolumn",$(html));
-		    $("#leftColumn").html(content.parent().html()); //menu bar
+	try {
+		$.ajax({
+			  url: "dummy_empty.html",
+			  dataType: 'html',
+			  cache: false,
+			  success: function(html){
+				var content = $("#navcolumn",$(html));
+				$("#leftColumn").html(content.parent().html()); //menu bar
+	
+				content = $("#inner_breadcrumbs",$(html));
+				$("#breadcrumbs").html(content.parent().html()); //bread crumbs bar
+				roundMenuBars();
+				Rounded("div#breadcrumbs", "bottom", bgColor,frontColor,type);
+				$("#leftColumn a[href=index.html]").css("font-weight","bold");
+			  },
+			  error: function (XMLHttpRequest, textStatus, errorThrown) {
+					var content = $("#navcolumn",$($("#fail_error_text_area").val()));
+					 $("#leftColumn").html(content); 
+			  
+				  return this; // the options for this ajax request
+				}
+			});	
+	}
+	catch (e) {
+		var content = $("#navcolumn",$($("#fail_error_text_area").val()));
+		$("#leftColumn").html(content.parent().html()); //menu bar
 
-		    content = $("#inner_breadcrumbs",$(html));
-		    $("#breadcrumbs").html(content.parent().html()); //bread crumbs bar
-		    roundMenuBars();
-		    Rounded("div#breadcrumbs", "bottom", bgColor,frontColor,type);
-		    $("#leftColumn a[href=index.html]").css("font-weight","bold");
-		  },
-		  error: function (XMLHttpRequest, textStatus, errorThrown) {
-			  this; // the options for this ajax request
-			}
-		});
+	}
+
 });
 
 var type = "smooth";
@@ -191,6 +296,7 @@ function roundCorners() {
 
 		Rounded("div#banner", "top", bgColor,frontColor,type);
 		Rounded("div#breadcrumbs", "bottom", bgColor,frontColor,type);
+		Rounded("div#get_pro_div", "all", bgColor,"#f1efc3",type);
 
 		roundMenuBars();
 

@@ -50,9 +50,21 @@ h1,h2,h3,h4,h5,h6,pre,code
     background: transparent;
     }
 
+a {
+    text-decoration: none;
+	font-weight: bolder;
+    }
+
+a:hover {
+    text-decoration: underline; 
+	cursor: pointer;
+
+    }
+
 a img,:link img,:visited img
     {
-    border:none
+    	border:none;
+		cursor: pointer;
     }
 
 /*  ------------------------------------------------------------------------*/
@@ -66,7 +78,7 @@ body
 body, td, select, input, li
     {
     background-color: #;
-    font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-family: Georgia, "Times New Roman", Times, serif;
     font-size: small;
     }
 
@@ -265,9 +277,11 @@ div.clear
     background-position: 0 4px;
     padding-left: 15px;
     list-style-position: inside;
+	list-style-type: disc;
     line-height: 1.2em;
     font-size: smaller;
     margin-bottom: 3px;
+	
     }
 
 #navcolumn ul
@@ -281,6 +295,10 @@ div.clear
     color: #000000;
     padding-bottom: 3px;
     }
+	
+#navcolumn a {
+	font-weight: normal;
+}	
 
 #navcolumn li.collapsed
     {
@@ -335,7 +353,7 @@ div.clear
 
 h2, h3
     {
-    padding: 10px 4px 4px 0px;
+    padding: 5px 4px 4px 0px;
     border: 0px none none;
     border-top: 1px dotted #999;
     color: #1B6982;
@@ -353,8 +371,8 @@ h3
 #bodyColumn p
     {
     line-height: 1.3em;
-    font-size: small;
-    margin: 10px 0 5px 0;
+    /*font-size: small;*/
+    margin: 5px 0px 5px 0px;
     }
 
 #bodyColumn li, ol
@@ -362,6 +380,8 @@ h3
     line-height: 1.3em;
     font-size: small;
     margin: 0 0 5px 0;
+	list-style-position:inside;
+	padding-left:10px;
     }
 
 #bodyColumn table li
@@ -386,7 +406,7 @@ h3
 
 div.section td
     {
-    font-size: x-small;
+    font-size: small;
 }
 div.section table, div.section .bodyTable
     {
@@ -406,7 +426,7 @@ table.bodyTable th
     background-color: #1B6982;
     text-align: left;
     font-weight: bold;
-    font-size: x-small;
+    font-size: 9pt;
     }
 
 subsection
@@ -442,7 +462,7 @@ subsection
     border-right: 4px;
     }
 
-#bodyColumn a
+/*#bodyColumn a
     {
     text-decoration: none;
 	font-weight: bolder;
@@ -454,7 +474,7 @@ subsection
 	cursor: pointer;
 
     }
-
+*/
 /* NIFTY CORNERS */
 .single_menu_div {
 	background-color: #E2EDF1;
@@ -493,7 +513,7 @@ div.section img {
 }
 
 div.section h2 {
-	padding-left: 5px;
+	padding-left: 50x;
 	padding-top: 5px;
 }
 
@@ -528,4 +548,31 @@ div.columnSection3
     width: 750px; 
 	float: left; 
 	padding: 4px;
+}
+
+p.goToNote {
+	text-align:right;
+	font-style:italic;
+	color:#0000FF;
+	font-size: 8pt;
+}
+
+p.goToNote a {
+	font-weight:normal;
+}
+
+h3.home {
+	border: none; 
+	font-size: 13pt;
+	font-weight: bolder;
+	color: #13475B;
+	padding:0px 4px 0px 0;
+}
+
+h2.home {
+	border: none; 
+	font-size: 13pt;
+	font-weight: bolder;
+	color: #13475B;
+	padding-left:0px;
 }

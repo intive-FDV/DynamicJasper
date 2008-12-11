@@ -10,7 +10,8 @@ code{
   font-size: 10pt;
 }
 a {
-  text-decoration: none;
+	text-decoration: none;
+	cursor: pointer;
 }
 a:link {
   color:#1B6982;;
@@ -128,4 +129,3 @@ dt {
 .infomark {
   background-image: url(../images/icon_info_sml.gif);
 }
-
