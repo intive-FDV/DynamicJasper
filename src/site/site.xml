@@ -39,6 +39,8 @@
     <src>http://sflogo.sourceforge.net/sflogo.php?group_id=188060&amp;type=4</src>
     <href>http://www.sourceforge.net</href>
   </bannerRight>
+ 
+ <publishDate position="right " format="dd MMM yyyy"/>
 
   <body>
     <links>

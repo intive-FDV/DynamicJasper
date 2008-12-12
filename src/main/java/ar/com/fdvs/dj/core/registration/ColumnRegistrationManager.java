@@ -46,7 +46,6 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
 /**
  * Manager invoked to register columns. An AbstractColumn is read and </br>

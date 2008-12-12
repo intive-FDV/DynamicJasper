@@ -1,13 +1,14 @@
 package ar.com.fdvs.dj.test.web.struts2;
 
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.test.FastReportTest;
-import ar.com.fdvs.dj.test.TemplateStyleReportTest;
-import com.opensymphony.xwork.ActionSupport;
-
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.test.FastReportTest;
+import ar.com.fdvs.dj.test.TemplateStyleReportTest;
+
+import com.opensymphony.xwork.ActionSupport;
 
 public class GenerateReportAction extends ActionSupport {
 

@@ -29,18 +29,16 @@
 
 package ar.com.fdvs.dj.struts2;
 
-import ar.com.fdvs.dj.core.DJException;
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.core.layout.LayoutManager;
-import ar.com.fdvs.dj.core.layout.ListLayoutManager;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.output.FormatInfoRegistry;
-import ar.com.fdvs.dj.output.ReportWriter;
-import ar.com.fdvs.dj.output.ReportWriterFactory;
-import com.opensymphony.xwork2.ActionInvocation;
-import com.opensymphony.xwork2.util.TextParseUtil;
-import com.opensymphony.xwork2.util.TextUtils;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporter;
@@ -51,6 +49,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.struts2.StrutsException;
@@ -58,14 +57,19 @@ import org.apache.struts2.StrutsStatics;
 import org.apache.struts2.views.jasperreports.JasperReportsResult;
 import org.apache.struts2.views.jasperreports.ValueStackShadowMap;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import ar.com.fdvs.dj.core.DJException;
+import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.core.layout.ListLayoutManager;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.output.FormatInfoRegistry;
+import ar.com.fdvs.dj.output.ReportWriter;
+import ar.com.fdvs.dj.output.ReportWriterFactory;
+
+import com.opensymphony.xwork2.ActionInvocation;
+import com.opensymphony.xwork2.util.TextParseUtil;
+import com.opensymphony.xwork2.util.TextUtils;
 
 
 /**

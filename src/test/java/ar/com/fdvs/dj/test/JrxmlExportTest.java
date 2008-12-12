@@ -32,7 +32,6 @@ package ar.com.fdvs.dj.test;
 
 import java.util.Date;
 
-import net.sf.jasperreports.view.JasperDesignViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;

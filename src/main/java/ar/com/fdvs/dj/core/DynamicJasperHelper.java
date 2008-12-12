@@ -68,8 +68,6 @@ import net.sf.jasperreports.engine.xml.JRXmlWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
-
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
 import ar.com.fdvs.dj.core.registration.DJGroupRegistrationManager;
@@ -83,6 +81,8 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.output.ReportWriter;
 import ar.com.fdvs.dj.output.ReportWriterFactory;
 import ar.com.fdvs.dj.util.DJCompilerFactory;
+
+import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
 
 
 /**

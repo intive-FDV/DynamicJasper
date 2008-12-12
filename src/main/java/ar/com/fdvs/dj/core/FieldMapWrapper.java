@@ -4,8 +4,6 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-import ar.com.fdvs.dj.webwork.DJResult;
-
 import net.sf.jasperreports.engine.fill.JRFillField;
 
 public class FieldMapWrapper implements Map {

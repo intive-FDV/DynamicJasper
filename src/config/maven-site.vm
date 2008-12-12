@@ -148,9 +148,11 @@
 	      #end
 	    </ul>
     </div>
-    <div class="single_menu_spacer_div">
+    <!-- 
+    <div class="single_menu_spacer_div menuSpacer">
     	&nbsp;
     </div>
+    -->
     #set ( $counter = $counter + 1 )
   #end
 #end
@@ -167,81 +169,6 @@
 
     #if ( ${project.organization} && ${project.organization.name} )
       ${project.organization.name}
-    #end
-  #end
-#end
-
-#macro ( publishDate $position $publishDate $version )
-  #if ( $publishDate && $publishDate.format )
-    #set ( $format = $publishDate.format )
-  #else
-    #set ( $format = "dd MMM yyyy" )
-  #end
-
-  $dateFormat.applyPattern( $format )
-
-  #set ( $dateToday = $dateFormat.format( $currentDate ) )
-
-  #if ( $publishDate && $publishDate.position )
-    #set ( $datePosition = $publishDate.position )
-  #else
-    #set ( $datePosition = "left" )
-  #end
-
-  #if ( $version )
-    #if ( $version.position )
-      #set ( $versionPosition = $version.position )
-    #else
-      #set ( $versionPosition = "left" )
-    #end
-  #end
-
-  #set ( $breadcrumbs = $decoration.body.breadcrumbs )
-
-  #if ( $datePosition.equalsIgnoreCase( $position ) )
-    #if ( ( $datePosition.equalsIgnoreCase( "right" ) ) || ( $datePosition.equalsIgnoreCase( "bottom" ) ) )
-      &nbsp;| $i18n.getString( "site-renderer", $locale, "template.lastpublished" ): $dateToday
-      #if ( $versionPosition.equalsIgnoreCase( $position ) )
-        &nbsp;| $i18n.getString( "site-renderer", $locale, "template.version" ): ${project.version}
-      #end
-    #elseif ( ( $datePosition.equalsIgnoreCase( "navigation-bottom" ) ) || ( $datePosition.equalsIgnoreCase( "navigation-top" ) ) )
-      <div id="lastPublished">
-        $i18n.getString( "site-renderer", $locale, "template.lastpublished" ): $dateToday
-        #if ( $versionPosition.equalsIgnoreCase( $position ) )
-          &nbsp;| $i18n.getString( "site-renderer", $locale, "template.version" ): ${project.version}
-        #end
-      </div>
-    #elseif ( $datePosition.equalsIgnoreCase("left") )
-      <div class="xleft">
-        $i18n.getString( "site-renderer", $locale, "template.lastpublished" ): $dateToday
-        #if ( $versionPosition.equalsIgnoreCase( $position ) )
-          &nbsp;| $i18n.getString( "site-renderer", $locale, "template.version" ): ${project.version}
-        #end
-        #if ( $breadcrumbs && $breadcrumbs.size() > 0 )
-          | #breadcrumbs( $breadcrumbs )
-        #end
-      </div>
-    #end
-  #elseif ( $versionPosition.equalsIgnoreCase( $position ) )
-    #if ( ( $versionPosition.equalsIgnoreCase( "right" ) ) || ( $versionPosition.equalsIgnoreCase( "bottom" ) ) )
-      &nbsp;| $i18n.getString( "site-renderer", $locale, "template.version" ): ${project.version}
-    #elseif ( ( $versionPosition.equalsIgnoreCase( "navigation-bottom" ) ) || ( $versionPosition.equalsIgnoreCase( "navigation-top" ) ) )
-      <div id="lastPublished">
-        $i18n.getString( "site-renderer", $locale, "template.version" ): ${project.version}
-      </div>
-    #elseif ( $versionPosition.equalsIgnoreCase("left") )
-      <div class="xleft">
-        $i18n.getString( "site-renderer", $locale, "template.version" ): ${project.version}
-        #if ( $breadcrumbs && $breadcrumbs.size() > 0 )
-          | #breadcrumbs( $breadcrumbs )
-        #end
-      </div>
-    #end
-  #elseif ( $position.equalsIgnoreCase( "left" ) )
-    #if ( $breadcrumbs && $breadcrumbs.size() > 0 )
-      <div class="xleft">
-        #breadcrumbs( $breadcrumbs )
-      </div>
     #end
   #end
 #end
@@ -349,10 +276,15 @@
     </div>
     <div id="breadcrumbs">
 	    <div id="inner_breadcrumbs">
-	      #publishDate( "left" $decoration.publishDate $decoration.version )
-	      <div class="xright">#links( $decoration.body.links )
+	      <div class="xleft">#links( $decoration.body.links )
 	         | <a href="https://sourceforge.net/project/showfiles.php?group_id=188060">Current version: ${project.version}</a>
-	      #publishDate( "right" $decoration.publishDate $decoration.version )</div>
+	      </div>
+		      <div class="xright">
+				#set ( $format = "dd MMM yyyy" )
+				$dateFormat.applyPattern( $format )
+  				#set ( $dateToday = $dateFormat.format( $currentDate ) )				
+				$i18n.getString( "site-renderer", $locale, "template.lastpublished" ): $dateToday
+		      </div>
 	      <div class="clear">
 	        <hr/>
 	      </div>
@@ -362,21 +294,25 @@
     <div id="leftColumn">
 		<div id="navcolumn">
 
-	       #publishDate( "navigation-top" $decoration.publishDate $decoration.version )
 	       #mainMenu( $decoration.body.menus )
-	       #publishDate( "navigation-bottom" $decoration.publishDate $decoration.version )
 
-		   <div id="div_images_bar" class="single_menu_div images_div" align="center">
-			     <div style="margin: 8px; padding: 5px; background-color: #fff;">
+		   <div id="div_donate_bar" class="single_menu_div images_div">
+			   <h5>Donate!</h5>
+			   <div class="images_div" align="center">
+					<a href="http://sourceforge.net/donate/index.php?group_id=188060">
+					 	<img src="http://images.sourceforge.net/images/project-support.jpg" width="88" height="32" border="0" alt="Support This Project" />
+					</a>
+				</div>
+			</div>
+		   <div id="div_images_bar" class="single_menu_div images_div">
+		   <h5>Links</h5>
+			     <div style="images_div" align="center">
 				       #poweredByLogo( $decoration.poweredBy )
 				        <a href="http://www.jaspersoft.com/JasperSoft_JasperReports.html"><img src="$relativePath/images/logos/icon_pr_jasperreports_pro.gif" /></a>
 						<a style="border: 0pt none ; text-decoration: none; text-indent: 0pt;" href="http://www.jetbrains.com/idea/">
 							<img border="0" alt="The best Java IDE" src="http://www.jetbrains.com/idea/opensource/img/banners/idea88x31_blue.gif"/>
 						</a>
 				        <a href="http://eclipse.org/"><img src="$relativePath/images/logos/eclipse.png" /></a>
-						<a href="http://sourceforge.net/donate/index.php?group_id=188060">
-						 	<img src="http://images.sourceforge.net/images/project-support.jpg" width="88" height="32" border="0" alt="Support This Project" />
-						</a>
 			      </div>
 			</div>
 		</div>
@@ -411,10 +347,15 @@ $(document).ready(function(){
 
 		Rounded("div\#banner", "top", bgColor,frontColor,type);
 		Rounded("div\#breadcrumbs", "bottom", bgColor,frontColor,type);
-
+/*
 		$("#navcolumn .single_menu_div").each(function(){
 			Rounded("div#" + this.id,"all",bgColor,frontColor,type);
 		});
+	*/	
+		$("#navcolumn .single_menu_div:eq(0)").each(function(){
+			Rounded("div#" + this.id,"top",bgColor,frontColor,type);
+		});		
+		
 
 	});
 

@@ -30,8 +30,6 @@
 package ar.com.fdvs.dj.test.subreport;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;

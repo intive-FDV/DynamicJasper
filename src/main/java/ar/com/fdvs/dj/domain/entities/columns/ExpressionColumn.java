@@ -29,20 +29,13 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
-
-import net.sf.jasperreports.engine.JRVariable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.CustomExpression;
-import ar.com.fdvs.dj.util.ExpressionUtils;
-import ar.com.fdvs.dj.util.PropertiesMap;
 
 /**
  * Column created to handle Custom Expressions.</br>

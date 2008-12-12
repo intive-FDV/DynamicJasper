@@ -46,9 +46,6 @@ import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
-import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
 public class ExpressionUtils {
 
