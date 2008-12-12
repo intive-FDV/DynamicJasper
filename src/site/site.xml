@@ -54,7 +54,7 @@
       <item name="Features" href="docs/features.html"/>
       <item name="Screen shots" href="screenshots.html"/>
       <item name="Requeriments" href="requeriments.html"/>
-      <item name="Download" href="http://www.fdvs.com.ar/download.html" />
+      <item name="Download" href="javascript:goDownload(this);" />
       <item name="Project info" href="project-info.html"/>
 	  <item name="Paid Support" href="https://sourceforge.net/services/service_details.php?service_listing_id=2055"/>
     </menu>
@@ -62,7 +62,7 @@
       <item name="Introduction" href="docs/playground.html"/>
       <item name="Mini guide" href="docs/playground-mini-guide.html"/>
       <item name="Online Demo" href="http://dynamicjasperplayground.fdvs.com.ar/" external="true"/>
-      <item name="Download" href="http://www.fdvs.com.ar/download.html" />
+      <item name="Download" href="javascript:goDownload(this);" />
     </menu>
     <menu name="Documentation &amp; Examples">
       <item name="Getting Started" href="docs/getting_started.html"/>

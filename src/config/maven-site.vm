@@ -215,6 +215,13 @@
     #end
 #end
 
+#macro ( publishDate )
+	#set ( $format = "dd MMM yyyy" )
+	$dateFormat.applyPattern( $format )
+	#set ( $dateToday = $dateFormat.format( $currentDate ) )				
+	$i18n.getString( "site-renderer", $locale, "template.lastpublished" ): $dateToday
+#end
+
 #macro ( eclipseLogo  )
         <a href="http://eclipse.org/">
           <img src="$relativePath/images/logos/eclipse.png" ></img>
@@ -280,10 +287,7 @@
 	         | <a href="https://sourceforge.net/project/showfiles.php?group_id=188060">Current version: ${project.version}</a>
 	      </div>
 		      <div class="xright">
-				#set ( $format = "dd MMM yyyy" )
-				$dateFormat.applyPattern( $format )
-  				#set ( $dateToday = $dateFormat.format( $currentDate ) )				
-				$i18n.getString( "site-renderer", $locale, "template.lastpublished" ): $dateToday
+				#publishDate( )
 		      </div>
 	      <div class="clear">
 	        <hr/>
@@ -329,7 +333,7 @@
     </div>
 	<div class="single_menu_spacer_div">&nbsp;</div>
     <div id="footer">
-      <div class="xright">&#169;#copyright()#publishDate( "bottom" $decoration.publishDate $decoration.version )</div>
+      <div class="xright">&#169;#copyright(), #publishDate()</div>
    <div class="single_menu_spacer_div">&nbsp;</div>
     </div>
 
@@ -371,6 +375,19 @@ function makeImageLinks(){
 
 	//$("div.section").fadeIn('slow');
 }
+
+function goDownload(elem) {
+	var url = 'http://www.fdvs.com.ar/download.html';
+	try {
+		pageTracker._link(url);
+	} 
+	catch(e) {}
+	window.location.href = url;
+	
+	return true;
+}
+
+
 
 $(document).ready(makeImageLinks);
 </script>
