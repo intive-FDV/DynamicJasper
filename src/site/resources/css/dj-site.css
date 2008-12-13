@@ -375,14 +375,14 @@ h3
     {
     line-height: 1.3em;
     /*font-size: small;*/
-    margin: 5px 0px 5px 0px;
+    margin: 7px 0px 0px 0px;
     }
 
 #bodyColumn li, ol
     {
     line-height: 1.3em;
     font-size: small;
-    margin: 0 0 5px 0;
+    margin: 0px 0px 5px 0px;
 	list-style-position:inside;
 	padding-left:10px;
     }
