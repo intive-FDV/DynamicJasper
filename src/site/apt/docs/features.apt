@@ -15,39 +15,56 @@ Report Concept
  
 Features
 
- Most of the features are provided directly by Jasper Reports, but through the DJ API, some of the results are achieved with much less effort.                                     
+ Most of the features are provided directly by Jasper Reports (great tool guys!), nevertheless through the DJ API 
+ some of the results are achieved with really no effort.                                     
+ 
+ * <<100% pure Java>> 
+ 
+ 	* No need to use other tool than you favorite IDE.
+ 	
+ 	* Friendly and intuitive API.
+ 	
+ 	* Mature, robust and stable.
  
  * <<Dynamic column report>>
 		
  Columns can be defined at runtime, which means you also control (at runtime) the column positioning, width, title, etc.
 	
- * <<Repeating groups, Breaking groups>>
+ 
+ * <<Repeating groups / Breaking groups>>
 	
   You can create repeating groups dynamically using simple expressions as criteria or complex custom expressions.
   Each repeating group may have a header and/or footer, which can have a variable showing the result of and operation (SUM, COUNT or any other provided by Jasper Reports).
 	  
+ * <<Automatic report layout>>
+ 
+ Just define a minimum set of options and DJ will take care of the layout. It's not an issue to generate the 
+ same report for different page sizes and orientation many more!
+ 
  * <<Dynamic Crosstabs>>
 	
   JasperReport's popular crosstabs can now be created dynamically in a very easy and convenient way.
 	  
  * <<Sub reports>>
 
- Sub reports are supported, they can also be dynamically created. 
- Concatenating many reports in a single one (e.g.: a single PDF) can be a hard task. 
- Using DynamicJasper it is really easy get reports of different nature in a single one.
+ 	* Sub reports are supported, they can also be dynamically created. 
+ 	
+ 	* Concatenating many reports in a single one (e.g.: a single PDF) can be a hard task. 
+ 	  Using DynamicJasper it is really easy get reports of different nature in a single one.
  	  
- * <<Elemnt styles>>
+ * <<Styles>>
 		
- Each column can have its own style for its title and detail data (defining border, border color, font size, type and color, background color, etc.)
+ Each column can have its own style for its title and detail data (defining border, border color, font size, type and color, background color, etc.).
+ 
+ Style library from jrxml files are supported.
 
  * <<Variables>>
 	
  As told before, repeating groups can have variables that hold the result of and operation on a given field (column).
 	  
- * <<Calculated Columns>>
-	
- The DJ API provides a very friendly way to create calculated columns, this columns may shown the result of an operation between one, two or more columns. I.e.: for some reason the data source does not provide a column that should contain the result of "column A * column B", you can create a calculated column to solve this problem.
- The operation can also be a custom operation (created in Java) that can't (for example) concatenate or more columns, transform it contents, etc.
+~~ * <<Calculated Columns>>
+~~ The DJ API provides a very friendly way to create calculated columns, this columns may shown the result of an operation between one, two or more columns. I.e.: for some reason the data source does not provide a column that should contain the result of "column A * column B", you can create a calculated column to solve this problem.
+~~The operation can also be a custom operation (created in Java) that can't (for example) concatenate or more columns, transform it contents, etc.
       
  * <<JRXML template file>>
 
@@ -57,13 +74,21 @@ Features
 
  DJ provides a very simple way to define conditional formats. You can use simple conditions or custom conditions.
 	  
- * <<Charts>>
-
- Easy to add simple charts
+ * <<Charts.>> Easy to add simple charts
 	  
- * <<Exporting to most popular formats>>
+ * <<Barcode columns.>> As simple as adding a regular column
+ 
+ * <<Export to most popular formats>>
 
- As DJ stands over Jasper Reports, the output formats will be any given by the latter, but one of the most valuable features that DJ provides is exporting plain reports to excel, with no data formatting, no page break, etc. This is very valuable for end users that use this report to create dynamic tables in Excel, creating this reports just with Jasper Reports can demand a lot of design time.
+	As DJ stands over Jasper Reports, it can export to PDF, XML, HTML, CSV, XLS, RTF, TXT.
+ 
+ * <<Clean Excel export>>
+ 
+   One of the most valuable features that DJ provides is exporting plain reports to excel, with no data formatting, no page break, etc. This is very valuable for end users that use this report to create dynamic tables in Excel, creating this reports just with Jasper Reports can demand a lot of design time.
+
+ * <<Integration with popular MVC frameworks>>
+ 
+ Actually <<Struts 2>> and <<WebWork>> are supported out of the box. A <<Grails>> plugin is soon to be released 
       
  * <<Many more!>>
     

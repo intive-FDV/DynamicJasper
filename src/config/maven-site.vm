@@ -249,6 +249,7 @@
       <meta name="author" content="$author" />
     #end
     <meta http-equiv="Content-Type" content="text/html; charset=${outputEncoding}" />
+    <meta name="keywords" content="dynamic java report, dynamic report, dynamic jasper report">
     <script type="text/javascript">
 	function expand( item ) {
 		var expandIt = document.getElementById( item );
