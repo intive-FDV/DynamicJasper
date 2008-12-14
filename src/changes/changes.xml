@@ -35,6 +35,11 @@
 			</properties>
 	 <body>
 	 
+				 <release version="3.0.3" date="2008-12-15"	desc="Enhancements and fixes">
+					 <action dev="Juan Manuel Alvarez" type="fixed" due-to="Mariano Stampella" >
+						 removed unnecessary static dependency to webwork. 
+					 </action>
+				 </release>
 				 <release version="3.0.2" date="2008-12-09"	desc="Enhancements and fixes">
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						 Performance fix for CustomExpression, now using Jasper's ScriptLet to reuse field, variables and parameters map 

@@ -40,11 +40,10 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 import net.sf.jasperreports.engine.export.JRXmlExporter;
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.layout.ListLayoutManager;
-
-import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
 
 /**
  * @author Alejandro Gomez
@@ -55,11 +54,11 @@ public class FormatInfoRegistry {
 
     private static final Map FORMAT_INFO = new HashMap();
     static {
-        FORMAT_INFO.put(JasperReportConstants.FORMAT_CSV, new FormatInfo("text/plain", JRCsvExporter.class, ClassicLayoutManager.class));
-        FORMAT_INFO.put(JasperReportConstants.FORMAT_HTML, new FormatInfo("text/html", JRHtmlExporter.class, ClassicLayoutManager.class));
-        FORMAT_INFO.put(JasperReportConstants.FORMAT_PDF, new FormatInfo("application/pdf", JRPdfExporter.class, ClassicLayoutManager.class));
-        FORMAT_INFO.put(JasperReportConstants.FORMAT_XLS, new FormatInfo("application/vnd.ms-excel", JRXlsExporter.class, ListLayoutManager.class));
-        FORMAT_INFO.put(JasperReportConstants.FORMAT_XML, new FormatInfo("text/xml", JRXmlExporter.class, ClassicLayoutManager.class));
+        FORMAT_INFO.put(DJConstants.FORMAT_CSV, new FormatInfo("text/plain", JRCsvExporter.class, ClassicLayoutManager.class));
+        FORMAT_INFO.put(DJConstants.FORMAT_HTML, new FormatInfo("text/html", JRHtmlExporter.class, ClassicLayoutManager.class));
+        FORMAT_INFO.put(DJConstants.FORMAT_PDF, new FormatInfo("application/pdf", JRPdfExporter.class, ClassicLayoutManager.class));
+        FORMAT_INFO.put(DJConstants.FORMAT_XLS, new FormatInfo("application/vnd.ms-excel", JRXlsExporter.class, ListLayoutManager.class));
+        FORMAT_INFO.put(DJConstants.FORMAT_XML, new FormatInfo("text/xml", JRXmlExporter.class, ClassicLayoutManager.class));
     }
 
     private static final FormatInfoRegistry INSTANCE = new FormatInfoRegistry();

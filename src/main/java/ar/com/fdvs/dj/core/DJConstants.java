@@ -94,6 +94,12 @@ public interface DJConstants {
 	int SUBREPORT_PARAM_ORIGIN_CUSTOM = 4; //write your own expression
 
 	String CUSTOM_EXPRESSION__PARAMETERS_MAP = "REPORT_PARAMETERS_MAP";
+	
+	public static String FORMAT_CSV = "CSV";
+	public static String FORMAT_HTML = "HTML";
+	public static String FORMAT_PDF = "PDF";
+	public static String FORMAT_XLS = "XLS";
+	public static String FORMAT_XML = "XML";
 
 
 }
