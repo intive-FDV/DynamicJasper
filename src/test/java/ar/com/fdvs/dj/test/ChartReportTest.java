@@ -149,17 +149,17 @@ public class ChartReportTest extends BaseDjReportTest {
 		drb.addColumn(columnAmount);
 
 		drb.addGroup(g1); // add group g1
-		drb.addGroup(g2); // add group g2
+//		drb.addGroup(g2); // add group g2
 
 		drb.setUseFullPageWidth(true);
 
 		DJChartBuilder cb = new DJChartBuilder();
-		DJChart chart =  cb.addType(DJChart.BAR_CHART)
-						.addOperation(DJChart.CALCULATION_SUM)
-						.addColumnsGroup(g2)
+		DJChart chart =  cb.setType(DJChart.BAR_CHART)
+						.setOperation(DJChart.CALCULATION_SUM)
+						.setColumnsGroup(g1)
 						.addColumn(columnAmount)
 						.addColumn(columnaQuantity)
-						.setPosition(DJChartOptions.POSITION_FOOTER)
+						.setPosition(DJChartOptions.POSITION_HEADER)
 						.setShowLabels(true)
 						.build();
 
@@ -173,8 +173,9 @@ public class ChartReportTest extends BaseDjReportTest {
 	public static void main(String[] args) throws Exception {
 		ChartReportTest test = new ChartReportTest();
 		test.testReport();
+		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);
-		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, test.getLayoutManager(),test.params));
+//		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(test.dr, test.getLayoutManager(),test.params));
 	}
 
 }

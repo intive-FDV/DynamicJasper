@@ -697,6 +697,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		//I need to find parent group of the criteria group, clone and insert after.
 		//The only precaution is that if parent == child (only one group in the report) the we insert before
 		if (jrGroup.equals(parentGroup)){
+			jrGroupChart.setExpression(ExpressionUtils.createStringExpression("\"dummy_for_chart\""));
 			getDesign().getGroupsList().add( getDesign().getGroupsList().indexOf(jrGroup) , jrGroupChart);
 		} else {
 			int index = getDesign().getGroupsList().indexOf(parentGroup);
