@@ -711,19 +711,23 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		//Only the value in header
 		PropertyColumn column = group.getColumnToGroupBy();
 
+		Integer height = group.getHeaderVariablesHeight()!=null 
+		? group.getHeaderVariablesHeight()
+				:getReport().getOptions().getDetailHeight();
+		
 		//VALUE_IN_HEADER,
 		//VALUE_IN_HEADER_WITH_HEADERS,
 		//VALUE_IN_HEADER_AND_FOR_EACH,
 		//VALUE_IN_HEADER_AND_FOR_EACH_WITH_HEADERS
 		if (layout.isShowValueInHeader() && layout.isHideColumn() && !layout.isShowColumnName()){
 			//textfield for the current value
-			JRDesignTextField currentValue = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), group);
+			JRDesignTextField currentValue = generateTextFieldFromColumn(column, height.intValue(), group);
 
 			//The width will be all the page
 			currentValue.setWidth(getReport().getOptions().getPrintableWidth());
 
 			//fix the height depending on the font size
-			currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont()));
+//			currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont())); //XXX CAREFULL
 			yOffset += currentValue.getHeight();
 
 			//Move down existing elements in the band.
@@ -743,7 +747,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			columnNameTf.setY(columnNameTf.getY() + headerOffset);
 
 			//textfield for the current value
-			JRDesignTextField currentValue = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), group);
+			JRDesignTextField currentValue = generateTextFieldFromColumn(column, height.intValue(), group);
 
 			//The width will be (width of the page) - (column name width)
 			currentValue.setWidth(getReport().getOptions().getPrintableWidth() - columnNameTf.getWidth());
@@ -768,92 +772,109 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	protected void placeVariableInBand(List variables, DJGroup columnsGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
-		log.debug("Placing variables in "+type+" band...");
-		if ((variables != null) && (!variables.isEmpty())) {
-			Iterator it = variables.iterator();
-			while (it.hasNext()) {
-				DJGroupVariable var = (DJGroupVariable) it.next();
-				AbstractColumn col = var.getColumnToApplyOperation();
+		if ((variables == null) || (variables.isEmpty())) {
+			return;
+		}
+		
+		log.debug("Placing variables in "+type+" band for group " + columnsGroup.getColumnToGroupBy().getTextForExpression());
+		
+		Integer height = null;
+		if (DJConstants.HEADER.equals(type))
+			height = columnsGroup.getHeaderVariablesHeight()!=null 
+						? columnsGroup.getHeaderVariablesHeight()
+						:getReport().getOptions().getDetailHeight();
+		else 
+			height = columnsGroup.getFooterVariablesHeight()!=null 
+						? columnsGroup.getFooterVariablesHeight()
+						:getReport().getOptions().getDetailHeight();
+		
+		Iterator it = variables.iterator();
+		while (it.hasNext()) {
+			DJGroupVariable var = (DJGroupVariable) it.next();
+			AbstractColumn col = var.getColumnToApplyOperation();
 
-				String variableName = col.getGroupVariableName(type, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty());
+			String variableName = col.getGroupVariableName(type, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty());
 
-				JRDesignExpression expression = new JRDesignExpression();
-				JRDesignTextField textField = new JRDesignTextField();
-				expression.setText("$V{" + variableName + "}");
-				expression.setValueClassName(col.getVariableClassName(var.getOperation()));
-				if (var.getOperation() != DJCalculation.COUNT)
-					textField.setPattern(col.getPattern());
+			JRDesignExpression expression = new JRDesignExpression();
+			JRDesignTextField textField = new JRDesignTextField();
+			expression.setText("$V{" + variableName + "}");
+			expression.setValueClassName(col.getVariableClassName(var.getOperation()));
+			if (var.getOperation() != DJCalculation.COUNT)
+				textField.setPattern(col.getPattern());
 
-				textField.setKey(variableName);
-				textField.setExpression(expression);
+			textField.setKey(variableName);
+			textField.setExpression(expression);
 
-				if (DJConstants.FOOTER.equals(type)){
-					textField.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
-				}
+			if (DJConstants.FOOTER.equals(type)){
+				textField.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+			}
 
-				textField.setX(col.getPosX().intValue());
-				if (yOffset!=0)
-					textField.setY(yOffset);
+			textField.setX(col.getPosX().intValue());
+			if (yOffset!=0)
+				textField.setY(yOffset);
 
 //				textField.setHeight(columnsGroup.getHeaderHeight().intValue());
-				textField.setHeight(2 + getReport().getOptions().getDetailHeight().intValue()); //XXX be carefull with the "2+ ..."
-				textField.setWidth(col.getWidth().intValue());
+			textField.setHeight(2 + height.intValue() ); 
+//				textField.setHeight(2 + getReport().getOptions().getDetailHeight().intValue()); //XXX be carefull with the "2+ ..."
+			textField.setWidth(col.getWidth().intValue());
 
-				textField.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
+			textField.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
 
-				textField.setEvaluationGroup(jgroup);
-				//Assign the style to the element.
-				//First we look for the specific element style, then the default style for the group variables
-				//and finally the column style.
-				Style defStyle = DJConstants.HEADER.equals(type)?columnsGroup.getDefaulHeaderVariableStyle():columnsGroup.getDefaulFooterVariableStyle();
+			textField.setEvaluationGroup(jgroup);
+			//Assign the style to the element.
+			//First we look for the specific element style, then the default style for the group variables
+			//and finally the column style.
+			Style defStyle = DJConstants.HEADER.equals(type)
+						? columnsGroup.getDefaulHeaderVariableStyle()
+						: columnsGroup.getDefaulFooterVariableStyle();
 
-				if (var.getStyle() != null)
-					applyStyleToElement(var.getStyle(), textField);
-				else if (defStyle != null)
-					applyStyleToElement(defStyle, textField);
-				else {
-					//Last resource is tu use the column style, but a copy of it because
-					//the one in the internal cache can get modified by the layout manager (like in the odd row case)
-					Style style = col.getStyle();
-					try {
-						style = (Style) BeanUtils.cloneBean(style);
-						style.setName(null); //set to null to make applyStyleToElement(...) assign a name
-					} catch (Exception e) {	}
-					applyStyleToElement(style, textField);
-				}
-
-
-				band.addElement(textField);
-
+			if (var.getStyle() != null)
+				applyStyleToElement(var.getStyle(), textField);
+			else if (col.getStyle() != null) {
+				//Last resource is to use the column style, but a copy of it because
+				//the one in the internal cache can get modified by the layout manager (like in the odd row case)
+				Style style = col.getStyle();
+				try {
+					style = (Style) BeanUtils.cloneBean(style);
+					style.setName(null); //set to null to make applyStyleToElement(...) assign a name
+				} catch (Exception e) {	}
+				applyStyleToElement(style, textField);
 			}
+			else if (defStyle != null)
+				applyStyleToElement(defStyle, textField);
 
-			if (columnsGroup.getColumnToGroupBy() instanceof GlobalGroupColumn) {
-				int totalWidth = 0;
 
-				DJGroupVariable leftmostColumn = findLeftMostColumn(variables);
-				totalWidth = leftmostColumn.getColumnToApplyOperation().getPosX().intValue();
+			band.addElement(textField);
 
-				GlobalGroupColumn globalCol = (GlobalGroupColumn) columnsGroup.getColumnToGroupBy();
+		}
 
-				JRDesignTextField globalTextField = new JRDesignTextField();
-				JRDesignExpression globalExp = new JRDesignExpression();
-				globalExp.setText(globalCol.getTextForExpression());
-				globalExp.setValueClassName(globalCol.getValueClassNameForExpression());
-				globalTextField.setExpression(globalExp);
+		if (columnsGroup.getColumnToGroupBy() instanceof GlobalGroupColumn) {
+			int totalWidth = 0;
+
+			DJGroupVariable leftmostColumn = findLeftMostColumn(variables);
+			totalWidth = leftmostColumn.getColumnToApplyOperation().getPosX().intValue();
+
+			GlobalGroupColumn globalCol = (GlobalGroupColumn) columnsGroup.getColumnToGroupBy();
+
+			JRDesignTextField globalTextField = new JRDesignTextField();
+			JRDesignExpression globalExp = new JRDesignExpression();
+			globalExp.setText(globalCol.getTextForExpression());
+			globalExp.setValueClassName(globalCol.getValueClassNameForExpression());
+			globalTextField.setExpression(globalExp);
 
 //				globalTextField.setHeight(band.getHeight()); //XXX Changed, see if its ok
-				globalTextField.setHeight(2 + getReport().getOptions().getDetailHeight().intValue()); //XXX be carefull with the "2+ ..."
-				globalTextField.setWidth(totalWidth);
+//			globalTextField.setHeight(2 + getReport().getOptions().getDetailHeight().intValue()); //XXX be carefull with the "2+ ..."
+			globalTextField.setHeight(2 + height.intValue() ); //XXX be carefull with the "2+ ..."
+			globalTextField.setWidth(totalWidth);
 //				globalTextField.setX(((AbstractColumn)getReport().getColumns().get(0)).getPosX().intValue());
-				globalTextField.setX(0);
-				if (type.equals(ColumnsGroupVariablesRegistrationManager.HEADER))
-					globalTextField.setY(yOffset);
-				globalTextField.setKey("global_legend_"+type);
+			globalTextField.setX(0);
+			if (type.equals(ColumnsGroupVariablesRegistrationManager.HEADER))
+				globalTextField.setY(yOffset);
+			globalTextField.setKey("global_legend_"+type);
 
-				applyStyleToElement(globalCol.getStyle(), globalTextField);
+			applyStyleToElement(globalCol.getStyle(), globalTextField);
 
-				band.addElement(globalTextField);
-			}
+			band.addElement(globalTextField);
 		}
 	}
 
@@ -870,10 +891,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		return mostLeftColumn;
 	}
 
-	protected void insertValueInHeader(JRDesignBand headerBand, DJGroup columnsGroup, int headerOffset) {
+	protected void insertValueInHeader(JRDesignBand headerBand, DJGroup djgroup, int headerOffset) {
 //		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), columnsGroup.getHeaderHeight().intValue(), columnsGroup);
-		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), getReport().getOptions().getDetailHeight().intValue(), columnsGroup);
-		textField.setHorizontalAlignment(columnsGroup.getColumnToGroupBy().getStyle().getHorizontalAlign().getValue());
+		int height = getReport().getOptions().getDetailHeight().intValue();
+		
+		if (!djgroup.getHeaderVariables().isEmpty())
+			height = djgroup.getHeaderVariablesHeight()!=null 
+						? djgroup.getHeaderVariablesHeight().intValue()
+						:getReport().getOptions().getDetailHeight().intValue();		
+		
+		JRDesignTextField textField = generateTextFieldFromColumn(djgroup.getColumnToGroupBy(), height, djgroup);
+		textField.setHorizontalAlignment(djgroup.getColumnToGroupBy().getStyle().getHorizontalAlign().getValue());
 		textField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX this is a patch for subreports, ensure it works well.
 		textField.setY(textField.getY() + headerOffset);
 		headerBand.addElement(textField);

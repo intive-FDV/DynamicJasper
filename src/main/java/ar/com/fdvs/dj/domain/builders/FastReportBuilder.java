@@ -450,12 +450,13 @@ public class FastReportBuilder extends DynamicReportBuilder {
 
 	public FastReportBuilder addGlobalHeaderVariable(int colNumber, DJCalculation op, Style style) {
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
-		if (this.globalHeaderVariables == null)
-			this.globalHeaderVariables = new ArrayList();
+//		if (this.globalHeaderVariables == null)
+//			this.globalHeaderVariables = new ArrayList();
 		if (style == null)
-			style = numberStyle;
-
-		this.globalHeaderVariables.add(new DJGroupVariable(column, op, style));
+			style = numberStyle; //XXX Carefree style assignment
+//		this.globalHeaderVariables.add(new DJGroupVariable(column, op, style));
+		
+		this.globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, op, style));
 		return this;
 	}
 
@@ -485,14 +486,22 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return group;
 	}
 
+	/**
+	 * 
+	 * @param colNumber
+	 * @param op
+	 * @param style OPTIONAL, may be null
+	 * @return
+	 */
 	public FastReportBuilder addGlobalFooterVariable(int colNumber, DJCalculation op, Style style) {
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
-		if (this.globalFooterVariables == null)
-			this.globalFooterVariables = new ArrayList();
+//		if (this.globalFooterVariables == null)
+//			this.globalFooterVariables = new ArrayList();
 		if (style == null)
 			style = numberStyle;
 
-		this.globalFooterVariables.add(new DJGroupVariable(column, op, style));
+//		this.globalFooterVariables.add(new DJGroupVariable(column, op, style));
+		this.globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, op, style));
 		return this;
 	}
 

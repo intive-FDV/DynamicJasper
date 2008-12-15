@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -63,12 +64,17 @@ public class DJGroup implements Entity {
 	private Map columnHeaderStyles = new HashMap();
 	private Style defaultColumnHeaederStyle;
 
-	//<ColumnsGroupVariable>
+	//<DJGroupVariable>
 	private List headerVariables = new ArrayList();
-	//<ColumnsGroupVariable>
+	//<DJGroupVariable>
 	private List footerVariables = new ArrayList();
-	private Integer headerHeight = new Integer(20);
-	private Integer footerHeight = new Integer(20);
+	
+	private Integer headerHeight = DynamicReportOptions.DEFAULT_HEADER_HEIGHT; //for headers
+	private Integer footerHeight = DynamicReportOptions.DEFAULT_FOOTER_HEIGHT; //for headers
+	
+	private Integer headerVariablesHeight = DynamicReportOptions.DEFAULT_DETAIL_HEIGHT; //for values such as calculations, current value, etc.
+	private Integer footerVariablesHeight = DynamicReportOptions.DEFAULT_DETAIL_HEIGHT; //for values such as calculations, current value, etc.
+	
 	private GroupLayout layout = GroupLayout.DEFAULT;
 	private List footerSubreports = new ArrayList();
 	private List headerSubreports = new ArrayList();
@@ -243,6 +249,30 @@ public class DJGroup implements Entity {
 
 	public void setAllowFooterSplit(boolean allowFooterSplit) {
 		this.allowFooterSplit = allowFooterSplit;
+	}
+
+	public Integer getHeaderVariablesHeight() {
+		return headerVariablesHeight;
+	}
+
+	public void setHeaderVariablesHeight(Integer headerVariablesHeight) {
+		this.headerVariablesHeight = headerVariablesHeight;
+	}
+
+	public Integer getFooterVariablesHeight() {
+		return footerVariablesHeight;
+	}
+
+	public void setFooterVariablesHeight(Integer footerVariablesHeight) {
+		this.footerVariablesHeight = footerVariablesHeight;
+	}
+	
+	public void addHeaderVariable(DJGroupVariable var) {
+		headerVariables.add(var);
+	}
+	
+	public void addFooterVariable(DJGroupVariable var) {
+		footerVariables.add(var);
 	}
 
 }

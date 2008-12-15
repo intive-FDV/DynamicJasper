@@ -68,7 +68,7 @@ public class CommonExpressionsHelper {
 
 		JRDesignTextField pageCounter = new JRDesignTextField();
 
-		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
+		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression(" ", "",false));
 		pageCounter.setHeight(height);
 		pageCounter.setWidth(autoText.getWidth2().intValue());
 		pageCounter.setY(yOffset);

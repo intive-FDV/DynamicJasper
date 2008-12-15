@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
 
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.DJCalculation;
@@ -65,10 +66,17 @@ public class GroupsReportTest extends BaseDjReportTest {
 		headerStyle.setTransparency(Transparency.OPAQUE);
 
 		Style headerVariables = new Style("headerVariables");
-		headerVariables.setFont(Font.ARIAL_SMALL_BOLD);
+		headerVariables.setFont(Font.ARIAL_BIG_BOLD);
 		headerVariables.setBorderBottom(Border.THIN);
 		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
-		headerVariables.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerVariables.setVerticalAlign(VerticalAlign.TOP);
+
+		Style groupVariables = new Style("groupVariables");
+		groupVariables.setFont(Font.ARIAL_MEDIUM_BOLD);
+		groupVariables.setTextColor(Color.BLUE);
+		groupVariables.setBorderBottom(Border.THIN);
+		groupVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
+		groupVariables.setVerticalAlign(VerticalAlign.BOTTOM);
 
 		Style titleStyle = new Style("titleStyle");
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
@@ -126,7 +134,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 
 		AbstractColumn columnAmount = ColumnBuilder.getInstance()
 				.setColumnProperty("amount", Float.class.getName()).setTitle(
-						"Amount").setWidth(new Integer(90))
+						"Amount").setWidth(new Integer(100))
 				.setPattern("$ 0.00").setStyle(importeStyle).setHeaderStyle(
 						headerStyle).build();
 
@@ -134,15 +142,20 @@ public class GroupsReportTest extends BaseDjReportTest {
 		drb.addGlobalHeaderVariable(columnaQuantity, DJCalculation.SUM,headerVariables);
 		drb.addGlobalFooterVariable(columnAmount, DJCalculation.SUM,headerVariables);
 		drb.addGlobalFooterVariable(columnaQuantity, DJCalculation.SUM,headerVariables);
+		drb.setGlobalHeaderVariableHeight(new Integer(25));
+		drb.setGlobalFooterVariableHeight(new Integer(25));
 
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
-				.addHeaderVariable(columnAmount,DJCalculation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addFooterVariable(columnAmount,DJCalculation.SUM) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addFooterVariable(columnaQuantity,DJCalculation.SUM) // idem for the columnaQuantity column
+//				.addFooterVariable(columnaQuantity,DJCalculation.SUM,groupVariables) // idem for the columnaQuantity column
+//				.addFooterVariable(columnAmount,DJCalculation.SUM,groupVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
+				.addHeaderVariable(columnaQuantity,DJCalculation.SUM,groupVariables) // idem for the columnaQuantity column
+				.addHeaderVariable(columnAmount,DJCalculation.SUM,groupVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.setFooterVariablesHeight(new Integer(20))
+				.setHeaderVariablesHeight(new Integer(35))
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
@@ -173,7 +186,9 @@ public class GroupsReportTest extends BaseDjReportTest {
 	public static void main(String[] args) throws Exception {
 		GroupsReportTest test = new GroupsReportTest();
 		test.testReport();
+		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);
+		JasperDesignViewer.viewReportDesign(test.jr);
 	}
 
 }

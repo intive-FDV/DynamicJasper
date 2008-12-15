@@ -90,7 +90,7 @@ public class ImageBannerReportTest extends BaseDjReportTest {
 
 		AbstractColumn columnState = ColumnBuilder.getInstance().setColumnProperty("state", String.class.getName())
 			.setTitle("State").setWidth(new Integer(85))
-			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
+			.setStyle(titleStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getInstance().setColumnProperty("branch", String.class.getName())
 			.setTitle("Branch").setWidth(new Integer(85))
@@ -124,7 +124,7 @@ public class ImageBannerReportTest extends BaseDjReportTest {
 																					//values of the columnAmount in this group.
 
 			.addFooterVariable(columnaQuantity,DJCalculation.SUM)	//idem for the columnaQuantity column
-			.setGroupLayout(GroupLayout.DEFAULT)				//tells the group how to be shown, there are many
+			.setGroupLayout(GroupLayout.VALUE_IN_HEADER)				//tells the group how to be shown, there are many
 																					//posibilities, see the GroupLayout for more.
 			.build();
 

@@ -82,19 +82,26 @@ public class DynamicReportBuilder {
 
 	protected DynamicReport report = new DynamicReport();
 	protected DynamicReportOptions options = new DynamicReportOptions();
-	protected String grandTotalLegend = "";
-	protected ArrayList globalFooterVariables;
-	protected ArrayList globalHeaderVariables;
+//	protected String grandTotalLegend = "";
+//	protected ArrayList globalFooterVariables;
+//	protected ArrayList globalHeaderVariables;
 	protected ArrayList globalFooterCrosstabs;
 	protected ArrayList globalHeaderCrosstabs;
 	protected ArrayList autoTexts;
 	protected Map groupFooterSubreports = new HashMap();
 	protected Map groupHeaderSubreports = new HashMap();
+	
+	protected DJGroup globalVariablesGroup;
 
 
 	protected ArrayList concatenatedReports = new ArrayList();
-	private Style grandTotalStyle;
+//	private Style grandTotalStyle;
 
+	public DynamicReportBuilder () {
+		super();
+		globalVariablesGroup = createDummyGroup();
+	}
+	
 	public DynamicReportBuilder addAutoText(AutoText text) {
 		if (this.autoTexts == null)
 			this.autoTexts = new ArrayList();
@@ -221,9 +228,8 @@ public class DynamicReportBuilder {
 
 	public DynamicReport build(){
 		report.setOptions(options);
-		if (globalFooterVariables != null || globalHeaderVariables != null) {
-			DJGroup globalGroup = createDummyGroup();
-			report.getColumnsGroups().add(0,globalGroup);
+		if (!globalVariablesGroup.getFooterVariables().isEmpty() || !globalVariablesGroup.getHeaderVariables().isEmpty() ) {
+			report.getColumnsGroups().add(0,globalVariablesGroup);
 		}
 
 
@@ -309,13 +315,13 @@ public class DynamicReportBuilder {
 		DJGroup globalGroup = new DJGroup();
 		globalGroup.setLayout(GroupLayout.EMPTY);
 		GlobalGroupColumn globalCol = new GlobalGroupColumn("global");
-		globalCol.setTitle(grandTotalLegend);
-		globalCol.setHeaderStyle(grandTotalStyle);
-		globalCol.setStyle(grandTotalStyle);
+//		globalCol.setTitle(grandTotalLegend);
+//		globalCol.setHeaderStyle(grandTotalStyle);
+//		globalCol.setStyle(grandTotalStyle);
 
 		globalGroup.setColumnToGroupBy(globalCol);
-		globalGroup.setHeaderVariables(globalHeaderVariables);
-		globalGroup.setFooterVariables(globalFooterVariables);
+//		globalGroup.setHeaderVariables(globalHeaderVariables);
+//		globalGroup.setFooterVariables(globalFooterVariables);
 		return globalGroup;
 	}
 
@@ -324,9 +330,9 @@ public class DynamicReportBuilder {
 		globalGroup.setLayout(GroupLayout.EMPTY);
 		GlobalGroupColumn globalCol = new GlobalGroupColumn(name );
 
-		globalCol.setTitle(grandTotalLegend);
-		globalCol.setHeaderStyle(grandTotalStyle);
-		globalCol.setStyle(grandTotalStyle);
+		globalCol.setTitle("");
+//		globalCol.setHeaderStyle(grandTotalStyle);
+//		globalCol.setStyle(grandTotalStyle);
 
 		globalGroup.setColumnToGroupBy(globalCol);
 		return globalGroup;
@@ -522,7 +528,7 @@ public class DynamicReportBuilder {
 	}
 
 	public DynamicReportBuilder setGrandTotalLegend(String title) {
-		this.grandTotalLegend = title;
+		this.globalVariablesGroup.getColumnToGroupBy().setTitle(title);
 		return this;
 	}
 
@@ -532,16 +538,22 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op) {
-		if (this.globalHeaderVariables == null)
-			this.globalHeaderVariables = new ArrayList();
-		this.globalHeaderVariables.add(new DJGroupVariable(col, op));
+		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op));
+		return this;
+	}
+
+	public DynamicReportBuilder setGlobalHeaderVariableHeight(Integer height) {
+		globalVariablesGroup.setHeaderVariablesHeight(height);
+		return this;
+	}
+
+	public DynamicReportBuilder setGlobalFooterVariableHeight(Integer height) {
+		globalVariablesGroup.setFooterVariablesHeight(height);
 		return this;
 	}
 
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op, Style style) {
-		if (this.globalHeaderVariables == null)
-			this.globalHeaderVariables = new ArrayList();
-		this.globalHeaderVariables.add(new DJGroupVariable(col, op, style));
+		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op, style));
 		return this;
 	}
 
@@ -552,16 +564,12 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, DJCalculation op) {
-		if (this.globalFooterVariables == null)
-			this.globalFooterVariables = new ArrayList();
-		this.globalFooterVariables.add(new DJGroupVariable(col, op));
+		globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op));
 		return this;
 	}
 
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, DJCalculation op, Style style) {
-		if (this.globalFooterVariables == null)
-			this.globalFooterVariables = new ArrayList();
-		this.globalFooterVariables.add(new DJGroupVariable(col, op, style));
+		globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style));
 		return this;
 	}
 
@@ -959,7 +967,8 @@ public class DynamicReportBuilder {
 	}
 
 	public DynamicReportBuilder setGrandTotalLegendStyle(Style grandTotalStyle) {
-		this.grandTotalStyle = grandTotalStyle;
+		this.globalVariablesGroup.getColumnToGroupBy().setHeaderStyle(grandTotalStyle);
+		this.globalVariablesGroup.getColumnToGroupBy().setStyle(grandTotalStyle);
 		return this;
 	}
 

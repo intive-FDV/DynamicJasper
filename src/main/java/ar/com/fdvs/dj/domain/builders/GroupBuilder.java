@@ -112,13 +112,43 @@ public class GroupBuilder {
 		return this;
 	}
 
+	/**
+	 * Height for headers (column titles) 
+	 * @param height
+	 * @return
+	 */
 	public GroupBuilder setHeaderHeight(Integer height) {
 		group.setHeaderHeight(height);
 		return this;
 	}
 
+	/**
+	 * Height for footer band. NOT USED AT ALL 
+	 * @param height
+	 * @return
+	 */
 	public GroupBuilder setFooterHeight(Integer height) {
 		group.setFooterHeight(height);
+		return this;
+	}
+
+	/**
+	 * height for values shown in group header such as calculations, current value, etc.
+	 * @param height
+	 * @return
+	 */
+	public GroupBuilder setHeaderVariablesHeight(Integer height) {
+		group.setHeaderVariablesHeight(height);
+		return this;
+	}
+	
+	/**
+	 * height for values shown in group footer such as calculations, current value, etc.
+	 * @param height
+	 * @return
+	 */
+	public GroupBuilder setFooterVariablesHeight(Integer height) {
+		group.setFooterVariablesHeight(height);
 		return this;
 	}
 

@@ -36,11 +36,18 @@
 	 <body>
 	 
 				 <release version="3.0.3" date="2008-12-15"	desc="Enhancements and fixes">
-					 <action dev="Juan Manuel Alvarez" type="fixed" due-to="Mariano Stampella" >
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Mariano Stampella" >
 						 removed unnecessary static dependency to webwork. 
 					 </action>
-					 <action dev="Juan Manuel Alvarez" type="fixed" due-to="Juan Manuel Alvarez" >
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Mariano Stampella" >
 						 Error in charts logic when only 1 group. Now showing the chart once. 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						 Groups variables height can be defined independently on each group. This fix includes 
+						 footer and header grand total height.  
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+						 Bug in the logic for choosing default style in group headers and footer  
 					 </action>
 				 </release>
 				 <release version="3.0.2" date="2008-12-09"	desc="Enhancements and fixes">

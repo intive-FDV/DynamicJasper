@@ -241,9 +241,16 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		}
 	}
 
-	protected synchronized String createUniqueStyleName() {
-		String tryName = "dj_style_" + (getReportStyles().values().size() + 1);
-		return tryName;
+	protected String createUniqueStyleName() {
+		synchronized (this) {
+			int counter = getReportStyles().values().size() + 1;
+			String tryName = "dj_style_" + counter;
+			while (design.getStylesMap().get(tryName) != null){
+				counter++;
+				tryName = "dj_style_" + counter;
+			}
+			return tryName;
+		}
 	}
 
 	/**

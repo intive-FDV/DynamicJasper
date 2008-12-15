@@ -124,13 +124,14 @@ public class ChartsMultipleReportTest extends BaseDjReportTest {
 
 //		 define the criteria column to group by (columnState)
 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
-				.setGroupLayout(GroupLayout.EMPTY) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)
 				.build();
 		
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)
 		DJGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch) // and we add the same operations for the columnAmount and
 				.addFooterVariable(columnAmount,DJCalculation.SUM) // columnaQuantity columns
 				.addFooterVariable(columnaQuantity,	DJCalculation.SUM)
+				.setGroupLayout(GroupLayout.DEFAULT)
 				.build();
 
 		drb.addColumn(columnState);
@@ -147,11 +148,11 @@ public class ChartsMultipleReportTest extends BaseDjReportTest {
 		drb.setUseFullPageWidth(true);
 
 		DJChartBuilder cb = new DJChartBuilder();
-		DJChart chart =  cb.addType(DJChart.BAR_CHART)
-						.addOperation(DJChart.CALCULATION_SUM)
-						.addColumnsGroup(g1)
+		DJChart chart =  cb.setType(DJChart.BAR_CHART)
+						.setOperation(DJChart.CALCULATION_SUM)
+						.setColumnsGroup(g1)
 						.addColumn(columnAmount)
-						.setPosition(DJChartOptions.POSITION_FOOTER)
+						.setPosition(DJChartOptions.POSITION_HEADER)
 						.setShowLabels(true)
 						.setHeight(200)
 						.build();
@@ -160,10 +161,10 @@ public class ChartsMultipleReportTest extends BaseDjReportTest {
 		
 		DJChartBuilder cb2 = new DJChartBuilder();
 		DJChart chart2 =  cb2.addType(DJChart.PIE_CHART)
-						.addOperation(DJChart.CALCULATION_SUM)
-						.addColumnsGroup(g1)
+						.setOperation(DJChart.CALCULATION_SUM)
+						.setColumnsGroup(g1)
 						.addColumn(columnAmount)
-						.setPosition(DJChartOptions.POSITION_FOOTER)
+						.setPosition(DJChartOptions.POSITION_HEADER)
 						.setShowLabels(true)
 						.setHeight(200)
 						.build();
@@ -171,11 +172,11 @@ public class ChartsMultipleReportTest extends BaseDjReportTest {
 		drb.addChart(chart2); //add chart	
 		
 		DJChartBuilder cb3 = new DJChartBuilder();
-		DJChart chart3 =  cb3.addType(DJChart.PIE_CHART)
-		.addOperation(DJChart.CALCULATION_SUM)
-		.addColumnsGroup(g1)
+		DJChart chart3 =  cb3.setType(DJChart.PIE_CHART)
+		.setOperation(DJChart.CALCULATION_SUM)
+		.setColumnsGroup(g1)
 		.addColumn(columnAmount)
-		.setPosition(DJChartOptions.POSITION_FOOTER)
+		.setPosition(DJChartOptions.POSITION_HEADER)
 		.setShowLabels(true)
 		.setHeight(200)
 		.build();
