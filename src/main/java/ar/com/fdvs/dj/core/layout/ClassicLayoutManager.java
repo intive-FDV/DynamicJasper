@@ -654,6 +654,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider());
 					pageBreak.setKey(PAGE_BREAK_FOR_ + jrgroup.toString()); //set up a name to recognize the item later
 					pageBreak.setY(0);
+					pageBreak.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT);
 					targetBand.addElement(pageBreak);
 				}
 
