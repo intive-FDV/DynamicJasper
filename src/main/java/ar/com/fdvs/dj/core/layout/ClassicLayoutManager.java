@@ -913,10 +913,12 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField) {
 		//TODO: Set default characters when null values are found.
 		log.debug("transforming detail band text field...");
-		DJGroup group = DynamicJasperHelper.getColumnGroup(column, getReport().getColumnsGroups());
+		DJGroup group = getDJGroup(column);
 		if (group!=null&&!group.getLayout().isShowValueForEachRow()) {
 			textField.setExpression(null); //this way, the textfield is not added to the band
 		}
 	}
+	
+
 
 }

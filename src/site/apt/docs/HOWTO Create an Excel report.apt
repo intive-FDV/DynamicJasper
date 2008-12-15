@@ -2,7 +2,7 @@
 	HOW-TO Create an Excel report
 	----------
 
-HOW-TO Create an Excel report
+HOW-TO Create a clean Excel report
 
  DynamicJasper is a useful tool when creating plain Excel sheets. The only difference with regular reports, is that we have to use
  the <<ListLayoutManager>> class instead of the <<ClassicLayoutManager>>. This is because the former layout manager

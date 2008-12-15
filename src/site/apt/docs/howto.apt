@@ -59,7 +59,9 @@ HOW TO Guide
 
  * {{{HOWTO export to jrxml.html}Export report design to jrxml}}
 
- * {{{HOWTO Create an Excel report.html}Create an Excel report}}
+ * {{{HOWTO Create an Excel report.html}Create a clean Excel report}} (friendly for data manipulation in Excel)
+
+ * {{{HOWTO Export to HTML.html}Export to HTML}}
 
  []
 

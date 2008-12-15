@@ -841,6 +841,32 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		return (JRDesignGroup) realGroups.get(index);
 	}
 
+	
+	protected DJGroup getDJGroup(AbstractColumn col) {
+		Iterator it = getReport().getColumnsGroups().iterator();
+		while (it.hasNext()) {
+			DJGroup group = (DJGroup) it.next();
+			if (group.getColumnToGroupBy().equals(col))
+				return group;
+		}
+		return null;
+	}		
+	
+	
+	/**
+	 * Returns true if at least one group is configured to show the column name in its header
+	 * @param groups
+	 * @return
+	 */
+	protected boolean existsGroupWithColumnNames() {
+		Iterator it = getReport().getColumnsGroups().iterator();
+		while (it.hasNext()) {
+			DJGroup group = (DJGroup) it.next();
+			if (group.getLayout().isShowColumnName())
+				return true;
+		}
+		return false;
+	}	
 
 	protected JasperDesign getDesign() {
 		return design;

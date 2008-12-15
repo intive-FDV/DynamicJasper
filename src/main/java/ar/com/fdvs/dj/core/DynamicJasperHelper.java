@@ -57,6 +57,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JRCompiler;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -275,7 +276,7 @@ public final class DynamicJasperHelper {
     	}
     	registerEntities(jd, dr);
     	layoutManager.applyLayout(jd, dr);
-    	JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
+    	JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
     	JasperReport jr = JasperCompileManager.compileReport(jd);
     	params.putAll(jd.getParametersWithValues());
     	jp = JasperFillManager.fillReport(jr, params, con);
@@ -310,7 +311,8 @@ public final class DynamicJasperHelper {
     	}
     	registerEntities(jd, dr);
     	layoutManager.applyLayout(jd, dr);
-    	JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
+//    	JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
+    	JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
     	JasperReport jr = JasperCompileManager.compileReport(jd);
     	params.putAll(jd.getParametersWithValues());
     	jp = JasperFillManager.fillReport(jr, params);
@@ -461,7 +463,7 @@ public final class DynamicJasperHelper {
 			registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
 
 			layoutManager.applyLayout(jd, dr);
-			JRProperties.setProperty(JRProperties.COMPILER_CLASS, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
+			JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
 			jr = JasperCompileManager.compileReport(jd);
 			generatedParams.putAll(jd.getParametersWithValues());
 		return jr;
@@ -512,30 +514,6 @@ public final class DynamicJasperHelper {
 		}
 	}
 
-	public static DJGroup getColumnGroup(AbstractColumn col, List groups) {
-		Iterator it = groups.iterator();
-		while (it.hasNext()) {
-			DJGroup group = (DJGroup) it.next();
-			if (group.getColumnToGroupBy().equals(col))
-				return group;
-		}
-		return null;
-	}
-
-	/**
-	 * Returns true if at least one group is configured to show the column name in its header
-	 * @param groups
-	 * @return
-	 */
-	public static boolean existsGroupWithColumnNames(List groups) {
-		Iterator it = groups.iterator();
-		while (it.hasNext()) {
-			DJGroup group = (DJGroup) it.next();
-			if (group.getLayout().isShowColumnName())
-				return true;
-		}
-		return false;
-	}
 
 /**
  * Generates the report as HTML and setups everything for a clean response (serving images as well).
@@ -565,7 +543,15 @@ public final class DynamicJasperHelper {
  * @throws JRException
  * @throws IOException
  */
-	public static void exportToHtml(HttpServletRequest request, HttpServletResponse response, String imageServletUrl, DynamicReport dynamicReport, LayoutManager layoutManager, JRDataSource ds, Map parameters, Map exporterParams) throws JRException, IOException{
+	public static void exportToHtml(HttpServletRequest request, 
+			HttpServletResponse response, 
+			String imageServletUrl, 
+			DynamicReport dynamicReport, 
+			LayoutManager layoutManager, 
+			JRDataSource ds, 
+			Map parameters, 
+			Map exporterParams) throws JRException, IOException
+	{
 		if (parameters == null)
 			parameters = new HashMap();
 		if (exporterParams == null)
