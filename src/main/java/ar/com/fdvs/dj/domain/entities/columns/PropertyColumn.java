@@ -79,14 +79,14 @@ public abstract class PropertyColumn extends AbstractColumn {
 	}
 
 	public String getVariableClassName(DJCalculation op) {
-		if (op == DJCalculation.COUNT)
+		if (op == DJCalculation.COUNT || op == DJCalculation.DISTINCT_COUNT)
 			return Long.class.getName();
 		else
 			return getColumnProperty().getValueClassName();
 	}
 
 	public String getInitialExpression(DJCalculation op) {
-		if (op == DJCalculation.COUNT)
+		if (op == DJCalculation.COUNT  || op == DJCalculation.DISTINCT_COUNT)
 			return "new java.lang.Long(\"0\")";
 		else if (op == DJCalculation.SUM)
 			return "new " + getColumnProperty().getValueClassName()+"(\"0\")";

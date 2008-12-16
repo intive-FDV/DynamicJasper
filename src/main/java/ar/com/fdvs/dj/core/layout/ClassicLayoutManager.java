@@ -799,7 +799,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignTextField textField = new JRDesignTextField();
 			expression.setText("$V{" + variableName + "}");
 			expression.setValueClassName(col.getVariableClassName(var.getOperation()));
-			if (var.getOperation() != DJCalculation.COUNT)
+			if (var.getOperation() != DJCalculation.COUNT && var.getOperation() != DJCalculation.DISTINCT_COUNT )
 				textField.setPattern(col.getPattern());
 
 			textField.setKey(variableName);

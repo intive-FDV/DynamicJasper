@@ -85,7 +85,7 @@ public class OperationColumn extends AbstractColumn {
 	}
 
 	public String getVariableClassName(DJCalculation op) {
-		if (op == DJCalculation.COUNT)
+		if (op == DJCalculation.COUNT || op == DJCalculation.DISTINCT_COUNT )
 			return Long.class.getName();
 		else return Number.class.getName();
 	}
