@@ -79,7 +79,7 @@ public class ColumnBuilder {
 	private boolean printRepeatedValues = true;
 	private ArrayList conditionalStyles = new ArrayList();
 	private ColumnOperation operation;
-	private List operationColumns;
+	private List operationColumns = new ArrayList();
 	private PropertiesMap fieldProperties = new PropertiesMap();
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	private String fieldDescription;
@@ -100,7 +100,7 @@ public class ColumnBuilder {
 	}
 
 	public AbstractColumn build() throws ColumnBuilderException{
-		if (customExpression == null && columnProperty == null){
+		if (customExpression == null && columnProperty == null && operationColumns.isEmpty()){
 			throw new ColumnBuilderException("Either a ColumnProperty or a CustomExpression must be present");
 		}
 
