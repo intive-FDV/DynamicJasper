@@ -35,7 +35,7 @@
 			</properties>
 	 <body>
 	 
-				 <release version="3.0.3" date="2008-12-15"	desc="Enhancements and fixes">
+				 <release version="3.0.3" date="2008-12-23"	desc="Enhancements and fixes">
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Mariano Stampella" >
 						 removed unnecessary static dependency to webwork. 
 					 </action>
