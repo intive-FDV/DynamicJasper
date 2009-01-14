@@ -35,6 +35,11 @@
 			</properties>
 	 <body>
 	 
+				 <release version="3.0.4" date="2008-12-23"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Jeremy Goupil" >
+						 Exception on certain cross-tab scenario :: see https://sourceforge.net/forum/message.php?msg_id=6013486
+					 </action>
+				</release>
 				 <release version="3.0.3" date="2008-12-23"	desc="Enhancements and fixes">
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Mariano Stampella" >
 						 removed unnecessary static dependency to webwork. 

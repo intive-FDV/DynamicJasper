@@ -514,7 +514,7 @@ public class Dj2JrCrosstabBuilder {
 			if (row.equals(crosstabRow))
 				continue;
 
-			if (crosstabRow.isShowTotals())
+			if (row.isShowTotals())
 				auxHeight += row.getHeight();
 		}
 		return auxHeight;
