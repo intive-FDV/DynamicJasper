@@ -51,6 +51,8 @@ public class DJDataSource {
 	private int dataSourceOrigin = DJConstants.DATA_SOURCE_ORIGIN_PARAMETER;
 
 	private int dataSourceType = DJConstants.DATA_SOURCE_TYPE_COLLECTION;
+	
+	private boolean preSorted = false; //for cross-tabs
 
 	public DJDataSource(String dataSourceExpression, int dataSourceOrigin, int dataSourceType) {
 		super();
@@ -81,6 +83,14 @@ public class DJDataSource {
 
 	public void setDataSourceType(int dataSourceType) {
 		this.dataSourceType = dataSourceType;
+	}
+
+	public boolean isPreSorted() {
+		return preSorted;
+	}
+
+	public void setPreSorted(boolean preSorted) {
+		this.preSorted = preSorted;
 	}
 
 }

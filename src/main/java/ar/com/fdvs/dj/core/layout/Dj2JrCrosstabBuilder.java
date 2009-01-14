@@ -225,7 +225,7 @@ public class Dj2JrCrosstabBuilder {
 	 */
 	private void registerDataSet(DJCrosstab djcrosstab) {
 		JRDesignCrosstabDataset dataset = new JRDesignCrosstabDataset();
-		dataset.setDataPreSorted(false);
+		dataset.setDataPreSorted(djcrosstab.getDatasource().isPreSorted());
 		JRDesignDatasetRun datasetRun = new JRDesignDatasetRun();
 //		datasetRun.setDatasetName("sub1");
 		JRDesignExpression exp = ExpressionUtils.getDataSourceExpression(djcrosstab.getDatasource());

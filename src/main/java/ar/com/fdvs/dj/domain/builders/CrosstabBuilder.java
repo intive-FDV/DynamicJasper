@@ -70,6 +70,12 @@ public class CrosstabBuilder {
 		crosstab.setDatasource(datasource);
 		return this;
 	}
+	public CrosstabBuilder setDatasource(String expression, int origin, int type, boolean preSorted) {
+		DJDataSource datasource = new DJDataSource(expression,origin,type);
+		datasource.setPreSorted(preSorted);
+		crosstab.setDatasource(datasource);
+		return this;
+	}
 	public CrosstabBuilder setUseFullWidth(boolean useFullWidth) {
 		crosstab.setUseFullWidth(useFullWidth);
 		return this;
