@@ -78,7 +78,6 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.output.ReportWriter;
 import ar.com.fdvs.dj.output.ReportWriterFactory;
 import ar.com.fdvs.dj.util.DJCompilerFactory;

@@ -55,13 +55,15 @@ HOW TO Guide
 
  []
 
- <<Exporting>>
+ <<Exporting / Generating the report>>
 
  * {{{HOWTO export to jrxml.html}Export report design to jrxml}}
 
  * {{{HOWTO Create an Excel report.html}Create a clean Excel report}} (friendly for data manipulation in Excel)
 
  * {{{HOWTO Export to HTML.html}Export to HTML}}
+
+ * {{{HOWTO Use Virtualizers.html}Use Virtualizers}} and avoid performance and hardware limits constraints.
 
  []
 
