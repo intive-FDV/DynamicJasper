@@ -31,9 +31,7 @@ package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
 
-import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJChartOptions;

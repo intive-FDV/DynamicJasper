@@ -13,7 +13,6 @@ import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.SubReportBuilder;
 import ar.com.fdvs.dj.domain.entities.Subreport;
-import ar.com.fdvs.dj.test.FastReportTest;
 
 /**
  * This report shows how to add concatenated subreports that start in a new page

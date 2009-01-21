@@ -44,13 +44,8 @@ import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -61,7 +56,6 @@ import net.sf.jasperreports.engine.design.JRCompiler;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
@@ -78,17 +72,12 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
-import ar.com.fdvs.dj.output.ReportWriter;
-import ar.com.fdvs.dj.output.ReportWriterFactory;
 import ar.com.fdvs.dj.util.DJCompilerFactory;
-
-import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
-
 
 /**
  * Helper class for running a report and some other DJ related stuff
  */
-public final class DynamicJasperHelper {
+public class DynamicJasperHelper {
 
 	private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
 	public static final String DEFAULT_XML_ENCODING = "UTF-8";
@@ -511,67 +500,6 @@ public final class DynamicJasperHelper {
 			childDr.getOptions().setLeftMargin(parentDr.getOptions().getLeftMargin());
 			childDr.getOptions().setRightMargin(parentDr.getOptions().getRightMargin());
 		}
-	}
-
-
-/**
- * Generates the report as HTML and setups everything for a clean response (serving images as well).
- * You have to declare JasperReport servlet in web.xml (net.sf.jasperreports.j2ee.servlets.ImageServlet)
- *<br/><br/>
- * Web XML must be configured somehow like this:
- * <code><br/><br/>
-&lt;servlet&gt;<br/>
-&nbsp;	&lt;servlet-name&gt;image&lt;/servlet-name&gt;<br/>
-&nbsp; &lt;servlet-class&gt;net.sf.jasperreports.j2ee.servlets.ImageServlet&lt;/servlet-class&gt;<br/>
-&lt;/servlet&gt;<br/>
-
-&lt;servlet-mapping&gt;<br/>
-&nbsp;	&lt;servlet-name&gt;image&lt;/servlet-name&gt;<br/>
-&nbsp;	&lt;url-pattern&gt;/reports/image&lt;/url-pattern&gt;<br/>
-&lt;/servlet-mapping&gt;<br/>
- </code>
- *
- * @param request
- * @param response
- * @param imageServletUrl the URI to reach net.sf.jasperreports.j2ee.servlets.ImageServlet servlet (in example it would be "reports/image")
- * @param dynamicReport
- * @param layoutManager
- * @param ds
- * @param parameters Parameters for the DynamicReport
- * @param exporterParams Extra parameters for JasperReport's HTML exporter (HTMLJRHtmlExporter)
- * @throws JRException
- * @throws IOException
- */
-	public static void exportToHtml(HttpServletRequest request, 
-			HttpServletResponse response, 
-			String imageServletUrl, 
-			DynamicReport dynamicReport, 
-			LayoutManager layoutManager, 
-			JRDataSource ds, 
-			Map parameters, 
-			Map exporterParams) throws JRException, IOException
-	{
-		if (parameters == null)
-			parameters = new HashMap();
-		if (exporterParams == null)
-			exporterParams = new HashMap();
-
-		JasperPrint _jasperPrint = generateJasperPrint(dynamicReport, layoutManager, ds,parameters);
-		final ReportWriter reportWriter = ReportWriterFactory.getInstance().getReportWriter(_jasperPrint, JasperReportConstants.FORMAT_HTML, parameters);
-		parameters.put(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
-
-		Map imagesMap = new HashMap();
-        JRExporter exporter = reportWriter.getExporter();
-        exporter.setParameters(exporterParams);
-
-        exporter.setParameter(JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
-        exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
-        // Needed to support chart images:
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, _jasperPrint);
-        request.getSession().setAttribute("net.sf.jasperreports.j2ee.jasper_print", _jasperPrint);
-
-		//write generated HTML to the http-response (the one you got from the helper)
-        reportWriter.writeTo(response);
 	}
 
 }

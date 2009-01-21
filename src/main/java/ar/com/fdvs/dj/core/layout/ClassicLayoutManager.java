@@ -59,7 +59,6 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.CoreException;
 import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.FontHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.AutoText;

@@ -33,7 +33,6 @@ import java.awt.Color;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Date;
 
 import ar.com.fdvs.dj.core.BarcodeTypes;
