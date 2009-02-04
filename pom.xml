@@ -262,7 +262,17 @@ API.
 		    <groupId>jasperreports</groupId>
 		    <artifactId>jasperreports</artifactId>
 		    <version>3.1.0</version>
-		</dependency> 
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
@@ -298,7 +308,7 @@ API.
         <dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
-            <version>2.1.2</version>
+            <version>2.1.6</version>
              <scope>provided</scope>
             <optional>true</optional>
         </dependency>
@@ -476,9 +486,9 @@ API.
 				try {
 				var pageTracker = _gat._getTracker("UA-2140380-1");
 				pageTracker._setDomainName("none");
-				pageTracker._setAllowLinker(true);				
+				pageTracker._setAllowLinker(true);
 				pageTracker._trackPageview();
-				} catch(err) {}</script>		
+				} catch(err) {}</script>
 			]]>
 
 		</google_analitics_url>
