@@ -1,0 +1,24 @@
+	------------
+	HOW-TO Create variables and define specific behavior
+	------------
+	Juan Manuel Alvarez
+	------------
+	Date
+	------------
+
+HOW-TO Create variables and define specific behavior
+
+ If there is a need to decouple how a variable is calculated, and how it result must be shown, then a combination
+ of CustomExpresion and DJValueFormatter may be used. 
+ 
+ Suppose we have a column that must show an amount of time (a duration of something, like a phone call) in a format like <14' 23">, and the
+ field for that column is an <Integer> that represents the duration in <seconds>. Besides that, we want to have some groups, and display totals
+ in it's footer. They must also be shown as <mm' ss">    
+
+
++------------------------------------------------------------------------------------------------------------+
+ TODO: Example code
++------------------------------------------------------------------------------------------------------------+
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/VariableValueFormatterReportTest.html}VariableValueFormatterReportTest}} for a working example.
+ 

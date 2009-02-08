@@ -22,6 +22,8 @@ HOW TO Guide
  * {{{HOWTO Add header and or footer to a report.html}Add header and/or footer to a report}}
 
  * {{{HOWTO Create Autotext.html}Create Autotext (ie: Page x/y) out of the box}}
+ 
+ * {{{HOWTO Create variables and define specific behavior.html}Create variables and define specific behavior}}
 
  []
 
@@ -93,7 +95,7 @@ HOW TO Guide
 
  * {{{HOWTO Register invisible fields.html}Register invisible fields}}
 
- * {{{HOWTO Create Custom Expressions.html}Create Custom Expressions}}
+ * {{{HOWTO Create Custom Expressions.html}Create Custom Expressions}} (Manipulate data when using Java code, useful when a plain patter is not enough.)
 
  * {{{HOWTO Create a grand total.html}Create a grand total (with no groups)}}
 
