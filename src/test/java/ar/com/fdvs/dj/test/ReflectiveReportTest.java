@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.test;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -55,7 +56,7 @@ public class ReflectiveReportTest extends TestCase {
 	public void testReport() {
         final Collection data = TestRepositoryProducts.getDummyCollection();
         DynamicReport dynamicReport = new ReflectiveReportBuilder(data).build();
-		doReport(dynamicReport, data);
+		doReport(dynamicReport, data, "");
     }
 
 	/**
@@ -66,14 +67,14 @@ public class ReflectiveReportTest extends TestCase {
         final List items = SortUtils.sortCollection(data, Arrays.asList(new String[]{"productLine", "item", "state"}));
         String[] columOrders = new String[]{"productLine", "item", "state", "id", "branch", "quantity", "amount"};
 		DynamicReport dynamicReport = new ReflectiveReportBuilder(items, columOrders).addGroups(3).build();
-		doReport(dynamicReport, items);
+		doReport(dynamicReport, items, "ordered");
     }
 
-	public void doReport(final DynamicReport _report, final Collection _data) {
+	public void doReport(final DynamicReport _report, final Collection _data, String name) {
         try {
         	final JasperPrint jasperPrint = DynamicJasperHelper.generateJasperPrint(_report, new ClassicLayoutManager(), _data);
 //        	JasperViewer.viewReport(jasperPrint);
-			ReportExporter.exportReport(jasperPrint, System.getProperty("user.dir")+ "/target/ReflectiveReportTest.pdf");
+			ReportExporter.exportReport(jasperPrint, System.getProperty("user.dir")+ "/target/ReflectiveReportTest "+ name + ".pdf");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (JRException e) {

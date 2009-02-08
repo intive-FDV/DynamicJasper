@@ -36,6 +36,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJCalculation;
 
 /**
  * Column created to handle Custom Expressions.</br>
@@ -45,7 +46,8 @@ public class ExpressionColumn extends SimpleColumn {
 
 	private static final Log log = LogFactory.getLog(ExpressionColumn.class);
 
-	private CustomExpression expression;
+	private CustomExpression expression; //for showing
+	private CustomExpression expressionForCalculation; //for calculation
 
 	private Collection columns;
 	private Collection variables; //List of JRVariables
@@ -88,10 +90,6 @@ public class ExpressionColumn extends SimpleColumn {
 		if (this.calculatedExpressionText != null)
 			return this.calculatedExpressionText;
 
-//		String fieldsMap = ExpressionUtils.getFieldsMapExpression(columns);
-//		String parametersMap = ExpressionUtils.getParametersMapExpression();
-//		String variablesMap = ExpressionUtils.getVariablesMapExpression(variables);
-
 		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
 		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
 		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
@@ -104,5 +102,53 @@ public class ExpressionColumn extends SimpleColumn {
 		this.calculatedExpressionText = stringExpression;
 		return stringExpression;
 	}
+
+	public String getTextForExpressionForCalculartion() {
+		
+		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
+		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
+		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
+		
+		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+getColumnProperty().getProperty()+"_calc})."
+		+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+		
+		log.debug("Calculation Expression for CustomExpression = " + stringExpression);
+		
+		return stringExpression;
+	}
+
+	public CustomExpression getExpressionForCalculation() {
+		return expressionForCalculation;
+	}
+
+	public void setExpressionForCalculation(
+			CustomExpression expressionForCalculation) {
+		this.expressionForCalculation = expressionForCalculation;
+	}
+	
+	public String getVariableClassName(DJCalculation op) {
+		if (op == DJCalculation.COUNT || op == DJCalculation.DISTINCT_COUNT)
+			return Long.class.getName();
+		
+		if (expressionForCalculation != null)
+			return expressionForCalculation.getClassName();
+		
+		if (expression != null)
+			return expression.getClassName();
+		
+		return super.getVariableClassName(op);
+			
+	}	
+	
+	public String getInitialExpression(DJCalculation op) {
+		if (op == DJCalculation.COUNT  || op == DJCalculation.DISTINCT_COUNT)
+			return "new java.lang.Long(\"0\")";
+		else if (op == DJCalculation.SUM) {
+			
+			return "new " + getVariableClassName(op) +"(\"0\")";
+		}
+		else return null;
+	}
+	
 
 }

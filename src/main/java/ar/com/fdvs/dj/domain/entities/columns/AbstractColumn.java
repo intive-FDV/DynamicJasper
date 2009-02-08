@@ -133,6 +133,12 @@ public abstract class AbstractColumn implements Entity {
 
 	public abstract String getValueClassNameForExpression();
 
+	/**
+	 * 
+	 * @param type "FOOTER" or "HEADER"
+	 * @param columnToGroupByProperty
+	 * @return
+	 */
 	public abstract String getGroupVariableName(String type, String columnToGroupByProperty);
 
 	public abstract String getVariableClassName(DJCalculation op);

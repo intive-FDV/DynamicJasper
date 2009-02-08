@@ -355,9 +355,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		//condition.getCondition().setFieldToEvaluate(exprParams)
 
 		// PeS17 patch, 2008-11-29: put all fields to fields map, including "invisible" i.e. only registered ones
-//		String fieldsMap = ExpressionUtils.getFieldsMapExpression(getReport().getAllFields());
-//		String parametersMap = ExpressionUtils.getParametersMapExpression();
-//		String variablesMap = ExpressionUtils.getVariablesMapExpression(getDesign().getVariablesList());
 		
 		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
 		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";

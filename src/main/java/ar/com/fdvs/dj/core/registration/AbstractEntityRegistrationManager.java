@@ -114,10 +114,14 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 	protected abstract Object transformEntity(Entity entity);
 
 	protected void registerExpressionColumnParameter(String property, CustomExpression customExpression) {
+		if (customExpression == null){
+			log.debug("No customExpression for calculation for property " + property );
+			return;
+		}
 		JRDesignParameter dparam = new JRDesignParameter();
 		dparam.setName(property);
 		dparam.setValueClassName(CustomExpression.class.getName());
-		log.debug("Registering customExpression parameter" + property );
+		log.debug("Registering customExpression parameter for property " + property );
 		try {
 			getDjd().addParameter(dparam);
 		} catch (JRException e) {

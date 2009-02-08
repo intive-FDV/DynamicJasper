@@ -796,8 +796,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			JRDesignExpression expression = new JRDesignExpression();
 			JRDesignTextField textField = new JRDesignTextField();
-			expression.setText("$V{" + variableName + "}");
-			expression.setValueClassName(col.getVariableClassName(var.getOperation()));
+			
+			setTextAndClassToExpression(expression,var,col,variableName);
+			
 			if (var.getOperation() != DJCalculation.COUNT && var.getOperation() != DJCalculation.DISTINCT_COUNT )
 				textField.setPattern(col.getPattern());
 
@@ -874,6 +875,24 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			applyStyleToElement(globalCol.getStyle(), globalTextField);
 
 			band.addElement(globalTextField);
+		}
+	}
+
+	/**
+	 * If a variable has a DJValueFormatter, we must use it in the expression, otherwise, use plain $V{...}
+	 * @param expression
+	 * @param var
+	 * @param col
+	 * @param variableName
+	 */
+	protected void setTextAndClassToExpression(JRDesignExpression expression, DJGroupVariable var, AbstractColumn col, String variableName) {
+		
+		if (var.getValueFormatter()== null){
+			expression.setText("$V{" + variableName + "}");
+			expression.setValueClassName(col.getVariableClassName(var.getOperation()));
+		} else {
+			expression.setText(var.getTextForValueFormatterExpression(variableName));
+			expression.setValueClassName(var.getValueFormatter().getClassName());
 		}
 	}
 

@@ -41,11 +41,9 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
  * @see StatusLightCondition
  * </br>
  */
-public interface CustomExpression {
+public interface DJValueFormatter {
 
-	public static final String EVAL_METHOD_NAME = "evaluate";
-
-	public Object evaluate(Map fields, Map variables, Map parameters);
+	public Object evaluate(Object value, Map fields, Map variables, Map parameters);
 	public String getClassName();
 
 }

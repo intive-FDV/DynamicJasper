@@ -29,7 +29,13 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import ar.com.fdvs.dj.core.DJDefaultScriptlet;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
@@ -40,10 +46,13 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
  * @see DJCalculation
  */
 public class DJGroupVariable implements Entity {
+	
+	private static final Log log = LogFactory.getLog(DJGroupVariable.class);
 
 	private AbstractColumn columnToApplyOperation;
 	private DJCalculation operation;
 	private Style style;
+	private DJValueFormatter valueFormatter;
 
 	public DJGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation) {
 		this.columnToApplyOperation = columnToApplyOperation;
@@ -55,6 +64,27 @@ public class DJGroupVariable implements Entity {
 		this.operation = operation;
 		this.style = style;
 	}
+
+	public DJGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation, Style style, DJValueFormatter formatter) {
+		this.columnToApplyOperation = columnToApplyOperation;
+		this.operation = operation;
+		this.style = style;
+		this.valueFormatter = formatter;
+	}
+	
+	public String getTextForValueFormatterExpression(String variableName) {
+
+		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
+		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
+		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
+		
+		String stringExpression = "((("+DJValueFormatter.class.getName()+")$P{"+variableName+"_vf}).evaluate( "
+			+ "$V{"+variableName+"}, " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+
+		log.debug("Expression for DJValueFormatter = " + stringExpression);
+
+		return stringExpression;
+	}	
 
 	public Style getStyle() {
 		return style;
@@ -80,5 +110,14 @@ public class DJGroupVariable implements Entity {
 	public void setOperation(DJCalculation operation) {
 		this.operation = operation;
 	}
+
+	public DJValueFormatter getValueFormatter() {
+		return valueFormatter;
+	}
+
+	public void setValueFormatter(DJValueFormatter valueFormatter) {
+		this.valueFormatter = valueFormatter;
+	}
+
 
 }

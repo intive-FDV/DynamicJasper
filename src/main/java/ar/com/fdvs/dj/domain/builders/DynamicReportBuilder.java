@@ -46,6 +46,7 @@ import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJQuery;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.ImageBanner;
@@ -570,6 +571,11 @@ public class DynamicReportBuilder {
 
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, DJCalculation op, Style style) {
 		globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style));
+		return this;
+	}
+
+	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn col, DJCalculation op, Style style, DJValueFormatter valueFormatter) {
+		globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style,valueFormatter));
 		return this;
 	}
 

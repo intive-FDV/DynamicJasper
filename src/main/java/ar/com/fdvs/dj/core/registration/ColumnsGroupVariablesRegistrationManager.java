@@ -34,18 +34,22 @@ import java.util.List;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 
 /**
  * Manager invoked to register variables for groups of columns. </br>
@@ -68,11 +72,40 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 
 	protected void registerEntity(Entity entity) {
 		log.debug("registering group variable...");
+		DJGroupVariable columnsGroupVariable = (DJGroupVariable) entity;
 		try {
-			getDjd().addVariable((JRDesignVariable)transformEntity(entity));
+			JRDesignVariable jrVariable = (JRDesignVariable)transformEntity(entity);
+			getDjd().addVariable(jrVariable);
+			
+			registerValueFormatter( columnsGroupVariable, jrVariable.getName() );
+			
 		} catch (JRException e) {
 			throw new EntitiesRegistrationException(e.getMessage());
 		}
+	}
+
+	/**
+	 * Registers the parameter for the value formatter for the given variable and puts
+	 * it's implementation in the parameters map.
+	 * @param djVariable
+	 * @param variableName
+	 */
+	protected void registerValueFormatter(DJGroupVariable djVariable, String variableName) {
+		if ( djVariable.getValueFormatter() == null){
+			return;
+		}
+		
+		JRDesignParameter dparam = new JRDesignParameter();
+		dparam.setName(variableName + "_vf"); //value formater suffix
+		dparam.setValueClassName(DJValueFormatter.class.getName());
+		log.debug("Registering value formatter parameter for property " + dparam.getName() );
+		try {
+			getDjd().addParameter(dparam);
+		} catch (JRException e) {
+			throw new EntitiesRegistrationException(e.getMessage());
+		}
+		getDjd().getParametersWithValues().put(dparam.getName(), djVariable.getValueFormatter());		
+		
 	}
 
 	protected Object transformEntity(Entity entity) {
@@ -87,8 +120,15 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 		List groupsList = getDjd().getGroupsList();
 		JRDesignGroup registeredGroup = (JRDesignGroup)groupsList.get(groupsList.size()-1);
 
-		expression.setText(col.getTextForExpression());
-		expression.setValueClassName(col.getValueClassNameForExpression());
+		if (col instanceof ExpressionColumn && ((ExpressionColumn)col).getExpressionForCalculation() != null){
+			ExpressionColumn expcol = (ExpressionColumn)col;
+			expression.setText(expcol.getTextForExpressionForCalculartion());
+			expression.setValueClassName(expcol.getExpressionForCalculation().getClassName());
+		} else {
+			expression.setText(col.getTextForExpression());
+			expression.setValueClassName(col.getValueClassNameForExpression());
+		}
+		
 		String variableName = col.getGroupVariableName(type, columnToGroupByProperty);
 
 		JRDesignVariable variable = new JRDesignVariable();

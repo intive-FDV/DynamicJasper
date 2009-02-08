@@ -74,6 +74,7 @@ public class ColumnBuilder {
 	private Style headerStyle;
 	private ColumnProperty columnProperty;
 	private CustomExpression customExpression;
+	private CustomExpression customExpressionForCalculation;
 	private CustomExpression customExpressionToGroupBy;
 	private String pattern;
 	private boolean printRepeatedValues = true;
@@ -160,6 +161,7 @@ public class ColumnBuilder {
 		column.setColumnProperty(new ColumnProperty("expressionColumn" + random,CustomExpression.class.getName()));
 		column.setExpression(customExpression);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
+		column.setExpressionForCalculation(customExpressionForCalculation);
 //		column.getFieldProperties().putAll(fieldProperties);
 		return column;
 	}
@@ -283,6 +285,11 @@ public class ColumnBuilder {
 
 	public ColumnBuilder setCustomExpression(CustomExpression customExpression){
 		this.customExpression = customExpression;
+		return this;
+	}
+
+	public ColumnBuilder setCustomExpressionForCalculation(CustomExpression customExpression){
+		this.customExpressionForCalculation = customExpression;
 		return this;
 	}
 
