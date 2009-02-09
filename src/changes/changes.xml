@@ -36,8 +36,12 @@
 	 <body>
 	 
 				 <release version="3.0.4" date="2009-02-09"	desc="fixes">
+					 <action dev="Alejandro Gomez" type="fix">
+					 	<![CDATA[Struts 2 (version 2.1.6) was not working due to change in method signature of xwork library. 
+							 see tracker: https://sourceforge.net/tracker2/?func=detail&aid=2562199&group_id=188060&atid=923808]]>
+					 </action>
 					 <action dev="Alejandro Gomez" type="add">
-						 DynamicJasper Grails plugin :: see http://dynamicjasper.sourceforge.net/docs/grails dj plugin.html
+					 	<![CDATA[DynamicJasper Grails plugin :: see http://dynamicjasper.sourceforge.net/docs/grails dj plugin.html]]>
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
 						 CustomExpression for Calculation in groups :: When grouping a column, you can specify a CustomExpression to be used for variable calacularion.
