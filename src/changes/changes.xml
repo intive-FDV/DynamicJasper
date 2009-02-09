@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+	~ DynamicJasper: A library for creating reports dynamically by specifying
+	~ columns, groups, styles, etc. at runtime. It also saves a lot of development
+	~ time in many cases! (http://sourceforge.net/projects/dynamicjasper)
+	~
+	~ Copyright (C) 2008  FDV Solutions (http://www.fdvsolutions.com)
+	~
+	~ This library is free software; you can redistribute it and/or
+	~ modify it under the terms of the GNU Lesser General Public
+	~
+	~ License as published by the Free Software Foundation; either
+	~
+	~ version 2.1 of the License, or (at your option) any later version.
+	~
+	~ This library is distributed in the hope that it will be useful,
+	~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+	~
+	~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+	~
+	~ Lesser General Public License for more details.
+	~
+	~ You should have received a copy of the GNU Lesser General Public
+	~ License along with this library; if not, write to the Free Software
+	~
+	~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+	~
+	~
+	-->
+
+<document>
+	 <properties>
+			<title>FDV Solutions - DynamicJasper</title>
+			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
+			</properties>
+	 <body>
+	 
+				 <release version="3.0.4" date="2009-02-09"	desc="fixes">
+					 <action dev="Alejandro Gomez" type="fix">
+					 	<![CDATA[Struts 2 (version 2.1.6) was not working due to change in method signature of xwork library. 
+							 see tracker: https://sourceforge.net/tracker2/?func=detail&aid=2562199&group_id=188060&atid=923808]]>
+					 </action>
+					 <action dev="Alejandro Gomez" type="add">
+					 	<![CDATA[DynamicJasper Grails plugin :: see http://dynamicjasper.sourceforge.net/docs/grails dj plugin.html]]>
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 CustomExpression for Calculation in groups :: When grouping a column, you can specify a CustomExpression to be used for variable calacularion.
+						 see http://dynamicjasper.sourceforge.net/docs/HOWTO Create variables and define specific behavior.html 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Ability to format variables in groups :: When grouping a column, you can specify a DJValueFormatter to be used for variable formatting in group header and/or footer.
+						 see http://dynamicjasper.sourceforge.net/docs/HOWTO Create variables and define specific behavior.html 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Jeremy Goupil" >
+						 Exception on certain cross-tab scenario :: see https://sourceforge.net/forum/message.php?msg_id=6013486
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="tanmay0208" >
+						 Ensure order in crosstabs :: see https://sourceforge.net/forum/message.php?msg_id=5950390 
+					 </action>
+				</release>
+				 <release version="3.0.3" date="2008-12-23"	desc="Enhancements and fixes">
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Mariano Stampella" >
+						 removed unnecessary static dependency to webwork. 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Mariano Stampella" >
+						 Error in charts logic when only 1 group. Now showing the chart once. 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						 Groups variables height can be defined independently on each group. This fix includes 
+						 footer and header grand total height.  
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+						 Bug in the logic for choosing default style in group headers and footer  
+					 </action>
+				 </release>
+				 <release version="3.0.2" date="2008-12-09"	desc="Enhancements and fixes">
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						 Performance fix for CustomExpression, now using Jasper's ScriptLet to reuse field, variables and parameters map 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Dale Cooper and PeS17" issue="https://sourceforge.net/forum/message.php?msg_id=5722095" >
+						 In CustomExpression's, non  visible fields where not being populated 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA">
+						 Fixed multi line title and subtitle :: Certain style attributes in the title made subtitle not to stretch vertically. See MultiLineTitleReportTest 
+						  <![CDATA[https://sourceforge.net/forum/forum.php?thread_id=2591976&forum_id=659589]]>
+					 </action>
+				</release>
+				 <release version="3.0.1" date="2008-11-21"	desc="Enhancements and fixes">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Added DJCalculation.DISTINCT_COUNT (for use in groups header and footer totals)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+						 Refactor (BREAKING CHANGE):: The following classes where renamed for the sake of the human race:
+						 ColumnsGroup -- DJGroup
+						 ColumnsGroupVariable -- DJGroupVariable
+						 ColumnsGroupVariableOperation -- DJCalculation
+						 and some other classes you should not care...
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Subreports allow split option :: We can tell the band which holds the subreport to not allow splitting of the content
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Added missing method to the SubreportBuilder set up the subreport parameter origin. See SubReportBuilder.setParameterMapPath(...) for more info.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Group header and footer bands splitting configuration.
+					 </action>
+					 <action dev="Alejandro Gomez" type="add">
+                         DynamicJasper result type for Struts 2 integration
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA" >					 
+						  Report locale was not not working.
+						  <![CDATA[https://sourceforge.net/tracker/?func=detail&atid=923805&aid=2317770&group_id=188060]]>
+					 </action>					 
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA">
+						  Border thickness is wrong.
+						  <![CDATA[https://sourceforge.net/forum/message.php?msg_id=5689553]]>
+					 </action>					 
+				 </release>
+				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Images border were shown all the time
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+						 Subreport white space when empty :: Now removing white space when a subreport is empty
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+						 Custom Expressions :: Cleaner interface, they receive 3 maps (fields, variables and parameters).
+						 They also have now a className attribute, so many types other than String can be returned (for formatting using patterns, etc)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+					 	Conditional Styles :: Changes needed due to changes in CustomExpression. Custom implementations of ConditionStyles will need fixing and recompiling.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+					 	Group Header Style :: Now each group can define it's own header when showing column names.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	StyleBuilder :: Convenient methods added for constructing
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="remove">
+					 	Deprecated methods in builders and DynamicJasperHelper were removed.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	Web Export to HTML :: DynamicJasperHelper.exportToHtml(...) generates and sets up everything for a clean web html response.
+					 </action>
+				 </release>
+				 <release version="2.1.0" date="2008-09-06"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						Tests enhancements :: To ensure product quality, the following technologies had been added to the automated tests:
+							* HSQL DB: for real JDBC and SQL report tests
+							* Hibernate: HQL report test
+							* HTTP Unit: to test Webwork result type. Also enabling future testing to new http facilities.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="dongw">
+						 WebWork integration :: Fixed bug that had this feature broken. Also added new options to result type.
+						 Updated documentation (see "Integrate DynamicJasper with Webwork").
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Custom Expressions :: Now variables also available in Custom Expression. Instead of implementing CustomExpression, use
+						 DJCustomExpression which already provides as parameter one map per family (fields, variables and parameters)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Report Name :: Report name can now be specified (dynamicReport.setReportName(...) ). When exporting to Excel,
+						 this name will be used as the sheet name
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Report Properties :: Now the DynamicReport has a setProperty(String, String) method which passes the properties to the JasperReportDesign.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Page Orientation :: Orientation is working now
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add" due-to="yaro">
+						 JRXML Templates :: Now bringing existing parameters, variables and fields and datasets from jrxml templates :: thanks yaro!
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+						 Field Properties Refactor :: Only PropertyColumn and its children are worthless to have field properties
+					 </action>
+				 </release>
+				 <release version="2.0.10" date="2008-07-24"	desc="Autotext improvements, many fixes">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Autotext :: More control over the width of Autotext components. No more chucked total page numbers.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 odd rows was also painting groups header and footers variables :: This bug was introduced in 2.0.9
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Parameter Map available in Custom Expression :: It is stored in the Map under the key DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 NPE when cloning styles :: this bug was introduced in version 2.0.9
+					 </action>
+				 </release>
+				 <release version="2.0.9" date="2008-07-07"	desc="Many improvements">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Dynamic Subreport fits automatically to parent report printable area :: Use Subreport.fitToParentPrintableArea flag.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 New Exception ar.com.fdvs.dj.core.DJExpection for generics problems inside the API
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Tests: path to output file was not being created
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Report Locale: made some fixes to ensure that at least the default locale is loaded.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add" due-to="Eric Bartley">
+						 Field properties: JRField properties can be passed to the column builder or the column object itself. Thanks Eric Bartley!
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Eric Bartley">
+						 Odd rows on HTML: Coloring was not working properly. Thanks Eric Bartley!
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Charts with many categories: more than one column can be added to charts (one column per category)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Many charts for a given group may exceed band allowed height.
+					 </action>
+				 </release>
+				 <release version="2.0.8" date="2008-04-14"	desc="Subreport parameters release">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Subreport parameters :: You can pass parameters to subreports using values from current row. Thanks Marcos Reyes!
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 WebWork integration :: Added "exportParams" feature, so you can pass custom parameters to the exporter used.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Crosstabs NPE :: 1xX and Xx1 crosstabs thorws NPE, thanks Marcos Reyes
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Allow control over detail band split :: thanks balazsborbely.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Crosstab measure type peroblem :: Only java.lang.Float was working. Thanks my_aro!
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Removed static dependency Eclipse JST compiler :: Thanks Tito (enjuto).
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="remove">
+						 Java 1.2 is no longer supported :: This is from jasperReports 2.0.5 (they removed the class JRJdk12Compiler. Thanks mikea59.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Header Charts :: they where leaving a blank space before the column titles.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Sub reports can start in new page :: thanks jacklty!
+					 </action>
+				 </release>
+				 <release version="2.0.7" date="2008-03-04"	desc="when no data section release">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 When no data section feature :: you can set up what to show when the data source is empty. See WhenNoDataTest for a working example
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 javadoc jar generated always :: javadoc jar is generated when a new release is out (pom.xml configuration)
+					 </action>
+				 </release>
+				 <release version="2.0.6" date="2008-02-22"	desc="Minor bug fixes and features">
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Problem with dynamically added queries when using template files :: the query added dinamically got lost when
+						 using templates files, thanks gustav_b
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 More than one chart in a group :: You can now create more than one chart in the same group, thanks Sagara!
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Define behaviour when datasource is empty :: just a passthough to the JasperReports options. Use DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES, DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE,
+						 DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL, DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION.
+						 Thanks Dorin Scutarasu!!!
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Define behaviour when missing resource is found :: just a passthough to the JasperReports options. Use DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY, DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR,
+						 DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY, DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL.
+						 Thanks Dorin Scutarasu!!!
+					 </action>
+				 </release>
+				 <release version="2.0.5" date="2008-02-04"	desc="Minor users requests">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Field desctiption for XML datasources :: XML Data sources need that the fields had the property "description" defined.
+						 Though ColumBuilder and FastReport builder "description" can be defined, thanks gustav_b
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Parameter registration :: Whatever is in the "params map" will be registered as a parameter, thanks Charles Abreu
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Fonts handling :: The fonts now have the properties pdfFontName, pdfFontEmbedded and pdfFontEncodding. You can now export to PDF with any encoding. See FontReportTest.
+						 Thanks Sagara for asking!
+					 </action>
+				 </release>
+				 <release version="2.0.4" date="2008-01-10"	desc="Report query release">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Report query :: Added report query to work the same as JasperReports
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Export to jrxml file :: You can export your design to jrxml (for retouching in iReport) from the DynamicJasperHelper
+					 </action>
+				 </release>
+				 <release version="2.0.3" date="2008-01-04"	desc="urgent fix">
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Error on 2.0.2 build :: was compiled in java 5, it is java 1.4 now
+					 </action>
+				 </release>
+				 <release version="2.0.2" date="2007-12-28"	desc="Image column release">
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 pom.xml cleanup :: Unnecesary depenencies are optional now. Thanks danttran!!!
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 BarCode Column :: Hability to show bar codes in the detail band
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Image Column :: Hability to show images in the detail band
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+				Bug with group names: https://sourceforge.net/forum/message.php?msg_id=4684608
+				Thanks danidacila!
+					 </action>
+				 </release>
+				 <release version="2.0.1" date="2007-12-19"	desc="Crosstab release">
+					 <action dev="Juan Manuel Alvarez" type="add">
+				FastReportBuilder: setGroupLayout(groupNumber, GroupLayout)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+				CrosstabRowBuilder: for easy crosstab row building
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+				CrosstabcolumnBuilder: for easy crosstab column building
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+				DynamicReportBuilder: addFooterCrosstab(DJCrosstab cross)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+				DynamicReportBuilder: addHeaderCrosstab(DJCrosstab cross)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+				 FastReportBuilder: addFooterVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+				 FastReportBuilder: addHeaderVariable(int groupNum, int colNumber, ColumnsGroupVariableOperation op, Style style)
+					 </action>
+				</release>
+				 <release version="2.0.0" date="2007-12-13"	desc="Crosstab release">
+					 <action dev="Juan Manuel Alvarez" type="add">
+				Crosstabs support (still in developement)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+				StyleBuilder class: convinient when creating styles
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 MissingResourceException when locale is not EN or US. Thanks danidacila.
+						 https://sourceforge.net/forum/message.php?msg_id=4645638
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Problem with Chart and grouping. Thanks danidacila.
+						 https://sourceforge.net/forum/message.php?msg_id=4645263
+					 </action>
+				 </release>
+				 <release version="1.4.2" date="2007-11-05" desc="Minor release">
+						 <action dev="Mariano Simone" type="fix">
+								 Grand Total Legends positions calculation fixed
+						 </action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+								 Convinient methods in FastReportBuilder to add columns with more options
+						 </action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+								 FastReportBuilder no guess in styles is the column already has a style
+						 </action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+								 odd rows background border and foreground color was not working
+						 </action>
+					</release>
+				 <release version="1.4.0" date="2007-10-31" desc="Styles release">
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Groups can start in new page or in new column.
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Existing styles in .jrxml files can be referenced from a DynamicReport
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							Anoying loggin information when using repeated styles
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Support for inherited styles
+						</action>
+						 <action dev="Mariano Simone" type="add">
+							Convinient method in the FastReportBuilder to pass a style whe adding a new column.
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							Bug with autotext "page x / y" was showing "page 1null"
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="update">
+							webwork result type: now you can specify a layout manager
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="update">
+							refactor in DynamicReportBuilder: grand total legend is now: drb.setGrandTotalLegend("...")
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							small bug with "ignore pagination"
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							concatenated reports can be also DynamicReports
+						</action>
+				 </release>
+				 <release version="1.3.3" date="2007-10-18" desc="minor styles fix">
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							DynamicReportBuilder supports subreports in and elegant way
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							You could have many subreports, but not recursive subreports
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							Deprecated methods in builders (DynamicReportBuilder, etc) and create new ones to give meaninfull names
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="update">
+							DynamicJasperHelper methods now throws exceptions as they should always do
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="update">
+							DynamicJasperHelper methods are not "final" anymore.
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="update">
+							DynamicJasperHelper convinience methods changed from "private" to "protected"
+						</action>
+						 <action dev="Alejandro Gomez" type="fix">
+							Issue with file encoding is fixed for every compiler, not just eclipse jdt compiler.
+						</action>
+				 </release>
+				 <release version="1.3.2" date="2007-09-24" desc="minor styles fix">
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							The thin border is back, now the available border are: NO_BORDER, THIN, PEN_1_POINT, PEN_2_POINT, PEN_4_POINT and DOTTED
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							The Group Layouts behaviour changed, see HOW-TO hide a column
+						</action>
+				 </release>
+				 <release version="1.3.1" date="2007-09-17" desc="minor XLS improvements">
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							Fixed some flags for XLS exporting that where lost during refactorings: ignore pagination and print column names
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Example test for exporting to XLS
+						</action>
+				 </release>
+				 <release version="1.3.0" date="2007-08-21" desc="Subreports beta 2">
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Subreports support: Added SubReportBuilder class
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Subreports support: Hability to the DynamicReportBuilder to concatenate subreports in a single report
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Subreports support: Added 2 tests to be used as examples (SubReportBuilderTest and ConcatenatedReportTest)
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Subreports support: HOW-TO documentation in the site
+						</action>
+				 </release>
+				 <release version="1.3.0-beta1" date="2007-07-20" desc="Subreports early release">
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Subreports support: see SubReportTest test case.
+						</action>
+				 </release>
+				 <release version="1.2.2" date="2007-08-15" desc="JasperReports 2.0 (internal)">
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Support for JasperReports 2.0
+						</action>
+				 </release>
+				 <release version="1.2.1" date="2007-08-15" desc="bugfix release">
+						 <action dev="Alejandro Gomez" type="add">
+							Minor issue with files not encoded in the system default encoding.
+						</action>
+				 </release>
+				 <release version="1.2.0" date="2007-07-20" desc="Autotext release">
+						 <action dev="Mariano Simone" type="add">
+							Autotext feature: Out of the box "Page x/y", "Created on {date}" and common autotexts in header and footer.
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							i18N (Internationalization) - Autotext uses i18N (dj-messages.properties), you can also specify a
+							custom resource bundle and a Locale to the report.
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							Title in new Page: Some how we lost this feature in a refactor, its back.
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+						 added 2 more convenient methods on DynamicJasperHelper class.
+						 DynamicJasperHelper.generateJasperPrint(...) can now receive as a datasource a Collection or a ResultSet besides the JRDataSource
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="fix">
+							Minor cosmetic issue with Image Banners, when usign different images for the first page and the rest of the report, there was
+							a blank space betwen the image in the first page and the rest of the report.
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							 Tons of documentation in the project website (how-to and getting started)
+						</action>
+				 </release>
+				 <release version="1.1.3" date="2007-06-29" desc="minor release">
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Font has missing attribute for italic and underline, now there are setters ang getter for every property.
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add">
+							Padding: Now you can configure different padding for every side
+						</action>
+				 </release>
+				 <release version="1.1.2" date="2007-05-13" desc="minor release">
+						 <action dev="Juan Manuel Alvarez" type="add" due-to="gzfqh3" due-to-email="gzfqh3@sourceforge.net">
+							Now you can define styles for header and footer variables. (see StylesReport2Test)
+						</action>
+				 </release>
+				 <release version="1.1.1" date="2007-04-21" desc="minor release">
+						 <action dev="Mariano Simone" type="add">
+							 User-Defined colors can be used in charts usign Lists of colors
+						</action>
+						 <action dev="Juan Manuel Alvarez" type="add" due-to="gzfqh3" due-to-email="gzfqh3@sourceforge.net">
+							 Text elements can now be rotated left or right (through the Style class)
+						</action>
+				 </release>
+
+				 <release version="1.1.0" date="2007-03-22" desc="Charting release">
+					 <action dev="Mariano Simone" type="add">
+							 Charting capabilities. Added builder to easily add charts to DynamicJasper. (See the examples)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+							 Template file. When using template file, first looks in the file system, then in the classpath
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+							 Example Report that uses a tempalte file
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+							 Fixed column width for columns that need to keep it´s original witdh
+					 </action>
+					 <action dev="Mariano Simone" type="update">
+							 Documentation on the API and How-to guides
+					 </action>
+					 <action dev="Alejandro Gomez" type="add">
+							 Reflection Report Builder
+					 </action>
+					 <action dev="Alejandro Gomez" type="add">
+							 DynamicJasper result type for webwork integration
+					 </action>
+				 </release>
+			<release version="1.0.2" date="2007-02-27" desc="Minor Release">
+					 <action dev="Juan Manuel Alvarez" type="add">
+							 Playground. Example webapp made in GWT that shows the DynamicJasper potential
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+							 Added utility class to sort the datasource using the column of the report as criteria
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+							 Added FastReportBuilder that simplifies even more the report creation process
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+							 Documentation and examples (see the test sources)
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+							 More control over the styles (borders)
+					 </action>
+				 </release>
+			<release version="1.0.1" date="2007-02-08" desc="Minor Release">
+					 <action dev="Juan Manuel Alvarez" type="add">
+							 Added the capability to place images on the header of the first page and the rest of the report
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+							 The DynamicReportBuilder can set page size and orientation
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+							 Added Sreenshots and pdf examples of the reports
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+							 Documentation is updated with screen shots
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="remove">
+							 Removed Unneded Cglib dependency.
+					 </action>
+				 </release>
+			<release version="1.0" date="2007-02-01" desc="Initial Release">
+					 <action dev="Juan Manuel Alvarez" type="add">
+							 Initial version of DynamicJasper
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+							 Documentation with examples
+					 </action>
+<!--           <action dev="Juan Manuel Alvarez" type="fix">-->
+<!--               No Fixes.-->
+<!--           </action>        -->
+<!--           <action dev="Juan Manuel Alvarez" type="remove">-->
+<!--              Nothing deleted.-->
+<!--           </action>        -->
+				 </release>
+	 </body>
+</document>

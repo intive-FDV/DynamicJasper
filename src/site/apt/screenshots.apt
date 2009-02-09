@@ -1,0 +1,44 @@
+		------
+		DynamicJasper :: Screenshots
+		------
+		Juan Manuel Alvarez
+		------
+		Date
+
+
+Screenshots
+
+ The screenshots found here corresponds to working JUnit tests that are available in the source code
+
+ Report with repeating groups
+
+[images/snapshots/group-report.png] Report with repeating groups
+
+ Report with image banner
+
+[images/snapshots/image-banner.png] Report with image banner
+
+ Report with styles (inherited from template jrxml)
+
+[images/snapshots/style-report.png] Report with styles (inherited from template jrxml)
+
+ Report with subreport
+
+[images/snapshots/subreport-report.png] Report with subreport
+
+ Report with a column of images
+
+[images/snapshots/image-column.png] Report with a column of images
+
+ A report with cross tabs
+
+[images/snapshots/crosstab-report.png] A report with cross tabs
+
+ Report with charts
+
+[images/snapshots/chart-report.png] Report with charts
+
+ Report with bar code
+
+[images/snapshots/barcode-report.png] Report with bar code
+
