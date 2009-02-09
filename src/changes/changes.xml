@@ -35,7 +35,18 @@
 			</properties>
 	 <body>
 	 
-				 <release version="3.0.4" date="2008-12-23"	desc="fixes">
+				 <release version="3.0.4" date="2009-02-09"	desc="fixes">
+					 <action dev="Alejandro Gomez" type="add">
+						 DynamicJasper Grails plugin :: see http://dynamicjasper.sourceforge.net/docs/grails dj plugin.html
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 CustomExpression for Calculation in groups :: When grouping a column, you can specify a CustomExpression to be used for variable calacularion.
+						 see http://dynamicjasper.sourceforge.net/docs/HOWTO Create variables and define specific behavior.html 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Ability to format variables in groups :: When grouping a column, you can specify a DJValueFormatter to be used for variable formatting in group header and/or footer.
+						 see http://dynamicjasper.sourceforge.net/docs/HOWTO Create variables and define specific behavior.html 
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Jeremy Goupil" >
 						 Exception on certain cross-tab scenario :: see https://sourceforge.net/forum/message.php?msg_id=6013486
 					 </action>

@@ -23,7 +23,7 @@ HOW TO Guide
 
  * {{{HOWTO Create Autotext.html}Create Autotext (ie: Page x/y) out of the box}}
  
- * {{{HOWTO Create variables and define specific behavior.html}Create variables and define specific behavior}}
+ * {{{HOWTO Create variables and define specific behavior.html}Create variables and define specific behavior:}} Redefine how the result is shown, redefine which value is used for the variable calculation.
 
  []
 
@@ -102,6 +102,8 @@ HOW TO Guide
  []
 
  <<Integration with other frameworks>>
+
+ * {{{grails dj plugin.html}DynamicJasper Grails Plugin}}
 
  * {{{dj and grails.html}Integrate DynamicJasper with Grails}}
 

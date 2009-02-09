@@ -7,6 +7,8 @@
 
 DynamicJasper for Grails
 
+ <<Plugin for grails available>>: {{{grails dj plugin.html}see DJ Grails plugin}}
+
  The purpose of this paper is to explain how DynamicJasper and Grails could be integrated. We are currently making so much progress, and plan to continue doing so, but our main interest is to share it, get feedback and go forward.
  
  <<Why using DynamicJasper for grails reporting?>> They share a common philosophy: making development easier by using conventions, allowing the most common cases to be developed fast and easily.

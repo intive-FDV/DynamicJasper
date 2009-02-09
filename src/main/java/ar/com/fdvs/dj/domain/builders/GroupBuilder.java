@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.domain.builders;
 import java.util.Iterator;
 
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
@@ -109,6 +110,11 @@ public class GroupBuilder {
 	}
 	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation, Style style) {
 		group.getFooterVariables().add(new DJGroupVariable(column3,operation,style));
+		return this;
+	}
+
+	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation, Style style, DJValueFormatter valueFormatter) {
+		group.getFooterVariables().add(new DJGroupVariable(column3,operation,style,valueFormatter));
 		return this;
 	}
 

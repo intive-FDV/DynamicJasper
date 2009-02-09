@@ -39,6 +39,7 @@ import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
@@ -494,12 +495,10 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	 */
 	public FastReportBuilder addGlobalFooterVariable(int colNumber, DJCalculation op, Style style) {
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
-//		if (this.globalFooterVariables == null)
-//			this.globalFooterVariables = new ArrayList();
+
 		if (style == null)
 			style = numberStyle;
 
-//		this.globalFooterVariables.add(new DJGroupVariable(column, op, style));
 		this.globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, op, style));
 		return this;
 	}
@@ -515,11 +514,23 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 
+	public FastReportBuilder addFooterVariable(int groupNum, int colNumber, DJCalculation op, Style style, DJValueFormatter valueFormatter) throws BuilderException {
+		DJGroup group = getGroupByNumber(groupNum);
+		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
+		if (style == null)
+			style = numberStyle;
+		
+		DJGroupVariable columnsGroupVariable = new DJGroupVariable(column, op, style, valueFormatter);
+		group.getFooterVariables().add(columnsGroupVariable);
+		return this;
+	}
+
 	public FastReportBuilder addHeaderCrosstab(int groupNumber, DJCrosstab djcross) throws BuilderException {
 		DJGroup group = getGroupByNumber(groupNumber);
 		group.getHeaderCrosstabs().add(djcross);
 		return this;
 	}
+	
 	public FastReportBuilder addFooterCrosstab(int groupNumber, DJCrosstab djcross) throws BuilderException {
 		DJGroup group = getGroupByNumber(groupNumber);
 		group.getFooterCrosstabs().add(djcross);

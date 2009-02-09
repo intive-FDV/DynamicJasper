@@ -60,6 +60,7 @@ public class VariableValueFormatterReportTest extends BaseDjReportTest {
 		titleStyle.setFont(new Font(18,Font._FONT_VERDANA,true));
 		Style amountStyle = new Style();
 		amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
+		amountStyle.setStretchWithOverflow(true);
 		Style oddRowStyle = new Style();
 		oddRowStyle.setBorder(Border.NO_BORDER);
 		Color veryLightGrey = new Color(230,230,230);
@@ -104,10 +105,10 @@ public class VariableValueFormatterReportTest extends BaseDjReportTest {
 			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaCustomExpression = ColumnBuilder.getInstance()
-		.setCustomExpression(getCustomExpression())
-		.setCustomExpressionForCalculation(getCustomExpression2())
-		.setTitle("Duration").setWidth(new Integer(90))
-		.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
+			.setCustomExpression(getCustomExpression())
+			.setCustomExpressionForCalculation(getCustomExpression2())
+			.setTitle("Duration").setWidth(new Integer(90))
+			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);
 		drb.addColumn(columnaItem);
@@ -121,7 +122,8 @@ public class VariableValueFormatterReportTest extends BaseDjReportTest {
 		drb.addField("productLine", String.class.getName());
 		drb.addField("branch", String.class.getName());
 
-		drb.addGlobalFooterVariable(columnaCustomExpression, DJCalculation.SUM,null, getValueFormatter());
+		drb.addGlobalFooterVariable(columnaCustomExpression, DJCalculation.SUM,amountStyle, getValueFormatter());
+		drb.setGrandTotalLegend("");
 		
 		DynamicReport dr = drb.build();
 		return dr;
@@ -138,7 +140,7 @@ public class VariableValueFormatterReportTest extends BaseDjReportTest {
 		return new DJValueFormatter(){
 
 			public Object evaluate(Object value, Map fields, Map variables, Map parameters) {
-				return getAsMinutes((Long) value);
+				return "Total time: " + getAsMinutes((Long) value);
 			}
 
 			public String getClassName() {
