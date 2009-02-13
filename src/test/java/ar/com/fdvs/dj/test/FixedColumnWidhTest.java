@@ -31,6 +31,8 @@ package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
 
+import net.sf.jasperreports.engine.JRTextElement;
+import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
@@ -46,7 +48,7 @@ public class FixedColumnWidhTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 
 		Style detailStyle = new Style();
-			detailStyle.setBorder(Border.THIN);detailStyle.setBorderColor(Color.BLACK);
+			detailStyle.setBorder(Border.THIN);detailStyle.setBorderColor(Color.BLACK);detailStyle.setStretchWithOverflow(false);
 //			detailStyle.setTransparency(Transparency.OPAQUE);
 		Style headerStyle = new Style(); headerStyle.setBackgroundColor(new Color(230,230,230));headerStyle.setTransparency(Transparency.OPAQUE);
 
@@ -62,13 +64,13 @@ public class FixedColumnWidhTest extends BaseDjReportTest {
 		drb.setTitle("November 2006 sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(15)						//defines the height for each record of the report
+			.setDetailHeight(17)						//defines the height for each record of the report
 			.setMargins(30, 20, 30, 15)							//define the margin space for each side (top, bottom, left and right)
 			.setDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
 			.setColumnsPerPage(1);						//defines columns per page (like in the telephone guide)
 
 		/**
-		 * Note that we still didn�t call the build() method
+		 * Note that we still didn't call the build() method
 		 */
 
 		/**
@@ -85,7 +87,7 @@ public class FixedColumnWidhTest extends BaseDjReportTest {
 		//Create more columns
 		AbstractColumn columnBranch = ColumnBuilder.getInstance()
 			.setColumnProperty("branch", String.class.getName())
-			.setTitle("Branch").setWidth(85)
+			.setTitle("Branch").setWidth(85).setTruncateSuffix("...")
 			.build();
 
 		AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
@@ -136,6 +138,8 @@ public class FixedColumnWidhTest extends BaseDjReportTest {
 
 		DynamicReport dr = drb.build();	//Finally build the report!
 
+		//JRProperties.setProperty(JRTextElement.PROPERTY_TRUNCATE_SUFFIX, "...");
+		
 		return dr;
 	}
 

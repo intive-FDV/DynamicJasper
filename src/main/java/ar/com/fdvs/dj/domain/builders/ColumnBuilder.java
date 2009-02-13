@@ -84,6 +84,7 @@ public class ColumnBuilder {
 	private PropertiesMap fieldProperties = new PropertiesMap();
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	private String fieldDescription;
+	private String truncateSuffix;
 
 	private int columnType = COLUMN_TYPE_DEFAULT;
 
@@ -197,6 +198,7 @@ public class ColumnBuilder {
 		column.setPrintRepeatedValues(Boolean.valueOf(printRepeatedValues));
 		column.getConditionalStyles().addAll(conditionalStyles);
 		column.setFixedWidth(fixedWidth);
+		column.setTruncateSuffix(truncateSuffix);
 	}
 
 	public ColumnBuilder setTitle(String title) {
@@ -382,6 +384,17 @@ public class ColumnBuilder {
 	 */
 	public ColumnBuilder setApplicationIdentifier(String applicationIdentifier) {
 		this.applicationIdentifier = applicationIdentifier;
+		return this;
+	}
+
+	/**
+	 * A suffix to be used in case content does not fit in given space. 
+	 * Must be used with style.setStretchWithOverflow(false);
+	 * @param suffix
+	 * @return
+	 */
+	public ColumnBuilder setTruncateSuffix(String suffix) {
+		this.truncateSuffix = suffix;
 		return this;
 	}
 

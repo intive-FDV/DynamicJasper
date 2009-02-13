@@ -40,7 +40,9 @@ import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
+import net.sf.jasperreports.engine.JRPropertyExpression;
 import net.sf.jasperreports.engine.JRStyle;
+import net.sf.jasperreports.engine.JRTextElement;
 import net.sf.jasperreports.engine.JRTextField;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
 import net.sf.jasperreports.engine.base.JRBaseVariable;
@@ -52,6 +54,7 @@ import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
+import net.sf.jasperreports.engine.design.JRDesignPropertyExpression;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
@@ -334,6 +337,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				} else {
 					JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
 					transformDetailBandTextField(column, textField);
+					
 					if (textField.getExpression() != null)
 						detail.addElement(textField);
 				}
@@ -585,6 +589,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		if (col.getPattern() != null && "".equals(col.getPattern().trim())) {
 			textField.setPattern(col.getPattern());
         }
+		
+		if (col.getTruncateSuffix() != null){
+			textField.getPropertiesMap().setProperty(JRTextElement.PROPERTY_TRUNCATE_SUFFIX, col.getTruncateSuffix());
+		}
 
 		exp.setText(col.getTextForExpression());
 		exp.setValueClassName(col.getValueClassNameForExpression());

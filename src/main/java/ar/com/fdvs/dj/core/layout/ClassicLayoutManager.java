@@ -355,7 +355,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		title.setExpression(exp);
 		title.setWidth(getReport().getOptions().getPrintableWidth());
 		title.setHeight(getReport().getOptions().getTitleHeight().intValue());
-		title.setY(yOffset);
+		title.setY(yOffset);		
 		title.setPrintWhenExpression(printWhenExpression);
 		title.setRemoveLineWhenBlank(true);
 		applyStyleToElement(getReport().getTitleStyle(), title);

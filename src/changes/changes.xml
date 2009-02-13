@@ -35,6 +35,11 @@
 			</properties>
 	 <body>
 	 
+				 <release version="3.0.5" date="2009-02-09"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="add" due-to="ccavanaugh" due-to-email="https://sourceforge.net/forum/message.php?msg_id=6412849">
+					 	Added ability to truncate text defining a suffix like "..."
+					 </action>
+				</release>
 				 <release version="3.0.4" date="2009-02-09"	desc="fixes">
 					 <action dev="Alejandro Gomez" type="fix">
 					 	<![CDATA[Struts 2 (version 2.1.6) was not working due to change in method signature of xwork library. 

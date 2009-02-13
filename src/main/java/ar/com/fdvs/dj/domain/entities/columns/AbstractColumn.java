@@ -54,6 +54,7 @@ public abstract class AbstractColumn implements Entity {
 	private String pattern;
 	private Boolean printRepeatedValues = Boolean.TRUE;
 	private Boolean blankWhenNull = Boolean.TRUE;
+	private String truncateSuffix = null;
 
 	private List conditionalStyles = new ArrayList();
 
@@ -167,6 +168,14 @@ public abstract class AbstractColumn implements Entity {
 
 	public void setFixedWidth(Boolean fixedWidth) {
 		this.fixedWidth = fixedWidth;
+	}
+
+	public String getTruncateSuffix() {
+		return truncateSuffix;
+	}
+
+	public void setTruncateSuffix(String truncateSuffix) {
+		this.truncateSuffix = truncateSuffix;
 	}
 
 }
