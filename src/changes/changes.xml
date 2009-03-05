@@ -36,6 +36,10 @@
 	 <body>
 	 
 				 <release version="3.0.5" date="2009-02-09"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="bucklane">
+					 	Fixed typo in method name: Style.setPaddingBotton should end with an 'm' not an 'n'.
+					 	<![CDATA[See https://sourceforge.net/tracker2/?func=detail&aid=2634753&group_id=188060&atid=923805]]>
+					 </action>				 				 
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA" due-to-email="https://sourceforge.net/forum/message.php?msg_id=6611349">
 					 	Fixed bug related to conditional styles, now working as expected.
 					 </action>				 
