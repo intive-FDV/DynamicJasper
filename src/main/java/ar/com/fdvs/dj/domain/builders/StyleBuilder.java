@@ -162,9 +162,18 @@ public class StyleBuilder {
 		return this;
 	}
 
-	public StyleBuilder setPaddingBotton(Integer paddingBotton) {
-		style.setPaddingBotton(paddingBotton);
+	public StyleBuilder setPaddingBottom(Integer paddingBottom) {
+		style.setPaddingBottom(paddingBottom);
 		return this;
+	}
+
+	/**
+	 * @deprecated due to miss spelling
+	 * @param paddingBotton
+	 * @return
+	 */
+	public StyleBuilder setPaddingBotton(Integer paddingBotton) {
+		return setPaddingBottom(paddingBotton);
 	}
 
 	public StyleBuilder setPaddingLeft(Integer paddingLeft) {

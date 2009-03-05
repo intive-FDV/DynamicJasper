@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.core.layout;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -60,6 +61,7 @@ import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.util.JRExpressionUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.collections.CollectionUtils;
@@ -86,6 +88,7 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionStyleExpression;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.LayoutUtils;
+import ar.com.fdvs.dj.util.Utils;
 
 /**
  * Abstract Class used as base for the different Layout Managers.</br>
@@ -99,6 +102,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 	static final Log log = LogFactory.getLog(AbstractLayoutManager.class);
 	protected static final String EXPRESSION_TRUE_WHEN_ODD = "new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 == 0)";
+	protected static final String EXPRESSION_TRUE_WHEN_EVEN = "new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 != 0)";
 
 	JasperDesign design;
 	private DynamicReport report;
@@ -325,22 +329,28 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			 * Regular Column
 			 */
 			else {
-				if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty() ){
-					for (Iterator iterator = column.getConditionalStyles().iterator(); iterator.hasNext();) {
-						ConditionalStyle condition = (ConditionalStyle) iterator.next();
-						JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
-						transformDetailBandTextField(column, textField);
-						applyStyleToElement(condition.getStyle(), textField);
-						textField.setPrintWhenExpression(getExpressionForConditionalStyle(condition, column));
-						detail.addElement(textField);
-					}
-				} else {
-					JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
-					transformDetailBandTextField(column, textField);
-					
-					if (textField.getExpression() != null)
-						detail.addElement(textField);
-				}
+				JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
+				transformDetailBandTextField(column, textField);
+				
+				if (textField.getExpression() != null)
+					detail.addElement(textField);
+				
+//				if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty() ){
+//					for (Iterator iterator = column.getConditionalStyles().iterator(); iterator.hasNext();) {
+//						ConditionalStyle condition = (ConditionalStyle) iterator.next();
+//						JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
+//						transformDetailBandTextField(column, textField);
+//						applyStyleToElement(condition.getStyle(), textField);
+//						textField.setPrintWhenExpression(getExpressionForConditionalStyle(condition, column));
+//						detail.addElement(textField);
+//					}
+//				} else {
+//					JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
+//					transformDetailBandTextField(column, textField);
+//					
+//					if (textField.getExpression() != null)
+//						detail.addElement(textField);
+//				}
 			}
 
         }
@@ -353,7 +363,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @param String textForExpression
 	 * @return JRExpression
 	 */
-	private JRExpression getExpressionForConditionalStyle(ConditionalStyle condition, AbstractColumn column) {
+	private JRDesignExpression getExpressionForConditionalStyle(ConditionalStyle condition, AbstractColumn column) {
 		//String text = "(("+CustomExpression.class.getName()+")$P{"+paramName+"})."+CustomExpression.EVAL_METHOD_NAME+"("+textForExpression+")";
 		String columExpression = column.getTextForExpression();
 		//condition.getCondition().setFieldToEvaluate(exprParams)
@@ -438,12 +448,15 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 						//		&& !style.isOverridesExistingStyle();
 
 		JRDesignStyle jrstyle = null;
-		if (existsInDesign && !style.isOverridesExistingStyle()){
+		//Let's allways add a new JR style
+  		if (existsInDesign && !style.isOverridesExistingStyle()){
 			jrstyle = (JRDesignStyle) design.getStylesMap().get(style.getName());
 		} else {
 			addStyleToDesign(style); //Order maters. This line fist
 			jrstyle = style.transform();
 		}
+
+		
 
 		designElemen.setStyle(jrstyle);
 		if (designElemen instanceof JRDesignTextElement ) {
@@ -616,7 +629,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         applyStyleToElement(columnStyle, textField);
         JRDesignStyle jrstyle = (JRDesignStyle) textField.getStyle();
-
+        
         if (group != null) {
         	int index = getReport().getColumnsGroups().indexOf(group);
 //            JRDesignGroup previousGroup = (JRDesignGroup) getDesign().getGroupsList().get(index);
@@ -630,12 +643,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
              * style if present
              */
             JRDesignStyle groupStyle = new JRDesignStyle();
-            try {
-            	if (jrstyle != null)
-            		BeanUtils.copyProperties(groupStyle, jrstyle);
-			} catch (Exception e) {
-				throw new DJException("Could not copy properties for shared group style: " + e.getMessage(),e);
-			}
+            Utils.copyProperties(groupStyle, jrstyle);
 
 			groupStyle.setName(groupStyle.getFontName() +"_for_group_"+index);
 			textField.setStyle(groupStyle);
@@ -644,6 +652,20 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			} catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
 
         } else {
+        	
+            JRDesignStyle alternateStyle = new JRDesignStyle();
+            Utils.copyProperties(alternateStyle, jrstyle);
+
+			alternateStyle.setName(alternateStyle.getFontName() +"_for_column_"+col.getName());
+			alternateStyle.getConditionalStyleList().clear();
+			textField.setStyle(alternateStyle);
+			try {
+				design.addStyle(alternateStyle);
+			} catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
+        	
+        	
+        	setUpConditionStyles(alternateStyle, col );
+        	/*
         	if (getReport().getOptions().isPrintBackgroundOnOddRows() &&
         			(jrstyle.getConditionalStyles() == null || jrstyle.getConditionalStyles().length == 0)) {
 	        	// No group column so this is a detail text field
@@ -659,9 +681,113 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 	    		condStyle.setConditionExpression(expression);
 	    		jrstyle.addConditionalStyle(condStyle);
-        	}
+        	}*/
         }
         return textField;
+	}
+
+	/**
+	 * set up properly the final JRStyle of the column element (for detail band) upon condition style and odd-background
+	 * @param jrstyle
+	 * @param column
+	 */
+	private void setUpConditionStyles(JRDesignStyle jrstyle, AbstractColumn column) {
+				
+		if (getReport().getOptions().isPrintBackgroundOnOddRows() && Utils.isEmpty(column.getConditionalStyles())){
+    		JRDesignExpression expression = new JRDesignExpression();
+    		expression.setValueClass(Boolean.class);
+    		expression.setText(EXPRESSION_TRUE_WHEN_ODD);
+
+    		Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
+
+    		JRDesignConditionalStyle condStyle = new JRDesignConditionalStyle();
+    		condStyle.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
+    		condStyle.setMode(JRDesignElement.MODE_OPAQUE);
+
+    		condStyle.setConditionExpression(expression);
+    		jrstyle.addConditionalStyle(condStyle);
+    		
+    		return;
+		}
+			
+		if (Utils.isEmpty(column.getConditionalStyles()))
+			return;
+		
+		for (Iterator iterator = column.getConditionalStyles().iterator(); iterator.hasNext();) {
+			ConditionalStyle condition = (ConditionalStyle) iterator.next();
+			
+			if (getReport().getOptions().isPrintBackgroundOnOddRows() 
+					&& JRDesignElement.MODE_TRANSPARENT == jrstyle.getMode().byteValue() ){//condition style + odd row (only if original background is transparent)
+				
+				JRDesignExpression expressionForConditionalStyle = getExpressionForConditionalStyle(condition, column);
+				String expStr = JRExpressionUtil.getExpressionText(expressionForConditionalStyle);
+				
+				//ODD
+				JRDesignExpression expressionOdd = new JRDesignExpression();
+				expressionOdd.setValueClass(Boolean.class);
+				expressionOdd.setText("new java.lang.Boolean(" +EXPRESSION_TRUE_WHEN_ODD+".booleanValue() && ((java.lang.Boolean)" + expStr + ").booleanValue() )");
+
+				Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
+
+				JRDesignConditionalStyle condStyleOdd = new JRDesignConditionalStyle();
+				Utils.copyProperties(condStyleOdd, condition.getStyle().transform());
+				condStyleOdd.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
+				condStyleOdd.setMode(JRDesignElement.MODE_OPAQUE);
+				condStyleOdd.setConditionExpression(expressionOdd);
+				
+				jrstyle.addConditionalStyle(condStyleOdd);	
+				
+				//EVEN
+				JRDesignExpression expressionEven = new JRDesignExpression();
+				expressionEven.setValueClass(Boolean.class);
+				expressionEven.setText("new java.lang.Boolean(" +EXPRESSION_TRUE_WHEN_EVEN+".booleanValue() && ((java.lang.Boolean)" + expStr + ").booleanValue() )");
+
+				JRDesignConditionalStyle condStyleEven = new JRDesignConditionalStyle();
+				Utils.copyProperties(condStyleEven, condition.getStyle().transform());
+				condStyleEven.setBackcolor(jrstyle.getBackcolor());
+				condStyleEven.setMode(jrstyle.getMode());
+				condStyleEven.setConditionExpression(expressionEven);
+				
+				jrstyle.addConditionalStyle(condStyleEven);				
+				
+				
+				
+			} else { //No odd row, just the conditional style
+				JRDesignExpression expression = getExpressionForConditionalStyle(condition, column);
+				JRDesignConditionalStyle condStyle = new JRDesignConditionalStyle();
+				condStyle.setConditionExpression(expression);
+				jrstyle.addConditionalStyle(condStyle);						
+			}
+			
+		}
+		
+		//The last condition is the basic one
+		//ODD
+		JRDesignExpression expressionOdd = new JRDesignExpression();
+		expressionOdd.setValueClass(Boolean.class);
+		expressionOdd.setText(EXPRESSION_TRUE_WHEN_ODD);
+
+		Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
+
+		JRDesignConditionalStyle condStyleOdd = new JRDesignConditionalStyle();
+		condStyleOdd.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
+		condStyleOdd.setMode(JRDesignElement.MODE_OPAQUE);
+		condStyleOdd.setConditionExpression(expressionOdd);
+		
+		jrstyle.addConditionalStyle(condStyleOdd);	
+		
+		//EVEN
+		JRDesignExpression expressionEven = new JRDesignExpression();
+		expressionEven.setValueClass(Boolean.class);
+		expressionEven.setText(EXPRESSION_TRUE_WHEN_EVEN);
+
+		JRDesignConditionalStyle condStyleEven = new JRDesignConditionalStyle();
+		condStyleEven.setBackcolor(jrstyle.getBackcolor());
+		condStyleEven.setMode(jrstyle.getMode());
+		condStyleEven.setConditionExpression(expressionEven);
+		
+		jrstyle.addConditionalStyle(condStyleEven);		
+		
 	}
 
 	/*

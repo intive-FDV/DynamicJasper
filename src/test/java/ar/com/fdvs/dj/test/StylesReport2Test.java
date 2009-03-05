@@ -81,7 +81,7 @@ public class StylesReport2Test extends BaseDjReportTest {
 		amountStyle.setTransparency(Transparency.OPAQUE);
 		amountStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
 		amountStyle.getFont().setUnderline(true);
-		amountStyle.setPaddingBotton(new Integer(5));
+		amountStyle.setPaddingBottom(new Integer(5));
 		Style oddRowStyle = new Style();
 		oddRowStyle.setBorder(Border.NO_BORDER);
 		Color veryLightGrey = new Color(230,230,230);

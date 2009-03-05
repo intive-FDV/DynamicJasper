@@ -36,6 +36,9 @@
 	 <body>
 	 
 				 <release version="3.0.5" date="2009-02-09"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA" due-to-email="https://sourceforge.net/forum/message.php?msg_id=6611349">
+					 	Fixed bug related to conditional styles, now working as expected.
+					 </action>				 
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="ccavanaugh" due-to-email="https://sourceforge.net/forum/message.php?msg_id=6412849">
 					 	Added ability to truncate text defining a suffix like "..."
 					 </action>

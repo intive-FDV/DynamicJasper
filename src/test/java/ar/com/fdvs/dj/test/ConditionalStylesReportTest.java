@@ -33,10 +33,14 @@ import java.awt.Color;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.util.JRExpressionUtil;
 import net.sf.jasperreports.view.JasperViewer;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
+import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
@@ -156,7 +160,7 @@ public class ConditionalStylesReportTest extends BaseDjReportTest {
 		Style style2 = (Style) BeanUtils.cloneBean(baseStyle);
 		style2.setTextColor(new Color(0,128,0)); //dark green
 
-		StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(5000)); //TODO ENHANCEMENT make it come from a parameter??? $P{...}
+		StatusLightCondition status0 = new StatusLightCondition(new Double(3000), new Double(5000)); //TODO ENHANCEMENT make it come from a parameter??? $P{...}
 		StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(7000));
 		StatusLightCondition status2 = new StatusLightCondition(new Double(7000),new Double(100000));
 
@@ -174,6 +178,7 @@ public class ConditionalStylesReportTest extends BaseDjReportTest {
 	public static void main(String[] args) throws Exception {
 		ConditionalStylesReportTest test = new ConditionalStylesReportTest();
 		test.testReport();
+		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);
 	}
 

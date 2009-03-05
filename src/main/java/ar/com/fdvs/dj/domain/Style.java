@@ -73,7 +73,7 @@ public class Style implements Serializable, Cloneable {
 	private Border borderLeft = null;
 	private Border borderRight = null;
 
-	private Integer paddingBotton, paddingTop, paddingLeft, paddingRight;
+	private Integer paddingBottom, paddingTop, paddingLeft, paddingRight;
 
 	private Integer padding = new Integer(2);
 	private Integer radius = new Integer(0);
@@ -234,8 +234,8 @@ public class Style implements Serializable, Cloneable {
 
 		transformedStyle.setPadding(getPadding());
 
-		if (paddingBotton != null)
-			transformedStyle.setBottomPadding(paddingBotton);
+		if (paddingBottom != null)
+			transformedStyle.setBottomPadding(paddingBottom);
 		if (paddingTop != null)
 			transformedStyle.setTopPadding(paddingTop);
 		if (paddingLeft != null)
@@ -344,13 +344,29 @@ public class Style implements Serializable, Cloneable {
 		this.radius = radius;
 	}
 
-	public Integer getPaddingBotton() {
-		return paddingBotton;
+	/**
+	 * @deprecated due to miss spelling
+	 * @return
+	 */
+//	public Integer getPaddingBotton() {
+//		return paddingBottom;
+//	}
+
+	public Integer getPaddingBottom() {
+		return paddingBottom;
 	}
 
-	public void setPaddingBotton(Integer paddingBotton) {
-		this.paddingBotton = paddingBotton;
+	public void setPaddingBottom(Integer paddingBottom) {
+		this.paddingBottom = paddingBottom;
 	}
+
+	/**
+	 * @deprecated due to miss spelling
+	 * @param paddingBotton
+	 */
+//	public void setPaddingBotton(Integer paddingBotton) {
+//		this.paddingBottom = paddingBotton;
+//	}
 
 	public Integer getPaddingTop() {
 		return paddingTop;
