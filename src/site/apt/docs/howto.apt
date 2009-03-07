@@ -1,0 +1,118 @@
+		------
+		How-to guide
+		------
+		Mariano Simone
+		------
+		 Date
+
+HOW TO Guide
+
+ We recommend to read first the {{{getting_started.html}Getting Started}} guide and use this guide to get
+ information on how to achieve specific goals.
+
+* Content
+
+ <<Grouping and Layout>>
+
+ * {{{grouping styles.html}Grouping styles}}
+
+ * {{{HOWTO Hide a column.html}Hide a column}}
+
+ * {{{HOWTO Create a report with columns.html}Create a report with columns  (like the telephone guide)}}
+
+ * {{{HOWTO Avoid row splitting.html}Avoid row splitting}}
+
+ * {{{HOWTO Add header and or footer to a report.html}Add header and/or footer to a report}}
+
+ * {{{HOWTO Create Autotext.html}Create Autotext (ie: Page x/y) out of the box}}
+ 
+ * {{{HOWTO Create variables and define specific behavior.html}Create variables and define specific behavior:}} Redefine how the result is shown, redefine which value is used for the variable calculation.
+
+ []
+
+ <<Crosstabs>>
+
+ * {{{HOWTO Crosstabs.html}Use Crosstabs}}
+
+ []
+
+ <<Images / Bar code / i18N>>
+
+ * {{{HOWTO Add banners to report s headers.html}Add banners to report's headers}}
+
+ * {{{HOWTO image column.html}Use images in columns}}
+
+ * {{{HOWTO bar code column.html}Use bar codes}}
+
+ []
+
+ <<Styles / Templates>>
+
+ * {{{HOWTO Use conditional Styles.html}Use conditional Styles}}
+
+ * {{{HOWTO Reference a style that exists in a jrxml file.html}Reference a style that exists in a jrxml file}}
+
+ * {{{HOWTO Use inherited styles.html}Use inherited styles}}
+
+ * {{{HOWTO Use custom jrxml templates.html}Use custom jrxml templates}}
+
+ * {{{HOWTO Use custom fonts.html}Use custom fonts (internationalization)}}
+
+ []
+
+ <<Exporting / Generating the report>>
+
+ * {{{HOWTO export to jrxml.html}Export report design to jrxml}}
+
+ * {{{HOWTO Create an Excel report.html}Create a clean Excel report}} (friendly for data manipulation in Excel)
+
+ * {{{HOWTO Export to HTML.html}Export to HTML}}
+
+ * {{{HOWTO Use Virtualizers.html}Use Virtualizers}} and avoid performance and hardware constraints.
+
+ []
+
+ <<Charts>>
+
+ * {{{HOWTO Add a chart.html}Add a chart}}
+
+ []
+
+ <<Sub reports>>
+
+ * {{{HOWTO Add Subreports2.html}Add Subreports}}
+
+ * {{{HOWTO Add Concatenated subreports.html}Add Concatenated subreports}}
+
+ []
+
+ <<Data Manipulation / Data sources>>
+
+ * {{{HOWTO Define behavior when a resource is missing.html}Define behavior when a resource is missing}}
+
+ * {{{HOWTO Define behavior when empty data source.html}Define behavior when empty data source}}
+
+ * {{{HOWTO Setup columns when using a XML data sources.html}Setup columns when using a XML data sources}}
+
+ * {{{HOWTO use report query.html}Use report query}}
+
+ * {{{HOWTO Register invisible fields.html}Register invisible fields}}
+
+ * {{{HOWTO Create Custom Expressions.html}Create Custom Expressions}} (Manipulate data when using Java code, useful when a plain patter is not enough.)
+
+ * {{{HOWTO Create a grand total.html}Create a grand total (with no groups)}}
+
+ []
+
+ <<Integration with other frameworks>>
+
+ * {{{grails dj plugin.html}DynamicJasper Grails Plugin}}
+
+ * {{{dj and grails.html}Integrate DynamicJasper with Grails}}
+
+ * {{{HOWTO Integrate DynamicJasper with Struts 2.html}Integrate DynamicJasper with Struts 2}}
+
+ * {{{HOWTO Integrate DynamicJasper with Webwork.html}Integrate DynamicJasper with Webwork}}
+
+
+ []

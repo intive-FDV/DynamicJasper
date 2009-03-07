@@ -1,0 +1,56 @@
+	------------
+	HOW-TO Use custom jrxml templates
+	------------
+	Juan Manuel Alvarez Gimenez
+	-----------
+	Date
+
+HOW-TO Use custom jrxml templates
+
+ <<IMPORTANT:>> Templates feature has many options, but you need to have this clear:
+  
+  * The template <<must not have groups>>, DynamicJAsper will create them if necessary.
+  
+  * The <<detail band must be empty>>: DynamicJasper will work in the detail band, any previously existing element will be deleted.
+  
+  * <<One template per page size and orientation>> will be needed: This is because DJ knows how to arrange the element he creates, but not the existing ones.
+  
+  []
+  
+ The aim of this feature is to provide a mechanism to allow reusing graphics elements in page header and footers, background band and also styles. 
+ Using templates ensures consistent styles across different reports inside an application.
+
+ You can write your own jrxml template, and use DynamicJasper to fill it easily:
+
++------------------------------------------------------------------------------------------------------------+ 
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+
+drb.setTemplateFile("pathToTemplate/TemplateName.jrxml");
++------------------------------------------------------------------------------------------------------------+ 
+
+ If the template has variables, parameters, fields or datasets you would like to import, you can specifically
+ tell DJ what to import.
+
++------------------------------------------------------------------------------------------------------------+ 
+ public DynamicReportBuilder setTemplateFile(String path, 
+							 boolean importFields, 
+							 boolean importVariables, 
+							 boolean importParameters, 
+							 boolean importDatasets)
++------------------------------------------------------------------------------------------------------------+ 
+
+*-----+
+|<<Note:>> This feature was introduced since many users needed such functionality.
+|Importing variables, fields and datasets from jrxml templates can make the report design to <<not compile>> due to errors of inconsistency in such objects from the templates and the generated in runtime by DJ.
+|<<If you use this feature, its supposed that you know what you are doing>>
+*-----+
+ 
+ Templates can be loaded from an Absolute Path, or from the Classpath. The API first tries as an absolute path, if it fails, then tries as a resource in the classpath.
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateFileReportTest.html}TemplateFileReportTest}} for a working example.
+ 
+*-----+
+|<<Note:>> You can reference in the DynamicReport styles that where defined in the .jrxml file
+|For more info: {{{HOWTO Reference a style that exists in a jrxml file.html}How to Reference a style that exists in a jrxml file}}
+*-----+
