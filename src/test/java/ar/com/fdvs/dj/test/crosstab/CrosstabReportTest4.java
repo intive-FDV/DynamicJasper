@@ -91,10 +91,11 @@ public class CrosstabReportTest4 extends BaseDjReportTest {
 			.addColumn("State","state",String.class.getName(),false)
 			.addColumn("Branch","branch",String.class.getName(),true)
 			.addColumn("Item", "item", String.class.getName(),true)
+			.addMeasure("id",Long.class.getName(), DJCalculation.SUM , "Id", measureStyle)
 			.addMeasure("amount",Float.class.getName(), DJCalculation.SUM , "Amount",measureStyle)
 			.setRowStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
 			.setColumnStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
-			.setCellDimension(17, 60)
+			.setCellDimension(34, 60)
 			.setColumnHeaderHeight(30)
 			.setRowHeaderWidth(80)
 			.build();

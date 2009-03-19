@@ -35,6 +35,11 @@
 			</properties>
 	 <body>
 	 
+				 <release version="3.0.6" date="2009-03-20"	desc="crosstab fixes">
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	ability to have multiple measures on crosstabs.
+					 </action>				 				 
+				 </release>
 				 <release version="3.0.5" date="2009-02-09"	desc="fixes">
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="bucklane">
 					 	Fixed typo in method name: Style.setPaddingBotton should end with an 'm' not an 'n'.

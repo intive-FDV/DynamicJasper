@@ -261,14 +261,26 @@ public class Dj2JrCrosstabBuilder {
 				log.error(e.getMessage(),e);
 			}
 		}
-		JRDesignField field = new JRDesignField();
-		field.setName(djcrosstab.getMeasure(0).getProperty().getProperty());
-		field.setValueClassName(djcrosstab.getMeasure(0).getProperty().getValueClassName());
-		try {
-			jrDataset.addField(field);
-		} catch (JRException e) {
-			log.error(e.getMessage(),e);
+		
+		for (Iterator iterator = djcrosstab.getMeasures().iterator(); iterator.hasNext();) {
+			JRDesignField field = new JRDesignField();
+			DJCrosstabMeasure djmeasure = (DJCrosstabMeasure) iterator.next();
+			field.setName(djmeasure.getProperty().getProperty());
+			field.setValueClassName(djmeasure.getProperty().getValueClassName());
+			try {
+				jrDataset.addField(field);
+			} catch (JRException e) {
+				log.error(e.getMessage(),e);
+			}
 		}
+		
+//		field.setName(djcrosstab.getMeasure(0).getProperty().getProperty());
+//		field.setValueClassName(djcrosstab.getMeasure(0).getProperty().getValueClassName());
+//		try {
+//			jrDataset.addField(field);
+//		} catch (JRException e) {
+//			log.error(e.getMessage(),e);
+//		}
 
 
 		jrcross.setDataset(dataset);
@@ -300,7 +312,7 @@ public class Dj2JrCrosstabBuilder {
 		 * The way to create the cells is like this:
 		 *
 		 * the result is a matrix of (cols+1)*(rows+1) cells.
-		 * Each cell has 2 properties that describes wich row and column they belong (like coordinates).
+		 * Each cell has 2 properties that describes which row and column they belong (like coordinates).
 		 *
 		 * null/null	| col(n)/null	| ...	| col(1)/null
 		 * --------------------------------------------------
@@ -358,44 +370,62 @@ public class Dj2JrCrosstabBuilder {
 
 				JRDesignCellContents contents = new JRDesignCellContents();
 
-				JRDesignTextField element = new JRDesignTextField();
-				element.setWidth(crosstabColumn.getWidth());
-				element.setHeight(crosstabRow.getHeight());
 
-				JRDesignExpression measureExp = new JRDesignExpression();
-				DJCrosstabMeasure measure = djcross.getMeasure(0);
-				measureExp.setValueClassName(measure.getProperty().getValueClassName());
-				measureExp.setText("$V{"+measure.getProperty().getProperty()+"}");
+				int counter = 0;
+				int measureHeight = crosstabRow.getHeight() / djcross.getMeasures().size();
+				for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext(); counter++) {
+					DJCrosstabMeasure djmeasure = (DJCrosstabMeasure) iterator.next();
+					
+					JRDesignTextField element = new JRDesignTextField();
+					element.setWidth(crosstabColumn.getWidth());
+					element.setHeight(measureHeight);
+					element.setY(counter*measureHeight);
+					
 
-				element.setExpression(measureExp);
+					JRDesignExpression measureExp = new JRDesignExpression();
+//					DJCrosstabMeasure measure = djcross.getMeasure(0);
+					measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
+					measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+					
+					element.setExpression(measureExp);
 
-				/**
-				 * Is there any style for this object?
-				 */
-				if (crosstabRow.getProperty() == null && crosstabColumn.getProperty() == null && measure.getStyle() != null ){
-					//this is the inner most cell
-					layoutManager.applyStyleToElement(measure.getStyle() , element);
-				} else if (crosstabRow.getTotalStyle() != null) {
-					layoutManager.applyStyleToElement(crosstabRow.getTotalStyle(), element);
+					/*
+					JRDesignExpression measureExp = new JRDesignExpression();
+					DJCrosstabMeasure measure = djcross.getMeasure(0);
+					measureExp.setValueClassName(measure.getProperty().getValueClassName());
+					measureExp.setText("$V{"+measure.getProperty().getProperty()+"}");
+	
+					element.setExpression(measureExp);
+	*/
+					/**
+					 * Is there any style for this object?
+					 */
+					if (crosstabRow.getProperty() == null && crosstabColumn.getProperty() == null && djmeasure.getStyle() != null ){
+						//this is the inner most cell
+						layoutManager.applyStyleToElement(djmeasure.getStyle() , element);
+					} else if (crosstabRow.getTotalStyle() != null) {
+						layoutManager.applyStyleToElement(crosstabRow.getTotalStyle(), element);
+					}
+					else if (crosstabColumn.getTotalStyle() != null) {
+						layoutManager.applyStyleToElement(crosstabColumn.getTotalStyle(), element);
+					}
+	
+	//				if ((i == auxCols.length-1 &&  j != auxRows.length-1) || (i != auxCols.length-1 &&  j != auxRows.length-1)){
+	//					cell.setWidth(Integer.valueOf( 100));
+	//				}
+	//				if (crosstabColumn.getProperty() != null && j != auxRows.length-1 && crosstabRow.getTotalHeaderHeight() != 0){
+	//					cell.setWidth(Integer.valueOf( crosstabRow.getTotalHeaderHeight() ));
+	//				}
+	//				if (i != auxCols.length-1 && j != auxRows.length-1 && crosstabRow.getTotalHeaderHeight() != 0){
+	//					cell.setWidth(Integer.valueOf( crosstabRow.getTotalHeaderHeight() ));
+	//				}
+	
+	
+					contents.setMode(new Byte(Transparency.OPAQUE.getValue()));
+					contents.setBackcolor(colors[i][j]);
+					contents.addElement(element);
+					
 				}
-				else if (crosstabColumn.getTotalStyle() != null) {
-					layoutManager.applyStyleToElement(crosstabColumn.getTotalStyle(), element);
-				}
-
-//				if ((i == auxCols.length-1 &&  j != auxRows.length-1) || (i != auxCols.length-1 &&  j != auxRows.length-1)){
-//					cell.setWidth(Integer.valueOf( 100));
-//				}
-//				if (crosstabColumn.getProperty() != null && j != auxRows.length-1 && crosstabRow.getTotalHeaderHeight() != 0){
-//					cell.setWidth(Integer.valueOf( crosstabRow.getTotalHeaderHeight() ));
-//				}
-//				if (i != auxCols.length-1 && j != auxRows.length-1 && crosstabRow.getTotalHeaderHeight() != 0){
-//					cell.setWidth(Integer.valueOf( crosstabRow.getTotalHeaderHeight() ));
-//				}
-
-
-				contents.setMode(new Byte(Transparency.OPAQUE.getValue()));
-				contents.setBackcolor(colors[i][j]);
-				contents.addElement(element);
 
 				applyCellBorder(contents);
 
