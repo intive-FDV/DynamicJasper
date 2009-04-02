@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +56,8 @@ public abstract class AbstractColumn implements Entity {
 	private Boolean printRepeatedValues = Boolean.TRUE;
 	private Boolean blankWhenNull = Boolean.TRUE;
 	private String truncateSuffix = null;
+//    private String formatParameter;
+	private Format textFormatter;
 
 	private List conditionalStyles = new ArrayList();
 
@@ -176,6 +179,14 @@ public abstract class AbstractColumn implements Entity {
 
 	public void setTruncateSuffix(String truncateSuffix) {
 		this.truncateSuffix = truncateSuffix;
+	}
+
+	public Format getTextFormatter() {
+		return textFormatter;
+	}
+
+	public void setTextFormatter(Format textFormatter) {
+		this.textFormatter = textFormatter;
 	}
 
 }

@@ -32,9 +32,13 @@ package ar.com.fdvs.dj.core.registration;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import jxl.format.Format;
+
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.design.JRDesignField;
+import net.sf.jasperreports.engine.design.JRDesignParameter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -46,6 +50,7 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
  * Manager invoked to register columns. An AbstractColumn is read and </br>
@@ -76,6 +81,17 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 		}
 		if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty()){
 			new ConditionalStylesRegistrationManager(getDjd(),getDynamicReport(),column.getName()).registerEntities(column.getConditionalStyles());
+		}
+		if (column.getTextFormatter() != null) {
+			JRDesignParameter parameter = new JRDesignParameter();
+			parameter.setName(ExpressionUtils.createParameterName("formatter_", column.getTextFormatter()));
+			parameter.setValueClassName(Object.class.getName());
+			getDjd().getParametersWithValues().put(parameter.getName(), column.getTextFormatter());
+			try {
+				getDjd().addParameter(parameter);
+			} catch (JRException e) {
+				log.debug("repeated parameter: " + parameter.getName());
+			}
 		}
 
 		if (entity instanceof PropertyColumn) {

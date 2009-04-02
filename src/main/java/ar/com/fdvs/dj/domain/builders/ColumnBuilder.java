@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -85,6 +86,8 @@ public class ColumnBuilder {
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	private String fieldDescription;
 	private String truncateSuffix;
+    private String formatParameter;
+    private Format textFormatter;
 
 	private int columnType = COLUMN_TYPE_DEFAULT;
 
@@ -199,6 +202,7 @@ public class ColumnBuilder {
 		column.getConditionalStyles().addAll(conditionalStyles);
 		column.setFixedWidth(fixedWidth);
 		column.setTruncateSuffix(truncateSuffix);
+        column.setTextFormatter(textFormatter);
 	}
 
 	public ColumnBuilder setTitle(String title) {
@@ -397,5 +401,11 @@ public class ColumnBuilder {
 		this.truncateSuffix = suffix;
 		return this;
 	}
+
+    public ColumnBuilder setTextFormatter(Format textFormatter) {
+    	this.textFormatter = textFormatter; 
+    	return this;
+    }
+
 
 }

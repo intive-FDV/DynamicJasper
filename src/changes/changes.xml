@@ -39,6 +39,9 @@
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	ability to have multiple measures on crosstabs.
 					 </action>				 				 
+					 <action dev="Juan Manuel Alvarez" type="add" due-to="Fabio Borges" due-to-email="fabiodsb@sourforge.net">
+					 	columns can have a text formatter (java.text.Format) as an alternative for formatting values
+					 </action>				 				 
 				 </release>
 				 <release version="3.0.5" date="2009-02-09"	desc="fixes">
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="bucklane">

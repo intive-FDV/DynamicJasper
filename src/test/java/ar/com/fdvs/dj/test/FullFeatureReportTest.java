@@ -30,6 +30,9 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
+import java.text.FieldPosition;
+import java.text.Format;
+import java.text.ParsePosition;
 import java.util.Locale;
 
 import net.sf.jasperreports.view.JasperViewer;
@@ -116,6 +119,24 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
+		Format textFormatter = new Format(){
+
+			public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
+				if (obj == null || Boolean.FALSE.equals(obj))
+					toAppendTo.append("No");
+				else
+					toAppendTo.append("Yes");
+				
+				return toAppendTo;
+			}
+
+			public Object parseObject(String source, ParsePosition pos) {
+				return null;
+			}};
+		AbstractColumn columnavailable = ColumnBuilder.getInstance().setColumnProperty("isAvailable", Boolean.class.getName())
+		.setTitle("In stock").setWidth(new Integer(40)).setTextFormatter(textFormatter)
+		.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
+
 
 		GroupBuilder gb1 = new GroupBuilder();
 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)		//define the criteria column to group by (columnState)
@@ -141,6 +162,7 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 		drb.addColumn(columnCode);
 		drb.addColumn(columnaQuantity);
 		drb.addColumn(columnAmount);
+		drb.addColumn(columnavailable);
 
 		drb.addGroup(g1);	//add group g1
 		drb.addGroup(g2);	//add group g2

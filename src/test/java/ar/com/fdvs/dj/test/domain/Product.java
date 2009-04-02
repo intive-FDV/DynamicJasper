@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class Product {
 
@@ -144,6 +145,12 @@ public class Product {
     public Date getDate() {
         return new Date();
     }
+    
+    public Boolean getIsAvailable(){
+    	return Boolean.valueOf(random.nextBoolean());
+    }
+    
+    static Random random = new Random();
 
 	public InputStream getImage() {
 		InputStream ret = this.getClass().getClassLoader().getResourceAsStream("images/emoticons/" + images[counter++]);

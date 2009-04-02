@@ -227,6 +227,12 @@ public class ExpressionUtils {
 	public static String getParametersMapExpression() {
 		return "new  " + PropertiesMap.class.getName() + "($P{" + DJConstants.CUSTOM_EXPRESSION__PARAMETERS_MAP +"} )";
 	}
+	
+
+	public static String createParameterName(String preffix, Object obj) {
+		String name = obj.toString().substring(obj.toString().lastIndexOf(".")+1).replaceAll("[\\$@]", "_");
+		return preffix + name;
+	}
 
 
 

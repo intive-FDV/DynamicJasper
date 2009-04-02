@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
+import ar.com.fdvs.dj.util.ExpressionUtils;
+
 /**
  * The simplest concrete Column in DJ. It just maps directly to a property </br>
  * from the obtained result set.
@@ -36,11 +38,23 @@ package ar.com.fdvs.dj.domain.entities.columns;
 public class SimpleColumn extends PropertyColumn {
 
 	public String getTextForExpression() {
-		return "$F{" + getColumnProperty().getProperty() + "}";
+        if( this.getTextFormatter() == null ) {
+            return "$F{" + getColumnProperty().getProperty() + "}";
+        } else {
+            return new StringBuilder("((java.text.Format)$P{")
+                            .append( ExpressionUtils.createParameterName("formatter_", getTextFormatter()))
+                            .append( "}).format($F{" )
+                            .append( getColumnProperty().getProperty() )
+                            .append( "})" ).toString();
+        }
 	}
 
 	public String getValueClassNameForExpression() {
-		return getColumnProperty().getValueClassName();
+        if( this.getTextFormatter() == null ) {
+    		return getColumnProperty().getValueClassName();
+        } else {
+            return String.class.getName();
+        }
 	}
 
 }
