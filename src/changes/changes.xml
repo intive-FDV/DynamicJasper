@@ -35,12 +35,15 @@
 			</properties>
 	 <body>
 	 
-				 <release version="3.0.6" date="2009-03-20"	desc="crosstab fixes">
+				 <release version="3.0.6" date="2009-04-23"	desc="crosstab fixes">
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	ability to have multiple measures on crosstabs.
 					 </action>				 				 
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="Fabio Borges" due-to-email="fabiodsb@sourforge.net">
 					 	columns can have a text formatter (java.text.Format) as an alternative for formatting values
+					 </action>				 				 
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+					 	Removed unneeded imports in many classes
 					 </action>				 				 
 				 </release>
 				 <release version="3.0.5" date="2009-02-09"	desc="fixes">
