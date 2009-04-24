@@ -119,6 +119,10 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
+		AbstractColumn columnaCode = ColumnBuilder.getInstance().setColumnProperty("code.code", String.class.getName())
+		.setTitle("Code").setWidth(new Integer(85))
+		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();		
+		
 		Format textFormatter = new Format(){
 
 			public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
@@ -163,6 +167,7 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 		drb.addColumn(columnaQuantity);
 		drb.addColumn(columnAmount);
 		drb.addColumn(columnavailable);
+		drb.addColumn(columnaCode);
 
 		drb.addGroup(g1);	//add group g1
 		drb.addGroup(g2);	//add group g2
@@ -178,9 +183,9 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 
 		//Charts
 		DJChartBuilder cb = new DJChartBuilder();
-		DJChart chart =  cb.addType(DJChart.BAR_CHART)
-						.addOperation(DJChart.CALCULATION_SUM)
-						.addColumnsGroup(g2).setHeight(150)
+		DJChart chart =  cb.setType(DJChart.BAR_CHART)
+						.setOperation(DJChart.CALCULATION_SUM)
+						.setColumnsGroup(g2).setHeight(150)
 						.addColumn(columnAmount)
 						.build();
 

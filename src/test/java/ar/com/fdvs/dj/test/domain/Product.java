@@ -47,6 +47,7 @@ public class Product {
 	private String branch;
 	private Long quantity;
 	private Float amount;
+	private Code code = new Code();
 
 	public static List statistics_ = new ArrayList();
 	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -158,5 +159,16 @@ public class Product {
 			counter = 0;
 		return ret;
 	}
+	
+	public Code getCode() {
+		return code;
+	}	
+	
 
+	public class Code {
+		
+		public String getCode() {
+			return "001-123ABC-HRC";
+		}
+	}
 }

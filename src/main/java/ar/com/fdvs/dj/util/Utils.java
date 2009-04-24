@@ -2,8 +2,6 @@ package ar.com.fdvs.dj.util;
 
 import java.util.Collection;
 
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-
 import org.apache.commons.beanutils.BeanUtils;
 
 import ar.com.fdvs.dj.core.DJException;

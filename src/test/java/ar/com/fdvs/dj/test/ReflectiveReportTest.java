@@ -32,7 +32,6 @@ package ar.com.fdvs.dj.test;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import junit.framework.TestCase;

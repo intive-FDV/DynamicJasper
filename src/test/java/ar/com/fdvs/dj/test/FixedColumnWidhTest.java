@@ -31,8 +31,6 @@ package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
 
-import net.sf.jasperreports.engine.JRTextElement;
-import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;

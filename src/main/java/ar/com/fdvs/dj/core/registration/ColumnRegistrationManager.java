@@ -32,11 +32,8 @@ package ar.com.fdvs.dj.core.registration;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import jxl.format.Format;
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
-import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 
