@@ -1,0 +1,41 @@
+	------------
+	HOW-TO Use Virtualizers
+	------------
+	Juan Manuel Alvarez
+	------------
+	Date
+	------------
+
+HOW-TO Use Virtualizers
+
+ Report Virtualization is a mechanism JasperReport introduced in order to make possible huge report generation 
+ Through different strategies (GZip compression in memory, using a file swap, etc.) they save a lot of memory. 
+ 
+ Virtualizers a used exclusively by JasperReports at report fill time, we'll just briefly show here how to use them. 
+
+ Actually there are 3 implementations:
+ 
+ * <<JRSwapFileVirtualizer>>: A virtualizer that uses a single swap file to serialize virtual data.
+ 
+ * <<JRGzipVirtualizer>>: GZips the pages that it doesn't need, but keeps them in memory.
+ 
+ * <<JRFileVirtualizer>>:  Virtualizes data to the filesystem. When this object is finalized, it removes
+ the swap files it makes. The virtualized objects have references to this object, so finalization does not 
+ occur until this object and the objects using it are only weakly referenced.
+ 
+ []
+ 
+* Using the virtualizer
+
++--------------------------------+
+// creating the virtualizer 
+JRFileVirtualizer virtualizer = new JRFileVirtualizer(5, "tempFolderPath"); 
+
+// Pass virtualizer object throw parameter map 
+parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer); 
+
+//Use any call of DynamicJasperHelper where the parameters map is passed
+JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynamicReport, new ClassicLayoutManager(), conn, parametersMap);
++--------------------------------+
+
+ 
