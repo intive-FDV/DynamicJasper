@@ -34,6 +34,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJGroupLabel;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -52,7 +53,9 @@ public class DJGroupVariable implements Entity {
 	private DJCalculation operation;
 	private Style style;
 	private DJValueFormatter valueFormatter;
-
+	
+	private DJGroupLabel label;
+	
 	public DJGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation) {
 		this.columnToApplyOperation = columnToApplyOperation;
 		this.operation = operation;
@@ -70,6 +73,8 @@ public class DJGroupVariable implements Entity {
 		this.style = style;
 		this.valueFormatter = formatter;
 	}
+
+
 	
 	public String getTextForValueFormatterExpression(String variableName) {
 
@@ -118,5 +123,27 @@ public class DJGroupVariable implements Entity {
 		this.valueFormatter = valueFormatter;
 	}
 
+	public DJGroupLabel getLabel() {
+		return label;
+	}
+
+	public void setLabel(DJGroupLabel label) {
+		this.label = label;
+	}
+
+	public static Log getLog() {
+		return log;
+	}
+
+	public DJGroupVariable(AbstractColumn columnToApplyOperation,
+			DJCalculation operation, Style style,
+			DJValueFormatter valueFormatter, DJGroupLabel label) {
+		super();
+		this.columnToApplyOperation = columnToApplyOperation;
+		this.operation = operation;
+		this.style = style;
+		this.valueFormatter = valueFormatter;
+		this.label = label;
+	}
 
 }

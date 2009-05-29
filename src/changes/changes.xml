@@ -35,6 +35,13 @@
 			</properties>
 	 <body>
 	 
+				 <release version="3.0.7" date="2009-05-29"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Geoffrey De Smet (ge0ffrey)">
+					 	Header text and variable got sloppy when the first is too long.
+					 	<![CDATA[See https://sourceforge.net/tracker/index.php?func=detail&aid=2782948&group_id=188060&atid=923805 
+					 	for more information]]>
+					 </action>
+				</release>
 				 <release version="3.0.6" date="2009-04-23"	desc="crosstab fixes">
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	ability to have multiple measures on crosstabs.

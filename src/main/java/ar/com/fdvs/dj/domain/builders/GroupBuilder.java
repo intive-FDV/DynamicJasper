@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.domain.builders;
 import java.util.Iterator;
 
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJGroupLabel;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
@@ -98,6 +99,12 @@ public class GroupBuilder {
 		group.getHeaderVariables().add(new DJGroupVariable(column,operation,style));
 		return this;
 	}
+	
+	public GroupBuilder addHeaderVariable(AbstractColumn column,
+			DJCalculation operation, Style style, DJValueFormatter formatter, DJGroupLabel glabel1) {
+		group.getHeaderVariables().add(new DJGroupVariable(column,operation,style,formatter,glabel1));
+		return this;
+	}	
 
 	public GroupBuilder addFooterVariable(DJGroupVariable variable) {
 		group.getFooterVariables().add(variable);
@@ -115,6 +122,11 @@ public class GroupBuilder {
 
 	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation, Style style, DJValueFormatter valueFormatter) {
 		group.getFooterVariables().add(new DJGroupVariable(column3,operation,style,valueFormatter));
+		return this;
+	}
+
+	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation, Style style, DJValueFormatter valueFormatter, DJGroupLabel label) {
+		group.getFooterVariables().add(new DJGroupVariable(column3,operation,style,valueFormatter,label));
 		return this;
 	}
 
@@ -251,6 +263,8 @@ public class GroupBuilder {
 		group.setAllowFooterSplit(footerSplit);
 		return this;
 	}
+
+
 
 
 

@@ -202,5 +202,16 @@ public class StyleBuilder {
 		return this;
 	}
 
+	public StyleBuilder setBorder(Border border) {
+		style.setBorder(border);
+		return this;
+	}
+	
+	public StyleBuilder setStretchWithOverflow(boolean stretchWithOverflow) {
+		style.setStretchWithOverflow(stretchWithOverflow);
+		return this;
+	}
+	
+
 
 }

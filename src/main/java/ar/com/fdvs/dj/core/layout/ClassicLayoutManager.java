@@ -64,6 +64,7 @@ import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJGroupLabel;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
@@ -79,6 +80,7 @@ import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.LayoutUtils;
+import ar.com.fdvs.dj.util.Utils;
 
 /**
  * Main Layout Manager recommended for most cases.</br>
@@ -721,17 +723,24 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		if (layout.isShowValueInHeader() && layout.isHideColumn() && !layout.isShowColumnName()){
 			//textfield for the current value
 			JRDesignTextField currentValue = generateTextFieldFromColumn(column, height.intValue(), group);
-
-			//The width will be all the page
-			currentValue.setWidth(getReport().getOptions().getPrintableWidth());
-
+			currentValue.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+			
+			//The width will be all the page, except for the width of the header variables
+            int headerVariablesWidth = 0;
+            DJGroupVariable leftmostcol = findLeftMostColumn(group.getHeaderVariables());
+            headerVariablesWidth = leftmostcol.getColumnToApplyOperation().getPosX().intValue();
+            currentValue.setWidth(headerVariablesWidth);
+            
 			//fix the height depending on the font size
 //			currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont())); //XXX CAREFULL
 			yOffset += currentValue.getHeight();
 
 			//Move down existing elements in the band.
 			LayoutUtils.moveBandsElemnts(yOffset-1, headerBand); //Don't know why, but without the "-1" it wont show the headers
-
+			
+			if (group.getLayout().isPrintHeaders())
+				headerOffset += group.getHeaderHeight().intValue() + getReport().getOptions().getDetailHeight().intValue();
+			
 			headerBand.addElement(currentValue);
 		}
 		//DEFAULT and DEFAULT_WITH_HEADER
@@ -775,6 +784,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			return;
 		}
 		
+		boolean inFooter = DJConstants.FOOTER.equals(type);
+		
 		log.debug("Placing variables in "+type+" band for group " + columnsGroup.getColumnToGroupBy().getTextForExpression());
 		
 		Integer height = null;
@@ -788,10 +799,32 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 						:getReport().getOptions().getDetailHeight();
 		
 		Iterator it = variables.iterator();
+		int yOffsetGlabel = 0;
 		while (it.hasNext()) {
 			DJGroupVariable var = (DJGroupVariable) it.next();
 			AbstractColumn col = var.getColumnToApplyOperation();
+			
+			//Add the group label
+			DJGroupLabel label = var.getLabel();
+			if (label != null){
+				
+				JRDesignExpression labelExp = ExpressionUtils.createStringExpression("\""+ label.getText() + "\"");
+				JRDesignTextField labelTf = new JRDesignTextField();
+				labelTf.setExpression(labelExp);
+				labelTf.setWidth(col.getWidth().intValue());
+				labelTf.setHeight(label.getHeight());
+				labelTf.setX(col.getPosX().intValue());
+				labelTf.setY(yOffset);
+				yOffsetGlabel = labelTf.getHeight();				
+				if (inFooter){
+					labelTf.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+				}
+				applyStyleToElement(label.getStyle(), labelTf);
+				band.addElement(labelTf);
+				
+			}
 
+			//Build the expression for the variable 
 			String variableName = col.getGroupVariableName(type, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty());
 
 			JRDesignExpression expression = new JRDesignExpression();
@@ -805,17 +838,18 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			textField.setKey(variableName);
 			textField.setExpression(expression);
 
-			if (DJConstants.FOOTER.equals(type)){
+			
+			if (inFooter){
 				textField.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
 			}
 
 			textField.setX(col.getPosX().intValue());
-			if (yOffset!=0)
-				textField.setY(yOffset);
+		
+			//if (yOffset!=0)
+			textField.setY(yOffset + yOffsetGlabel);
 
-//				textField.setHeight(columnsGroup.getHeaderHeight().intValue());
-			textField.setHeight(2 + height.intValue() ); 
-//				textField.setHeight(2 + getReport().getOptions().getDetailHeight().intValue()); //XXX be carefull with the "2+ ..."
+			textField.setHeight(4 + height.intValue() ); //XXX be carefull with the "2+ ..."
+
 			textField.setWidth(col.getWidth().intValue());
 
 			textField.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
