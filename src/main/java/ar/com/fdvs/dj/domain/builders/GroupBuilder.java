@@ -264,6 +264,17 @@ public class GroupBuilder {
 		return this;
 	}
 
+	/**
+	 * Footer labels are placed at the right of of the footer variables. 
+	 * It should be used as a general footer to describe variables
+	 * @param label
+	 * @return
+	 */
+	public GroupBuilder setFooterLabel(DJGroupLabel label) {
+		group.setFooterLabel(label);
+		return this;
+	}
+
 
 
 

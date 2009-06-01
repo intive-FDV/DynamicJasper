@@ -41,6 +41,11 @@
 					 	<![CDATA[See https://sourceforge.net/tracker/index.php?func=detail&aid=2782948&group_id=188060&atid=923805 
 					 	for more information]]>
 					 </action>
+					 <action dev="Juan Manuel Alvarez" type="update">
+					 	Some default values:
+					 		Default footer height: 15;
+					 	
+					 </action>
 				</release>
 				 <release version="3.0.6" date="2009-04-23"	desc="crosstab fixes">
 					 <action dev="Juan Manuel Alvarez" type="add">

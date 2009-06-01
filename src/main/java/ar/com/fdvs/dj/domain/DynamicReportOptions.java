@@ -41,11 +41,13 @@ import ar.com.fdvs.dj.domain.constants.Page;
 public class DynamicReportOptions {
 
 	public static final Integer DEFAULT_HEADER_HEIGHT = new Integer(30);
-	public static final Integer DEFAULT_FOOTER_HEIGHT = new Integer(30);
+	public static final Integer DEFAULT_HEADER_VARIABLES_HEIGHT = new Integer(20);
+	public static final Integer DEFAULT_FOOTER_VARIABLES_HEIGHT = new Integer(20);
 	public static final Integer DEFAULT_DETAIL_HEIGHT = new Integer(15);
 	
 	private Integer headerHeight = DEFAULT_HEADER_HEIGHT;
-	private Integer footerHeight = DEFAULT_FOOTER_HEIGHT;
+	private Integer headerVariablesHeight = DEFAULT_HEADER_HEIGHT;
+	private Integer footerVariablesHeight = DEFAULT_FOOTER_VARIABLES_HEIGHT;
 	private Integer detailHeight = DEFAULT_DETAIL_HEIGHT;
 
 	private Integer leftMargin = DEFAULT_HEADER_HEIGHT;
@@ -100,12 +102,14 @@ public class DynamicReportOptions {
 		return imageBanners;
 	}
 
-	public Integer getFooterHeight() {
-		return footerHeight;
+	public Integer getFooterVariablesHeight() {
+		return footerVariablesHeight;
 	}
 
-	public void setFooterHeight(Integer footerHeight) {
-		this.footerHeight = footerHeight;
+	public void setFooterVariablesHeight(Integer footerHeight) {
+		if (footerHeight == null)
+			footerHeight = DEFAULT_FOOTER_VARIABLES_HEIGHT;
+		this.footerVariablesHeight = footerHeight;
 	}
 
 	public Integer getHeaderHeight() {
@@ -113,6 +117,8 @@ public class DynamicReportOptions {
 	}
 
 	public void setHeaderHeight(Integer headerHeight) {
+		if (headerHeight ==  null)
+			headerHeight = DEFAULT_HEADER_HEIGHT;
 		this.headerHeight = headerHeight;
 	}
 
@@ -327,6 +333,16 @@ public class DynamicReportOptions {
 
 	public void setIgnorePagination(boolean ignorePagination) {
 		this.ignorePagination = ignorePagination;
+	}
+
+	public Integer getHeaderVariablesHeight() {
+		return headerVariablesHeight;
+	}
+
+	public void setHeaderVariablesHeight(Integer headerVariablesHeight) {
+		if (headerVariablesHeight==null)
+			headerVariablesHeight = DEFAULT_HEADER_VARIABLES_HEIGHT;
+		this.headerVariablesHeight = headerVariablesHeight;
 	}
 
 }

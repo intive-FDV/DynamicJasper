@@ -56,7 +56,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 
-public class GroupLabelTest2 extends BaseDjReportTest {
+public class GroupLabelTest3 extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -150,13 +150,6 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 
 		GroupBuilder gb1 = new GroupBuilder();
 
-		Style glabelStyle = new StyleBuilder(false).setFont(Font.ARIAL_SMALL)
-			.setHorizontalAlign(HorizontalAlign.RIGHT)
-			.setVerticalAlign(VerticalAlign.BOTTOM)
-			.setPadding(new Integer(0))
-			.setStretchWithOverflow(false)
-			.build();
-		
 		Style glabelStyle2 = new StyleBuilder(false).setFont(Font.ARIAL_SMALL)
 		.setHorizontalAlign(HorizontalAlign.RIGHT)
 		.setVerticalAlign(VerticalAlign.MIDDLE)
@@ -164,16 +157,14 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 		.setStretchWithOverflow(false)
 		.build();
 		
-		DJGroupLabel glabel1 = new DJGroupLabel("Subtotal 1",glabelStyle,LabelPosition.TOP);
-		DJGroupLabel glabel2 = new DJGroupLabel("Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2",glabelStyle,LabelPosition.TOP);
 		DJGroupLabel glabel3 = new DJGroupLabel("Subtotal"  ,glabelStyle2,LabelPosition.TOP);
 		
 		//		 define the criteria column to group by (columnState)
 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 				//.addHeaderVariable(columnAmount,DJCalculation.SUM,headerVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addHeaderVariable(columnaQuantity,DJCalculation.SUM,headerVariables,null,glabel1) // idem for the columnaQuantity column
-				.addFooterVariable(columnAmount,DJCalculation.SUM,headerVariables, null, glabel1) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addFooterVariable(columnaQuantity,DJCalculation.SUM,headerVariables, null, glabel2) // idem for the columnaQuantity column
+				.addHeaderVariable(columnaQuantity,DJCalculation.SUM,headerVariables) // idem for the columnaQuantity column
+				.addFooterVariable(columnAmount,DJCalculation.SUM,headerVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
+				.addFooterVariable(columnaQuantity,DJCalculation.SUM,headerVariables) // idem for the columnaQuantity column
 //				.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.setFooterLabel(glabel3)
@@ -205,7 +196,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		GroupLabelTest2 test = new GroupLabelTest2();
+		GroupLabelTest3 test = new GroupLabelTest3();
 		test.testReport();
 		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);

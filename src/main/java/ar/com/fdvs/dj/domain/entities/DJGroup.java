@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ar.com.fdvs.dj.domain.DJGroupLabel;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
@@ -70,10 +71,10 @@ public class DJGroup implements Entity {
 	private List footerVariables = new ArrayList();
 	
 	private Integer headerHeight = DynamicReportOptions.DEFAULT_HEADER_HEIGHT; //for headers
-	private Integer footerHeight = DynamicReportOptions.DEFAULT_FOOTER_HEIGHT; //for headers
+	private Integer footerHeight = DynamicReportOptions.DEFAULT_FOOTER_VARIABLES_HEIGHT; //for headers
 	
-	private Integer headerVariablesHeight = DynamicReportOptions.DEFAULT_DETAIL_HEIGHT; //for values such as calculations, current value, etc.
-	private Integer footerVariablesHeight = DynamicReportOptions.DEFAULT_DETAIL_HEIGHT; //for values such as calculations, current value, etc.
+	private Integer headerVariablesHeight = null; //for values such as calculations, current value, etc.
+	private Integer footerVariablesHeight = null; //for values such as calculations, current value, etc.
 	
 	private GroupLayout layout = GroupLayout.DEFAULT;
 	private List footerSubreports = new ArrayList();
@@ -84,6 +85,8 @@ public class DJGroup implements Entity {
 
 	private Boolean startInNewPage = Boolean.FALSE;
 	private Boolean startInNewColumn = Boolean.FALSE;
+	
+	private DJGroupLabel footerLabel; //general label, goes at the right of the group variables
 
 	/**
 	 * pass-through property to setup group header band "allowSplit" property.
@@ -274,5 +277,15 @@ public class DJGroup implements Entity {
 	public void addFooterVariable(DJGroupVariable var) {
 		footerVariables.add(var);
 	}
+
+	public DJGroupLabel getFooterLabel() {
+		return footerLabel;
+	}
+
+	public void setFooterLabel(DJGroupLabel footerLabel) {
+		this.footerLabel = footerLabel;
+	}
+
+
 
 }

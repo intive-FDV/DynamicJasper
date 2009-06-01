@@ -381,13 +381,33 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * @deprecated
+	 * @param height
+	 * @return
+	 */
 	public DynamicReportBuilder setFooterHeight(Integer height) {
-		options.setFooterHeight(height);
+		options.setFooterVariablesHeight(height);
 		return this;
 	}
 
+	/**
+	 * @deprecated
+	 * @param height
+	 * @return
+	 */
 	public DynamicReportBuilder setFooterHeight(int height) {
-		options.setFooterHeight(new Integer(height));
+		options.setFooterVariablesHeight(new Integer(height));
+		return this;
+	}
+
+	public DynamicReportBuilder setFooterVariablesHeight(Integer height) {
+		options.setFooterVariablesHeight(height);
+		return this;
+	}
+	
+	public DynamicReportBuilder setFooterVariablesHeight(int height) {
+		options.setFooterVariablesHeight(new Integer(height));
 		return this;
 	}
 
