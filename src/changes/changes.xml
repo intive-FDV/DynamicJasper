@@ -42,9 +42,8 @@
 					 	for more information]]>
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="update">
-					 	Some default values:
-					 		Default footer height: 15;
-					 	
+					 	 Default footer variables height is "20";		
+					 	 Defaul header variables height is "20"			 	
 					 </action>
 				</release>
 				 <release version="3.0.6" date="2009-04-23"	desc="crosstab fixes">
