@@ -30,7 +30,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>3.0.7</version>
+	<version>3.0.7-b1</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>

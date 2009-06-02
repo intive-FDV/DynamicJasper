@@ -165,7 +165,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 		.build();
 		
 		DJGroupLabel glabel1 = new DJGroupLabel("Subtotal 1",glabelStyle,LabelPosition.TOP);
-		DJGroupLabel glabel2 = new DJGroupLabel("Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2",glabelStyle,LabelPosition.TOP);
+		DJGroupLabel glabel2 = new DJGroupLabel("Subtotal with a very long label in order to break the layout",glabelStyle,LabelPosition.TOP);
 		DJGroupLabel glabel3 = new DJGroupLabel("Subtotal"  ,glabelStyle2,LabelPosition.TOP);
 		
 		//		 define the criteria column to group by (columnState)

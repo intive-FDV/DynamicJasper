@@ -162,7 +162,7 @@ public class GroupLabelTest3 extends BaseDjReportTest {
 		//		 define the criteria column to group by (columnState)
 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 				//.addHeaderVariable(columnAmount,DJCalculation.SUM,headerVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addHeaderVariable(columnaQuantity,DJCalculation.SUM,headerVariables) // idem for the columnaQuantity column
+//				.addHeaderVariable(columnaQuantity,DJCalculation.SUM,headerVariables) // idem for the columnaQuantity column
 				.addFooterVariable(columnAmount,DJCalculation.SUM,headerVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,DJCalculation.SUM,headerVariables) // idem for the columnaQuantity column
 //				.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
