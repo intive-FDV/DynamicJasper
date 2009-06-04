@@ -137,10 +137,19 @@ public class DataSetFactory {
 			exp3.setValueClass(String.class);
 	
 			//Here you can set subgroups of bars
-			serie.setCategoryExpression(exp3);
-	
-			serie.setLabelExpression(exp2);
-			serie.setSeriesExpression(exp2);
+			if (!djchart.getOptions().isUseColumnsAsCategorie()){
+				serie.setCategoryExpression(exp3);
+				
+				serie.setLabelExpression(exp2);
+				serie.setSeriesExpression(exp2);
+			} else {
+				//FIXED: due to https://sourceforge.net/forum/message.php?msg_id=7396861
+				serie.setCategoryExpression(exp2);
+				
+				serie.setLabelExpression(exp3);
+				serie.setSeriesExpression(exp3);
+			}
+
 				
 			data.addCategorySeries(serie);
 		}

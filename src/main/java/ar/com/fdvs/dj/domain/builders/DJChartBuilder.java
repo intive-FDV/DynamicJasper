@@ -215,4 +215,9 @@ public class DJChartBuilder {
 		this.chartOptions.setColors(colors);
 		return this;
 	}
+
+	public DJChartBuilder setUseColumnsAsCategories(boolean b) {
+		this.chartOptions.setUseColumnsAsCategorie(b);
+		return this;
+	}
 }

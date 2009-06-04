@@ -49,6 +49,7 @@ public class DJChartOptions {
 	private boolean showLabels;
 	private byte border;
 	private List colors;
+	private boolean useColumnsAsCategorie = false;
 
 	public DJChartOptions() {
 		this.showLegend = true;
@@ -62,6 +63,7 @@ public class DJChartOptions {
 		this.showLabels = true;
 		this.border = 1;
 		this.colors = DJChartColors.simpleColors();
+		this.useColumnsAsCategorie = false;
 	}
 
 	public DJChartOptions(boolean showLegend, Color backColor, int height,
@@ -166,5 +168,13 @@ public class DJChartOptions {
 
 	public void setColors(List colors) {
 		this.colors = colors;
+	}
+
+	public boolean isUseColumnsAsCategorie() {
+		return useColumnsAsCategorie;
+	}
+
+	public void setUseColumnsAsCategorie(boolean useColumnsAsCategorie) {
+		this.useColumnsAsCategorie = useColumnsAsCategorie;
 	}
 }
