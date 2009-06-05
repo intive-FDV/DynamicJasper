@@ -72,9 +72,9 @@ public class Font  extends BaseDomainConstant {
 	public static final String _FONT_GEORGIA = "Georgia";
 	public static final String _FONT_VERDANA = "Verdana";
 
-	private static final int SMALL = 8;
-	private static final int MEDIUM = 10;
-	private static final int BIG = 14;
+	public static final int SMALL = 8;
+	public static final int MEDIUM = 10;
+	public static final int BIG = 14;
 
 	public static Font ARIAL_SMALL = new Font(SMALL,_FONT_ARIAL,false,false,false);
 	public static Font ARIAL_MEDIUM = new Font(MEDIUM,_FONT_ARIAL,false,false,false);

@@ -14,6 +14,8 @@ HOW TO Guide
 
  <<Grouping and Layout>>
 
+ * {{{HOWTO group labels.html}Add labels in group header and footer}}
+
  * {{{grouping styles.html}Grouping styles}}
 
  * {{{HOWTO Hide a column.html}Hide a column}}
@@ -33,6 +35,8 @@ HOW TO Guide
  <<Crosstabs>>
 
  * {{{HOWTO Crosstabs.html}Use Crosstabs}}
+
+ * {{{HOWTO Multiple measure Crosstabs.html}Multiple measure Crosstabs}}
 
  []
 

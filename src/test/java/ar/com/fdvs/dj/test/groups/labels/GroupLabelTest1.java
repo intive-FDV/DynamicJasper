@@ -73,9 +73,9 @@ public class GroupLabelTest1 extends BaseDjReportTest {
 
 		Style headerVariables = new Style();
 		headerVariables.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerVariables.setBorder(Border.THIN);
+//		headerVariables.setBorder(Border.THIN);
 		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
-		headerVariables.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerVariables.setVerticalAlign(VerticalAlign.TOP);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
@@ -150,16 +150,14 @@ public class GroupLabelTest1 extends BaseDjReportTest {
 		GroupBuilder gb1 = new GroupBuilder();
 
 		Style glabelStyle = new StyleBuilder(false).setFont(Font.ARIAL_SMALL)
-			.setHorizontalAlign(HorizontalAlign.RIGHT).setBorder(Border.THIN)
+			.setHorizontalAlign(HorizontalAlign.RIGHT).setBorderTop(Border.THIN)
 			.setStretchWithOverflow(false)
 			.build();
-		DJGroupLabel glabel1 = new DJGroupLabel("Subtotal 1",glabelStyle,LabelPosition.TOP);
-		DJGroupLabel glabel2 = new DJGroupLabel("Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2 Subtotal 2",glabelStyle,LabelPosition.TOP);
+		DJGroupLabel glabel1 = new DJGroupLabel("Total amount",glabelStyle,LabelPosition.TOP);
+		DJGroupLabel glabel2 = new DJGroupLabel("Total quantity",glabelStyle,LabelPosition.TOP);
 		
 		//		 define the criteria column to group by (columnState)
 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
-				//.addHeaderVariable(columnAmount,DJCalculation.SUM,headerVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				//.addHeaderVariable(columnaQuantity,DJCalculation.SUM,headerVariables) // idem for the columnaQuantity column
 				.addFooterVariable(columnAmount,DJCalculation.SUM,headerVariables, null, glabel1) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,DJCalculation.SUM,headerVariables, null, glabel2) // idem for the columnaQuantity column
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
@@ -179,6 +177,9 @@ public class GroupLabelTest1 extends BaseDjReportTest {
 //		drb.addColumn(columnCode);
 		drb.addColumn(columnaQuantity);
 		drb.addColumn(columnAmount);
+		
+		drb.addGlobalFooterVariable(columnAmount, DJCalculation.SUM, headerVariables, null);
+		drb.addGlobalFooterVariable(columnaQuantity, DJCalculation.SUM, headerVariables, null);
 
 		drb.addGroup(g1); // add group g1
 //		drb.addGroup(g2); // add group g2

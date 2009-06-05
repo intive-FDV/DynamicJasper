@@ -791,6 +791,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
             if (!group.getHeaderVariables().isEmpty()){
             	DJGroupVariable leftmostcol = findLeftMostColumn(group.getHeaderVariables());
             	headerVariablesWidth = leftmostcol.getColumnToApplyOperation().getPosX().intValue();
+            	if (groupLabelsPresent(group.getHeaderVariables())){
+            		currentValue.setY(height.intValue());
+            		currentValue.setHeight(getHeaderVariablesHeight(group));
+            	}
             }
             currentValue.setWidth(headerVariablesWidth);
             
@@ -841,6 +845,22 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 		placeVariableInBand(group.getHeaderVariables(), group, jgroup, DJConstants.HEADER, headerBand, headerOffset);
 		placeVariableInBand(group.getFooterVariables(), group, jgroup, DJConstants.FOOTER, footerBand, 0);
+	}
+
+	
+	/**
+	 * 
+	 * @param groupVariables
+	 * @return
+	 */
+	protected boolean groupLabelsPresent(List groupVariables) {
+		for (Iterator iterator = groupVariables.iterator(); iterator.hasNext();) {
+			DJGroupVariable var = (DJGroupVariable) iterator.next();
+			if (var.getLabel() != null)
+				return true;
+			
+		}
+		return false;
 	}
 
 	protected void placeVariableInBand(List variables, DJGroup columnsGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {

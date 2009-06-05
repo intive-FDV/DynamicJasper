@@ -47,6 +47,7 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
@@ -54,7 +55,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 
-public class GroupLabelTest2 extends BaseDjReportTest {
+public class GroupLabelTest1b extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -69,11 +70,12 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		headerStyle.setTransparency(Transparency.OPAQUE);
 
-		Style headerVariablesStyle = new Style();
-		headerVariablesStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerVariablesStyle.setBorderBottom(Border.THIN);
-		headerVariablesStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
-		headerVariablesStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		Style headerVariables = new Style();
+		headerVariables.setFont(Font.ARIAL_MEDIUM_BOLD);
+//		headerVariables.setBorder(Border.THIN);
+		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
+		headerVariables.setStreching(Stretching.NO_STRETCH);
+		headerVariables.setVerticalAlign(VerticalAlign.TOP);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
@@ -91,12 +93,11 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 			.setTitle("November 2006 sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15))
-			.setLeftMargin(margin)
+			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(false)
 			.setGrandTotalLegend("Grand Total")
-			.setGrandTotalLegendStyle(headerVariablesStyle)
+			.setGrandTotalLegendStyle(headerVariables)
 			.setDefaultStyles(titleStyle, null, headerStyle, detailStyle)
 			.setPrintColumnNames(true)
 			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_RIGHT)
@@ -135,22 +136,21 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 
 
 		GroupBuilder gb1 = new GroupBuilder();
-		
-		Style glabelStyle2 = new StyleBuilder(false).setFont(Font.ARIAL_SMALL)
-			.setHorizontalAlign(HorizontalAlign.RIGHT).setBorderBottom(Border.THIN)
-			.setVerticalAlign(VerticalAlign.MIDDLE)
-			.setPadding(new Integer(0))
+
+		Style glabelStyle = new StyleBuilder(false).setFont(Font.ARIAL_SMALL)
+			.setHorizontalAlign(HorizontalAlign.RIGHT).setBorderTop(Border.THIN)
 			.setStretchWithOverflow(false)
 			.build();
 		
-		DJGroupLabel glabel3 = new DJGroupLabel("Subtotal"  ,glabelStyle2);
+		DJGroupLabel glabel1 = new DJGroupLabel("Total amount",glabelStyle);
+		DJGroupLabel glabel2 = new DJGroupLabel("Total quantity",glabelStyle);
 		
+		//		 define the criteria column to group by (columnState)
 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
-				.addFooterVariable(columnAmount,DJCalculation.SUM,headerVariablesStyle) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
-				.addFooterVariable(columnaQuantity,DJCalculation.SUM,headerVariablesStyle) // idem for the columnaQuantity column
+				.setHeaderHeight(new Integer(30))
+				.addHeaderVariable(columnAmount,DJCalculation.SUM,headerVariables, null, glabel1) // tell the group place a variable footer of the column "columnAmount" with the SUM of all values of the columnAmount in this group.
+				.addHeaderVariable(columnaQuantity,DJCalculation.SUM,headerVariables, null, glabel2) // idem for the columnaQuantity column
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
-				.setFooterLabel(glabel3)
-				.setFooterVariablesHeight(new Integer(30))
 				.build();
 
 
@@ -159,6 +159,9 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 		drb.addColumn(columnaProductLine);
 		drb.addColumn(columnaQuantity);
 		drb.addColumn(columnAmount);
+		
+		drb.addGlobalFooterVariable(columnAmount, DJCalculation.SUM, headerVariables, null);
+		drb.addGlobalFooterVariable(columnaQuantity, DJCalculation.SUM, headerVariables, null);
 
 		drb.addGroup(g1); // add group g1
 
@@ -170,7 +173,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		GroupLabelTest2 test = new GroupLabelTest2();
+		GroupLabelTest1b test = new GroupLabelTest1b();
 		test.testReport();
 		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);

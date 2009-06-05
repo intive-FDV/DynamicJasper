@@ -129,6 +129,8 @@ params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollect
  	
  []
  
+ <<See also>> {{{HOWTO Multiple measure Crosstabs.html}Multiple measure Crosstabs}}
+ 
  Refer to {{{../xref-test/ar/com/fdvs/dj/test/crosstab/CrosstabReportTest4.html}CrosstabReportTest4.html}} for a working example.
 
  Also, these other examples show other ways to create crosstabs and add them to group headers and footers

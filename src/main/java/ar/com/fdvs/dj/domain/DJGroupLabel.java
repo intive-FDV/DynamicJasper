@@ -1,6 +1,5 @@
 package ar.com.fdvs.dj.domain;
 
-import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.constants.LabelPosition;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
@@ -16,11 +15,17 @@ public class DJGroupLabel implements Entity {
 	private String text;
 	private CustomExpression labelExpression;
 	private Style style;
-	private LabelPosition labelPosition = LabelPosition.LEFT;
+	private LabelPosition labelPosition = LabelPosition.TOP;
 	private int height = 15;
 	
 	public DJGroupLabel(){};
 
+	public DJGroupLabel(String text, Style labelStyle) {
+		super();
+		this.text = text;
+		this.style = labelStyle;
+	}
+	
 	public DJGroupLabel(String text, Style labelStyle,
 			LabelPosition labelPosition) {
 		super();
