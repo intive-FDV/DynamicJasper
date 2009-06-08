@@ -399,6 +399,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			jgroup.setStartNewPage(columnsGroup.getStartInNewPage().booleanValue());
 			jgroup.setStartNewColumn(columnsGroup.getStartInNewColumn().booleanValue());
+			jgroup.setReprintHeaderOnEachPage(columnsGroup.getReprintHeaderOnEachPage().booleanValue());
 
 			JRDesignBand header = (JRDesignBand) jgroup.getGroupHeader();
 			JRDesignBand footer = (JRDesignBand) jgroup.getGroupFooter();

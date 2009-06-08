@@ -276,6 +276,19 @@ public class GroupBuilder {
 	}
 
 
+	/**
+	 * If the group is configured to print column names, they will be printed on every page 
+	 * (even if a group is splitted in two pages)
+	 * NOTE: this may cause unexpected results if header variables are present.
+	 * @param bool
+	 * @return
+	 */
+	public GroupBuilder setReprintHeaderOnEachPage(boolean bool) {
+		group.setReprintHeaderOnEachPage(Boolean.valueOf(bool));
+		return this;
+	}
+
+
 
 
 

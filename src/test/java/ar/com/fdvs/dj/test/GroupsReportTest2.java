@@ -154,6 +154,7 @@ public class GroupsReportTest2 extends BaseDjReportTest {
 				.addFooterVariable(columnAmount,DJCalculation.SUM,headerVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addFooterVariable(columnaQuantity,DJCalculation.SUM,headerVariables) // idem for the columnaQuantity column
 				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.setReprintHeaderOnEachPage(true)
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)

@@ -86,6 +86,13 @@ public class DJGroup implements Entity {
 	private Boolean startInNewPage = Boolean.FALSE;
 	private Boolean startInNewColumn = Boolean.FALSE;
 	
+	/**
+	 * If the group is configured to print column names, they will be printed on every page 
+	 * (even if a group is splitted in two pages)
+	 * NOTE: this may cause unexpected results if header variables are present. 
+	 */
+	private Boolean reprintHeaderOnEachPage = Boolean.FALSE;
+	
 	private DJGroupLabel footerLabel; //general label, goes at the right of the group variables
 
 	/**
@@ -285,6 +292,15 @@ public class DJGroup implements Entity {
 	public void setFooterLabel(DJGroupLabel footerLabel) {
 		this.footerLabel = footerLabel;
 	}
+
+	public Boolean getReprintHeaderOnEachPage() {
+		return reprintHeaderOnEachPage;
+	}
+
+	public void setReprintHeaderOnEachPage(Boolean reprintHeaderOnEachPage) {
+		this.reprintHeaderOnEachPage = reprintHeaderOnEachPage;
+	}
+
 
 
 

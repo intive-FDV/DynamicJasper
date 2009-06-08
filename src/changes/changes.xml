@@ -49,6 +49,11 @@
 					 	Bar charts series and categories can be switched.
 					 	<![CDATA[See https://sourceforge.net/forum/message.php?msg_id=7396861]]>
 					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add" due-to="Fábio Anjos">
+					 	Group Header on Every Page. 
+					 	Use GroupBuilder.setReprintHeaderOnEachPage(bool)
+					 	<![CDATA[See https://sourceforge.net/forum/message.php?msg_id=7427326]]>
+					 </action>
 				</release>
 				 <release version="3.0.6" date="2009-04-23"	desc="crosstab fixes">
 					 <action dev="Juan Manuel Alvarez" type="add">
