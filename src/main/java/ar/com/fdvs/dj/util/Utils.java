@@ -33,7 +33,7 @@ public class Utils {
 	 */
 	public static void copyProperties(Object dest, Object orig){
         try {
-        	if (orig != null)
+        	if (orig != null && dest != null)
         		BeanUtils.copyProperties(dest, orig);
 		} catch (Exception e) {
 			throw new DJException("Could not copy properties for shared object: " + orig +", message: " + e.getMessage(),e);
