@@ -40,13 +40,14 @@ import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
+import ar.com.fdvs.dj.domain.constants.Stretching;
 
 public class ImageColumnReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
 
-		Style style = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.CENTER)
+		Style style = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.CENTER).setStretching(Stretching.RELATIVE_TO_TALLEST_OBJECT)
 		.setBorderColor(Color.WHITE) .build();
 		/**
 		 * Creates the DynamicReportBuilder and sets the basic options for

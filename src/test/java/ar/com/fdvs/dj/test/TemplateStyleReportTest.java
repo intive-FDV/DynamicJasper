@@ -155,7 +155,7 @@ public class TemplateStyleReportTest extends BaseDjReportTest {
 										//the columns width proportionally to meet the page width.
 
 		//This look for the resource in the classpath
-		drb.setTemplateFile("templates/TemplateReportTestWithStyles.jrxml");
+		//drb.setTemplateFile("templates/TemplateReportTestWithStyles2.jrxml");
 
 		DynamicReport dr = drb.build();	//Finally build the report!
 
