@@ -69,6 +69,7 @@ public class DynamicReportOptions {
 	private Integer titleHeight =  DEFAULT_HEADER_HEIGHT;
 	private boolean titleNewPage =  false;
 	private Integer subtitleHeight = DEFAULT_DETAIL_HEIGHT;
+	private boolean showDetailBand = true;
 
 	/**
 	 * When false, no main column names (usefull for excel)
@@ -343,6 +344,14 @@ public class DynamicReportOptions {
 		if (headerVariablesHeight==null)
 			headerVariablesHeight = DEFAULT_HEADER_VARIABLES_HEIGHT;
 		this.headerVariablesHeight = headerVariablesHeight;
+	}
+
+	public boolean isShowDetailBand() {
+		return showDetailBand;
+	}
+
+	public void setShowDetailBand(boolean showDetailBand) {
+		this.showDetailBand = showDetailBand;
 	}
 
 }

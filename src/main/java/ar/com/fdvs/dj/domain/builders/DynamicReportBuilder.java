@@ -1194,5 +1194,36 @@ public class DynamicReportBuilder {
 	}
 
 
+	/**
+	 * When false, no detail is shown. This is useful when using certain grouping layout and header variables 
+	 * @param bool
+	 * @return
+	 */
+	public DynamicReportBuilder setShowDetailBand(boolean bool) {
+		this.options.setShowDetailBand(bool);
+		return this;
+	}
+	
+	/**
+	 * Returns the "idx" column, idx is 0 based
+	 * 
+	 * @param idx
+	 * @return
+	 */
+	public AbstractColumn getColumn(int idx){
+		return (AbstractColumn) this.report.getColumns().get(idx);
+	}
+	
+	
+	/**
+	 * Returns the "idx" group, idx is 0 based
+	 * 
+	 * @param idx
+	 * @return
+	 */
+	public DJGroup getGroup(int idx){
+		return (DJGroup) this.report.getColumnsGroups().get(idx);
+	}
+
 
 }

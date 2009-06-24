@@ -45,7 +45,7 @@ import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 
-public class FastReportTest extends BaseDjReportTest {
+public class TotalingReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -87,7 +87,7 @@ public class FastReportTest extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		FastReportTest test = new FastReportTest();
+		TotalingReportTest test = new TotalingReportTest();
 		test.testReport();
 		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);	//finally display the report report

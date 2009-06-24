@@ -326,28 +326,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			 * Regular Column
 			 */
 			else {
-				JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
-				transformDetailBandTextField(column, textField);
-				
-				if (textField.getExpression() != null)
-					detail.addElement(textField);
-				
-//				if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty() ){
-//					for (Iterator iterator = column.getConditionalStyles().iterator(); iterator.hasNext();) {
-//						ConditionalStyle condition = (ConditionalStyle) iterator.next();
-//						JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
-//						transformDetailBandTextField(column, textField);
-//						applyStyleToElement(condition.getStyle(), textField);
-//						textField.setPrintWhenExpression(getExpressionForConditionalStyle(condition, column));
-//						detail.addElement(textField);
-//					}
-//				} else {
-//					JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
-//					transformDetailBandTextField(column, textField);
-//					
-//					if (textField.getExpression() != null)
-//						detail.addElement(textField);
-//				}
+				if (getReport().getOptions().isShowDetailBand()){
+					JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
+					transformDetailBandTextField(column, textField);
+					
+					if (textField.getExpression() != null)
+						detail.addElement(textField);
+				}
+
 			}
 
         }
