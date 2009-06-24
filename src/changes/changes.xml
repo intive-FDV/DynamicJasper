@@ -36,6 +36,9 @@
 	 <body>
 	 
 				 <release version="3.0.7" date="2009-05-29"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="update" due-to="">
+					 	forum moved to http://dj.fdvsolutions.com/forum/
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="ricardo (forum user)">
 					 	fixed bug related to inherited styles and the order in which they where registered. It may cause a JasperException.
 					 </action>
