@@ -188,6 +188,14 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	public DynamicReportBuilder addAutoText(String message, byte position, byte alignment, int width, Style style) {
+		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
+		AutoText text = new AutoText(message,position,alignment_,new Integer(width));
+		text.setStyle(style);
+		addAutoText(text);
+		return this;
+	}
+
 	/**
  	 * Adds an autotext to the Report, this are common texts such us "Page X/Y", "Created on 07/25/2007", etc.
 	 * <br>
@@ -204,6 +212,16 @@ public class DynamicReportBuilder {
 		AutoText text = new AutoText(type,position,alignment_);
 		text.setWidth(new Integer(width));
 		text.setWidth2(new Integer(width2));
+		addAutoText(text);
+		return this;
+	}
+
+	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment, int width, int width2, Style style) {
+		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
+		AutoText text = new AutoText(type,position,alignment_);
+		text.setWidth(new Integer(width));
+		text.setWidth2(new Integer(width2));
+		text.setStyle(style);
 		addAutoText(text);
 		return this;
 	}

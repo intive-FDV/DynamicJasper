@@ -71,6 +71,8 @@ public class AutoText {
 
 	private Integer height = new Integer(15);
 
+	private Style style = null;
+
 	/**
 	 * 
 	 */
@@ -97,6 +99,17 @@ public class AutoText {
 	}
 	public void setFixedWith(boolean fixedWith) {
 		this.fixedWith = fixedWith;
+	}
+	/**
+	 * returns the style
+	 * @return can be null if no style has been set
+	 */
+	public Style getStyle() {
+		return style;
+	}
+	public AutoText setStyle(Style newStyle) {
+		style = newStyle;
+		return this;
 	}
 	public Integer getWidth() {
 		return width;

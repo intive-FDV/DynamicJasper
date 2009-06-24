@@ -38,6 +38,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Stretching;
@@ -47,8 +48,9 @@ public class ImageColumnReportTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 
 
-		Style style = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.CENTER).setStretching(Stretching.RELATIVE_TO_TALLEST_OBJECT)
-		.setBorderColor(Color.WHITE) .build();
+		Style style = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.CENTER)
+		.setStretching(Stretching.RELATIVE_TO_TALLEST_OBJECT)
+		.setBorderColor(Color.BLACK).setBorder(Border.THIN).build();
 		/**
 		 * Creates the DynamicReportBuilder and sets the basic options for
 		 * the report
@@ -57,11 +59,11 @@ public class ImageColumnReportTest extends BaseDjReportTest {
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
 			.addColumn("Product Line", "productLine", String.class.getName(),50)
-			.addColumn("Item", "item", String.class.getName(),50)
+			.addImageColumn("IMG", "image", 50, true,ImageScaleMode.FILL ,style)
+			.addColumn("Item", "item", String.class.getName(),20)
 			.addColumn("Item Code", "id", Long.class.getName(),30,true)
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
-			.addImageColumn("IMG", "image", 50, true,ImageScaleMode.FILL_PROPORTIONALLY ,style)
 			.addGroups(2)
 			.setDetailHeight(17)
 			.setTitle("November 2006 sales report")

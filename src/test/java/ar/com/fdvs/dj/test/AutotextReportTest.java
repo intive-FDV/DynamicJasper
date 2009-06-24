@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.test;
 
+import java.awt.Color;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -38,7 +39,10 @@ import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import ar.com.fdvs.dj.domain.constants.Font;
 
 public class AutotextReportTest extends BaseDjReportTest {
 
@@ -58,11 +62,12 @@ public class AutotextReportTest extends BaseDjReportTest {
 			.setUseFullPageWidth(true);
 
 
+		Style atStyle = new StyleBuilder(true).setFont(Font.COMIC_SANS_SMALL).setTextColor(Color.red).build();
 		/**
 		 * Adding many autotexts in the same position (header/footer and aligment) makes them to be one on top of the other
 		 */
 		//First add in the FOOTER
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT,100,40);
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X, AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT,200,40, atStyle);
 		drb.addAutoText("Autotext below Page counter", AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT);
 
 		//Note the styled text: <b>msimone</b>, valid tags are: <b>, <i> and <u>
@@ -76,7 +81,7 @@ public class AutotextReportTest extends BaseDjReportTest {
 		drb.addAutoText("Autotext at top-left", AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT,200);
 		
 		drb.addAutoText("Autotext at top-left (2)", AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT,200);
-		drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALIGMENT_CENTER,200);
+		drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALIGMENT_CENTER,200,atStyle);
 		DynamicReport dr = drb.build();
 
 		//i18N, you can set a Locale, different than the default in the VM
