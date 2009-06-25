@@ -621,7 +621,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
             /**
              * Since a group column can share the style with non group columns, if oddRow coloring is enabled,
-             * we modified this shared style to have a colored background on odd rows. We dont want that for group
+             * we modified this shared style to have a colored background on odd rows. We don't want that for group
              * columns, that's why we create our own style from the existing one, and remove proper odd-row conditional
              * style if present
              */

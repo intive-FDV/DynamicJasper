@@ -36,6 +36,9 @@
 	 <body>
 	 
 				 <release version="3.0.7" date="2009-05-29"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
+					 	Ability to hide detail band. Useful (but not efficient with large reports) to show groups & totals. See TotalingReportTest for an example 
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="update" due-to="">
 					 	forum moved to http://dj.fdvsolutions.com/forum/
 					 </action>
