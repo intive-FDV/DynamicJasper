@@ -32,18 +32,9 @@ package ar.com.fdvs.dj.test;
 
 import java.util.Date;
 
-import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.builders.StyleBuilder;
-import ar.com.fdvs.dj.domain.constants.Border;
-import ar.com.fdvs.dj.domain.constants.Font;
-import ar.com.fdvs.dj.domain.constants.GroupLayout;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 
 public class FastReportTest extends BaseDjReportTest {
 
@@ -54,33 +45,20 @@ public class FastReportTest extends BaseDjReportTest {
 		 * Creates the DynamicReportBuilder and sets the basic options for
 		 * the report
 		 */
-				
-		Style headerStyle1 = new StyleBuilder(false).setFont(Font.ARIAL_BIG).setBorderBottom(Border.THIN).setPaddingTop(new Integer(15)) .build();
-		Style headerStyle2 = new StyleBuilder(false).setFont(Font.ARIAL_SMALL).setPaddingLeft(new Integer(20)).build();
-		
 		FastReportBuilder drb = new FastReportBuilder();
-		drb.addColumn("State", "state", String.class.getName(),70, headerStyle1, headerStyle1)
-			.addColumn("Branch", "branch", String.class.getName(),70, headerStyle2, headerStyle2)
-			.addColumn("Amount", "amount", Float.class.getName(),70)
+		drb.addColumn("State", "state", String.class.getName(),30)
+			.addColumn("Branch", "branch", String.class.getName(),30)
+			.addColumn("Product Line", "productLine", String.class.getName(),50)
+			.addColumn("Item", "item", String.class.getName(),50)
+			.addColumn("Item Code", "id", Long.class.getName(),30,true)
+			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
+			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
-			.setPrintBackgroundOnOddRows(false)
-			.setPrintColumnNames(false)
-			.setShowDetailBand(false)
+			.setPrintBackgroundOnOddRows(true)			
 			.setUseFullPageWidth(true);
 
-					
-			Style hstyle1 = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.RIGHT).setBorderBottom(Border.THIN).build();
-			Style hstyle2 = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.RIGHT).setFont(Font.ARIAL_SMALL).build();
-			drb.getGroup(0).addHeaderVariable(new DJGroupVariable(drb.getColumn(2),DJCalculation.SUM,hstyle1));
-			drb.getGroup(1).addHeaderVariable(new DJGroupVariable(drb.getColumn(2),DJCalculation.SUM, hstyle2));
-			
-			drb.getGroup(0).setLayout(GroupLayout.VALUE_IN_HEADER);
-
-			drb.getGroup(0).setHeaderVariablesHeight(new Integer(20));
-			drb.getGroup(1).setHeaderVariablesHeight(new Integer(15));
-			
 		DynamicReport dr = drb.build();
 
 		return dr;
@@ -89,9 +67,8 @@ public class FastReportTest extends BaseDjReportTest {
 	public static void main(String[] args) throws Exception {
 		FastReportTest test = new FastReportTest();
 		test.testReport();
-		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
-		JasperDesignViewer.viewReportDesign(test.jr);
+//			JasperDesignViewer.viewReportDesign(jr);
 	}
 
 }
