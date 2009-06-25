@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.test;
 
 import java.util.Date;
 
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
@@ -67,8 +68,9 @@ public class FastReportTest extends BaseDjReportTest {
 	public static void main(String[] args) throws Exception {
 		FastReportTest test = new FastReportTest();
 		test.testReport();
+		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
-//			JasperDesignViewer.viewReportDesign(jr);
+		JasperDesignViewer.viewReportDesign(test.jr);
 	}
 
 }

@@ -143,7 +143,7 @@ public class Style implements Serializable, Cloneable {
 	}
 
 	public void setFont(Font font) {
-		this.font = font;
+		this.font = (Font) font.clone();
 	}
 
 	public HorizontalAlign getHorizontalAlign() {

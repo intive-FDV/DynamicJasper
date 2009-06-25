@@ -76,6 +76,7 @@ import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
+import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
@@ -700,7 +701,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			ConditionalStyle condition = (ConditionalStyle) iterator.next();
 			
 			if (getReport().getOptions().isPrintBackgroundOnOddRows() 
-					&& JRDesignElement.MODE_TRANSPARENT == jrstyle.getMode().byteValue() ){//condition style + odd row (only if original background is transparent)
+					&& Transparency.TRANSPARENT == condition.getStyle().getTransparency() ){ //condition style + odd row (only if conditional style's background is transparent)
 				
 				JRDesignExpression expressionForConditionalStyle = getExpressionForConditionalStyle(condition, column);
 				String expStr = JRExpressionUtil.getExpressionText(expressionForConditionalStyle);
@@ -712,12 +713,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 				Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
 
-				JRDesignConditionalStyle condStyleOdd = new JRDesignConditionalStyle();
+				JRDesignConditionalStyle condStyleOdd = makeConditionalStyle( condition.getStyle());			
 				Utils.copyProperties(condStyleOdd, condition.getStyle().transform());
 				condStyleOdd.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
 				condStyleOdd.setMode(JRDesignElement.MODE_OPAQUE);
 				condStyleOdd.setConditionExpression(expressionOdd);
-				
 				jrstyle.addConditionalStyle(condStyleOdd);	
 				
 				//EVEN
@@ -725,54 +725,57 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				expressionEven.setValueClass(Boolean.class);
 				expressionEven.setText("new java.lang.Boolean(" +EXPRESSION_TRUE_WHEN_EVEN+".booleanValue() && ((java.lang.Boolean)" + expStr + ").booleanValue() )");
 
-				JRDesignConditionalStyle condStyleEven = new JRDesignConditionalStyle();
-				Utils.copyProperties(condStyleEven, condition.getStyle().transform());
-				condStyleEven.setBackcolor(jrstyle.getBackcolor());
-				condStyleEven.setMode(jrstyle.getMode());
+				JRDesignConditionalStyle condStyleEven = makeConditionalStyle( condition.getStyle());			
 				condStyleEven.setConditionExpression(expressionEven);
-				
 				jrstyle.addConditionalStyle(condStyleEven);				
-				
-				
-				
+							
 			} else { //No odd row, just the conditional style
 				JRDesignExpression expression = getExpressionForConditionalStyle(condition, column);
-				JRDesignConditionalStyle condStyle = new JRDesignConditionalStyle();
+				JRDesignConditionalStyle condStyle = makeConditionalStyle( condition.getStyle());
 				condStyle.setConditionExpression(expression);
 				jrstyle.addConditionalStyle(condStyle);						
-			}
-			
+			}		
 		}
 		
 		//The last condition is the basic one
 		//ODD
-		JRDesignExpression expressionOdd = new JRDesignExpression();
-		expressionOdd.setValueClass(Boolean.class);
-		expressionOdd.setText(EXPRESSION_TRUE_WHEN_ODD);
-
-		Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
-
-		JRDesignConditionalStyle condStyleOdd = new JRDesignConditionalStyle();
-		condStyleOdd.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
-		condStyleOdd.setMode(JRDesignElement.MODE_OPAQUE);
-		condStyleOdd.setConditionExpression(expressionOdd);
-		
-		jrstyle.addConditionalStyle(condStyleOdd);	
-		
-		//EVEN
-		JRDesignExpression expressionEven = new JRDesignExpression();
-		expressionEven.setValueClass(Boolean.class);
-		expressionEven.setText(EXPRESSION_TRUE_WHEN_EVEN);
-
-		JRDesignConditionalStyle condStyleEven = new JRDesignConditionalStyle();
-		condStyleEven.setBackcolor(jrstyle.getBackcolor());
-		condStyleEven.setMode(jrstyle.getMode());
-		condStyleEven.setConditionExpression(expressionEven);
-		
-		jrstyle.addConditionalStyle(condStyleEven);		
-		
+		if (getReport().getOptions().isPrintBackgroundOnOddRows() ){
+			
+			JRDesignExpression expressionOdd = new JRDesignExpression();
+			expressionOdd.setValueClass(Boolean.class);
+			expressionOdd.setText(EXPRESSION_TRUE_WHEN_ODD);
+	
+			Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
+	
+			JRDesignConditionalStyle condStyleOdd = new JRDesignConditionalStyle();
+			condStyleOdd.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
+			condStyleOdd.setMode(JRDesignElement.MODE_OPAQUE);
+			condStyleOdd.setConditionExpression(expressionOdd);
+			
+			jrstyle.addConditionalStyle(condStyleOdd);	
+			
+			//EVEN
+			JRDesignExpression expressionEven = new JRDesignExpression();
+			expressionEven.setValueClass(Boolean.class);
+			expressionEven.setText(EXPRESSION_TRUE_WHEN_EVEN);
+	
+			JRDesignConditionalStyle condStyleEven = new JRDesignConditionalStyle();
+			condStyleEven.setBackcolor(jrstyle.getBackcolor());
+			condStyleEven.setMode(jrstyle.getMode());
+			condStyleEven.setConditionExpression(expressionEven);
+			
+			jrstyle.addConditionalStyle(condStyleEven);		
+		}
 	}
 
+	
+	protected JRDesignConditionalStyle makeConditionalStyle( Style style )	{
+		JRDesignConditionalStyle condStyle = new JRDesignConditionalStyle();
+		Utils.copyProperties(condStyle, style.transform());
+	
+		return condStyle;
+	}
+	
 	/*
 	 * Takes all the report's charts and inserts them in their corresponding bands
 	 */

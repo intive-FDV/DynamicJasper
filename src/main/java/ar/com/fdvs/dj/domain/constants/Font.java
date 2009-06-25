@@ -29,7 +29,7 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-public class Font  extends BaseDomainConstant {
+public class Font extends BaseDomainConstant implements Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -224,6 +224,15 @@ public class Font  extends BaseDomainConstant {
 	}
 	public void setPdfFontEmbedded(boolean pdfFontEmbedded) {
 		this.pdfFontEmbedded = pdfFontEmbedded;
+	}
+
+	public Object clone(){
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
