@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.domain.builders;
 
 import java.util.Iterator;
 
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.LayoutException;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
@@ -72,6 +73,18 @@ public class CrosstabBuilder {
 	}
 	public CrosstabBuilder setDatasource(String expression, int origin, int type, boolean preSorted) {
 		DJDataSource datasource = new DJDataSource(expression,origin,type);
+		datasource.setPreSorted(preSorted);
+		crosstab.setDatasource(datasource);
+		return this;
+	}
+	
+	/**
+	 * To use main report datasource. There should be nothing else in the detail band
+	 * @param preSorted
+	 * @return
+	 */
+	public CrosstabBuilder useMainReportDatasource(boolean preSorted) {
+		DJDataSource datasource = new DJDataSource("ds",DJConstants.DATA_SOURCE_ORIGIN_REPORT_DATASOURCE,DJConstants.DATA_SOURCE_TYPE_JRDATASOURCE);
 		datasource.setPreSorted(preSorted);
 		crosstab.setDatasource(datasource);
 		return this;
