@@ -63,6 +63,7 @@ import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.util.ExpressionUtils;
@@ -215,7 +216,10 @@ public class Dj2JrCrosstabBuilder {
 	}
 
 	private void initColors() {
-		colors = CrossTabColorShema.createSchema(djcross.getColorScheme(), cols.length, rows.length);
+		if (djcross.getCtColorScheme() != null)
+			colors = CrossTabColorShema.createSchema(djcross.getCtColorScheme(), cols.length, rows.length);
+		 else
+			colors = CrossTabColorShema.createSchema(djcross.getColorScheme(), cols.length, rows.length);
 
 	}
 
@@ -305,32 +309,31 @@ public class Dj2JrCrosstabBuilder {
 	}
 
 	/**
+	 * The way to create the cells is like this:<br><br>
+	 *
+	 * the result is a matrix of (cols+1)*(rows+1) cells.<br>
+	 * Each cell has 2 properties that describes which row and column they belong (like coordinates).<br><br>
+	 *
+	 * null/null	| col(n)/null	| ...	| col(1)/null      <br>
+	 * --------------------------------------------------      <br>
+	 * null/row(n)	| col(n)/row(n)	| ...	| col(1)/row(n)    <br>
+	 * --------------------------------------------------      <br>
+	 * null/...		| col(n)/...	| ...	| col(1)/...       <br>
+	 * --------------------------------------------------      <br>
+	 * null/row(1)	| col(n)/row(1)	| ...	| col(1)/row(1)    <br>
+	 *
+	 *<br><br>
+	 * you get this matrix with this two vectors<br>
+	 * cols: {null, col(n), ..., col(1)}<br>
+	 * rows: {null, row(n), ..., row(1)}<br>
+	 *<br>
+	 * where the col(n) is the outer most column, and row(n) is the outer most row in the crosstab<br><br>
+	 *
+	 * The cell with null/null is the inner most cell in the crosstab<br>
+	 * 
 	 * @param djcross
 	 */
-	private void createCells() {
-		/**
-		 * The way to create the cells is like this:
-		 *
-		 * the result is a matrix of (cols+1)*(rows+1) cells.
-		 * Each cell has 2 properties that describes which row and column they belong (like coordinates).
-		 *
-		 * null/null	| col(n)/null	| ...	| col(1)/null
-		 * --------------------------------------------------
-		 * null/row(n)	| col(n)/row(n)	| ...	| col(1)/row(n)
-		 * --------------------------------------------------
-		 * null/...		| col(n)/...	| ...	| col(1)/...
-		 * --------------------------------------------------
-		 * null/row(1)	| col(n)/row(1)	| ...	| col(1)/row(1)
-		 *
-		 *
-		 * you get this matrix with this two vectors
-		 * cols: {null, col(n), ..., col(1)}
-		 * rows: {null, row(n), ..., row(1)}
-		 *
-		 * where the col(n) is the outer most column, and row(n) is the outer most row in the crosstab
-		 *
-		 * The cell with null/null is the inner most cell in the crosstab
-		 */
+	protected void createCells() {
 		DJCrosstabColumn auxCol = new DJCrosstabColumn();
 		DJCrosstabRow auxRow = new DJCrosstabRow();
 		try {
@@ -389,14 +392,6 @@ public class Dj2JrCrosstabBuilder {
 					
 					element.setExpression(measureExp);
 
-					/*
-					JRDesignExpression measureExp = new JRDesignExpression();
-					DJCrosstabMeasure measure = djcross.getMeasure(0);
-					measureExp.setValueClassName(measure.getProperty().getValueClassName());
-					measureExp.setText("$V{"+measure.getProperty().getProperty()+"}");
-	
-					element.setExpression(measureExp);
-	*/
 					/**
 					 * Is there any style for this object?
 					 */
@@ -410,22 +405,15 @@ public class Dj2JrCrosstabBuilder {
 						layoutManager.applyStyleToElement(crosstabColumn.getTotalStyle(), element);
 					}
 	
-	//				if ((i == auxCols.length-1 &&  j != auxRows.length-1) || (i != auxCols.length-1 &&  j != auxRows.length-1)){
-	//					cell.setWidth(Integer.valueOf( 100));
-	//				}
-	//				if (crosstabColumn.getProperty() != null && j != auxRows.length-1 && crosstabRow.getTotalHeaderHeight() != 0){
-	//					cell.setWidth(Integer.valueOf( crosstabRow.getTotalHeaderHeight() ));
-	//				}
-	//				if (i != auxCols.length-1 && j != auxRows.length-1 && crosstabRow.getTotalHeaderHeight() != 0){
-	//					cell.setWidth(Integer.valueOf( crosstabRow.getTotalHeaderHeight() ));
-	//				}
-	
-	
-					contents.setMode(new Byte(Transparency.OPAQUE.getValue()));
-					contents.setBackcolor(colors[i][j]);
 					contents.addElement(element);
 					
 				}
+				
+				contents.setMode(new Byte(Transparency.OPAQUE.getValue()));
+				
+				applyBackgroundColor(contents,crosstabRow,crosstabColumn,i,j);
+				
+//				contents.setBackcolor(colors[i][j]);
 
 				applyCellBorder(contents);
 
@@ -441,6 +429,26 @@ public class Dj2JrCrosstabBuilder {
 			}
 
 		}
+	}
+
+	/**
+	 * Apllies background coloring upong the matrix described in {@link Dj2JrCrosstabBuilder#createCells}}
+	 * @param contents
+	 * @param crosstabRow
+	 * @param crosstabColumn
+	 * @param i
+	 * @param j
+	 */
+	private void applyBackgroundColor(JRDesignCellContents contents, DJCrosstabRow crosstabRow, 
+			DJCrosstabColumn crosstabColumn, int i,int j) {
+		
+		Color color = null;
+		if (i==j && i ==0){
+			if (this.djcross.getMeasureStyle() != null)
+				color = this.djcross.getMeasureStyle().getBackgroundColor();
+		}
+		
+		contents.setBackcolor(color);
 	}
 
 	/**
@@ -500,14 +508,15 @@ public class Dj2JrCrosstabBuilder {
 //			int auxHeight = crosstabRow.getHeight(); //FIXME getRowHeaderMaxHeight() must be FIXED because it breaks when 1rs row sho total and 2nd doesnt
 			rowTitle.setHeight(auxHeight);
 
+			Style headerstyle = crosstabRow.getHeaderStyle() == null ? this.djcross.getRowHeaderStyle(): crosstabRow.getHeaderStyle();
 
-			if (crosstabRow.getHeaderStyle() != null)
-				layoutManager.applyStyleToElement(crosstabRow.getHeaderStyle(), rowTitle);
+			if (headerstyle != null){
+				layoutManager.applyStyleToElement(headerstyle, rowTitle);
+				rowHeaderContents.setBackcolor(headerstyle.getBackgroundColor());
+//				rowHeaderContents.setBackcolor(colors[cols.length-1][i]);
+			}
 
 			rowHeaderContents.addElement(rowTitle);
-			rowHeaderContents.setBackcolor(colors[cols.length-1][i]);
-//			rowHeaderContents.setBackcolor(colors[0][0]);
-//			rowHeaderContents.setBackcolor(Color.blue);
 			rowHeaderContents.setMode(new Byte(Transparency.OPAQUE.getValue()));
 			applyCellBorder(rowHeaderContents);
 
@@ -584,12 +593,16 @@ public class Dj2JrCrosstabBuilder {
 			int auxWidth = calculateRowHeaderMaxWidth(crosstabColumn);
 			colTitle.setWidth(auxWidth);
 
-			if (crosstabColumn.getHeaderStyle() != null)
-				layoutManager.applyStyleToElement(crosstabColumn.getHeaderStyle(),colTitle);
+			Style headerstyle = crosstabColumn.getHeaderStyle() == null ? this.djcross.getColumnHeaderStyle(): crosstabColumn.getHeaderStyle();
+			
+			if (headerstyle != null){
+				layoutManager.applyStyleToElement(headerstyle,colTitle);
+				colHeaerContent.setBackcolor(headerstyle.getBackgroundColor());
+//				colHeaerContent.setBackcolor(colors[i][rows.length-1]);
+			}
 
 
 			colHeaerContent.addElement(colTitle);
-			colHeaerContent.setBackcolor(colors[i][rows.length-1]);
 			colHeaerContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 			applyCellBorder(colHeaerContent);
 
@@ -643,7 +656,9 @@ public class Dj2JrCrosstabBuilder {
 		ctRowGroup.setTotalHeader(totalHeaderContent);
 		ctRowGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END); //FIXME the total can be at the end of a group or at the beginin
 
-		totalHeaderContent.setBackcolor(colors[colors.length/2][0]);
+		Style totalHeaderstyle = crosstabRow.getTotalHeaderStyle() == null ? this.djcross.getRowTotalheaderStyle(): crosstabRow.getTotalHeaderStyle();
+		
+		totalHeaderContent.setBackcolor(totalHeaderstyle.getBackgroundColor());
 		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 
 		JRDesignTextField element = new JRDesignTextField();
@@ -651,7 +666,7 @@ public class Dj2JrCrosstabBuilder {
 		element.setExpression(exp);
 		element.setHeight(crosstabRow.getHeight());
 
-		if (crosstabRow.getTotalHeaderStyle() != null)
+		if (totalHeaderstyle != null)
 			layoutManager.applyStyleToElement(crosstabRow.getTotalHeaderStyle(), element);
 
 		//The width can be the sum of the with of all the rows starting from the current one, up to the inner most one.

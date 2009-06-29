@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.domain.builders;
 import java.util.Iterator;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.layout.CrossTabColorShema;
 import ar.com.fdvs.dj.core.layout.LayoutException;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
@@ -117,6 +118,10 @@ public class CrosstabBuilder {
 		crosstab.setColorScheme(colorScheme);
 		return this;
 	}
+	public CrosstabBuilder setColorScheme(CrossTabColorShema colorScheme) {
+		crosstab.setCtColorScheme(colorScheme);
+		return this;
+	}
 	public CrosstabBuilder setMainHeaderTitle(String title) {
 		crosstab.setMainHeaderTitle(title);
 		crosstab.setAutomaticTitle(false);
@@ -180,6 +185,13 @@ public class CrosstabBuilder {
 		return this;
 	}
 
+	/**
+	 * Should be called after all rows have been created 
+	 * @param headerStyle
+	 * @param totalStyle
+	 * @param totalHeaderStyle
+	 * @return
+	 */
 	public CrosstabBuilder setRowStyles(Style headerStyle, Style totalStyle, Style totalHeaderStyle) {
 		for (Iterator iterator = crosstab.getRows().iterator(); iterator.hasNext();) {
 			DJCrosstabRow row = (DJCrosstabRow) iterator.next();
@@ -190,6 +202,13 @@ public class CrosstabBuilder {
 		return this;
 	}
 
+	/**
+	 * Should be called after all columns have been created
+	 * @param headerStyle
+	 * @param totalStyle
+	 * @param totalHeaderStyle
+	 * @return
+	 */
 	public CrosstabBuilder setColumnStyles(Style headerStyle, Style totalStyle, Style totalHeaderStyle) {
 		for (Iterator iterator = crosstab.getColumns().iterator(); iterator.hasNext();) {
 			DJCrosstabColumn col = (DJCrosstabColumn) iterator.next();

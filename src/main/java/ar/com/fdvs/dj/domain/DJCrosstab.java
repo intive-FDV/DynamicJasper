@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.fdvs.dj.core.layout.CrossTabColorShema;
 import ar.com.fdvs.dj.domain.constants.Border;
 
 public class DJCrosstab {
@@ -57,9 +58,20 @@ public class DJCrosstab {
 
 	private boolean automaticTitle = false;
 
+
+	/**
+	 * Default styles, can be overwritten by the column and row objects
+	 */
 	private Style headerStyle;
+	private Style rowHeaderStyle;
+	private Style columnHeaderStyle;
+	private Style rowTotalheaderStyle;
+	private Style columnTotalheaderStyle;
+	private Style measureStyle;
 
 	private int colorScheme = 0;
+
+	private CrossTabColorShema ctColorScheme = null;
 
 	/**
 	 * If not null or NO_BORDER, all cells will have this border
@@ -164,6 +176,62 @@ public class DJCrosstab {
 	}
 	public void setTopSpace(int topSpace) {
 		this.topSpace = topSpace;
+	}
+	public CrossTabColorShema getCtColorScheme() {
+		return ctColorScheme;
+	}
+	public void setCtColorScheme(CrossTabColorShema ctColorScheme) {
+		this.ctColorScheme = ctColorScheme;
+	}
+	public Style getRowTotalheaderStyle() {
+		return rowTotalheaderStyle;
+	}
+	
+	/**
+	 * Default style. Can be overwritten by the row 
+	 * @param rowTotalheaderStyle
+	 */
+	public void setRowTotalheaderStyle(Style rowTotalheaderStyle) {
+		this.rowTotalheaderStyle = rowTotalheaderStyle;
+	}
+	public Style getColumnTotalheaderStyle() {
+		return columnTotalheaderStyle;
+	}
+	
+	/**
+	 * Default style. Can be overwritten by the column
+	 * @param columnTotalheaderStyle
+	 */
+	public void setColumnTotalheaderStyle(Style columnTotalheaderStyle) {
+		this.columnTotalheaderStyle = columnTotalheaderStyle;
+	}
+	public Style getRowHeaderStyle() {
+		return rowHeaderStyle;
+	}
+	
+	/**
+	 * Default style. Can be overwritten by the row
+	 * @param rowHeaderStyle
+	 */
+	public void setRowHeaderStyle(Style rowHeaderStyle) {
+		this.rowHeaderStyle = rowHeaderStyle;
+	}
+	public Style getColumnHeaderStyle() {
+		return columnHeaderStyle;
+	}
+	
+	/**
+	 * Default style. Can be overwritten by the column
+	 * @param columnHeaderStyle
+	 */
+	public void setColumnHeaderStyle(Style columnHeaderStyle) {
+		this.columnHeaderStyle = columnHeaderStyle;
+	}
+	public Style getMeasureStyle() {
+		return measureStyle;
+	}
+	public void setMeasureStyle(Style measureStyle) {
+		this.measureStyle = measureStyle;
 	}
 
 }

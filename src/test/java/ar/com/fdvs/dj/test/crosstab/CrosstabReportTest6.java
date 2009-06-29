@@ -36,6 +36,8 @@ import java.util.Date;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.layout.ConfigurableCrossTabColorShema;
+import ar.com.fdvs.dj.core.layout.CrossTabColorShema;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -59,7 +61,8 @@ import ar.com.fdvs.dj.test.BaseDjReportTest;
 public class CrosstabReportTest6 extends BaseDjReportTest {
 
 	private Style totalHeaderStyle;
-	private Style colAndRowHeaderStyle;
+	private Style rowHeaderStyle;
+	private Style colHeaderStyle;
 	private Style mainHeaderStyle;
 	private Style totalStyle;
 	private Style measureStyle;
@@ -82,21 +85,23 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 			.setWhenNoDataAllSectionNoDetail()
 			.setDefaultStyles(titleStyle, null, null, null);
 
+		ConfigurableCrossTabColorShema colorScheme = new ConfigurableCrossTabColorShema();
+		
 		DJCrosstab djcross = new CrosstabBuilder()
 			.setHeaderStyle(mainHeaderStyle)
 			.useMainReportDatasource(true)
 			.setUseFullWidth(true)
-			.setColorScheme(DJConstants.COLOR_SCHEMA_WHITE)
+			.setColorScheme(colorScheme)
 			.setAutomaticTitle(true)
 			.setCellBorder(Border.PEN_1_POINT)
 			.addRow("Product Line", "productLine", String.class.getName(),false)
 			.addColumn("State","state",String.class.getName(),false)
 			.addColumn("Branch","branch",String.class.getName(),true)
-			.addColumn("Item", "item", String.class.getName(),true)
+//			.addColumn("Item", "item", String.class.getName(),true)
 			.addMeasure("id",Long.class.getName(), DJCalculation.SUM , "Id", measureStyle)
 			.addMeasure("amount",Float.class.getName(), DJCalculation.SUM , "Amount",measureStyle2)
-			.setRowStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
-			.setColumnStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
+			.setRowStyles(rowHeaderStyle, totalStyle, totalHeaderStyle)
+			.setColumnStyles(colHeaderStyle, totalStyle, totalHeaderStyle)
 			.setCellDimension(34, 60)
 			.setColumnHeaderHeight(30)
 			.setRowHeaderWidth(80)
@@ -131,10 +136,17 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
 			.setTextColor(Color.BLUE)
 			.build();
-		colAndRowHeaderStyle = new StyleBuilder(false)
+		rowHeaderStyle = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.LEFT)
 			.setVerticalAlign(VerticalAlign.TOP)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
+			.setBackgroundColor(new Color(240,248,255))
+			.build();
+		colHeaderStyle = new StyleBuilder(false)
+			.setHorizontalAlign(HorizontalAlign.LEFT)
+			.setVerticalAlign(VerticalAlign.TOP)
+			.setFont(Font.ARIAL_MEDIUM_BOLD)
+			.setBackgroundColor(new Color(255,240,248))
 			.build();
 		mainHeaderStyle = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.CENTER)
@@ -149,6 +161,7 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 		measureStyle = new StyleBuilder(false).setPattern("#,###.##")
 			.setHorizontalAlign(HorizontalAlign.RIGHT)
 			.setFont(Font.ARIAL_MEDIUM)
+			.setBackgroundColor(Color.WHITE)
 			.build();
 
 		measureStyle2 = new StyleBuilder(false).setPattern("#,###.##")
