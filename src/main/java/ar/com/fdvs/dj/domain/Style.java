@@ -32,6 +32,8 @@ package ar.com.fdvs.dj.domain;
 import java.awt.Color;
 import java.io.Serializable;
 
+import net.sf.jasperreports.engine.base.JRBaseStyle;
+import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
@@ -215,14 +217,24 @@ public class Style implements Serializable, Cloneable {
 		this.verticalAlign = verticalAlign;
 	}
 
+	public JRDesignConditionalStyle transformAsConditinalStyle() {
+		JRDesignConditionalStyle ret = new JRDesignConditionalStyle();
+		setJRBaseStyleProperties(ret);
+		return ret;
+		
+	}
+
 	public JRDesignStyle transform() {
-
 		JRDesignStyle transformedStyle = new JRDesignStyle();
-		if (getBorder()!=null)
-			transformedStyle.setBorder(getBorder().getValue());
-
 		transformedStyle.setName(this.name);
 		transformedStyle.setParentStyleNameReference(this.parentStyleName);
+		setJRBaseStyleProperties(transformedStyle);
+		return transformedStyle;
+	}
+
+	protected void setJRBaseStyleProperties(JRBaseStyle transformedStyle) {
+		if (getBorder()!=null)
+			transformedStyle.setBorder(getBorder().getValue());
 
 		//Borders
 		if (getBorderBottom()!= null)
@@ -237,7 +249,70 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setPadding(getPadding());
 
 		if (paddingBottom != null)
-			transformedStyle.setBottomPadding(paddingBottom);
+			transformedStyle.setBottomPadding(paddingBottom);	if (getBorder()!=null)
+				transformedStyle.setBorder(getBorder().getValue());
+
+			//Borders
+			if (getBorderBottom()!= null)
+				transformedStyle.setBottomBorder(getBorderBottom().getValue());
+			if (getBorderTop()!= null)
+				transformedStyle.setTopBorder(getBorderTop().getValue());
+			if (getBorderLeft()!= null)
+				transformedStyle.setLeftBorder(getBorderLeft().getValue());
+			if (getBorderRight()!= null)
+				transformedStyle.setRightBorder(getBorderRight().getValue());
+
+			transformedStyle.setPadding(getPadding());
+
+			if (paddingBottom != null)
+				transformedStyle.setBottomPadding(paddingBottom);
+			if (paddingTop != null)
+				transformedStyle.setTopPadding(paddingTop);
+			if (paddingLeft != null)
+				transformedStyle.setLeftPadding(paddingLeft);
+			if (paddingRight != null)
+				transformedStyle.setRightPadding(paddingRight);
+
+			if (getHorizontalAlign() != null)
+				transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
+
+			if (getVerticalAlign() != null)
+				transformedStyle.setVerticalAlignment(getVerticalAlign().getValue());
+
+			transformedStyle.setBlankWhenNull(blankWhenNull);
+
+			if (font != null) {
+				transformedStyle.setFontName(font.getFontName());
+				transformedStyle.setFontSize(font.getFontSize());
+				transformedStyle.setBold(font.isBold());
+				transformedStyle.setItalic(font.isItalic());
+				transformedStyle.setUnderline(font.isUnderline());
+				transformedStyle.setPdfFontName(font.getPdfFontName());
+				transformedStyle.setPdfEmbedded(font.isPdfFontEmbedded());
+				transformedStyle.setPdfEncoding(font.getPdfFontEncoding());
+			}
+
+			transformedStyle.setBackcolor(getBackgroundColor());
+			transformedStyle.setForecolor(getTextColor());
+			transformedStyle.setBorderColor(borderColor);
+			if (getTransparency() != null)
+				transformedStyle.setMode(getTransparency().getValue());
+
+			if (getRotation() != null)
+				transformedStyle.setRotation(getRotation().getValue());
+
+			if (getRadius() != null)
+				transformedStyle.setRadius(getRadius().intValue());
+
+			transformedStyle.setPattern(this.pattern);
+
+			/**
+			 * This values are needed when exporting to JRXML
+			 */
+			transformedStyle.setPen((byte)0);
+			transformedStyle.setFill((byte)1);
+			transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());
+			
 		if (paddingTop != null)
 			transformedStyle.setTopPadding(paddingTop);
 		if (paddingLeft != null)
@@ -284,10 +359,6 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setPen((byte)0);
 		transformedStyle.setFill((byte)1);
 		transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());
-		
-		
-
-		return transformedStyle;
 	}
 
 	public Border getBorderBottom() {

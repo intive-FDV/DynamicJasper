@@ -35,7 +35,15 @@
 			</properties>
 	 <body>
 	 
-				 <release version="3.0.7-b3" date="2009-06-25"	desc="fixes">
+				 <release version="3.0.7-b4" date="2009-06-25"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="ricardo">
+					 	Fixed issue related to copying JRStyle objects. Now using JRStyle.clobe(), which forces to use JasperReport 3.0+ 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
+					 	Crosstabs: Can specify colors and styles for each element: row headers, column headers, totals, etc.
+					 	Also default values are provided 
+					 	See CrosstabReportTest6.java
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
 					 	Crosstabs can use the main reporte datasource. See CrosstabReportTest6.java
 					 </action>

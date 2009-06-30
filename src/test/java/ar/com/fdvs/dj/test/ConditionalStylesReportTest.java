@@ -151,14 +151,16 @@ public class ConditionalStylesReportTest extends BaseDjReportTest {
 	private ArrayList createConditionalStyles(Style baseStyle) throws IllegalAccessException, InstantiationException, InvocationTargetException, NoSuchMethodException {
 		Style style0 = (Style) BeanUtils.cloneBean(baseStyle);
 		style0.setTextColor(Color.RED);
+		style0.setFont(Font.GEORGIA_MEDIUM_BOLD);
 		Style style1 = (Style) BeanUtils.cloneBean(baseStyle);
 		style1.setTextColor(new Color(128,128,0));
 		Style style2 = (Style) BeanUtils.cloneBean(baseStyle);
 		style2.setTextColor(new Color(0,128,0)); //dark green
+		style2.setFont(Font.ARIAL_SMALL_BOLD);
 
-		StatusLightCondition status0 = new StatusLightCondition(new Double(3000), new Double(5000)); //TODO ENHANCEMENT make it come from a parameter??? $P{...}
-		StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(7000));
-		StatusLightCondition status2 = new StatusLightCondition(new Double(7000),new Double(100000));
+		StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(3000)); //TODO ENHANCEMENT make it come from a parameter??? $P{...}
+		StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(6000));
+		StatusLightCondition status2 = new StatusLightCondition(new Double(6000),new Double(100000));
 
 		ConditionalStyle condition0 = new ConditionalStyle(status0,style0);
 		ConditionalStyle condition1 = new ConditionalStyle(status1,style1);

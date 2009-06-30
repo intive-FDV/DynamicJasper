@@ -413,8 +413,6 @@ public class Dj2JrCrosstabBuilder {
 				
 				applyBackgroundColor(contents,crosstabRow,crosstabColumn,i,j);
 				
-//				contents.setBackcolor(colors[i][j]);
-
 				applyCellBorder(contents);
 
 				cell.setContents(contents);
@@ -443,9 +441,11 @@ public class Dj2JrCrosstabBuilder {
 			DJCrosstabColumn crosstabColumn, int i,int j) {
 		
 		Color color = null;
-		if (i==j && i ==0){
+		if (i==j && i ==0 && false){
 			if (this.djcross.getMeasureStyle() != null)
 				color = this.djcross.getMeasureStyle().getBackgroundColor();
+		} else {
+			color = colors[i][j];
 		}
 		
 		contents.setBackcolor(color);

@@ -626,8 +626,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
              * columns, that's why we create our own style from the existing one, and remove proper odd-row conditional
              * style if present
              */
-            JRDesignStyle groupStyle = new JRDesignStyle();
-            Utils.copyProperties(groupStyle, jrstyle);
+            JRDesignStyle groupStyle = (JRDesignStyle) jrstyle.clone();
+//            JRDesignStyle groupStyle = new JRDesignStyle();
+//            Utils.copyProperties(groupStyle, jrstyle);
 
 			groupStyle.setName(groupStyle.getFontName() +"_for_group_"+index);
 			textField.setStyle(groupStyle);
@@ -637,8 +638,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         } else {
         	
-            JRDesignStyle alternateStyle = new JRDesignStyle();
-            Utils.copyProperties(alternateStyle, jrstyle);
+            JRDesignStyle alternateStyle = (JRDesignStyle) jrstyle.clone();
+//            Utils.copyProperties(alternateStyle, jrstyle);
 
 			alternateStyle.setName(alternateStyle.getFontName() +"_for_column_"+col.getName());
 			alternateStyle.getConditionalStyleList().clear();
@@ -714,7 +715,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
 
 				JRDesignConditionalStyle condStyleOdd = makeConditionalStyle( condition.getStyle());			
-				Utils.copyProperties(condStyleOdd, condition.getStyle().transform());
+//				Utils.copyProperties(condStyleOdd, condition.getStyle().transform());
 				condStyleOdd.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
 				condStyleOdd.setMode(JRDesignElement.MODE_OPAQUE);
 				condStyleOdd.setConditionExpression(expressionOdd);
@@ -770,9 +771,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 	
 	protected JRDesignConditionalStyle makeConditionalStyle( Style style )	{
-		JRDesignConditionalStyle condStyle = new JRDesignConditionalStyle();
-		Utils.copyProperties(condStyle, style.transform());
-	
+		JRDesignConditionalStyle condStyle = style.transformAsConditinalStyle();
 		return condStyle;
 	}
 	

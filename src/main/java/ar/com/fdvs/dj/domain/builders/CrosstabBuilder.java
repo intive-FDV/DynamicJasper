@@ -193,12 +193,9 @@ public class CrosstabBuilder {
 	 * @return
 	 */
 	public CrosstabBuilder setRowStyles(Style headerStyle, Style totalStyle, Style totalHeaderStyle) {
-		for (Iterator iterator = crosstab.getRows().iterator(); iterator.hasNext();) {
-			DJCrosstabRow row = (DJCrosstabRow) iterator.next();
-			row.setHeaderStyle(headerStyle);
-			row.setTotalHeaderStyle(totalHeaderStyle);
-			row.setTotalStyle(totalStyle);
-		}
+		crosstab.setRowHeaderStyle(headerStyle);
+		crosstab.setRowTotalheaderStyle(totalHeaderStyle);
+		crosstab.setRowTotalStyle(totalStyle);
 		return this;
 	}
 
@@ -210,12 +207,9 @@ public class CrosstabBuilder {
 	 * @return
 	 */
 	public CrosstabBuilder setColumnStyles(Style headerStyle, Style totalStyle, Style totalHeaderStyle) {
-		for (Iterator iterator = crosstab.getColumns().iterator(); iterator.hasNext();) {
-			DJCrosstabColumn col = (DJCrosstabColumn) iterator.next();
-			col.setHeaderStyle(headerStyle);
-			col.setTotalHeaderStyle(totalHeaderStyle);
-			col.setTotalStyle(totalStyle);
-		}
+		crosstab.setRowHeaderStyle(headerStyle);
+		crosstab.setRowTotalheaderStyle(totalHeaderStyle);
+		crosstab.setRowTotalStyle(totalStyle);
 		return this;
 	}
 

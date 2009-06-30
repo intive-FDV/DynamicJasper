@@ -63,10 +63,16 @@ public class DJCrosstab {
 	 * Default styles, can be overwritten by the column and row objects
 	 */
 	private Style headerStyle;
-	private Style rowHeaderStyle;
+	
+	
 	private Style columnHeaderStyle;
-	private Style rowTotalheaderStyle;
 	private Style columnTotalheaderStyle;
+	private Style columnTotaStyle;
+
+	private Style rowHeaderStyle;
+	private Style rowTotalheaderStyle;
+	private Style rowTotalStyle;
+	
 	private Style measureStyle;
 
 	private int colorScheme = 0;
@@ -232,6 +238,18 @@ public class DJCrosstab {
 	}
 	public void setMeasureStyle(Style measureStyle) {
 		this.measureStyle = measureStyle;
+	}
+	public Style getColumnTotaStyle() {
+		return columnTotaStyle;
+	}
+	public void setColumnTotaStyle(Style columnTotaStyle) {
+		this.columnTotaStyle = columnTotaStyle;
+	}
+	public Style getRowTotalStyle() {
+		return rowTotalStyle;
+	}
+	public void setRowTotalStyle(Style rowTotalStyle) {
+		this.rowTotalStyle = rowTotalStyle;
 	}
 
 }
