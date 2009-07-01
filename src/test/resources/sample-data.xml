@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+ <linea>
+   <CODCTA>1000</CODCTA>
+   <AUXCNT>00</AUXCNT>
+   <DESIND>Capital Social</DESIND>
+   <ACTPAS>1</ACTPAS>
+ </linea>
+ <linea>
+   <CODCTA>1210</CODCTA>
+   <AUXCNT>00</AUXCNT>
+   <DESIND>Del 2001</DESIND>
+   <ACTPAS>1</ACTPAS>
+ </linea>
+ <linea>
+   <CODCTA>1210</CODCTA>
+   <AUXCNT>01</AUXCNT>
+   <DESIND>Del 2002</DESIND>
+   <ACTPAS>2</ACTPAS>
+ </linea>
+ <linea>
+   <CODCTA>1290</CODCTA>
+   <AUXCNT>00</AUXCNT>
+   <DESIND>Perdidas y Ganacias</DESIND>
+   <ACTPAS>2</ACTPAS>
+ </linea>
+</data>
