@@ -40,12 +40,12 @@
 					 	Fixed issue related to copying JRStyle objects. Now using JRStyle.clobe(), which forces to use JasperReport 3.0+ 
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
-					 	Crosstabs: Configurable color schema for automatic coloring (now it is nice!). See CrosstabReportTest6
+					 	Crosstabs: Configurable color schema for automatic coloring (now it is nice!). See CrosstabReportTest6 which uses TwoSeedCrossTabColorShema class
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
 					 	Crosstabs: Can specify colors and styles for each element: row headers, column headers, totals, etc.
 					 	Also default values are provided 
-					 	See CrosstabReportTest7.java which uses TwoSeedCrossTabColorShema class
+					 	See CrosstabReportTest7.java 
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
 					 	Crosstabs can use the main report datasource. Use "CrosstabBuilder.useMainReportDatasource(true)". See CrosstabReportTest6.java
