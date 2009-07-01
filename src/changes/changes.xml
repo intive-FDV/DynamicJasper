@@ -48,7 +48,7 @@
 					 	See CrosstabReportTest7.java which uses TwoSeedCrossTabColorShema class
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
-					 	Crosstabs can use the main reporte datasource. Use "CrosstabBuilder.useMainReportDatasource(true)". See CrosstabReportTest6.java
+					 	Crosstabs can use the main report datasource. Use "CrosstabBuilder.useMainReportDatasource(true)". See CrosstabReportTest6.java
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="">
 					 	Fixed problem with Font.XXXXX static shared objects. Now style.setFont( aFont ) gets a copy of the font passed.
