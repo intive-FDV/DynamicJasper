@@ -67,7 +67,7 @@ public class DJCrosstab {
 	
 	private Style columnHeaderStyle;
 	private Style columnTotalheaderStyle;
-	private Style columnTotaStyle;
+	private Style columnTotalStyle;
 
 	private Style rowHeaderStyle;
 	private Style rowTotalheaderStyle;
@@ -239,11 +239,11 @@ public class DJCrosstab {
 	public void setMeasureStyle(Style measureStyle) {
 		this.measureStyle = measureStyle;
 	}
-	public Style getColumnTotaStyle() {
-		return columnTotaStyle;
+	public Style getColumnTotalStyle() {
+		return columnTotalStyle;
 	}
-	public void setColumnTotaStyle(Style columnTotaStyle) {
-		this.columnTotaStyle = columnTotaStyle;
+	public void setColumnTotalStyle(Style columnlTotaStyle) {
+		this.columnTotalStyle = columnTotalStyle;
 	}
 	public Style getRowTotalStyle() {
 		return rowTotalStyle;

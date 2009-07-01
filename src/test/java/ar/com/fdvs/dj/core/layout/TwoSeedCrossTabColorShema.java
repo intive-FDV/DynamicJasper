@@ -2,25 +2,36 @@ package ar.com.fdvs.dj.core.layout;
 
 import java.awt.Color;
 
-public class ConfigurableCrossTabColorShema extends CrossTabColorShema {
+public class TwoSeedCrossTabColorShema extends CrossTabColorShema {
+	
+	private Color rowSeed;
+	private Color columnSeed;
+	
+	public TwoSeedCrossTabColorShema(Color rowSeed, Color columnSeed){
+		this.rowSeed = rowSeed;
+		this.columnSeed = columnSeed;
+	}
 
 	public void create(int numCols, int numRows) {
-		for (int i = numCols-1; i >= 0; i--) {
-			for (int j =  numRows-1; j >= 0; j--) {
-				colors[i][j] = Color.WHITE;
-			}
+		//we need one more for the calculations because the matrix 
+		//should be of cols+1 x rows+1
+		numCols++; 
+		numRows++;
+		
+		if (colors == null){
+			colors = new Color[numCols][numRows];
 		}
+
+		colors[numCols-1][numRows-2] = this.columnSeed;
+		colors[numCols-2][numRows-1] = this.rowSeed;
 		
-		colors[numCols-1][numRows-2] = new Color(240,248,255);
-		colors[numCols-2][numRows-1] = new Color(255,248,240);
-		
-		if (numRows > 2)
+		if (numRows >= 2)
 			for (int i = numRows-2; i >= 1; i--) {
 				colors[numCols-1][i-1] = getDarker(colors[numCols-1][i]);
 				                                   
 			}	
 		
-		if (numCols > 2)
+		if (numCols >= 2)
 			for (int j = numCols-2; j >= 1; j--) {
 				colors[j-1][numRows-1] = getDarker(colors[j][numRows-1]);
 				
@@ -32,24 +43,6 @@ public class ConfigurableCrossTabColorShema extends CrossTabColorShema {
 				
 			}	
 		}	
-		
-//		for (int j =  numRows-2; j >= 1; j--) {
-//			colors[numRows+1][j] = colors[numRows-1][j+1].darker(); 
-//		}
-		
-/*		colors[0][0] = Color.GREEN;
-		colors[1][0] = Color.BLUE;
-		colors[2][0] = Color.GRAY;
-
-		colors[0][1] = Color.RED;
-		colors[1][1] = Color.PINK;
-		colors[2][1] = Color.ORANGE;
-
-		colors[0][2] = Color.YELLOW;
-		colors[1][2] = Color.CYAN;
-
-		colors[2][2] = Color.MAGENTA; //
-	*/	
 	}
 
 	private Color getAvergage(Color color, Color color2) {

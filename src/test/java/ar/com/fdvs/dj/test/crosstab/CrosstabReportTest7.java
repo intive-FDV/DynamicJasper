@@ -35,7 +35,7 @@ import java.util.Date;
 
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.core.layout.TwoSeedCrossTabColorShema;
+import ar.com.fdvs.dj.core.layout.CrossTabColorShema;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -50,15 +50,13 @@ import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
-import ar.com.fdvs.dj.test.TestRepositoryProducts;
-import ar.com.fdvs.dj.util.SortUtils;
 
 /**
  * This uses the main datasource instead of one passed as parameter
  * @author mamana
  *
  */
-public class CrosstabReportTest6 extends BaseDjReportTest {
+public class CrosstabReportTest7 extends BaseDjReportTest {
 
 	private Style totalHeaderStyle;
 	private Style rowHeaderStyle;
@@ -68,10 +66,6 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 	private Style measureStyle;
 	private Style measureStyle2;
 	private Style titleStyle;
-	
-	Color pastelYellow = new Color(240,248,200);
-	Color pastelGreen = new Color(200,248,240);
-	Color pastelR = new Color(200,240,248);
 
 	public DynamicReport buildReport() throws Exception {
 		initStyles(); //init some styles to be used
@@ -89,14 +83,20 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 			.setWhenNoDataAllSectionNoDetail()
 			.setDefaultStyles(titleStyle, null, null, null);
 
-		
-		TwoSeedCrossTabColorShema colorScheme = new TwoSeedCrossTabColorShema(pastelYellow,pastelGreen);
+		CrossTabColorShema colorScheme = new CrossTabColorShema(2,2);
+		colorScheme.setColorForMeasure(Color.ORANGE);
+		colorScheme.setTotalColorForColumn(1, Color.PINK);
+		colorScheme.setTotalColorForColumn(2, Color.YELLOW);
+		colorScheme.setTotalColorForRow(1, Color.GRAY);
+		colorScheme.setTotalColorForRow(2, Color.magenta);
+
+		colorScheme.setColorForTotal(2, 2, Color.CYAN);
 		
 		DJCrosstab djcross = new CrosstabBuilder()
 			.setHeight(400)
 			.setWidth(500)
 			.setHeaderStyle(mainHeaderStyle)
-			.useMainReportDatasource(false)
+			.useMainReportDatasource(true)
 			.setUseFullWidth(true)
 			.setColorScheme(colorScheme)
 			.setAutomaticTitle(true)
@@ -120,7 +120,7 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 		DynamicReport dr = drb.build();
 
 		//put a collection in the parameters map to be used by the crosstab
-		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
+//		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
 
 		return dr;
 	}
@@ -144,21 +144,21 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
 			.setTransparency(Transparency.OPAQUE)
 			.setTextColor(Color.BLUE)
-			.setBackgroundColor(pastelR)
+			.setBackgroundColor(Color.GREEN)
 			.build();
 		rowHeaderStyle = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.LEFT)
 			.setVerticalAlign(VerticalAlign.TOP)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
 			.setBackgroundColor(new Color(240,248,255))
-			.setBackgroundColor(pastelYellow)
+			.setBackgroundColor(Color.BLUE)
 			.build();
 		colHeaderStyle = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.LEFT)
 			.setVerticalAlign(VerticalAlign.TOP)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
 			.setBackgroundColor(new Color(255,240,248))
-			.setBackgroundColor(pastelGreen)
+			.setBackgroundColor(Color.RED)
 			.build();
 		mainHeaderStyle = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.CENTER)
@@ -185,7 +185,7 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 
 
 	public static void main(String[] args) throws Exception {
-		CrosstabReportTest6 test = new CrosstabReportTest6();
+		CrosstabReportTest7 test = new CrosstabReportTest7();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
 		JasperDesignViewer.viewReportDesign(test.jr);

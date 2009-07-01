@@ -31,186 +31,95 @@ package ar.com.fdvs.dj.core.layout;
 
 import java.awt.Color;
 
-public abstract class CrossTabColorShema {
+import ar.com.fdvs.dj.domain.DJCrosstab;
 
-	protected Color[][] colors;
+public class CrossTabColorShema {
 
-	public static Color[][] createSchema(int schema, int numCols, int numRows){
-
-		CrossTabColorShema generator = null;
-
-		if (schema == 0)
-			generator = new Schema0();
-		else if (schema == 1)
-			generator = new Schema1();
-		else if (schema == 2)
-			generator = new Schema2();
-		else if (schema == 3)
-			generator = new Schema3();
-		else if (schema == 4)
-			generator = new Schema4();
-		else if (schema == 5)
-			generator = new Schema5();
-		else if (schema == 6)
-			generator = new Schema6();
-		else
-			generator = new Schema1();
-
-		return createSchema(generator,numCols,numRows);
+	public Color[][] getColors() {
+		return colors;
 	}
 
-	public static Color[][] createSchema(CrossTabColorShema ctColorScheme, int numCols, int numRows) {
-		ctColorScheme.colors = new Color[numCols+1][numRows+1];
-		ctColorScheme.create(numCols+1, numRows+1);
-		return ctColorScheme.colors;
+
+	Color[][] colors;
+
+	protected CrossTabColorShema(){
+		
 	}
 	
-	public abstract void create(int numCols, int numRows);
-}
-
-class Schema0 extends CrossTabColorShema{
-
-	public void create(int numCols, int numRows) {
-		for (int i = numCols-1; i >= 0; i--) {
-			for (int j =  numRows-1; j >= 0; j--) {
-				colors[i][j] =  Color.WHITE;
-			}
-		}
+	/**
+	 * The number of rows and columns
+	 * @param rows
+	 * @param cols
+	 */
+	public CrossTabColorShema(int rows, int cols){
+		colors =  new Color[cols+1][rows+1];
 	}
-}
-
-/**
- * Violet
- * @author Juan Manuel
- *
- */
-class Schema1 extends CrossTabColorShema{
-
-	public void create(int numCols, int numRows) {
-		int base = 220;
-		int base2 = 150;
-
-		int coli =(255-base) / (numCols);
-		int colj = (255-base2) / (numRows);
-		for (int i = numCols-1; i >= 0; i--) {
-			int auxi = base + coli * i;
-			for (int j =  numRows-1; j >= 0; j--) {
-				int auxj = base2 + colj * j;
-				colors[i][j] = new Color(auxj,(auxj*auxi)/255,auxi);
-			}
-		}
+	
+	/**
+	 * The DJCrosstab is used to get the number of columns and rows within it
+	 * @param djcross
+	 */
+	public CrossTabColorShema(DJCrosstab djcross){
+		int cols = djcross.getColumns().size();
+		int rows = djcross.getRows().size();
+		colors =  new Color[cols+1][rows+1];
 	}
-}
-
-/**
- * Pink
- * @author Juan Manuel
- *
- */
-class Schema2 extends CrossTabColorShema{
-
-	public void create(int numCols, int numRows) {
-		int base = 220;
-		int base2 = 150;
-
-		int coli =(255-base) / (numCols);
-		int colj = (255-base2) / (numRows);
-		for (int i = numCols-1; i >= 0; i--) {
-			int auxi = base + coli * i;
-			for (int j =  numRows-1; j >= 0; j--) {
-				int auxj = base2 + colj * j;
-				colors[i][j] = new Color(auxi,(auxj*auxi)/255,auxj);
-			}
-		}
+	
+	/**
+	 * To be overwritten
+	 * @param numCols
+	 * @param numRows
+	 */
+	public void create(int numCols, int numRows){
+		
 	}
-}
 
-/**
- * Light pink/brown
- * @author Juan Manuel
- *
- */
-class Schema3 extends CrossTabColorShema{
-
-	public void create(int numCols, int numRows) {
-		int base = 220;
-		int base2 = 150;
-
-		int coli =(255-base) / (numCols);
-		int colj = (255-base2) / (numRows);
-		for (int i = numCols-1; i >= 0; i--) {
-			int auxi = base + coli * i;
-			for (int j =  numRows-1; j >= 0; j--) {
-				int auxj = base2 + colj * j;
-				colors[i][j] = new Color(auxi,auxj,(auxj*auxi)/255);
-			}
-		}
+	/**
+	 * Set the color for each total for the column
+	 * @param column the number of the column (starting from 1)
+	 * @param color
+	 */
+	public void setTotalColorForColumn(int column, Color color){
+		int map = (colors.length-1) - column;
+		colors[map][colors[0].length-1]=color;
 	}
-}
-
-/**
- * light green
- * @author Juan Manuel
- *
- */
-class Schema4 extends CrossTabColorShema{
-
-	public void create(int numCols, int numRows) {
-		int base = 220;
-		int base2 = 150;
-
-		int coli =(255-base) / (numCols);
-		int colj = (255-base2) / (numRows);
-		for (int i = numCols-1; i >= 0; i--) {
-			int auxi = base + coli * i;
-			for (int j =  numRows-1; j >= 0; j--) {
-				int auxj = base2 + colj * j;
-				colors[i][j] = new Color((auxj*auxi)/255,auxi,auxj);
-			}
-		}
+	
+	/***
+	 * Sets the color for each total for the row
+	 * @param row (starting from 1)
+	 * @param color
+	 */
+	public void setTotalColorForRow(int row, Color color){
+		int map = (colors[0].length-1) - row;
+		colors[colors.length-1][map]=color;		
 	}
-}
-
-/**
- * blue
- * @author Juan Manuel
- *
- */
-class Schema5 extends CrossTabColorShema{
-
-	public void create(int numCols, int numRows) {
-		int base2 = 220;
-		int base = 150;
-
-		int coli =(255-base) / (numCols);
-		int colj = (255-base2) / (numRows);
-		for (int i = numCols-1; i >= 0; i--) {
-			int auxi = base + coli * i;
-			for (int j =  numRows-1; j >= 0; j--) {
-				int auxj = base2 + colj * j;
-				colors[i][j] = new Color((auxj*auxi)/255,auxi,auxj);
-			}
-		}
+	
+	/**
+	 * Sets the color for the big total between the column and row
+	 * @param row row index (starting from 1)
+	 * @param column column index (starting from 1)
+	 * @param color
+	 */
+	public void setColorForTotal(int row, int column, Color color){
+		int mapC = (colors.length-1) - column;
+		int mapR = (colors[0].length-1) - row;
+		colors[mapC][mapR]=color;		
 	}
-}
-
-/**
- * gray
- * @author Juan Manuel
- *
- */
-class Schema6 extends CrossTabColorShema{
-
-	public void create(int numCols, int numRows) {
-		int base = 200;
-
-		int coli =(255-base) / (numCols + numRows);
-		for (int i = numCols-1; i >= 0; i--) {
-			for (int j =  numRows-1; j >= 0; j--) {
-				int auxi = base + coli * (j + i);
-				colors[i][j] = new Color(auxi,auxi,auxi);
-			}
-		}
+	
+	/**
+	 * Color in the area reserved for the measures
+	 * @param col
+	 */
+	public void setColorForMeasure(Color col){
+		colors[colors.length-1][colors[0].length-1]=col;
 	}
+
+
+	public static Color[][] createSchema(CrossTabColorShema ctColorScheme, int length, int length2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 }
+
 

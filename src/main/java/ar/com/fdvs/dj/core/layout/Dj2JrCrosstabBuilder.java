@@ -216,10 +216,13 @@ public class Dj2JrCrosstabBuilder {
 	}
 
 	private void initColors() {
-		if (djcross.getCtColorScheme() != null)
-			colors = CrossTabColorShema.createSchema(djcross.getCtColorScheme(), cols.length, rows.length);
+		CrossTabColorShema colorScheme = djcross.getCtColorScheme();
+		if (colorScheme != null){
+			colorScheme.create(cols.length, rows.length);
+			colors = colorScheme.getColors();
+		}
 		 else
-			colors = CrossTabColorShema.createSchema(djcross.getColorScheme(), cols.length, rows.length);
+			colors = CrossTabColorShemaGenerator.createSchema(djcross.getColorScheme(), cols.length, rows.length);
 
 	}
 
@@ -658,7 +661,6 @@ public class Dj2JrCrosstabBuilder {
 
 		Style totalHeaderstyle = crosstabRow.getTotalHeaderStyle() == null ? this.djcross.getRowTotalheaderStyle(): crosstabRow.getTotalHeaderStyle();
 		
-		totalHeaderContent.setBackcolor(totalHeaderstyle.getBackgroundColor());
 		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 
 		JRDesignTextField element = new JRDesignTextField();
@@ -666,8 +668,10 @@ public class Dj2JrCrosstabBuilder {
 		element.setExpression(exp);
 		element.setHeight(crosstabRow.getHeight());
 
-		if (totalHeaderstyle != null)
-			layoutManager.applyStyleToElement(crosstabRow.getTotalHeaderStyle(), element);
+		if (totalHeaderstyle != null) {
+			totalHeaderContent.setBackcolor(totalHeaderstyle.getBackgroundColor());
+			layoutManager.applyStyleToElement(totalHeaderstyle, element);
+		}
 
 		//The width can be the sum of the with of all the rows starting from the current one, up to the inner most one.
 		int auxWidth = 0;
@@ -708,7 +712,8 @@ public class Dj2JrCrosstabBuilder {
 		ctColGroup.setTotalHeader(totalHeaderContent);
 		ctColGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END);
 
-		totalHeaderContent.setBackcolor(colors[colors.length/2][colors[0].length/2]);
+		Style totalHeaderstyle = crosstabColumn.getTotalHeaderStyle() == null ? this.djcross.getColumnTotalheaderStyle(): crosstabColumn.getTotalHeaderStyle();
+		
 		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 
 		JRDesignExpression exp = ExpressionUtils.createExpression("\"Total "+crosstabColumn.getTitle()+"\"",String.class);
@@ -717,8 +722,10 @@ public class Dj2JrCrosstabBuilder {
 		element.setWidth(crosstabColumn.getWidth());
 
 
-		if (crosstabColumn.getTotalHeaderStyle() != null)
-			layoutManager.applyStyleToElement(crosstabColumn.getTotalHeaderStyle(), element);
+		if (totalHeaderstyle != null) {
+			layoutManager.applyStyleToElement(totalHeaderstyle, element);
+			totalHeaderContent.setBackcolor(totalHeaderstyle.getBackgroundColor());
+		}
 
 		//The height can be the sum of the heights of all the columns starting from the current one, up to the inner most one.
 		int auxWidth = 0;

@@ -207,9 +207,9 @@ public class CrosstabBuilder {
 	 * @return
 	 */
 	public CrosstabBuilder setColumnStyles(Style headerStyle, Style totalStyle, Style totalHeaderStyle) {
-		crosstab.setRowHeaderStyle(headerStyle);
-		crosstab.setRowTotalheaderStyle(totalHeaderStyle);
-		crosstab.setRowTotalStyle(totalStyle);
+		crosstab.setColumnHeaderStyle(headerStyle);
+		crosstab.setColumnTotalheaderStyle(totalHeaderStyle);
+		crosstab.setColumnTotalStyle(totalStyle);
 		return this;
 	}
 
