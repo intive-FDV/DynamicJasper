@@ -38,12 +38,14 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
  * Manager invoked to register groups of columns. A ColumnsGroup is read and </br>
@@ -93,8 +95,20 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		group.setGroupHeader(new JRDesignBand());
 
 		JRDesignExpression jrExpression = new JRDesignExpression();
-		jrExpression.setText(column.getTextForExpression());
-		jrExpression.setValueClassName(column.getValueClassNameForExpression());
+		
+		CustomExpression expressionToGroupBy = column.getExpressionToGroupBy();
+		if (expressionToGroupBy != null) { //new in 3.0.7-b5
+			String expToGroupByName = group.getName() + "_expression_to_group_by";
+			registerExpressionColumnParameter(expToGroupByName, expressionToGroupBy);
+			String expText = ExpressionUtils.createCustomExpressionInvocationText(expToGroupByName);
+			jrExpression.setText(expText);
+			log.debug("Expression for CustomExpression = " + expText);
+			jrExpression.setValueClassName(expressionToGroupBy.getClassName());
+		} else {
+			jrExpression.setText(column.getTextForExpression());
+			jrExpression.setValueClassName(column.getValueClassNameForExpression());
+		}
+		
 
 		group.setExpression(jrExpression);
 		group.setCountVariable(new JRDesignVariable());

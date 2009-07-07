@@ -36,6 +36,11 @@
 	 <body>
 	 
 				 <release version="3.0.7-b4" date="2009-07-01"	desc="fixes">
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Geoffrey De Smet ( ge0ffrey )">
+					 	Groups and expression to group by: It was not being taken into account.  
+					 	See https://sourceforge.net/support/tracker.php?aid=2768177 
+					 	Also see ExpressionToGroupByReportTest
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" >
 					 	Crosstab builder: Default values for cell dimensions, row header width and column header height. 
 					 </action>

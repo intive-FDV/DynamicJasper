@@ -37,6 +37,7 @@ import org.apache.commons.logging.LogFactory;
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
  * Column created to handle Custom Expressions.</br>
@@ -90,13 +91,8 @@ public class ExpressionColumn extends SimpleColumn {
 		if (this.calculatedExpressionText != null)
 			return this.calculatedExpressionText;
 
-		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
-		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
-		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
+		String stringExpression = ExpressionUtils.createCustomExpressionInvocationText(getColumnProperty().getProperty());
 		
-		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+getColumnProperty().getProperty()+"})."
-				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
-
 		log.debug("Expression for CustomExpression = " + stringExpression);
 
 		this.calculatedExpressionText = stringExpression;
@@ -105,12 +101,7 @@ public class ExpressionColumn extends SimpleColumn {
 
 	public String getTextForExpressionForCalculartion() {
 		
-		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
-		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
-		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
-		
-		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+getColumnProperty().getProperty()+"_calc})."
-		+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+		String stringExpression = ExpressionUtils.createCustomExpressionInvocationText(getColumnProperty().getProperty()+"_calc");
 		
 		log.debug("Calculation Expression for CustomExpression = " + stringExpression);
 		

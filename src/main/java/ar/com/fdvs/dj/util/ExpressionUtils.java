@@ -42,7 +42,9 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
@@ -236,6 +238,25 @@ public class ExpressionUtils {
 		String name = obj.toString().substring(obj.toString().lastIndexOf(".")+1).replaceAll("[\\$@]", "_");
 		return preffix + name;
 	}
+	
+	
+	/**
+	 * If you register a CustomExpression with the name "customExpName", then this will create the text needed
+	 * to invoke it in a JRDesignExpression 
+	 * @param customExpName
+	 * @return
+	 */
+	public static String createCustomExpressionInvocationText(String customExpName) {
+
+		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
+		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
+		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
+		
+		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+customExpName+"})."
+				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+		
+		return stringExpression;
+	}	
 
 
 

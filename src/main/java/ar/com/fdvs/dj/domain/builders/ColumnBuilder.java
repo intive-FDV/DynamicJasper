@@ -294,6 +294,11 @@ public class ColumnBuilder {
 		return this;
 	}
 
+	public ColumnBuilder setCustomExpressionToGroupBy(CustomExpression customExpression){
+		this.customExpressionToGroupBy = customExpression;
+		return this;
+	}
+
 	public ColumnBuilder setCustomExpressionForCalculation(CustomExpression customExpression){
 		this.customExpressionForCalculation = customExpression;
 		return this;
