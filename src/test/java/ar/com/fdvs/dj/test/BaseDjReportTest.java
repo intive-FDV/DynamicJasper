@@ -88,11 +88,14 @@ public abstract class BaseDjReportTest extends TestCase {
 			 * Creates the JasperPrint object, we pass as a Parameter
 			 * the JasperReport object, and the JRDataSource
 			 */
+			log.debug("Filling the report");
 			if (ds != null)
 				jp = JasperFillManager.fillReport(jr, params, ds);
 			else
 				jp = JasperFillManager.fillReport(jr, params);
 
+			log.debug("Filling done!");
+			log.debug("Exporting the report (pdf, xls, etc)");
             exportReport();
 
             log.debug("test finished");

@@ -32,8 +32,8 @@ package ar.com.fdvs.dj.domain;
 public class DJCrosstabColumn {
 
 	private ColumnProperty property;
-	private int width;
-	private int headerHeight;
+	private int width = -1;
+	private int headerHeight = -1;
 
 	private String title;
 

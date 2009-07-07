@@ -292,10 +292,10 @@ public class Dj2JrCrosstabBuilder {
 
 		jrcross.setDataset(dataset);
 		Random rd = new Random();
-		String dsName = "crosstabDataSource_" + rd.nextLong();
+		String dsName = "crosstabDataSource_" + Math.abs(rd.nextLong());
 
 		while (design.getDatasetMap().containsKey(dsName)){
-			dsName = "crosstabDataSource_" + rd.nextLong();
+			dsName = "crosstabDataSource_" + Math.abs(rd.nextLong());
 		}
 
 		datasetRun.setDatasetName(dsName);
@@ -486,7 +486,9 @@ public class Dj2JrCrosstabBuilder {
 			DJCrosstabRow crosstabRow = rows[i];
 
 			JRDesignCrosstabRowGroup ctRowGroup = new JRDesignCrosstabRowGroup();
+			
 			ctRowGroup.setWidth(crosstabRow.getHeaderWidth());
+			
 			ctRowGroup.setName(crosstabRow.getProperty().getProperty());
 
 			JRDesignCrosstabBucket rowBucket = new JRDesignCrosstabBucket();
@@ -516,7 +518,6 @@ public class Dj2JrCrosstabBuilder {
 			if (headerstyle != null){
 				layoutManager.applyStyleToElement(headerstyle, rowTitle);
 				rowHeaderContents.setBackcolor(headerstyle.getBackgroundColor());
-//				rowHeaderContents.setBackcolor(colors[cols.length-1][i]);
 			}
 
 			rowHeaderContents.addElement(rowTitle);
@@ -601,7 +602,6 @@ public class Dj2JrCrosstabBuilder {
 			if (headerstyle != null){
 				layoutManager.applyStyleToElement(headerstyle,colTitle);
 				colHeaerContent.setBackcolor(headerstyle.getBackgroundColor());
-//				colHeaerContent.setBackcolor(colors[i][rows.length-1]);
 			}
 
 
@@ -658,11 +658,12 @@ public class Dj2JrCrosstabBuilder {
 		JRDesignCellContents totalHeaderContent = new JRDesignCellContents();
 		ctRowGroup.setTotalHeader(totalHeaderContent);
 		ctRowGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END); //FIXME the total can be at the end of a group or at the beginin
+		
 
 		Style totalHeaderstyle = crosstabRow.getTotalHeaderStyle() == null ? this.djcross.getRowTotalheaderStyle(): crosstabRow.getTotalHeaderStyle();
 		
 		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
-
+		
 		JRDesignTextField element = new JRDesignTextField();
 		JRDesignExpression exp = ExpressionUtils.createExpression("\"Total "+crosstabRow.getTitle()+"\"",String.class);
 		element.setExpression(exp);

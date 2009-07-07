@@ -32,9 +32,12 @@ package ar.com.fdvs.dj.test.crosstab;
 
 import java.awt.Color;
 import java.util.Date;
+import java.util.List;
 
+import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
+import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.TwoSeedCrossTabColorShema;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
@@ -113,6 +116,7 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 			.setCellDimension(34, 60)
 			.setColumnHeaderHeight(30)
 			.setRowHeaderWidth(80)
+			.setDatasource("sr", DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION, true)
 			.build();
 
 		drb.addHeaderCrosstab(djcross); //add the crosstab in the header band of the report
@@ -120,9 +124,15 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 		DynamicReport dr = drb.build();
 
 		//put a collection in the parameters map to be used by the crosstab
-		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
+		List sortedCollection = SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross);
+		log.info("crosstab datasource has " + sortedCollection.size() + " elements");
+		params.put("sr", sortedCollection);
 
 		return dr;
+	}
+	
+	protected JRDataSource getDataSource() {		
+		return null;
 	}
 
 
@@ -186,9 +196,13 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 
 	public static void main(String[] args) throws Exception {
 		CrosstabReportTest6 test = new CrosstabReportTest6();
+		
+//		test.dr = test.buildReport();
+//		test.exportToJRXML();
+		
 		test.testReport();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
-		JasperDesignViewer.viewReportDesign(test.jr);
+//		JasperDesignViewer.viewReportDesign(test.jr);
 	}
 
 }
