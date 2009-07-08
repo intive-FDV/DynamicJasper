@@ -76,7 +76,7 @@
       <item name="Setting up the project" href="docs/project-setup.html" />
     </menu>
     <menu name="Support">
-      <item name="Professional Support" href="https://sourceforge.net/services/service_details.php?service_listing_id=2055"/>
+      <item name="Professional Support" href="getPro.html"/>
       <item name="Forums" href="http://dj.fdvsolutions.com/forums/" />
       <item name="Issue Tracker" href="https://sourceforge.net/tracker/?group_id=188060"/>
       <item name="DJ at SourceForge" href="https://sourceforge.net/projects/dynamicjasper" />
