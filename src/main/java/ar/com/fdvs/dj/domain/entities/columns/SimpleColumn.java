@@ -41,7 +41,7 @@ public class SimpleColumn extends PropertyColumn {
         if( this.getTextFormatter() == null ) {
             return "$F{" + getColumnProperty().getProperty() + "}";
         } else {
-            return new StringBuilder("((java.text.Format)$P{")
+            return new StringBuffer("((java.text.Format)$P{")
                             .append( ExpressionUtils.createParameterName("formatter_", getTextFormatter()))
                             .append( "}).format($F{" )
                             .append( getColumnProperty().getProperty() )
