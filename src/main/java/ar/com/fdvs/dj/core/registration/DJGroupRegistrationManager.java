@@ -38,6 +38,7 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -57,8 +58,8 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 
 	private static final Log log = LogFactory.getLog(DJGroupRegistrationManager.class);
 
-	public DJGroupRegistrationManager(DynamicJasperDesign jd, DynamicReport dr) {
-		super(jd,dr);
+	public DJGroupRegistrationManager(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
+		super(jd,dr,layoutManager);
 	}
 
 	protected void registerEntity(Entity entity) {
@@ -68,8 +69,11 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 			JRDesignGroup group = (JRDesignGroup)transformEntity(columnsGroup);
 			getDjd().addGroup(group);
 			//Variables are registered right after the group where they belong.
-			new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.HEADER, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty(), getDjd(),getDynamicReport()).registerEntities(columnsGroup.getHeaderVariables());
-			new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.FOOTER, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty(), getDjd(),getDynamicReport()).registerEntities(columnsGroup.getFooterVariables());
+			String property = columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty();
+			ColumnsGroupVariablesRegistrationManager headerVariablesRM = new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.HEADER, property, getDjd(),getDynamicReport(),getLayoutManager());
+			headerVariablesRM.registerEntities(columnsGroup.getHeaderVariables());
+			ColumnsGroupVariablesRegistrationManager footerVariablesRM = new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.FOOTER, property, getDjd(),getDynamicReport(),getLayoutManager());
+			footerVariablesRM.registerEntities(columnsGroup.getFooterVariables());
 		} catch (JRException e) {
 			throw new EntitiesRegistrationException(e.getMessage());
 		}
@@ -78,17 +82,19 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 	//PropertyColumn only can be used for grouping (not OperationColumn)
 	protected Object transformEntity(Entity entity) {
 		log.debug("transforming group...");
-		DJGroup columnsGroup = (DJGroup) entity;
-		PropertyColumn column = columnsGroup.getColumnToGroupBy();
+		DJGroup djgroup = (DJGroup) entity;
+		PropertyColumn column = djgroup.getColumnToGroupBy();
 		JRDesignGroup group = new JRDesignGroup();
 
-		int groupIndex = getDynamicReport().getColumnsGroups().indexOf(columnsGroup);
-		int columnIndex = getDynamicReport().getColumns().indexOf(columnsGroup.getColumnToGroupBy());
+		int groupIndex = getDynamicReport().getColumnsGroups().indexOf(djgroup);
+		int columnIndex = getDynamicReport().getColumns().indexOf(djgroup.getColumnToGroupBy());
 		if (column instanceof GlobalGroupColumn){
 			group.setName("global_column_" + groupIndex);
 		} else {
 			group.setName( "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getTitle());
 		}
+		
+		getLayoutManager().getReferencesMap().put(group.getName(), djgroup);
 
 		group.setCountVariable(new JRDesignVariable());
 		group.setGroupFooter(new JRDesignBand());

@@ -32,6 +32,8 @@
  */
 package ar.com.fdvs.dj.core.layout;
 
+import java.util.Map;
+
 import net.sf.jasperreports.engine.design.JasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 
@@ -49,5 +51,12 @@ public interface LayoutManager {
 	 */
 	void applyLayout(JasperDesign design, DynamicReport report) throws LayoutException;
 
+	/**
+	 * Useful as shared object between RegistrationManagers and the LayOutManager.
+	 * An example of usage is the mapping between DJ objects and JR objects through its name, like
+	 * a DJGroup and a JRDesignGroup 
+	 * @return
+	 */
+	Map getReferencesMap();
 
 }

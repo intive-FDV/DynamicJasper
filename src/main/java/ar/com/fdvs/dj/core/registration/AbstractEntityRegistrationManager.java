@@ -40,6 +40,7 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.AbstractLayoutManager;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -69,14 +70,13 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 	private Collection columns;
 
 	private DynamicReport dynamicReport;
+	
+	private LayoutManager layoutManager;
 
-	public DynamicJasperDesign getDjd() {
-		return djd;
-	}
-
-	public AbstractEntityRegistrationManager(DynamicJasperDesign djd, DynamicReport dr) {
+	public AbstractEntityRegistrationManager(DynamicJasperDesign djd, DynamicReport dr, LayoutManager layoutManager) {
 		this.djd = djd;
 		this.dynamicReport = dr;
+		this.layoutManager = layoutManager;
 	}
 
 	public final void registerEntities(Collection entities) throws EntitiesRegistrationException {
@@ -136,6 +136,14 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 
 	public DynamicReport getDynamicReport() {
 		return dynamicReport;
+	}
+
+	public LayoutManager getLayoutManager() {
+		return layoutManager;
+	}
+
+	public DynamicJasperDesign getDjd() {
+		return djd;
 	}
 
 }

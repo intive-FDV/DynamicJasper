@@ -51,10 +51,26 @@ public class AutoText {
 	public static final byte AUTOTEXT_CREATED_ON = 3;
 	public static final byte AUTOTEXT_CUSTOM_MESSAGE = 4;
 
+	/**
+	 *@Deprecated due to miss spell
+	 *use ALIGNMENT_LEFT 
+	 */
 	public static final byte ALIGMENT_LEFT = 1;
+	/**
+	 *@Deprecated due to miss spell
+	 *use ALIGNMENT_CENTER
+	 */
 	public static final byte ALIGMENT_CENTER = 2;
+	/**
+	 *@Deprecated due to miss spell
+	 *use ALIGNMENT_RIGHT
+	 */
 	public static final byte ALIGMENT_RIGHT = 3;
 
+	public static final byte ALIGNMENT_LEFT = 1;
+	public static final byte ALIGNMENT_CENTER = 2;
+	public static final byte ALIGNMENT_RIGHT = 3;
+	
 	public static final byte PATTERN_DATE_DATE_ONLY = 1;
 	public static final byte PATTERN_DATE_TIME_ONLY = 2;
 	public static final byte PATTERN_DATE_DATE_TIME = 3;

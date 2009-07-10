@@ -149,12 +149,13 @@ public class GroupsReportTest extends BaseDjReportTest {
 
 //		 define the criteria column to group by (columnState)
 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
-//				.addFooterVariable(columnaQuantity,DJCalculation.SUM,groupVariables) // idem for the columnaQuantity column
+				.addFooterVariable(columnaQuantity,DJCalculation.SUM,groupVariables) // idem for the columnaQuantity column
 //				.addFooterVariable(columnAmount,DJCalculation.SUM,groupVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.addHeaderVariable(columnaQuantity,DJCalculation.SUM,groupVariables) // idem for the columnaQuantity column
 				.addHeaderVariable(columnAmount,DJCalculation.SUM,groupVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.setFooterVariablesHeight(new Integer(20))
+				.setFooterHeight(new Integer(50),true)
 				.setHeaderVariablesHeight(new Integer(35))
 				.build();
 
@@ -177,7 +178,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 //		drb.addGroup(g2); // add group g2
 
 		drb.setUseFullPageWidth(true);
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT);
 
 		DynamicReport dr = drb.build();
 		return dr;

@@ -40,6 +40,7 @@ import net.sf.jasperreports.engine.design.JRDesignParameter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -65,8 +66,8 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 
 	private static final String COLUMN_NAME_PREFIX = "COLUMN_";
 
-	public ColumnRegistrationManager(DynamicJasperDesign jd, DynamicReport dr) {
-		super(jd,dr);
+	public ColumnRegistrationManager(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
+		super(jd,dr,layoutManager);
 	}
 
 	protected void registerEntity(Entity entity) {
@@ -77,7 +78,8 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 			column.setName(COLUMN_NAME_PREFIX + colCounter++ );
 		}
 		if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty()){
-			new ConditionalStylesRegistrationManager(getDjd(),getDynamicReport(),column.getName()).registerEntities(column.getConditionalStyles());
+			ConditionalStylesRegistrationManager conditionalStylesRm = new ConditionalStylesRegistrationManager(getDjd(),getDynamicReport(),column.getName(),getLayoutManager());
+			conditionalStylesRm.registerEntities(column.getConditionalStyles());
 		}
 		if (column.getTextFormatter() != null) {
 			JRDesignParameter parameter = new JRDesignParameter();

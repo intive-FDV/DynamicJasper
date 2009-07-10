@@ -26,11 +26,12 @@
 	~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 	~
 	~
---><project>
+-->
+<project>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>3.0.7-b4</version>
+	<version>3.0.7-b6_SNAPSHOT</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -73,7 +74,7 @@ API.
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0</version>
+				<!--<version>2.0</version>-->
 				<configuration>
 					<source>1.4</source>
 					<target>1.4</target>
@@ -204,10 +205,10 @@ API.
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jxr-maven-plugin</artifactId>
 					</plugin>
-
 					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>changes-maven-plugin</artifactId>
+				        <groupId>org.apache.maven.plugins</groupId>
+				        <artifactId>maven-changes-plugin</artifactId>
+
 						<reportSets>
 							<reportSet>
 								<reports>
@@ -215,7 +216,16 @@ API.
 								</reports>
 							</reportSet>
 						</reportSets>
+			            <configuration>
+			              <!-- if set to true the build will fail if the changes file is invalid,
+			                   if set to false warnings will be logged. -->
+			              <failOnError>false</failOnError>
+			              <issueLinkTemplate>
+			              	<![CDATA[https://sourceforge.net/tracker/?func=detail&group_id=188060&atid=923805&aid=%ISSUE%]]>
+			              </issueLinkTemplate>
+			            </configuration>						
 					</plugin>
+					
 				     <plugin>
 				        <groupId>org.apache.maven.plugins</groupId>
 				        <artifactId>maven-site-plugin</artifactId>
@@ -332,9 +342,9 @@ API.
             <optional>true</optional>
         </dependency>
         <dependency>
-			<groupId>poi</groupId>
+			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.0.1-FINAL</version>
+			<version>3.2-FINAL</version>
             <scope>test</scope>
         </dependency>
         <dependency>

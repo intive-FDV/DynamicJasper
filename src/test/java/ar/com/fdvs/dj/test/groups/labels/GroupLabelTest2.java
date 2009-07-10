@@ -163,7 +163,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 		drb.addGroup(g1); // add group g1
 
 		drb.setUseFullPageWidth(true);
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_RIGHT);
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT);
 
 		DynamicReport dr = drb.build();
 		return dr;

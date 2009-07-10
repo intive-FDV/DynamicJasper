@@ -71,7 +71,7 @@ public class ConcatenatedReportTest extends BaseDjReportTest {
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setUseFullPageWidth(true)
 			.setWhenNoDataAllSectionNoDetail()
-			.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER,AutoText.ALIGMENT_CENTER)
+			.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER,AutoText.ALIGNMENT_CENTER)
 			.addConcatenatedReport(createSubreport1("Sub report 1"), new ClassicLayoutManager(), "statistics",
 									DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION,false)
 			.addConcatenatedReport(createSubreport2("Sub report 2"), "statistics",

@@ -66,7 +66,7 @@ public class WhenNoDataTest extends BaseDjReportTest {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
-			.addAutoText(AutoText.AUTOTEXT_PAGE_X,AutoText.POSITION_HEADER,AutoText.ALIGMENT_LEFT)
+			.addAutoText(AutoText.AUTOTEXT_PAGE_X,AutoText.POSITION_HEADER,AutoText.ALIGNMENT_LEFT)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 //			.setWhenNoData("No data for this report", noDataStyle)

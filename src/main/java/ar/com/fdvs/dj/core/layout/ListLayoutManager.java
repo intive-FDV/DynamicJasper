@@ -29,6 +29,9 @@
 
 package ar.com.fdvs.dj.core.layout;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 
@@ -46,6 +49,12 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 public class ListLayoutManager extends AbstractLayoutManager {
 
 	private static final Log log = LogFactory.getLog(ListLayoutManager.class);
+	
+	protected Map referencesMap = new HashMap();
+
+	public Map getReferencesMap() {
+		return referencesMap;
+	}	
 
 	protected void startLayout() {
 		getReport().getOptions().setColumnsPerPage(new Integer(1));

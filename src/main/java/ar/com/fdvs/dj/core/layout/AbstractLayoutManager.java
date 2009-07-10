@@ -264,6 +264,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	protected void transformDetailBand() {
 		log.debug("transforming Detail Band...");
 		JRDesignBand detail = (JRDesignBand) design.getDetail();
+		if (detail == null){ //fixes issue 2747664
+			detail = new JRDesignBand();
+			design.setDetail(detail);
+		}
 		detail.setHeight(report.getOptions().getDetailHeight().intValue());
 
 		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
@@ -556,9 +560,34 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 		for (Iterator iter = design.getGroupsList().iterator(); iter.hasNext();) {
 			JRGroup jrgroup = (JRGroup) iter.next();
-			setBandFinalHeight((JRDesignBand) jrgroup.getGroupHeader());
-			setBandFinalHeight((JRDesignBand) jrgroup.getGroupFooter());
+			DJGroup djGroup = (DJGroup) getReferencesMap().get(jrgroup.getName());
+			if (djGroup != null){
+				setBandFinalHeight((JRDesignBand) jrgroup.getGroupHeader(),djGroup.getHeaderHeight().intValue(), djGroup.isFitHeaderHeightToContent());
+				setBandFinalHeight((JRDesignBand) jrgroup.getGroupFooter(),djGroup.getFooterHeight().intValue(), djGroup.isFitFooterHeightToContent());
+			} else {
+				setBandFinalHeight((JRDesignBand) jrgroup.getGroupHeader());
+				setBandFinalHeight((JRDesignBand) jrgroup.getGroupFooter());
+			}
 		}
+	}
+
+	/**
+	 * Removes empty space when "fitToContent" is true and real height of object is
+	 * taller than current bands height, otherwise, it is not modified
+	 * @param band
+	 * @param currHeigth
+	 * @param fitToContent
+	 */
+	private void setBandFinalHeight(JRDesignBand band, int currHeigth, boolean fitToContent) {
+		if (band != null) {
+			int finalHeight = LayoutUtils.findVerticalOffset(band);
+			if (finalHeight < currHeigth && !fitToContent){
+				//nothing
+			} else {
+				band.setHeight(finalHeight);
+			}
+		}
+		
 	}
 
 	/**

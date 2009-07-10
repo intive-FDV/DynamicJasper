@@ -40,6 +40,7 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
@@ -63,8 +64,8 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 	private String type;
 	private String columnToGroupByProperty;
 
-	public ColumnsGroupVariablesRegistrationManager(String type, String columnToGroupByProperty, DynamicJasperDesign jd,  DynamicReport dr) {
-		super(jd,dr);
+	public ColumnsGroupVariablesRegistrationManager(String type, String columnToGroupByProperty, DynamicJasperDesign jd,  DynamicReport dr, LayoutManager layoutManager) {
+		super(jd,dr,layoutManager);
 		this.type = type;
 		this.columnToGroupByProperty = columnToGroupByProperty;
 	}

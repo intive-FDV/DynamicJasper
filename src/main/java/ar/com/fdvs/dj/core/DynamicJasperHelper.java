@@ -83,9 +83,9 @@ public class DynamicJasperHelper {
 	public static final String DEFAULT_XML_ENCODING = "UTF-8";
 	private static final String DJ_RESOURCE_BUNDLE ="dj-messages";
 
-	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr) {
-		new ColumnRegistrationManager(jd,dr).registerEntities(dr.getColumns());
-		new DJGroupRegistrationManager(jd,dr).registerEntities(dr.getColumnsGroups());
+	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
+		new ColumnRegistrationManager(jd,dr,layoutManager).registerEntities(dr.getColumns());
+		new DJGroupRegistrationManager(jd,dr,layoutManager).registerEntities(dr.getColumnsGroups());
 		registerOtherFields(jd,dr.getFields());
 		Locale locale = dr.getReportLocale() == null ? Locale.getDefault() : dr.getReportLocale();
 		if (log.isDebugEnabled()){
@@ -262,7 +262,7 @@ public class DynamicJasperHelper {
     		registerParams(jd,_parameters);
     		params.putAll(_parameters);
     	}
-    	registerEntities(jd, dr);
+    	registerEntities(jd, dr, layoutManager);
     	layoutManager.applyLayout(jd, dr);
     	JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
     	JasperReport jr = JasperCompileManager.compileReport(jd);
@@ -297,7 +297,7 @@ public class DynamicJasperHelper {
     		registerParams(jd,_parameters);
     		params.putAll(_parameters);
     	}
-    	registerEntities(jd, dr);
+    	registerEntities(jd, dr, layoutManager);
     	layoutManager.applyLayout(jd, dr);
 //    	JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
     	JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
@@ -446,7 +446,7 @@ public class DynamicJasperHelper {
 			compileOrLoadSubreports(dr, generatedParams);
 
 			DynamicJasperDesign jd = generateJasperDesign(dr);
-			registerEntities(jd, dr);
+			registerEntities(jd, dr, layoutManager);
 
 			registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
 

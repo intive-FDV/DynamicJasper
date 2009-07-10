@@ -89,7 +89,7 @@ public class CrosstabReportTest6 extends BaseDjReportTest {
 			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setPrintColumnNames(false)
 			.setUseFullPageWidth(true)
-			.setWhenNoDataAllSectionNoDetail()
+			.setWhenNoDataAllSectionNoDetail()			
 			.setDefaultStyles(titleStyle, null, null, null);
 
 		

@@ -141,12 +141,36 @@ public class GroupBuilder {
 	}
 
 	/**
+	 * 
+	 * @param height
+	 * @param fitHeightToContent is false, an empty space will be left
+	 * @return
+	 */
+	public GroupBuilder setHeaderHeight(Integer height, boolean fitHeightToContent) {
+		group.setHeaderHeight(height);
+		group.setFitHeaderHeightToContent(fitHeightToContent);
+		return this;
+	}
+
+	/**
 	 * Height for footer band. NOT USED AT ALL 
 	 * @param height
 	 * @return
 	 */
 	public GroupBuilder setFooterHeight(Integer height) {
 		group.setFooterHeight(height);
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param height
+	 * @param fitHeightToConent if false, an empty space will be left
+	 * @return
+	 */
+	public GroupBuilder setFooterHeight(Integer height,boolean fitHeightToConent) {
+		group.setFooterHeight(height);
+		group.setFitFooterHeightToContent(fitHeightToConent);
 		return this;
 	}
 

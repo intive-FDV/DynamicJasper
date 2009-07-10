@@ -89,5 +89,22 @@ public class Utils {
 		
 		
 	}
+
+	/**
+	 * When adding a text to an expression, we have to make sure that the String will not
+	 * break JasperReports expression syntax.<br>
+	 * For example: if the title text is: <b>November "2009" sales</b><br>
+	 * The double quotes (") must be escaped to <b>\"</b>, and in java that would be <b>\\\\\"</b><br>
+	 * 
+	 * To understand better, the expression can be tested in iReport expression editor. 
+	 * @param title
+	 * @return
+	 */
+	public static String escapeTextForExpression(String text) {
+		if (text == null)
+			return null;
+		text = text.replaceAll("\"", "\\\\\"");
+		return text;
+	}
 	
 }

@@ -172,19 +172,19 @@ drb.addField("branch", String.class.getName());
  For page counter
 
 +------------------------------------------------------------------------------------------------------------+
- drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT);
+ drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT);
 +------------------------------------------------------------------------------------------------------------+
 
  For creation time
  
 +------------------------------------------------------------------------------------------------------------+
-drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
+drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
 +------------------------------------------------------------------------------------------------------------+
 
  For custom text 
 
 +------------------------------------------------------------------------------------------------------------+
-drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALIGMENT_CENTER);
+drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALIGNMENT_CENTER);
 +------------------------------------------------------------------------------------------------------------+
  
 * Parameters
@@ -230,13 +230,13 @@ drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALI
  
 ** Alignment
  
- The 3rd parameter is the Aligment, it determines the horizontal alignment (left, right, center).
+ The 3rd parameter is the ALIGNMENT, it determines the horizontal alignment (left, right, center).
  
- * ALIGMENT_LEFT
+ * ALIGNMENT_LEFT
  
- * ALIGMENT_RIGHT
+ * ALIGNMENT_RIGHT
  
- * ALIGMENT_CENTER
+ * ALIGNMENT_CENTER
  
 ** Pattern
  

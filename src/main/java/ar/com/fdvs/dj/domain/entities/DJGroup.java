@@ -70,6 +70,29 @@ public class DJGroup implements Entity {
 	//<DJGroupVariable>
 	private List footerVariables = new ArrayList();
 	
+	private boolean fitHeaderHeightToContent = true;
+	private boolean fitFooterHeightToContent = true;
+	
+	public boolean isFitHeaderHeightToContent() {
+		return fitHeaderHeightToContent;
+	}
+
+	public void setFitHeaderHeightToContent(boolean fitHeaderHeightToContent) {
+		this.fitHeaderHeightToContent = fitHeaderHeightToContent;
+	}
+
+	public boolean isFitFooterHeightToContent() {
+		return fitFooterHeightToContent;
+	}
+
+	/**
+	 * When false, the footer height is not shrink to its content (variables in general), leaving a white space 
+	 * @param fitFooterHeightToContent
+	 */
+	public void setFitFooterHeightToContent(boolean fitFooterHeightToContent) {
+		this.fitFooterHeightToContent = fitFooterHeightToContent;
+	}
+
 	private Integer headerHeight = DynamicReportOptions.DEFAULT_HEADER_HEIGHT; //for headers
 	private Integer footerHeight = DynamicReportOptions.DEFAULT_FOOTER_VARIABLES_HEIGHT; //for headers
 	

@@ -175,8 +175,8 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 		drb.setUseFullPageWidth(true);
 
 		//Autotext
-		drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGMENT_LEFT);
+		drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_HEADER, AutoText.ALIGNMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT);
 
 		//i18N
 		drb.setReportLocale(Locale.ENGLISH);

@@ -36,6 +36,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRQuery;
+import net.sf.jasperreports.engine.JRReportTemplate;
 import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JRVariable;
 import net.sf.jasperreports.engine.JasperReport;
@@ -218,7 +219,15 @@ public class DJJRDesignHelper {
 					}
 				}
 			}
-
+			
+			//Adding style templates templates
+			JRReportTemplate[] templates = jd.getTemplates();
+			if (templates != null){
+				for (int i = 0; i < templates.length; i++) {
+					djd.addTemplate(templates[i]); //TODO Make a test for this!
+				}
+			}
+			
 		} catch (IllegalAccessException e) {
 			throw new CoreException(e.getMessage(),e);
 		} catch (InvocationTargetException e) {
@@ -250,6 +259,10 @@ public class DJJRDesignHelper {
 		if (dr.getQuery() != null){
 			JRDesignQuery query = DJJRDesignHelper.getJRDesignQuery(dr);
 			jd.setQuery(query);
+		}
+		
+		if (dr.getReportName() != null){
+			jd.setName(dr.getReportName());
 		}
 
 	}
