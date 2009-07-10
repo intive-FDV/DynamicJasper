@@ -523,4 +523,9 @@ public class Style implements Serializable, Cloneable {
 		this.pattern = pattern;
 	}
 
+	public Object clone() throws CloneNotSupportedException {
+		Style style = (Style) super.clone();
+		style.setFont(this.font);
+		return style;
+	}
 }
