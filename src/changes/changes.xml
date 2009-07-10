@@ -35,7 +35,7 @@
 	</properties>
 	 <body>
 	 
-				 <release version="3.0.7-b5_SNAPSHOT" date="2009-07-09"	desc="fixes" >
+				 <release version="3.0.7-b6" date="2009-07-10"	desc="fixes" >
 					 <action dev="Juan Manuel Alvarez" type="fix" issue="2764577" due-to="Geoffrey De Smet ( ge0ffrey )" >
 						 Footer height and header height can be independent from its content (taller).
 					 </action>
