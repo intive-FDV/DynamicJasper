@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.devMode" value="false"/>
+
+    <package name="example" namespace="/example" extends="struts-default">
+
+        <result-types>
+            <result-type name="dynamic-jasper" class="ar.com.fdvs.dj.struts2.DJStruts2Result"/>
+        </result-types>
+
+        <action name="generateReport" class="ar.com.fdvs.dj.test.web.struts2.GenerateReportAction">
+            <result name="success" type="dynamic-jasper">
+                <param name="dynamicReport">dynamicReport</param>
+                <param name="dataSource">dataSource</param>
+                <param name="documentName">Dynamic Report generated with struts 1</param>
+                <param name="format">PDF</param>
+                <param name="layoutManager">classic</param>
+            </result>
+        </action>
+
+        <action name="generateReportTemplate" class="ar.com.fdvs.dj.test.web.struts2.GenerateReportAction" method="doReportWithTemplate">
+            <result name="success" type="dynamic-jasper">
+                <param name="dynamicReport">dynamicReport</param>
+                <param name="dataSource">dataSource</param>
+                <param name="documentName">Dynamic Report generated with struts 2</param>
+                <param name="parameters">params</param>
+                <param name="format">PDF</param>
+                <param name="layoutManager">classic</param>
+            </result>
+        </action>
+    </package>
+
+</struts>

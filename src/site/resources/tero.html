@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>DynamicJasper :: Making Jasper Reports dynamic</title>
+    <style type="text/css" media="all">
+      @import url("./css/dj-maven-base.css");
+      @import url("./css/dj-maven-theme.css");
+      @import url("./css/dj-site.css");
+    </style>
+
+    <link rel="stylesheet" href="./css/dj-print.css" type="text/css" media="print" />
+    <script src="./js/niftyjsCode.js" type="text/javascript"></script src>
+    <script src="./js/jquery-1.2.6.min.js" type="text/javascript"></script>
+
+          <meta name="author" content="Juan Manuel Alvarez" />
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+    <script type="text/javascript">
+	function expand( item ) {
+		var expandIt = document.getElementById( item );
+		if( expandIt.style.display == "block" ) {
+			expandIt.style.display = "none";
+			expandIt.parentNode.className = "collapsed";
+		} else {
+			expandIt.style.display = "block";
+			expandIt.parentNode.className = "expanded";
+		}
+	}
+    </script>
+  </head>
+  <body class="composite">
+    <div id="banner">
+	    <div id="inner_banner">
+	                  <a href="http://www.fdvsolutions.com/" id="bannerLeft">
+
+                                            <img src="images/fdvsolutions_dynamicjasper_project.png" alt="" />
+
+            </a>
+      	                  <a href="http://www.sourceforge.net" id="bannerRight">
+
+                                    <img src="http://sflogo.sourceforge.net/sflogo.php?group_id=188060&type=4" alt="" />
+
+            </a>
+      	      <div class="clear">
+	        <hr/>
+	      </div>
+	    </div>
+    </div>
+    <div id="breadcrumbs">
+	    <div id="inner_breadcrumbs">
+loading...
+	    </div>
+    </div>
+
+    <div id="leftColumn">
+		<div id="navcolumn_">
+			&nbsp;
+		</div>
+	    <div class="single_menu_spacer_div">&nbsp;</div>
+    </div>
+
+    <div id="bodyColumn" style="position:relative">
+	  
+      <div id="contentBox" style="position:relative; float: left;">
+    
+      <div id="column_container1" style="clear:right" >
+      
+<div id="bodyCol1"class="columnSection" >
+    <div class="section">
+    <h2>Tero</h2>
+    <h3>The Flex report component</h3>    
+    <p>Still in development, <strong>Tero</strong> is the next-gen reporting component. It's written in Flex, which results in an incredible user experience and ease of use.</p>
+    <p>It will contain same features as the original <strong><a href="http://dynamicjasperplayground.fdvs.com.ar/">Playground</a></strong> did and will also introduce:</p>
+    <ul style="margin-left:-2.15em">
+      <li>Standalone and embeddable application. </li>
+      <li>Saving report templates.</li>
+      <li>Basic report schedulling and dispathing. 
+      <li>Crosstab report creation.</li>
+      </li>
+      </ul>
+    <p>We are also looking forward to integrate <strong>Tero </strong>with <strong>JasperServer</strong>, leveraging shcedulling, role based security, report dispaching and everything else to them (since they already provide it!) enabling the suite to dynamic reporting. </p>
+    </div>
+</div> <!-- column 1 -->
+
+<div id="bodyCol2"class="columnSection" >
+<div class="section">
+ <img src="images/tero/tero_01.jpg" />
+  </div>
+<div class="section" style="width: 400px">
+  <h2>Online demo </h2>
+  <p><a href="http://demo.fdvs.com.ar/Tero" target="_blank">http://demo.fdvs.com.ar/Tero</a></p>
+  <p>You need to login to the application using <strong>&quot;user1</strong>&quot; <strong>&quot;user2</strong>&quot; or <strong>&quot;user3</strong>&quot; as username and <strong>&quot;pass</strong>&quot; as password </p>
+</div>  
+	</div>
+
+
+
+
+	
+<!-- column 2 -->
+
+  <!-- column 3 -->     
+
+</div> <!-- column_container1 -->
+<div class="single_menu_spacer_div" style="clear:both;">&nbsp;</div> 
+<div class="single_menu_spacer_div" style="clear:both">&nbsp; </div>
+    
+<div id="adSense" style=" border-top: 1px dotted #999;">
+		  <script type="text/javascript"><!--
+				google_ad_client = "pub-7228421883024969";
+				google_ad_width = 728;
+				google_ad_height = 90;
+				google_ad_format = "728x90_as";
+				google_ad_type = "text_image";
+				google_ad_channel = "";
+				google_ui_features = "rc:6";
+				//-->
+				</script>
+				<script type="text/javascript"
+				  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+				</script>
+	  </div>      
+      </div> <!-- content box -->
+
+        
+      
+    </div>
+	<div class="single_menu_spacer_div" style="clear:both">&nbsp;</div>
+    
+
+    <div id="footer" >
+      <div class="xright">&#169;
+          2006-2009 FDV Solutions
+  </div>
+  
+      <div class="single_menu_spacer_div">&nbsp;</div>
+    </div>
+<div id="fail_error" style="display:none">
+
+<textarea id="fail_error_text_area">
+             <div id="leftColumn">
+ <div id="navcolumn">
+  <div class="single_menu_div" id="div_menu_0" style="padding-top: 0pt;"><b class="artop" style="background-color: rgb(255, 255, 255);"><b class="ra1" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra2" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra3" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/><b class="ra4" style="border-color: rgb(240, 246, 248); background-color: rgb(226, 237, 241);"/></b>
+    <!-- <h5 onclick="expand('menu0')">Dynamic Jasper</h5> -->
+    <h5>Dynamic Jasper</h5>
+    <ul style="display: block;" id="menu0">
+      <li class="none"> <a href="../index.html">Home</a> </li>
+      <li class="none"> <strong>Features</strong> </li>
+      <li class="none"> <a href="../screenshots.html">Screen shots</a> </li>
+      <li class="none"> <a href="../requeriments.html">Requeriments</a> </li>
+      <li class="none"> <a href="http://www.fdvs.com.ar/download.html">Download</a> </li>
+      <li class="none"> <a href="../project-info.html">Project info</a> </li>
+      <li class="none"> <a href="https://sourceforge.net/services/service_details.php?service_listing_id=2055">Paid Support</a> </li>
+    </ul>
+  </div>
+  <!-- 
+    <div class="single_menu_spacer_div menuSpacer">
+    	&nbsp;
+    </div>
+    -->
+  <div class="single_menu_div" id="div_menu_1">
+    <!-- <h5 onclick="expand('menu1')">Playground (GUI)</h5> -->
+    <h5>Playground (GUI)</h5>
+    <ul style="display: block;" id="menu1">
+      <li class="none"> <a href="../docs/playground.html">Introduction</a> </li>
+      <li class="none"> <a href="../docs/playground-mini-guide.html">Mini guide</a> </li>
+      <li class="none"> <a href="http://dynamicjasperplayground.fdvs.com.ar/">Online Demo</a> </li>
+      <li class="none"> <a href="javascript:goDownload(this);">Download</a> </li>
+    </ul>
+  </div>
+  <!-- 
+    <div class="single_menu_spacer_div menuSpacer">
+    	&nbsp;
+    </div>
+    -->
+  <div class="single_menu_div" id="div_menu_2">
+    <!-- <h5 onclick="expand('menu2')">Documentation & Examples</h5> -->
+    <h5>Documentation & Examples</h5>
+    <ul style="display: block;" id="menu2">
+      <li class="none"> <a href="../docs/getting_started.html">Getting Started</a> </li>
+      <li class="none"> <a href="../docs/howto.html">Howto</a> </li>
+      <li class="none"> <a href="../old_docs.html">Previous versions</a> </li>
+    </ul>
+  </div>
+  <!-- 
+    <div class="single_menu_spacer_div menuSpacer">
+    	&nbsp;
+    </div>
+    -->
+  <div class="single_menu_div" id="div_menu_3">
+    <!-- <h5 onclick="expand('menu3')">Development</h5> -->
+    <h5>Development</h5>
+    <ul style="display: block;" id="menu3">
+      <li class="none"> <a href="../changes-report.html">Changes</a> </li>
+      <li class="none"> <a href="../jxr.html">Sources reference</a> </li>
+      <li class="none"> <a href="../apidocs/index.html">Javadoc</a> </li>
+      <li class="none"> <a href="../docs/project-setup.html">Setting up the project</a> </li>
+    </ul>
+  </div>
+  <!-- 
+    <div class="single_menu_spacer_div menuSpacer">
+    	&nbsp;
+    </div>
+    -->
+  <div class="single_menu_div" id="div_menu_4">
+    <!-- <h5 onclick="expand('menu4')">Support</h5> -->
+    <h5>Support</h5>
+    <ul style="display: block;" id="menu4">
+      <li class="none"> <a href="https://sourceforge.net/services/service_details.php?service_listing_id=2055">Paid Support</a> </li>
+      <li class="none"> <a href="https://sourceforge.net/forum/?group_id=188060">Forums</a> </li>
+      <li class="none"> <a href="https://sourceforge.net/tracker/?group_id=188060">Issue Tracker</a> </li>
+      <li class="none"> <a href="https://sourceforge.net/projects/dynamicjasper">DJ at SourceForge</a> </li>
+    </ul>
+  </div>
+  <!-- 
+    <div class="single_menu_spacer_div menuSpacer">
+    	&nbsp;
+    </div>
+    -->
+  <div class="single_menu_div images_div" id="div_donate_bar">
+    <h5>Donate!</h5>
+    <div align="center" class="images_div"> <a href="http://sourceforge.net/donate/index.php?group_id=188060"> <img height="32" border="0" width="88" alt="Support This Project" src="http://images.sourceforge.net/images/project-support.jpg"/> </a> </div>
+  </div>
+  <div class="single_menu_div images_div" id="div_images_bar">
+    <h5>Links</h5>
+    <div align="center" style=""> <a style="border: medium none ;" title="Built by Maven" href="http://maven.apache.org/"> <img style="border: medium none ;" src="../images/logos/maven-feather.png" alt="Built by Maven"/> </a> <a href="http://www.jaspersoft.com/JasperSoft_JasperReports.html"><img src="../images/logos/icon_pr_jasperreports_pro.gif"/></a> <a href="http://www.jetbrains.com/idea/" style="border: 0pt none ; text-decoration: none; text-indent: 0pt;"> <img border="0" src="http://www.jetbrains.com/idea/opensource/img/banners/idea88x31_blue.gif" alt="The best Java IDE"/> </a> <a href="http://eclipse.org/"><img src="../images/logos/eclipse.png"/></a> </div>
+  </div>
+</div>
+
+</div>
+
+
+
+</textarea>
+
+</div>
+   <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
+				<script type="text/javascript">
+				_uacct = "UA-2140380-1";
+				urchinTracker();
+				</script>
+ <script type="text/javascript">
+$(document).ready(function(){
+	roundCorners();
+
+	try {
+		$.ajax({
+			  url: "dummy_empty.html",
+			  dataType: 'html',
+			  cache: false,
+			  success: function(html){
+				var content = $("#navcolumn",$(html));
+				$("#leftColumn").html(content.parent().html()); //menu bar
+	
+				content = $("#inner_breadcrumbs",$(html));
+				$("#breadcrumbs").html(content.parent().html()); //bread crumbs bar
+				roundMenuBars();
+				Rounded("div#breadcrumbs", "bottom", bgColor,frontColor,type);
+				$("#leftColumn a[href=index.html]").css("font-weight","bold");
+			  },
+			  error: function (XMLHttpRequest, textStatus, errorThrown) {
+					var content = $("#navcolumn",$($("#fail_error_text_area").val()));
+					 $("#leftColumn").html(content); 
+			  
+				  return this; // the options for this ajax request
+				}
+			});	
+	}
+	catch (e) {
+		var content = $("#navcolumn",$($("#fail_error_text_area").val()));
+		$("#leftColumn").html(content.parent().html()); //menu bar
+
+	}
+
+});
+
+var type = "smooth";
+var frontColor = "#E2EDF1";
+var bgColor = "#FFF";
+
+function roundCorners() {
+	if(!NiftyCheck())
+	    return;
+
+		Rounded("div#banner", "top", bgColor,frontColor,type);
+		Rounded("div#breadcrumbs", "bottom", bgColor,frontColor,type);
+		Rounded("div#get_pro_div", "top", bgColor,"#f1efc3",type);
+
+		roundMenuBars();
+
+	}
+
+function roundMenuBars(){
+
+	$("#navcolumn .single_menu_div:eq(0)").each(function(){
+		Rounded("div#" + this.id,"top",bgColor,frontColor,type);
+	});
+
+}
+
+function goDownload(elem) {
+	var url = 'http://www.fdvs.com.ar/download.html';
+	try {
+		pageTracker._link(url);
+	} 
+	catch(e) {}
+	window.location.href = url;
+	
+	return true;
+}
+</script>
+  </body>
+</html>
