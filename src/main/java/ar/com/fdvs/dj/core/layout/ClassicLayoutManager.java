@@ -971,7 +971,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				//the one in the internal cache can get modified by the layout manager (like in the odd row case)
 				Style style = col.getStyle();
 				try {
-					style = (Style) BeanUtils.cloneBean(style);
+					style = (Style) style.clone();
 					style.setName(null); //set to null to make applyStyleToElement(...) assign a name
 				} catch (Exception e) {	}
 				applyStyleToElement(style, textField);
