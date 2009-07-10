@@ -778,10 +778,19 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected void layoutGroupVariables(DJGroup group, JRDesignGroup jgroup) {
 		log.debug("Starting groups variables layout...");
+		
 		JRDesignBand headerBand = (JRDesignBand) jgroup.getGroupHeader();
+		if (headerBand == null){
+			headerBand = new JRDesignBand();
+			jgroup.setGroupHeader(headerBand);
+		}
+		
 		JRDesignBand footerBand = (JRDesignBand) jgroup.getGroupFooter();
-
-//		int headerOffset = changeHeaderBandHeightForVariables(headerBand, group);
+		if (footerBand == null){
+			footerBand = new JRDesignBand();
+			jgroup.setGroupFooter(footerBand);
+		}
+		
 		int headerOffset = 0;
 
 		//Show the current value above the column name
