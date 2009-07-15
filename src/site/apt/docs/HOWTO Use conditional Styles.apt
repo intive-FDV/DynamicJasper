@@ -4,8 +4,24 @@
 
 HOW-TO Use conditional Styles
 
+ ConditionaStyle are the combinations of a <<style>> and a <<CustomExpression>> (a subclass of it: <<ConditionStyleExpression>>)
+ 
+ What's important to understand about how conditional styles works is:
+ 
+ * A conditional style consists of a base style, and a list of other possible style to apply (child styles), each of them bounded to a <ConditionStyleExpression> object to be evaluated.
+ 
+ * The final style applied to an element will be the merge of the base style and the 1st style whose condition returned <true>
+  
+ * All not null properties on the child style will override the ones at the base style.
+ 
+ []
+ 
+* Example of usage 
+
  Suppose you need a Column that contains numerical values. If you want to use conditional styles (in order to have different colors depending on the value, for example) you can do this:
 
+ <StatusLightCondition> is a particular class for that purpose, you may want to implement your own ConditionStyleExpression class.
+ 
 +------------------------------------------------------------------------------------------------------------+ 
 //Create some styles
 Style style0 = new Style();
