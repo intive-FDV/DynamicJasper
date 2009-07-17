@@ -62,7 +62,7 @@ public class ConditionalStylesRegistrationManager extends AbstractEntityRegistra
 		ConditionalStyle condition = (ConditionalStyle) entity;
 		String expressionName = columnName + "_style_" + counter;
 		condition.setName(expressionName);
-		registerExpressionColumnParameter(expressionName, condition.getCondition());
+		registerCustomExpressionParameter(expressionName, condition.getCondition());
 		counter++;
 	}
 

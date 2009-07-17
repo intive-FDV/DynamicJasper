@@ -37,6 +37,8 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JExcelApiExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
@@ -92,6 +94,22 @@ public class ReportExporter {
 		exporter.exportReport();
 
 		logger.debug("XLS Report exported: " + path);
+	}
+
+	public static void exportReportHtml(JasperPrint jp, String path) throws JRException, FileNotFoundException{
+		JRHtmlExporter exporter = new JRHtmlExporter();
+		
+		File outputFile = new File(path);
+		File parentFile = outputFile.getParentFile();
+		if (parentFile != null)
+			parentFile.mkdirs();
+		FileOutputStream fos = new FileOutputStream(outputFile);
+		
+		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
+		exporter.exportReport();
+		
+		logger.debug("HTML Report exported: " + path);
 	}
 
 	public static void exportReportPlainXls(JasperPrint jp, String path) throws JRException, FileNotFoundException{

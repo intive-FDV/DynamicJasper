@@ -105,7 +105,7 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		CustomExpression expressionToGroupBy = column.getExpressionToGroupBy();
 		if (expressionToGroupBy != null) { //new in 3.0.7-b5
 			String expToGroupByName = group.getName() + "_expression_to_group_by";
-			registerExpressionColumnParameter(expToGroupByName, expressionToGroupBy);
+			registerCustomExpressionParameter(expToGroupByName, expressionToGroupBy);
 			String expText = ExpressionUtils.createCustomExpressionInvocationText(expToGroupByName);
 			jrExpression.setText(expText);
 			log.debug("Expression for CustomExpression = " + expText);

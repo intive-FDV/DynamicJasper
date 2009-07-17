@@ -107,8 +107,8 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 					expressionColumn.setColumns( getDynamicReport().getAllFields() );
 					expressionColumn.setVariables( new ArrayList(getDjd().getVariablesList()) );
 					String property_name = expressionColumn.getColumnProperty().getProperty();
-					registerExpressionColumnParameter(property_name, expressionColumn.getExpression());
-					registerExpressionColumnParameter(property_name + "_calc", expressionColumn.getExpressionForCalculation());
+					registerCustomExpressionParameter(property_name, expressionColumn.getExpression());
+					registerCustomExpressionParameter(property_name + "_calc", expressionColumn.getExpressionForCalculation());
 				}
 			} catch (JRException e) {
 				log.info(FIELD_ALREADY_REGISTERED);

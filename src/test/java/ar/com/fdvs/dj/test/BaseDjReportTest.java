@@ -112,7 +112,16 @@ public abstract class BaseDjReportTest extends TestCase {
 	}
 	
 	protected void exportToJRXML() throws Exception {
-		DynamicJasperHelper.generateJRXML(this.dr, this.getLayoutManager(), this.params, "UTF-8",System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".jrxml");
+		if (this.jr != null){
+			DynamicJasperHelper.generateJRXML(this.jr, "UTF-8",System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".jrxml");
+			
+		} else {
+			DynamicJasperHelper.generateJRXML(this.dr, this.getLayoutManager(), this.params, "UTF-8",System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".jrxml");
+		}
+	}	
+
+	protected void exportToHTML() throws Exception {
+		ReportExporter.exportReportHtml(this.jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".html");
 	}	
 
 	/**

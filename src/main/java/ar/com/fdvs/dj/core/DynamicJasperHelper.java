@@ -356,6 +356,12 @@ public class DynamicJasperHelper {
     	JRXmlWriter.writeReport(jr, filename, xmlEncoding);
     }
 
+    public static void generateJRXML(JasperReport jr, String xmlEncoding, String filename) throws JRException {
+    	if (xmlEncoding == null)
+    		xmlEncoding = DEFAULT_XML_ENCODING;
+    	JRXmlWriter.writeReport(jr, filename, xmlEncoding);
+    }
+
     protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters) throws JRException {
     	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext();) {
 			DJGroup group = (DJGroup) iterator.next();
