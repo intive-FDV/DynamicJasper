@@ -40,6 +40,12 @@ HOW TO Guide
 
  []
 
+ <<HTML>>
+
+ * {{{HOWTO Add hyperlinks in columns.html}Add hyperlinks in columns}}
+
+ []
+
  <<Images / Bar code / i18N>>
 
  * {{{HOWTO Add banners to report s headers.html}Add banners to report's headers}}
