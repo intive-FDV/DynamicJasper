@@ -3,12 +3,22 @@ package ar.com.fdvs.dj.util;
 import java.util.Iterator;
 
 import net.sf.jasperreports.engine.JRBand;
+import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
+import net.sf.jasperreports.engine.design.JRDesignParameter;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
+import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 
 public class LayoutUtils {
+	
+	static final Log log = LogFactory.getLog(LayoutUtils.class);
 	
 	/**
 	 * Finds "Y" coordinate value in which more elements could be added in the band
@@ -64,5 +74,21 @@ public class LayoutUtils {
 			elem.setY(elem.getY()+yOffset);
 		}
 	}	
+	
+	public static void registerCustomExpressionParameter(DynamicJasperDesign design,String name, CustomExpression customExpression) {
+		if (customExpression == null){
+			return;
+		}
+		JRDesignParameter dparam = new JRDesignParameter();
+		dparam.setName(name);
+		dparam.setValueClassName(CustomExpression.class.getName());
+		log.debug("Registering customExpression parameter with name " + name );
+		try {
+			design.addParameter(dparam);
+		} catch (JRException e) {
+			throw new EntitiesRegistrationException(e.getMessage());
+		}
+		design.getParametersWithValues().put(name, customExpression);
+	}		
 
 }

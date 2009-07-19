@@ -128,6 +128,7 @@ public class DJCrosstab {
 	public List getMeasures() {
 		return measures;
 	}
+	
 	public void setMeasures(List measures) {
 		this.measures = measures;
 	}

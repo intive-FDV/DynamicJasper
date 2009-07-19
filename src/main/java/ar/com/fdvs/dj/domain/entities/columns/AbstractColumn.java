@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.HyperLinkExpression;
+import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
@@ -59,7 +59,7 @@ public abstract class AbstractColumn implements Entity {
 	private String truncateSuffix = null;
 	private Format textFormatter;
 
-	private HyperLinkExpression hyperLinkExpression;
+	private DJHyperLink link;
 	
 	private List conditionalStyles = new ArrayList();
 
@@ -191,12 +191,12 @@ public abstract class AbstractColumn implements Entity {
 		this.textFormatter = textFormatter;
 	}
 
-	public HyperLinkExpression getHyperLinkExpression() {
-		return hyperLinkExpression;
+	public DJHyperLink getLink() {
+		return link;
 	}
 
-	public void setHyperLinkExpression(HyperLinkExpression hyperLinkExpression) {
-		this.hyperLinkExpression = hyperLinkExpression;
+	public void setLink(DJHyperLink link) {
+		this.link = link;
 	}
 
 }

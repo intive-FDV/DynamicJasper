@@ -43,6 +43,8 @@ public class DJCrosstabRow {
 	private Style totalStyle;
 	private Style totalHeaderStyle;
 	private Style headerStyle;
+	
+	private DJHyperLink link;
 
 	public Style getTotalStyle() {
 		return totalStyle;
@@ -97,6 +99,12 @@ public class DJCrosstabRow {
 	}
 	public void setTotalHeaderHeight(int totalHeaderHeight) {
 		this.totalHeaderHeight = totalHeaderHeight;
+	}
+	public DJHyperLink getLink() {
+		return link;
+	}
+	public void setLink(DJHyperLink link) {
+		this.link = link;
 	}
 
 }

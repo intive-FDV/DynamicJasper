@@ -6,7 +6,7 @@ package ar.com.fdvs.dj.domain;
  * @author mamana
  *
  */
-public abstract class HyperLinkExpression implements CustomExpression {
+public abstract class StringExpression implements CustomExpression {
 
 	public String getClassName() {
 		return String.class.getName();

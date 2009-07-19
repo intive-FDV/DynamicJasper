@@ -37,13 +37,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
-import net.sf.jasperreports.engine.JRConstants;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRGroup;
 import net.sf.jasperreports.engine.JRHyperlink;
-import net.sf.jasperreports.engine.JRHyperlinkHelper;
-import net.sf.jasperreports.engine.JRHyperlinkParameter;
 import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JRTextElement;
 import net.sf.jasperreports.engine.JRTextField;
@@ -56,7 +53,6 @@ import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignHyperlinkParameter;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
@@ -80,9 +76,10 @@ import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJChartOptions;
+import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.HyperLinkExpression;
+import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
 import ar.com.fdvs.dj.domain.constants.Transparency;
@@ -94,6 +91,7 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionStyleExpression;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import ar.com.fdvs.dj.util.HyperLinkUtil;
 import ar.com.fdvs.dj.util.LayoutUtils;
 import ar.com.fdvs.dj.util.Utils;
 
@@ -312,8 +310,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 				image.setOnErrorType(JRDesignImage.ON_ERROR_TYPE_ICON); //FIXME should we provide control of this to the user?
 
-				if (column.getHyperLinkExpression() != null) {
-					applyHyperLinkToImageElement(image,column);
+				if (column.getLink() != null) {
+					String name = "column_" + getReport().getColumns().indexOf(column);
+					HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(), column.getLink(),image,name);
 				}				
 				
 				applyStyleToElement(column.getStyle(), image);
@@ -338,8 +337,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 				applyStyleToElement(column.getStyle(), image);
 				
-				if (column.getHyperLinkExpression() != null) {
-					applyHyperLinkToImageElement(image,column);
+				if (column.getLink() != null) {
+					String name = "column_" + getReport().getColumns().indexOf(column);
+					HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(),column.getLink(), image,name);
 				}				
 
 				detail.addElement(image);
@@ -351,8 +351,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				if (getReport().getOptions().isShowDetailBand()){
 					JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
 
-					if (column.getHyperLinkExpression() != null) {
-						applyHyperLinkToTextElement(textField,column);
+					if (column.getLink() != null) {
+						String name = "column_" + getReport().getColumns().indexOf(column);
+						HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(),column.getLink(),textField,name);
 					}
 					
 					transformDetailBandTextField(column, textField);
@@ -366,68 +367,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         }
 	}
 
-	/**
-	 * Creates necessary objects to make a image an hyperlink
-	 * @param textField
-	 * @param column
-	 */
-protected void applyHyperLinkToImageElement(JRDesignImage image, AbstractColumn column) {
-	int colIdx = getReport().getColumns().indexOf(column);
-	HyperLinkExpression hce = column.getHyperLinkExpression();
-	
-	String hceParameterName = "hyperlink_column_" +colIdx;
-	String text = ExpressionUtils.createCustomExpressionInvocationText(hceParameterName);
-	registerCustomExpressionParameter(hceParameterName,hce);
-	JRDesignExpression hlpe = new JRDesignExpression();
-	hlpe.setValueClassName(hce.getClassName());
-	
-	hlpe.setText(text);
-	image.setHyperlinkReferenceExpression(hlpe);
-	image.setHyperlinkType(JRHyperlink.HYPERLINK_TYPE_REFERENCE); //FIXME Should this be a parameter in the futre?
-		
-	}
-
-/**
- * Creates necessary objects to make a textfield an hyperlink
- * @param textField
- * @param column
- */
-	protected void applyHyperLinkToTextElement(JRDesignTextField textField, AbstractColumn column) {
-		int colIdx = getReport().getColumns().indexOf(column);
-		HyperLinkExpression hce = column.getHyperLinkExpression();
-		
-		String hceParameterName = "hyperlink_column_" +colIdx;
-		String text = ExpressionUtils.createCustomExpressionInvocationText(hceParameterName);
-		registerCustomExpressionParameter(hceParameterName,hce);
-		JRDesignExpression hlpe = new JRDesignExpression();
-		hlpe.setValueClassName(hce.getClassName());
-		
-		hlpe.setText(text);
-		textField.setHyperlinkReferenceExpression(hlpe);
-		textField.setHyperlinkType(JRHyperlink.HYPERLINK_TYPE_REFERENCE); //FIXME Should this be a parameter in the futre?
-	}
-	
-	/**
-	 * Given the "name" and the custom expression, this registers the parameter in the JasperDesign and also
-	 * adds the customExpression in the parameters map enabling it in for being referenced
-	 * @param name
-	 * @param customExpression
-	 */
-	protected void registerCustomExpressionParameter(String name, CustomExpression customExpression) {
-		if (customExpression == null){
-			return;
-		}
-		JRDesignParameter dparam = new JRDesignParameter();
-		dparam.setName(name);
-		dparam.setValueClassName(CustomExpression.class.getName());
-		log.debug("Registering customExpression parameter with name " + name );
-		try {
-			getDesign().addParameter(dparam);
-		} catch (JRException e) {
-			throw new EntitiesRegistrationException(e.getMessage());
-		}
-		((DynamicJasperDesign)getDesign()).getParametersWithValues().put(name, customExpression);
-	}
 
 
 	/**

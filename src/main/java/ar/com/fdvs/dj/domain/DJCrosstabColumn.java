@@ -42,6 +42,8 @@ public class DJCrosstabColumn {
 	private Style totalStyle;
 	private Style totalHeaderStyle;
 	private Style headerStyle;
+	
+	private DJHyperLink link;
 
 	public Style getHeaderStyle() {
 		return headerStyle;
@@ -90,6 +92,12 @@ public class DJCrosstabColumn {
 	}
 	public void setTotalHeaderStyle(Style titleStyle) {
 		this.totalHeaderStyle = titleStyle;
+	}
+	public DJHyperLink getLink() {
+		return link;
+	}
+	public void setLink(DJHyperLink link) {
+		this.link = link;
 	}
 
 }

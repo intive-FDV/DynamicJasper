@@ -35,8 +35,9 @@ import java.util.Date;
 import java.util.Map;
 
 import net.sf.jasperreports.view.JasperViewer;
+import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.HyperLinkExpression;
+import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
@@ -44,6 +45,7 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
 
 public class HyperLinkReportTest extends BaseDjReportTest {
 
@@ -72,17 +74,28 @@ public class HyperLinkReportTest extends BaseDjReportTest {
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
 		
-		drb.getColumn(3).setHyperLinkExpression(new HyperLinkExpression() {
+		DJHyperLink djlink = new DJHyperLink();
+		djlink.setExpression(new StringExpression() {
 			public Object evaluate(Map fields, Map variables, Map parameters) {				
 				return "http://linkInImage.com?param=" + variables.get("REPORT_COUNT");
 			}
 		});
+		djlink.setTooltip(new LiteralExpression("I'm a literal tootltip"));		
+		drb.getColumn(3).setLink(djlink);
 		
-		drb.getColumn(4).setHyperLinkExpression(new HyperLinkExpression() {
+		DJHyperLink djlink2 = new DJHyperLink();
+		djlink2.setExpression(new StringExpression() {
 			public Object evaluate(Map fields, Map variables, Map parameters) {				
 				return "http://thisIsAURL?count=" + variables.get("REPORT_COUNT");
 			}
 		});
+		djlink2.setTooltip(new StringExpression() {
+			
+			public Object evaluate(Map fields, Map variables, Map parameters) {				
+				return "Im a more elaborated tooltip " + variables.get("REPORT_COUNT");
+			}
+		});
+		drb.getColumn(4).setLink(djlink2);
 				
 
 

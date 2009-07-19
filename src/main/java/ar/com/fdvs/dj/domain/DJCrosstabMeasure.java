@@ -36,6 +36,8 @@ public class DJCrosstabMeasure {
 	private String title;
 
 	private Style style;
+	
+	private DJHyperLink link;
 
 	public Style getStyle() {
 		return style;
@@ -80,6 +82,14 @@ public class DJCrosstabMeasure {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public DJHyperLink getLink() {
+		return link;
+	}
+
+	public void setLink(DJHyperLink link) {
+		this.link = link;
 	}
 
 }

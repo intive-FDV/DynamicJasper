@@ -252,8 +252,11 @@ public class ExpressionUtils {
 		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
 		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
 		
-		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+customExpName+"})."
-				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+//		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+customExpName+"})."
+//				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+		
+		String stringExpression = "((("+CustomExpression.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get(\""+customExpName+"\"))."
+		+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
 		
 		return stringExpression;
 	}	
