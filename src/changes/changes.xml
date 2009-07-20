@@ -35,6 +35,11 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.7-b8" date="2009-07-20"	desc="fixes" >
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						 Hyper links in crosstabs. See CrosstabHyperLinkReportTest
+					 </action>
+				</release>
 				 <release version="3.0.7-b7" date="2009-07-10"	desc="fixes" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						 Hyper links in column values. (still needs work). See HyperLinkReportTest
