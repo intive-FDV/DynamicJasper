@@ -90,6 +90,7 @@ public class ColumnBuilder {
     private Format textFormatter;
 
 	private int columnType = COLUMN_TYPE_DEFAULT;
+	private static Random random = new Random();
 
 
 	/**
@@ -161,8 +162,8 @@ public class ColumnBuilder {
 	protected AbstractColumn buildExpressionColumn() {
 		ExpressionColumn column = new ExpressionColumn();
 		populateCommonAttributes(column);
-		int random = new Random().nextInt();
-		column.setColumnProperty(new ColumnProperty("expressionColumn" + random,CustomExpression.class.getName()));
+		long random_ = random.nextLong();
+		column.setColumnProperty(new ColumnProperty("expressionColumn" + random_,CustomExpression.class.getName()));
 		column.setExpression(customExpression);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
 		column.setExpressionForCalculation(customExpressionForCalculation);
