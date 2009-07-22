@@ -361,7 +361,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 		JRDesignTextField title = new JRDesignTextField();
 		JRDesignExpression exp = new JRDesignExpression();
-		exp.setText("\"" + Utils.escapeTextForExpression( getReport().getTitle()) + "\"");
+		if (getReport().isTitleIsJrExpression()){
+			exp.setText(getReport().getTitle());
+		}else {
+			exp.setText("\"" + Utils.escapeTextForExpression( getReport().getTitle()) + "\"");
+		}
 		exp.setValueClass(String.class);
 		title.setExpression(exp);
 		title.setWidth(getReport().getOptions().getPrintableWidth());
@@ -676,7 +680,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				SubreportParameter srparam = (SubreportParameter) subreportParamsIter.next();
 				JRDesignSubreportParameter subreportParameter = new JRDesignSubreportParameter();
 				subreportParameter.setName(srparam.getName());
-				JRExpression expression2 = ExpressionUtils.createExpression(srparam);
+				JRExpression expression2 = ExpressionUtils.createExpression(getDesign(), srparam);
 				subreportParameter.setExpression(expression2);
 				try {
 					subreport.addParameter(subreportParameter );

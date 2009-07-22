@@ -362,6 +362,11 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	public DynamicReportBuilder setTitleIsJrExpression(boolean isExpression) {
+		report.setTitleIsJrExpression(isExpression);
+		return this;
+	}
+
 	/**
 	 * Sets the name of the report.<br>
 	 * When exporting to Excel, this is going to be the sheet name. <b>Be careful</b> because
@@ -1223,6 +1228,12 @@ public class DynamicReportBuilder {
 	 */
 	public DJGroup getGroup(int idx){
 		return (DJGroup) this.report.getColumnsGroups().get(idx);
+	}
+
+	public DynamicReportBuilder setTitle(String title, boolean isExpression) {
+		setTitle(title);
+		setTitleIsJrExpression(isExpression);
+		return this;
 	}
 
 

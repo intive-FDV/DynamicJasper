@@ -35,6 +35,14 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.7-b9" date="2009-07-20"	desc="fixes" >
+					 <action dev="Juan Manuel Alvarez" type="add" issue="2782909">
+						 Random crashes with 2 or more expressionColumns, see issue detail at the bug tracker.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Report title can be a jasper expression like "this is the " + $P{title_param} + " report"; see
+					 </action>
+				</release>
 				 <release version="3.0.7-b8" date="2009-07-20"	desc="fixes" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						 Hyper links in crosstabs. See CrosstabHyperLinkReportTest

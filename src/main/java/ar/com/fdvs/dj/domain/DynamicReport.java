@@ -50,6 +50,8 @@ public class DynamicReport {
 
 	private String reportName;
 	private String title;
+	private boolean titleIsJrExpression = false;
+	
 	private String subtitle;
 	private Style titleStyle = new StyleBuilder(false,"reportTitleStyle")
 								.setStretching(Stretching.NO_STRETCH)
@@ -206,6 +208,11 @@ public class DynamicReport {
 
 	public void setTitleStyle(Style titleStyle) {
 		this.titleStyle = titleStyle;
+	}
+
+	public void setTitleStyle(Style titleStyle, boolean isExp) {
+		this.titleStyle = titleStyle;
+		this.titleIsJrExpression = isExp;
 	}
 
 	public String getTemplateFileName() {
@@ -409,6 +416,14 @@ public class DynamicReport {
 
 		return l;
 		
+	}
+
+	public boolean isTitleIsJrExpression() {
+		return titleIsJrExpression;
+	}
+
+	public void setTitleIsJrExpression(boolean titleIsJrExpression) {
+		this.titleIsJrExpression = titleIsJrExpression;
 	}
 
 }

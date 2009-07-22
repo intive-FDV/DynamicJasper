@@ -40,7 +40,9 @@ import net.sf.jasperreports.engine.JRVariable;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.ColumnProperty;
@@ -176,12 +178,20 @@ public class ExpressionUtils {
 		return exp;
 	}
 
-	public static JRDesignExpression createExpression(SubreportParameter sp) {
+	public static JRDesignExpression createExpression(JasperDesign jasperDesign,SubreportParameter sp) {
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setValueClassName(sp.getClassName());
 		String text = null;
 		if (sp.getParameterOrigin()== DJConstants.SUBREPORT_PARAM_ORIGIN_FIELD){
 			text = "$F{" + sp.getExpression() + "}";
+			//We need to set proper class type to expression according to field class
+			if (sp.getClassName() == null){
+				JRDesignField jrField = (JRDesignField) jasperDesign.getFieldsMap().get(sp.getExpression());
+				if (jrField != null)
+					exp.setValueClass(jrField.getValueClass());
+				else
+					exp.setValueClass(Object.class);
+			}
 		} else if (sp.getParameterOrigin()== DJConstants.SUBREPORT_PARAM_ORIGIN_PARAMETER){
 			text = REPORT_PARAMETERS_MAP + ".get( \""+ sp.getExpression() +"\")";
 		} else if (sp.getParameterOrigin()== DJConstants.SUBREPORT_PARAM_ORIGIN_VARIABLE){
