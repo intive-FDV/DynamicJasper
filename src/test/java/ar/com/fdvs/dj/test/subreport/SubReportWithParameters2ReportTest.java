@@ -71,7 +71,6 @@ public class SubReportWithParameters2ReportTest extends BaseDjReportTest {
 		 DynamicReport drFooterSubreport = createFooterSubreport();
 		 SubReportBuilder srb = new SubReportBuilder()
 		 	.setDynamicReport(drFooterSubreport,  new ClassicLayoutManager())
-//		 	.addParameter(new SubreportParameter("branch","branch",String.class.getName(),DJConstants.SUBREPORT_PARAM_ORIGIN_FIELD))
 		 	.addParameterFieldType("branch", "branch")
 		 	.setDataSource(DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION, "statistics");
 		 drb.addSubreportInGroupHeader(2, srb.build());

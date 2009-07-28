@@ -35,6 +35,11 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.7-b10" date="2009-07-20"	desc="fixes" >
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+						 Crosstab :: "null" appear in main header when automatic title is set to false.
+					 </action>
+				</release>
 				 <release version="3.0.7-b9" date="2009-07-20"	desc="fixes" >
 					 <action dev="Juan Manuel Alvarez" type="add" issue="2782909">
 						 Random crashes with 2 or more expressionColumns, see issue detail at the bug tracker.

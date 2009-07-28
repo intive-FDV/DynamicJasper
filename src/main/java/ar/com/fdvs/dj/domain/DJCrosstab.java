@@ -54,7 +54,7 @@ public class DJCrosstab {
 
 	private DJDataSource datasource;
 
-	private String mainHeaderTitle;
+	private String mainHeaderTitle = "";
 
 	private boolean automaticTitle = false;
 
