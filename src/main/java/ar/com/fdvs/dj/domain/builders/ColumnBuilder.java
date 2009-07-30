@@ -162,8 +162,8 @@ public class ColumnBuilder {
 	protected AbstractColumn buildExpressionColumn() {
 		ExpressionColumn column = new ExpressionColumn();
 		populateCommonAttributes(column);
-		long random_ = random.nextLong();
-		column.setColumnProperty(new ColumnProperty("expressionColumn" + random_,CustomExpression.class.getName()));
+		long random_ = Math.abs(random.nextLong());
+		column.setColumnProperty(new ColumnProperty("expressionColumn_" + random_,CustomExpression.class.getName()));
 		column.setExpression(customExpression);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
 		column.setExpressionForCalculation(customExpressionForCalculation);

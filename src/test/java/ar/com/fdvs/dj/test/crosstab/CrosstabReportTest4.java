@@ -74,6 +74,7 @@ public class CrosstabReportTest4 extends BaseDjReportTest {
 //			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setPrintColumnNames(false)
 			.setUseFullPageWidth(true)
+			.setWhenNoData("No data for this report", null)
 			.setDefaultStyles(titleStyle, null, null, null);
 
 		DJCrosstab djcross = new CrosstabBuilder()
@@ -105,7 +106,7 @@ public class CrosstabReportTest4 extends BaseDjReportTest {
 		DynamicReport dr = drb.build();
 
 		//put a collection in the parameters map to be used by the crosstab
-		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
+//		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
 
 		return dr;
 	}

@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJGroupLabel;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.Style;
@@ -324,7 +325,13 @@ public class DJGroup implements Entity {
 		this.reprintHeaderOnEachPage = reprintHeaderOnEachPage;
 	}
 
-
+	public void addHeaderCrosstab(DJCrosstab cross){
+		this.headerCrosstabs.add(cross);
+	}
+	
+	public void addFooterCrosstab(DJCrosstab cross){
+		this.footerCrosstabs.add(cross);
+	}
 
 
 }

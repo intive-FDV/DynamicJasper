@@ -59,18 +59,19 @@ public class WhenNoDataTest extends BaseDjReportTest {
 								.setFont(Font.ARIAL_MEDIUM_BOLD)
 								.setHorizontalAlign(HorizontalAlign.CENTER).build();
 		drb.addColumn("State", "state", String.class.getName(),30)
-			.addColumn("Branch", "branch", String.class.getName(),30)
-			.addColumn("Product Line", "productLine", String.class.getName(),50)
-			.addColumn("Item", "item", String.class.getName(),50)
-			.addColumn("Item Code", "id", Long.class.getName(),30,true)
-			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
-			.addColumn("Amount", "amount", Float.class.getName(),70,true)
-			.addGroups(2)
+//			.addColumn("Branch", "branch", String.class.getName(),30)
+//			.addColumn("Product Line", "productLine", String.class.getName(),50)
+//			.addColumn("Item", "item", String.class.getName(),50)
+//			.addColumn("Item Code", "id", Long.class.getName(),30,true)
+//			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
+//			.addColumn("Amount", "amount", Float.class.getName(),70,true)
+//			.addGroups(2)
 			.addAutoText(AutoText.AUTOTEXT_PAGE_X,AutoText.POSITION_HEADER,AutoText.ALIGNMENT_LEFT)
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 //			.setWhenNoData("No data for this report", noDataStyle)
-			.setWhenNoData("No data for this report", noDataStyle,true,false)
+//			.setWhenNoData("No data for this report", noDataStyle,true,false)
+			.setWhenNoData("No data for this report", null,false,true)
 			.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();

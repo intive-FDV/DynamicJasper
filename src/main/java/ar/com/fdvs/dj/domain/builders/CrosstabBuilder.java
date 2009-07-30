@@ -40,6 +40,7 @@ import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DJDataSource;
+import ar.com.fdvs.dj.domain.DJLabel;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 
@@ -366,6 +367,11 @@ public class CrosstabBuilder {
 	}
 	public CrosstabBuilder setRowHeaderWidth(int width) {
 		this.rowHeaderWidth = width;
+		return this;
+	}
+
+	public CrosstabBuilder setCaption(DJLabel caption) {
+		crosstab.setCaption(caption);
 		return this;
 	}
 

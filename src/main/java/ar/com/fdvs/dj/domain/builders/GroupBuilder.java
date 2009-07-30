@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.domain.builders;
 import java.util.Iterator;
 
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJGroupLabel;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
@@ -312,12 +313,15 @@ public class GroupBuilder {
 		return this;
 	}
 
+	public GroupBuilder addHeaderCrosstab(DJCrosstab cross){
+		group.addHeaderCrosstab(cross);
+		return this;
+	}
 
-
-
-
-
-
+	public GroupBuilder addFooterCrosstab(DJCrosstab cross){
+		group.addFooterCrosstab(cross);
+		return this;
+	}
 
 
 }

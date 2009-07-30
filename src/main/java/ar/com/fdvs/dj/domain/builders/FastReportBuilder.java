@@ -503,6 +503,15 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * 
+	 * @param groupNum the group number (1, 2, 3, ...)
+	 * @param colNumber the column number (1, 2, 3,...)
+	 * @param op
+	 * @param style
+	 * @return
+	 * @throws BuilderException
+	 */
 	public FastReportBuilder addFooterVariable(int groupNum, int colNumber, DJCalculation op, Style style) throws BuilderException {
 		DJGroup group = getGroupByNumber(groupNum);
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);
@@ -514,6 +523,16 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * 
+	 * @param groupNum the group number (1, 2, 3, ...)
+	 * @param colNumber the column number (1, 2, 3,...)
+	 * @param op
+	 * @param style
+	 * @param valueFormatter
+	 * @return
+	 * @throws BuilderException
+	 */
 	public FastReportBuilder addFooterVariable(int groupNum, int colNumber, DJCalculation op, Style style, DJValueFormatter valueFormatter) throws BuilderException {
 		DJGroup group = getGroupByNumber(groupNum);
 		PropertyColumn column = (PropertyColumn) report.getColumns().get(colNumber -1);

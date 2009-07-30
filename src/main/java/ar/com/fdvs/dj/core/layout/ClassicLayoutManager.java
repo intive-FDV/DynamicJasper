@@ -69,6 +69,7 @@ import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJGroupLabel;
+import ar.com.fdvs.dj.domain.DJLabel;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.ImageBanner;
@@ -540,14 +541,30 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				LayoutUtils.moveBandsElemnts(rect.getHeight(), band);
 				band.addElement(rect);
 			}
+			
 			LayoutUtils.moveBandsElemnts(crosst.getHeight(), band);
 			band.addElement(crosst);
+			DJLabel caption = djcross.getCaption();
+			if (caption!=null){ //FIXME Custom expression are still not handled
+				JRDesignExpression captExp = null;
+				if (caption.isJasperExpression())
+					captExp = ExpressionUtils.createStringExpression(caption.getText());
+				else
+					captExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(caption.getText())+ "\"");
+				
+				JRDesignTextField captTf = new JRDesignTextField();
+				captTf.setExpression(captExp );
+				captTf.setHeight(caption.getHeight());
+				captTf.setWidth(getReport().getOptions().getPrintableWidth());
+				LayoutUtils.moveBandsElemnts(caption.getHeight(), band);
+				band.addElement(captTf);
+			}
+
 			if (djcross.getTopSpace() != 0){
 				LayoutUtils.moveBandsElemnts(djcross.getTopSpace(), band);
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), 0);
 				band.addElement(rect);
 			}
-
 		}
 
 		for (Iterator iterator = columnsGroup.getFooterCrosstabs().iterator(); iterator.hasNext();) {

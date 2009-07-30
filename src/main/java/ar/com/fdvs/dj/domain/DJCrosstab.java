@@ -41,6 +41,8 @@ public class DJCrosstab {
 	private List columns = new ArrayList();
 	private List measures = new ArrayList();
 
+	private DJLabel caption;
+	
 	private int height;
 	private int width;
 
@@ -251,6 +253,12 @@ public class DJCrosstab {
 	}
 	public void setRowTotalStyle(Style rowTotalStyle) {
 		this.rowTotalStyle = rowTotalStyle;
+	}
+	public DJLabel getCaption() {
+		return caption;
+	}
+	public void setCaption(DJLabel caption) {
+		this.caption = caption;
 	}
 
 }
