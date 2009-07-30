@@ -13,6 +13,8 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 public class DJGroupLabel extends DJLabel implements Entity {
 
 	
+	protected LabelPosition labelPosition = LabelPosition.TOP;
+	
 	public DJGroupLabel(){};
 
 	public DJGroupLabel(String text, Style labelStyle) {
@@ -26,8 +28,17 @@ public class DJGroupLabel extends DJLabel implements Entity {
 
 	public DJGroupLabel(CustomExpression labelExpression, Style labelStyle,
 			LabelPosition labelPosition) {
-		super(labelExpression,labelStyle,labelPosition);
+		super(labelExpression,labelStyle);
+		this.labelPosition = labelPosition;
 	}	
 
+
+	public LabelPosition getLabelPosition() {
+		return labelPosition;
+	}
+
+	public void setLabelPosition(LabelPosition labelPosition) {
+		this.labelPosition = labelPosition;
+	}
 	
 }

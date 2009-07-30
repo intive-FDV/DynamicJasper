@@ -35,6 +35,14 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.7-FINAL" date="2009-07-20" desc="at last!" >
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						 Fix at DJDefaultScriptlet, which was messing parameter, fields and variables in CustomExpression when subreports or crosstabs where used 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						 DJLabel supports custom expression 
+					 </action>
+				</release>
 				 <release version="3.0.7-b10" date="2009-07-20"	desc="fixes" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						 Enabling crosstabs in group header and footers

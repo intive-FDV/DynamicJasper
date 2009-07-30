@@ -9,8 +9,7 @@ public class DJLabel implements Entity {
 
 	protected String text;
 	protected CustomExpression labelExpression;
-	protected Style style;
-	protected LabelPosition labelPosition = LabelPosition.TOP;
+	protected Style style;	
 	protected int height = 15;
 	
 	public DJLabel(){};
@@ -33,27 +32,13 @@ public class DJLabel implements Entity {
 		super();
 		this.text = text;
 		this.style = labelStyle;
-		this.labelPosition = labelPosition;
 	}
 
-	public DJLabel(CustomExpression labelExpression, Style labelStyle,
-			LabelPosition labelPosition) {
+	public DJLabel(CustomExpression labelExpression, Style labelStyle) {
 		super();
 		this.labelExpression = labelExpression;
 		this.style = labelStyle;
-		this.labelPosition = labelPosition;
 	}	
-
-
-	public LabelPosition getLabelPosition() {
-		return labelPosition;
-	}
-	public void setLabelPosition(LabelPosition labelPosition) {
-		this.labelPosition = labelPosition;
-	}
-
-
-
 
 	public CustomExpression getLabelExpression() {
 		return labelExpression;

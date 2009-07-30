@@ -12,7 +12,7 @@ public class DJDefaultScriptlet extends JRDefaultScriptlet {
 	protected static final String PARAMS_KEY = "params";
 	protected static final String FIELDS_KEY = "fields";
 	
-	private static ThreadLocal currentValues = new ThreadLocal();
+	private ThreadLocal currentValues = new ThreadLocal();
 
 	public void setData(Map parsm, Map fldsm, Map varsm, JRFillGroup[] grps) {
 		super.setData(parsm, fldsm, varsm, grps);
@@ -23,15 +23,15 @@ public class DJDefaultScriptlet extends JRDefaultScriptlet {
 		currentValues.set(map);
 	}
 	
-	public static Map getCurrentFiels() {
+	public Map getCurrentFiels() {
 		return (Map) ((Map) currentValues.get()).get(FIELDS_KEY);
 	}
 
-	public static Map getCurrentParams() {
+	public Map getCurrentParams() {
 		return (Map) ((Map) currentValues.get()).get(PARAMS_KEY);
 	}
 
-	public static Map getCurrentVariables() {
+	public Map getCurrentVariables() {
 		return (Map) ((Map) currentValues.get()).get(VARS_KEY);
 	}
 

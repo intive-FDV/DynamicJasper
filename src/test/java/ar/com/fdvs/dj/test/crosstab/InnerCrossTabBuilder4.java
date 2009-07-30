@@ -25,6 +25,7 @@ import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJLabel;
@@ -62,22 +63,22 @@ public class InnerCrossTabBuilder4 extends TestCase {
             drb.setWhenNoData("No data", null, true, true);
             drb.setReportName("This is the main report");
 
-            AbstractColumn columnState2 = ColumnBuilder.getInstance()
-            							.setColumnProperty("field1", Integer.class.getName())
+            AbstractColumn colSales = ColumnBuilder.getInstance()
+            							.setColumnProperty("sales", Integer.class.getName())
             							.setTitle("Sales")
             							.setWidth(50)
             							.build();
 
-            AbstractColumn columnState1 = ColumnBuilder.getInstance()
-                                           	.setColumnProperty("field2", String.class.getName())
+            AbstractColumn colYear = ColumnBuilder.getInstance()
+                                           	.setColumnProperty("year", String.class.getName())
                                            	.setTitle("Year")
                                            	.setWidth(50)
                                            	.build(); //WRONG Class was used, it is Integer
-            drb.addColumn(columnState1);
-            drb.addColumn(columnState2);
+            drb.addColumn(colYear);
+            drb.addColumn(colSales);
 
             
-            drb.addField("field3", Collection.class.getName()); //IMPORTANT!!! this must be declared
+            drb.addField("detail", Collection.class.getName()); //IMPORTANT!!! this must be declared
             drb.addConcatenatedReport(buildInnerDynamicReport(), new ClassicLayoutManager(), "ds_cross", DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
             
         } catch (ColumnBuilderException ex) {
@@ -94,8 +95,8 @@ public class InnerCrossTabBuilder4 extends TestCase {
 
         Style titlestyle = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.LEFT).setFont(Font.ARIAL_MEDIUM_BOLD).build(); 
         
-        drb.addColumn("","field2",String.class.getName(),200)
-		    .addField("field3", Collection.class.getName())
+        drb.addColumn("","year",String.class.getName(),200)
+		    .addField("detail", Collection.class.getName())
 		    .setTitleStyle(titlestyle)
 		    .setUseFullPageWidth(true)
 		    .setPrintColumnNames(false)
@@ -116,9 +117,19 @@ public class InnerCrossTabBuilder4 extends TestCase {
         CrosstabBuilder cb = new CrosstabBuilder().setUseFullWidth(true)
                              .setAutomaticTitle(false).setMainHeaderTitle("")
                              .setHeight(50)
-                             .setCaption(new DJLabel("\"Sales for year \" + $F{field2}",null,true) )
+//                             .setCaption(new DJLabel("\"Sales for year \" + $F{field2}",null,true) )
+                             .setCaption(new DJLabel(new CustomExpression() {
+								
+								public String getClassName() {									
+									return String.class.getName();
+								}
+								
+								public Object evaluate(Map fields, Map variables, Map parameters) {									
+									return "Title from custom expresion for year " + fields.get("year");
+								}
+							},null))
                              .setCellBorder(Border.PEN_1_POINT)
-                             .setDatasource("field3", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
+                             .setDatasource("detail", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
         cb.addColumn("Type", "field2", String.class.getName(), false);
         cb.addRow("Genre", "field3", String.class.getName(), false);
@@ -134,8 +145,8 @@ public class InnerCrossTabBuilder4 extends TestCase {
 
         // Add the first line
         Map result1 = new HashMap();
-        result1.put("field1", Integer.valueOf(150));
-        result1.put("field2", String.valueOf("2007"));
+        result1.put("sales", Integer.valueOf(150));
+        result1.put("year", String.valueOf("2007"));
 
         List data1 = new ArrayList();
         Map data1_1 = new HashMap();
@@ -162,14 +173,14 @@ public class InnerCrossTabBuilder4 extends TestCase {
         data1_4.put("field3", String.valueOf("Fantasy"));
         data1.add(data1_4);
 
-        result1.put("field3", data1);
+        result1.put("detail", data1);
 
         list.add(result1);
 
         // Add the second line
         Map result2 = new HashMap();
-        result2.put("field1", Integer.valueOf(250));
-        result2.put("field2", String.valueOf("2008"));
+        result2.put("sales", Integer.valueOf(250));
+        result2.put("year", String.valueOf("2008"));
         
         List data2 = new ArrayList();
         Map data2_1 = new HashMap();
@@ -196,14 +207,14 @@ public class InnerCrossTabBuilder4 extends TestCase {
         data2_4.put("field3", String.valueOf("Fantasy"));
         data2.add(data2_4);
 
-        result2.put("field3", data2);
+        result2.put("detail", data2);
 
         list.add(result2);
 
         // Add the third line
         Map result3 = new HashMap();
-        result3.put("field1", Integer.valueOf(203));
-        result3.put("field2", String.valueOf("2009"));
+        result3.put("sales", Integer.valueOf(203));
+        result3.put("year", String.valueOf("2009"));
 
         List data3 = new ArrayList();
         Map data3_1 = new HashMap();
@@ -230,7 +241,7 @@ public class InnerCrossTabBuilder4 extends TestCase {
         data3_4.put("field3", String.valueOf("Fantasy"));
         data3.add(data3_4);
 
-        result3.put("field3", data3);
+        result3.put("detail", data3);
 
         list.add(result3);
 
@@ -243,7 +254,7 @@ public class InnerCrossTabBuilder4 extends TestCase {
     JasperReport jr;
     JasperPrint jp;
     
-    public void testReport() throws JRException, FileNotFoundException{
+    public void testReport() throws JRException, FileNotFoundException, ClassNotFoundException, BuilderException{
     	List list = getList();
     	  JRDataSource ds = new JRBeanCollectionDataSource(list);
           Map params = new HashMap();

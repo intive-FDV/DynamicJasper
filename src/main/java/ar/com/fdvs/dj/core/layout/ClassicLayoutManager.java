@@ -545,11 +545,16 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			LayoutUtils.moveBandsElemnts(crosst.getHeight(), band);
 			band.addElement(crosst);
 			DJLabel caption = djcross.getCaption();
-			if (caption!=null){ //FIXME Custom expression are still not handled
+			if (caption!=null){ 
 				JRDesignExpression captExp = null;
-				if (caption.isJasperExpression())
+				if (caption.isJasperExpression()) //a text with things like "$F{myField}"
 					captExp = ExpressionUtils.createStringExpression(caption.getText());
-				else
+				else if (caption.getLabelExpression() != null){
+					String name = "expression_for_label_at_header_of_group[" + getReport().getColumnsGroups().indexOf(columnsGroup)+"]_crosstab["+columnsGroup.getHeaderCrosstabs().indexOf(djcross)+"]";
+					LayoutUtils.registerCustomExpressionParameter((DynamicJasperDesign) getDesign(), name , caption.getLabelExpression());
+					captExp =   ExpressionUtils.createExpression(ExpressionUtils.createCustomExpressionInvocationText(name), caption.getLabelExpression().getClassName()) ;
+					log.debug(ExpressionUtils.createCustomExpressionInvocationText(name));
+				} else //a simple text
 					captExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(caption.getText())+ "\"");
 				
 				JRDesignTextField captTf = new JRDesignTextField();

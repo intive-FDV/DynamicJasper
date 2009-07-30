@@ -258,9 +258,9 @@ public class ExpressionUtils {
 	 */
 	public static String createCustomExpressionInvocationText(String customExpName) {
 
-		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
-		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
-		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
+		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
+		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
+		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";
 		
 //		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+customExpName+"})."
 //				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";

@@ -523,7 +523,7 @@ public class Dj2JrCrosstabBuilder {
 
 			//The width can be the sum of the with of all the rows starting from the current one, up to the inner most one.
 			int auxHeight = getRowHeaderMaxHeight(crosstabRow);
-//			int auxHeight = crosstabRow.getHeight(); //FIXME getRowHeaderMaxHeight() must be FIXED because it breaks when 1rs row sho total and 2nd doesnt
+//			int auxHeight = crosstabRow.getHeight(); //FIXME getRowHeaderMaxHeight() must be FIXED because it breaks when 1rs row shows total and 2nd doesn't
 			rowTitle.setHeight(auxHeight);
 
 			Style headerstyle = crosstabRow.getHeaderStyle() == null ? this.djcross.getRowHeaderStyle(): crosstabRow.getHeaderStyle();
