@@ -1,0 +1,16 @@
+	------------
+	HOW-TO Register invisible fields
+	------------
+
+HOW-TO Register invisible fields
+ 
+ If we need to use fields from the data source that are not directly shown on any column, we must register them
+ like this:
+ 
++------------------------------------------------------------------------------------------------------------+
+drb.addField("productLine", String.class.getName());
+drb.addField("branch", String.class.getName());
++------------------------------------------------------------------------------------------------------------+
+ 
+ This fields are now available to be used inside custom expressions, or if we use a template which has objects that 
+ references this fields
