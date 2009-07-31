@@ -35,7 +35,7 @@
 	</properties>
 	 <body>
 	 
-				 <release version="3.0.7-FINAL" date="2009-07-20" desc="at last!" >
+				 <release version="3.0.7" date="2009-07-20" desc="at last!" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						 Fix at DJDefaultScriptlet, which was messing parameter, fields and variables in CustomExpression when subreports or crosstabs where used 
 					 </action>
