@@ -145,30 +145,30 @@ public class InnerCrossTabBuilder4 extends TestCase {
 
         // Add the first line
         Map result1 = new HashMap();
-        result1.put("sales", Integer.valueOf(150));
+        result1.put("sales", new Integer(150));
         result1.put("year", String.valueOf("2007"));
 
         List data1 = new ArrayList();
         Map data1_1 = new HashMap();
-        data1_1.put("field1", Integer.valueOf(25));
+        data1_1.put("field1", new Integer(25));
         data1_1.put("field2", String.valueOf("DVD"));
         data1_1.put("field3", String.valueOf("SF"));
         data1.add(data1_1);
 
         Map data1_2 = new HashMap();
-        data1_2.put("field1", Integer.valueOf(25));
+        data1_2.put("field1", new Integer(25));
         data1_2.put("field2", String.valueOf("DVD"));
         data1_2.put("field3", String.valueOf("Fantasy"));
         data1.add(data1_2);
 
         Map data1_3 = new HashMap();
-        data1_3.put("field1", Integer.valueOf(50));
+        data1_3.put("field1", new Integer(50));
         data1_3.put("field2", String.valueOf("Book"));
         data1_3.put("field3", String.valueOf("SF"));
         data1.add(data1_3);
 
         Map data1_4 = new HashMap();
-        data1_4.put("field1", Integer.valueOf(50));
+        data1_4.put("field1", new Integer(50));
         data1_4.put("field2", String.valueOf("Book"));
         data1_4.put("field3", String.valueOf("Fantasy"));
         data1.add(data1_4);
@@ -179,30 +179,30 @@ public class InnerCrossTabBuilder4 extends TestCase {
 
         // Add the second line
         Map result2 = new HashMap();
-        result2.put("sales", Integer.valueOf(250));
+        result2.put("sales", new Integer(250));
         result2.put("year", String.valueOf("2008"));
         
         List data2 = new ArrayList();
         Map data2_1 = new HashMap();
-        data2_1.put("field1", Integer.valueOf(25));
+        data2_1.put("field1", new Integer(25));
         data2_1.put("field2", String.valueOf("DVD"));
         data2_1.put("field3", String.valueOf("SF"));
         data2.add(data2_1);
 
         Map data2_2 = new HashMap();
-        data2_2.put("field1", Integer.valueOf(25));
+        data2_2.put("field1", new Integer(25));
         data2_2.put("field2", String.valueOf("DVD"));
         data2_2.put("field3", String.valueOf("Fantasy"));
         data2.add(data2_2);
 
         Map data2_3 = new HashMap();
-        data2_3.put("field1", Integer.valueOf(100));
+        data2_3.put("field1", new Integer(100));
         data2_3.put("field2", String.valueOf("Book"));
         data2_3.put("field3", String.valueOf("SF"));
         data2.add(data2_3);
 
         Map data2_4 = new HashMap();
-        data2_4.put("field1", Integer.valueOf(100));
+        data2_4.put("field1", new Integer(100));
         data2_4.put("field2", String.valueOf("Book"));
         data2_4.put("field3", String.valueOf("Fantasy"));
         data2.add(data2_4);
@@ -213,30 +213,30 @@ public class InnerCrossTabBuilder4 extends TestCase {
 
         // Add the third line
         Map result3 = new HashMap();
-        result3.put("sales", Integer.valueOf(203));
+        result3.put("sales", new Integer(203));
         result3.put("year", String.valueOf("2009"));
 
         List data3 = new ArrayList();
         Map data3_1 = new HashMap();
-        data3_1.put("field1", Integer.valueOf(25));
+        data3_1.put("field1", new Integer(25));
         data3_1.put("field2", String.valueOf("DVD"));
         data3_1.put("field3", String.valueOf("SF"));
         data3.add(data3_1);
 
         Map data3_2 = new HashMap();
-        data3_2.put("field1", Integer.valueOf(33));
+        data3_2.put("field1", new Integer(33));
         data3_2.put("field2", String.valueOf("DVD"));
         data3_2.put("field3", String.valueOf("Fantasy"));
         data3.add(data3_2);
 
         Map data3_3 = new HashMap();
-        data3_3.put("field1", Integer.valueOf(75));
+        data3_3.put("field1", new Integer(75));
         data3_3.put("field2", String.valueOf("Book"));
         data3_3.put("field3", String.valueOf("SF"));
         data3.add(data3_3);
 
         Map data3_4 = new HashMap();
-        data3_4.put("field1", Integer.valueOf(70));
+        data3_4.put("field1", new Integer(70));
         data3_4.put("field2", String.valueOf("Book"));
         data3_4.put("field3", String.valueOf("Fantasy"));
         data3.add(data3_4);
