@@ -382,9 +382,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 		// PeS17 patch, 2008-11-29: put all fields to fields map, including "invisible" i.e. only registered ones
 		
-		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
-		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
-		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";		
+		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
+		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
+		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";		
 
 		String evalMethodParams =  fieldsMap +", " + variablesMap + ", " + parametersMap + ", " + columExpression;
 
