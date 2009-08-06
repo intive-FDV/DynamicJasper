@@ -35,6 +35,11 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.8" date="2009-07-30" desc="Urgent Fix" >
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+						 Urgent fix on conditional style expression introduced in 3.0.7
+					 </action>
+				</release>
 				 <release version="3.0.7" date="2009-07-30" desc="at last!" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						 Fix at DJDefaultScriptlet, which was messing parameter, fields and variables in CustomExpression when subreports or crosstabs where used 
