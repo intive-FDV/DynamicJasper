@@ -107,4 +107,12 @@ public class Utils {
 		return text;
 	}
 	
+	public static JRDesignStyle cloneStyle(JRDesignStyle style){
+		return (JRDesignStyle) style.clone(); //only for JR 3.5.1+
+//		JRDesignStyle nstyle = new JRDesignStyle();
+//		copyProperties(nstyle, style);
+//		return nstyle;
+		
+	}
+	
 }

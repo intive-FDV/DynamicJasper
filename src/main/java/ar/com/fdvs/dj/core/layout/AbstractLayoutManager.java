@@ -679,9 +679,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
              * columns, that's why we create our own style from the existing one, and remove proper odd-row conditional
              * style if present
              */
-            JRDesignStyle groupStyle = (JRDesignStyle) jrstyle.clone();
-//            JRDesignStyle groupStyle = new JRDesignStyle();
-//            Utils.copyProperties(groupStyle, jrstyle);
+            JRDesignStyle groupStyle = Utils.cloneStyle(jrstyle);
 
 			groupStyle.setName(groupStyle.getFontName() +"_for_group_"+index);
 			textField.setStyle(groupStyle);
@@ -691,8 +689,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         } else {
         	
-            JRDesignStyle alternateStyle = (JRDesignStyle) jrstyle.clone();
-//            Utils.copyProperties(alternateStyle, jrstyle);
+        	JRDesignStyle alternateStyle = Utils.cloneStyle(jrstyle);
 
 			alternateStyle.setName(alternateStyle.getFontName() +"_for_column_"+col.getName());
 			alternateStyle.getConditionalStyleList().clear();

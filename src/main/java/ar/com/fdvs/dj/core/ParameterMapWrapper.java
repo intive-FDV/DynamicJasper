@@ -1,6 +1,7 @@
 package ar.com.fdvs.dj.core;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,6 +13,10 @@ public class ParameterMapWrapper implements Map {
 	
 	public ParameterMapWrapper(Map map){
 		this.map = map;
+	}
+
+	public ParameterMapWrapper() {
+		this.map = Collections.EMPTY_MAP;
 	}
 
 	public void clear() {
@@ -72,6 +77,11 @@ public class ParameterMapWrapper implements Map {
 
 	public Collection values() {
 		throw new DJException("Method not implemented");
+	}
+
+	public void setMap(Map parsm) {
+		this.map = parsm;
+		
 	}
 
 	

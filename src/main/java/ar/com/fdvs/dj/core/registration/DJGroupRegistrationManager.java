@@ -117,7 +117,6 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		
 
 		group.setExpression(jrExpression);
-		group.setCountVariable(new JRDesignVariable());
 
 		return group;
 	}
