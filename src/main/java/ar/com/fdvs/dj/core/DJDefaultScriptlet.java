@@ -32,15 +32,7 @@ public class DJDefaultScriptlet extends JRDefaultScriptlet  {
 	public void setData(Map parsm, Map fldsm, Map varsm, JRFillGroup[] grps) {
 		super.setData(parsm, fldsm, varsm, grps);
 		
-		
-//		if (logger.isDebugEnabled()) {
-//			veces++;
-//			logger.debug("setData(...) Me llamaron " +veces +" veces, " + this); //$NON-NLS-1$
-//		}
-		
-		fieldMapWrapper.setMap(fldsm);
-		parameterMapWrapper.setMap(parsm);
-		variableMapWrapper.setMap(varsm);
+		putValuesInMap();
 	}
 	
 	protected void putValuesInMap() {

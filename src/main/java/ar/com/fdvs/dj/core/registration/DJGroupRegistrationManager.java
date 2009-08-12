@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.core.registration;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
@@ -38,12 +39,14 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.ExpressionUtils;
@@ -80,7 +83,7 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 	}
 
 	//PropertyColumn only can be used for grouping (not OperationColumn)
-	protected Object transformEntity(Entity entity) {
+	protected Object transformEntity(Entity entity) throws JRException {
 		log.debug("transforming group...");
 		DJGroup djgroup = (DJGroup) entity;
 		PropertyColumn column = djgroup.getColumnToGroupBy();
@@ -103,22 +106,66 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		JRDesignExpression jrExpression = new JRDesignExpression();
 		
 		CustomExpression expressionToGroupBy = column.getExpressionToGroupBy();
+		
 		if (expressionToGroupBy != null) { //new in 3.0.7-b5
-			String expToGroupByName = group.getName() + "_expression_to_group_by";
-			registerCustomExpressionParameter(expToGroupByName, expressionToGroupBy);
-			String expText = ExpressionUtils.createCustomExpressionInvocationText(expToGroupByName);
-			jrExpression.setText(expText);
-			log.debug("Expression for CustomExpression = " + expText);
-			jrExpression.setValueClassName(expressionToGroupBy.getClassName());
+			useVariableForCustomExpression(group, jrExpression, expressionToGroupBy);
+			
 		} else {
-			jrExpression.setText(column.getTextForExpression());
-			jrExpression.setValueClassName(column.getValueClassNameForExpression());
+			if (column instanceof ExpressionColumn){
+				ExpressionColumn col = (ExpressionColumn)column;
+				CustomExpression customExpression = col.getExpression();
+				useVariableForCustomExpression(group, jrExpression, customExpression);
+			} else {
+				jrExpression.setText(column.getTextForExpression());
+				jrExpression.setValueClassName(column.getValueClassNameForExpression());
+			}
 		}
 		
 
 		group.setExpression(jrExpression);
 
 		return group;
+	}
+
+	/**
+	 * When a group expression gets its value from a CustomExpression, a variable must be used otherwise it will fail
+	 * to work as expected.<br><br>
+	 * 
+	 * Instead of using: GROUP -> CUSTOM_EXPRESSION<br>
+	 * <br>
+	 * we use: GROUP -> VARIABLE -> CUSTOM_EXPRESSION<br>
+	 * <br><br>
+	 * See http://jasperforge.org/plugins/mantis/view.php?id=4226 for more detail
+	 * 
+	 * @param group
+	 * @param jrExpression
+	 * @param customExpression
+	 * @throws JRException
+	 */
+	protected void useVariableForCustomExpression(JRDesignGroup group,
+			JRDesignExpression jrExpression, CustomExpression customExpression)
+			throws JRException {
+		//1) Register CustomExpression object as a parameter
+		String expToGroupByName = group.getName() + "_custom_expression";
+		registerCustomExpressionParameter(expToGroupByName, customExpression);
+		
+		//2) Create a variable which is calculated through the custom expression
+		JRDesignVariable gvar = new JRDesignVariable();
+		String varName = group.getName() + "_variable_for_group_expression";
+		gvar.setName(varName);
+		gvar.setCalculation(JRDesignVariable.CALCULATION_NOTHING);
+		
+		String expText = ExpressionUtils.createCustomExpressionInvocationText(expToGroupByName);
+		JRDesignExpression gvarExp = new JRDesignExpression();
+		gvarExp.setValueClassName(customExpression.getClassName());
+		gvarExp.setText(expText);
+		gvar.setExpression(gvarExp);
+		getDjd().addVariable(gvar);
+		
+		//3) Make the group expression point to the variable
+		jrExpression.setText("$V{"+varName+"}");
+		jrExpression.setValueClassName(customExpression.getClassName());
+		log.debug("Expression for CustomExpression usgin variable = \"" + varName + "\" which point to: " + expText);
 	}
 
 

@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 import junit.framework.TestCase;
-
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -35,7 +34,6 @@ import ar.com.fdvs.dj.domain.builders.BuilderException;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 import ar.com.fdvs.dj.domain.builders.CrosstabBuilder;
-import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
@@ -44,6 +42,7 @@ import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.test.ReportExporter;
 
 /**
@@ -53,9 +52,9 @@ import ar.com.fdvs.dj.test.ReportExporter;
 public class InnerCrossTabBuilder4 extends TestCase {
 
     public  DynamicReport buildDynamicReport() {
-        DynamicReportBuilder drb = null;
+        FastReportBuilder drb = null;
         try {
-            drb = new DynamicReportBuilder();
+            drb = new FastReportBuilder();
             drb.setGrandTotalLegend("Total");
             drb.setPageSizeAndOrientation(new Page(585, 842));
             drb.setUseFullPageWidth(false);
@@ -69,17 +68,42 @@ public class InnerCrossTabBuilder4 extends TestCase {
             							.setWidth(50)
             							.build();
 
+            
             AbstractColumn colYear = ColumnBuilder.getInstance()
-                                           	.setColumnProperty("year", String.class.getName())
+//                                           	.setColumnProperty("year", String.class.getName())
                                            	.setTitle("Year")
                                            	.setWidth(50)
+         							.setCustomExpression(new CustomExpression() {
+            								
+            								public String getClassName() {
+            									return String.class.getName();
+            								}
+            								
+            								public Object evaluate(Map fields, Map variables, Map parameters) {
+            									return fields.get("year") + " - " +fields.get("sales");
+            								}
+            							})                                           	
                                            	.build(); //WRONG Class was used, it is Integer
+            
+            AbstractColumn colexp = new ColumnBuilder().setTitle("exp").setCustomExpression(new CustomExpression() {
+				
+				public String getClassName() {
+					return String.class.getName();
+				}
+				
+				public Object evaluate(Map fields, Map variables, Map parameters) {
+					return fields.get("year") + " - " +fields.get("sales");
+				}
+			}).setWidth(100).build();
             drb.addColumn(colYear);
             drb.addColumn(colSales);
+            drb.addColumn(colexp);
 
+            drb.addGroups(1);
             
+            drb.addField("year", String.class.getName()); //IMPORTANT!!! this must be declared
             drb.addField("detail", Collection.class.getName()); //IMPORTANT!!! this must be declared
-            drb.addConcatenatedReport(buildInnerDynamicReport(), new ClassicLayoutManager(), "ds_cross", DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
+//            drb.addConcatenatedReport(buildInnerDynamicReport(), new ClassicLayoutManager(), "ds_cross", DJConstants.DATA_SOURCE_ORIGIN_PARAMETER, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
             
         } catch (ColumnBuilderException ex) {
             ex.printStackTrace();
@@ -261,6 +285,7 @@ public class InnerCrossTabBuilder4 extends TestCase {
           params.put("ds_cross", list);
 
           jr = DynamicJasperHelper.generateJasperReport(buildDynamicReport(), getLayoutManager(), params);
+//          jr = DynamicJasperHelper.generateJasperReport(buildInnerDynamicReport(), getLayoutManager(), params);
           jp = JasperFillManager.fillReport(jr, params,ds);
        
           ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/" + this.getClass().getName() + ".pdf");

@@ -111,7 +111,7 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 	 * @param Entity entity
 	 * @throws EntitiesRegistrationException
 	 */
-	protected abstract Object transformEntity(Entity entity);
+	protected abstract Object transformEntity(Entity entity) throws JRException;
 
 	protected void registerCustomExpressionParameter(String name, CustomExpression customExpression) {
 		if (customExpression == null){
