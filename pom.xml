@@ -79,6 +79,7 @@ API.
 					<source>1.4</source>
 					<target>1.4</target>
 					<debug>true</debug>
+					<fork>true</fork>
 					<executable>${JAVA_1_4_HOME}/bin/javac</executable>
 				</configuration>
 			</plugin>
