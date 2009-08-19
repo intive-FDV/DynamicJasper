@@ -60,15 +60,6 @@ API.
 		<url>http://sourceforge.net/tracker/?group_id=188060</url>
 	</issueManagement>
 	<inceptionYear>2006</inceptionYear>
-<!--
-	<repositories>
-		<repository>
-			<id>djmaven2</id>
-			<url>http://www.fdvs.com.ar/djmaven2</url>
-			<name>DynamicJasper public Repository</name>
-		</repository>
-	</repositories>
-	-->
 	<build>
 		<plugins>
 			<plugin>
@@ -80,7 +71,10 @@ API.
 					<target>1.4</target>
 					<debug>true</debug>
 					<fork>true</fork>
+					<!--
 					<executable>${JAVA_1_4_HOME}/bin/javac</executable>
+					-->
+					<executable>${JAVA5_HOME}/bin/javac</executable>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -316,20 +310,20 @@ API.
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-core</artifactId>
             <version>2.1.6</version>
              <scope>provided</scope>
             <optional>true</optional>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--<dependency>
             <groupId>org.apache.struts</groupId>
             <artifactId>struts2-jasperreports-plugin</artifactId>
             <version>2.1.2</version>
              <scope>provided</scope>
             <optional>true</optional>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>

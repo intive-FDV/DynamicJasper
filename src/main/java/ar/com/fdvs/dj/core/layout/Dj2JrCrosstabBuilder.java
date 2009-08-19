@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import net.sf.jasperreports.crosstabs.JRCrosstabParameter;
 import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabBucket;
@@ -44,9 +45,12 @@ import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabCell;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabColumnGroup;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabDataset;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabMeasure;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabParameter;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
 import net.sf.jasperreports.crosstabs.fill.calculation.BucketDefinition;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExpression;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.base.JRBaseBox;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
@@ -60,6 +64,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
@@ -98,7 +103,20 @@ public class Dj2JrCrosstabBuilder {
 		mapExp.setText("$P{REPORT_PARAMETERS_MAP}");
 		mapExp.setValueClass(Map.class);
 		jrcross.setParametersMapExpression(mapExp);
-
+		
+		JRDesignCrosstabParameter crossParameter = new JRDesignCrosstabParameter();
+		crossParameter.setName("REPORT_SCRIPITLET");
+		crossParameter.setValueClassName(DJDefaultScriptlet.class.getName());
+		JRDesignExpression expression = new JRDesignExpression();
+		expression.setText("$P{"+JRParameter.REPORT_PARAMETERS_MAP+"}.get(\"REPORT_SCRIPTLET\")");
+		expression.setValueClassName(DJDefaultScriptlet.class.getName());
+		crossParameter.setExpression(expression);
+		try {
+			jrcross.addParameter(crossParameter);
+		} catch (JRException e) {
+			e.printStackTrace();
+		}
+		
 		initColors();
 
 		/**

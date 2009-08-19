@@ -162,23 +162,23 @@ public class ConditionalStyleReportTest2 extends TestCase {
 
         // Add the first line
         Map result1 = new HashMap();
-        result1.put("1", Integer.valueOf(150));
-        result1.put("2", String.valueOf("2007"));
+        result1.put("1", new Integer(150));
+        result1.put("2", "2007");
         result1.put("3", "Rouge");
 
         list.add(result1);
 
         // Add the second line
         Map result2 = new HashMap();
-        result2.put("1", Integer.valueOf(250));
-        result2.put("2", String.valueOf("2008"));
+        result2.put("1", new Integer(250));
+        result2.put("2", "2008");
         result2.put("3", "Vert");
 
         list.add(result2);
 
         // Add the third line
         Map result3 = new HashMap();
-        result3.put("1", Integer.valueOf(203));
+        result3.put("1", new Integer(203));
         result3.put("2", String.valueOf("2009"));
         result3.put("3", "Gris");
 

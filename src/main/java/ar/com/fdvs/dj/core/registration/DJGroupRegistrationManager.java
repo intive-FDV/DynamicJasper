@@ -154,6 +154,7 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		String varName = group.getName() + "_variable_for_group_expression";
 		gvar.setName(varName);
 		gvar.setCalculation(JRDesignVariable.CALCULATION_NOTHING);
+		gvar.setValueClassName(customExpression.getClassName());
 		
 		String expText = ExpressionUtils.createCustomExpressionInvocationText(expToGroupByName);
 		JRDesignExpression gvarExp = new JRDesignExpression();

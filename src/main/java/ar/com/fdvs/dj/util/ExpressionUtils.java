@@ -270,6 +270,26 @@ public class ExpressionUtils {
 		
 		return stringExpression;
 	}	
+	
+	/**
+	 * Same as regular, but instead of invoking directly $P{REPORT_SCRIPTLET}, it does through the $P{REPORT_PARAMETERS_MAP}
+	 * @param customExpName
+	 * @return
+	 */
+	public static String createCustomExpressionInvocationText2(String customExpName) {
+		
+		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentFiels()";
+		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentParams()";
+		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentVariables()";
+		
+//		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+customExpName+"})."
+//				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+		
+		String stringExpression = "(("+CustomExpression.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get(\""+customExpName+"\"))."
+		+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" )";
+		
+		return stringExpression;
+	}	
 
 
 

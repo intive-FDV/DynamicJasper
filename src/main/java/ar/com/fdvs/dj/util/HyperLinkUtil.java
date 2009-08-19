@@ -62,7 +62,7 @@ public class HyperLinkUtil {
 		StringExpression hce = djlink.getExpression();
 		
 //		String hceParameterName = "hyperlink_column_" +column.getTextForExpression().replaceAll("[\\$\\{\\}]", "_");
-		String text = ExpressionUtils.createCustomExpressionInvocationText(name);
+		String text = ExpressionUtils.createCustomExpressionInvocationText2(name);
 		LayoutUtils.registerCustomExpressionParameter(design,name,hce);
 		JRDesignExpression hlpe = new JRDesignExpression();
 		hlpe.setValueClassName(hce.getClassName());
@@ -76,7 +76,7 @@ public class HyperLinkUtil {
 			StringExpression sExp = djlink.getTooltip();
 //			String tooltipParameterName = "hyperlink_tooltip_column_" +column.getTextForExpression().replaceAll("[\\$\\{\\}]", "_");
 			String tooltipParameterName = "tooltip_" + name;
-			String tooltipText = ExpressionUtils.createCustomExpressionInvocationText(tooltipParameterName);
+			String tooltipText = ExpressionUtils.createCustomExpressionInvocationText2(tooltipParameterName);
 			LayoutUtils.registerCustomExpressionParameter(design,tooltipParameterName,sExp);
 			JRDesignExpression tooltipExp = new JRDesignExpression();
 			tooltipExp.setValueClassName(sExp.getClassName());
