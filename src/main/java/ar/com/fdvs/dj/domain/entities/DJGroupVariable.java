@@ -38,6 +38,7 @@ import ar.com.fdvs.dj.domain.DJGroupLabel;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
  * Entity used to handle global and group variables that represent the value of </br>
@@ -77,10 +78,10 @@ public class DJGroupVariable implements Entity {
 
 	
 	public String getTextForValueFormatterExpression(String variableName) {
-
-		String fieldsMap = DJDefaultScriptlet.class.getName() + ".getCurrentFiels()";
-		String parametersMap = DJDefaultScriptlet.class.getName() + ".getCurrentParams()";
-		String variablesMap = DJDefaultScriptlet.class.getName() + ".getCurrentVariables()";
+		
+		String fieldsMap = ExpressionUtils.getTextForFieldsFromScriptlet();
+		String parametersMap = ExpressionUtils.getTextForParametersFromScriptlet();
+		String variablesMap = ExpressionUtils.getTextForVariablesFromScriptlet();		
 		
 		String stringExpression = "((("+DJValueFormatter.class.getName()+")$P{"+variableName+"_vf}).evaluate( "
 			+ "$V{"+variableName+"}, " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";

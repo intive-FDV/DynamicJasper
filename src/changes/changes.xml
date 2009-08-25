@@ -35,6 +35,19 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.10" date="2009-08-25" desc="Urgent Fix II" >
+					 <action dev="Juan Manuel Alvarez" type="fix" issue="2844168">
+						 JasperCompilation error due to DJValueFormatters 
+					 </action>
+				</release>
+				 <release version="3.0.9" date="2009-08-15" desc="Urgent Fix" >
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+						 Struts 2 integration classes are now in a separate jar (look for DynamicJasper-Struts2 at )
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+						 Fixed problem related to hyperlinks and crosstabs (parameter REPORT_SCRLIPTLET does not exists)
+					 </action>
+				</release>
 				 <release version="3.0.8" date="2009-07-30" desc="Urgent Fix" >
 					 <action dev="Juan Manuel Alvarez" type="fix" >
 						 Urgent fix on conditional style expression introduced in 3.0.7

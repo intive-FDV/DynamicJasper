@@ -31,7 +31,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>3.0.9-SNAPSHOT</version>
+	<version>3.0.10</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -71,10 +71,10 @@ API.
 					<target>1.4</target>
 					<debug>true</debug>
 					<fork>true</fork>
-					<!--
 					<executable>${JAVA_1_4_HOME}/bin/javac</executable>
-					-->
+					<!--
 					<executable>${JAVA5_HOME}/bin/javac</executable>
+					-->
 				</configuration>
 			</plugin>
 			<plugin>

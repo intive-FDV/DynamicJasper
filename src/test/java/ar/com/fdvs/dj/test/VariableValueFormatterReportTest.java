@@ -184,8 +184,8 @@ public class VariableValueFormatterReportTest extends BaseDjReportTest {
 		JasperViewer.viewReport(test.jp);
 	}
 	
-	public void testReport(){
-		log.warn("Skipping this test");
-	}
+//	public void testReport(){
+//		log.warn("Skipping this test");
+//	}
 
 }

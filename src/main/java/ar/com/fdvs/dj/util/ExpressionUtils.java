@@ -278,9 +278,9 @@ public class ExpressionUtils {
 	 */
 	public static String createCustomExpressionInvocationText2(String customExpName) {
 		
-		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentFiels()";
-		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentParams()";
-		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentVariables()";
+		String fieldsMap = getTextForFieldsFromScriptlet();
+		String parametersMap = getTextForParametersFromScriptlet();
+		String variablesMap = getTextForVariablesFromScriptlet();
 		
 //		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+customExpName+"})."
 //				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
@@ -289,6 +289,18 @@ public class ExpressionUtils {
 		+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" )";
 		
 		return stringExpression;
+	}
+
+	public static String getTextForVariablesFromScriptlet() {
+		return "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentVariables()";
+	}
+
+	public static String getTextForParametersFromScriptlet() {
+		return "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentParams()";
+	}
+
+	public static String getTextForFieldsFromScriptlet() {
+		return "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentFiels()";
 	}	
 
 

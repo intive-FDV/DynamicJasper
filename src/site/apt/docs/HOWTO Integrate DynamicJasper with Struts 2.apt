@@ -8,6 +8,12 @@
 
 HOW-TO Integrate DynamicJasper with Struts 2
 
+*-----+
+| <<IMPORTANT UPDATE>>
+| Since DJ 3.0.9 Struts 2 integration classes will be in a {{{http://www.fdvs.com.ar/djmaven2/ar/com/fdvs/DynamicJasper-Struts2/}separated jar}} (because they need java 1.5 to compile) 
+*-----+
+
+
  Struts 2 actually integrates with Jasper Reports through the Jasper Reports Plugin which provides the JasperReportsResult,
  we extended this class to support DynamicJasper also.
 
