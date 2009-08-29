@@ -81,6 +81,13 @@
       <item name="Issue Tracker" href="https://sourceforge.net/tracker/?group_id=188060"/>
       <item name="DJ at SourceForge" href="https://sourceforge.net/projects/dynamicjasper" />
     </menu>
+    <menu name="Other Links">
+      <item name="FDV Solutions" href="http://www.fdvsolutions.com/" external="true"/>
+      <item name="Tero Flex UI" href="http://tero.fdvsolutions.com/wp/" external="true"/>
+      <item name="Source Forge" href="https://sourceforge.net/projects/dynamicjasper/" external="true"/>
+      <item name="Jenna Time Tracker" href="http://jennatimetracker.com/" external="true"/>
+    </menu>
+
 
 <!--
     ${reports}
