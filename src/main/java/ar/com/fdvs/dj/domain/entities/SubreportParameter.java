@@ -1,8 +1,11 @@
 package ar.com.fdvs.dj.domain.entities;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.domain.DJBaseElement;
 
-public class SubreportParameter implements Entity {
+public class SubreportParameter extends DJBaseElement {
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	private String name;
 	private String expression;

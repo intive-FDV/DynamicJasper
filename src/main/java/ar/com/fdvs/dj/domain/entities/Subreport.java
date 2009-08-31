@@ -35,12 +35,15 @@ import java.util.List;
 import net.sf.jasperreports.engine.JasperReport;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 
-public class Subreport {
+public class Subreport extends DJBaseElement {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private JasperReport report;
 
 	/**

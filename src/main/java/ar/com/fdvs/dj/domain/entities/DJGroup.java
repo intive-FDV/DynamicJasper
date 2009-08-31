@@ -34,6 +34,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJGroupLabel;
 import ar.com.fdvs.dj.domain.DynamicReportOptions;
@@ -47,8 +48,10 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
  * Multiple groups can be created for a single report. In this case the result </br>
  * would be a nesting with the latest groups added to the report being the inner ones.
  */
-public class DJGroup implements Entity {
+public class DJGroup extends DJBaseElement {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	//The column used to group by
 	private PropertyColumn columnToGroupBy;
 

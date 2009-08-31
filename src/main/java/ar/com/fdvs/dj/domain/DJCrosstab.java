@@ -34,8 +34,11 @@ import java.util.List;
 
 import ar.com.fdvs.dj.core.layout.CrossTabColorShema;
 import ar.com.fdvs.dj.domain.constants.Border;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
-public class DJCrosstab {
+public class DJCrosstab extends DJBaseElement {
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
 	private List rows = new ArrayList();
 	private List columns = new ArrayList();

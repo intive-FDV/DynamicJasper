@@ -10,8 +10,10 @@ import ar.com.fdvs.dj.domain.entities.Entity;
  * @author mamana
  *
  */
-public class DJGroupLabel extends DJLabel implements Entity {
+public class DJGroupLabel extends DJLabel {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	
 	protected LabelPosition labelPosition = LabelPosition.TOP;
 	

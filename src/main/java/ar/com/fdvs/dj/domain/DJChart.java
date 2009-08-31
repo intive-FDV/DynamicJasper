@@ -35,14 +35,17 @@ import java.util.List;
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
 /**
  * Charts to be displayed by dynamicjasper
  * @author msimone
  */
-public class DJChart {
+public class DJChart extends DJBaseElement{
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	//The possible chart types
 	public static final byte PIE_CHART = JRDesignChart.CHART_TYPE_PIE;
 	public static final byte BAR_CHART = JRDesignChart.CHART_TYPE_BAR;

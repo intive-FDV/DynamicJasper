@@ -29,7 +29,11 @@
 
 package ar.com.fdvs.dj.domain;
 
-public class DJCrosstabColumn {
+import ar.com.fdvs.dj.domain.entities.Entity;
+
+public class DJCrosstabColumn extends DJBaseElement {
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
 	private ColumnProperty property;
 	private int width = -1;

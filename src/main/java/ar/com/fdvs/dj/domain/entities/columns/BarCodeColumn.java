@@ -30,9 +30,12 @@
 package ar.com.fdvs.dj.domain.entities.columns;
 
 import ar.com.fdvs.dj.core.BarcodeTypes;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 public class BarCodeColumn extends ImageColumn implements BarcodeTypes {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private int barcodeType = _2_OF_7;
 	private boolean showText = false;
 	private boolean checkSum = false;

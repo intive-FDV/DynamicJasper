@@ -3,7 +3,9 @@ package ar.com.fdvs.dj.domain;
 import ar.com.fdvs.dj.domain.constants.LabelPosition;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
-public class DJLabel implements Entity {
+public class DJLabel extends DJBaseElement {
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	protected boolean isJasperExpression = false;
 

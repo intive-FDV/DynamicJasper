@@ -33,6 +33,7 @@ import java.text.Format;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.Style;
@@ -41,8 +42,10 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 /**
  * Abstract Class used as base for the different Column types.
  */
-public abstract class AbstractColumn implements Entity {
+public abstract class AbstractColumn extends DJBaseElement {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	//Internal column name
 	private String name;
 

@@ -29,8 +29,12 @@
 
 package ar.com.fdvs.dj.domain;
 
-public class DJCrosstabMeasure {
+import ar.com.fdvs.dj.domain.entities.Entity;
 
+public class DJCrosstabMeasure extends DJBaseElement {
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private ColumnProperty property;
 	private DJCalculation operation;
 	private String title;

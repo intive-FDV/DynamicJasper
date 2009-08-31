@@ -33,12 +33,16 @@
 package ar.com.fdvs.dj.domain;
 
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * @author msimone
  *
  */
-public class AutoText {
+public class AutoText extends DJBaseElement {
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	public static final Integer WIDTH_NOT_SET = new Integer(Integer.MIN_VALUE);
 	public static final Integer DEFAULT_WIDTH = new Integer(80);
 	public static final Integer DEFAULT_WIDTH2 = new Integer(30);

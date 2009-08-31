@@ -29,7 +29,11 @@
 
 package ar.com.fdvs.dj.domain;
 
-public class ImageBanner {
+import ar.com.fdvs.dj.domain.entities.Entity;
+
+public class ImageBanner extends DJBaseElement {
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
 	public static final byte ALIGN_LEFT = 0;
 	public static final byte ALIGN_RIGHT = 1;

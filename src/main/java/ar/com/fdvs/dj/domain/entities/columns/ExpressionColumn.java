@@ -37,6 +37,7 @@ import org.apache.commons.logging.LogFactory;
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
@@ -45,6 +46,8 @@ import ar.com.fdvs.dj.util.ExpressionUtils;
  */
 public class ExpressionColumn extends SimpleColumn {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private static final Log log = LogFactory.getLog(ExpressionColumn.class);
 
 	private CustomExpression expression; //for showing

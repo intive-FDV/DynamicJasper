@@ -29,10 +29,13 @@
 
 package ar.com.fdvs.dj.domain;
 
+import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.PropertiesMap;
 
-public class ColumnProperty {
+public class ColumnProperty extends DJBaseElement {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private String property;
 	private String valueClassName;
 	private PropertiesMap fieldProperties = new PropertiesMap();

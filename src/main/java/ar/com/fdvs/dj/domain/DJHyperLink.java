@@ -1,10 +1,10 @@
 package ar.com.fdvs.dj.domain;
 
-import java.io.Serializable;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
-public class DJHyperLink implements Serializable {
+public class DJHyperLink extends DJBaseElement {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	/*
 	 * This expression will return in runtime the URL (as a String) to add to the report element

@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain.entities.columns;
 
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Just for marking the column as ImageColum
@@ -38,6 +39,8 @@ import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
  */
 public class ImageColumn extends SimpleColumn {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private ImageScaleMode scaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 
 	public ImageScaleMode getScaleMode() {

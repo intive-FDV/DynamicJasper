@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
+import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
@@ -37,6 +38,8 @@ import ar.com.fdvs.dj.util.ExpressionUtils;
  */
 public class SimpleColumn extends PropertyColumn {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	public String getTextForExpression() {
         if( this.getTextFormatter() == null ) {
             return "$F{" + getColumnProperty().getProperty() + "}";

@@ -38,5 +38,7 @@ import ar.com.fdvs.dj.core.registration.AbstractEntityRegistrationManager;
  * @see AbstractEntityRegistrationManager
  */
 public interface Entity {
+	
+	public static final long SERIAL_VERSION_UID = 10000;
 
 }

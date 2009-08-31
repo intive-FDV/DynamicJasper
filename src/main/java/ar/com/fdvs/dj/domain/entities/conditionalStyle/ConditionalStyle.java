@@ -29,14 +29,17 @@
 
 package ar.com.fdvs.dj.domain.entities.conditionalStyle;
 
+import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Entity used to handle Conditional style.
  */
-public class ConditionalStyle implements Entity {
+public class ConditionalStyle extends DJBaseElement {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private ConditionStyleExpression condition;
 	private Style style;
 

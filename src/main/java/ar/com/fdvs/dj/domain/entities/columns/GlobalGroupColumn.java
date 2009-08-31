@@ -31,12 +31,15 @@ package ar.com.fdvs.dj.domain.entities.columns;
 
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Column created to handle global variables.
  */
 public class GlobalGroupColumn extends PropertyColumn {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	public GlobalGroupColumn() {
 		ColumnProperty columnProperty = new ColumnProperty("global", String.class.getName());
 		setTitle("global");

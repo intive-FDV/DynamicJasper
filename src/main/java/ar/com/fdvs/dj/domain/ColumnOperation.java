@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain;
 
+import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
 
 /**
@@ -36,8 +37,10 @@ import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
  * </br>
  * @see OperationColumn
  */
-public class ColumnOperation {
+public class ColumnOperation extends DJBaseElement {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	public static ColumnOperation SUM = new ColumnOperation("+");
 	public static ColumnOperation SUBSTRACT = new ColumnOperation("-");
 

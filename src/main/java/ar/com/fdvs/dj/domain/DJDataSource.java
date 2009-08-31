@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Describes a data source.
@@ -38,8 +39,10 @@ import ar.com.fdvs.dj.core.DJConstants;
  * @author Juan Manuel
  *
  */
-public class DJDataSource {
+public class DJDataSource extends DJBaseElement{
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	/**
 	 * This expression must point to a JRDataSource object
 	 */

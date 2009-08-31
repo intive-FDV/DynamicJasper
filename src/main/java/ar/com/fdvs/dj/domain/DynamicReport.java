@@ -40,14 +40,17 @@ import java.util.Map;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
 /**
  * One of the main classes of this product. It represents the report itself.
  */
-public class DynamicReport {
+public class DynamicReport extends DJBaseElement {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private String reportName;
 	private String title;
 	private boolean titleIsJrExpression = false;

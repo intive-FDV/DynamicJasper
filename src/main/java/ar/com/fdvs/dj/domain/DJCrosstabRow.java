@@ -29,7 +29,11 @@
 
 package ar.com.fdvs.dj.domain;
 
-public class DJCrosstabRow {
+import ar.com.fdvs.dj.domain.entities.Entity;
+
+public class DJCrosstabRow extends DJBaseElement{
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
 	private ColumnProperty property;
 	private int height = -1;

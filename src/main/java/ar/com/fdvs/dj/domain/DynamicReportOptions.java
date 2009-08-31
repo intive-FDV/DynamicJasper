@@ -34,12 +34,15 @@ import java.util.HashMap;
 
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Page;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Class that defines the report configuration.
  */
-public class DynamicReportOptions {
+public class DynamicReportOptions extends DJBaseElement {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	public static final Integer DEFAULT_HEADER_HEIGHT = new Integer(30);
 	public static final Integer DEFAULT_HEADER_VARIABLES_HEIGHT = new Integer(20);
 	public static final Integer DEFAULT_FOOTER_VARIABLES_HEIGHT = new Integer(20);

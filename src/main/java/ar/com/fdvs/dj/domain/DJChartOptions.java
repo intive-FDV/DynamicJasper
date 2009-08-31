@@ -32,7 +32,11 @@ package ar.com.fdvs.dj.domain;
 import java.awt.Color;
 import java.util.List;
 
-public class DJChartOptions {
+import ar.com.fdvs.dj.domain.entities.Entity;
+
+public class DJChartOptions extends DJBaseElement {
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
 	public static final byte POSITION_FOOTER = 1;
 

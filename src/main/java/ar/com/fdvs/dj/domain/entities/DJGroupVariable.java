@@ -32,7 +32,7 @@ package ar.com.fdvs.dj.domain.entities;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.core.DJDefaultScriptlet;
+import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJGroupLabel;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
@@ -46,7 +46,9 @@ import ar.com.fdvs.dj.util.ExpressionUtils;
  * </br>
  * @see DJCalculation
  */
-public class DJGroupVariable implements Entity {
+public class DJGroupVariable extends DJBaseElement {
+	
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	private static final Log log = LogFactory.getLog(DJGroupVariable.class);
 

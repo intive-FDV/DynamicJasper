@@ -43,6 +43,7 @@ import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Class that should be used to define the different styles in a friendly </br>
@@ -57,7 +58,7 @@ import ar.com.fdvs.dj.domain.constants.VerticalAlign;
  */
 public class Style implements Serializable, Cloneable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
 	private String name;
 	private String parentStyleName;

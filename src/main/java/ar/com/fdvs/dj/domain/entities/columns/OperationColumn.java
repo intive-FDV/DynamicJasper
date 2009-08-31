@@ -34,6 +34,7 @@ import java.util.List;
 
 import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Column created to handle numerical operations between two or more </br>
@@ -44,6 +45,8 @@ import ar.com.fdvs.dj.domain.DJCalculation;
  */
 public class OperationColumn extends AbstractColumn {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private ColumnOperation columnOperation;
 	private List columns;
 

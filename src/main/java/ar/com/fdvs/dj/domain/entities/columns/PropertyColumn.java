@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.domain.entities.columns;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Basic abstract column type representing a property from the obtained </br>
@@ -39,6 +40,8 @@ import ar.com.fdvs.dj.domain.DJCalculation;
  */
 public abstract class PropertyColumn extends AbstractColumn {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	private ColumnProperty columnProperty;
 	private CustomExpression expressionToGroupBy;
 

@@ -33,13 +33,17 @@ import java.awt.Color;
 import java.util.Arrays;
 import java.util.List;
 
+import ar.com.fdvs.dj.domain.entities.Entity;
+
 /**
  * Some color templates to be used by charts.
  *
  * @author msimone
  */
-public class DJChartColors {
+public class DJChartColors extends DJBaseElement {
 
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
 	public static List pale() {
 		Color[] colors = { new Color(0xFFA07A), new Color(0xD2B48C),
 				new Color(0xFFD700), new Color(0xFFE4E1), new Color(0xE0FFFF),

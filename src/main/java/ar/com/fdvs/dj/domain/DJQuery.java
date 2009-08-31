@@ -1,7 +1,11 @@
 package ar.com.fdvs.dj.domain;
 
-public class DJQuery {
-	
+import ar.com.fdvs.dj.domain.entities.Entity;
+
+public class DJQuery extends DJBaseElement{
+
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+		
 	private String text; 
 	private String language;
 	
