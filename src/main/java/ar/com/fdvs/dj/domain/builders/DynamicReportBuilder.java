@@ -54,12 +54,14 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroupTemporalVariable;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 /**
  * Builder created to give users a friendly way of creating a DynamicReport.</br>
@@ -247,10 +249,11 @@ public class DynamicReportBuilder {
 
 	public DynamicReport build(){
 		report.setOptions(options);
-		if (!globalVariablesGroup.getFooterVariables().isEmpty() || !globalVariablesGroup.getHeaderVariables().isEmpty() ) {
+		if (!globalVariablesGroup.getFooterVariables().isEmpty() || !globalVariablesGroup.getHeaderVariables().isEmpty() || !globalVariablesGroup.getVariables().isEmpty()) {
 			report.getColumnsGroups().add(0,globalVariablesGroup);
 		}
 
+		createChartGroups();
 
 		addGlobalCrosstabs();
 
@@ -622,6 +625,16 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * @param col
+	 * @param op
+	 * @return
+	 */
+	public DynamicReportBuilder addGlobalVariable(String name, AbstractColumn col, DJCalculation op) {
+		globalVariablesGroup.addVariable(new DJGroupTemporalVariable(name, col, op));
+		return this;
+	}
+	
 	public DynamicReportBuilder setTitleHeight(Integer height) {
 		options.setTitleHeight(height);
 		return this;
@@ -671,6 +684,7 @@ public class DynamicReportBuilder {
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
+	 * @deprecated
 	 * @param name
 	 * @param className
 	 * @return
@@ -680,6 +694,41 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * Registers a field that is not necesary bound to a column, it can be used in a
+	 * custom expression
+	 * @param name
+	 * @param className
+	 * @return
+	 */
+	public DynamicReportBuilder addChart(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
+		report.getNewCharts().add(djChart);
+		return this;
+	}
+	
+	private void createChartGroups() {
+		for (Iterator iterator = report.getNewCharts().iterator(); iterator.hasNext();) {
+			ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) iterator.next();
+			DJGroup djGroup = getChartColumnsGroup(djChart);
+			if (djGroup == null) {
+				djGroup = new GroupBuilder().setCriteriaColumn(djChart.getDataset().getColumnsGroup())
+		      		.setGroupLayout(GroupLayout.VALUE_FOR_EACH)
+		      		.build();
+				addGroup(djGroup);
+			}			
+		}
+	}
+	
+	private DJGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
+		PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
+		for (Iterator iterator = report.getColumnsGroups().iterator(); iterator.hasNext();) {
+			DJGroup djGroup = (DJGroup) iterator.next();			
+			if (djGroup.getColumnToGroupBy() == columnsGroup)
+				return djGroup;		
+		}
+		return null;
+	}
+	
 	/**
 	 * The full path of a jrxml file, or the path in the classpath of a jrxml resource.
 	 * @param path

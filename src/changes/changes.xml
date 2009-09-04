@@ -35,6 +35,15 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.11-beta2" date="2009-08-25" desc="New stuff" >
+					 <action dev="Ricardo Mariaca" type="add" due-to="Ricardo Mariaca">
+						 New charts! area chart, stackedarea chart, bar chart, bar3d chart, stackedbar chart, stackedbar3d chart, line chart, 
+						 pie chart, pie3d chart, timeseries chart, xyarea chart, xybar chart, xyline chart, scatter chart. 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+						 Report definition classes are now serializable. 
+					 </action>
+				</release>
 				 <release version="3.0.10" date="2009-08-25" desc="Urgent Fix II" >
 					 <action dev="Juan Manuel Alvarez" type="fix" issue="2844168">
 						 JasperCompilation error due to DJValueFormatters 

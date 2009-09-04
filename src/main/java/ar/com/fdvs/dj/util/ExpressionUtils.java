@@ -48,6 +48,7 @@ import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJDataSource;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 
@@ -203,7 +204,15 @@ public class ExpressionUtils {
 		return exp;
 	}
 
-
+	public static JRDesignExpression createExpression(DynamicJasperDesign design, String name, CustomExpression expression) {
+		String text = ExpressionUtils.createCustomExpressionInvocationText(name);
+		LayoutUtils.registerCustomExpressionParameter(design, name, expression);
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setValueClassName(expression.getClassName());
+		exp.setText(text);
+		return exp;
+	}
+	
 	/**
 	 * 
 	 * @param Collection of ColumnProperty

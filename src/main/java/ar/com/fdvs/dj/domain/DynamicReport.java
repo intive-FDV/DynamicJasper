@@ -76,6 +76,9 @@ public class DynamicReport extends DJBaseElement {
 	//<DJChart>
 	private List charts = new ArrayList();
 
+	//<DJChart>
+	private List newCharts = new ArrayList();
+	
 	private DynamicReportOptions options;
 
 	/**
@@ -242,6 +245,14 @@ public class DynamicReport extends DJBaseElement {
 		this.charts = charts;
 	}
 
+	public List getNewCharts() {
+		return newCharts;
+	}
+
+	public void setNewCharts(List charts) {
+		this.newCharts = charts;
+	}
+	
 	public List getAutoTexts() {
 		return autoTexts;
 	}

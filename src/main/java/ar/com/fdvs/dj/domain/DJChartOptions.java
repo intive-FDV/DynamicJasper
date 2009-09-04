@@ -34,6 +34,9 @@ import java.util.List;
 
 import ar.com.fdvs.dj.domain.entities.Entity;
 
+/**
+ * @deprecated
+ */
 public class DJChartOptions extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;

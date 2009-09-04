@@ -77,6 +77,8 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 			headerVariablesRM.registerEntities(columnsGroup.getHeaderVariables());
 			ColumnsGroupVariablesRegistrationManager footerVariablesRM = new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.FOOTER, property, getDjd(),getDynamicReport(),getLayoutManager());
 			footerVariablesRM.registerEntities(columnsGroup.getFooterVariables());
+			ColumnsGroupTemporalVariablesRegistrationManager variablesRM = new ColumnsGroupTemporalVariablesRegistrationManager(getDjd(),getDynamicReport(),getLayoutManager());
+			variablesRM.registerEntities(columnsGroup.getVariables());
 		} catch (JRException e) {
 			throw new EntitiesRegistrationException(e.getMessage());
 		}

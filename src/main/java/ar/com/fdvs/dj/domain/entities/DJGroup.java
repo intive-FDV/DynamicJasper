@@ -73,6 +73,8 @@ public class DJGroup extends DJBaseElement {
 	private List headerVariables = new ArrayList();
 	//<DJGroupVariable>
 	private List footerVariables = new ArrayList();
+	//<DJGroupTemporalVariable>
+	private List variables = new ArrayList();
 	
 	private boolean fitHeaderHeightToContent = true;
 	private boolean fitFooterHeightToContent = true;
@@ -181,6 +183,14 @@ public class DJGroup extends DJBaseElement {
 		this.headerVariables = headerVariables;
 	}
 
+	public List getVariables() {
+		return variables;
+	}
+
+	public void setVariables(ArrayList variables) {
+		this.variables = variables;
+	}
+	
 	public Integer getFooterHeight() {
 		return footerHeight;
 	}
@@ -312,6 +322,10 @@ public class DJGroup extends DJBaseElement {
 		footerVariables.add(var);
 	}
 
+	public void addVariable(DJGroupTemporalVariable var) {
+		variables.add(var);
+	}
+	
 	public DJGroupLabel getFooterLabel() {
 		return footerLabel;
 	}

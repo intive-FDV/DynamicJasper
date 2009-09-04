@@ -1,6 +1,7 @@
 package ar.com.fdvs.dj.util;
 
 import net.sf.jasperreports.engine.JRHyperlink;
+import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
@@ -86,5 +87,20 @@ public class HyperLinkUtil {
 		}
 	}
 
-
+	/**
+	 *  Creates necessary objects to make a chart an hyperlink
+	 * @param design
+	 * @param chart
+	 * @param column
+	 */
+	public static void applyHyperLinkToElement(DynamicJasperDesign design, DJHyperLink djlink, JRDesignChart chart, String name) {
+		JRDesignExpression hlpe = ExpressionUtils.createExpression(design, name, djlink.getExpression());
+		chart.setHyperlinkReferenceExpression(hlpe);
+		chart.setHyperlinkType(JRHyperlink.HYPERLINK_TYPE_REFERENCE); //FIXME Should this be a parameter in the future?
+				
+		if (djlink.getTooltip() != null){			
+			JRDesignExpression tooltipExp = ExpressionUtils.createExpression(design, "tooltip_" + name, djlink.getTooltip());
+			chart.setHyperlinkTooltipExpression(tooltipExp);
+		}
+	}
 }

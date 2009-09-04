@@ -353,14 +353,27 @@ public class DynamicJasperHelper {
     	JasperReport jr = generateJasperReport(dr, layoutManager, _parameters);
     	if (xmlEncoding == null)
     		xmlEncoding = DEFAULT_XML_ENCODING;
+    	
+    	ensurePath(filename);
+    	
     	JRXmlWriter.writeReport(jr, filename, xmlEncoding);
     }
 
     public static void generateJRXML(JasperReport jr, String xmlEncoding, String filename) throws JRException {
     	if (xmlEncoding == null)
     		xmlEncoding = DEFAULT_XML_ENCODING;
+    	
+		ensurePath(filename);
+    	
     	JRXmlWriter.writeReport(jr, filename, xmlEncoding);
     }
+
+	private static void ensurePath(String filename) {
+		File outputFile = new File(filename);
+		File parentFile = outputFile.getParentFile();
+		if (parentFile != null)
+			parentFile.mkdirs();
+	}
 
     protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters) throws JRException {
     	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext();) {

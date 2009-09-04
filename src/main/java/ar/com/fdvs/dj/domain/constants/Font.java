@@ -29,6 +29,9 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
+import net.sf.jasperreports.engine.JRFont;
+import net.sf.jasperreports.engine.design.JRDesignFont;
+
 public class Font extends BaseDomainConstant implements Cloneable {
 
 	private static final long serialVersionUID = 1L;
@@ -233,6 +236,19 @@ public class Font extends BaseDomainConstant implements Cloneable {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public JRFont transform() {
+		JRDesignFont font = new JRDesignFont();
+		font.setFontName(getFontName());
+		font.setFontSize(getFontSize());
+		font.setBold(isBold());
+		font.setItalic(isItalic());
+		font.setUnderline(isUnderline());
+		font.setPdfFontName(getPdfFontName());
+		font.setPdfEmbedded(isPdfFontEmbedded());
+		font.setPdfEncoding(getPdfFontEncoding());
+		return font;
 	}
 
 }

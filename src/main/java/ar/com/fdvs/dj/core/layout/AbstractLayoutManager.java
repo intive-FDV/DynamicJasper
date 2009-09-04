@@ -35,6 +35,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.engine.JRException;
@@ -850,6 +851,32 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				band.addElement(chart);
 			}
 		}
+		
+		//Pre-sort charts by group column
+		mmap = new MultiHashMap();
+		for (Iterator iter = getReport().getNewCharts().iterator(); iter.hasNext();) {
+			ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) iter.next();
+			mmap.put(djChart.getDataset().getColumnsGroup(), djChart);
+		}
+
+		for (Iterator iterator = mmap.keySet().iterator(); iterator.hasNext();) {
+			Object key =  iterator.next();
+			Collection charts = (Collection) mmap.get(key);
+			ArrayList l = new ArrayList(charts);
+			//Reverse iteration of the charts to meet insertion order
+			for (int i = l.size(); i > 0; i--) {
+				ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) l.get(i-1);
+				String name = "chart_" + (i-1);
+				JRDesignChart chart = createChart(djChart, name);
+
+				if (djChart.getLink() != null)
+					HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(), djChart.getLink(), chart, name + "_hyperlink");
+				
+				//Charts has their own band, so they are added in the band at Y=0
+				JRDesignBand band = createGroupForChartAndGetBand(djChart);
+				band.addElement(chart);
+			}
+		}
 	}
 
 	protected JRDesignBand createGroupForChartAndGetBand(DJChart djChart) {
@@ -992,6 +1019,112 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		return vars;
 	}
 
+	protected JRDesignGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
+		PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
+		for (Iterator iterator = getReport().getColumnsGroups().iterator(); iterator.hasNext();) {
+			DJGroup djGroup = (DJGroup) iterator.next();			
+			if (djGroup.getColumnToGroupBy() == columnsGroup)
+				return getJRGroupFromDJGroup(djGroup);		
+		}
+		return null;
+	}
+	
+	protected JRDesignBand createGroupForChartAndGetBand(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
+		JRDesignGroup jrGroup = getChartColumnsGroup(djChart);
+		JRDesignGroup parentGroup = getParent(jrGroup);
+		JRDesignGroup jrGroupChart = null;
+		try {
+			jrGroupChart = (JRDesignGroup) BeanUtils.cloneBean(parentGroup);
+			jrGroupChart.setGroupFooter( new JRDesignBand());
+			jrGroupChart.setGroupHeader( new JRDesignBand());
+			jrGroupChart.setName(jrGroupChart.getName()+"_Chart" + getReport().getCharts().indexOf(djChart));
+		} catch (Exception e) {
+			throw new DJException("Problem creating band for chart: " + e.getMessage(),e);
+		}
+
+		//Charts should be added in its own band (to ensure page break, etc)
+		//To achieve that, we create a group and insert it right before to the criteria group.
+		//I need to find parent group of the criteria group, clone and insert after.
+		//The only precaution is that if parent == child (only one group in the report) the we insert before
+		if (jrGroup.equals(parentGroup)){
+			jrGroupChart.setExpression(ExpressionUtils.createStringExpression("\"dummy_for_chart\""));
+			getDesign().getGroupsList().add( getDesign().getGroupsList().indexOf(jrGroup) , jrGroupChart);
+		} else {
+			int index = getDesign().getGroupsList().indexOf(parentGroup);
+			getDesign().getGroupsList().add(index, jrGroupChart);
+		}
+
+		JRDesignBand band = null;
+		switch (djChart.getOptions().getPosition()) {
+		case DJChartOptions.POSITION_HEADER:
+			band = (JRDesignBand) jrGroupChart.getGroupHeader();
+			break;
+		case DJChartOptions.POSITION_FOOTER:
+			band = (JRDesignBand) jrGroupChart.getGroupFooter();
+		}
+		return band;
+	}
+
+	/**
+	 * Creates the JRDesignChart from the DJChart. To do so it also creates needed variables and data-set
+	 * @param djChart
+	 * @return
+	 */
+	protected JRDesignChart createChart(ar.com.fdvs.dj.domain.chart.DJChart djChart, String name){
+			JRDesignGroup jrGroupChart = getChartColumnsGroup(djChart);
+			JRDesignGroup parentGroup = getParent(jrGroupChart);
+			Map chartVariables = registerChartVariable(djChart);
+			return djChart.transform((DynamicJasperDesign) getDesign(), name, jrGroupChart, parentGroup, chartVariables, getReport().getOptions().getPrintableWidth());
+	}
+
+	/**
+	 * Creates and registers a variable to be used by the Chart
+	 * @param chart Chart that needs a variable to be generated
+	 * @return the generated variables
+	 */
+	protected Map registerChartVariable(ar.com.fdvs.dj.domain.chart.DJChart chart) {
+		//FIXME aca hay que iterar por cada columna. Cambiar DJChart para que tome muchas
+		JRDesignGroup group = getChartColumnsGroup(chart);
+		Map vars = new HashMap();
+
+		int serieNum = 0;
+		for (Iterator iterator = chart.getDataset().getColumns().iterator(); iterator.hasNext();) {
+			AbstractColumn col = (AbstractColumn) iterator.next();
+
+
+			Class clazz = null;
+			try { clazz = Class.forName(col.getValueClassNameForExpression());
+			} catch (ClassNotFoundException e) {
+				throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
+			}
+
+			JRDesignExpression expression = new JRDesignExpression();
+			//FIXME Only PropertyColumn allowed?
+			expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
+			expression.setValueClass(clazz);
+
+			JRDesignVariable var = new JRDesignVariable();
+			var.setValueClass(clazz);
+			var.setExpression(expression);
+			var.setCalculation(chart.getOperation());
+			var.setResetGroup(group);
+			var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
+
+			//use the index as part of the name just because I may want 2
+			//different types of chart from the very same column (with the same operation also) making the variables name to be duplicated
+			int chartIndex = getReport().getNewCharts().indexOf(chart);
+			var.setName("CHART_[" + chartIndex +"_s" +serieNum + "+]_" + group.getName() + "_" + col.getTitle() + "_" + chart.getOperation());
+
+			try {
+				getDesign().addVariable(var);
+				vars.put(col, var);
+			} catch (JRException e) {
+				throw new LayoutException(e.getMessage());
+			}
+			serieNum++;
+		}
+		return vars;
+	}
 
 	/**
 	 * Finds the parent group of the given one and returns it

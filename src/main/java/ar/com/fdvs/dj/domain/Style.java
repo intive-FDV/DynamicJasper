@@ -247,73 +247,11 @@ public class Style implements Serializable, Cloneable {
 		if (getBorderRight()!= null)
 			transformedStyle.setRightBorder(getBorderRight().getValue());
 
+		//Padding
 		transformedStyle.setPadding(getPadding());
 
 		if (paddingBottom != null)
-			transformedStyle.setBottomPadding(paddingBottom);	if (getBorder()!=null)
-				transformedStyle.setBorder(getBorder().getValue());
-
-			//Borders
-			if (getBorderBottom()!= null)
-				transformedStyle.setBottomBorder(getBorderBottom().getValue());
-			if (getBorderTop()!= null)
-				transformedStyle.setTopBorder(getBorderTop().getValue());
-			if (getBorderLeft()!= null)
-				transformedStyle.setLeftBorder(getBorderLeft().getValue());
-			if (getBorderRight()!= null)
-				transformedStyle.setRightBorder(getBorderRight().getValue());
-
-			transformedStyle.setPadding(getPadding());
-
-			if (paddingBottom != null)
-				transformedStyle.setBottomPadding(paddingBottom);
-			if (paddingTop != null)
-				transformedStyle.setTopPadding(paddingTop);
-			if (paddingLeft != null)
-				transformedStyle.setLeftPadding(paddingLeft);
-			if (paddingRight != null)
-				transformedStyle.setRightPadding(paddingRight);
-
-			if (getHorizontalAlign() != null)
-				transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
-
-			if (getVerticalAlign() != null)
-				transformedStyle.setVerticalAlignment(getVerticalAlign().getValue());
-
-			transformedStyle.setBlankWhenNull(blankWhenNull);
-
-			if (font != null) {
-				transformedStyle.setFontName(font.getFontName());
-				transformedStyle.setFontSize(font.getFontSize());
-				transformedStyle.setBold(font.isBold());
-				transformedStyle.setItalic(font.isItalic());
-				transformedStyle.setUnderline(font.isUnderline());
-				transformedStyle.setPdfFontName(font.getPdfFontName());
-				transformedStyle.setPdfEmbedded(font.isPdfFontEmbedded());
-				transformedStyle.setPdfEncoding(font.getPdfFontEncoding());
-			}
-
-			transformedStyle.setBackcolor(getBackgroundColor());
-			transformedStyle.setForecolor(getTextColor());
-			transformedStyle.setBorderColor(borderColor);
-			if (getTransparency() != null)
-				transformedStyle.setMode(getTransparency().getValue());
-
-			if (getRotation() != null)
-				transformedStyle.setRotation(getRotation().getValue());
-
-			if (getRadius() != null)
-				transformedStyle.setRadius(getRadius().intValue());
-
-			transformedStyle.setPattern(this.pattern);
-
-			/**
-			 * This values are needed when exporting to JRXML
-			 */
-			transformedStyle.setPen((byte)0);
-			transformedStyle.setFill((byte)1);
-			transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());
-			
+			transformedStyle.setBottomPadding(paddingBottom);
 		if (paddingTop != null)
 			transformedStyle.setTopPadding(paddingTop);
 		if (paddingLeft != null)
@@ -321,6 +259,7 @@ public class Style implements Serializable, Cloneable {
 		if (paddingRight != null)
 			transformedStyle.setRightPadding(paddingRight);
 
+		//Aligns
 		if (getHorizontalAlign() != null)
 			transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
 
@@ -329,6 +268,7 @@ public class Style implements Serializable, Cloneable {
 
 		transformedStyle.setBlankWhenNull(blankWhenNull);
 
+		//Font
 		if (font != null) {
 			transformedStyle.setFontName(font.getFontName());
 			transformedStyle.setFontSize(font.getFontSize());
@@ -360,6 +300,7 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setPen((byte)0);
 		transformedStyle.setFill((byte)1);
 		transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());
+	
 	}
 
 	public Border getBorderBottom() {

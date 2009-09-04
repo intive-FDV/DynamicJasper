@@ -107,21 +107,21 @@ public abstract class BaseDjReportTest extends TestCase {
 	}
 
 	protected void exportReport() throws Exception {
-		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".pdf");
+		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/reports/" + this.getClass().getName() + ".pdf");
 		exportToJRXML();
 	}
 	
 	protected void exportToJRXML() throws Exception {
 		if (this.jr != null){
-			DynamicJasperHelper.generateJRXML(this.jr, "UTF-8",System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".jrxml");
+			DynamicJasperHelper.generateJRXML(this.jr, "UTF-8",System.getProperty("user.dir")+ "/target/reports/" + this.getClass().getName() + ".jrxml");
 			
 		} else {
-			DynamicJasperHelper.generateJRXML(this.dr, this.getLayoutManager(), this.params, "UTF-8",System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".jrxml");
+			DynamicJasperHelper.generateJRXML(this.dr, this.getLayoutManager(), this.params, "UTF-8",System.getProperty("user.dir")+ "/target/reports/" + this.getClass().getName() + ".jrxml");
 		}
 	}	
 
 	protected void exportToHTML() throws Exception {
-		ReportExporter.exportReportHtml(this.jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".html");
+		ReportExporter.exportReportHtml(this.jp, System.getProperty("user.dir")+ "/target/reports/" + this.getClass().getName() + ".html");
 	}	
 
 	/**

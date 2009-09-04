@@ -41,6 +41,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 /**
  * Charts to be displayed by dynamicjasper
  * @author msimone
+ * @deprecated
  */
 public class DJChart extends DJBaseElement{
 

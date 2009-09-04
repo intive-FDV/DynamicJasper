@@ -38,6 +38,7 @@ import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroupTemporalVariable;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -131,6 +132,11 @@ public class GroupBuilder {
 		return this;
 	}
 
+	public GroupBuilder addVariable(String label, AbstractColumn column, DJCalculation operation) {
+		group.getVariables().add(new DJGroupTemporalVariable(label, column, operation));
+		return this;
+	}
+	
 	/**
 	 * Height for headers (column titles) 
 	 * @param height
