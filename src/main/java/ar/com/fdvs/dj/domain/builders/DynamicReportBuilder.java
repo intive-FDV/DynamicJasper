@@ -1059,7 +1059,16 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * @deprecated
+	 * @param resourceBundle
+	 * @return
+	 */
 	public DynamicReportBuilder addResourceBundle(String resourceBundle) {
+		return setResourceBundle(resourceBundle);
+	}
+	
+	public DynamicReportBuilder setResourceBundle(String resourceBundle) {
 		report.setResourceBundle(resourceBundle);
 		return this;
 	}

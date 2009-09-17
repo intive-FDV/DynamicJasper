@@ -95,14 +95,14 @@ public class DynamicJasperHelper {
 		if (dr.getResourceBundle() != null ){
 			try {
 				messages =  ResourceBundle.getBundle(dr.getResourceBundle(), locale);
-			} catch (MissingResourceException e){ log.warn(e.getMessage() + ", usign defaut (dj-messages)");}
+			} catch (MissingResourceException e){ log.warn(e.getMessage() + ", usign default (dj-messages)");}
 		}
 
 		if (messages == null) {
 			try {
 				messages =  ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, locale);
 			} catch (MissingResourceException e){ 
-				log.warn(e.getMessage() + ", usign defaut (dj-messages)");
+				log.warn(e.getMessage() + ", usign default (dj-messages)");
 				try {
 					messages = ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, Locale.ENGLISH); //this cannot fail because is included in the DJ jar
 				} catch (MissingResourceException e2) {

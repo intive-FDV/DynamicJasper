@@ -35,7 +35,13 @@
 	</properties>
 	 <body>
 	 
-				 <release version="3.0.11-beta2" date="2009-08-25" desc="New stuff" >
+				 <release version="3.0.11-beta3" date="2009-10-17" desc="New stuff" >
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Some classes related to charting where not serializable, they are now 
+						 (ar.com.fdvs.dj.domain.StringExpression, ar.com.fdvs.dj.domain.chart.plot.DJAxisFormat and ar.com.fdvs.dj.domain.hyperlink.LiteralExpression) 
+					 </action>
+				</release>
+				 <release version="3.0.11-beta2" date="2009-09-20" desc="New stuff" >
 					 <action dev="Ricardo Mariaca" type="add" due-to="Ricardo Mariaca">
 						 New charts! area chart, stackedarea chart, bar chart, bar3d chart, stackedbar chart, stackedbar3d chart, line chart, 
 						 pie chart, pie3d chart, timeseries chart, xyarea chart, xybar chart, xyline chart, scatter chart. 
