@@ -15,7 +15,7 @@ HOW-TO Use custom jrxml templates
   
   * <<One template per page size and orientation>> will be needed: This is because DJ knows how to arrange the element he creates, but not the existing ones.
   
-  * The following option will be always overwritten by the dynamic report
+  * The following options will be always overwritten by the dynamic report
   
   	* number of columns
   	
