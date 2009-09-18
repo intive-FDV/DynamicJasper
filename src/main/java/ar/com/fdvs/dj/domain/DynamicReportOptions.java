@@ -71,6 +71,7 @@ public class DynamicReportOptions extends DJBaseElement {
 												.build();
 	private Integer titleHeight =  DEFAULT_HEADER_HEIGHT;
 	private boolean titleNewPage =  false;
+	private boolean summaryNewPage =  false;
 	private Integer subtitleHeight = DEFAULT_DETAIL_HEIGHT;
 	private boolean showDetailBand = true;
 
@@ -355,6 +356,18 @@ public class DynamicReportOptions extends DJBaseElement {
 
 	public void setShowDetailBand(boolean showDetailBand) {
 		this.showDetailBand = showDetailBand;
+	}
+
+	/**
+	 * When TRUE, the summary section will start in a new page
+	 * @return
+	 */
+	public boolean isSummaryNewPage() {
+		return summaryNewPage;
+	}
+
+	public void setSummaryNewPage(boolean summaryNewPage) {
+		this.summaryNewPage = summaryNewPage;
 	}
 
 }

@@ -15,6 +15,22 @@ HOW-TO Use custom jrxml templates
   
   * <<One template per page size and orientation>> will be needed: This is because DJ knows how to arrange the element he creates, but not the existing ones.
   
+  * The following option will be always overwritten by the dynamic report
+  
+  	* number of columns
+  	
+  	* <<When-No-Data>> behavior
+  	
+  	* <<When-Resource-Missing>> behavior
+  	
+  	* <<Title start on new page>> flag (false by default)
+  	
+  	* <<Ignore Pagination>> flag (false by default)
+  	
+  	* <<Detail Band Split allowed>> flag (true by default)
+  	
+  	*  <<Summary start on new page>> flag (false by default)
+  
   []
   
  The aim of this feature is to provide a mechanism to allow reusing graphics elements in page header and footers, background band and also styles. 
@@ -54,3 +70,5 @@ drb.setTemplateFile("pathToTemplate/TemplateName.jrxml");
 |<<Note:>> You can reference in the DynamicReport styles that where defined in the .jrxml file
 |For more info: {{{HOWTO Reference a style that exists in a jrxml file.html}How to Reference a style that exists in a jrxml file}}
 *-----+
+
+ 

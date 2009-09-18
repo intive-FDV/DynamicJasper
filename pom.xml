@@ -31,7 +31,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>3.0.11-beta3</version>
+	<version>3.0.11-beta4-SNAPSHOT</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -99,10 +99,19 @@ API.
 					</execution>
 				</executions>
 			</plugin>
-		  <plugin>
-        <artifactId>maven-release-plugin</artifactId>
-        <version>2.0-beta-7</version>
-      </plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.0-beta-7</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<failOnError>false</failOnError>
+					<finalName>DynamicJasper version ${version}</finalName>
+				</configuration>
+			</plugin>			
     </plugins>
          <extensions>
             <extension>

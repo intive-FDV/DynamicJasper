@@ -139,8 +139,7 @@ public class DynamicJasperHelper {
 		DynamicJasperDesign jd = null;
 		try {
 			if (dr.getTemplateFileName() != null) {
-				log.info("loading template file: "+dr.getTemplateFileName());
-				log.info("Attemping to find the file directly in the file system...");
+				log.info("about to load template file: "+dr.getTemplateFileName() + ", Attemping to find the file directly in the file system.");
 				File file = new File(dr.getTemplateFileName());
 				if (file.exists()){
 					JasperDesign jdesign = JRXmlLoader.load(file);
@@ -157,7 +156,7 @@ public class DynamicJasperHelper {
 				//Create new JasperDesign from the scratch
 				jd = DJJRDesignHelper.getNewDesign(dr);
 			}
-			jd.setScriptletClass(DJDefaultScriptlet.class.getName()); //XXX this is new, for testing
+			jd.setScriptletClass(DJDefaultScriptlet.class.getName()); //Set up scripttlet so that custom expressions can do their magic
 			registerParameters(jd,dr);
 		} catch (JRException e) {
 			throw new CoreException(e.getMessage(),e);

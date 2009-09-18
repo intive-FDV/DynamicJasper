@@ -73,6 +73,8 @@ public class WhenNoDataTest extends BaseDjReportTest {
 //			.setWhenNoData("No data for this report", noDataStyle,true,false)
 			.setWhenNoData("No data for this report", null,false,true)
 			.setUseFullPageWidth(true);
+		
+		drb.setTemplateFile("templates/TemplateReportTest.jrxml");
 
 		DynamicReport dr = drb.build();
 

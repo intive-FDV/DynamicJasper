@@ -35,6 +35,14 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.11-beta4" date="2009-10-17" desc="New stuff" >
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						 "Summary start in new page" can be configured through the report options 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Brian Swain" issue="2859359">
+						 Some report options where not being taking into account when a template was used. 
+					 </action>
+				</release>
 				 <release version="3.0.11-beta3" date="2009-10-17" desc="New stuff" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
 						 Some classes related to charting where not serializable, they are now 

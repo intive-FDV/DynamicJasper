@@ -66,7 +66,6 @@ public class DJJRDesignHelper {
 		DynamicReportOptions options = dr.getOptions();
 		Page page = options.getPage();
 
-		des.setColumnCount(options.getColumnsPerPage().intValue());
 		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
 
 		byte orientation = page.isOrientationPortrait() ? JasperReport.ORIENTATION_PORTRAIT : JasperReport.ORIENTATION_LANDSCAPE;
@@ -82,23 +81,17 @@ public class DJJRDesignHelper {
 		des.setTopMargin(options.getTopMargin().intValue());
 		des.setBottomMargin(options.getBottomMargin().intValue());
 
-		des.setWhenNoDataType(dr.getWhenNoDataType());
-		des.setWhenResourceMissingType(dr.getWhenResourceMissing());
 
-		des.setTitleNewPage(false);
-		des.setSummaryNewPage(false);
 
 		des.setDetail(new JRDesignBand());
 
-		des.getDetail().setSplitAllowed(dr.isAllowDetailSplit());
 
 		des.setPageHeader(new JRDesignBand());
 		des.setPageFooter(new JRDesignBand());
 		des.setSummary(new JRDesignBand());
 
-		des.setTitleNewPage(options.isTitleNewPage());
-
-		des.setIgnorePagination(options.isIgnorePagination());
+		//Behavior options
+		populateBehavioralOptions(dr, des);
 
 		if (dr.getQuery() != null){
 			JRDesignQuery query = getJRDesignQuery(dr);
@@ -112,6 +105,17 @@ public class DJJRDesignHelper {
 
 		des.setName(dr.getReportName() != null ? dr.getReportName() : "DynamicReport");
 		return des;
+	}
+
+	protected static void populateBehavioralOptions(DynamicReport dr, DynamicJasperDesign des) {
+		DynamicReportOptions options = dr.getOptions();
+		des.setColumnCount(options.getColumnsPerPage().intValue());
+		des.setWhenNoDataType(dr.getWhenNoDataType());
+		des.setWhenResourceMissingType(dr.getWhenResourceMissing());
+		des.setTitleNewPage(options.isTitleNewPage());
+		des.setIgnorePagination(options.isIgnorePagination());
+		des.getDetail().setSplitAllowed(dr.isAllowDetailSplit());
+		des.setSummaryNewPage(options.isSummaryNewPage());
 	}
 
 	protected static JRDesignQuery getJRDesignQuery(DynamicReport dr) {
@@ -227,6 +231,10 @@ public class DJJRDesignHelper {
 					djd.addTemplate(templates[i]); //TODO Make a test for this!
 				}
 			}
+			
+			//even though some of this options may be present in the template, current values 
+			//in the DynamicReport should prevail
+			populateBehavioralOptions(dr, djd);
 			
 		} catch (IllegalAccessException e) {
 			throw new CoreException(e.getMessage(),e);
