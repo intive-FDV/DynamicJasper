@@ -83,6 +83,35 @@ public class DJServletHelper {
 			//write generated HTML to the http-response (the one you got from the helper)
 	        reportWriter.writeTo(response);
 		}
+
+		public static void exportToHtml(HttpServletRequest request, 
+				HttpServletResponse response, 
+				String imageServletUrl, 
+				JasperPrint jasperPrint, 
+				Map exporterParams) throws JRException, IOException
+				{
+			if (exporterParams == null)
+				exporterParams = new HashMap();
+			
+			exporterParams.put(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
+
+			final ReportWriter reportWriter = ReportWriterFactory.getInstance().getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
+			
+			Map imagesMap = new HashMap();
+			JRExporter exporter = reportWriter.getExporter();
+			exporter.setParameters(exporterParams);
+			
+			exporter.setParameter(JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
+			exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + "/" + imageServletUrl + "?image=");
+			// Needed to support chart images:
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			HttpSession session = request.getSession();
+			session.setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+			session.setAttribute("net.sf.jasperreports.j2ee.jasper_print", jasperPrint);
+			
+			//write generated HTML to the http-response (the one you got from the helper)
+			reportWriter.writeTo(response);
+				}
 	
 	
 }

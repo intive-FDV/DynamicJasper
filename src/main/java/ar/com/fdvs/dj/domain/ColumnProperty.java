@@ -45,6 +45,11 @@ public class ColumnProperty extends DJBaseElement {
     	this.setValueClassName(valueClass);
     }
 
+    public ColumnProperty(String property, Class clazz) {
+    	this.setProperty(property);
+    	this.setValueClassName(clazz.getName());
+    }    
+    
 	public ColumnProperty() {
 		super();
 	}

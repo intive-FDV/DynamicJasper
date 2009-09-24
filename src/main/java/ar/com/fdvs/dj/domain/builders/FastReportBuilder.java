@@ -123,6 +123,11 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
     
+    public FastReportBuilder addColumn(String title, String property, Class clazz, int width, Style style) throws ColumnBuilderException, ClassNotFoundException {
+    	addColumn(title, property, clazz.getName(), width, style);
+    	return this;
+    }
+    
     public FastReportBuilder addColumn(String title, String property, String className, int width, Style style, Style headerStyle) throws ColumnBuilderException, ClassNotFoundException {
     	AbstractColumn column = ColumnBuilder.getInstance()
     	.setColumnProperty(new ColumnProperty(property, className))
@@ -139,6 +144,10 @@ public class FastReportBuilder extends DynamicReportBuilder {
     	
     	return this;
     }
+    
+    public FastReportBuilder addColumn(String title, String property, Class clazz, int width, Style style, Style headerStyle) throws ColumnBuilderException, ClassNotFoundException {
+    	return addColumn(title, property, clazz.getName(), width, style, headerStyle);
+    }
 
     public FastReportBuilder addColumn(String title, String property, String className, int width) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getInstance()
@@ -153,7 +162,11 @@ public class FastReportBuilder extends DynamicReportBuilder {
 
 		return this;
 	}
+    public FastReportBuilder addColumn(String title, String property, Class clazz, int width) throws ColumnBuilderException, ClassNotFoundException {
+    	return addColumn(title, property, clazz.getName(), width);
+    }
 
+    
 	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getInstance()
 			.setColumnProperty(property, className)
@@ -167,6 +180,10 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		addColumn(column);
 
 		return this;
+	}
+	
+	public FastReportBuilder addColumn(String title, String property, Class clazz, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
+		return addColumn(title, property, clazz.getName(), width, fixedWidth);
 	}
 
 	public FastReportBuilder addImageColumn(String title, String property, int width, boolean fixedWidth, ImageScaleMode imageScaleMode) throws ColumnBuilderException, ClassNotFoundException {
@@ -357,6 +374,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 
 		return this;
 	}
+	public FastReportBuilder addColumn(String title, String property, Class clazz, int width, boolean fixedWidth, String pattern) throws ColumnBuilderException, ClassNotFoundException {
+		return addColumn(title, property, clazz.getName(), width, fixedWidth, pattern);
+	}
 
 	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth, String pattern, Style style) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getInstance()
@@ -374,6 +394,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		addColumn(column);
 
 		return this;
+	}
+	public FastReportBuilder addColumn(String title, String property, Class clazz, int width, boolean fixedWidth, String pattern, Style style) throws ColumnBuilderException, ClassNotFoundException {
+		return addColumn(title, property, clazz.getName(), width, fixedWidth, pattern, style);
 	}
 	
 	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth, String pattern, Style style, String fieldDescription) throws ColumnBuilderException, ClassNotFoundException {
@@ -394,7 +417,14 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		
 		return this;
 	}
+	public FastReportBuilder addColumn(String title, String property, Class clazz, int width, boolean fixedWidth, String pattern, Style style, String fieldDescription) throws ColumnBuilderException, ClassNotFoundException {
+		return addColumn(title, property, clazz.getName(), width, fixedWidth, pattern, style, fieldDescription);
+	}
 
+	protected void guessStyle(Class clazz, AbstractColumn column) throws ClassNotFoundException {
+		guessStyle(clazz.getName(), column);
+	}
+	
 	protected void guessStyle(String className, AbstractColumn column) throws ClassNotFoundException {
 
 		Class clazz = Class.forName(className);
