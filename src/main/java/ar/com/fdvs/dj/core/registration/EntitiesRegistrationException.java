@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.core.registration;
 
+import net.sf.jasperreports.engine.JRException;
 import ar.com.fdvs.dj.core.CoreException;
 
 public class EntitiesRegistrationException extends CoreException {
@@ -37,6 +38,10 @@ public class EntitiesRegistrationException extends CoreException {
 
 	public EntitiesRegistrationException(String arg0) {
 		super(arg0);
+	}
+
+	public EntitiesRegistrationException(String message, JRException e) {
+		super(message,e);
 	}
 
 }

@@ -125,7 +125,7 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 		try {
 			getDjd().addParameter(dparam);
 		} catch (JRException e) {
-			throw new EntitiesRegistrationException(e.getMessage());
+			throw new EntitiesRegistrationException(e.getMessage(),e);
 		}
 		getDjd().getParametersWithValues().put(name, customExpression);
 	}

@@ -357,8 +357,16 @@ public class ColumnBuilder {
 		return this;
 	}
 
-	public ColumnBuilder setCommonProperties(String title, String property, String className, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
+	public ColumnBuilder setCommonProperties(String title, String property, String className, int width, boolean fixedWidth) {
 		setColumnProperty(new ColumnProperty(property, className));
+		setWidth(new Integer(width));
+		setTitle(title);
+		setFixedWidth(Boolean.valueOf(fixedWidth));
+		return this;
+	}
+
+	public ColumnBuilder setCommonProperties(String title, String property, Class clazz, int width, boolean fixedWidth) {
+		setColumnProperty(new ColumnProperty(property, clazz));
 		setWidth(new Integer(width));
 		setTitle(title);
 		setFixedWidth(Boolean.valueOf(fixedWidth));
