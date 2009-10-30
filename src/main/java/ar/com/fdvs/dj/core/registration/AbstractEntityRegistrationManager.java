@@ -91,7 +91,7 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 				}
 			}
 		} catch (RuntimeException e) {
-			throw new EntitiesRegistrationException(e.getMessage());
+			throw new EntitiesRegistrationException(e.getMessage(),e);
 		} finally {
 			this.columns = null;
 		}

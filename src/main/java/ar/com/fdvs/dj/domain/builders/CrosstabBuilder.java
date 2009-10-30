@@ -187,6 +187,11 @@ public class CrosstabBuilder {
 		return this;
 	}
 
+	public CrosstabBuilder addMeasure(DJCrosstabMeasure measure) {
+		crosstab.getMeasures().add(measure);
+		return this;
+	}
+	
 	/**
 	 * Add a row to the crosstab. In a double entry "X\Y" like table  table, rows are "X" (columns are Y) 
 	 * The first row added will be the inner most one.  

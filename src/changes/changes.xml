@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 	~ DynamicJasper: A library for creating reports dynamically by specifying
 	~ columns, groups, styles, etc. at runtime. It also saves a lot of development
@@ -35,7 +35,23 @@
 	</properties>
 	 <body>
 	 
-				 <release version="3.0.11-beta4" date="2009-10-17" desc="New stuff" >
+				 <release version="3.0.11" date="2009-10-17" desc="New stuff" >
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 DJ Exceptions thrown are properly initialized with real the cause (exception). 
+						 This gives log information for troubleshooting. 
+					 </action>				 
+					 <action dev="Ricardo Mariaca" type="add" due-to="Brian Swain">
+						 Percentage column capability. See example class: PercentageColumnReportTest
+					 </action>				 
+					 <action dev="Ricardo Mariaca" type="add" due-to="tatiana_athayde">
+						 Group/Global header and footer variable supports custom value expression 
+					 </action>
+					 <action dev="Ricardo Mariaca" type="add" due-to="Brian Swain">
+						 Group/Global header and footer variable supports print when expression 
+					 </action>
+					 <action dev="Ricardo Mariaca" type="add" due-to="gauravkalra">
+						 Crosstab supports conditional styles 
+					 </action>					 					 					 				 
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						 "Summary start in new page" can be configured through the report options 
 					 </action>
@@ -200,7 +216,7 @@
 					 	Bar charts series and categories can be switched.
 					 	<![CDATA[See https://sourceforge.net/forum/message.php?msg_id=7396861]]>
 					 </action>
-					 <action dev="Juan Manuel Alvarez" type="add" due-to="Fábio Anjos">
+					 <action dev="Juan Manuel Alvarez" type="add" due-to="FÃ¡bio Anjos">
 					 	Group Header on Every Page. 
 					 	Use GroupBuilder.setReprintHeaderOnEachPage(bool)
 					 	<![CDATA[See https://sourceforge.net/forum/message.php?msg_id=7427326]]>
@@ -716,7 +732,7 @@
 							 Example Report that uses a tempalte file
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
-							 Fixed column width for columns that need to keep it´s original witdh
+							 Fixed column width for columns that need to keep itÂ´s original witdh
 					 </action>
 					 <action dev="Mariano Simone" type="update">
 							 Documentation on the API and How-to guides

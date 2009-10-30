@@ -52,11 +52,13 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.base.JRBaseBox;
+import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
 
@@ -65,6 +67,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
@@ -73,8 +76,11 @@ import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionStyleExpression;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.HyperLinkUtil;
+import ar.com.fdvs.dj.util.Utils;
 
 public class Dj2JrCrosstabBuilder {
 
@@ -105,7 +111,7 @@ public class Dj2JrCrosstabBuilder {
 		jrcross.setParametersMapExpression(mapExp);
 		
 		JRDesignCrosstabParameter crossParameter = new JRDesignCrosstabParameter();
-		crossParameter.setName("REPORT_SCRIPITLET");
+		crossParameter.setName("REPORT_SCRIPTLET");
 		crossParameter.setValueClassName(DJDefaultScriptlet.class.getName());
 		JRDesignExpression expression = new JRDesignExpression();
 		expression.setText("$P{"+JRParameter.REPORT_PARAMETERS_MAP+"}.get(\"REPORT_SCRIPTLET\")");
@@ -424,7 +430,7 @@ public class Dj2JrCrosstabBuilder {
 					/**
 					 * Is there any style for this object?
 					 */
-					if (crosstabRow.getProperty() == null && crosstabColumn.getProperty() == null && djmeasure.getStyle() != null ){
+					/*if (crosstabRow.getProperty() == null && crosstabColumn.getProperty() == null && djmeasure.getStyle() != null ){
 						//this is the inner most cell
 						layoutManager.applyStyleToElement(djmeasure.getStyle() , element);
 					} else if (crosstabRow.getTotalStyle() != null) {
@@ -432,7 +438,48 @@ public class Dj2JrCrosstabBuilder {
 					}
 					else if (crosstabColumn.getTotalStyle() != null) {
 						layoutManager.applyStyleToElement(crosstabColumn.getTotalStyle(), element);
+					}*/
+					//measure
+					if (crosstabRow.getProperty() == null && crosstabColumn.getProperty() == null && djmeasure.getStyle() != null ){
+						//this is the inner most cell
+						layoutManager.applyStyleToElement(djmeasure.getStyle() , element);
+					} 
+					//row total
+					if (crosstabRow.getProperty() != null && crosstabColumn.getProperty() == null) {
+						Style style = getRowTotalStyle(crosstabRow);
+						if (style == null)
+							style = djmeasure.getStyle();
+						if (style != null)
+							layoutManager.applyStyleToElement(style, element);
 					}
+					//column total
+					if (crosstabRow.getProperty() == null && crosstabColumn.getProperty() != null) {
+						Style style = getColumnTotalStyle(crosstabColumn);
+						if (style == null)
+							style = djmeasure.getStyle();
+						if (style != null)
+							layoutManager.applyStyleToElement(style, element);
+					}
+					//row and column total
+					if (crosstabRow.getProperty() != null && crosstabColumn.getProperty() != null) {
+						Style style = getRowTotalStyle(crosstabRow);
+						if (style == null)
+							style = getColumnTotalStyle(crosstabColumn);
+						if (style == null)
+							style = djmeasure.getStyle();
+						if (style != null)
+							layoutManager.applyStyleToElement(style, element);
+					}
+					
+					JRDesignStyle jrstyle = (JRDesignStyle) element.getStyle();
+        	JRDesignStyle alternateStyle = Utils.cloneStyle(jrstyle);
+    			alternateStyle.setName(alternateStyle.getFontName() +"_for_column_" + djmeasure.getProperty());
+    			alternateStyle.getConditionalStyleList().clear();
+    			element.setStyle(alternateStyle);
+    			try {
+    				design.addStyle(alternateStyle);
+    			} catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
+          setUpConditionStyles(alternateStyle, djmeasure, measureExp.getText());
 					
 					if (djmeasure.getLink() != null){
 						String name = "cell_" + i + "_" +  j + "_ope" + djmeasure.getOperation().getValue();
@@ -463,6 +510,41 @@ public class Dj2JrCrosstabBuilder {
 		}
 	}
 
+	private void setUpConditionStyles(JRDesignStyle jrstyle, DJCrosstabMeasure djmeasure, String columExpression) {
+		if (Utils.isEmpty(djmeasure.getConditionalStyles()))
+			return;
+		
+		for (Iterator iterator = djmeasure.getConditionalStyles().iterator(); iterator.hasNext();) {
+			ConditionalStyle condition = (ConditionalStyle) iterator.next();
+			JRDesignExpression expression = getExpressionForConditionalStyle(condition, columExpression);
+			JRDesignConditionalStyle condStyle = layoutManager.makeConditionalStyle( condition.getStyle());
+			condStyle.setConditionExpression(expression);
+			jrstyle.addConditionalStyle(condStyle);	
+		}
+	}
+	
+	protected JRDesignExpression getExpressionForConditionalStyle(ConditionalStyle condition, String columExpression) {
+		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
+		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
+		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";		
+
+		String evalMethodParams =  fieldsMap +", " + variablesMap + ", " + parametersMap + ", " + columExpression;
+
+		String text = "(("+ConditionStyleExpression.class.getName()+")$P{" + JRParameter.REPORT_PARAMETERS_MAP + "}.get(\""+condition.getName()+"\"))."+CustomExpression.EVAL_METHOD_NAME+"("+evalMethodParams+")";
+		JRDesignExpression expression = new JRDesignExpression();
+		expression.setValueClass(Boolean.class);
+		expression.setText(text);
+		return expression;
+	}
+	
+	private Style getRowTotalStyle(DJCrosstabRow crosstabRow) {
+		return crosstabRow.getTotalStyle() == null ? this.djcross.getRowTotalStyle(): crosstabRow.getTotalStyle();
+	}
+
+	private Style getColumnTotalStyle(DJCrosstabColumn crosstabColumnRow) {
+		return crosstabColumnRow.getTotalStyle() == null ? this.djcross.getColumnTotalStyle(): crosstabColumnRow.getTotalStyle();
+	}
+	
 	/**
 	 * Apllies background coloring upong the matrix described in {@link Dj2JrCrosstabBuilder#createCells}}
 	 * @param contents

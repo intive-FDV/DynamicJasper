@@ -29,6 +29,9 @@
 
 package ar.com.fdvs.dj.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import ar.com.fdvs.dj.domain.entities.Entity;
 
 public class DJCrosstabMeasure extends DJBaseElement {
@@ -38,6 +41,7 @@ public class DJCrosstabMeasure extends DJBaseElement {
 	private ColumnProperty property;
 	private DJCalculation operation;
 	private String title;
+	private List conditionalStyles = new ArrayList();
 
 	private Style style;
 	
@@ -51,6 +55,14 @@ public class DJCrosstabMeasure extends DJBaseElement {
 		this.style = style;
 	}
 
+	public List getConditionalStyles() {
+		return conditionalStyles;
+	}
+
+	public void setConditionalStyles(List conditionalStyles) {
+		this.conditionalStyles = conditionalStyles;
+	}
+	
 	public DJCrosstabMeasure(String propertyName, String className, DJCalculation operation, String title) {
 		super();
 		this.property = new ColumnProperty(propertyName, className);

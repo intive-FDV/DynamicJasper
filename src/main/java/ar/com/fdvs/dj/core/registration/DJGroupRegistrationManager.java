@@ -67,20 +67,28 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 
 	protected void registerEntity(Entity entity) {
 		log.debug("registering group...");
-		DJGroup columnsGroup = (DJGroup) entity;
+		DJGroup djgroup = (DJGroup) entity;
 		try {
-			JRDesignGroup group = (JRDesignGroup)transformEntity(columnsGroup);
+			JRDesignGroup group = (JRDesignGroup)transformEntity(djgroup);
 			getDjd().addGroup(group);
 			//Variables are registered right after the group where they belong.
-			String property = columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty();
+			String property = djgroup.getColumnToGroupBy().getColumnProperty().getProperty();
+//			ColumnsGroupTemporalVariablesRegistrationManager variablesRM = new ColumnsGroupTemporalVariablesRegistrationManager(getDjd(),getDynamicReport(),getLayoutManager(), group);
+//			variablesRM.registerEntities(djgroup.getVariables());
+			
 			ColumnsGroupVariablesRegistrationManager headerVariablesRM = new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.HEADER, property, getDjd(),getDynamicReport(),getLayoutManager());
-			headerVariablesRM.registerEntities(columnsGroup.getHeaderVariables());
+			headerVariablesRM.registerEntities(djgroup.getHeaderVariables());
+			
 			ColumnsGroupVariablesRegistrationManager footerVariablesRM = new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.FOOTER, property, getDjd(),getDynamicReport(),getLayoutManager());
-			footerVariablesRM.registerEntities(columnsGroup.getFooterVariables());
-			ColumnsGroupTemporalVariablesRegistrationManager variablesRM = new ColumnsGroupTemporalVariablesRegistrationManager(getDjd(),getDynamicReport(),getLayoutManager());
-			variablesRM.registerEntities(columnsGroup.getVariables());
+			footerVariablesRM.registerEntities(djgroup.getFooterVariables());
+			
+			DJCrosstabRegistrationManager headerCrosstabsRm = new DJCrosstabRegistrationManager(ColumnsGroupVariablesRegistrationManager.HEADER, getDjd(),getDynamicReport(),getLayoutManager());
+			headerCrosstabsRm.registerEntities(djgroup.getHeaderCrosstabs());
+			
+			DJCrosstabRegistrationManager footerCrosstabsRm = new DJCrosstabRegistrationManager(ColumnsGroupVariablesRegistrationManager.FOOTER, getDjd(),getDynamicReport(),getLayoutManager());
+			footerCrosstabsRm.registerEntities(djgroup.getFooterCrosstabs());
 		} catch (JRException e) {
-			throw new EntitiesRegistrationException(e.getMessage());
+			throw new EntitiesRegistrationException(e.getMessage(),e);
 		}
 	}
 

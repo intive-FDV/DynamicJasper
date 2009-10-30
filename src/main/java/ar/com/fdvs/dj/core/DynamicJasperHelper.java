@@ -35,6 +35,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -54,6 +55,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRCompiler;
 import net.sf.jasperreports.engine.design.JRDesignField;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRProperties;
@@ -65,14 +67,20 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
+import ar.com.fdvs.dj.core.registration.ColumnsGroupTemporalVariablesRegistrationManager;
 import ar.com.fdvs.dj.core.registration.DJGroupRegistrationManager;
 import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroupTemporalVariable;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.util.DJCompilerFactory;
+import ar.com.fdvs.dj.util.LayoutUtils;
 
 /**
  * Helper class for running a report and some other DJ related stuff
@@ -84,8 +92,13 @@ public class DynamicJasperHelper {
 	private static final String DJ_RESOURCE_BUNDLE ="dj-messages";
 
 	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
-		new ColumnRegistrationManager(jd,dr,layoutManager).registerEntities(dr.getColumns());
-		new DJGroupRegistrationManager(jd,dr,layoutManager).registerEntities(dr.getColumnsGroups());
+		ColumnRegistrationManager columnRegistrationManager = new ColumnRegistrationManager(jd,dr,layoutManager);
+		columnRegistrationManager.registerEntities(dr.getColumns());
+		
+		DJGroupRegistrationManager djGroupRegistrationManager = new DJGroupRegistrationManager(jd,dr,layoutManager);
+		djGroupRegistrationManager.registerEntities(dr.getColumnsGroups());
+		
+		registerPercentageColumnsVariables(jd,dr,layoutManager);
 		registerOtherFields(jd,dr.getFields());
 		Locale locale = dr.getReportLocale() == null ? Locale.getDefault() : dr.getReportLocale();
 		if (log.isDebugEnabled()){
@@ -117,6 +130,39 @@ public class DynamicJasperHelper {
 //		report.
 	}
 
+	private static void registerPercentageColumnsVariables(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
+		for (Iterator iterator = dr.getColumns().iterator(); iterator.hasNext();) {
+			AbstractColumn column = (AbstractColumn) iterator.next();
+//			if (column instanceof PercentageColumn) {
+//				PercentageColumn percentageColumn = ((PercentageColumn) column);				
+//				JRDesignGroup jrGroup = LayoutUtils.getJRDesignGroup(jd, layoutManager, percentageColumn.getGroup());
+//				ColumnsGroupTemporalVariablesRegistrationManager variablesRM = new ColumnsGroupTemporalVariablesRegistrationManager(jd,dr,layoutManager, jrGroup);
+//				DJGroupTemporalVariable variable = new DJGroupTemporalVariable(percentageColumn.getGroupVariableName(), percentageColumn.getPercentageColumn(), DJCalculation.SUM);
+//				Collection entities = new ArrayList();
+//				entities.add(variable);
+//				variablesRM.registerEntities(entities);
+//			}
+			
+			/**
+			 * Group should not be needed in the percentage column. There should be a variable for each group, using
+			 * parent group as "rest group"
+			 */
+			if (column instanceof PercentageColumn) {
+				PercentageColumn percentageColumn = ((PercentageColumn) column);				
+				for (Iterator iterator2 = dr.getColumnsGroups().iterator(); iterator2.hasNext();) {
+					DJGroup djGroup = (DJGroup) iterator2.next();
+					JRDesignGroup jrGroup = LayoutUtils.getJRDesignGroup(jd, layoutManager, djGroup);
+					ColumnsGroupTemporalVariablesRegistrationManager variablesRM = new ColumnsGroupTemporalVariablesRegistrationManager(jd,dr,layoutManager, jrGroup);
+					DJGroupTemporalVariable variable = new DJGroupTemporalVariable(percentageColumn.getGroupVariableName(djGroup), percentageColumn.getPercentageColumn(), DJCalculation.SUM);
+					Collection entities = new ArrayList();
+					entities.add(variable);
+					variablesRM.registerEntities(entities);
+				}
+			}			
+		}
+	}
+	
+	
 	private static void registerOtherFields(DynamicJasperDesign jd, List fields) {
 		for (Iterator iter = fields.iterator(); iter.hasNext();) {
 			ColumnProperty element = (ColumnProperty) iter.next();
@@ -128,7 +174,7 @@ public class DynamicJasperHelper {
 			} catch (JRException e) {
 //				e.printStackTrace();
 				//if the field is already registered, it's not a problem
-				log.warn(e.getMessage(),e);
+				log.warn(e.getMessage());
 			}
 		}
 

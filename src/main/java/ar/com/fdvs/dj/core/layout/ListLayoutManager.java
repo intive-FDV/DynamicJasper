@@ -76,7 +76,7 @@ public class ListLayoutManager extends AbstractLayoutManager {
 			if (Number.class.isAssignableFrom(Class.forName(textField.getExpression().getValueClassName())))
 				textField.setPattern(null);
 		} catch (ClassNotFoundException e) {
-			throw new LayoutException(e.getMessage());
+			throw new LayoutException(e.getMessage(),e);
 		}
 	}
 

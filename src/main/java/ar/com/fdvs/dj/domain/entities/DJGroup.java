@@ -34,6 +34,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.list.UnmodifiableList;
+
 import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJGroupLabel;
@@ -168,7 +170,7 @@ public class DJGroup extends DJBaseElement {
 	}
 
 	public List getFooterVariables() {
-		return footerVariables;
+		return UnmodifiableList.decorate(footerVariables);
 	}
 
 	public void setFooterVariables(ArrayList footerVariables) {
@@ -176,7 +178,7 @@ public class DJGroup extends DJBaseElement {
 	}
 
 	public List getHeaderVariables() {
-		return headerVariables;
+		return  UnmodifiableList.decorate(headerVariables);
 	}
 
 	public void setHeaderVariables(ArrayList headerVariables) {
@@ -316,10 +318,12 @@ public class DJGroup extends DJBaseElement {
 	
 	public void addHeaderVariable(DJGroupVariable var) {
 		headerVariables.add(var);
+		var.setGroup(this);
 	}
 	
 	public void addFooterVariable(DJGroupVariable var) {
 		footerVariables.add(var);
+		var.setGroup(this);
 	}
 
 	public void addVariable(DJGroupTemporalVariable var) {

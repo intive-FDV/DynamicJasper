@@ -83,6 +83,7 @@ import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.LayoutUtils;
@@ -916,20 +917,29 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		return false;
 	}
 
-	protected void placeVariableInBand(List variables, DJGroup columnsGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
+	/**
+	 * 
+	 * @param variables
+	 * @param djGroup
+	 * @param jgroup
+	 * @param type (header or footer)
+	 * @param band
+	 * @param yOffset
+	 */
+	protected void placeVariableInBand(List variables, DJGroup djGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
 		if ((variables == null) || (variables.isEmpty())) {
 			return;
 		}
 		
 		boolean inFooter = DJConstants.FOOTER.equals(type);
 		
-		log.debug("Placing variables in "+type+" band for group " + columnsGroup.getColumnToGroupBy().getTextForExpression());
+		log.debug("Placing variables in "+type+" band for group " + djGroup.getColumnToGroupBy().getTextForExpression());
 		
 		int height = 0;
 		if (inFooter)
-			height = getFooterVariableHeight(columnsGroup);
+			height = getFooterVariableHeight(djGroup);
 		else
-			height = getHeaderVariablesHeight(columnsGroup);
+			height = getHeaderVariablesHeight(djGroup);
 		
 		Iterator it = variables.iterator();
 		int yOffsetGlabel = 0;
@@ -939,10 +949,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			
 			//Add the group label
 			DJGroupLabel label = var.getLabel();
+			JRDesignTextField labelTf = null;
 			if (label != null){
 				
 				JRDesignExpression labelExp = ExpressionUtils.createStringExpression("\""+ label.getText() + "\"");
-				JRDesignTextField labelTf = new JRDesignTextField();
+				labelTf = new JRDesignTextField();
 				labelTf.setExpression(labelExp);
 				labelTf.setWidth(col.getWidth().intValue());
 				labelTf.setHeight(label.getHeight());
@@ -958,15 +969,32 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 
 			//Build the expression for the variable 
-			String variableName = col.getGroupVariableName(type, columnsGroup.getColumnToGroupBy().getColumnProperty().getProperty());
+			String variableName = col.getGroupVariableName(type, djGroup.getColumnToGroupBy().getColumnProperty().getProperty());
 
 			JRDesignExpression expression = new JRDesignExpression();
 			JRDesignTextField textField = new JRDesignTextField();
 			
-			setTextAndClassToExpression(expression,var,col,variableName);
+			textField.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
+			
+			if (var.getValueExpression() != null) {
+				String text = ExpressionUtils.createCustomExpressionInvocationText(variableName + "_valueExpression");
+				expression.setValueClassName(var.getValueExpression().getClassName());
+				expression.setText(text);
+			}
+			else
+				setTextAndClassToExpression(expression,var,col,variableName);
 			
 			if (var.getOperation() != DJCalculation.COUNT && var.getOperation() != DJCalculation.DISTINCT_COUNT )
 				textField.setPattern(col.getPattern());
+			
+			if (col instanceof PercentageColumn) {
+				PercentageColumn pcol = (PercentageColumn) col;
+				expression.setText(pcol.getTextForExpression(djGroup, djGroup ,type));
+				expression.setValueClassName(pcol.getValueClassNameForExpression());
+				textField.setEvaluationTime(JRExpression.EVALUATION_TIME_AUTO);
+			} else {
+				textField.setEvaluationGroup(jgroup);
+			}
 
 			textField.setKey(variableName);
 			textField.setExpression(expression);
@@ -985,9 +1013,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			textField.setWidth(col.getWidth().intValue());
 
-			textField.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
-
-			textField.setEvaluationGroup(jgroup);
 
 			textField.setKey("variable_for_column_"+ getVisibleColumns().indexOf(col) + "_in_group_" + getDesign().getGroupsList().indexOf(jgroup));
 			
@@ -996,8 +1021,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			//First we look for the specific element style, then the default style for the group variables
 			//and finally the column style.
 			Style defStyle = DJConstants.HEADER.equals(type)
-						? columnsGroup.getDefaulHeaderVariableStyle()
-						: columnsGroup.getDefaulFooterVariableStyle();
+						? djGroup.getDefaulHeaderVariableStyle()
+						: djGroup.getDefaulFooterVariableStyle();
 
 			if (var.getStyle() != null)
 				applyStyleToElement(var.getStyle(), textField);
@@ -1014,18 +1039,27 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			else if (defStyle != null)
 				applyStyleToElement(defStyle, textField);
 
-
+			if (var.getPrintWhenExpression() != null) {
+				JRDesignExpression exp = new JRDesignExpression();
+				String text = ExpressionUtils.createCustomExpressionInvocationText(variableName + "_printWhenExpression");
+				exp.setValueClassName(var.getPrintWhenExpression().getClassName());
+				exp.setText(text);
+				textField.setPrintWhenExpression(exp);
+				if (labelTf != null)
+					labelTf.setPrintWhenExpression(exp);
+			}
+			
 			band.addElement(textField);
 
 		}
 
-		if (columnsGroup.getColumnToGroupBy() instanceof GlobalGroupColumn) {
+		if (djGroup.getColumnToGroupBy() instanceof GlobalGroupColumn) {
 			int totalWidth = 0;
 
 			DJGroupVariable leftmostColumn = findLeftMostColumn(variables);
 			totalWidth = leftmostColumn.getColumnToApplyOperation().getPosX().intValue();
 
-			GlobalGroupColumn globalCol = (GlobalGroupColumn) columnsGroup.getColumnToGroupBy();
+			GlobalGroupColumn globalCol = (GlobalGroupColumn) djGroup.getColumnToGroupBy();
 
 			JRDesignTextField globalTextField = new JRDesignTextField();
 			JRDesignExpression globalExp = new JRDesignExpression();

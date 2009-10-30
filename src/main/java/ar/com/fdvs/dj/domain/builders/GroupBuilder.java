@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.domain.builders;
 
 import java.util.Iterator;
 
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJGroupLabel;
@@ -88,50 +89,75 @@ public class GroupBuilder {
 	}
 
 	public GroupBuilder addHeaderVariable(DJGroupVariable variable) {
-		group.getHeaderVariables().add(variable);
+		group.addHeaderVariable(variable);
 		return this;
 	}
 
 	public GroupBuilder addHeaderVariable(AbstractColumn column, DJCalculation operation) {
-		group.getHeaderVariables().add(new DJGroupVariable(column,operation));
+		group.addHeaderVariable(new DJGroupVariable(column,operation));
 		return this;
 	}
 
 	public GroupBuilder addHeaderVariable(AbstractColumn column, DJCalculation operation, Style style) {
-		group.getHeaderVariables().add(new DJGroupVariable(column,operation,style));
+		group.addHeaderVariable(new DJGroupVariable(column,operation,style));
 		return this;
 	}
+
+	public GroupBuilder addHeaderVariable(AbstractColumn column, DJCalculation operation, Style style, DJValueFormatter formatter) {
+		group.addHeaderVariable(new DJGroupVariable(column,operation,style,formatter));
+		return this;
+	}	
 	
-	public GroupBuilder addHeaderVariable(AbstractColumn column,
-			DJCalculation operation, Style style, DJValueFormatter formatter, DJGroupLabel glabel1) {
-		group.getHeaderVariables().add(new DJGroupVariable(column,operation,style,formatter,glabel1));
+	public GroupBuilder addHeaderVariable(AbstractColumn column, DJCalculation operation, Style style, DJValueFormatter formatter, DJGroupLabel glabel1) {
+		group.addHeaderVariable(new DJGroupVariable(column,operation,style,formatter,glabel1));
 		return this;
 	}	
 
+	public GroupBuilder addHeaderVariable(AbstractColumn column, CustomExpression valueExpression) {
+		group.addHeaderVariable(new DJGroupVariable(column, valueExpression));
+		return this;
+	}
+	
+	public GroupBuilder addHeaderVariable(AbstractColumn column, CustomExpression valueExpression, Style style) {
+		group.addHeaderVariable(new DJGroupVariable(column, valueExpression, style));
+		return this;
+	}
+	
 	public GroupBuilder addFooterVariable(DJGroupVariable variable) {
-		group.getFooterVariables().add(variable);
+		group.addFooterVariable(variable);
 		return this;
 	}
-
+	
 	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation) {
-		group.getFooterVariables().add(new DJGroupVariable(column3,operation));
+		group.addFooterVariable(new DJGroupVariable(column3,operation));
 		return this;
 	}
+	
 	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation, Style style) {
-		group.getFooterVariables().add(new DJGroupVariable(column3,operation,style));
+		group.addFooterVariable(new DJGroupVariable(column3,operation,style));
 		return this;
 	}
 
 	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation, Style style, DJValueFormatter valueFormatter) {
-		group.getFooterVariables().add(new DJGroupVariable(column3,operation,style,valueFormatter));
+		group.addFooterVariable(new DJGroupVariable(column3,operation,style,valueFormatter));
 		return this;
 	}
 
 	public GroupBuilder addFooterVariable(AbstractColumn column3, DJCalculation operation, Style style, DJValueFormatter valueFormatter, DJGroupLabel label) {
-		group.getFooterVariables().add(new DJGroupVariable(column3,operation,style,valueFormatter,label));
+		group.addFooterVariable(new DJGroupVariable(column3,operation,style,valueFormatter,label));
 		return this;
 	}
 
+	public GroupBuilder addFooterVariable(AbstractColumn column, CustomExpression valueExpression) {
+		group.addFooterVariable(new DJGroupVariable(column, valueExpression));
+		return this;
+	}
+	
+	public GroupBuilder addFooterVariable(AbstractColumn column, CustomExpression valueExpression, Style style) {
+		group.addFooterVariable(new DJGroupVariable(column, valueExpression, style));
+		return this;
+	}
+	
 	public GroupBuilder addVariable(String label, AbstractColumn column, DJCalculation operation) {
 		group.getVariables().add(new DJGroupTemporalVariable(label, column, operation));
 		return this;

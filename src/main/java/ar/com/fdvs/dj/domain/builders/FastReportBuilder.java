@@ -497,7 +497,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 			style = numberStyle;
 
 		DJGroupVariable columnsGroupVariable = new DJGroupVariable(column, op, style);
-		group.getHeaderVariables().add(columnsGroupVariable);
+		group.addHeaderVariable(columnsGroupVariable);
 		return this;
 	}
 
@@ -549,7 +549,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 			style = numberStyle;
 
 		DJGroupVariable columnsGroupVariable = new DJGroupVariable(column, op, style);
-		group.getFooterVariables().add(columnsGroupVariable);
+		group.addFooterVariable(columnsGroupVariable);
 		return this;
 	}
 
@@ -570,7 +570,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 			style = numberStyle;
 		
 		DJGroupVariable columnsGroupVariable = new DJGroupVariable(column, op, style, valueFormatter);
-		group.getFooterVariables().add(columnsGroupVariable);
+		group.addFooterVariable(columnsGroupVariable);
 		return this;
 	}
 

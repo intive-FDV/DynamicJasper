@@ -30,11 +30,13 @@
 package ar.com.fdvs.dj.core.registration;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 import net.sf.jasperreports.engine.design.JRDesignField;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 
 import org.apache.commons.logging.Log;
@@ -42,13 +44,17 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.entities.DJGroupTemporalVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import ar.com.fdvs.dj.util.LayoutUtils;
 
 /**
  * Manager invoked to register columns. An AbstractColumn is read and </br>
@@ -113,7 +119,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 			} catch (JRException e) {
 				log.info(FIELD_ALREADY_REGISTERED);
 			}
-		}
+		} 
 	}
 
 	protected Object transformEntity(Entity entity) {

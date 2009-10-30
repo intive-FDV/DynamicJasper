@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~ DynamicJasper: A library for creating reports dynamically by specifying
   ~ columns, groups, styles, etc. at runtime. It also saves a lot of development
@@ -55,11 +55,11 @@
       <item name="Codigo fuente y Javadoc" href="xref/index.html"/>
       <item name="Bug Tracker" href="https://sourceforge.net/tracker/?group_id=188060"/>
     </menu>
-    <menu name="Documentación - Ejemplos">
+    <menu name="DocumentaciÃ³n - Ejemplos">
       <item name="Empezando" href="docs/getting_started.html"/>
       <item name="Como..." href="docs/howto.html"/>
       <item name="Playground (GUI)" href="docs/playground.html"/>
-      <item name="Demo En línea" href="http://dynamicjasperplayground.fdvs.com.ar/" external="true"/>
+      <item name="Demo En lÃ­nea" href="http://dynamicjasperplayground.fdvs.com.ar/" external="true"/>
     </menu>
     <menu name="Comunidad">
       <item name="Forow" href="https://sourceforge.net/forum/?group_id=188060" external="true"/>

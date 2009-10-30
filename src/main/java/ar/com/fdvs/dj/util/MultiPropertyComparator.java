@@ -48,6 +48,10 @@ public class MultiPropertyComparator implements Comparator {
 
     private List info;
 
+    /**
+     * 
+     * @param _info List<SortInfo>
+     */
     public MultiPropertyComparator(final List _info) {
         info = _info;
     }

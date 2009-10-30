@@ -248,7 +248,7 @@ public class DJCrosstab extends DJBaseElement {
 	public Style getColumnTotalStyle() {
 		return columnTotalStyle;
 	}
-	public void setColumnTotalStyle(Style columnlTotaStyle) {
+	public void setColumnTotalStyle(Style columnTotalStyle) {
 		this.columnTotalStyle = columnTotalStyle;
 	}
 	public Style getRowTotalStyle() {

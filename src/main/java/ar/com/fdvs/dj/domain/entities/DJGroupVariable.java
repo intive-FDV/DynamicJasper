@@ -32,6 +32,8 @@ package ar.com.fdvs.dj.domain.entities;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.domain.BooleanExpression;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJGroupLabel;
@@ -56,8 +58,15 @@ public class DJGroupVariable extends DJBaseElement {
 	private DJCalculation operation;
 	private Style style;
 	private DJValueFormatter valueFormatter;
+	private BooleanExpression printWhenExpression;
+	private CustomExpression valueExpression;
 	
 	private DJGroupLabel label;
+
+	/**
+	 * for internal use.
+	 */
+	private DJGroup group;
 	
 	public DJGroupVariable(AbstractColumn columnToApplyOperation, DJCalculation operation) {
 		this.columnToApplyOperation = columnToApplyOperation;
@@ -77,6 +86,16 @@ public class DJGroupVariable extends DJBaseElement {
 		this.valueFormatter = formatter;
 	}
 
+	public DJGroupVariable(AbstractColumn columnToApplyOperation, CustomExpression valueExpression) {
+		this.columnToApplyOperation = columnToApplyOperation;
+		this.valueExpression = valueExpression;
+	}
+
+	public DJGroupVariable(AbstractColumn columnToApplyOperation, CustomExpression valueExpression, Style style) {
+		this.columnToApplyOperation = columnToApplyOperation;
+		this.valueExpression = valueExpression;
+		this.style = style;
+	}
 
 	
 	public String getTextForValueFormatterExpression(String variableName) {
@@ -147,6 +166,30 @@ public class DJGroupVariable extends DJBaseElement {
 		this.style = style;
 		this.valueFormatter = valueFormatter;
 		this.label = label;
+	}
+
+	public void setPrintWhenExpression(BooleanExpression printWhenExpression) {
+		this.printWhenExpression = printWhenExpression;
+	}
+
+	public BooleanExpression getPrintWhenExpression() {
+		return printWhenExpression;
+	}
+
+	public void setValueExpression(CustomExpression valueExpression) {
+		this.valueExpression = valueExpression;
+	}
+
+	public CustomExpression getValueExpression() {
+		return valueExpression;
+	}
+
+	public void setGroup(DJGroup djGroup) {
+		this.group = djGroup;
+	}
+
+	public DJGroup getGroup() {
+		return group;
 	}
 
 }

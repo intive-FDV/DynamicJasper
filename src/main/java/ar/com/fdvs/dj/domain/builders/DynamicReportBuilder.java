@@ -42,6 +42,7 @@ import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJCrosstab;
@@ -579,16 +580,6 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
-	/**
-	 * @param col
-	 * @param op
-	 * @return
-	 */
-	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op) {
-		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op));
-		return this;
-	}
-
 	public DynamicReportBuilder setGlobalHeaderVariableHeight(Integer height) {
 		globalVariablesGroup.setHeaderVariablesHeight(height);
 		return this;
@@ -599,11 +590,40 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	/**
+	 * @param col
+	 * @param op
+	 * @return
+	 */
+	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op) {
+		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op));
+		return this;
+	}
+	
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op, Style style) {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op, style));
 		return this;
 	}
 
+	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op, Style style, DJValueFormatter valueFormatter) {
+		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op,style,valueFormatter));
+		return this;
+	}
+	
+	public DynamicReportBuilder addGlobalHeaderVariable(DJGroupVariable variable) {
+		globalVariablesGroup.addHeaderVariable(variable);
+		return this;
+	}
+	
+	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn column, CustomExpression valueExpression) {
+		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, valueExpression));
+		return this;
+	}
+	
+	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn column, CustomExpression valueExpression, Style style) {
+		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, valueExpression, style));
+		return this;
+	}
 
 	/**
 	 * @param col
@@ -624,7 +644,22 @@ public class DynamicReportBuilder {
 		globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style,valueFormatter));
 		return this;
 	}
-
+	
+	public DynamicReportBuilder addGlobalFooterVariable(DJGroupVariable variable) {
+		globalVariablesGroup.addFooterVariable(variable);
+		return this;
+	}
+	
+	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn column, CustomExpression valueExpression) {
+		globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, valueExpression));
+		return this;
+	}
+	
+	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn column, CustomExpression valueExpression, Style style) {
+		globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, valueExpression, style));
+		return this;
+	}
+	
 	/**
 	 * @param col
 	 * @param op

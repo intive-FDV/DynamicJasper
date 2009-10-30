@@ -88,6 +88,7 @@ import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionStyleExpression;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
@@ -120,6 +121,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	/**
 	 * Holds the original groups binded to a column.
 	 * Needed for later reference
+	 * List<JRDesignGroup>
 	 */
 	protected List realGroups = new ArrayList();
 
@@ -645,7 +647,23 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			textField.getPropertiesMap().setProperty(JRTextElement.PROPERTY_TRUNCATE_SUFFIX, col.getTruncateSuffix());
 		}
 
-		exp.setText(col.getTextForExpression());
+		List columnsGroups = getReport().getColumnsGroups();
+		if (col instanceof PercentageColumn) {
+			PercentageColumn pcol = (PercentageColumn) col;
+			
+			if (group==null) { //we are in the detail band
+				DJGroup innerMostGroup = (DJGroup) columnsGroups.get(columnsGroups.size()-1);
+				exp.setText(pcol.getTextForExpression(innerMostGroup));
+			} else {
+				exp.setText(pcol.getTextForExpression(group));
+			}
+
+			textField.setEvaluationTime(JRExpression.EVALUATION_TIME_AUTO);
+		} else {
+			exp.setText(col.getTextForExpression());
+			
+		}
+		
 		exp.setValueClassName(col.getValueClassNameForExpression());
 		textField.setExpression(exp);
 		textField.setWidth(col.getWidth().intValue());
@@ -669,7 +687,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         JRDesignStyle jrstyle = (JRDesignStyle) textField.getStyle();
         
         if (group != null) {
-        	int index = getReport().getColumnsGroups().indexOf(group);
+        	int index = columnsGroups.indexOf(group);
 //            JRDesignGroup previousGroup = (JRDesignGroup) getDesign().getGroupsList().get(index);
             JRDesignGroup previousGroup = getJRGroupFromDJGroup(group);
             textField.setPrintWhenGroupChanges(previousGroup);
@@ -1012,7 +1030,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				getDesign().addVariable(var);
 				vars.add(var);
 			} catch (JRException e) {
-				throw new LayoutException(e.getMessage());
+				throw new LayoutException(e.getMessage(),e);
 			}
 			serieNum++;
 		}
@@ -1119,7 +1137,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				getDesign().addVariable(var);
 				vars.put(col, var);
 			} catch (JRException e) {
-				throw new LayoutException(e.getMessage());
+				throw new LayoutException(e.getMessage(),e);
 			}
 			serieNum++;
 		}

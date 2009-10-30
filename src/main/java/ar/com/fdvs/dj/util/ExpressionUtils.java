@@ -49,8 +49,10 @@ import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 
 public class ExpressionUtils {
 
@@ -310,8 +312,6 @@ public class ExpressionUtils {
 
 	public static String getTextForFieldsFromScriptlet() {
 		return "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentFiels()";
-	}	
-
-
+	}
 
 }

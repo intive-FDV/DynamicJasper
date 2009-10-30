@@ -29,8 +29,6 @@
 
 package ar.com.fdvs.dj.core.registration;
 
-import java.util.List;
-
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
@@ -58,18 +56,20 @@ import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 public class ColumnsGroupTemporalVariablesRegistrationManager extends AbstractEntityRegistrationManager {
 
 	private static final Log log = LogFactory.getLog(ColumnsGroupTemporalVariablesRegistrationManager.class);
-
-	public ColumnsGroupTemporalVariablesRegistrationManager(DynamicJasperDesign jd,  DynamicReport dr, LayoutManager layoutManager) {
+	JRDesignGroup group = null;
+	
+	public ColumnsGroupTemporalVariablesRegistrationManager(DynamicJasperDesign jd,  DynamicReport dr, LayoutManager layoutManager, JRDesignGroup group) {
 		super(jd,dr,layoutManager);
+		this.group = group;
 	}
-
+	
 	protected void registerEntity(Entity entity) {
 		log.debug("registering group variable...");
 		try {
 			JRDesignVariable jrVariable = (JRDesignVariable)transformEntity(entity);
 			getDjd().addVariable(jrVariable);			
 		} catch (JRException e) {
-			throw new EntitiesRegistrationException(e.getMessage());
+			throw new EntitiesRegistrationException(e.getMessage(),e);
 		}
 	}
 
@@ -80,10 +80,6 @@ public class ColumnsGroupTemporalVariablesRegistrationManager extends AbstractEn
 		DJCalculation op = columnsGroupVariable.getOperation();
 
 		JRDesignExpression expression = new JRDesignExpression();
-
-		//only variables from the last registered group are important now
-		List groupsList = getDjd().getGroupsList();
-		JRDesignGroup registeredGroup = (JRDesignGroup)groupsList.get(groupsList.size()-1);
 
 		if (col instanceof ExpressionColumn && ((ExpressionColumn)col).getExpressionForCalculation() != null){
 			ExpressionColumn expcol = (ExpressionColumn)col;
@@ -99,8 +95,10 @@ public class ColumnsGroupTemporalVariablesRegistrationManager extends AbstractEn
 		variable.setCalculation(columnsGroupVariable.getOperation().getValue());
 		variable.setName(columnsGroupVariable.getName());
 
-		variable.setResetType(JRDesignVariable.RESET_TYPE_GROUP);
-		variable.setResetGroup(registeredGroup);
+		if (group != null) {
+			variable.setResetType(JRDesignVariable.RESET_TYPE_GROUP);
+			variable.setResetGroup(group);
+		}
 
 		String valueClassName = col.getVariableClassName(op);
 		String initialExpression = col.getInitialExpression(op);

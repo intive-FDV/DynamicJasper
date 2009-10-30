@@ -41,11 +41,14 @@ import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.PropertiesMap;
@@ -86,9 +89,11 @@ public class ColumnBuilder {
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	private String fieldDescription;
 	private String truncateSuffix;
-    private String formatParameter;
-    private Format textFormatter;
-
+//	private String formatParameter;
+	private Format textFormatter;
+	private PropertyColumn percentageColumn;
+	private DJGroup percentageGroup;
+    
 	private int columnType = COLUMN_TYPE_DEFAULT;
 	private static Random random = new Random();
 
@@ -106,8 +111,8 @@ public class ColumnBuilder {
 	}
 
 	public AbstractColumn build() throws ColumnBuilderException{
-		if (customExpression == null && columnProperty == null && operationColumns.isEmpty()){
-			throw new ColumnBuilderException("Either a ColumnProperty or a CustomExpression must be present");
+		if (customExpression == null && columnProperty == null && operationColumns.isEmpty() && percentageColumn == null){
+			throw new ColumnBuilderException("Either a ColumnProperty or a CustomExpression or a PercentageColumn must be present");
 		}
 
 		if (columnType == COLUMN_TYPE_IMAGE){
@@ -115,6 +120,9 @@ public class ColumnBuilder {
 		}
 		else if (columnType == COLUMN_TYPE_BARCODE){
 			return buildSimpleBarcodeColumn();
+		}
+		else if (percentageColumn != null) {
+			return buildPercentageColumn();
 		}
 		else if (columnProperty != null) { //FIXME Horrible!!! Can't I create an expression column with a propery also?
 			return buildSimpleColumn();
@@ -171,6 +179,16 @@ public class ColumnBuilder {
 		return column;
 	}
 
+	protected AbstractColumn buildPercentageColumn() {
+		PercentageColumn column = new PercentageColumn();
+		populateCommonAttributes(column);
+		column.setPercentageColumn(percentageColumn);
+//		column.setGroup(percentageGroup);
+		if (pattern == null)
+			column.setPattern("#,##0.00%");
+		return column;
+	}
+	
 	/**
 	 * For creating regular columns
 	 * @return
@@ -421,5 +439,13 @@ public class ColumnBuilder {
     	return this;
     }
 
-
+  public ColumnBuilder setPercentageColumn(PropertyColumn percentageColumn) {
+  	return setPercentageColumn(percentageColumn, null);
+  }
+  
+  public ColumnBuilder setPercentageColumn(PropertyColumn percentageColumn, DJGroup group) {
+  	this.percentageColumn = percentageColumn;
+  	this.percentageGroup = group;
+  	return this;
+  }
 }

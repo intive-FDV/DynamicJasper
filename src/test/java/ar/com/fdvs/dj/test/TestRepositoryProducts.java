@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.fdvs.dj.test.domain.Product;
+import ar.com.fdvs.dj.util.SortUtils;
 
 public class TestRepositoryProducts {
 
@@ -207,5 +208,15 @@ public class TestRepositoryProducts {
 //		col.add(new Product( new Long("10"),"food","snickers","Arizona","Shopping Center", new Long("4000"), new Float("5831.32")));
 
 		return col;
+	}
+	
+	public static List getDummyCollectionSorted1(){
+		List list = getDummyCollection();
+		return SortUtils.sortCollection(list, new String[]{"state","branch","item"});
+		
+	}	
+	
+	public static void main(String[] args) {
+		System.out.println(getDummyCollectionSorted1());
 	}
 }

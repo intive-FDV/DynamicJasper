@@ -61,6 +61,18 @@ public class SortUtils {
         Collections.sort(l, mpc);
         return l;
     }
+	
+	public static List sortCollection(Collection dummyCollection, String[] properties) {
+		ArrayList l = new ArrayList(dummyCollection);
+		ArrayList info = new ArrayList();
+		for (int i = 0; i < properties.length; i++) {
+			info.add(new SortInfo(properties[i], true));
+		}
+		MultiPropertyComparator mpc = new MultiPropertyComparator(info);
+		Collections.sort(l, mpc);
+		return l;
+	}
+	
 	public static List sortCollection(Collection dummyCollection, DJCrosstab crosstab) {
 		ArrayList l = new ArrayList(dummyCollection);
 		ArrayList info = new ArrayList();

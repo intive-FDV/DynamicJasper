@@ -122,7 +122,7 @@ public class TimeSeriesChartBuilderTest extends BaseDjReportTest {
 		.setTitle(new StringExpression() {			
 			private SimpleDateFormat format = new SimpleDateFormat("MMMM yyyy");
 			public Object evaluate(Map fields, Map variables, Map parameters) {
-				return "From " + format.format(variables.get("min_date")) + " to " + format.format(variables.get("max_date"));
+				return "From " + format.format((Date)variables.get("min_date")) + " to " + format.format((Date)variables.get("max_date"));
 			}
 		})
 		.setTitleColor(Color.DARK_GRAY)
