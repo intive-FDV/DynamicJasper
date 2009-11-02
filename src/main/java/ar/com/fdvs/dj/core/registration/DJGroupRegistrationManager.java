@@ -73,8 +73,8 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 			getDjd().addGroup(group);
 			//Variables are registered right after the group where they belong.
 			String property = djgroup.getColumnToGroupBy().getColumnProperty().getProperty();
-//			ColumnsGroupTemporalVariablesRegistrationManager variablesRM = new ColumnsGroupTemporalVariablesRegistrationManager(getDjd(),getDynamicReport(),getLayoutManager(), group);
-//			variablesRM.registerEntities(djgroup.getVariables());
+			ColumnsGroupTemporalVariablesRegistrationManager variablesRM = new ColumnsGroupTemporalVariablesRegistrationManager(getDjd(),getDynamicReport(),getLayoutManager(), group);
+			variablesRM.registerEntities(djgroup.getVariables());
 			
 			ColumnsGroupVariablesRegistrationManager headerVariablesRM = new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.HEADER, property, getDjd(),getDynamicReport(),getLayoutManager());
 			headerVariablesRM.registerEntities(djgroup.getHeaderVariables());
