@@ -35,6 +35,11 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.13-beta1" date="2009-11-04" desc="Crosstabs enhancements" >
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						crosstabs measures can have value formatters. See CrosstabReportWithNullValuesTest for an example
+					 </action>	
+				 </release>			 
 				 <release version="3.0.12" date="2009-11-02" desc="Urgent Fix" >
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Ricardo Mariaca">
 						Fixed bug introduced in 3.0.11 which prevented global variables to be shown.

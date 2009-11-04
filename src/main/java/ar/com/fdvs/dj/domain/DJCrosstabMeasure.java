@@ -29,7 +29,8 @@
 
 package ar.com.fdvs.dj.domain;
 
-import org.apache.log4j.Logger;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +38,16 @@ import java.util.List;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 
+
 public class DJCrosstabMeasure extends DJBaseElement {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(DJCrosstabMeasure.class);
+	private static final Log logger = LogFactory.getLog(DJCrosstabMeasure.class);
+
+	/**
+	 * Logger for this class
+	 */
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
