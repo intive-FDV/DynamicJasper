@@ -58,6 +58,7 @@ import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
+import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -67,11 +68,13 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
+import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
@@ -422,8 +425,17 @@ public class Dj2JrCrosstabBuilder {
 
 					JRDesignExpression measureExp = new JRDesignExpression();
 //					DJCrosstabMeasure measure = djcross.getMeasure(0);
-					measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
-					measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+					
+					if (djmeasure.getValueFormatter()== null){
+						measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
+						measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+					} else {
+						measureExp.setText(djmeasure.getTextForValueFormatterExpression(djmeasure.getProperty().getProperty()));
+						measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
+					}					
+					
+//					measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
+//					measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
 					
 					element.setExpression(measureExp);
 
@@ -582,6 +594,25 @@ public class Dj2JrCrosstabBuilder {
 			valueExp.setValueClassName(djmeasure.getProperty().getValueClassName());
 			valueExp.setText("$F{"+djmeasure.getProperty().getProperty()+"}");
 			measure.setValueExpression(valueExp);
+			
+			if (djmeasure.getValueFormatter() != null){
+				JRDesignParameter dparam = new JRDesignParameter();
+				dparam.setName("crosstab-measure__" + measure.getName() + "_vf"); //value formater suffix
+				dparam.setValueClassName(DJValueFormatter.class.getName());
+
+				JRDesignCrosstabParameter crosstabParameter = new JRDesignCrosstabParameter();
+				crosstabParameter.setName("crosstab-measure__" + measure.getName() + "_vf"); //value formater suffix
+				crosstabParameter.setValueClassName(DJValueFormatter.class.getName());
+				
+				log.debug("Registering value formatter parameter for property " + dparam.getName() );
+				try {
+					design.addParameter(dparam);
+					jrcross.addParameter(crosstabParameter);
+				} catch (JRException e) {
+					throw new EntitiesRegistrationException(e.getMessage(),e);
+				}
+				((DynamicJasperDesign)design).getParametersWithValues().put(dparam.getName(), djmeasure.getValueFormatter());						
+			}
 
 			try {
 				jrcross.addMeasure(measure);

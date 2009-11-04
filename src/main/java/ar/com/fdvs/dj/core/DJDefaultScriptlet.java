@@ -8,6 +8,11 @@ import net.sf.jasperreports.engine.fill.JRFillGroup;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+/**
+ * This class handles parameter passing to custom expressions in runtime (during report fill)
+ * @author mamana
+ *
+ */
 public class DJDefaultScriptlet extends JRDefaultScriptlet  {
 	
 	int veces = 0;

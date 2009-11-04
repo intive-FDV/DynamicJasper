@@ -515,7 +515,7 @@ public class DynamicJasperHelper {
 			registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
 
 			layoutManager.applyLayout(jd, dr);
-			JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
+			JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, "ar.com.fdvs.dj.util.DJJRJdtCompiler");			
 			jr = JasperCompileManager.compileReport(jd);
 			generatedParams.putAll(jd.getParametersWithValues());
 		return jr;

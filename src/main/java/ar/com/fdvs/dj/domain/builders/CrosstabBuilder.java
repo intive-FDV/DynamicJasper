@@ -41,6 +41,7 @@ import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DJLabel;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 
@@ -378,6 +379,15 @@ public class CrosstabBuilder {
 	public CrosstabBuilder setCaption(DJLabel caption) {
 		crosstab.setCaption(caption);
 		return this;
+	}
+
+	public CrosstabBuilder addMeasure(String property, String className, DJCalculation operation, String title, Style style,
+			DJValueFormatter valueFormatter) {
+		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
+		measure.setStyle(style);
+		measure.setValueFormatter(valueFormatter);
+		crosstab.getMeasures().add(measure);
+		return this;	
 	}
 
 }

@@ -29,12 +29,19 @@
 
 package ar.com.fdvs.dj.domain;
 
+import org.apache.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 public class DJCrosstabMeasure extends DJBaseElement {
+	/**
+	 * Logger for this class
+	 */
+	private static final Logger logger = Logger.getLogger(DJCrosstabMeasure.class);
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
@@ -42,6 +49,7 @@ public class DJCrosstabMeasure extends DJBaseElement {
 	private DJCalculation operation;
 	private String title;
 	private List conditionalStyles = new ArrayList();
+	private DJValueFormatter valueFormatter;
 
 	private Style style;
 	
@@ -108,4 +116,26 @@ public class DJCrosstabMeasure extends DJBaseElement {
 		this.link = link;
 	}
 
+	public DJValueFormatter getValueFormatter() {
+		return valueFormatter;
+	}
+
+	public void setValueFormatter(DJValueFormatter valueFormatter) {
+		this.valueFormatter = valueFormatter;
+	}
+
+	public String getTextForValueFormatterExpression(String variableName) {
+		
+		String fieldsMap = ExpressionUtils.getTextForFieldsFromScriptlet();
+		String parametersMap = ExpressionUtils.getTextForParametersFromScriptlet();
+		String variablesMap = ExpressionUtils.getTextForVariablesFromScriptlet();		
+		
+		String stringExpression = "((("+DJValueFormatter.class.getName()+")$P{crosstab-measure__"+variableName+"_vf}).evaluate( "
+			+ "$V{"+variableName+"}, " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+
+		logger.debug("Expression for crosstab DJValueFormatter = " + stringExpression);
+
+		return stringExpression;
+	}		
+	
 }
