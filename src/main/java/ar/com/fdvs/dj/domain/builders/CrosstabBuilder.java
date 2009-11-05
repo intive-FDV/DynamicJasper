@@ -34,6 +34,7 @@ import java.util.Iterator;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.CrossTabColorShema;
 import ar.com.fdvs.dj.core.layout.LayoutException;
+import ar.com.fdvs.dj.domain.DJCRosstabMeasurePrecalculatedTotalProvider;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
@@ -386,6 +387,16 @@ public class CrosstabBuilder {
 		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
 		measure.setStyle(style);
 		measure.setValueFormatter(valueFormatter);
+		crosstab.getMeasures().add(measure);
+		return this;	
+	}
+	
+	public CrosstabBuilder addMeasure(String property, String className, DJCalculation operation, String title, Style style,
+			DJValueFormatter valueFormatter, DJCRosstabMeasurePrecalculatedTotalProvider totalProvider) {
+		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
+		measure.setStyle(style);
+		measure.setValueFormatter(valueFormatter);
+		measure.setPrecalculatedTotalProvider(totalProvider);
 		crosstab.getMeasures().add(measure);
 		return this;	
 	}

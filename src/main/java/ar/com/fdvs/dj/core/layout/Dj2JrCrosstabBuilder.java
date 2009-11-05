@@ -70,6 +70,7 @@ import org.apache.commons.logging.LogFactory;
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
 import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJCRosstabMeasurePrecalculatedTotalProvider;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
@@ -426,13 +427,38 @@ public class Dj2JrCrosstabBuilder {
 					JRDesignExpression measureExp = new JRDesignExpression();
 //					DJCrosstabMeasure measure = djcross.getMeasure(0);
 					
-					if (djmeasure.getValueFormatter()== null){
-						measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
-						measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
-					} else {
-						measureExp.setText(djmeasure.getTextForValueFormatterExpression(djmeasure.getProperty().getProperty()));
-						measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
-					}					
+					boolean isTotalCell = crosstabRow.getProperty() != null || crosstabColumn.getProperty() != null;
+					
+					if (!isTotalCell){
+						if (djmeasure.getValueFormatter()== null){ 
+							measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
+							measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+						} else {
+							measureExp.setText(djmeasure.getTextForValueFormatterExpression(djmeasure.getProperty().getProperty()));
+							measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
+						}
+					} else { //is a total cell
+						if (djmeasure.getValueFormatter()== null){ 
+							if (djmeasure.getPrecalculatedTotalProvider() == null) {
+								measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
+								measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+							} else {
+								//call the precalculated value AND the value formatter
+								setExpressionForPrecalculatedTotalValue(auxCols, auxRows, measureExp, djmeasure, crosstabColumn, crosstabRow);
+							}
+						} else { //have value formatter
+							if (djmeasure.getPrecalculatedTotalProvider() == null) {
+								//no vlue formatter, no total provider
+								measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
+								measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+							} else {
+								//no vlue formatter, call the precalculated value only
+//								measureExp.setValueClass(String.class);
+//								measureExp.setText("\"VF, prec\"");
+								setExpressionForPrecalculatedTotalValue(auxCols, auxRows, measureExp, djmeasure, crosstabColumn, crosstabRow);
+							}
+						}
+					}
 					
 //					measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
 //					measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
@@ -451,6 +477,7 @@ public class Dj2JrCrosstabBuilder {
 					else if (crosstabColumn.getTotalStyle() != null) {
 						layoutManager.applyStyleToElement(crosstabColumn.getTotalStyle(), element);
 					}*/
+					
 					//measure
 					if (crosstabRow.getProperty() == null && crosstabColumn.getProperty() == null && djmeasure.getStyle() != null ){
 						//this is the inner most cell
@@ -484,6 +511,15 @@ public class Dj2JrCrosstabBuilder {
 					}
 					
 					JRDesignStyle jrstyle = (JRDesignStyle) element.getStyle();
+					//FIXME this is a hack
+					if (jrstyle == null){
+						if (log.isDebugEnabled()){
+							log.warn("jrstyle is null in crosstab cell, this should have not happened.");
+						}
+						layoutManager.applyStyleToElement(null, element);
+						jrstyle = (JRDesignStyle)element.getStyle();
+					}
+					
         	JRDesignStyle alternateStyle = Utils.cloneStyle(jrstyle);
     			alternateStyle.setName(alternateStyle.getFontName() +"_for_column_" + djmeasure.getProperty());
     			alternateStyle.getConditionalStyleList().clear();
@@ -520,6 +556,87 @@ public class Dj2JrCrosstabBuilder {
 			}
 
 		}
+	}
+
+	/**
+	 * set proper expression text invoking the DJCRosstabMeasurePrecalculatedTotalProvider for the cell
+	 * @param auxRows 
+	 * @param auxCols 
+	 * @param measureExp
+	 * @param djmeasure
+	 * @param crosstabColumn
+	 * @param crosstabRow
+	 */
+	private void setExpressionForPrecalculatedTotalValue(
+			DJCrosstabColumn[] auxCols, DJCrosstabRow[] auxRows, JRDesignExpression measureExp, DJCrosstabMeasure djmeasure,
+			DJCrosstabColumn crosstabColumn, DJCrosstabRow crosstabRow) {
+		
+		String rowValuesExp = "new Object[]{";
+		String rowPropsExp = "new String[]{";
+		for (int i = 0; i < auxRows.length; i++) {
+			if (auxRows[i].getProperty()== null)
+				continue;
+			rowValuesExp += "$V{" + auxRows[i].getProperty().getProperty() +"}";
+			rowPropsExp += "\"" + auxRows[i].getProperty().getProperty() +"\"";
+			if (i+1<auxRows.length && auxRows[i+1].getProperty()!= null){
+				rowValuesExp += ", ";
+				rowPropsExp += ", ";
+			}
+		}
+		rowValuesExp += "}";
+		rowPropsExp += "}";
+		
+		String colValuesExp = "new Object[]{";
+		String colPropsExp = "new String[]{";
+		for (int i = 0; i < auxCols.length; i++) {
+			if (auxCols[i].getProperty()== null)
+				continue;
+			colValuesExp += "$V{" + auxCols[i].getProperty().getProperty() +"}";
+			colPropsExp += "\"" + auxCols[i].getProperty().getProperty() +"\"";
+			if (i+1<auxCols.length && auxCols[i+1].getProperty()!= null){
+				colValuesExp += ", ";
+				colPropsExp += ", ";
+			}
+		}
+		colValuesExp += "}";
+		colPropsExp += "}";
+		
+		String expText = "((("+DJCRosstabMeasurePrecalculatedTotalProvider.class.getName()+")$P{crosstab-measure__"+djmeasure.getProperty().getProperty()+"_totalProvider}).getValueFor( "
+		+ colPropsExp +", " 
+		+ colValuesExp +", " 
+		+ rowPropsExp 
+		+ ", " 
+		+ rowValuesExp 
+		+" ))";
+	
+		if (djmeasure.getValueFormatter() != null){
+			
+			String fieldsMap = ExpressionUtils.getTextForFieldsFromScriptlet();
+			String parametersMap = ExpressionUtils.getTextForParametersFromScriptlet();
+			String variablesMap = ExpressionUtils.getTextForVariablesFromScriptlet();		
+			
+			String stringExpression = "((("+DJValueFormatter.class.getName()+")$P{crosstab-measure__"+djmeasure.getProperty().getProperty()+"_vf}).evaluate( "
+				+ "("+expText+"), " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";			
+			
+			measureExp.setText(stringExpression);
+			measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());			
+		} else {
+					
+//			String expText = "((("+DJCRosstabMeasurePrecalculatedTotalProvider.class.getName()+")$P{crosstab-measure__"+djmeasure.getProperty().getProperty()+"_totalProvider}).getValueFor( "
+//			+ colPropsExp +", " 
+//			+ colValuesExp +", " 
+//			+ rowPropsExp 
+//			+ ", " 
+//			+ rowValuesExp 
+//			+" ))";
+//			
+			log.debug("text for crosstab total provider is: " + expText);
+			
+			measureExp.setText(expText);
+//			measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());	
+			measureExp.setValueClassName(Number.class.getName());	//FIXME Are we sure only numbers are shown?
+		}
+		
 	}
 
 	private void setUpConditionStyles(JRDesignStyle jrstyle, DJCrosstabMeasure djmeasure, String columExpression) {
@@ -612,6 +729,25 @@ public class Dj2JrCrosstabBuilder {
 					throw new EntitiesRegistrationException(e.getMessage(),e);
 				}
 				((DynamicJasperDesign)design).getParametersWithValues().put(dparam.getName(), djmeasure.getValueFormatter());						
+			}
+			
+			if (djmeasure.getPrecalculatedTotalProvider() != null){
+				JRDesignParameter dparam = new JRDesignParameter();
+				dparam.setName("crosstab-measure__" + measure.getName() + "_totalProvider"); //value formater suffix
+				dparam.setValueClassName(DJCRosstabMeasurePrecalculatedTotalProvider.class.getName());
+				
+				JRDesignCrosstabParameter crosstabParameter = new JRDesignCrosstabParameter();
+				crosstabParameter.setName("crosstab-measure__" + measure.getName() + "_totalProvider"); //value formater suffix
+				crosstabParameter.setValueClassName(DJCRosstabMeasurePrecalculatedTotalProvider.class.getName());
+				
+				log.debug("Registering crosstab total provider parameter for property " + dparam.getName() );
+				try {
+					design.addParameter(dparam);
+					jrcross.addParameter(crosstabParameter);
+				} catch (JRException e) {
+					throw new EntitiesRegistrationException(e.getMessage(),e);
+				}
+				((DynamicJasperDesign)design).getParametersWithValues().put(dparam.getName(), djmeasure.getPrecalculatedTotalProvider());						
 			}
 
 			try {

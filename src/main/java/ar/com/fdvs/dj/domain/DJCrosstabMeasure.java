@@ -56,6 +56,7 @@ public class DJCrosstabMeasure extends DJBaseElement {
 	private String title;
 	private List conditionalStyles = new ArrayList();
 	private DJValueFormatter valueFormatter;
+	private DJCRosstabMeasurePrecalculatedTotalProvider precalculatedTotalProvider;
 
 	private Style style;
 	
@@ -138,10 +139,21 @@ public class DJCrosstabMeasure extends DJBaseElement {
 		
 		String stringExpression = "((("+DJValueFormatter.class.getName()+")$P{crosstab-measure__"+variableName+"_vf}).evaluate( "
 			+ "$V{"+variableName+"}, " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+		
 
 		logger.debug("Expression for crosstab DJValueFormatter = " + stringExpression);
 
 		return stringExpression;
-	}		
+	}
+
+	public DJCRosstabMeasurePrecalculatedTotalProvider getPrecalculatedTotalProvider() {
+		return precalculatedTotalProvider;
+	}
+
+	public void setPrecalculatedTotalProvider(
+			DJCRosstabMeasurePrecalculatedTotalProvider precalculatedTotalProvider) {
+		this.precalculatedTotalProvider = precalculatedTotalProvider;
+	}
+
 	
 }

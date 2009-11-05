@@ -32,11 +32,13 @@ package ar.com.fdvs.dj.test.crosstab;
 
 import java.awt.Color;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.domain.DJCRosstabMeasurePrecalculatedTotalProvider;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
@@ -55,7 +57,7 @@ import ar.com.fdvs.dj.test.BaseDjReportTest;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
 
-public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
+public class CrosstabReportWithPrecalculatedTotalsTest extends BaseDjReportTest {
 
 	private Style totalHeaderStyle;
 	private Style colAndRowHeaderStyle;
@@ -80,6 +82,9 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 			.setUseFullPageWidth(true)
 			.setDefaultStyles(titleStyle, null, null, null);
 
+		MyCrosstabTotalProvider totalProvider = new MyCrosstabTotalProvider();
+		totalProvider.setValues(getPrecalculatedValues());
+		
 		DJCrosstab djcross = new CrosstabBuilder()
 			.setHeight(200)
 			.setWidth(500)
@@ -94,18 +99,7 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 			.addRow("Branch","branch",String.class.getName(),true)
 //			.addColumn("Item", "item", String.class.getName(),true)
 //			.addMeasure("id",Long.class.getName(), DJCalculation.SUM , "Id", measureStyle)
-			.addMeasure("quantity",Long.class.getName(), DJCalculation.SUM , "Time",measureStyle2, new DJValueFormatter() {
-				
-				public String getClassName() {
-					return String.class.getName();
-				}
-				
-				public Object evaluate(Object value, Map fields, Map variables, Map parameters) {
-					System.out.println(value);
-					//Long val = (Long)value;
-					return "xxx"; //getAsMinutes(val); // + " (" + val + ")";
-				}
-			})
+			.addMeasure("quantity",Long.class.getName(), DJCalculation.SUM , "Time",measureStyle2, null, totalProvider)
 			.setRowStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
 			.setColumnStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
 			.setCellDimension(34, 60)
@@ -122,7 +116,12 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 
 		return dr;
 	}
-	
+
+	private Map getPrecalculatedValues() {
+		Map map = new HashMap();
+		return map;
+	}
+
 	public static String getAsMinutes(Long value) {
 		Long amount = (Long) value;
 		int sec = amount.intValue() % 60;
@@ -178,7 +177,7 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 
 
 	public static void main(String[] args) throws Exception {
-		CrosstabReportWithNullValuesTest test = new CrosstabReportWithNullValuesTest();
+		CrosstabReportWithPrecalculatedTotalsTest test = new CrosstabReportWithPrecalculatedTotalsTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
 //		JasperDesignViewer.viewReportDesign(test.jr);

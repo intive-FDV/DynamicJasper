@@ -35,6 +35,17 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.13-beta3" date="2009-11-05" desc="Crosstabs enhancements" >
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						Crosstab can have precalculated values: See DJCRosstabMeasurePrecalculatedTotalProvider class
+						and example test: CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest 
+					 </action>	
+				 </release>			 
+				 <release version="3.0.13-beta2" date="2009-11-05" desc="Crosstabs enhancements" >
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+						NullPointerException while creating crosstabs due to uninitialized style.
+					 </action>	
+				 </release>			 
 				 <release version="3.0.13-beta1" date="2009-11-04" desc="Crosstabs enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						crosstabs measures can have value formatters. See CrosstabReportWithNullValuesTest for an example
