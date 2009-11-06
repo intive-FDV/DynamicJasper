@@ -518,6 +518,7 @@ public class Dj2JrCrosstabBuilder {
 						}
 						layoutManager.applyStyleToElement(null, element);
 						jrstyle = (JRDesignStyle)element.getStyle();
+						jrstyle.setBlankWhenNull(true);
 					}
 					
         	JRDesignStyle alternateStyle = Utils.cloneStyle(jrstyle);

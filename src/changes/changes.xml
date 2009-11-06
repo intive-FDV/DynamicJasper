@@ -35,6 +35,12 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.13-beta4" date="2009-11-06" desc="Crosstabs enhancements" >
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+					 	Setting style to "blank when null" as true in certain scenarios where an element
+					 	does not have a style and a new one must be provided
+					 </action>	
+				 </release>			 
 				 <release version="3.0.13-beta3" date="2009-11-05" desc="Crosstabs enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						Crosstab can have precalculated values: See DJCRosstabMeasurePrecalculatedTotalProvider class
