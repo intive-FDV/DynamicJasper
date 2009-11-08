@@ -120,8 +120,7 @@ public class CommonExpressionsHelper {
 		int height = autoText.getHeight().intValue();
 
 		JRDesignTextField pageNumber = new JRDesignTextField();
-		if (autoText.getStyle() != null)
-		{
+		if (autoText.getStyle() != null) {
 			lm.applyStyleToElement(autoText.getStyle(), pageNumber);
 		}
 
@@ -132,6 +131,9 @@ public class CommonExpressionsHelper {
 		pageNumber.setY(yOffset);
 
 		JRDesignTextField pageCounter = new JRDesignTextField();
+		if (autoText.getStyle() != null) { //page counter shares font attrs, color, etc.
+			lm.applyStyleToElement(autoText.getStyle(), pageCounter);
+		}		
 		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("/", "",false));
 		pageCounter.setHeight(height);
 		pageCounter.setWidth(autoText.getWidth().intValue());

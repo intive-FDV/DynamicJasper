@@ -36,6 +36,9 @@
 	 <body>
 	 
 				 <release version="3.0.13-beta5" date="2009-11-08" desc="Autotext enhancements" >
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="ccavanaugh" issue="2885384">
+						 When applying a style to using AUTOTEXT_PAGE_X_SLASH_Y, the reference style is used for the current page, but not the total page count.
+					 </action>
 					 <action dev="Ricardo Mariaca" type="add">
 						 Autotext supports print when expression (see AutotextReportTest2)
 					 </action>

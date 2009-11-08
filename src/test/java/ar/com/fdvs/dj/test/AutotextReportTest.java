@@ -63,6 +63,8 @@ public class AutotextReportTest extends BaseDjReportTest {
 
 
 		Style atStyle = new StyleBuilder(true).setFont(Font.COMIC_SANS_SMALL).setTextColor(Color.red).build();
+		Style atStyle2 = new StyleBuilder(true).setFont(new Font(9, Font._FONT_TIMES_NEW_ROMAN, false, true, false)).setTextColor(Color.BLUE).build();
+		
 		/**
 		 * Adding many autotexts in the same position (header/footer and aligment) makes them to be one on top of the other
 		 */
@@ -72,7 +74,7 @@ public class AutotextReportTest extends BaseDjReportTest {
 
 		//Note the styled text: <b>msimone</b>, valid tags are: <b>, <i> and <u>
 		drb.addAutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT,200);
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT,30,30);
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT,30,30,atStyle2);
 
 		drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
 
