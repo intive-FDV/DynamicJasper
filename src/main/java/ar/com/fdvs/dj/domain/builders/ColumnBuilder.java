@@ -92,7 +92,6 @@ public class ColumnBuilder {
 //	private String formatParameter;
 	private Format textFormatter;
 	private PropertyColumn percentageColumn;
-	private DJGroup percentageGroup;
     
 	private int columnType = COLUMN_TYPE_DEFAULT;
 	private static Random random = new Random();
@@ -440,12 +439,15 @@ public class ColumnBuilder {
     }
 
   public ColumnBuilder setPercentageColumn(PropertyColumn percentageColumn) {
-  	return setPercentageColumn(percentageColumn, null);
+  	this.percentageColumn = percentageColumn;
+  	return this;
   }
   
+  /**
+   * Use setPercentageColumn(PropertyColumn percentageColumn)
+   * @deprecated
+   */
   public ColumnBuilder setPercentageColumn(PropertyColumn percentageColumn, DJGroup group) {
-  	this.percentageColumn = percentageColumn;
-  	this.percentageGroup = group;
-  	return this;
+  	return setPercentageColumn(percentageColumn);
   }
 }

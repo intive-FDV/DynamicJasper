@@ -123,7 +123,7 @@ public class TimeSeriesPlot extends AbstractPlot {
 		
 		StringExpression timeAxisLabelExp = getTimeAxisFormat().getLabelExpression();
 		if (timeAxisLabelExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "timeAxisLabel_" + name, timeAxisLabelExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "timeAxisLabel_" + name, timeAxisLabelExp);
 			timeSeriesPlot.setTimeAxisLabelExpression(exp);
 		}
 		if (timeAxisFormat.getTickLabelMask() != null) 
@@ -140,18 +140,18 @@ public class TimeSeriesPlot extends AbstractPlot {
 			timeSeriesPlot.setTimeAxisTickLabelFont(timeAxisFormat.getTickLabelFont().transform());
 		CustomExpression timeAxisRangeMinValueExp = getTimeAxisFormat().getRangeMinValueExpression();
 		if (timeAxisRangeMinValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "timeAxisRangeMinValue_" + name, timeAxisRangeMinValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "timeAxisRangeMinValue_" + name, timeAxisRangeMinValueExp);
 			timeSeriesPlot.setDomainAxisMinValueExpression(exp);
 		}
 		CustomExpression timeAxisRangeMaxValueExp = getTimeAxisFormat().getRangeMaxValueExpression();
 		if (timeAxisRangeMaxValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "timeAxisRangeMaxValue_" + name, timeAxisRangeMaxValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "timeAxisRangeMaxValue_" + name, timeAxisRangeMaxValueExp);
 			timeSeriesPlot.setDomainAxisMaxValueExpression(exp);
 		}
 		
 		StringExpression valueAxisLabelExp = getValueAxisFormat().getLabelExpression();
 		if (valueAxisLabelExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "valueAxisLabel_" + name, valueAxisLabelExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisLabel_" + name, valueAxisLabelExp);
 			timeSeriesPlot.setValueAxisLabelExpression(exp);
 		}
 		if (valueAxisFormat.getTickLabelMask() != null) 
@@ -168,12 +168,12 @@ public class TimeSeriesPlot extends AbstractPlot {
 			timeSeriesPlot.setValueAxisTickLabelFont(valueAxisFormat.getTickLabelFont().transform());
 		CustomExpression valueAxisRangeMinValueExp = getValueAxisFormat().getRangeMinValueExpression();
 		if (valueAxisRangeMinValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "valueAxisRangeMinValue_" + name, valueAxisRangeMinValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisRangeMinValue_" + name, valueAxisRangeMinValueExp);
 			timeSeriesPlot.setRangeAxisMinValueExpression(exp);
 		}
 		CustomExpression valueAxisRangeMaxValueExp = getValueAxisFormat().getRangeMaxValueExpression();
 		if (valueAxisRangeMaxValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "valueAxisRangeMaxValue_" + name, valueAxisRangeMaxValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisRangeMaxValue_" + name, valueAxisRangeMaxValueExp);
 			timeSeriesPlot.setRangeAxisMaxValueExpression(exp);
 		}
 		

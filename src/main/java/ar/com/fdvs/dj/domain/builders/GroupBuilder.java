@@ -66,6 +66,13 @@ public class GroupBuilder {
 	private Style defaultFooterVariableStyle;
 	private Style defaultHeaderVariableStyle;
 
+	public GroupBuilder() {		
+	}
+
+	public GroupBuilder(String name) {		
+		group.setName(name);
+	}
+	
 	public DJGroup build(){
 		//Apply Styles if any (for variables)
 		for (Iterator iterator = group.getHeaderVariables().iterator(); iterator.hasNext();) {

@@ -30,11 +30,8 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
-import java.util.Map;
 
 import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.domain.BooleanExpression;
-import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
@@ -48,7 +45,6 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
-import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
@@ -116,7 +112,7 @@ public class PercentageColumnReportTest extends BaseDjReportTest {
 			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
 			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 		
-		AbstractColumn columnPercentageAmount = ColumnBuilder.getInstance().setPercentageColumn((PropertyColumn) columnAmount, null)
+		AbstractColumn columnPercentageAmount = ColumnBuilder.getInstance().setPercentageColumn((PropertyColumn) columnAmount)
 		.setTitle("Amount [%]").setWidth(new Integer(90))
 		.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 

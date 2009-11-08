@@ -39,7 +39,7 @@ public class MultiReportConcatenated {
 
 			try {
 				report.dr = report.buildReport();
-				report.dr.setTitle("REPORT N° : " + i);
+				report.dr.setTitle("REPORT NÂ°: " + i);
 				report.dr.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL);
 				
 				String dataSourcePath = "DataSource" + i;

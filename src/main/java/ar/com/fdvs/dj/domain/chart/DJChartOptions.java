@@ -618,12 +618,12 @@ public class DJChartOptions extends DJBaseElement {
 			chart.getLineBox().getPen().setLineColor(lineColor);		
 		
 		if (titleExpression != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "title_" + name, titleExpression);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "title_" + name, titleExpression);
 			chart.setTitleExpression(exp);
 		}
 		
 		if (subtitleExpression != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "subtitle_" + name, subtitleExpression);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "subtitle_" + name, subtitleExpression);
 			chart.setSubtitleExpression(exp);
 		}
 		

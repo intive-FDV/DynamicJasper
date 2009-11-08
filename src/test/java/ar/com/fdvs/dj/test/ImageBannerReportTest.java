@@ -43,6 +43,7 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
@@ -85,8 +86,8 @@ public class ImageBannerReportTest extends BaseDjReportTest {
 			.setOddRowBackgroundStyle(oddRowStyle)
 			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.ALIGN_LEFT)
 			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.ALIGN_RIGHT)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_LEFT)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(150), new Integer(30), ImageBanner.ALIGN_RIGHT);
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(25), ImageBanner.ALIGN_LEFT, ImageScaleMode.FILL)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(150), new Integer(25), ImageBanner.ALIGN_RIGHT, ImageScaleMode.FILL);
 
 		AbstractColumn columnState = ColumnBuilder.getInstance().setColumnProperty("state", String.class.getName())
 			.setTitle("State").setWidth(new Integer(85))

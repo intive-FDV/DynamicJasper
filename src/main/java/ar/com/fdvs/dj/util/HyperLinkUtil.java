@@ -94,12 +94,12 @@ public class HyperLinkUtil {
 	 * @param column
 	 */
 	public static void applyHyperLinkToElement(DynamicJasperDesign design, DJHyperLink djlink, JRDesignChart chart, String name) {
-		JRDesignExpression hlpe = ExpressionUtils.createExpression(design, name, djlink.getExpression());
+		JRDesignExpression hlpe = ExpressionUtils.createAndRegisterExpression(design, name, djlink.getExpression());
 		chart.setHyperlinkReferenceExpression(hlpe);
 		chart.setHyperlinkType(JRHyperlink.HYPERLINK_TYPE_REFERENCE); //FIXME Should this be a parameter in the future?
 				
 		if (djlink.getTooltip() != null){			
-			JRDesignExpression tooltipExp = ExpressionUtils.createExpression(design, "tooltip_" + name, djlink.getTooltip());
+			JRDesignExpression tooltipExp = ExpressionUtils.createAndRegisterExpression(design, "tooltip_" + name, djlink.getTooltip());
 			chart.setHyperlinkTooltipExpression(tooltipExp);
 		}
 	}

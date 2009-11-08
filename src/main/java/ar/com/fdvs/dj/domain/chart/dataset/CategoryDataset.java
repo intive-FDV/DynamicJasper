@@ -159,7 +159,7 @@ public class CategoryDataset extends AbstractDataset {
 	
 			JRDesignExpression exp3;
 			if (seriesLabels.containsKey(column)) {
-				exp3 = ExpressionUtils.createExpression(design, "dataset_" + column.getName() + "_" + name, (CustomExpression) seriesLabels.get(column));
+				exp3 = ExpressionUtils.createAndRegisterExpression(design, "dataset_" + column.getName() + "_" + name, (CustomExpression) seriesLabels.get(column));
 			}
 			else {
 				exp3 = new JRDesignExpression();

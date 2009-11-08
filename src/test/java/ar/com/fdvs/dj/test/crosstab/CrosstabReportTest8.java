@@ -35,10 +35,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.apache.commons.beanutils.BeanUtils;
-
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
+
+import org.apache.commons.beanutils.BeanUtils;
+
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
@@ -51,6 +52,7 @@ import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
@@ -78,7 +80,7 @@ public class CrosstabReportTest8 extends BaseDjReportTest {
 			drb
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
-//			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
+			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setPrintColumnNames(false)
 			.setUseFullPageWidth(true)
 			.setDefaultStyles(titleStyle, null, null, null);

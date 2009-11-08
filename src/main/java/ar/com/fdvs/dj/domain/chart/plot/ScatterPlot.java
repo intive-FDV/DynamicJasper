@@ -123,7 +123,7 @@ public class ScatterPlot extends AbstractPlot {
 		
 		StringExpression xAxisLabelExp = getXAxisFormat().getLabelExpression();
 		if (xAxisLabelExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "xAxisLabel_" + name, xAxisLabelExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "xAxisLabel_" + name, xAxisLabelExp);
 			scatterPlot.setXAxisLabelExpression(exp);
 		}
 		if (xAxisFormat.getTickLabelMask() != null) 
@@ -140,18 +140,18 @@ public class ScatterPlot extends AbstractPlot {
 			scatterPlot.setXAxisTickLabelFont(xAxisFormat.getTickLabelFont().transform());
 		CustomExpression xAxisRangeMinValueExp = getXAxisFormat().getRangeMinValueExpression();
 		if (xAxisRangeMinValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "xAxisRangeMinValue_" + name, xAxisRangeMinValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "xAxisRangeMinValue_" + name, xAxisRangeMinValueExp);
 			scatterPlot.setDomainAxisMinValueExpression(exp);
 		}
 		CustomExpression xAxisRangeMaxValueExp = getXAxisFormat().getRangeMaxValueExpression();
 		if (xAxisRangeMaxValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "xAxisRangeMaxValue_" + name, xAxisRangeMaxValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "xAxisRangeMaxValue_" + name, xAxisRangeMaxValueExp);
 			scatterPlot.setDomainAxisMaxValueExpression(exp);
 		}
 		
 		StringExpression yAxisLabelExp = getYAxisFormat().getLabelExpression();
 		if (yAxisLabelExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "yAxisLabel_" + name, yAxisLabelExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "yAxisLabel_" + name, yAxisLabelExp);
 			scatterPlot.setYAxisLabelExpression(exp);
 		}
 		if (yAxisFormat.getTickLabelMask() != null) 
@@ -168,12 +168,12 @@ public class ScatterPlot extends AbstractPlot {
 			scatterPlot.setYAxisTickLabelFont(yAxisFormat.getTickLabelFont().transform());
 		CustomExpression yAxisRangeMinValueExp = getYAxisFormat().getRangeMinValueExpression();
 		if (yAxisRangeMinValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "yAxisRangeMinValue_" + name, yAxisRangeMinValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "yAxisRangeMinValue_" + name, yAxisRangeMinValueExp);
 			scatterPlot.setRangeAxisMinValueExpression(exp);
 		}
 		CustomExpression yAxisRangeMaxValueExp = getYAxisFormat().getRangeMaxValueExpression();
 		if (yAxisRangeMaxValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "yAxisRangeMaxValue_" + name, yAxisRangeMaxValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "yAxisRangeMaxValue_" + name, yAxisRangeMaxValueExp);
 			scatterPlot.setRangeAxisMaxValueExpression(exp);
 		}
 		

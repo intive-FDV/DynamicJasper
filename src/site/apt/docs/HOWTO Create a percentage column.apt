@@ -1,0 +1,68 @@
+	------------
+	HOW-TO Create a percentage column
+	------------
+	Juan Manuel Alvarez
+	------
+	 Date
+
+HOW-TO Create a percentage column
+
+ <since version 3.0.11>
+
+ The main idea is to have a column which can hold the percentage in relation to another column value, always relative a to group.
+ 
+ For example:
+ 
+*----------+--------------+--------------+
+|| <<State>> || <<Amount>> || <<Percentage>> ||
+*----------+--------------+--------------+
+| Arizona | 600 | 30%
+*----------+--------------+--------------+
+| New York | 400 | 20%
+*----------+--------------+--------------+
+| Florida | 1000 | 50%
+*----------+--------------+--------------+
+ 
+ In the following example, we are adding a percentage colulmn
+
++------------------------------------------------------------------------------------------------------------+
+DynamicReportBuilder drb = new DynamicReportBuilder();
+
+...
+
+AbstractColumn columnAmount = ColumnBuilder.getInstance()
+	.setColumnProperty("amount", Float.class.getName())
+	.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
+	.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
+	
+...	
+
+AbstractColumn columnPercentageAmount = ColumnBuilder.getInstance()
+	.setPercentageColumn((PropertyColumn) columnAmount) // <-- Here we make this column a percentage column relative to column "amount"
+	.setTitle("Amount [%]").setWidth(new Integer(90))
+	.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
+	
+...
+
+drb.addColumn(columnState);
+drb.addColumn(columnBranch);
+drb.addColumn(columnaItem);
+drb.addColumn(columnaCantidad);
+drb.addColumn(columnAmount);		
+drb.addColumn(columnPercentageAmount);
+
+...
+	
++------------------------------------------------------------------------------------------------------------+
+ 
+ <<NOTE:>>
+ 
+ * Percentage column should not be used as a <<grouping column>>
+ 
+ * If there are more than 1 group, the percentage column will show in each group the percentage relative to its level (as expected)
+ 
+ []
+ 
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/PercentageColumnReportTest.html}PercentageColumnReportTest.html}} for a working example.
+ 

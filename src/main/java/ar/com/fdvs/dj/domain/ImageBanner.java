@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain;
 
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
 public class ImageBanner extends DJBaseElement {
@@ -43,7 +44,8 @@ public class ImageBanner extends DJBaseElement {
 	private int width = 0;
 	private int height= 0;
 	private byte align = 0;
-
+	private ImageScaleMode scaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
+	
 	public ImageBanner(){
 	};
 
@@ -71,6 +73,15 @@ public class ImageBanner extends DJBaseElement {
 	public void setWidth(int width) {
 		this.width = width;
 	}
+	
+	public ImageScaleMode getScaleMode() {
+		return scaleMode;
+	}
+
+	public void setScaleMode(ImageScaleMode scaleMode) {
+		this.scaleMode = scaleMode;
+	}
+	
 	public ImageBanner(String imagePath, int width, int height, byte align) {
 		this.imagePath = imagePath;
 		this.width = width;

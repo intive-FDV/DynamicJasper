@@ -73,6 +73,11 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 			getDjd().addGroup(group);
 			//Variables are registered right after the group where they belong.
 			String property = djgroup.getColumnToGroupBy().getColumnProperty().getProperty();
+			
+			if (djgroup.getFooterLabel() != null && djgroup.getFooterLabel().getLabelExpression() != null) {
+				registerCustomExpressionParameter(group.getName() + "_labelExpression", djgroup.getFooterLabel().getLabelExpression());
+			}
+			
 			ColumnsGroupTemporalVariablesRegistrationManager variablesRM = new ColumnsGroupTemporalVariablesRegistrationManager(getDjd(),getDynamicReport(),getLayoutManager(), group);
 			variablesRM.registerEntities(djgroup.getVariables());
 			
@@ -99,13 +104,16 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		PropertyColumn column = djgroup.getColumnToGroupBy();
 		JRDesignGroup group = new JRDesignGroup();
 
-		int groupIndex = getDynamicReport().getColumnsGroups().indexOf(djgroup);
-		int columnIndex = getDynamicReport().getColumns().indexOf(djgroup.getColumnToGroupBy());
-		if (column instanceof GlobalGroupColumn){
-			group.setName("global_column_" + groupIndex);
-		} else {
-			group.setName( "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getTitle());
+		if (djgroup.getName() == null) {
+			int groupIndex = getDynamicReport().getColumnsGroups().indexOf(djgroup);
+			int columnIndex = getDynamicReport().getColumns().indexOf(djgroup.getColumnToGroupBy());
+			if (column instanceof GlobalGroupColumn){
+				djgroup.setName("global_column_" + groupIndex);
+			} else {
+				djgroup.setName( "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getTitle());
+			}			
 		}
+		group.setName(djgroup.getName());
 		
 		getLayoutManager().getReferencesMap().put(group.getName(), djgroup);
 

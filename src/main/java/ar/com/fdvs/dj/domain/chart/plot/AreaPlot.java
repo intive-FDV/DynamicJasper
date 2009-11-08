@@ -48,7 +48,7 @@ public class AreaPlot extends AbstractCategoryAxisPlot {
 		
 		StringExpression categoryAxisLabelExp = getCategoryAxisFormat().getLabelExpression();
 		if (categoryAxisLabelExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "categoryAxisLabel_" + name, categoryAxisLabelExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "categoryAxisLabel_" + name, categoryAxisLabelExp);
 			areaPlot.setCategoryAxisLabelExpression(exp);
 		}
 		if (getCategoryAxisFormat().getTickLabelMask() != null) 
@@ -65,18 +65,18 @@ public class AreaPlot extends AbstractCategoryAxisPlot {
 			areaPlot.setCategoryAxisTickLabelFont(getCategoryAxisFormat().getTickLabelFont().transform());
 		CustomExpression categoryAxisRangeMinValueExp = getCategoryAxisFormat().getRangeMinValueExpression();
 		if (categoryAxisRangeMinValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "categoryAxisRangeMinValue_" + name, categoryAxisRangeMinValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "categoryAxisRangeMinValue_" + name, categoryAxisRangeMinValueExp);
 			areaPlot.setDomainAxisMinValueExpression(exp);
 		}
 		CustomExpression categoryAxisRangeMaxValueExp = getCategoryAxisFormat().getRangeMaxValueExpression();
 		if (categoryAxisRangeMaxValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "categoryAxisRangeMaxValue_" + name, categoryAxisRangeMaxValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "categoryAxisRangeMaxValue_" + name, categoryAxisRangeMaxValueExp);
 			areaPlot.setDomainAxisMaxValueExpression(exp);
 		}
 		
 		StringExpression valueAxisLabelExp = getValueAxisFormat().getLabelExpression();
 		if (valueAxisLabelExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "valueAxisLabel_" + name, valueAxisLabelExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisLabel_" + name, valueAxisLabelExp);
 			areaPlot.setValueAxisLabelExpression(exp);
 		}
 		if (getValueAxisFormat().getTickLabelMask() != null) 
@@ -93,12 +93,12 @@ public class AreaPlot extends AbstractCategoryAxisPlot {
 			areaPlot.setValueAxisTickLabelFont(getValueAxisFormat().getTickLabelFont().transform());
 		CustomExpression valueAxisRangeMinValueExp = getValueAxisFormat().getRangeMinValueExpression();
 		if (valueAxisRangeMinValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "valueAxisRangeMinValue_" + name, valueAxisRangeMinValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisRangeMinValue_" + name, valueAxisRangeMinValueExp);
 			areaPlot.setRangeAxisMinValueExpression(exp);
 		}
 		CustomExpression valueAxisRangeMaxValueExp = getValueAxisFormat().getRangeMaxValueExpression();
 		if (valueAxisRangeMaxValueExp != null) {
-			JRDesignExpression exp = ExpressionUtils.createExpression(design, "valueAxisRangeMaxValue_" + name, valueAxisRangeMaxValueExp);
+			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisRangeMaxValue_" + name, valueAxisRangeMaxValueExp);
 			areaPlot.setRangeAxisMaxValueExpression(exp);
 		}
 	}

@@ -86,7 +86,10 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 			else
 				registerCustomExpressionParameter(name + "_valueExpression", columnsGroupVariable.getValueExpression());
 			if (columnsGroupVariable.getPrintWhenExpression() != null)
-				registerCustomExpressionParameter(name + "_printWhenExpression", columnsGroupVariable.getPrintWhenExpression());				
+				registerCustomExpressionParameter(name + "_printWhenExpression", columnsGroupVariable.getPrintWhenExpression());	
+			if (columnsGroupVariable.getLabel() != null && columnsGroupVariable.getLabel().getLabelExpression() != null) {
+				registerCustomExpressionParameter(name + "_labelExpression", columnsGroupVariable.getLabel().getLabelExpression());
+			}
 			
 		} catch (JRException e) {
 			throw new EntitiesRegistrationException(e.getMessage(),e);

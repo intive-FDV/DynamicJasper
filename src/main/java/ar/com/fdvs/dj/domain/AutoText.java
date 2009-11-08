@@ -113,7 +113,8 @@ public class AutoText extends DJBaseElement {
 	 * tells if the API can modify the with if needed
 	 */
 	private boolean fixedWith = true;
-
+	private BooleanExpression printWhenExpression;
+	
 	public boolean isFixedWith() {
 		return fixedWith;
 	}
@@ -227,5 +228,13 @@ public class AutoText extends DJBaseElement {
 
 	public byte getPattern() {
 		return pattern;
+	}
+	
+	public void setPrintWhenExpression(BooleanExpression printWhenExpression) {
+		this.printWhenExpression = printWhenExpression;
+	}
+
+	public BooleanExpression getPrintWhenExpression() {
+		return printWhenExpression;
 	}
 }

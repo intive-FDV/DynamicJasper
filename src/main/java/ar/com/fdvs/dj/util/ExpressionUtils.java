@@ -206,13 +206,14 @@ public class ExpressionUtils {
 		return exp;
 	}
 
-	public static JRDesignExpression createExpression(DynamicJasperDesign design, String name, CustomExpression expression) {
-		String text = ExpressionUtils.createCustomExpressionInvocationText(name);
+	public static JRDesignExpression createAndRegisterExpression(DynamicJasperDesign design, String name, CustomExpression expression) {
 		LayoutUtils.registerCustomExpressionParameter(design, name, expression);
-		JRDesignExpression exp = new JRDesignExpression();
-		exp.setValueClassName(expression.getClassName());
-		exp.setText(text);
-		return exp;
+		return createExpression(name, expression);
+	}
+	
+	public static JRDesignExpression createExpression(String name, CustomExpression expression) {
+		String text = ExpressionUtils.createCustomExpressionInvocationText(name);
+		return createExpression(text, expression.getClassName());
 	}
 	
 	/**

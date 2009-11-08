@@ -80,6 +80,7 @@ public class DJGroup extends DJBaseElement {
 	
 	private boolean fitHeaderHeightToContent = true;
 	private boolean fitFooterHeightToContent = true;
+	private String name;
 	
 	public boolean isFitHeaderHeightToContent() {
 		return fitHeaderHeightToContent;
@@ -354,5 +355,11 @@ public class DJGroup extends DJBaseElement {
 		this.footerCrosstabs.add(cross);
 	}
 
-
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getName() {
+		return name;
+	}
 }

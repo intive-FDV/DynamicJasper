@@ -37,6 +37,7 @@ import ar.com.fdvs.dj.domain.BooleanExpression;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.ExpressionHelper;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
@@ -136,9 +137,9 @@ public class CustomExpressionReportTest3 extends BaseDjReportTest {
 		drb.addGlobalVariable("amount_sum", columnAmount, DJCalculation.SUM);
 		drb.addGlobalFooterVariable(columnaCustomExpression, getGlobalRatioExpression());
 		
-		GroupBuilder gb1 = new GroupBuilder();
-		DJGroupVariable var = new DJGroupVariable(columnaCantidad, DJCalculation.SUM);
-		var.setPrintWhenExpression(getPrintWhenExpression());
+		GroupBuilder gb1 = new GroupBuilder("g1");
+		DJGroupVariable var = new DJGroupVariable(columnaCantidad, DJCalculation.SUM);		
+		var.setPrintWhenExpression(ExpressionHelper.printWhenGroupHasMoreThanOneRecord("g1"));
 		
 //	 define the criteria column to group by (columnState)
 	DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
@@ -150,8 +151,8 @@ public class CustomExpressionReportTest3 extends BaseDjReportTest {
 			.setFooterVariablesHeight(new Integer(20))
 			.setFooterHeight(new Integer(50),true)
 			.setHeaderVariablesHeight(new Integer(35))
-			.build();
-		
+			.build();	
+	
 	drb.addGroup(g1);
 		drb.setUseFullPageWidth(true);
 
@@ -210,7 +211,7 @@ public class CustomExpressionReportTest3 extends BaseDjReportTest {
 		};
 	}
 	
-	private BooleanExpression getPrintWhenExpression() {
+	/*private BooleanExpression getPrintWhenExpression() {
 		return new BooleanExpression() {
 
 			public Object evaluate(Map fields, Map variables, Map parameters) {
@@ -219,7 +220,7 @@ public class CustomExpressionReportTest3 extends BaseDjReportTest {
 			}
 
 		};
-	}
+	}*/
 	
 	public static void main(String[] args) throws Exception {
 		CustomExpressionReportTest3 test = new CustomExpressionReportTest3();

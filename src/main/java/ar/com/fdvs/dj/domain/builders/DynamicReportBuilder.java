@@ -53,6 +53,7 @@ import ar.com.fdvs.dj.domain.DynamicReportOptions;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupTemporalVariable;
@@ -698,12 +699,26 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	public DynamicReportBuilder addImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
+		ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
+		banner.setScaleMode(scaleMode);
+		options.getImageBanners().put(new Byte(align), banner);
+		return this;
+	}
+	
 	public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align) {
 		ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
 		options.getFirstPageImageBanners().put(new Byte(align), banner);
 		return this;
 	}
 
+	public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
+		ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
+		banner.setScaleMode(scaleMode);
+		options.getFirstPageImageBanners().put(new Byte(align), banner);
+		return this;
+	}
+	
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression

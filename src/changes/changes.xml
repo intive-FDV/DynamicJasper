@@ -35,6 +35,18 @@
 	</properties>
 	 <body>
 	 
+				 <release version="3.0.13-beta5" date="2009-11-08" desc="Autotext enhancements" >
+					 <action dev="Ricardo Mariaca" type="add">
+						 Autotext supports print when expression (see AutotextReportTest2)
+					 </action>
+					 <action dev="Ricardo Mariaca" type="add">
+						 Imagebanner can have imageScaleMode (see ImageBannerReportTest)
+					 </action>
+					 <action dev="Ricardo Mariaca" type="add">
+						 Enabling custom label expression and position in group footer label (see GroupLabelTest4)
+						 Enabling custom label expression in group header/footer variable label (see GroupLabelTest4)
+					 </action>						 
+				 </release>			 
 				 <release version="3.0.13-beta4" date="2009-11-06" desc="Crosstabs enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="fix" >
 					 	Setting style to "blank when null" as true in certain scenarios where an element

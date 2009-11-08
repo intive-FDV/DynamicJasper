@@ -94,18 +94,17 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 			.addRow("Branch","branch",String.class.getName(),true)
 //			.addColumn("Item", "item", String.class.getName(),true)
 //			.addMeasure("id",Long.class.getName(), DJCalculation.SUM , "Id", measureStyle)
-			.addMeasure("quantity",Long.class.getName(), DJCalculation.SUM , "Time",measureStyle2, new DJValueFormatter() {
+			.addMeasure("quantity",Long.class.getName(), DJCalculation.FIRST , "Time",measureStyle2, null/* new DJValueFormatter() {
 				
 				public String getClassName() {
 					return String.class.getName();
 				}
 				
 				public Object evaluate(Object value, Map fields, Map variables, Map parameters) {
-					System.out.println(value);
-					//Long val = (Long)value;
-					return "xxx"; //getAsMinutes(val); // + " (" + val + ")";
+					Long val = (Long)value;
+					return getAsMinutes(val); // + " (" + val + ")";
 				}
-			})
+			}*/)
 			.setRowStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
 			.setColumnStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
 			.setCellDimension(34, 60)
@@ -124,6 +123,8 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 	}
 	
 	public static String getAsMinutes(Long value) {
+		if (value == null)
+			return null;
 		Long amount = (Long) value;
 		int sec = amount.intValue() % 60;
 		int mins = amount.intValue() / 60;

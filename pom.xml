@@ -509,6 +509,7 @@ API.
 		<url>http://www.fdvsolutions.com/</url>
 	</organization>
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<google_analitics_url>
 		<![CDATA[
 				<script type="text/javascript">
