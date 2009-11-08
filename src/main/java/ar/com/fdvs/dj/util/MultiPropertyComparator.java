@@ -66,11 +66,11 @@ public class MultiPropertyComparator implements Comparator {
                 final Comparable value2 = getValue(_o2, propertyName);
                 result = compare(value1, value2) * (sortInfo.isAscending() ? 1 : -1);
             } catch (IllegalAccessException ex) {
-                LOGGER.warn("", ex);
+                LOGGER.warn(ex);
             } catch (InvocationTargetException ex) {
-                LOGGER.warn("", ex);
+                LOGGER.warn(ex);
             } catch (NoSuchMethodException ex) {
-                LOGGER.warn("", ex);
+                LOGGER.warn(ex);
             }
         }
         return result;
@@ -78,7 +78,13 @@ public class MultiPropertyComparator implements Comparator {
 
     private static Comparable getValue(final Object _object, final String _field) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         final Object value = PropertyUtils.getProperty(_object, _field);
-        return value instanceof Comparable ? (Comparable)value : value == null ? "" : value.toString();
+        if (value == null)
+        	return null;
+        
+        if (!(value instanceof Comparable))
+        	throw new RuntimeException("Objects are not Comparable, class " + value.getClass().getName());
+		
+		return (Comparable) value;
     }
 
 	private static int compare(final Comparable _value1, final Comparable _value2) {

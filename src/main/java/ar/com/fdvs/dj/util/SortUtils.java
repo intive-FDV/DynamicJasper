@@ -39,6 +39,7 @@ import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 public class SortUtils {
@@ -50,7 +51,7 @@ public class SortUtils {
             Object object = iter.next();
             if (object instanceof String) {
                 info.add(new SortInfo((String)object, true));
-            } else if (object instanceof ExpressionColumn) {
+            } else if (object instanceof ExpressionColumn || object instanceof ImageColumn) {
             	//do nothing with expression columns
             	continue;
 	        } else if (object instanceof PropertyColumn) {
