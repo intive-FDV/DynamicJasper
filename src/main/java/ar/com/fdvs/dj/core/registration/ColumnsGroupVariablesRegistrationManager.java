@@ -51,6 +51,7 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.LayoutUtils;
 
 /**
@@ -148,8 +149,14 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 			registeredGroup = LayoutUtils.findParentJRGroup(djgroup, getDynamicReport(), getDjd(), getLayoutManager());
 		}
 		else {
-			expression.setText(col.getTextForExpression());
-			expression.setValueClassName(col.getValueClassNameForExpression());
+			if (col.getTextFormatter() != null){
+				PropertyColumn pcol = (PropertyColumn) col; 
+				expression.setText("$F{" + pcol.getColumnProperty().getProperty() + "}");
+				expression.setValueClassName(pcol.getColumnProperty().getValueClassName());
+			} else {
+				expression.setText(col.getTextForExpression());
+				expression.setValueClassName(col.getValueClassNameForExpression());
+			}
 		}
 		
 

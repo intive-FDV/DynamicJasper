@@ -1004,7 +1004,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 
 			Class clazz = null;
-			try { clazz = Class.forName(col.getValueClassNameForExpression());
+			try { clazz = Class.forName(((PropertyColumn) col).getColumnProperty().getValueClassName());
 			} catch (ClassNotFoundException e) {
 				throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
 			}

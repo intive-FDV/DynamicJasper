@@ -110,7 +110,7 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 			if (column instanceof GlobalGroupColumn){
 				djgroup.setName("global_column_" + groupIndex);
 			} else {
-				djgroup.setName( "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getTitle());
+				djgroup.setName( "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getName());
 			}			
 		}
 		group.setName(djgroup.getName());

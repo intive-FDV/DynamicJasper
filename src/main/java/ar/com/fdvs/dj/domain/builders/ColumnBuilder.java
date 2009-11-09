@@ -105,7 +105,15 @@ public class ColumnBuilder {
 	private boolean showText = false;
 	private boolean checkSum = false;
 
+	/**
+	 * @deprecated use getNew()
+	 * @return
+	 */
 	public static ColumnBuilder getInstance(){
+		return getNew();
+	}
+
+	public static ColumnBuilder getNew(){
 		return new ColumnBuilder();
 	}
 

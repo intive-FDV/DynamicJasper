@@ -1167,12 +1167,18 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected void setTextAndClassToExpression(JRDesignExpression expression, DJGroupVariable var, AbstractColumn col, String variableName) {
 		
-		if (var.getValueFormatter()== null){
-			expression.setText("$V{" + variableName + "}");
-			expression.setValueClassName(col.getVariableClassName(var.getOperation()));
-		} else {
+		if (var.getValueFormatter() != null){
 			expression.setText(var.getTextForValueFormatterExpression(variableName));
 			expression.setValueClassName(var.getValueFormatter().getClassName());
+		} 
+		else if (col.getTextFormatter() != null) {
+			
+			expression.setText("$V{" + variableName + "}");
+			expression.setValueClassName(col.getVariableClassName(var.getOperation()));
+		}
+		else {
+			expression.setText("$V{" + variableName + "}");
+			expression.setValueClassName(col.getVariableClassName(var.getOperation()));
 		}
 	}
 
