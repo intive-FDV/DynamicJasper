@@ -35,6 +35,17 @@
 	</properties>
 	 <body>
 	 
+	 			 <release version="3.0.14" date="2009-11-12" desc="New stuff" >
+					 <action dev="Ricardo Mariaca" type="add">
+						 Possibility to register field variable in group (see GroupLabelTest5)
+					 </action>
+					 <action dev="Ricardo Mariaca" type="fix" due-to="Brian Swain">
+						 Some custom expression classes where not serializable, they are now  
+					 </action>
+					 <action dev="Ricardo Mariaca" type="fix" due-to="Brian Swain">
+						 Fixed problem related to percentage column when no group is defined
+					 </action>	
+				 </release>
 				 <release version="3.0.13-beta5" date="2009-11-09" desc="Autotext enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Pedro Sousa ( pedrodesousa )" issue="2843177">
 						 Problem with columns TextFormatter 
