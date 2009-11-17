@@ -57,7 +57,7 @@ import ar.com.fdvs.dj.util.PropertiesMap;
  * Builder created to give users a friendly way of adding columns to a report.</br>
  * </br>
  * Usage example: </br>
- * AbstractColumn columnState = ColumnBuilder.getInstance() </br>
+ * AbstractColumn columnState = ColumnBuilder.getNew() </br>
  * .addColumnProperty("state", String.class.getName()) </br>
  * .addTitle("State").addWidth(new Integer(85)) </br>
  * .addStyle(detailStyle).addHeaderStyle(headerStyle).build(); </br>
