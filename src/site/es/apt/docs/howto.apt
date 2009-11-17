@@ -45,7 +45,7 @@ ArrayList conditionalStyles = new ArrayList();
 conditionalStyles.add(new ConditionalStyle(status0,style0));
 conditionalStyles.add(new ConditionalStyle(status1,style1));
 	
-ColumnBuilder cb = ColumnBuilder.getInstance();
+ColumnBuilder cb = ColumnBuilder.getNew();
 //Builder initialization
 
 cb.addConditionalStyles(conditionalStyles);
@@ -140,7 +140,7 @@ drb.addChart(chart);	//add chart
  Lets see an example.
  
 +------------------------------------------------------------------------------------------------------------+
-AbstractColumn columnaCustomExpression = ColumnBuilder.getInstance()
+AbstractColumn columnaCustomExpression = ColumnBuilder.getNew()
 .addCustomExpression( 
 	new CustomExpression() {
 		public Object evaluate(Object object) {

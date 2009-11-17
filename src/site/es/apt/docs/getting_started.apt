@@ -117,10 +117,10 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
 
         /**
          * Column definitions. We use a new ColumnBuilder instance for each
-         * column, the ColumnBuilder.getInstance() method returns a new instance
+         * column, the ColumnBuilder.getNew() method returns a new instance
          * of the builder
          */
-        AbstractColumn columnState = ColumnBuilder.getInstance()        //creates a new instance of a ColumnBuilder
+        AbstractColumn columnState = ColumnBuilder.getNew()        //creates a new instance of a ColumnBuilder
             .addColumnProperty("state", String.class.getName())            //defines the field of the data source that this column will show, also its type
             .addTitle("State")                                            //the title for the column
             .addWidth(new Integer(85))                                    //the width of the column
@@ -129,32 +129,32 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
             .build();                                                    //builds and return a new AbstractColumn
 
         //Create more columns
-        AbstractColumn columnBranch = ColumnBuilder.getInstance()
+        AbstractColumn columnBranch = ColumnBuilder.getNew()
             .addColumnProperty("branch", String.class.getName())
             .addTitle("Branch").addWidth(new Integer(85))
             .addStyle(detailStyle).addHeaderStyle(headerStyle).build();
 
-        AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
+        AbstractColumn columnaProductLine = ColumnBuilder.getNew()
             .addColumnProperty("productLine", String.class.getName())
             .addTitle("Product Line").addWidth(new Integer(85))
             .addStyle(detailStyle).addHeaderStyle(headerStyle).build();
 
-        AbstractColumn columnaItem = ColumnBuilder.getInstance()
+        AbstractColumn columnaItem = ColumnBuilder.getNew()
             .addColumnProperty("item", String.class.getName())
             .addTitle("Item").addWidth(new Integer(85))
             .addStyle(detailStyle).addHeaderStyle(headerStyle).build();
 
-        AbstractColumn columnCode = ColumnBuilder.getInstance()
+        AbstractColumn columnCode = ColumnBuilder.getNew()
             .addColumnProperty("id", Long.class.getName())
             .addTitle("ID").addWidth(new Integer(40))
             .addStyle(amountStyle).addHeaderStyle(headerStyle).build();
 
-        AbstractColumn columnaCantidad = ColumnBuilder.getInstance()
+        AbstractColumn columnaCantidad = ColumnBuilder.getNew()
             .addColumnProperty("quantity", Long.class.getName())
             .addTitle("Quantity").addWidth(new Integer(80))
             .addStyle(amountStyle).addHeaderStyle(headerStyle).build();
 
-        AbstractColumn columnAmount = ColumnBuilder.getInstance()
+        AbstractColumn columnAmount = ColumnBuilder.getNew()
             .addColumnProperty("amount", Float.class.getName())
             .addTitle("Amount").addWidth(new Integer(90))
             .addPattern("$ 0.00")                                            //defines a pattern to apply to the values swhown (uses TextFormat)

@@ -30,14 +30,14 @@ DynamicReportBuilder drb = new DynamicReportBuilder();
 
 ...
 
-AbstractColumn columnAmount = ColumnBuilder.getInstance()
+AbstractColumn columnAmount = ColumnBuilder.getNew()
 	.setColumnProperty("amount", Float.class.getName())
 	.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
 	.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 	
 ...	
 
-AbstractColumn columnPercentageAmount = ColumnBuilder.getInstance()
+AbstractColumn columnPercentageAmount = ColumnBuilder.getNew()
 	.setPercentageColumn((PropertyColumn) columnAmount) // <-- Here we make this column a percentage column relative to column "amount"
 	.setTitle("Amount [%]").setWidth(new Integer(90))
 	.setStyle(amountStyle).setHeaderStyle(headerStyle).build();

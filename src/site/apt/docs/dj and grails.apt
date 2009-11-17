@@ -75,7 +75,7 @@ def report = {
  
 * Adding complexity
 
- Honestly, the last list doesn’t really represent my preferences: The Being and the Nothing was really good, but A 
+ Honestly, the last list doesnï¿½t really represent my preferences: The Being and the Nothing was really good, but A 
  Clockwork Orange should not be in second place. 
  
  This is not related with DynamicJasper, but with the list created. Hence, I am going to define an ordered list:
@@ -99,22 +99,22 @@ def list = Book.list()
 
  These are my favorites, and the report makes more sense now. However, I would like to know which author prevails on my library.
 
- In order to do so, let’s define the columns individually:
+ In order to do so, letï¿½s define the columns individually:
 
 +------------------------------------------------------------------------------------------------------------+
-SimpleColumn columnName = ColumnBuilder.getInstance().
+SimpleColumn columnName = ColumnBuilder.getNew().
 	setColumnProperty("name", String.class.getName()).
 	setTitle("Name").build()
 
-SimpleColumn columnAuthor = ColumnBuilder.getInstance().
+SimpleColumn columnAuthor = ColumnBuilder.getNew().
 	setColumnProperty("author", String.class.getName()).
 	setTitle("Author").build()  
 
-SimpleColumn columnCountry = ColumnBuilder.getInstance().
+SimpleColumn columnCountry = ColumnBuilder.getNew().
 	setColumnProperty("country", String.class.getName()).
 	setTitle("Country").build()
 
-SimpleColumn columnScore = ColumnBuilder.getInstance().
+SimpleColumn columnScore = ColumnBuilder.getNew().
 	setColumnProperty("score", Integer.class.getName()).
 	setTitle("Score").build()
 
@@ -151,7 +151,7 @@ FInally, we define the group and a variable to sum how many elements match the c
 
 * Adding more complexity and a chart
 
- Let’s do the same, but ordering by Country and including a Pie Chart:
+ Letï¿½s do the same, but ordering by Country and including a Pie Chart:
  
 +------------------------------------------------------------------------------------------------------------+
 def countryComparator = [compare: {
@@ -179,13 +179,13 @@ First I order by Country, to define the group and the chart after:
  Before moving on, I will do some refactoring!
 
 +------------------------------------------------------------------------------------------------------------+
-SimpleColumn columnName = ColumnBuilder.getInstance().
+SimpleColumn columnName = ColumnBuilder.getNew().
 	setColumnProperty("name", String.class.getName()).setTitle("Name").build()
-SimpleColumn columnAuthor = ColumnBuilder.getInstance().
+SimpleColumn columnAuthor = ColumnBuilder.getNew().
 	setColumnProperty("author", String.class.getName()).setTitle("Author").build()  
-SimpleColumn columnCountry = ColumnBuilder.getInstance().
+SimpleColumn columnCountry = ColumnBuilder.getNew().
 	setColumnProperty("country", String.class.getName()).setTitle("Country").build()
-SimpleColumn columnScore = ColumnBuilder.getInstance().
+SimpleColumn columnScore = ColumnBuilder.getNew().
 	setColumnProperty("score", Integer.class.getName()).setTitle("Score").build()   	
      	
 	GroupBuilder gbCountry = new GroupBuilder()
@@ -248,7 +248,7 @@ SimpleColumn columnScore = ColumnBuilder.getInstance().
 
 Conclusions
 
- There are many other options, all described on DynamicJasper’s Web Page
+ There are many other options, all described on DynamicJasperï¿½s Web Page
  
  It is important to note that we could still define a template using Jasper, and then to integrate it. 
  Also, defining a wide number of styles, charts, crosstabs, subreports, and so on.

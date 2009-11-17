@@ -14,7 +14,7 @@ HOW-TO Create Custom Expressions
  Lets see an example.
  
 +------------------------------------------------------------------------------------------------------------+
-AbstractColumn columnaCustomExpression = ColumnBuilder.getInstance()
+AbstractColumn columnaCustomExpression = ColumnBuilder.getNew()
 .setCustomExpression( 
 	new CustomExpression() {
 		public Object evaluate(Object object) {

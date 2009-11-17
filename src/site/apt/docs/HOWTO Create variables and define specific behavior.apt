@@ -22,7 +22,7 @@ HOW-TO Create variables and define specific behavior
 +------------------------------------------------------------------------------------------------------------+
 ...
 
-		AbstractColumn columnaCustomExpression = ColumnBuilder.getInstance()
+		AbstractColumn columnaCustomExpression = ColumnBuilder.getNew()
 			.setCustomExpression(getCustomExpression())
 			.setCustomExpressionForCalculation(getCustomExpression2())
 			.setTitle("Duration").setWidth(new Integer(90))
