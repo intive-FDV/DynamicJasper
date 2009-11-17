@@ -30,7 +30,6 @@
 package ar.com.fdvs.dj.core.registration;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
@@ -39,7 +38,6 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
@@ -77,8 +75,11 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 			if (djgroup.getFooterLabel() != null && djgroup.getFooterLabel().getLabelExpression() != null) {
 				registerCustomExpressionParameter(group.getName() + "_labelExpression", djgroup.getFooterLabel().getLabelExpression());
 			}
+
+//			ColumnsGroupFieldVariablesRegistrationManager fieldVariablesRM = new ColumnsGroupFieldVariablesRegistrationManager(getDjd(),getDynamicReport(),getLayoutManager(), group);
+//			fieldVariablesRM.registerEntities(djgroup.getFieldVariables());
 			
-			ColumnsGroupTemporalVariablesRegistrationManager variablesRM = new ColumnsGroupTemporalVariablesRegistrationManager(getDjd(),getDynamicReport(),getLayoutManager(), group);
+			DJGroupVariableDefRegistrationManager variablesRM = new DJGroupVariableDefRegistrationManager(getDjd(),getDynamicReport(),getLayoutManager(), group);
 			variablesRM.registerEntities(djgroup.getVariables());
 			
 			ColumnsGroupVariablesRegistrationManager headerVariablesRM = new ColumnsGroupVariablesRegistrationManager(ColumnsGroupVariablesRegistrationManager.HEADER, property, getDjd(),getDynamicReport(),getLayoutManager());
