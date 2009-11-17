@@ -327,7 +327,7 @@ public class DJGroup extends DJBaseElement {
 		var.setGroup(this);
 	}
 
-	public void addVariable(DJGroupTemporalVariable var) {
+	public void addVariable(DJGroupVariableDef var) {
 		variables.add(var);
 	}
 	
