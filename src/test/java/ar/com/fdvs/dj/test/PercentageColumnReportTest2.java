@@ -30,10 +30,8 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
-import java.util.Map;
 
 import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
@@ -44,8 +42,14 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
-public class CustomExpressionReportTest extends BaseDjReportTest {
+/**
+ * This test checks that percentage columns works as expected even when no groups are defined
+ * @author mamana
+ *
+ */
+public class PercentageColumnReportTest2 extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -71,7 +75,7 @@ public class CustomExpressionReportTest extends BaseDjReportTest {
 					+"to the main products: DVDs, Books, Foods and Magazines")
 					.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
 			.setSubtitleHeight(new Integer(20))
-			.setDetailHeight(new Integer(15))
+			.setDetailHeight(new Integer(16))
 			.setLeftMargin(margin)
 			.setRightMargin(margin)
 			.setTopMargin(margin)
@@ -85,13 +89,9 @@ public class CustomExpressionReportTest extends BaseDjReportTest {
 			.setTitle("State").setWidth(new Integer(85))
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
-//		AbstractColumn columnBranch = ColumnBuilder.getNew().setColumnProperty("branch", String.class.getName())
-//			.setTitle("Branch").setWidth(new Integer(85))
-//			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
-
-//		AbstractColumn columnaProductLine = ColumnBuilder.getNew().setColumnProperty("productLine", String.class.getName())
-//			.setTitle("Product Line").setWidth(new Integer(85))
-//			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
+		AbstractColumn columnBranch = ColumnBuilder.getNew().setColumnProperty("branch", String.class.getName())
+			.setTitle("Branch").setWidth(new Integer(85))
+			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaItem = ColumnBuilder.getNew().setColumnProperty("item", String.class.getName())
 			.setTitle("item").setWidth(new Integer(85))
@@ -108,54 +108,38 @@ public class CustomExpressionReportTest extends BaseDjReportTest {
 		AbstractColumn columnAmount = ColumnBuilder.getNew().setColumnProperty("amount", Float.class.getName())
 			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
 			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
-
-		AbstractColumn columnaCustomExpression = ColumnBuilder.getNew()
-		.setCustomExpression(getCustomExpression())
-		//.setColumnProperty("item", String.class.getName())
-		.setTitle("CustomExp").setWidth(new Integer(90))
-		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
+		
+		AbstractColumn columnPercentageAmount = ColumnBuilder.getNew().setPercentageColumn((PropertyColumn) columnAmount)
+		.setTitle("Amount [%]").setWidth(new Integer(90))
+		.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);
-//		drb.addColumn(columnBranch);
-//		drb.addColumn(columnaProductLine);
+		drb.addColumn(columnBranch);
 		drb.addColumn(columnaItem);
-		drb.addColumn(columnCode);
 		drb.addColumn(columnaCantidad);
-		drb.addColumn(columnAmount);
-		drb.addColumn(columnaCustomExpression);
-
+		drb.addColumn(columnAmount);		
+		drb.addColumn(columnPercentageAmount);
+	
 		drb.setUseFullPageWidth(true);
 
 		drb.addField("productLine", String.class.getName());
-		drb.addField("branch", String.class.getName());
 
 		DynamicReport dr = drb.build();
 		return dr;
 	}
-
-	private CustomExpression getCustomExpression() {
-		return new CustomExpression() {
-
-			public Object evaluate(Map fields, Map variables, Map parameters) {
-				String state = (String) fields.get("state");
-				String branch = (String) fields.get("branch");
-				String productLine = (String) fields.get("productLine");
-				Integer count = (Integer) variables.get("REPORT_COUNT");
-				return count + ": " +state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
-			}
-
-			public String getClassName() {
-				return String.class.getName();
-			}
-
-		};
-	}
-
+	
 	public static void main(String[] args) throws Exception {
-		CustomExpressionReportTest test = new CustomExpressionReportTest();
+		PercentageColumnReportTest2 test = new PercentageColumnReportTest2();
 
 		test.testReport();
+		
 		JasperViewer.viewReport(test.jp);
 	}
+	
+	protected void exportReport() throws Exception {
+		ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/reports/" + this.getClass().getName() + ".pdf");
+		ReportExporter.exportReportXls(jp, System.getProperty("user.dir")+ "/target/reports/" + this.getClass().getName() + ".xls");
+		exportToJRXML();
+	}	
 
 }

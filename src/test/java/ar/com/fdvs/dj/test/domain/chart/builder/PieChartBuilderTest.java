@@ -66,16 +66,16 @@ public class PieChartBuilderTest extends BaseDjReportTest {
 	protected void setUp() throws Exception {
 		drb = new DynamicReportBuilder();
 		
-		AbstractColumn columnState = ColumnBuilder.getInstance()
+		AbstractColumn columnState = ColumnBuilder.getNew()
 		.setColumnProperty("state", String.class.getName()).setTitle(
 				"State").setWidth(new Integer(85)).build();
-		AbstractColumn columnBranch = ColumnBuilder.getInstance()
+		AbstractColumn columnBranch = ColumnBuilder.getNew()
 		.setColumnProperty("branch", String.class.getName()).setTitle(
 				"Branch").setWidth(new Integer(85)).build();
-		AbstractColumn columnaQuantity = ColumnBuilder.getInstance()
+		AbstractColumn columnaQuantity = ColumnBuilder.getNew()
 		.setColumnProperty("quantity", Long.class.getName()).setTitle(
 				"Quantity").setWidth(new Integer(80)).build();
-		AbstractColumn columnAmount = ColumnBuilder.getInstance()
+		AbstractColumn columnAmount = ColumnBuilder.getNew()
 		.setColumnProperty("amount", Float.class.getName()).setTitle(
 				"Amount").setWidth(new Integer(90)).build();
 

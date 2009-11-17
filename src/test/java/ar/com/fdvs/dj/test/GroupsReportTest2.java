@@ -99,43 +99,43 @@ public class GroupsReportTest2 extends BaseDjReportTest {
 			.setOddRowBackgroundStyle(oddRowStyle);
 
 
-		AbstractColumn columnState = ColumnBuilder.getInstance()
+		AbstractColumn columnState = ColumnBuilder.getNew()
 				.setColumnProperty("state", String.class.getName())
 				.setTitle("State").setWidth(new Integer(85))
 				//.setStyle(titleStyle).setHeaderStyle(titleStyle)
 				.build();
 
-		AbstractColumn columnBranch = ColumnBuilder.getInstance()
+		AbstractColumn columnBranch = ColumnBuilder.getNew()
 				.setColumnProperty("branch", String.class.getName())
 				.setTitle("Branch").setWidth(new Integer(85))
 				.setStyle(detailStyle).setHeaderStyle(headerStyle)
 				.build();
 
-		AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
+		AbstractColumn columnaProductLine = ColumnBuilder.getNew()
 				.setColumnProperty("productLine", String.class.getName())
 				.setTitle("Product Line").setWidth(new Integer(85))
 				.setStyle(detailStyle).setHeaderStyle(headerStyle)
 				.build();
 
-		AbstractColumn columnaItem = ColumnBuilder.getInstance()
+		AbstractColumn columnaItem = ColumnBuilder.getNew()
 				.setColumnProperty("item", String.class.getName())
 				.setTitle("Item").setWidth(new Integer(85))
 				.setStyle(detailStyle).setHeaderStyle(headerStyle)
 				.build();
 
-		AbstractColumn columnCode = ColumnBuilder.getInstance()
+		AbstractColumn columnCode = ColumnBuilder.getNew()
 				.setColumnProperty("id", Long.class.getName())
 				.setTitle("ID").setWidth(new Integer(40))
 				.setStyle(importeStyle).setHeaderStyle(headerStyle)
 				.build();
 
-		AbstractColumn columnaQuantity = ColumnBuilder.getInstance()
+		AbstractColumn columnaQuantity = ColumnBuilder.getNew()
 				.setColumnProperty("quantity", Long.class.getName())
 				.setTitle("Quantity").setWidth(new Integer(80))
 				.setStyle(importeStyle).setHeaderStyle(headerStyle)
 				.build();
 
-		AbstractColumn columnAmount = ColumnBuilder.getInstance()
+		AbstractColumn columnAmount = ColumnBuilder.getNew()
 				.setColumnProperty("amount", Float.class.getName())
 				.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
 				.setStyle(importeStyle).setHeaderStyle(headerStyle)

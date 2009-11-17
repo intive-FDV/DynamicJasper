@@ -74,13 +74,13 @@ public class TimeSeriesChartBuilderTest extends BaseDjReportTest {
 	protected void setUp() throws Exception {
 		drb = new DynamicReportBuilder();
 		
-		AbstractColumn columnDate = ColumnBuilder.getInstance()
+		AbstractColumn columnDate = ColumnBuilder.getNew()
 		.setColumnProperty("date", Date.class.getName()).setTitle(
 				"Date").setWidth(new Integer(85)).build();
-		AbstractColumn columnaQuantity = ColumnBuilder.getInstance()
+		AbstractColumn columnaQuantity = ColumnBuilder.getNew()
 		.setColumnProperty("quantity", Long.class.getName()).setTitle(
 				"Quantity").setWidth(new Integer(80)).build();
-		AbstractColumn columnAmount = ColumnBuilder.getInstance()
+		AbstractColumn columnAmount = ColumnBuilder.getNew()
 		.setColumnProperty("amount", Float.class.getName()).setTitle(
 				"Amount").setWidth(new Integer(90)).build();
 

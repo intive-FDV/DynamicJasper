@@ -61,14 +61,14 @@ public class ConditionalStyleReportTest2 extends TestCase {
             drb.setWhenNoData("No data", null, true, true);
             drb.setReportName("Test inner crosstab");
             ArrayList listCondStyle = getConditonalStyles();
-            AbstractColumn columnState1 = ColumnBuilder.getInstance()
+            AbstractColumn columnState1 = ColumnBuilder.getNew()
                                            .setColumnProperty("1", Integer.class.getName()).setTitle("Sales")
                                            .setHeaderStyle(getHeaderStyle()).setStyle(getDataStyle())
                                            .addConditionalStyles(listCondStyle)
                                            .build();
             drb.addColumn(columnState1);
 
-            AbstractColumn columnState2 = ColumnBuilder.getInstance()
+            AbstractColumn columnState2 = ColumnBuilder.getNew()
                                            .setColumnProperty("2", String.class.getName()).setTitle("Year")
                                            .setHeaderStyle(getHeaderStyle()).setStyle(getDataStyle())
                                            .addConditionalStyles(listCondStyle)

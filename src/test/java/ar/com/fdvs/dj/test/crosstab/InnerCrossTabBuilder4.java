@@ -62,14 +62,14 @@ public class InnerCrossTabBuilder4 extends TestCase {
             drb.setWhenNoData("No data", null, true, true);
             drb.setReportName("This is the main report");
 
-            AbstractColumn colSales = ColumnBuilder.getInstance()
+            AbstractColumn colSales = ColumnBuilder.getNew()
             							.setColumnProperty("sales", Integer.class.getName())
             							.setTitle("Sales")
             							.setWidth(50)
             							.build();
 
             
-            AbstractColumn colYear = ColumnBuilder.getInstance()
+            AbstractColumn colYear = ColumnBuilder.getNew()
 //                                           	.setColumnProperty("year", String.class.getName())
                                            	.setTitle("Year")
                                            	.setWidth(50)

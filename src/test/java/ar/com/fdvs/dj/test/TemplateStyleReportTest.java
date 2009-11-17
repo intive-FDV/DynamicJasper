@@ -94,42 +94,42 @@ public class TemplateStyleReportTest extends BaseDjReportTest {
 
 		/**
 		 * Column definitions. We use a new ColumnBuilder instance for each
-		 * column, the ColumnBuilder.getInstance() method returns a new instance
+		 * column, the ColumnBuilder.getNew() method returns a new instance
 		 * of the builder
 		 */
-		AbstractColumn columnState = ColumnBuilder.getInstance()		//creates a new instance of a ColumnBuilder
+		AbstractColumn columnState = ColumnBuilder.getNew()		//creates a new instance of a ColumnBuilder
 			.setColumnProperty("state", String.class.getName())			//defines the field of the data source that this column will show, also its type
 			.setTitle("State")											//the title for the column
 			.setWidth(85)									//the width of the column
 			.build();													//builds and return a new AbstractColumn
 
 		//Create more columns
-		AbstractColumn columnBranch = ColumnBuilder.getInstance()
+		AbstractColumn columnBranch = ColumnBuilder.getNew()
 			.setColumnProperty("branch", String.class.getName())
 			.setTitle("Branch").setWidth(85)
 			.build();
 
-		AbstractColumn columnaProductLine = ColumnBuilder.getInstance()
+		AbstractColumn columnaProductLine = ColumnBuilder.getNew()
 			.setColumnProperty("productLine", String.class.getName())
 			.setTitle("Product Line").setWidth(85)
 			.build();
 
-		AbstractColumn columnaItem = ColumnBuilder.getInstance()
+		AbstractColumn columnaItem = ColumnBuilder.getNew()
 			.setColumnProperty("item", String.class.getName())
 			.setTitle("Item").setWidth(85)
 			.build();
 
-		AbstractColumn columnCode = ColumnBuilder.getInstance()
+		AbstractColumn columnCode = ColumnBuilder.getNew()
 			.setColumnProperty("id", Long.class.getName())
 			.setTitle("ID").setWidth(40)
 			.build();
 
-		AbstractColumn columnaCantidad = ColumnBuilder.getInstance()
+		AbstractColumn columnaCantidad = ColumnBuilder.getNew()
 			.setColumnProperty("quantity", Long.class.getName())
 			.setTitle("Quantity").setWidth(80)
 			.build();
 
-		AbstractColumn columnAmount = ColumnBuilder.getInstance()
+		AbstractColumn columnAmount = ColumnBuilder.getNew()
 			.setColumnProperty("amount", Float.class.getName())
 			.setTitle("Amount").setWidth(90)
 			.setPattern("$ 0.00")		//defines a pattern to apply to the values swhown (uses TextFormat)
