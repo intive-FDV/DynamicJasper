@@ -1,0 +1,69 @@
+	----------
+	HOW-TO Add labels in group header and footer
+	-----------
+	Juan Manuel Alvarez Gimenez
+	-----------
+	Date
+	-----------
+
+
+
+Add labels in group header and footer
+
+ This feature (added in v3.0.7) enables to have labels in group header and footer, specially for 
+ each variable (on top of it) or a general label for all variables at the left.
+
+ 
+ <<Some examples>>
+ 
+ Footer groups label
+ 
+[../images/examples/group_labels/group_label_1.jpg]  Footer groups label
+
+
+ Header groups label
+ 
+[../images/examples/group_labels/group_label_1b.jpg] Header groups label
+ 
+ Footer general label
+ 
+[../images/examples/group_labels/group_label_2.jpg] Footer general label
+
+
+* Code examples for labels associated to group variables 
+ 
+ Note the overloaded <addHeaderVariable(...)> method which receives a <<DJGroupLabel>> as the last parameter 
+ 
++-----------------------------------------------------------------------------+
+		DJGroupLabel glabel1 = new DJGroupLabel("Total amount",glabelStyle);
+		DJGroupLabel glabel2 = new DJGroupLabel("Total quantity",glabelStyle);
+		
+		//		 define the criteria column to group by (columnState)
+		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+				.setHeaderHeight(new Integer(30))
+				.addHeaderVariable(columnAmount,DJCalculation.SUM,headerVariables, null, glabel1) // tell the group place a variable footer of the column "columnAmount" with the SUM of all values of the columnAmount in this group.
+				.addHeaderVariable(columnaQuantity,DJCalculation.SUM,headerVariables, null, glabel2) // idem for the columnaQuantity column
+				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.build();
++-----------------------------------------------------------------------------+
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/labels/GroupLabelTest1.html}GroupLabelTest1}} and {{{../xref-test/ar/com/fdvs/dj/test/groups/labels/GroupLabelTest2.html}GroupLabelTest2}}
+
+
+* Code examples for general label at the left of group variables 
+ 
+ Note the <setFooterLabel(glabel3)> method which receives a <<DJGroupLabel>> as parameter 
+ 
++-----------------------------------------------------------------------------+
+		DJGroupLabel glabel3 = new DJGroupLabel("Subtotal"  ,glabelStyle2);
+		
+		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+				.addFooterVariable(columnAmount,DJCalculation.SUM,headerVariablesStyle) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
+				.addFooterVariable(columnaQuantity,DJCalculation.SUM,headerVariablesStyle) // idem for the columnaQuantity column
+				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
+				.setFooterLabel(glabel3)
+				.setFooterVariablesHeight(new Integer(30))
+				.build();
++-----------------------------------------------------------------------------+
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/labels/GroupLabelTest2.html}GroupLabelTest2}} 

@@ -1,0 +1,367 @@
+	----------
+	Grouping Styles
+	----------
+
+
+Grouping Styles
+
+ DynamicJasper comes with predefined grouping layouts. Different combinations in layouts among nested groups
+ can give to your reports a high visual impact.
+
+Content
+
+ * 1 group
+
+	 * {{{#Default_layout}<Default> layout}}
+
+	 * {{{#Default_With_Headers_on_each_group_break_Layout}<Default With Headers> (on each group break) Layout}}
+
+	 * {{{#Empty_layout_grouped_column_gets_hidden}<Empty> layout (grouped column gets hidden)}}
+
+	 * {{{#Simple_Value_For_Each_layout}Simple <Value For Each> layout}}
+
+	 * {{{#Simple_Value_For_Each_With_Headers_layout}Simple <Value For Each With Headers> layout}}
+
+	 * {{{#Value_In_Header_layout}<Value In Header> layout}}
+
+	 * {{{#Value_In_Header_With_Headers_layout}<Value In Header With Headers> layout}}
+
+	 * {{{#Value_In_Header_With_Headers_And_Column_Name_layout}<Value In Header With Headers And Column Name> layout}}
+
+ * 2 groups and more...
+
+ 	* {{{#Value_In_Header_With_Header_and_Default_layouts}<Value In Header With Header> and <Default> layouts}}
+
+ * {{{#Layouts_table}Layouts table}}
+
+The simplest case: 1 group
+
+* {<Default> layout}
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T1.html}GroupsReportTestG1T1}}
+
+ <<Code Fragment>>
+
++-----------------------------------------------------------------------------+
+...
+drb.setPrintColumnNames(true); // "drb" is the DynamicReportBuilder
+...
+ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.setGroupLayout(GroupLayout.DEFAULT)
+		.build();
++-----------------------------------------------------------------------------+
+
+ <<Key Points>>
+
+*----------+--------------+--------------+
+|| <<Atribute>> || <<Value>> || <<Description>> ||
+*----------+--------------+--------------+
+| printColumnNames (on "drb") | true | The column names will be shown at the top of each page
+*----------+--------------+--------------+
+| groupLayout (on group) | DEFAULT |
+*----------+--------------+--------------+
+| footerVariable | SUM on column <Quanity> and <Amount>| On each group break, the sum of each column
+*----------+--------------+--------------+
+
+  <<Sample snapshot>>
+
+[../images/examples/grouping/1g-default.jpg] Default group layout
+
+* {<Default With Headers> (on each group break) Layout}
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T2.html}GroupsReportTestG1T2}}
+
+ <<Code Fragment>>
+
++-----------------------------------------------------------------------------+
+...
+drb.setPrintColumnNames(false); // "drb" is the DynamicReportBuilder
+...
+ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)
+		.build();
++-----------------------------------------------------------------------------+
+
+ <<Key Points>>
+
+*----------+--------------+--------------+
+|| <<Atribute>> || <<Value>> || <<Description>> ||
+*----------+--------------+--------------+
+| printColumnNames (on "drb") | false | Because each group prints its own header, we dont need this.
+*----------+--------------+--------------+
+| groupLayout (on group) | DEFAULT_WITH_HEADER |
+*----------+--------------+--------------+
+
+ <<Sample snapshot>>
+
+[../images/examples/grouping/1g-DEFAULT_WITH_HEADER.jpg]  Default group layout with headers
+
+* {<Empty> layout (grouped column gets hidden)}
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T3.html}GroupsReportTestG1T3}}
+
+ <<Code Fragment>>
+
++-----------------------------------------------------------------------------+
+...
+drb.setPrintColumnNames(true); // "drb" is the DynamicReportBuilder
+...
+ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.setGroupLayout(GroupLayout.EMPTY)
+		.build();
++-----------------------------------------------------------------------------+
+
+ <<Key Points>>
+
+*----------+--------------+--------------+
+|| <<Atribute>> || <<Value>> || <<Description>> ||
+*----------+--------------+--------------+
+| printColumnNames (on "drb") | true | The column names will be shown at the top of each page
+*----------+--------------+--------------+
+| groupLayout (on group) | EMPTY | makes the column used as grouping criteria to be hidden. Note that on each group breaks there are totals for that group
+*----------+--------------+--------------+
+
+ <<Sample snapshot>>
+
+[../images/examples/grouping/1g-EMPTY.jpg]  Empty group layout
+
+* {Simple <Value For Each> layout}
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T4.html}GroupsReportTestG1T4}}
+
+ <<Code Fragment>>
+
++-----------------------------------------------------------------------------+
+...
+drb.setPrintColumnNames(true); // "drb" is the DynamicReportBuilder
+...
+ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.setGroupLayout(GroupLayout.VALUE_FOR_EACH)
+		.build();
++-----------------------------------------------------------------------------+
+
+ <<Key Points>>
+
+*----------+--------------+--------------+
+|| <<Atribute>> || <<Value>> || <<Description>> ||
+*----------+--------------+--------------+
+| printColumnNames (on "drb") | true | The column names will be shown at the top of each page
+*----------+--------------+--------------+
+| groupLayout (on group) | VALUE_FOR_EACH | The column used as grouping criteria repeats its value on each row.
+*----------+--------------+--------------+
+
+ <<Sample snapshot>>
+
+[../images/examples/grouping/1g-VALUE_FOR_EACH.jpg]  Value For Each group layout
+
+* {Simple <Value For Each With Headers> layout}
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T5.html}GroupsReportTestG1T5}}
+
+ <<Code Fragment>>
+
++-----------------------------------------------------------------------------+
+...
+drb.setPrintColumnNames(false); // "drb" is the DynamicReportBuilder
+...
+ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.setGroupLayout(GroupLayout.VALUE_FOR_EACH_WITH_HEADERS) // set layout style
+		.build();
++-----------------------------------------------------------------------------+
+
+ <<Key Points>>
+
+*----------+--------------+--------------+
+|| <<Atribute>> || <<Value>> || <<Description>> ||
+*----------+--------------+--------------+
+| printColumnNames (on "drb") | false | Because every group break will add its own headers
+*----------+--------------+--------------+
+| groupLayout (on group) | VALUE_FOR_EACH_WITH_HEADERS | The column used as grouping criteria repeats its value on each row. Headers are printed on every group break.
+*----------+--------------+--------------+
+
+  <<Sample snapshot>>
+
+[../images/examples/grouping/1g-VALUE_FOR_EACH_WITH_HEADERS.jpg]  Value For Each With Headers group layout
+
+* {<Value In Header> layout}
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T6.html}GroupsReportTestG1T6}}
+
+ <<Code Fragment>>
+
++-----------------------------------------------------------------------------+
+...
+drb.setPrintColumnNames(true); // "drb" is the DynamicReportBuilder
+...
+columnState.setStyle(titleStyle); //Give a special style to the grouping column (bigger font)
+...
+ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // set layout style
+		.build();
++-----------------------------------------------------------------------------+
+
+ <<Key Points>>
+
+*----------+--------------+--------------+
+|| <<Atribute>> || <<Value>> || <<Description>> ||
+*----------+--------------+--------------+
+| printColumnNames (on "drb") | true | Just once on each page.
+*----------+--------------+--------------+
+| groupLayout (on group) | VALUE_IN_HEADER | The grouping column gets hidden but on each group break the grouping column current value is printed in a separated line.
+*----------+--------------+--------------+
+| style (of the grouping column) | <A different style from the rest of the columns> |
+*----------+--------------+--------------+
+
+  <<Sample snapshot>>
+
+[../images/examples/grouping/1g-VALUE_IN_HEADER.jpg]  Value In Header group layout
+
+* {<Value In Header With Headers> layout}
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T7.html}GroupsReportTestG1T7}}
+
+ <<Code Fragment>>
+
++-----------------------------------------------------------------------------+
+...
+drb.setPrintColumnNames(false); // "drb" is the DynamicReportBuilder
+...
+columnState.setStyle(titleStyle); //Give a special style to the grouping column (bigger font)
+...
+ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS) // set layout style
+		.build();
++-----------------------------------------------------------------------------+
+
+ <<Key Points>>
+
+*----------+--------------+--------------+
+|| <<Atribute>> || <<Value>> || <<Description>> ||
+*----------+--------------+--------------+
+| printColumnNames (on "drb") | false | Because every group break will add its own headers
+*----------+--------------+--------------+
+| groupLayout (on group) | VALUE_IN_HEADER_WITH_HEADERS | The grouping column gets hidden but on each group break the grouping column current value is printed right before the headers.
+*----------+--------------+--------------+
+| style (of the grouping column) | <A different style from the rest of the columns> |
+*----------+--------------+--------------+
+
+  <<Sample snapshot>>
+
+[../images/examples/grouping/1g-VALUE_IN_HEADER_WITH_HEADERS.jpg]  Value In Header group layout
+
+* {<Value In Header With Headers And Column Name> layout}
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T8.html}GroupsReportTestG1T8}}
+
+ <<Code Fragment>>
+
++-----------------------------------------------------------------------------+
+...
+drb.setPrintColumnNames(false); // "drb" is the DynamicReportBuilder
+...
+columnState.setStyle(titleStyle); //Give a special style to the grouping column detail (bigger font)
+columnState.setHeaderStyle(titleStyle); //Give a special style to the grouping column tile (bigger font)
+columnState.setWidth(new Integer(85));
+...
+ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
+		.addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM,headerVariables)
+		.setGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME) // set layout style
+		.build();
++-----------------------------------------------------------------------------+
+
+ <<Key Points>>
+
+*----------+--------------+--------------+
+|| <<Atribute>> || <<Value>> || <<Description>> ||
+*----------+--------------+--------------+
+| printColumnNames (on "drb") | false | Because every group break will add its own headers
+*----------+--------------+--------------+
+| groupLayout (on group) | VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME | The grouping column gets hidden but on each group break the grouping column current value is printed right before the headers.
+*----------+--------------+--------------+
+| style (of the grouping column) | <A different style from the rest of the columns> |
+*----------+--------------+--------------+
+| heaedrStyle (of the grouping column) | <A different header style from the rest of the columns> |
+*----------+--------------+--------------+
+| width (of the grouping column) | 50 | This layout uses the column width attribute to set the title with, the value gets the rest of space left.
+*----------+--------------+--------------+
+
+  <<Sample snapshot>>
+
+[../images/examples/grouping/1g-VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME.jpg]  Value In Header group layout
+
+Getting serious: 2 groups
+
+ As the number of group grows, different combinations of grouping layouts can result in high end designs.
+
+* {<Value In Header With Header> and <Default> layouts}
+
+ <<Code>> {{{../xref-test/ar/com/fdvs/dj/test/groups/GroupsReportTestG2T1.html}GroupsReportTestG2T1}}
+
+ <<Key Points>>
+
+*----------+--------------+--------------+
+|| <<Atribute>> || <<Value>> || <<Description>> ||
+*----------+--------------+--------------+
+| printColumnNames (on "drb") | false | Because every group break will add its own headers
+*----------+--------------+--------------+
+| groupLayout (on group 1) | VALUE_IN_HEADER_WITH_HEADERS | The grouping column gets hidden but on each group break the grouping column current value is printed right before the headers.
+*----------+--------------+--------------+
+| groupLayout (on group 2) | VALUE_IN_HEADER | The grouping column gets hidden but on each group break the grouping column current value is printed in a separated line.
+*----------+--------------+--------------+
+| style (of the grouping column for group 1) | <A different style from the rest of the columns> |
+*----------+--------------+--------------+
+| style (of the grouping column for group 2) | <A different style from the rest of the columns> |
+*----------+--------------+--------------+
+| heaedrStyle (of the grouping column 1) | <A different header style from the rest of the columns> |
+*----------+--------------+--------------+
+| heaedrStyle (of the grouping column 2) | <A different header style from the rest of the columns> |
+*----------+--------------+--------------+
+
+  <<Sample snapshot>>
+
+[../images/examples/grouping/2g-V_IN_H_WITH_H_vs_V_IN_H.jpg]  Value In Header With Header and  Value In Header layouts combined
+
+ In this case, first group is using VALUE_IN_HEADER_WITH_HEADERS layout and second group is using VALUE_IN_HEADER
+
+{Layouts table}
+
+ Combining of the different <<GroupLayout>> possibilities with nested groups can end in very interesting results
+
+ The following matrix shows the different aspects used in each template.
+
+*----------+--------------*-------*-------*-------*-------*
+|| <<Template>> || <<show Value In Header>> || <<show Value For Each Row>> || <<show ColumnName>> || <<hide Column>> || <<printHeaders>> ||
+*----------*--------------*-------*-------*-------*-------*
+| EMPTY | NO | NO | NO | YES | NO |
+*----------*--------------*-------*-------*-------*-------*
+| DEFAULT | YES | NO | NO | NO | NO |
+*----------*--------------*-------*-------*-------*-------*
+| DEFAULT_WITH_HEADER | YES | NO | NO | YES | NO |
+*----------*--------------*-------*-------*-------*-------*
+| VALUE_IN_HEADER_WITH_HEADERS | YES | NO | NO | YES | YES |
+*----------*--------------*-------*-------*-------*-------*
+| VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME | YES | NO | YES | YES | YES |
+*----------*--------------*-------*-------*-------*-------*
+| VALUE_FOR_EACH | NO | YES | NO | NO | NO |
+*----------*--------------*-------*-------*-------*-------*
+| VALUE_FOR_EACH_WITH_HEADERS | NO | YES | NO | NO | YES |
+*----------*--------------*-------*-------*-------*-------*
+| VALUE_IN_HEADER_AND_FOR_EACH | YES | YES | NO | NO | NO |
+*----------*--------------*-------*-------*-------*-------*
+| VALUE_IN_HEADER_AND_FOR_EACH_WITH_HEADERS | YES | YES | NO | NO | YES |
+*----------*--------------*-------*-------*-------*-------*

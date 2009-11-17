@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="ar.com.fdvs.dj.test.domain.db.Customer" table="customer" mutable="false">			
+		<id column="id" name="id" type="long"></id>
+		<property name="firstName" column="firstname" />
+		<property name="lastName" column="lastname" />
+		<property name="street" column="street" />
+		<property name="city" column="city" />
+		
+<!-- 
+		<map name="positionDetailDatesMap" table="so_owner.op_voyage_positions">
+			<key>	
+				<column name="company_id"></column>
+				<column name="ship_id"></column>
+				<column name="voyage_no"></column>
+			</key>
+			<map-key type="long" formula="key_position"></map-key>	
+			<many-to-many class="com.osg.chops.shipboard.domain.PositionDetailsDates" property-ref="keyPosition" order-by="arr_datetime asc">
+				<column  name="key_position"></column>
+			</many-to-many>
+		</map>
+
+		<set name="fixtures" table="so_owner.op_voyage_fixtures" mutable="false" >
+			<key>	
+				<column name="company_id"></column>
+				<column name="ship_id"></column>
+				<column name="voyage_no"></column>
+			</key>		
+			<many-to-many class="com.osg.chops.shipboard.domain.Fixture" property-ref="fixtureId" >
+				<column  name="fixture_id"></column>
+			</many-to-many>
+		</set>
+
+		<set name="vcFixtures" table="so_owner.op_vc_voyage_fixture_vw" mutable="false">
+			<key>	
+				<column name="company_id"></column>
+				<column name="ship_id"></column>
+				<column name="voyage_no"></column>
+			</key>		
+			<many-to-many class="com.osg.chops.shipboard.domain.VoyageChartererFixture" property-ref="fixtureId">
+				<column  name="fixture_id"></column>
+			</many-to-many>
+		</set>
+		
+		<set name="comments" table="so_owner.op_voy_comments" order-by="date_ins desc">
+			<key>	
+				<column name="company_id"></column>
+				<column name="ship_id"></column>
+				<column name="voyage_no"></column>				
+			</key>
+			<one-to-many class="com.osg.chops.shipboard.domain.VoyageComment"/>				
+		</set>
+ -->
+	
+	</class>		
+</hibernate-mapping>
