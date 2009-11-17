@@ -1,0 +1,26 @@
+	------------
+	HOW-TO Setup columns when using a XML data source
+	------------
+
+HOW-TO Setup columns when using a XML data sources
+
+ <Since DJ v.2.0.5>
+
+ When using XML data sources, JasperReports need the fields to have "description" property set (besides the "property name" parameter), 
+ so that JasperReport can access the properties of the current object using XPath
+  
+ To achieve that, two methods were created
+
+ In the <<ColumnBuilder>>: 
+
++------------------------------------------------------------------------------------------------------------+
+public ColumnBuilder setFieldDescription(String fieldDescription) 
++------------------------------------------------------------------------------------------------------------+
+ 
+ And the <<FastReportBuilder>>: 
+
++------------------------------------------------------------------------------------------------------------+
+addColumn(String title, String property, String className, int width, boolean fixedWidth, String pattern, Style style, String fieldDescription) 
++------------------------------------------------------------------------------------------------------------+
+ 
+ In this call, the last parameter is the  <<fieldDescription>>

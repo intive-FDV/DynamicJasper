@@ -1,0 +1,54 @@
+		------
+		Features
+		------
+		Juan Manuel Alvarez
+		------
+		 Date
+
+Report Concept
+
+ This API is intended to solve the 99% of the classic reports that consist in a number of fields (that are going to be columns in the report), then the report may have some "repeating groups" defined using a field as a criteria.
+ Some columns may have variables (with operations such as SUM or COUNT) for some of the fields. 
+ All this tasks can be done automatically by the DJ through a very easy-to-use API.
+
+ You can redefine at runtime the column order, the “repeating groups”, the variables, styles, conditional styles, etc. Its completely dynamic!!!
+ 
+Features
+
+ Most of the features are provided directly by Jasper Reports, but through the DJ API, some of the results are achieved with much less effort.                                     
+ 
+ * <<Column Title styles>>
+		
+ Each column title can have its own style (defining border, border color, font size, type and color, background color, etc.)
+	
+	  
+ * <<Column style>>
+	
+ As before but for the data shown in the column (the report data)
+	  
+ * <<Repeating groups>>
+	
+  You can create repeating groups dynamically using simple expressions as criteria or complex custom expressions.
+  Each repeating group may have a header and/or footer, which can have a variable showing the result of and operation (SUM, COUNT or any other provided by Jasper Reports).
+	  
+ * <<Variables>>
+	
+ As told before, repeating groups can have variables that hold the result of and operation on a given field (column).
+	  
+ * <<Calculated Columns>>
+	
+ The DJ API provides a very friendly way to create calculated columns, this columns may shown the result of an operation between one, two or more columns. I.e.: for some reason the data source does not provide a column that should contain the result of “column A * column B”, you can create a calculated column to solve this problem.
+ The operation can also be a custom operation (created in Java) that can’t (for example) concatenate or more columns, transform it contents, etc.
+      
+ * <<Conditional Format>>
+
+ DJ provides a very simple way to define conditional formats. You can use simple conditions or custom conditions.
+	  
+ * <<Exporting to most popular formats>>
+
+ As DJ stands over Jasper Reports, the output formats will be any given by the latter, but one of the most valuable features that DJ provides is exporting plain reports to excel, with no data formatting, no page break, etc. This is very valuable for end users that use this report to create dynamic tables in Excel, creating this reports just with Jasper Reports can demand a lot of design time.
+      
+ * <<Many more…>>
+    
+ Don’t stop looking at the ready-to-run examples
+	

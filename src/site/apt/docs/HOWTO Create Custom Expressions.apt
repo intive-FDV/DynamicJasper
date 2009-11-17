@@ -1,0 +1,56 @@
+	-----------
+	HOW-TO Create Custom Expressions
+	-----------
+
+HOW-TO Create Custom Expressions
+
+ <<Custom Expression>>s are a way we provide to let the developer make complex arranging of the data to be displayed in 
+ the report such as a concatenation of 2 or more fields from the data source, a math calculation, etc.
+ Custom Expressions classes must implement the <ar.com.fdvs.dj.domain.CustomExpression> interface, which has
+ a single method:  <evaluate(Object object)> , the parameter is a java.util.Map wich contains the elements of the
+ current row.
+ 
+ Custom Expression may be defined in-line (they are like closures)
+ Lets see an example.
+ 
++------------------------------------------------------------------------------------------------------------+
+AbstractColumn columnaCustomExpression = ColumnBuilder.getNew()
+.setCustomExpression( 
+	new CustomExpression() {
+		public Object evaluate(Object object) {
+			Map map = (Map) object;
+			String state = (String) map.get("state");
+			String branch = (String) map.get("branch");
+			String productLine = (String) map.get("productLine");
+			return state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+		}
+	} 
+).build();	
++------------------------------------------------------------------------------------------------------------+
+
+ As you can see, the keys of the map are the properties defined at the moment of the creation of the columns.
+
+ If we need to use fields from the data source that are not directly shown on any column, we must register them
+ like this:
+ 
++------------------------------------------------------------------------------------------------------------+
+drb.addField("productLine", String.class.getName());
+drb.addField("branch", String.class.getName());
++------------------------------------------------------------------------------------------------------------+
+
+ The resulting report would be something like this
+ 
+[../images/examples/custom-expression.jpg] Hidden column 
+
+* Out of the box CustomExpression
+
+ DJ already provides these implementations for common usages. They are in the package <ar.com.fdvs.dj.util.customexpression>
+ 
+*-----+-----+ 
+| RecordsInPageCustomExpression | returns the record number for the current page  
+*-----+-----+ 
+| RecordsInReportCustomExpression | returns the record number for the whole report  
+*-----+-----+ 
+| PageNumberCustomExpression | returns the page number  
+*-----+-----+ 
+ 
