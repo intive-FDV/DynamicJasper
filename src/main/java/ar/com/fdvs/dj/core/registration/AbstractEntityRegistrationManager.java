@@ -67,7 +67,7 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 
 	private DynamicJasperDesign djd;
 
-	private Collection columns;
+//	private Collection columns;
 
 	private DynamicReport dynamicReport;
 	
@@ -80,7 +80,7 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 	}
 
 	public final void registerEntities(Collection entities) throws EntitiesRegistrationException {
-		this.columns = entities;
+//		this.columns = entities;
 		log.debug("Registering entities.");
 		try {
 			if (entities!=null) {
@@ -93,7 +93,7 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 		} catch (RuntimeException e) {
 			throw new EntitiesRegistrationException(e.getMessage(),e);
 		} finally {
-			this.columns = null;
+//			this.columns = null;
 		}
 	}
 
@@ -130,9 +130,9 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 		getDjd().getParametersWithValues().put(name, customExpression);
 	}
 
-	public Collection getColumns() {
-		return columns;
-	}
+//	public Collection getColumns() {
+//		return columns;
+//	}
 
 	public DynamicReport getDynamicReport() {
 		return dynamicReport;

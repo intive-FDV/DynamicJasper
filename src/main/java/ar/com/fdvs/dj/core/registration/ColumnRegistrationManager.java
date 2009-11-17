@@ -47,7 +47,7 @@ import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.entities.DJGroupTemporalVariable;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
@@ -106,7 +106,10 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 				PropertyColumn propertyColumn = ((PropertyColumn)entity);
 				log.debug("registering column " + column.getName());
 				if ( propertyColumn.getColumnProperty() != null && !(entity instanceof ExpressionColumn)){
-					getDjd().addField((JRField)transformEntity(entity));
+					JRField jrfield = (JRField)transformEntity(entity);
+					if (getDjd().getFieldsMap().get(jrfield.getName())==null){
+						getDjd().addField(jrfield);
+					}					
 				}
 				if (entity instanceof ExpressionColumn) {
 					//The Custom Expression parameter must be registered
@@ -118,20 +121,22 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 					registerCustomExpressionParameter(property_name + "_calc", expressionColumn.getExpressionForCalculation());
 				}
 			} catch (JRException e) {
-				log.info(FIELD_ALREADY_REGISTERED);
+				log.info("The field has already been registered" + ": " + e.getMessage() + ", (skipping)");
 			}
 		} 
 	}
 
+	/**
+	 * Receives a PropertyColumn and returns a JRDesignField
+	 */
 	protected Object transformEntity(Entity entity) {
 		PropertyColumn propertyColumn = (PropertyColumn) entity;
 		JRDesignField field = new JRDesignField();
 		ColumnProperty columnProperty = propertyColumn.getColumnProperty();
 		field.setName(columnProperty.getProperty());
-		field.setValueClassName(columnProperty
-				.getValueClassName());
-		log.debug("transforming column: " + columnProperty.getProperty() + " / " + columnProperty
-				.getValueClassName());
+		field.setValueClassName(columnProperty.getValueClassName());
+		
+		log.debug("transforming column property: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +")");
 
 		field.setDescription(propertyColumn.getFieldDescription()); //hack for XML data source
 		Iterator iter = columnProperty.getFieldProperties().keySet().iterator();
