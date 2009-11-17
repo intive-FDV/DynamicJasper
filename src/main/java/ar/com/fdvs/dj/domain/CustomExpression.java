@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
@@ -41,7 +42,7 @@ import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
  * @see StatusLightCondition
  * </br>
  */
-public interface CustomExpression {
+public interface CustomExpression extends Serializable {
 
 	public static final String EVAL_METHOD_NAME = "evaluate";
 
