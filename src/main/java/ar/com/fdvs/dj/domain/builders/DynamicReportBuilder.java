@@ -56,13 +56,14 @@ import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
-import ar.com.fdvs.dj.domain.entities.DJGroupTemporalVariable;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 /**
@@ -251,7 +252,7 @@ public class DynamicReportBuilder {
 
 	public DynamicReport build(){
 		report.setOptions(options);
-		if (!globalVariablesGroup.getFooterVariables().isEmpty() || !globalVariablesGroup.getHeaderVariables().isEmpty() || !globalVariablesGroup.getVariables().isEmpty()) {
+		if (!globalVariablesGroup.getFooterVariables().isEmpty() || !globalVariablesGroup.getHeaderVariables().isEmpty() || !globalVariablesGroup.getVariables().isEmpty() || hasPercentageColumn()) {
 			report.getColumnsGroups().add(0,globalVariablesGroup);
 		}
 
@@ -267,7 +268,14 @@ public class DynamicReportBuilder {
 		return report;
 	}
 
-
+	private boolean hasPercentageColumn() {
+		for (Iterator iterator = report.getColumns().iterator(); iterator.hasNext();) {
+			if (iterator.next() instanceof PercentageColumn)
+				return true;
+		}
+		return false;
+	}
+	
 	private void addGlobalCrosstabs() {
 		//For header
 		if (globalHeaderCrosstabs != null) {
@@ -661,13 +669,18 @@ public class DynamicReportBuilder {
 		return this;
 	}
 	
-	/**
-	 * @param col
-	 * @param op
-	 * @return
-	 */
 	public DynamicReportBuilder addGlobalVariable(String name, AbstractColumn col, DJCalculation op) {
-		globalVariablesGroup.addVariable(new DJGroupTemporalVariable(name, col, op));
+		globalVariablesGroup.addVariable(new DJGroupVariableDef(name, col, op));
+		return this;
+	}
+
+	public DynamicReportBuilder addGlobalVariable(String name, ColumnProperty prop, DJCalculation op) {
+		globalVariablesGroup.addVariable(new DJGroupVariableDef(name, prop, op));
+		return this;
+	}
+
+	public DynamicReportBuilder addGlobalVariable(String name, String property, String className, DJCalculation op) {
+		globalVariablesGroup.addVariable(new DJGroupVariableDef(name, new ColumnProperty(property, className), op));
 		return this;
 	}
 	
@@ -727,10 +740,20 @@ public class DynamicReportBuilder {
 	 * @return
 	 */
 	public DynamicReportBuilder addField(String name, String className) {
-		report.getFields().add(new ColumnProperty(name,className));
-		return this;
+		return addField(new ColumnProperty(name,className));
 	}
 
+	/**
+	 * Registers a field that is not necesary bound to a column, it can be used in a
+	 * custom expression
+	 * @param columnProperty
+	 * @return
+	 */
+	public DynamicReportBuilder addField(ColumnProperty columnProperty) {
+		report.getFields().add(columnProperty);
+		return this;
+	}
+	
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression

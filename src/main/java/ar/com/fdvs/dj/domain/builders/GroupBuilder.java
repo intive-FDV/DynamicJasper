@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.domain.builders;
 
 import java.util.Iterator;
 
+import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
@@ -39,8 +40,8 @@ import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
-import ar.com.fdvs.dj.domain.entities.DJGroupTemporalVariable;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
@@ -165,8 +166,29 @@ public class GroupBuilder {
 		return this;
 	}
 	
-	public GroupBuilder addVariable(String label, AbstractColumn column, DJCalculation operation) {
-		group.getVariables().add(new DJGroupTemporalVariable(label, column, operation));
+	/**
+	 * Registers a variable for later reference inside custom expressions.
+	 * The new variable will perform the calculation using the field information passed in the ColumnProperty
+	 * parameter. Such ColumnProperty will be properly registered in the report design as a field ($F{...})
+	 * 
+	 * 
+	 * @param name
+	 * @param col
+	 * @param op
+	 * @return
+	 */
+	public GroupBuilder addVariable(String name, String property, String className, DJCalculation operation) {		
+		group.getVariables().add(new DJGroupVariableDef(name, new ColumnProperty(property,className), operation));
+		return this;
+	}
+
+	public GroupBuilder addVariable(String name, ColumnProperty prop, DJCalculation operation) {		
+		group.getVariables().add(new DJGroupVariableDef(name, prop, operation));
+		return this;
+	}
+	
+	public GroupBuilder addVariable(String name, AbstractColumn column, DJCalculation operation) {
+		group.getVariables().add(new DJGroupVariableDef(name, column, operation));
 		return this;
 	}
 	
