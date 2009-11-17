@@ -35,7 +35,7 @@
 	</properties>
 	 <body>
 	 
-	 			 <release version="3.0.14" date="2009-11-12" desc="New stuff" >
+	 			 <release version="3.0.13" date="2009-11-17" desc="New stuff" >
 					 <action dev="Ricardo Mariaca" type="add">
 						 Possibility to register field variable in group (see GroupLabelTest5)
 					 </action>
@@ -45,7 +45,41 @@
 					 <action dev="Ricardo Mariaca" type="fix" due-to="Brian Swain">
 						 Fixed problem related to percentage column when no group is defined
 					 </action>	
-				 </release>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Pedro Sousa ( pedrodesousa )" issue="2843177">
+						 Problem with columns TextFormatter 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Gabriel Chulim ( gchulim )" issue="2780574">
+						 ClassCastException in class MultiPropertyComparator
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="ccavanaugh" issue="2885384">
+						 When applying a style to using AUTOTEXT_PAGE_X_SLASH_Y, the reference style is used for the current page, but not the total page count.
+					 </action>
+					 <action dev="Ricardo Mariaca" type="add">
+						 Autotext supports print when expression (see AutotextReportTest2)
+					 </action>
+					 <action dev="Ricardo Mariaca" type="add">
+						 Imagebanner can have imageScaleMode (see ImageBannerReportTest)
+					 </action>
+					 <action dev="Ricardo Mariaca" type="add">
+						 Enabling custom label expression and position in group footer label (see GroupLabelTest4)
+						 Enabling custom label expression in group header/footer variable label (see GroupLabelTest4)
+					 </action>						 
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+					 	Setting style to "blank when null" as true in certain scenarios where an element
+					 	does not have a style and a new one must be provided
+					 </action>	
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						Crosstab can have precalculated values: See DJCRosstabMeasurePrecalculatedTotalProvider class
+						and example test: CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest 
+					 </action>	
+					 <action dev="Juan Manuel Alvarez" type="fix" >
+						NullPointerException while creating crosstabs due to uninitialized style.
+					 </action>	
+					 <action dev="Juan Manuel Alvarez" type="add" >
+						crosstabs measures can have value formatters. See CrosstabReportWithNullValuesTest for an example
+					 </action>	
+				 </release>			 
+				 
 				 <release version="3.0.13-beta5" date="2009-11-09" desc="Autotext enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Pedro Sousa ( pedrodesousa )" issue="2843177">
 						 Problem with columns TextFormatter 
