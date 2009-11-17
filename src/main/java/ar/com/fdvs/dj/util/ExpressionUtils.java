@@ -47,6 +47,7 @@ import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
@@ -313,6 +314,23 @@ public class ExpressionUtils {
 
 	public static String getTextForFieldsFromScriptlet() {
 		return "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"REPORT_SCRIPTLET\")).getCurrentFiels()";
+	}
+	
+	public static String getValueClassNameForOperation(DJCalculation calc, ColumnProperty prop) {
+		if (calc == DJCalculation.COUNT || calc == DJCalculation.DISTINCT_COUNT)
+			return Long.class.getName();
+		else
+			return prop.getValueClassName();
+		
+	}
+	
+	public static String getInitialValueExpressionForOperation(DJCalculation calc, ColumnProperty prop) {
+		if (calc == DJCalculation.COUNT  || calc == DJCalculation.DISTINCT_COUNT)
+			return "new java.lang.Long(\"0\")";
+		else if (calc == DJCalculation.SUM)
+			return "new " + prop.getValueClassName()+"(\"0\")";
+		else return null;
+		
 	}
 
 }

@@ -61,10 +61,10 @@ public class PercentageColumn extends AbstractColumn {
 	 */
 	public String getGroupVariableName(DJGroup group) {
 		String columnToGroupByProperty = null;
-		if (group != null)
+		//if (group != null)
 			columnToGroupByProperty = group.getColumnToGroupBy().getColumnProperty().getProperty();
-		else
-			columnToGroupByProperty = "global";
+		//else
+			//columnToGroupByProperty = "global";
 		return "variable-" + columnToGroupByProperty + "_" + getPercentageColumn().getColumnProperty().getProperty() + "_percentage";
 	}
 	
