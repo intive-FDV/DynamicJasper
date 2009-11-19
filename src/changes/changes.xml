@@ -35,6 +35,11 @@
 	</properties>
 	 <body>
 	 
+	 			 <release version="3.0.14-beta1" date="2009-11-19" desc="Bugfixing on crosstabs value formatters" >
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Value formatters fails when many concatenated subreports. 
+					 </action>
+				 </release>
 	 			 <release version="3.0.13" date="2009-11-17" desc="New stuff" >
 					 <action dev="Ricardo Mariaca" type="add">
 						 Possibility to register field variable in group (see GroupLabelTest5)

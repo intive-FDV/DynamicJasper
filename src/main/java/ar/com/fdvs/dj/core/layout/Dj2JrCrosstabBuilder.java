@@ -716,41 +716,50 @@ public class Dj2JrCrosstabBuilder {
 			measure.setValueExpression(valueExp);
 			
 			if (djmeasure.getValueFormatter() != null){
-				JRDesignParameter dparam = new JRDesignParameter();
-				dparam.setName("crosstab-measure__" + measure.getName() + "_vf"); //value formater suffix
-				dparam.setValueClassName(DJValueFormatter.class.getName());
+				/**
+				 * No need to declare parameter in the report design, just in the crosstab, otherwise duplicated
+				 * parameter exception may ocurr if many crosstabs are introduced in the report.
+				 */
+//				JRDesignParameter dparam = new JRDesignParameter();
+//				dparam.setName("crosstab-measure__" + measure.getName() + "_vf"); //value formater suffix
+//				dparam.setValueClassName(DJValueFormatter.class.getName());
 
 				JRDesignCrosstabParameter crosstabParameter = new JRDesignCrosstabParameter();
 				crosstabParameter.setName("crosstab-measure__" + measure.getName() + "_vf"); //value formater suffix
 				crosstabParameter.setValueClassName(DJValueFormatter.class.getName());
 				
-				log.debug("Registering value formatter parameter for property " + dparam.getName() );
+				log.debug("Registering value formatter parameter for crosstab measure " + crosstabParameter.getName() );
 				try {
-					design.addParameter(dparam);
+//					design.addParameter(dparam);
 					jrcross.addParameter(crosstabParameter);
 				} catch (JRException e) {
 					throw new EntitiesRegistrationException(e.getMessage(),e);
 				}
-				((DynamicJasperDesign)design).getParametersWithValues().put(dparam.getName(), djmeasure.getValueFormatter());						
+				((DynamicJasperDesign)design).getParametersWithValues().put(crosstabParameter.getName(), djmeasure.getValueFormatter());						
 			}
 			
 			if (djmeasure.getPrecalculatedTotalProvider() != null){
-				JRDesignParameter dparam = new JRDesignParameter();
-				dparam.setName("crosstab-measure__" + measure.getName() + "_totalProvider"); //value formater suffix
-				dparam.setValueClassName(DJCRosstabMeasurePrecalculatedTotalProvider.class.getName());
+				/**
+				 * No need to declare parameter in the report design, just in the crosstab, otherwise duplicated
+				 * parameter exception may ocurr if many crosstabs are introduced in the report.
+				 */
+				
+//				JRDesignParameter dparam = new JRDesignParameter();
+//				dparam.setName("crosstab-measure__" + measure.getName() + "_totalProvider"); //value formater suffix
+//				dparam.setValueClassName(DJCRosstabMeasurePrecalculatedTotalProvider.class.getName());
 				
 				JRDesignCrosstabParameter crosstabParameter = new JRDesignCrosstabParameter();
 				crosstabParameter.setName("crosstab-measure__" + measure.getName() + "_totalProvider"); //value formater suffix
 				crosstabParameter.setValueClassName(DJCRosstabMeasurePrecalculatedTotalProvider.class.getName());
 				
-				log.debug("Registering crosstab total provider parameter for property " + dparam.getName() );
+				log.debug("Registering crosstab total provider parameter for measure " + crosstabParameter.getName() );
 				try {
-					design.addParameter(dparam);
+//					design.addParameter(dparam);
 					jrcross.addParameter(crosstabParameter);
 				} catch (JRException e) {
 					throw new EntitiesRegistrationException(e.getMessage(),e);
 				}
-				((DynamicJasperDesign)design).getParametersWithValues().put(dparam.getName(), djmeasure.getPrecalculatedTotalProvider());						
+				((DynamicJasperDesign)design).getParametersWithValues().put(crosstabParameter.getName(), djmeasure.getPrecalculatedTotalProvider());						
 			}
 
 			try {
