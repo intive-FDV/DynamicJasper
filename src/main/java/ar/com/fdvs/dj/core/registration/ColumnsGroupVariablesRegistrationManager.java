@@ -74,20 +74,24 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 	}
 
 	protected void registerEntity(Entity entity) {
-		log.debug("registering group variable...");
 		DJGroupVariable columnsGroupVariable = (DJGroupVariable) entity;
 		try {
 			String name = columnsGroupVariable.getColumnToApplyOperation().getGroupVariableName(type, columnToGroupByProperty);
 			if (columnsGroupVariable.getValueExpression() == null) {			
 				JRDesignVariable jrVariable = (JRDesignVariable)transformEntity(entity);
+				
+				log.debug("registering group variable " + jrVariable.getName());
 				getDjd().addVariable(jrVariable);
 			
 				registerValueFormatter( columnsGroupVariable, jrVariable.getName() );
 			} 
-			else
+			else {
 				registerCustomExpressionParameter(name + "_valueExpression", columnsGroupVariable.getValueExpression());
-			if (columnsGroupVariable.getPrintWhenExpression() != null)
+			}
+			
+			if (columnsGroupVariable.getPrintWhenExpression() != null){
 				registerCustomExpressionParameter(name + "_printWhenExpression", columnsGroupVariable.getPrintWhenExpression());	
+			}
 			if (columnsGroupVariable.getLabel() != null && columnsGroupVariable.getLabel().getLabelExpression() != null) {
 				registerCustomExpressionParameter(name + "_labelExpression", columnsGroupVariable.getLabel().getLabelExpression());
 			}

@@ -178,7 +178,7 @@ public class ColumnBuilder {
 		ExpressionColumn column = new ExpressionColumn();
 		populateCommonAttributes(column);
 		long random_ = Math.abs(random.nextLong());
-		column.setColumnProperty(new ColumnProperty("expressionColumn_" + random_,CustomExpression.class.getName()));
+		column.setColumnProperty(new ColumnProperty("__name_to_be_replaced_in_registration_manager_" + random_,CustomExpression.class.getName()));
 		column.setExpression(customExpression);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
 		column.setExpressionForCalculation(customExpressionForCalculation);

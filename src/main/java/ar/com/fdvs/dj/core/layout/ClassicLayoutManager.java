@@ -1236,7 +1236,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	protected void generateHeaderBand() {
-		log.debug("generating header band...");
+		log.debug("Generating main report header band.");
 		JRDesignBand header = (JRDesignBand) getDesign().getColumnHeader();
 		if (header == null) {
 			header = new JRDesignBand();

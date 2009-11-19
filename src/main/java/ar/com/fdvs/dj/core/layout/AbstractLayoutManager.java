@@ -399,7 +399,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 	protected void generateHeaderBand(JRDesignBand band) {
-		log.debug("Generating header band...");
+		log.debug("Adding column names in header band.");
 		band.setHeight(report.getOptions().getHeaderHeight().intValue());
 
 		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
@@ -499,14 +499,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * columns with fixedWidth property set in TRUE will not be modified
 	 */
 	protected void setColumnsFinalWidth() {
-		log.debug("Setting columns final width...");
+		log.debug("Setting columns final width.");
 		float factor = 1;
 		int printableArea = report.getOptions().getColumnWidth();
 
 		//Create a list with only the visible columns.
 		List visibleColums = getVisibleColumns();
 
-		log.debug("printableArea = " + printableArea );
+		
 
 		if (report.getOptions().isUseFullPageWidth()) {
 			int columnsWidth = 0;
@@ -520,12 +520,16 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 					notRezisableWidth += col.getWidth().intValue();
 			}
 
-			log.debug("columnsWidth = "+ columnsWidth);
-			log.debug("notRezisableWidth = "+ notRezisableWidth);
 
 			factor = (float) (printableArea-notRezisableWidth) / (float) (columnsWidth-notRezisableWidth);
-			log.debug("factor = "+ factor);
-			int acu = 0;
+
+			log.debug("printableArea = " + printableArea 
+					+ ", columnsWidth = "+ columnsWidth 
+					+ ", columnsWidth = "+ columnsWidth 
+					+ ", notRezisableWidth = "+ notRezisableWidth 
+					+ ", factor = "+ factor);
+
+			int acumulated = 0;
 			int colFinalWidth = 0;
 
 			//Select the non-resizable columns
@@ -541,10 +545,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				AbstractColumn col = (AbstractColumn) iter.next();
 
 				if (!iter.hasNext()) {
-					col.setWidth(new Integer(printableArea - notRezisableWidth - acu));
+					col.setWidth(new Integer(printableArea - notRezisableWidth - acumulated));
 				} else {
 					colFinalWidth = (new Float(col.getWidth().intValue() * factor)).intValue();
-					acu += colFinalWidth;
+					acumulated += colFinalWidth;
 					col.setWidth(new Integer(colFinalWidth));
 				}
 			}

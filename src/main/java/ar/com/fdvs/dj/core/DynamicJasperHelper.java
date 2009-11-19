@@ -463,13 +463,13 @@ public class DynamicJasperHelper {
 			Object key = iterator.next();
 			if (key instanceof String){
 				try {
+					Object value = _parameters.get(key);
 					if (jd.getParametersMap().get(key) != null){
-						log.warn("Parameter \"" + key + "\" already registered, skipping this one.");
+						log.warn("Parameter \"" + key + "\" already registered, skipping this one: " + value);
 						continue;
 					}
 
 					JRDesignParameter parameter = new JRDesignParameter();
-					Object value = _parameters.get(key);
 
 					if (value == null) //There are some Map implementations that allows nulls values, just go on
 						continue;

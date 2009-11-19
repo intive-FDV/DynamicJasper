@@ -116,7 +116,12 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 					ExpressionColumn expressionColumn = (ExpressionColumn) entity;
 					expressionColumn.setColumns( getDynamicReport().getAllFields() );
 					expressionColumn.setVariables( new ArrayList(getDjd().getVariablesList()) );
-					String property_name = expressionColumn.getColumnProperty().getProperty();
+//					String property_name = expressionColumn.getColumnProperty().getProperty();
+					
+					//override property column name to make it unique and determinable
+					expressionColumn.getColumnProperty().setProperty("customExpression_for_"+expressionColumn.getName());
+					
+					String property_name = expressionColumn.getName() + "_customExpression"; //NOTE Since 3.0.14-beta2 Change added to make variable names determinable inside scriptlets 
 					registerCustomExpressionParameter(property_name, expressionColumn.getExpression());
 					registerCustomExpressionParameter(property_name + "_calc", expressionColumn.getExpressionForCalculation());
 				}

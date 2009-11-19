@@ -35,6 +35,12 @@
 	</properties>
 	 <body>
 	 
+	 			 <release version="3.0.14-beta2" date="2009-11-19" desc="Fixes in variable naming" >
+					 <action dev="Juan Manuel Alvarez" type="fix">
+						 Custom expression columns internal property name now is: "customExpression_for_" + columnName ; where if columnName
+						 was not defined, then "COLUMN_XXX" will be used (XXX ix the column index in the report starting from 0)
+					 </action>
+				 </release>
 	 			 <release version="3.0.14-beta1" date="2009-11-19" desc="Bugfixing on crosstabs value formatters" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
 						 Value formatters fails when many concatenated subreports. 

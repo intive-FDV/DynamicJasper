@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.domain;
 import java.util.TreeMap;
 
 import net.sf.jasperreports.engine.design.JasperDesign;
+import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Custom implementation of JasperDesign class. It adds the concept of registerd </br>
@@ -39,7 +40,7 @@ import net.sf.jasperreports.engine.design.JasperDesign;
  */
 public class DynamicJasperDesign extends JasperDesign {
 
-	private static final long serialVersionUID = -1181633006527486089L;
+	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	//<String paramName, CustomExpression expression>
 	private TreeMap parametersWithValues; //There should not be "non serializable objects here"
 
