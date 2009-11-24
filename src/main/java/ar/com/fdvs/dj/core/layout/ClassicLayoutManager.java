@@ -943,7 +943,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			currentValue.setX(columnNameTf.getWidth());
 
 			//fix the height depending on the font size
-			currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont()));
+			//fixes issue 2817859
+			//currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont()));
+			if (column.getStyle() != null && column.getStyle().getFont() != null)
+				currentValue.setHeight(FontHelper.getHeightFor(column.getStyle().getFont()));
 			columnNameTf.setHeight(currentValue.getHeight());
 
 			yOffset += currentValue.getHeight();
@@ -1218,7 +1221,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 						:getReport().getOptions().getDetailHeight().intValue();		
 		
 		JRDesignTextField textField = generateTextFieldFromColumn(djgroup.getColumnToGroupBy(), height, djgroup);
-		textField.setHorizontalAlignment(djgroup.getColumnToGroupBy().getStyle().getHorizontalAlign().getValue());
+		//fixes issue 2817859, textField has columnToGroupBy style
+		//textField.setHorizontalAlignment(djgroup.getColumnToGroupBy().getStyle().getHorizontalAlign().getValue());
 		textField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX this is a patch for subreports, ensure it works well.
 		textField.setY(textField.getY() + headerOffset);
 		headerBand.addElement(textField);

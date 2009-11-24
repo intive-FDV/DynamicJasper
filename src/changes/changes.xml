@@ -34,7 +34,12 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
-	 
+	 	 		 <release version="3.0.14-beta3" date="2009-11-23" desc="fixes" >
+					 <action dev="Ricardo Mariaca" type="fix" issue="2817859">
+						 NullPointerException while creating group layout
+						 (DEFAULT, DEFAULT_WITH_HEADER,VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME)
+					 </action>
+				 </release>
 	 			 <release version="3.0.14-beta2" date="2009-11-19" desc="Fixes in variable naming" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
 						 Custom expression columns internal property name now is: "customExpression_for_" + columnName ; where if columnName

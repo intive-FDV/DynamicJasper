@@ -26,6 +26,7 @@ public class DJGroupLabel extends DJLabel {
 	public DJGroupLabel(String text, Style labelStyle,
 			LabelPosition labelPosition) {
 		super(text,labelStyle,labelPosition);
+		this.labelPosition = labelPosition;
 	}
 
 	public DJGroupLabel(CustomExpression labelExpression, Style labelStyle,
