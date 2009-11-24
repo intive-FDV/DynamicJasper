@@ -119,9 +119,10 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 //					String property_name = expressionColumn.getColumnProperty().getProperty();
 					
 					//override property column name to make it unique and determinable
-					expressionColumn.getColumnProperty().setProperty("customExpression_for_"+expressionColumn.getName());
+					String property_name = "customExpression_for_"+expressionColumn.getName(); //NOTE Since 3.0.14-beta2 Change added to make variable names determinable inside scriptlets 
 					
-					String property_name = expressionColumn.getName() + "_customExpression"; //NOTE Since 3.0.14-beta2 Change added to make variable names determinable inside scriptlets 
+					expressionColumn.getColumnProperty().setProperty(property_name);
+					
 					registerCustomExpressionParameter(property_name, expressionColumn.getExpression());
 					registerCustomExpressionParameter(property_name + "_calc", expressionColumn.getExpressionForCalculation());
 				}

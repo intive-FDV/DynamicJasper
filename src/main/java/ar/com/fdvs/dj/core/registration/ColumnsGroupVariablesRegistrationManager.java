@@ -80,7 +80,7 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 			if (columnsGroupVariable.getValueExpression() == null) {			
 				JRDesignVariable jrVariable = (JRDesignVariable)transformEntity(entity);
 				
-				log.debug("registering group variable " + jrVariable.getName());
+				log.debug("registering group variable " + jrVariable.getName() + " (" + jrVariable.getValueClassName() + ")");
 				getDjd().addVariable(jrVariable);
 			
 				registerValueFormatter( columnsGroupVariable, jrVariable.getName() );
@@ -163,7 +163,6 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 			}
 		}
 		
-
 		JRDesignVariable variable = new JRDesignVariable();
 		variable.setExpression(expression);
 		variable.setCalculation(groupVariable.getOperation().getValue());
@@ -175,12 +174,18 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 		String valueClassName = col.getVariableClassName(op);
 		String initialExpression = col.getInitialExpression(op);
 
+//		if (DJCalculation.SYSTEM.equals(groupVariable.getOperation())){
+//			variable.setValueClassName(Object.class.getName());
+//		} else {
+//		}
 		variable.setValueClassName(valueClassName);
-
-		JRDesignExpression initialExp = new JRDesignExpression();
-		initialExp.setText(initialExpression);
-		initialExp.setValueClassName(valueClassName);
-		variable.setInitialValueExpression(initialExp);
+				
+		if (initialExpression != null){
+			JRDesignExpression initialExp = new JRDesignExpression();
+			initialExp.setText(initialExpression);
+			initialExp.setValueClassName(valueClassName);
+			variable.setInitialValueExpression(initialExp);
+		}
 
 		return variable;
 	}
