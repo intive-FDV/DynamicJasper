@@ -39,6 +39,9 @@
 						 NullPointerException while creating group layout
 						 (DEFAULT, DEFAULT_WITH_HEADER,VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME)
 					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+					 	Custom Expression where not working since 3.0.14-beta2
+					 </action>
 				 </release>
 	 			 <release version="3.0.14-beta2" date="2009-11-19" desc="Fixes in variable naming" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
