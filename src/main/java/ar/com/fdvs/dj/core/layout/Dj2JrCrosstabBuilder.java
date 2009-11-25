@@ -450,11 +450,14 @@ public class Dj2JrCrosstabBuilder {
 							}
 						} else { //have value formatter
 							if (djmeasure.getPrecalculatedTotalProvider() == null) {
-								//no vlue formatter, no total provider
-								measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
-								measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+								//has value formatter, no total provider
+//								measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
+//								measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+								measureExp.setText(djmeasure.getTextForValueFormatterExpression(djmeasure.getProperty().getProperty()));
+								measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
+								
 							} else {
-								//no vlue formatter, call the precalculated value only
+								//NO value formatter, call the precalculated value only
 //								measureExp.setValueClass(String.class);
 //								measureExp.setText("\"VF, prec\"");
 								setExpressionForPrecalculatedTotalValue(auxCols, auxRows, measureExp, djmeasure, crosstabColumn, crosstabRow);
