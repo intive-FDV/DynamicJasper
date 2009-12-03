@@ -105,7 +105,8 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 				//addField() will throw an exception only if the column has already been registered.
 				PropertyColumn propertyColumn = ((PropertyColumn)entity);
 				log.debug("registering column " + column.getName());
-				if ( propertyColumn.getColumnProperty() != null && !(entity instanceof ExpressionColumn)){
+				ColumnProperty columnProperty = propertyColumn.getColumnProperty();
+				if ( columnProperty != null && !columnProperty.getProperty().startsWith("__name_to_be_replaced_in_registration_manager_")){
 					JRField jrfield = (JRField)transformEntity(entity);
 					if (getDjd().getFieldsMap().get(jrfield.getName())==null){
 						getDjd().addField(jrfield);

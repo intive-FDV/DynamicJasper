@@ -49,6 +49,8 @@ public class DJCrosstabColumn extends DJBaseElement {
 	
 	private DJHyperLink link;
 
+	private String totalLegend;
+
 	public Style getHeaderStyle() {
 		return headerStyle;
 	}
@@ -102,6 +104,12 @@ public class DJCrosstabColumn extends DJBaseElement {
 	}
 	public void setLink(DJHyperLink link) {
 		this.link = link;
+	}
+	public void setTotalLegend(String legend) {
+		this.totalLegend = legend;
+	}
+	public String getTotalLegend() {
+		return totalLegend;
 	}
 
 }

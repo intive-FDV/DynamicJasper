@@ -52,7 +52,12 @@ import ar.com.fdvs.dj.test.BaseDjReportTest;
 import ar.com.fdvs.dj.test.TestRepositoryProducts;
 import ar.com.fdvs.dj.util.SortUtils;
 
-public class CrosstabReportTest4 extends BaseDjReportTest {
+/**
+ * This shows how to use cutom legend on crosstab totals
+ * @author mamana
+ *
+ */
+public class CrosstabReportTest10 extends BaseDjReportTest {
 
 	private Style totalHeaderStyle;
 	private Style colAndRowHeaderStyle;
@@ -86,11 +91,11 @@ public class CrosstabReportTest4 extends BaseDjReportTest {
 			.setColorScheme(DJConstants.COLOR_SCHEMA_LIGHT_GREEN)
 			.setAutomaticTitle(true)
 			.setCellBorder(Border.THIN)
-			.addRow("Product Line", "productLine", String.class.getName(),false)
+			.addRow("Product Line", "productLine", String.class.getName(),"P.Line Total")
 //			.addRow("Item", "item", String.class.getName(),true)
 //			.addRow("Id", "id", Long.class.getName(),true)
 			.addColumn("State","state",String.class.getName(),false)
-			.addColumn("Branch","branch",String.class.getName(),true)
+			.addColumn("Branch","branch",String.class.getName(),"Branch's total")
 			.addColumn("Item", "item", String.class.getName(),true)
 			.addMeasure("id",Long.class.getName(), DJCalculation.SUM , "Id", measureStyle)
 			.addMeasure("amount",Float.class.getName(), DJCalculation.SUM , "Amount",measureStyle)
@@ -153,7 +158,7 @@ public class CrosstabReportTest4 extends BaseDjReportTest {
 
 
 	public static void main(String[] args) throws Exception {
-		CrosstabReportTest4 test = new CrosstabReportTest4();
+		CrosstabReportTest10 test = new CrosstabReportTest10();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
 		JasperDesignViewer.viewReportDesign(test.jr);

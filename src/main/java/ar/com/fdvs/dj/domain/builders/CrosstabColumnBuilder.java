@@ -57,6 +57,10 @@ public class CrosstabColumnBuilder {
 		column.setTitle(title);
 		return this;
 	}
+	public CrosstabColumnBuilder setTotalLegend(String legend){
+		column.setTotalLegend(legend);
+		return this;
+	}	
 	public CrosstabColumnBuilder setShowTotals(boolean showTotal){
 		column.setShowTotals(showTotal);
 		return this;

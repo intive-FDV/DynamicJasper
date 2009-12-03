@@ -258,6 +258,17 @@ public class CrosstabBuilder {
 		addColumn(col);
 		return this;
 	}
+
+	public CrosstabBuilder addColumn(String title, String property, String className, String totalLegend) {
+		DJCrosstabColumn col = new CrosstabColumnBuilder()
+		.setProperty(property,className)
+		.setShowTotals(true)
+		.setTotalLegend(totalLegend)
+		.setTitle(title)
+		.build();
+		addColumn(col);
+		return this;
+	}
 	
 	/**
 	 * {@linkplain CrosstabBuilder#addColumn(DJCrosstabColumn)}
@@ -298,6 +309,26 @@ public class CrosstabBuilder {
 			.setShowTotals(showTotal)
 			.setTitle(title)
 			.build();
+		addRow(row);
+		return this;
+	}
+	
+	/**
+	 * Assumes that you want to show the totals since you pass a legend for the totals
+	 * 
+	 * @param title
+	 * @param property
+	 * @param className
+	 * @param totalLegend
+	 * @return
+	 */
+	public CrosstabBuilder addRow(String title, String property, String className, String totalLegend) {
+		DJCrosstabRow row = new CrosstabRowBuilder()
+		.setProperty(property,className)
+		.setTotalLegend(totalLegend)
+		.setShowTotals(true)
+		.setTitle(title)
+		.build();
 		addRow(row);
 		return this;
 	}

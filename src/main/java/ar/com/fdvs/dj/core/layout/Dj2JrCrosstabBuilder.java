@@ -37,7 +37,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import net.sf.jasperreports.crosstabs.JRCrosstabParameter;
 import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabBucket;
@@ -49,7 +48,6 @@ import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabParameter;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
 import net.sf.jasperreports.crosstabs.fill.calculation.BucketDefinition;
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.base.JRBaseBox;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
@@ -58,7 +56,6 @@ import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
-import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -960,7 +957,14 @@ public class Dj2JrCrosstabBuilder {
 		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 		
 		JRDesignTextField element = new JRDesignTextField();
-		JRDesignExpression exp = ExpressionUtils.createExpression("\"Total "+crosstabRow.getTitle()+"\"",String.class);
+		
+		JRDesignExpression exp;
+		if (crosstabRow.getTotalLegend() != null) {
+			exp = ExpressionUtils.createExpression("\""+crosstabRow.getTotalLegend()+"\"",String.class);
+		} else {
+			exp = ExpressionUtils.createExpression("\"Total "+crosstabRow.getTitle()+"\"",String.class);
+		}
+		
 		element.setExpression(exp);
 		element.setHeight(crosstabRow.getHeight());
 
@@ -1000,6 +1004,12 @@ public class Dj2JrCrosstabBuilder {
 			box.setRightBorder(djcross.getCellBorder().getValue());
 			box.setBorderColor(Color.black);
 			cellContent.setBox(box);
+			
+//			JRBaseLineBox box = new JRBaseLineBox(cellContent);
+//			box.getPen().setLineStyle(JRPen.LINE_STYLE_SOLID);
+//			box.getPen().setLineColor(Color.black);
+//			box.getPen().setLineWidth(2.0f);
+			
 		}
 	}
 
@@ -1012,7 +1022,12 @@ public class Dj2JrCrosstabBuilder {
 		
 		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
 
-		JRDesignExpression exp = ExpressionUtils.createExpression("\"Total "+crosstabColumn.getTitle()+"\"",String.class);
+		JRDesignExpression exp = null;
+		if (crosstabColumn.getTotalLegend() != null) {
+			exp = ExpressionUtils.createExpression("\""+crosstabColumn.getTotalLegend()+"\"",String.class);
+		} else {
+			exp = ExpressionUtils.createExpression("\"Total "+crosstabColumn.getTitle()+"\"",String.class);
+		}		
 		JRDesignTextField element = new JRDesignTextField();
 		element.setExpression(exp);
 		element.setWidth(crosstabColumn.getWidth());

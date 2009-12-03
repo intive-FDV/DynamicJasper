@@ -34,6 +34,21 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
+	 	 		 <release version="3.0.14-beta6" date="2009-12-03" desc="fixes" >
+					 <action dev="Juan Manuel Alvarez" type="change">
+					 	Crosstab totals legend can be customized (see CrosstabReportTest10 for an example).
+					 </action>
+				</release>
+	 	 		 <release version="3.0.14-beta5" date="2009-11-25" desc="fixes" >
+					 <action dev="Juan Manuel Alvarez" type="fix">
+					 	Custom Expression can have a property definition.
+					 </action>
+				</release>
+	 	 		 <release version="3.0.14-beta4" date="2009-11-25" desc="fixes" >
+					 <action dev="Juan Manuel Alvarez" type="fix">
+					 	Value formatters are not working in crosstab totals.
+					 </action>
+				</release>
 	 	 		 <release version="3.0.14-beta3" date="2009-11-23" desc="fixes" >
 					 <action dev="Ricardo Mariaca" type="fix" issue="2817859">
 						 NullPointerException while creating group layout

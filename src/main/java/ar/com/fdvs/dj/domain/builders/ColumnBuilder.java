@@ -122,22 +122,26 @@ public class ColumnBuilder {
 			throw new ColumnBuilderException("Either a ColumnProperty or a CustomExpression or a PercentageColumn must be present");
 		}
 
+		AbstractColumn col = null;
 		if (columnType == COLUMN_TYPE_IMAGE){
-			return buildSimpleImageColumn();
+			col = buildSimpleImageColumn();
 		}
 		else if (columnType == COLUMN_TYPE_BARCODE){
-			return buildSimpleBarcodeColumn();
+			col = buildSimpleBarcodeColumn();
 		}
 		else if (percentageColumn != null) {
-			return buildPercentageColumn();
+			col = buildPercentageColumn();
 		}
-		else if (columnProperty != null) { //FIXME Horrible!!! Can't I create an expression column with a propery also?
-			return buildSimpleColumn();
-		} else if (customExpression==null) {
-			return buildOperationColumn();
-		} else {
-			return buildExpressionColumn();
+		else if (columnProperty != null && customExpression == null) { //FIXME Horrible!!! Can't I create an expression column with a propery also?
+			col = buildSimpleColumn();
+		} 
+		else if (!operationColumns.isEmpty()) {
+			col = buildOperationColumn();
+		} 
+		else { //customExpression should NOT be null
+			col = buildExpressionColumn();
 		}
+		return col;
 	}
 
 	/**
@@ -177,12 +181,21 @@ public class ColumnBuilder {
 	protected AbstractColumn buildExpressionColumn() {
 		ExpressionColumn column = new ExpressionColumn();
 		populateCommonAttributes(column);
-		long random_ = Math.abs(random.nextLong());
-		column.setColumnProperty(new ColumnProperty("__name_to_be_replaced_in_registration_manager_" + random_,CustomExpression.class.getName()));
+		
+		if (columnProperty != null ) {
+			columnProperty.getFieldProperties().putAll(fieldProperties);
+			column.setColumnProperty(columnProperty);
+			column.setExpressionToGroupBy(customExpressionToGroupBy);
+			column.setFieldDescription(fieldDescription);		
+		} else {
+			long random_ = Math.abs(random.nextLong());
+			column.setColumnProperty(new ColumnProperty("__name_to_be_replaced_in_registration_manager_" + random_,CustomExpression.class.getName()));
+		}
+		
 		column.setExpression(customExpression);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
 		column.setExpressionForCalculation(customExpressionForCalculation);
-//		column.getFieldProperties().putAll(fieldProperties);
+		
 		return column;
 	}
 

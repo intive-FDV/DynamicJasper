@@ -72,6 +72,10 @@ public class CrosstabRowBuilder {
 		row.setTitle(title);
 		return this;
 	}
+	public CrosstabRowBuilder setTotalLegend(String legend){
+		row.setTotalLegend(legend);
+		return this;
+	}
 	public CrosstabRowBuilder setShowTotals(boolean showTotal){
 		row.setShowTotals(showTotal);
 		return this;
