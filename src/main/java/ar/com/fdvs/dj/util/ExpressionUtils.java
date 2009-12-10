@@ -318,7 +318,7 @@ public class ExpressionUtils {
 	
 	public static String getValueClassNameForOperation(DJCalculation calc, ColumnProperty prop) {
 		if (calc == DJCalculation.COUNT || calc == DJCalculation.DISTINCT_COUNT)
-			return Long.class.getName();
+			return Number.class.getName();
 		else
 			return prop.getValueClassName();
 		

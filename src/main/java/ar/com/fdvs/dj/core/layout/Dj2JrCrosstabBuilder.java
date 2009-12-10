@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.core.layout;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -312,7 +313,7 @@ public class Dj2JrCrosstabBuilder {
 			try {
 				jrDataset.addField(field);
 			} catch (JRException e) {
-				log.error(e.getMessage(),e);
+				log.warn(e.getMessage() + " in crosstab, using old one.");
 			}
 		}
 		
@@ -411,75 +412,58 @@ public class Dj2JrCrosstabBuilder {
 
 				JRDesignCellContents contents = new JRDesignCellContents();
 
-				int counter = 0;
+				int measureIdx = 0;
 				int measureHeight = crosstabRow.getHeight() / djcross.getMeasures().size();  
 				
-				for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext(); counter++) {
+				for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext(); measureIdx++) {
 					DJCrosstabMeasure djmeasure = (DJCrosstabMeasure) iterator.next();
+					String meausrePrefix = "idx" + measureIdx + "_";
 					
 					JRDesignTextField element = new JRDesignTextField();
 					element.setWidth(crosstabColumn.getWidth());
 					element.setHeight(measureHeight);
-					element.setY(counter*measureHeight);
+					element.setY(measureIdx*measureHeight);
 					
 
 					JRDesignExpression measureExp = new JRDesignExpression();
-//					DJCrosstabMeasure measure = djcross.getMeasure(0);
 					
 					boolean isTotalCell = isRowTotal || isColumnTotal;
 					
+					String measureProperty = meausrePrefix + djmeasure.getProperty().getProperty();
+					String measureValueClassName = djmeasure.getProperty().getValueClassName();
+					
 					if (!isTotalCell){
 						if (djmeasure.getValueFormatter()== null){ 
-							measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
-							measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+							measureExp.setValueClassName(measureValueClassName); //FIXME Shouldn't this be of a class "compatible" with measure's operation?
+							measureExp.setText("$V{"+measureProperty+"}");
 						} else {
-							measureExp.setText(djmeasure.getTextForValueFormatterExpression(djmeasure.getProperty().getProperty()));
+							measureExp.setText(djmeasure.getTextForValueFormatterExpression(measureProperty));
 							measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
 						}
 					} else { //is a total cell
 						if (djmeasure.getValueFormatter()== null){ 
 							if (djmeasure.getPrecalculatedTotalProvider() == null) {
-								measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
-								measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
+								measureExp.setValueClassName(measureValueClassName);
+								measureExp.setText("$V{"+measureProperty+"}");
 							} else {
-								//call the precalculated value AND the value formatter
-								setExpressionForPrecalculatedTotalValue(auxCols, auxRows, measureExp, djmeasure, crosstabColumn, crosstabRow);
+								//call the precalculated value.
+								setExpressionForPrecalculatedTotalValue(auxCols, auxRows, measureExp, djmeasure, crosstabColumn, crosstabRow, meausrePrefix);
 							}
 						} else { //have value formatter
 							if (djmeasure.getPrecalculatedTotalProvider() == null) {
 								//has value formatter, no total provider
-//								measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
-//								measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
-								measureExp.setText(djmeasure.getTextForValueFormatterExpression(djmeasure.getProperty().getProperty()));
+								measureExp.setText(djmeasure.getTextForValueFormatterExpression(measureProperty));
 								measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
 								
 							} else {
 								//NO value formatter, call the precalculated value only
-//								measureExp.setValueClass(String.class);
-//								measureExp.setText("\"VF, prec\"");
-								setExpressionForPrecalculatedTotalValue(auxCols, auxRows, measureExp, djmeasure, crosstabColumn, crosstabRow);
+								setExpressionForPrecalculatedTotalValue(auxCols, auxRows, measureExp, djmeasure, crosstabColumn, crosstabRow, meausrePrefix);
 							}
 						}
 					}
 					
-//					measureExp.setValueClassName(djmeasure.getProperty().getValueClassName());
-//					measureExp.setText("$V{"+djmeasure.getProperty().getProperty()+"}");
-					
 					element.setExpression(measureExp);
 
-					/**
-					 * Is there any style for this object?
-					 */
-					/*if (crosstabRow.getProperty() == null && crosstabColumn.getProperty() == null && djmeasure.getStyle() != null ){
-						//this is the inner most cell
-						layoutManager.applyStyleToElement(djmeasure.getStyle() , element);
-					} else if (crosstabRow.getTotalStyle() != null) {
-						layoutManager.applyStyleToElement(crosstabRow.getTotalStyle(), element);
-					}
-					else if (crosstabColumn.getTotalStyle() != null) {
-						layoutManager.applyStyleToElement(crosstabColumn.getTotalStyle(), element);
-					}*/
-					
 					//measure
 					if (!isRowTotal && !isColumnTotal && djmeasure.getStyle() != null ){
 						//this is the inner most cell
@@ -569,10 +553,11 @@ public class Dj2JrCrosstabBuilder {
 	 * @param djmeasure
 	 * @param crosstabColumn
 	 * @param crosstabRow
+	 * @param meausrePrefix 
 	 */
 	private void setExpressionForPrecalculatedTotalValue(
 			DJCrosstabColumn[] auxCols, DJCrosstabRow[] auxRows, JRDesignExpression measureExp, DJCrosstabMeasure djmeasure,
-			DJCrosstabColumn crosstabColumn, DJCrosstabRow crosstabRow) {
+			DJCrosstabColumn crosstabColumn, DJCrosstabRow crosstabRow, String meausrePrefix) {
 		
 		String rowValuesExp = "new Object[]{";
 		String rowPropsExp = "new String[]{";
@@ -604,7 +589,8 @@ public class Dj2JrCrosstabBuilder {
 		colValuesExp += "}";
 		colPropsExp += "}";
 		
-		String expText = "((("+DJCRosstabMeasurePrecalculatedTotalProvider.class.getName()+")$P{crosstab-measure__"+djmeasure.getProperty().getProperty()+"_totalProvider}).getValueFor( "
+		String measureProperty = meausrePrefix + djmeasure.getProperty().getProperty();
+		String expText = "((("+DJCRosstabMeasurePrecalculatedTotalProvider.class.getName()+")$P{crosstab-measure__"+measureProperty+"_totalProvider}).getValueFor( "
 		+ colPropsExp +", " 
 		+ colValuesExp +", " 
 		+ rowPropsExp 
@@ -618,7 +604,7 @@ public class Dj2JrCrosstabBuilder {
 			String parametersMap = ExpressionUtils.getTextForParametersFromScriptlet();
 			String variablesMap = ExpressionUtils.getTextForVariablesFromScriptlet();		
 			
-			String stringExpression = "((("+DJValueFormatter.class.getName()+")$P{crosstab-measure__"+djmeasure.getProperty().getProperty()+"_vf}).evaluate( "
+			String stringExpression = "((("+DJValueFormatter.class.getName()+")$P{crosstab-measure__"+measureProperty+"_vf}).evaluate( "
 				+ "("+expText+"), " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";			
 			
 			measureExp.setText(stringExpression);
@@ -637,7 +623,8 @@ public class Dj2JrCrosstabBuilder {
 			
 			measureExp.setText(expText);
 //			measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());	
-			measureExp.setValueClassName(Number.class.getName());	//FIXME Are we sure only numbers are shown?
+			String valueClassNameForOperation = ExpressionUtils.getValueClassNameForOperation(djmeasure.getOperation(),djmeasure.getProperty());
+			measureExp.setValueClassName(valueClassNameForOperation);	
 		}
 		
 	}
@@ -703,11 +690,13 @@ public class Dj2JrCrosstabBuilder {
 	 * @param djcross
 	 */
 	private void registerMeasures() {
-		for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext();) {
+		int measureIdx = 0;
+		for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext(); measureIdx++) {
 			DJCrosstabMeasure djmeasure = (DJCrosstabMeasure) iterator.next();
-
+			String meausrePrefix = "idx" + measureIdx + "_";
 			JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
-			measure.setName(djmeasure.getProperty().getProperty());
+
+			measure.setName(meausrePrefix + djmeasure.getProperty().getProperty()); //makes the measure.name unique in this crosstab
 			measure.setCalculation(djmeasure.getOperation().getValue());
 			measure.setValueClassName(djmeasure.getProperty().getValueClassName());
 			JRDesignExpression valueExp = new JRDesignExpression();

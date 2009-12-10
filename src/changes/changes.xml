@@ -34,6 +34,11 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
+	 	 		 <release version="3.0.15-beta1" date="2009-12-10" desc="fixes" >
+					 <action dev="Juan Manuel Alvarez" type="change">
+					 	Hability to use the same property/field in crosstab measures more than once (i.e: sum, average, count)
+					 </action>
+				</release>
 	 	 		 <release version="3.0.14" date="2009-12-08" desc="fixes" >
 					 <action dev="Juan Manuel Alvarez" type="change">
 					 	Change in method signature for customized totals legend in crosstabs.
