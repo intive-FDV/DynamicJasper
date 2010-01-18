@@ -470,11 +470,11 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 		return this;
 	}
 	
-	private CategoryDataset getDataset() {
+	protected CategoryDataset getDataset() {
 		return (CategoryDataset) chart.getDataset();
 	}
 	
-	private LinePlot getPlot() {
+	protected LinePlot getPlot() {
 		return (LinePlot) chart.getPlot();
 	}
 	

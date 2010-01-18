@@ -466,11 +466,11 @@ public class DJXYLineChartBuilder extends AbstractChartBuilder {
 		return this;
 	}
 	
-	private XYDataset getDataset() {
+	protected XYDataset getDataset() {
 		return (XYDataset) chart.getDataset();
 	}
 	
-	private LinePlot getPlot() {
+	protected LinePlot getPlot() {
 		return (LinePlot) chart.getPlot();
 	}
 	

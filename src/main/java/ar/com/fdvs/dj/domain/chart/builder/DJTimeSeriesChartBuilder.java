@@ -476,11 +476,11 @@ public class DJTimeSeriesChartBuilder extends AbstractChartBuilder {
 		return this;
 	}
 	
-	private TimeSeriesDataset getDataset() {
+	protected TimeSeriesDataset getDataset() {
 		return (TimeSeriesDataset) chart.getDataset();
 	}
 	
-	private TimeSeriesPlot getPlot() {
+	protected TimeSeriesPlot getPlot() {
 		return (TimeSeriesPlot) chart.getPlot();
 	}
 	

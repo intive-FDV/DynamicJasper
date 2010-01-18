@@ -445,11 +445,11 @@ public class DJXYAreaChartBuilder extends AbstractChartBuilder {
 		return this;
 	}
 	
-	private XYDataset getDataset() {
+	protected XYDataset getDataset() {
 		return (XYDataset) chart.getDataset();
 	}
 	
-	private AreaPlot getPlot() {
+	protected AreaPlot getPlot() {
 		return (AreaPlot) chart.getPlot();
 	}
 	

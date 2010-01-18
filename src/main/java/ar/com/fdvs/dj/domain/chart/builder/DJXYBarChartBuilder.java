@@ -476,11 +476,11 @@ public class DJXYBarChartBuilder extends AbstractChartBuilder {
 		return this;
 	}
 	
-	private XYDataset getDataset() {
+	protected XYDataset getDataset() {
 		return (XYDataset) chart.getDataset();
 	}
 	
-	private BarPlot getPlot() {
+	protected BarPlot getPlot() {
 		return (BarPlot) chart.getPlot();
 	}
 	

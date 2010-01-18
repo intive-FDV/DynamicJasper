@@ -45,7 +45,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
 
-public class DJAreaChartBuilder extends AbstractChartBuilder {
+public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder> {
 	//chart
 	/**
 	 * Sets the chart data operation (DJChart.CALCULATION_COUNT or DJChart.CALCULATION_SUM).
@@ -326,7 +326,7 @@ public class DJAreaChartBuilder extends AbstractChartBuilder {
 	 **/
 	public DJAreaChartBuilder setPadding(int padding) {
 		this.chart.getOptions().setPadding(new Integer(padding));
-		return this;
+		return this.getClass().cast(this);
 	}
 
 	/**
@@ -450,11 +450,11 @@ public class DJAreaChartBuilder extends AbstractChartBuilder {
 		return this;
 	}
 	
-	private CategoryDataset getDataset() {
+	protected CategoryDataset getDataset() {
 		return (CategoryDataset) chart.getDataset();
 	}
 	
-	private AreaPlot getPlot() {
+	protected AreaPlot getPlot() {
 		return (AreaPlot) chart.getPlot();
 	}
 	

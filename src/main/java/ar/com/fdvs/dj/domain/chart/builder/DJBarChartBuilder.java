@@ -481,11 +481,11 @@ public class DJBarChartBuilder extends AbstractChartBuilder {
 		return this;
 	}
 	
-	private CategoryDataset getDataset() {
+	protected CategoryDataset getDataset() {
 		return (CategoryDataset) chart.getDataset();
 	}
 	
-	private BarPlot getPlot() {
+	protected BarPlot getPlot() {
 		return (BarPlot) chart.getPlot();
 	}
 	

@@ -39,6 +39,7 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 public abstract class AbstractDataset extends DJBaseElement {
@@ -71,4 +72,6 @@ public abstract class AbstractDataset extends DJBaseElement {
 	public abstract List getColumns();
 	
 	public abstract JRDesignChartDataset transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars);
+	
+	public abstract void addSerie(AbstractColumn column);
 }

@@ -408,11 +408,11 @@ public class DJPieChartBuilder extends AbstractChartBuilder {
 		return this;
 	}
 	
-	private PieDataset getDataset() {
+	protected PieDataset getDataset() {
 		return (PieDataset) chart.getDataset();
 	}
 	
-	private PiePlot getPlot() {
+	protected PiePlot getPlot() {
 		return (PiePlot) chart.getPlot();
 	}
 	

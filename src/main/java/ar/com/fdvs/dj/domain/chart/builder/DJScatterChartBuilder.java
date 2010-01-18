@@ -465,11 +465,11 @@ public class DJScatterChartBuilder extends AbstractChartBuilder {
 		return this;
 	}
 	
-	private XYDataset getDataset() {
+	protected XYDataset getDataset() {
 		return (XYDataset) chart.getDataset();
 	}
 	
-	private ScatterPlot getPlot() {
+	protected ScatterPlot getPlot() {
 		return (ScatterPlot) chart.getPlot();
 	}
 	
