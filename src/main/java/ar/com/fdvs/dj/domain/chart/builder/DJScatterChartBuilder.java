@@ -339,6 +339,14 @@ public class DJScatterChartBuilder extends AbstractChartBuilder {
 	}
 	
 	//dataset
+	/** 
+	 * Allows AbstractChartBuilder to set the key column
+	 */
+	protected DJScatterChartBuilder setCategory(PropertyColumn xValue) {
+		setXValue(xValue);
+		return this;
+	}
+	
 	/**
 	 * Sets the x value column.
 	 *

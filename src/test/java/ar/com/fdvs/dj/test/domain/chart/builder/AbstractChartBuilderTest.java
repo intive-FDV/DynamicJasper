@@ -151,13 +151,13 @@ public class AbstractChartBuilderTest extends BaseDjReportTest {
 		.setLineColor(Color.DARK_GRAY)
 		.setPadding(5)
 		//dataset
-		.addSerie(columnAmount);
+		.addSerie(columnAmount)
+		.setColumnGroup((PropertyColumn) columnBranch);
 		
 		// Next properties are exclusive of DJAreaChartBuilder
 		// TODO Can AbstractChartBuilder be fixed to avoid casting??
 		DJChart djChart = ((DJAreaChartBuilder)builder)
 		//dataset
-		.setCategory((PropertyColumn) columnBranch)
 		.addSerie(columnaQuantity, "quant.")
 		//plot
 		.setCategoryAxisFormat(categoryAxisFormat)

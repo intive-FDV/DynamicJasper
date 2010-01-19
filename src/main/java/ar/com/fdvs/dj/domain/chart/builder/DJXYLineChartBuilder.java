@@ -339,6 +339,14 @@ public class DJXYLineChartBuilder extends AbstractChartBuilder {
 	}
 	
 	//dataset
+	/** 
+	 * Allows AbstractChartBuilder to set the key column
+	 */
+	protected DJXYLineChartBuilder setCategory(PropertyColumn xValue) {
+		setXValue(xValue);
+		return this;
+	}
+	
 	/**
 	 * Sets the x value column.
 	 *

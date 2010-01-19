@@ -339,6 +339,14 @@ public class DJTimeSeriesChartBuilder extends AbstractChartBuilder {
 	}
 	
 	//dataset
+	/** 
+	 * Allows AbstractChartBuilder to set the key column
+	 */
+	protected DJTimeSeriesChartBuilder setCategory(PropertyColumn timePeriod) {
+		setTimePeriod(timePeriod);
+		return this;
+	}
+	
 	/**
 	 * Sets the time period column.
 	 *

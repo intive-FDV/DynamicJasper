@@ -30,6 +30,10 @@
 package ar.com.fdvs.dj.domain.chart.builder;
 
 import java.awt.Color;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import ar.com.fdvs.dj.domain.DJHyperLink;
@@ -43,6 +47,7 @@ import ar.com.fdvs.dj.domain.chart.plot.AbstractPlot;
 import ar.com.fdvs.dj.domain.chart.plot.BarPlot;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
 
 @SuppressWarnings("unchecked")
@@ -70,6 +75,18 @@ public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {
 	 **/
 	public T setChartOptions(DJChartOptions chartOptions) {
 		chart.setOptions(chartOptions);
+		return (T) this;
+	}
+	
+	/**
+	 * Sets the category for any kind of builder
+	 * 
+	 * @author esteban.invernizzi@fdvsolutions.com
+	 * @param column
+	 * @return
+	 */
+	public T setColumnGroup(PropertyColumn column) {
+		this.setCategory(column);
 		return (T) this;
 	}
 	
@@ -282,6 +299,8 @@ public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {
 	public abstract T setCustomizerClass(String customizerClass);	
 	
 	//dataset
+	protected abstract T setCategory(PropertyColumn column);
+	
 	/**
 	 * Adds the specified serie column to the dataset.
 	 * 

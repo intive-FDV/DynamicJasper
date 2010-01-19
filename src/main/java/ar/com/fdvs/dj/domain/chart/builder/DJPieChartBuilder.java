@@ -336,6 +336,14 @@ public class DJPieChartBuilder extends AbstractChartBuilder {
 	}
 	
 	//dataset
+	/** 
+	 * Allows AbstractChartBuilder to set the key column
+	 */
+	protected DJPieChartBuilder setCategory(PropertyColumn key) {
+		setKey(key);
+		return this;
+	}
+	
 	/**
 	 * Sets the key column.
 	 *
