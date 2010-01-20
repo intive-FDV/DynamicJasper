@@ -141,8 +141,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			ensureDJStyles();
 			startLayout();
 			transformDetailBand();
-			setWhenNoDataBand();
 			endLayout();
+			setWhenNoDataBand(); //this goes at the end because it will copy objects from other bands
 			registerRemainingStyles();
 		} catch (RuntimeException e) {
 			throw new LayoutException(e.getMessage(),e);
@@ -170,8 +170,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			style = getReport().getOptions().getDefaultDetailStyle();
 		}
 
-		if (getReport().isWhenNoDataShowTitle())
+		if (getReport().isWhenNoDataShowTitle()){
+			LayoutUtils.copyBandElements(band, getDesign().getTitle());
 			LayoutUtils.copyBandElements(band, getDesign().getPageHeader());
+		}
 		if (getReport().isWhenNoDataShowColumnHeader())
 			LayoutUtils.copyBandElements(band, getDesign().getColumnHeader());
 
@@ -181,6 +183,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		text.setWidth(getReport().getOptions().getPrintableWidth());
 		text.setHeight(50);
 		band.addElement(text);
+		setBandFinalHeight(band);
 		log.debug("OK setting up WHEN NO DATA band");
 
 	}

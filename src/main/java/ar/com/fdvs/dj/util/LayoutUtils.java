@@ -1,19 +1,26 @@
 package ar.com.fdvs.dj.util;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRBand;
+import net.sf.jasperreports.engine.JRDefaultStyleProvider;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.CoreException;
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
 import ar.com.fdvs.dj.domain.CustomExpression;
@@ -50,12 +57,19 @@ public class LayoutUtils {
 	 * @param sourceBand
 	 */
 	public static void copyBandElements(JRDesignBand destBand, JRBand sourceBand) {
+		if (sourceBand == null){
+			log.debug("nothing to copy from a null band");
+			return;
+		}
+			
 		int offset = findVerticalOffset(destBand);
 		for (Iterator iterator = sourceBand.getChildren().iterator(); iterator.hasNext();) {
 			JRDesignElement element = (JRDesignElement) iterator.next();
 			JRDesignElement dest = null;
 			try {
-				dest = (JRDesignElement) element.getClass().newInstance();
+				
+				dest = (JRDesignElement) createInstanceFrom(element);
+//				dest = (JRDesignElement) element.getClass().newInstance();
 				BeanUtils.copyProperties(dest, element);
 				dest.setY(dest.getY() + offset);
 			} catch (Exception e) {
@@ -65,6 +79,35 @@ public class LayoutUtils {
 		}
 	}
 	
+	private static JRDesignElement createInstanceFrom(JRDesignElement element) throws Exception {
+		if (element == null)
+			return null;
+		
+		Constructor cc = null;
+
+		try {
+			cc = element.getClass().getConstructor(new Class[]{});
+		} catch (NoSuchMethodException e) {			
+			//nothing to do, there is just no default constructor.
+		}
+
+		if (cc != null)
+			return (JRDesignElement) cc.newInstance(new Object[]{});
+		
+		try {
+			cc = element.getClass().getConstructor(new Class[]{JRDefaultStyleProvider.class});
+		} catch (NoSuchMethodException e) {			
+			//nothing to do, there is just no default constructor.
+		}
+		
+		if (cc != null)
+			return (JRDesignElement) cc.newInstance(new Object[]{new JRDesignStyle().getDefaultStyleProvider()});
+		
+		
+		
+		throw new CoreException("Cannot copy element of the class " + element.getClass().getName());
+	}
+
 	/**
 	 * Moves the elements contained in "band" in the Y axis "yOffset"
 	 * @param intValue

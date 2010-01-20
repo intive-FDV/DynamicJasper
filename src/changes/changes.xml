@@ -34,7 +34,12 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
-	 	 		 <release version="3.0.15-beta1" date="2009-12-10" desc="fixes" >
+	 	 		 <release version="3.0.16" date="2010-01-05" desc="fixes" >
+					 <action dev="Juan Manuel Alvarez"  type="fix" issue="2915922">
+					 	drb.setWhenNoData - Excluding Summary and images
+					 </action>
+	 	 		 </release>
+	 	 		 <release version="3.0.15" date="2009-12-11" desc="fixes" >
 					 <action dev="Juan Manuel Alvarez" type="change">
 					 	Hability to use the same property/field in crosstab measures more than once (i.e: sum, average, count)
 					 </action>
