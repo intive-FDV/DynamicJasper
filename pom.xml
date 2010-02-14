@@ -31,7 +31,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>3.0.15-beta1</version>
+	<version>3.1.0-beta1</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -71,9 +71,6 @@ API.
 					<target>1.5</target>
 					<debug>true</debug>
 					<fork>true</fork>
-					<!--
-					<executable>${JAVA_1_4_HOME}/bin/javac</executable>
-					-->
 					<executable>${JAVA5_HOME}/bin/javac</executable>
 				</configuration>
 			</plugin>
@@ -198,7 +195,6 @@ API.
 									<report>dependencies</report>
 									<report>project-team</report>
 									<report>mailing-list</report>
-									<!--									<report>cim</report>-->
 									<report>issue-tracking</report>
 									<report>license</report>
 									<report>scm</report>
@@ -283,7 +279,7 @@ API.
 		<dependency>
 		    <groupId>jasperreports</groupId>
 		    <artifactId>jasperreports</artifactId>
-		    <version>3.5.1</version>
+		    <version>3.5.2</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>

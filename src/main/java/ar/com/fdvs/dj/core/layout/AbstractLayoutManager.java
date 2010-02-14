@@ -141,8 +141,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			ensureDJStyles();
 			startLayout();
 			transformDetailBand();
-			setWhenNoDataBand();
 			endLayout();
+			setWhenNoDataBand();
 			registerRemainingStyles();
 		} catch (RuntimeException e) {
 			throw new LayoutException(e.getMessage(),e);

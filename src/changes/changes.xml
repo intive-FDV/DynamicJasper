@@ -34,6 +34,11 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
+	 	 		 <release version="3.1.0-beta1" date="2010-02-13" desc="fixes" >
+					 <action dev="Juan Manuel Alvarez" type="change">
+					 	DJ is now compiled in JAVA 5. No more support to java 1.4
+					 </action>
+				</release>
 	 	 		 <release version="3.0.15-beta1" date="2009-12-10" desc="fixes" >
 					 <action dev="Juan Manuel Alvarez" type="change">
 					 	Hability to use the same property/field in crosstab measures more than once (i.e: sum, average, count)
