@@ -1,0 +1,90 @@
+	----------
+	HOW-TO Add a chart (new API)
+	----------
+
+HOW-TO Add a chart (new API)
+
+ Adding charts to your report is quite simple. Supported charts are:
+ 
+ * Area
+  
+ * Bar
+ 
+ * Bar 3D
+
+ * Line
+ 
+ * Pie
+ 
+ * Pie 3D
+ 
+ * Scatter
+ 
+ * Stacked area
+
+ * Stacked bar
+
+ * Stacked bar 3D
+ 
+ * Time series
+ 
+ * XY area
+
+ * XY bar
+
+ * XY line
+ 
+ []
+ 
+*How charts work
+
+ Like you would do using a spreadsheet (like OpenOffice or Excel) were you have flat data (ie: column1, column2, column3)
+ and you want to make a chart with column1 and column3, you need to tell which column is going to be used as series/categories
+ and which column we are going to operate (sum, average, count, distinct count, etc).  
+
+ Depending of the type of chart you want to add, you'll have to use its proper builder, there is one builder per type because
+ they have so many different options, that it would be very confusing and not intuitive to have all possible options in the same builder.
+ 
+ Below a list of builders and a link to a working example of how to use it
+ 
+*----------+--------------+--------------+
+|| <<Type>> || <<Builder>> || <<Example>> ||
+*----------+--------------+--------------+
+| Area  | DJAreaChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/AreaChartBuilderTest.html}AreaChartBuilderTest}}
+*----------+--------------+--------------+
+| Bar | DJBarChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/BarChartBuilderTest.html}BarChartBuilderTest}}
+*----------+--------------+--------------+
+| Bar 3D | DJBar3DChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/Bar3DChartBuilderTest.html}Bar3DChartBuilderTest}}
+*----------+--------------+--------------+
+| Line | DJLineChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/LineChartBuilderTest.html}LineChartBuilderTest}}
+*----------+--------------+--------------+
+| Pie | DJPieChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/PieChartBuilderTest.html}PieChartBuilderTest}}
+*----------+--------------+--------------+
+| Pie 3D | DJPie3DChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/Pie3DChartBuilderTest.html}Pie3DChartBuilderTest}}
+*----------+--------------+--------------+
+| Scatter | DJScatterChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/ScatterChartBuilderTest.html}ScatterChartBuilderTest}}
+*----------+--------------+--------------+
+| Stacked area | DJStackedAreaChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/StackedAreaChartBuilderTest.html}StackedAreaChartBuilderTest}}
+*----------+--------------+--------------+
+| Stacked bar | DJStackedBarChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/StackedBarChartBuilderTest.html}StackedBarChartBuilderTest}}
+*----------+--------------+--------------+
+| Stacked bar 3D | DJStackedBar3DChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/StackedBar3DChartBuilderTest.html}StackedBar3DChartBuilderTest}}
+*----------+--------------+--------------+
+| Time series | DJTimeSeriesChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/TimeSeriesChartBuilderTest.html}TimeSeriesChartBuilderTest}}
+*----------+--------------+--------------+
+| XY area | DJXYAreaChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/XYAreaChartBuilderTest.html}XYAreaChartBuilderTest}}
+*----------+--------------+--------------+
+| XY bar | DJXYBarChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/XYBarChartBuilderTest.html}XYBarChartBuilderTest}}
+*----------+--------------+--------------+
+| XY line | DJXYLineChartBuilder | {{{../../xref-test/ar/com/fdvs/dj/test/domain/chart/builder/XYLineChartBuilderTest.html}XYLineChartBuilderTest}}
+*----------+--------------+--------------+
+
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}ChartReportTest}} for a working example.
+
+ Also refer to {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest2.html}ChartReportTest2}} for a multiple series chart working example.
+ 
+ This code generate a report like this:
+ 
+[../images/examples/chart-report-test.jpg] Chart Report
+ 

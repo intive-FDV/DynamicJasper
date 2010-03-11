@@ -1,8 +1,13 @@
 	----------
-	HOW-TO Add a chart
+	HOW-TO Add a chart (old API, deprecated)
 	----------
 
-HOW-TO Add a chart
+HOW-TO Add a chart (old api)
+
+
+*------------------------------------------------------------------------------------------------------------*
+| This documentation refers to the old chart API, please use the {{{charts/new chart api.html}new api}}
+*------------------------------------------------------------------------------------------------------------*
 
 +------------------------------------------------------------------------------------------------------------+
 DynamicReportBuilder drb = new DynamicReportBuilder();

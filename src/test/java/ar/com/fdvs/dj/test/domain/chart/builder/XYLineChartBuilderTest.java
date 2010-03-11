@@ -44,13 +44,18 @@ import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.StringExpression;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.chart.DJChart;
 import ar.com.fdvs.dj.domain.chart.DJChartOptions;
 import ar.com.fdvs.dj.domain.chart.builder.DJXYLineChartBuilder;
 import ar.com.fdvs.dj.domain.chart.plot.DJAxisFormat;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
@@ -62,6 +67,16 @@ public class XYLineChartBuilderTest extends BaseDjReportTest {
 	
 	protected void setUp() throws Exception {
 		drb = new DynamicReportBuilder();
+
+		Style headerStyle = new Style();
+		headerStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
+		headerStyle.setBorderBottom(Border.PEN_2_POINT);
+		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
+		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setBackgroundColor(Color.DARK_GRAY);
+		headerStyle.setTextColor(Color.WHITE);
+		headerStyle.setTransparency(Transparency.OPAQUE);
+		drb.setDefaultStyles(null, null, headerStyle, null);			
 		
 		AbstractColumn columnCode = ColumnBuilder.getNew()
 		.setColumnProperty("id", Long.class.getName()).setTitle("ID")

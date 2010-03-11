@@ -86,7 +86,9 @@ HOW TO Guide
 
  <<Charts>>
 
- * {{{HOWTO Add a chart.html}Add a chart}}
+ * {{{charts/new chart api.html}Add a chart}} (new API)
+
+ * {{{HOWTO Add a chart.html}Add a chart}} (old API, deprecated)
 
  []
 
