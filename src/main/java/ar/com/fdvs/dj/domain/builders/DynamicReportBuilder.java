@@ -111,6 +111,12 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addAutoText(AutoText text) {
 		if (this.autoTexts == null)
 			this.autoTexts = new ArrayList();
+		
+		if (AutoText.WIDTH_NOT_SET.equals(text.getWidth()))
+				text.setWidth(AutoText.DEFAULT_WIDTH);
+		if (AutoText.WIDTH_NOT_SET.equals(text.getWidth2()))
+			text.setWidth2(AutoText.DEFAULT_WIDTH);
+		
 		autoTexts.add(text);
 		return this;
 	}

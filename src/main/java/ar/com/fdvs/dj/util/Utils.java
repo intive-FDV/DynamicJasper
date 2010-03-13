@@ -32,6 +32,13 @@ public class Utils {
 		return col.isEmpty();
 		
 	}
+	
+	public static void addNotNull(Collection col, Object obj){
+		if (col == null || obj == null)
+			return;
+		
+		col.add(obj);
+	}
 
 
 	/**

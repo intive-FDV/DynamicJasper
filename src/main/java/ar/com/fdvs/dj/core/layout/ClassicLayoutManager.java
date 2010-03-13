@@ -51,6 +51,7 @@ import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignRectangle;
+import net.sf.jasperreports.engine.design.JRDesignSection;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignSubreport;
 import net.sf.jasperreports.engine.design.JRDesignSubreportParameter;
@@ -413,24 +414,27 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			jgroup.setStartNewColumn(columnsGroup.getStartInNewColumn().booleanValue());
 			jgroup.setReprintHeaderOnEachPage(columnsGroup.getReprintHeaderOnEachPage().booleanValue());
 
-			JRDesignBand header = (JRDesignBand) jgroup.getGroupHeader();
-			JRDesignBand footer = (JRDesignBand) jgroup.getGroupFooter();
+			JRDesignSection headerSection = (JRDesignSection) jgroup.getGroupHeaderSection();
+			JRDesignSection footerSection = (JRDesignSection) jgroup.getGroupFooterSection();
+			
+			JRDesignBand header = LayoutUtils.getBandFromSection(headerSection);
+			JRDesignBand footer = LayoutUtils.getBandFromSection(footerSection);
 			
 			//double check to prevent NPE
 			if (header == null){
 				header = new JRDesignBand();
-				jgroup.setGroupHeader(header);
+				headerSection.addBand(header);
 			}
 			if (footer == null){
 				footer = new JRDesignBand();
-				jgroup.setGroupFooter(footer);
+				footerSection.addBand(footer);
 			}
 			
 			header.setHeight(columnsGroup.getHeaderHeight().intValue());
 //			footer.setHeight( getFooterVariableHeight(columnsGroup));
 			footer.setHeight( columnsGroup.getFooterHeight().intValue());
 
-			header.setSplitAllowed(columnsGroup.isAllowHeaderSplit());
+			header.setSplitAllowed(columnsGroup.isAllowHeaderSplit()); //FIXME deprecado
 			footer.setSplitAllowed(columnsGroup.isAllowFooterSplit());
 
 			if (columnsGroup.getLayout().isPrintHeaders()) {
@@ -462,11 +466,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					header.addElement(designTextField);
 				}
 			}
+			
 			DJGroupLabel label = columnsGroup.getFooterLabel();	
 			if (label != null /*&& !footerVariables.isEmpty()*/) {
 				List footerVariables = columnsGroup.getFooterVariables();
 				PropertyColumn col = columnsGroup.getColumnToGroupBy();
-				JRDesignBand band = (JRDesignBand)jgroup.getGroupFooter();
+//				JRDesignBand band = (JRDesignBand)jgroup.getGroupFooter();
+				JRDesignBand band = footer;
 				int x = 0, y = 0;
 				//max width
 				int width = getDesign().getPageWidth() - getDesign().getLeftMargin() - getDesign().getRightMargin();
@@ -533,7 +539,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			//return;
 		
 		//PropertyColumn col = djgroup.getColumnToGroupBy();
-		JRDesignBand band = (JRDesignBand)jgroup.getGroupFooter();
+		JRDesignBand band =  LayoutUtils.getBandFromSection((JRDesignSection) jgroup.getGroupFooterSection());
 
 //		log.debug("Adding footer group label for group " + djgroup);
 		
@@ -593,7 +599,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
 
 			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
-			JRDesignBand band = (JRDesignBand) jgroup.getGroupHeader();
+			JRDesignBand band = LayoutUtils.getBandFromSection((JRDesignSection) jgroup.getGroupHeaderSection());
 			if (djcross.getBottomSpace() != 0){
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), 0);
 				LayoutUtils.moveBandsElemnts(rect.getHeight(), band);
@@ -636,7 +642,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
 
 			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
-			JRDesignBand band = (JRDesignBand) jgroup.getGroupFooter();
+			JRDesignBand band = LayoutUtils.getBandFromSection((JRDesignSection) jgroup.getGroupFooterSection());
 			int yOffset = LayoutUtils.findVerticalOffset(band);
 			if (djcross.getTopSpace() != 0){
 //				moveBandsElemnts(djcross.getTopSpace(), band);
@@ -709,8 +715,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected void layoutGroupSubreports(DJGroup columnsGroup, JRDesignGroup jgroup) {
 		log.debug("Starting subreport layout...");
-		JRDesignBand footerBand = (JRDesignBand) jgroup.getGroupFooter();
-		JRDesignBand headerBand = (JRDesignBand) jgroup.getGroupHeader();
+		JRDesignBand footerBand = (JRDesignBand) ((JRDesignSection)jgroup.getGroupFooterSection()).getBandsList().get(0);
+		JRDesignBand headerBand = (JRDesignBand) ((JRDesignSection)jgroup.getGroupHeaderSection()).getBandsList().get(0);
 
 		layOutSubReportInBand(columnsGroup, headerBand, DJConstants.HEADER);
 		layOutSubReportInBand(columnsGroup, footerBand, DJConstants.FOOTER);
@@ -806,7 +812,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				else { //footer subreport (and concatenated report)
 					if (idx+1 <  getDesign().getGroupsList().size())
 						idx++;
-					targetBand = (JRDesignBand) ((JRDesignGroup) getDesign().getGroupsList().get(idx)).getGroupFooter();
+					JRDesignGroup jrGroup = (JRDesignGroup) getDesign().getGroupsList().get(idx);
+					targetBand = LayoutUtils.getBandFromSection((JRDesignSection) jrGroup.getGroupFooterSection());
 				}
 
 				/**
@@ -864,16 +871,21 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected void layoutGroupVariables(DJGroup group, JRDesignGroup jgroup, int labelOffset) {
 		log.debug("Starting groups variables layout...");
 		
-		JRDesignBand headerBand = (JRDesignBand) jgroup.getGroupHeader();
+//		JRDesignBand headerBand = (JRDesignBand) jgroup.getGroupHeader();
+		JRDesignSection headerSection = (JRDesignSection) jgroup.getGroupHeaderSection();
+		JRDesignBand headerBand = (JRDesignBand) headerSection.getBandsList().get(0);
 		if (headerBand == null){
 			headerBand = new JRDesignBand();
-			jgroup.setGroupHeader(headerBand);
+			headerSection.addBand(headerBand);
+//			jgroup.setGroupHeader(headerBand);
 		}
 		
-		JRDesignBand footerBand = (JRDesignBand) jgroup.getGroupFooter();
+		JRDesignSection footerSection = (JRDesignSection) jgroup.getGroupFooterSection();
+		JRDesignBand footerBand = (JRDesignBand) footerSection.getBandsList().get(0);
 		if (footerBand == null){
 			footerBand = new JRDesignBand();
-			jgroup.setGroupFooter(footerBand);
+			footerSection.addBand(footerBand);
+//			jgroup.setGroupFooter(footerBand);
 		}
 		
 		int headerOffset = 0;

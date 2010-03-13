@@ -56,6 +56,7 @@ import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
+import net.sf.jasperreports.engine.design.JRDesignSection;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
@@ -143,6 +144,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			transformDetailBand();
 			endLayout();
 			setWhenNoDataBand();
+			setBandsFinalHeight();
 			registerRemainingStyles();
 		} catch (RuntimeException e) {
 			throw new LayoutException(e.getMessage(),e);
@@ -161,7 +163,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			return;
 		JRDesignBand band = new JRDesignBand();
 		getDesign().setNoData(band);
-
+		
 		JRDesignTextField text = new JRDesignTextField();
 		JRDesignExpression expression = ExpressionUtils.createStringExpression("\""+whenNoDataText+"\"");
 		text.setExpression(expression);
@@ -576,29 +578,43 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 */
 	protected void setBandsFinalHeight() {
 		log.debug("Setting bands final height...");
-
-		setBandFinalHeight((JRDesignBand) design.getPageHeader());
-		setBandFinalHeight((JRDesignBand) design.getPageFooter());
-		setBandFinalHeight((JRDesignBand) design.getColumnHeader());
-		setBandFinalHeight((JRDesignBand) design.getColumnFooter());
-		setBandFinalHeight((JRDesignBand) design.getSummary());
-		setBandFinalHeight((JRDesignBand) design.getBackground());
-		setBandFinalHeight((JRDesignBand) design.getDetail());
-		setBandFinalHeight((JRDesignBand) design.getLastPageFooter());
-		setBandFinalHeight((JRDesignBand) design.getTitle());
-		setBandFinalHeight((JRDesignBand) design.getPageFooter());
-		setBandFinalHeight((JRDesignBand) design.getNoData());
+		
+		List<JRDesignBand> bands = new ArrayList<JRDesignBand>();
+		
+		Utils.addNotNull(bands, (JRDesignBand) design.getPageHeader());
+		Utils.addNotNull(bands, (JRDesignBand) design.getPageFooter());
+		Utils.addNotNull(bands, (JRDesignBand) design.getColumnHeader());
+		Utils.addNotNull(bands, (JRDesignBand) design.getColumnFooter());
+		Utils.addNotNull(bands, (JRDesignBand) design.getSummary());
+		Utils.addNotNull(bands, (JRDesignBand) design.getBackground());
+		bands.addAll(((JRDesignSection) design.getDetailSection()).getBandsList());
+		Utils.addNotNull(bands, (JRDesignBand) design.getLastPageFooter());
+		Utils.addNotNull(bands, (JRDesignBand) design.getTitle());
+		Utils.addNotNull(bands, (JRDesignBand) design.getPageFooter());
+		Utils.addNotNull(bands, (JRDesignBand) design.getNoData());
 
 		for (Iterator iter = design.getGroupsList().iterator(); iter.hasNext();) {
 			JRGroup jrgroup = (JRGroup) iter.next();
 			DJGroup djGroup = (DJGroup) getReferencesMap().get(jrgroup.getName());
+			JRDesignSection headerSection = (JRDesignSection) jrgroup.getGroupHeaderSection();
+			JRDesignSection footerSection = (JRDesignSection) jrgroup.getGroupFooterSection();
 			if (djGroup != null){
-				setBandFinalHeight((JRDesignBand) jrgroup.getGroupHeader(),djGroup.getHeaderHeight().intValue(), djGroup.isFitHeaderHeightToContent());
-				setBandFinalHeight((JRDesignBand) jrgroup.getGroupFooter(),djGroup.getFooterHeight().intValue(), djGroup.isFitFooterHeightToContent());
+				for (JRDesignBand headerBand : (List<JRDesignBand>)headerSection.getBandsList()) {
+					setBandFinalHeight(headerBand,djGroup.getHeaderHeight(), djGroup.isFitHeaderHeightToContent());
+					
+				}
+				for (JRDesignBand footerBand : (List<JRDesignBand>)footerSection.getBandsList()) {
+					setBandFinalHeight(footerBand,djGroup.getFooterHeight(), djGroup.isFitHeaderHeightToContent());
+					
+				}
 			} else {
-				setBandFinalHeight((JRDesignBand) jrgroup.getGroupHeader());
-				setBandFinalHeight((JRDesignBand) jrgroup.getGroupFooter());
+				bands.addAll(headerSection.getBandsList());
+				bands.addAll(footerSection.getBandsList());
 			}
+		}
+		
+		for (JRDesignBand jrDesignBand : bands) {
+			setBandFinalHeight(jrDesignBand);
 		}
 	}
 
@@ -906,9 +922,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		JRDesignGroup parentGroup = getParent(jrGroup);
 		JRDesignGroup jrGroupChart = null;
 		try {
-			jrGroupChart = (JRDesignGroup) BeanUtils.cloneBean(parentGroup);
-			jrGroupChart.setGroupFooter( new JRDesignBand());
-			jrGroupChart.setGroupHeader( new JRDesignBand());
+//			jrGroupChart = (JRDesignGroup) BeanUtils.cloneBean(parentGroup);
+			jrGroupChart = new JRDesignGroup(); //FIXME nuevo 3.5.2			
+			jrGroupChart.setExpression(parentGroup.getExpression());
+			((JRDesignSection)jrGroupChart.getGroupFooterSection()).addBand(new JRDesignBand());
+			((JRDesignSection)jrGroupChart.getGroupHeaderSection()).addBand(new JRDesignBand());
 			jrGroupChart.setName(jrGroupChart.getName()+"_Chart" + getReport().getCharts().indexOf(djChart));
 		} catch (Exception e) {
 			throw new DJException("Problem creating band for chart: " + e.getMessage(),e);
@@ -928,11 +946,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 		JRDesignBand band = null;
 		switch (djChart.getOptions().getPosition()) {
-		case DJChartOptions.POSITION_HEADER:
-			band = (JRDesignBand) jrGroupChart.getGroupHeader();
+		case DJChartOptions.POSITION_HEADER:			
+			band = (JRDesignBand) ((JRDesignSection)jrGroupChart.getGroupHeaderSection()).getBandsList().get(0);
 			break;
 		case DJChartOptions.POSITION_FOOTER:
-			band = (JRDesignBand) jrGroupChart.getGroupFooter();
+			band = (JRDesignBand) ((JRDesignSection)jrGroupChart.getGroupFooterSection()).getBandsList().get(0);
 		}
 		return band;
 	}
@@ -1056,10 +1074,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		JRDesignGroup parentGroup = getParent(jrGroup);
 		JRDesignGroup jrGroupChart = null;
 		try {
-			jrGroupChart = (JRDesignGroup) BeanUtils.cloneBean(parentGroup);
-			jrGroupChart.setGroupFooter( new JRDesignBand());
-			jrGroupChart.setGroupHeader( new JRDesignBand());
-			jrGroupChart.setName(jrGroupChart.getName()+"_Chart" + getReport().getCharts().indexOf(djChart));
+			jrGroupChart = new JRDesignGroup(); //FIXME nuevo 3.5.2			
+			jrGroupChart.setExpression(parentGroup.getExpression());
+			((JRDesignSection)jrGroupChart.getGroupFooterSection()).addBand(new JRDesignBand());
+			((JRDesignSection)jrGroupChart.getGroupHeaderSection()).addBand(new JRDesignBand());
+			jrGroupChart.setName(jrGroupChart.getName()+"_Chart" + getReport().getCharts().indexOf(djChart));			
 		} catch (Exception e) {
 			throw new DJException("Problem creating band for chart: " + e.getMessage(),e);
 		}
@@ -1079,10 +1098,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		JRDesignBand band = null;
 		switch (djChart.getOptions().getPosition()) {
 		case DJChartOptions.POSITION_HEADER:
-			band = (JRDesignBand) jrGroupChart.getGroupHeader();
+			band = (JRDesignBand) ((JRDesignSection)jrGroupChart.getGroupHeaderSection()).getBandsList().get(0);
 			break;
 		case DJChartOptions.POSITION_FOOTER:
-			band = (JRDesignBand) jrGroupChart.getGroupFooter();
+			band = (JRDesignBand)  ((JRDesignSection)jrGroupChart.getGroupFooterSection()).getBandsList().get(0);
 		}
 		return band;
 	}

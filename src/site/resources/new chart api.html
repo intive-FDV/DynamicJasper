@@ -28,12 +28,6 @@
     </script>
   </head>
   <body class="composite">
-  <style type="text/css">
-  .linktt {
-  	font-size: 10pt;
-	font-family:"Times New Roman", Times, serif;	
-  }
-  </style>
     <div id="banner">
 	    <div id="inner_banner">
 	                  <a href="http://www.fdvsolutions.com/" id="bannerLeft">
@@ -72,148 +66,117 @@ loading...
 
 	  
 	        
-<div id="bodyCol1"class="columnSection" >
-    <div class="section">
-    <h2>It's dynamic!</h2>
-    <p><strong>DynamicJasper</strong> (DJ) is an <strong>open source free</strong> library that hides the complexity of <a href="http://jasperreports.sourceforge.net/" target="_blank">Jasper Reports</a>, it helps developers to save time when designing simple/medium complexity reports generating the layout of the report elements automatically.</p>
-    <p> DJ creates reports dynamically, defining at runtime the columns, column width (auto width), groups, variables, fonts, charts, crosstabs, sub reports (that can also be dynamic), page size and everything else that you can define at design time (see <a href="docs/features.html">features</a>).</p>
-    <p>DJ keeps full compatibility with Jasper Reports since it's a tool that helps creating reports in a programmatic friendly way, taking care of the report design for you.</p>
-    <p>Classic .jrxml files can be used as templates while the content and layout of the report elements are handled by the DJ API.</p>
-    </div>
-	<div class="section" >
-<h2>Version 3+ notes</h2>
-<p>Version 3.0.0 introduces <b><a href="changes/v3_0_0 breaking changes.html">breaking changes</a></b></p>
-</div>
-<div class="section">
-  <h2>Whats New!!!</h2>
-  <p>:: <a href="new chart api.html">New Charts API</a>
-  	<img src="images/charts/charts.jpg" alt="" />
-  </p>
-  <p>:: <a href="docs/HOWTO Add hyperlinks in columns.html">Hyper Links in report</a></p>
-  <p>:: <a href="docs/HOWTO group labels.html">Group footer and header labels. </a></p>
-  <p>:: <a href="tero.html">Tero: The flex report component.</a></p>
-  <p>:: <a href="docs/HOWTO Multiple measure Crosstabs.html">Multiple measures on crosstabs.</a> </p>
-  </div>
-</div> <!-- column 1 -->
+<!-- column 1 -->
+<div id="bodyCol1"class="columnSection2" >
 
-<div id="bodyCol2" class="columnSection" >
-<div id="get_pro_div" class="section" style="background-color: transparent; padding: 0px;">
-    <div style="padding: 10px;">
-      <div align="center"><a href="getPro.html" ><img src="images/get_pro.png" alt="get pro!" /></a>  </div>
-<div id="content_top"  >
-		<h2>They talk about DJ </h2>
-		<p style="ptt">          
-	      <a href="http://www.wysmedia.com/2009/05/dance-with-dynamic-jasper-report/" title="Dance with Dynamic Jasper Report" target="_blank">Dance with Dynamic Jasper Report</a> 
-		  <br /><span class="linktt">Wysmedia.Com</span>
-	  </p>  
-		<p style="ptt">          
-	      <a href="http://www.infoq.com/news/2007/10/dynamicjasper" title="Dance with Dynamic Jasper Report" target="_blank">DynamicJasper: Runtime generation of Jasper Reports</a> 
-		  <br />
-		  <span class="linktt">InfoQ.com</span>
-	  </p>  
-		<p style="ptt">          
-	      <a href="http://www.infoq.com/news/2009/02/dynamicjasper" title="Dance with Dynamic Jasper Report" target="_blank">Dynamic Report for Java and Grails</a> 
-		  <br />
-		  <span class="linktt">InfoQ.com</span>
-	  </p>  
-	  
-		<p style="ptt">          
-	      <a href="http://www.theserverside.com/news/thread.tss?thread_id=53551" title="Dance with Dynamic Jasper Report" target="_blank">DynamicJasper makes possible dynamic reporting in Java</a> 
-		  <br />
-		  <span class="linktt">TheServerSide.com</span>
-		  </p>  	
-		<p style="ptt">          
-	      <a href="http://blog.lucastex.com/2009/04/16/4of25-jasper-reports-in-grails-with-dynamic-jasper/" title="Dance with Dynamic Jasper Report" target="_blank">Jasper Reports In Grails With Dynamic-Jasper</a> 
-		  <br />
-	  <span class="linktt">blog.lucastex.com</span></p>  	
-			<p style="ptt">          
-	      <a href="http://www.cochran-software.com/downloads/JasperTalk.pdf" title="Dance with Dynamic Jasper Report" target="_blank">Getting the most out of JasperReports and
-DynamicJasper in Grails (PDF)</a> 
-		  <br />
-	  <span class="linktt">Keith Cochran / www.cochran-software.com</span></p>  		  
-		  	  
-    </div>   
-    <div class="section columnSection">
-      <h2 class="home" style="margin-top: 10px;" >Reduce your project costs</h2>
-      <ul style="margin-left: -0.5em; padding: 4px; margin-bottom: 0px; margin-top: 0px;">
-        <li>Ease the learning curve </li>
-        <li>Outsource report development and get <strong>hi quality non expensive dynamic reports.</strong></li>
-        <li>Need a custom feature? </li>
+
+	    <h2 style="border: none; font-size: xx-large"><h2>HOW-TO Add a chart (new API)</h2>
+  <p style="border: none">Adding charts to your report is quite simple. Supported charts are:</p>
+<table class="bodyTable"><tbody>
+<tr class="a">
+<th align="left" colspan="2"><b>Type</b></th>
+<th align="left"><b>Builder</b></th>
+<th align="left"><b>Example</b></th>
+</tr>
+<tr class="b"><td align="left">Area</td>
+<td align="left"><img src="./images/charts/AreaChart.png" alt="" /> </td>
+<td align="left">DJAreaChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/AreaChartBuilderTest.html">AreaChartBuilderTest</a></td>
+</tr>
+<tr class="a"><td align="left">Bar</td>
+<td align="left"><img src="./images/charts/BarChart.png" alt="" /> </td>
+<td align="left">DJBarChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/BarChartBuilderTest.html">BarChartBuilderTest</a></td>
+</tr>
+<tr class="b"><td align="left">Bar 3D</td>
+<td align="left"><img src="./images/charts/Bar3D.png" alt="" /> </td>
+<td align="left">DJBar3DChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/Bar3DChartBuilderTest.html">Bar3DChartBuilderTest</a></td>
+</tr>
+<tr class="a"><td align="left">Line</td>
+<td align="left"><img src="./images/charts/LineChart.png" alt="" /> </td>
+<td align="left">DJLineChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/LineChartBuilderTest.html">LineChartBuilderTest</a></td>
+</tr>
+<tr class="b"><td align="left">Pie</td>
+<td align="left"><img src="./images/charts/PieChart.png" alt="" /> </td>
+<td align="left">DJPieChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/PieChartBuilderTest.html">PieChartBuilderTest</a></td>
+</tr>
+<tr class="a"><td align="left">Pie 3D</td>
+<td align="left"><img src="./images/charts/Pie3D.png" alt="" /> </td>
+<td align="left">DJPie3DChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/Pie3DChartBuilderTest.html">Pie3DChartBuilderTest</a></td>
+</tr>
+<tr class="b"><td align="left">Scatter</td>
+<td align="left"><img src="./images/charts/ScatterChart.png" alt="" /> </td>
+<td align="left">DJScatterChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/ScatterChartBuilderTest.html">ScatterChartBuilderTest</a></td>
+</tr>
+<tr class="a"><td align="left">Stacked area</td>
+<td align="left"><img src="./images/charts/StackedAreaChart.png" alt="" /> </td>
+<td align="left">DJStackedAreaChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/StackedAreaChartBuilderTest.html">StackedAreaChartBuilderTest</a></td>
+</tr>
+<tr class="b"><td align="left">Stacked bar</td>
+<td align="left"><img src="./images/charts/StackedBarChart.png" alt="" /> </td>
+<td align="left">DJStackedBarChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/StackedBarChartBuilderTest.html">StackedBarChartBuilderTest</a></td>
+</tr>
+<tr class="a"><td align="left">Stacked bar 3D</td>
+<td align="left"><img src="./images/charts/StackedBar3DChart.png" alt="" /> </td>
+<td align="left">DJStackedBar3DChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/StackedBar3DChartBuilderTest.html">StackedBar3DChartBuilderTest</a></td>
+</tr>
+<tr class="b"><td align="left">Time series</td>
+<td align="left"><img src="./images/charts/TimeSeriesChart.png" alt="" /> </td>
+<td align="left">DJTimeSeriesChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/TimeSeriesChartBuilderTest.html">TimeSeriesChartBuilderTest</a></td>
+</tr>
+<tr class="a"><td align="left">XY area</td>
+<td align="left"><img src="./images/charts/XYAreaChart.png" alt="" /> </td>
+<td align="left">DJXYAreaChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/XYAreaChartBuilderTest.html">XYAreaChartBuilderTest</a></td>
+</tr>
+<tr class="b"><td align="left">XY bar</td>
+<td align="left"><img src="./images/charts/XYBarChart.png" alt="" /> </td>
+<td align="left">DJXYBarChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/XYBarChartBuilderTest.html">XYBarChartBuilderTest</a></td>
+</tr>
+<tr class="a"><td align="left">XY line</td>
+<td align="left"><img src="./images/charts/XYLineChart.png" alt="" /> </td>
+<td align="left">DJXYLineChartBuilder</td>
+<td align="left"><a href="./xref-test/ar/com/fdvs/dj/test/domain/chart/builder/XYLineChartBuilderTest.html">XYLineChartBuilderTest</a></td>
+</tr>
+</tbody>
+</table>  
+  
+</div>
+
+<!-- column 2 -->
+<!-- 
+<div id="bodyCol2"class="columnSection" style="vertical-align:middle" >
+  <div class="section"> <a href="getProEs.html"><img src="images/button_es.png" alt="En espa&ntilde;ol" border="0" /></a></div>
+  <div class="section">
+  <h2>Need a Quote? </h2>
+  <p>Please <a href="http://fdvsolutions.com/ing/contacto.php" target="_blank">fill this form</a> and we'll contact you for further details </p>
+  </div>
+	<div class="section">
+	  <h2>Who trusted us </h2>
+      <ul style="margin-left: -0.25em;	">
+        <li>Danone</li>
+        <li>Kraft Foods</li>
+        <li>MSD (Merck Sharp &amp; Dohme)  </li>
+        <li>Globant</li>
       </ul>
-      <p class="goToNote" style="margin-top: 0px;"><a href="getPro.html">Learn  more</a></p>
-    </div>   
-    </div>
+      </div>
+
 </div>
-
-
-
-<div class="section"><h2>Online Demo</h2>
-<p>The DJ Playground is an example web application intended to show some of the API capabilities and its full potential. <a href="http://dynamicjasperplayground.fdvs.com.ar/" target="_blank" class="externalLink">See it working online!!!</a> or <a href="http://sourceforge.net/project/showfiles.php?group_id=188060" class="externalLink">download</a>
- it.</p>
-</div>
-
-
-
-</div> <!-- column 2 -->
-
-<div id="bodyCol3"class="columnSection" >
-
-<div class="section">
-<a href="http://tero.fdvsolutions.com/wp/" target="_blank"><img src="images/tero_btn.png" alt="The GUI for dynamic" border="0" /></a>
-<a href="http://jennatimetracker.com/" target="_blank"><img src="images/jenna_btn.png" border="0" /></a>
-<a href="http://dj.fdvsolutions.com/forums/" target="_blank"><img src="images/forum_btn.png" border="0" /></a></div>
-<div class="section" style="">
-  <h2 style="">Documentation and examples</h2>
-  <ul style="margin-left: -0.5em; padding: 4px; margin-bottom: 0px; margin-top: 0px;">
-    <li> <a href="docs/getting_started.html">Get started!</a> make report in minutes.</li>
-    <li><strong>Already coding?</strong> find the twist you need in the <a href="docs/howto.html">HOW-TO</a> section.</li>
-    <li><strong>Community Support</strong>: <a href="http://dj.fdvsolutions.com/forums/" target="_blank">forums</a> and <a href="https://sourceforge.net/tracker/?group_id=188060" target="_blank">tracker</a> available</li>
-    <li><a href="xref-test/ar/com/fdvs/dj/test/package-summary.html">Code examples  available</a></li>
-  </ul>
-  </div>
-<div class="section">
-  <h2>Integrate!</h2>
-  <p><a href="docs/grails dj plugin.html">:: Grails Plugin</a><a href="docs/grails dj plugin.html"> :: Struts 2 and WebWork</a></p>
-  </div>
-<div class="section" id="importantNotes" style="background:#FFCCFF;">
-
-		<div>
-		  <h2 style="border: none;">Important Notes</h2>
-		  <h3 style="border:none;">Compatibility issue</h3>
-		  <p>Dj currently supports <strong>JasperReport</strong> <strong>3.0</strong> to <strong>3.5.1</strong>.</p>
-		  <p><strong>Version 3.5.2+ is NOT yet supported </strong></p>
-		</div>
-		<div >
-		  <h3 style="border:none;">Struts 2 Integration </h3>
-		  <p>Since <strong>DJ 3.0.9</strong> Struts 2 integration classes will be in a <a href="http://www.fdvs.com.ar/djmaven2/ar/com/fdvs/DynamicJasper-Struts2/1.0/" target="_blank">separated jar</a> (because they need java 1.5 to compile) </p>	
-		</div>
-
-  </div>
-</div>  
-<!-- column 3 -->     
-
-</div> <!-- column_container1 -->
+ -->
+<!-- column 3 -->
+      </div>
+      <!-- column_container1 -->
 <div class="single_menu_spacer_div" style="clear:both;">&nbsp;</div> 
-<div id="content_top" class="section columnSection2" >
-    <h2>Quick Crosstabs</h2>
-    <div style="width: 330px; float:left">
-    
-        <p style="">Crosstabs are  double entry tables where columns and rows depends on the data. This great feature introduced by JasperReports is easily available through DynamicJasper.</p>  
-        <p class="goToNote"><a href="docs/HOWTO Crosstabs.html">Read more</a></p>  
-    </div>
-    <div style="float:right; position:relative">
-        <img src="images/examples/crosstab-1x1_s.jpg" alt="crostab" width="160" height="74" />
-    </div>
-
-    </div>
-  <div class="section columnSection">
-    <h2>Flexible Subreports</h2>
-    <p>With DynamicJasper it is really easy to get reports of different nature concatenated in a single one</p>
-    <p class="goToNote"><a href="docs/HOWTO Add Concatenated subreports.html">Read more</a></p>
-</div>
-     <div class="single_menu_spacer_div" style="clear:both; border: none;">&nbsp; </div>
-    
-     <div class="single_menu_spacer_div" style="clear:both; border: none;">&nbsp; </div>	
 <div id="adSense" style=" border-top: 1px dotted #999;">
 		  <script type="text/javascript"><!--
 				google_ad_client = "pub-7228421883024969";
@@ -239,7 +202,7 @@ DynamicJasper in Grails (PDF)</a>
 
     <div id="footer" >
       <div class="xright">&#169;
-          2006-2009 FDV Solutions
+          2009-2010 FDV Solutions
   </div>
   
       <div class="single_menu_spacer_div">&nbsp;</div>
@@ -385,7 +348,7 @@ $(document).ready(function(){
 
 var type = "smooth";
 var frontColor = "#E2EDF1";
-var bgColor = "#FFFFFF";
+var bgColor = "#FFF";
 
 function roundCorners() {
 	if(!NiftyCheck())
@@ -393,7 +356,7 @@ function roundCorners() {
 
 		Rounded("div#banner", "top", bgColor,frontColor,type);
 		Rounded("div#breadcrumbs", "bottom", bgColor,frontColor,type);
-		//Rounded("div#importantNotes", "all", bgColor,"#FFCCFF",type);
+		Rounded("div#get_pro_div", "top", bgColor,"#f1efc3",type);
 
 		roundMenuBars();
 

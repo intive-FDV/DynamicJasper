@@ -9,6 +9,7 @@ import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
+import net.sf.jasperreports.engine.design.JRDesignSection;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
@@ -136,6 +137,15 @@ public class LayoutUtils {
 			child = (DJGroup) dr.getColumnsGroups().get(gidx);
 		} 
 		return child;
-	}	
+	}
+	
+	/**
+	 * Returns the firs band from the section
+	 * @param section
+	 * @return
+	 */
+	public static JRDesignBand getBandFromSection(JRDesignSection section) {
+		return (JRDesignBand) section.getBandsList().get(0);		
+	}
 	
 }
