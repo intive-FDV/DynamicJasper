@@ -148,7 +148,7 @@ API.
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
-							<source>1.4</source>
+							<source>1.5</source>
 						</configuration>
 						<executions>
 							<execution>
@@ -206,7 +206,7 @@ API.
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
 						<configuration>
-							<source>1.4</source>
+							<source>1.5</source>
 						</configuration>
 					</plugin>
 					<plugin>
@@ -279,7 +279,7 @@ API.
 		<dependency>
 		    <groupId>jasperreports</groupId>
 		    <artifactId>jasperreports</artifactId>
-		    <version>3.5.2</version>
+		    <version>3.7.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>
@@ -396,6 +396,27 @@ API.
 			<artifactId>httpunit</artifactId>
 			<version>1.6.2</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>2.5</version>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>		
+		<dependency>
+			<groupId>fonts</groupId>
+			<artifactId>fonts</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/test/resources/fonts.jar</systemPath>
 		</dependency>
 	</dependencies>
 	<distributionManagement>
