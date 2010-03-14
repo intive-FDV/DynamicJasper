@@ -80,10 +80,7 @@ loading...
     <p>DJ keeps full compatibility with Jasper Reports since it's a tool that helps creating reports in a programmatic friendly way, taking care of the report design for you.</p>
     <p>Classic .jrxml files can be used as templates while the content and layout of the report elements are handled by the DJ API.</p>
     </div>
-	<div class="section" >
-<h2>Version 3+ notes</h2>
-<p>Version 3.0.0 introduces <b><a href="changes/v3_0_0 breaking changes.html">breaking changes</a></b></p>
-</div>
+
 <div class="section">
   <h2>Whats New!!!</h2>
   <p>:: <a href="new chart api.html">New Charts API</a>
@@ -94,6 +91,10 @@ loading...
   <p>:: <a href="tero.html">Tero: The flex report component.</a></p>
   <p>:: <a href="docs/HOWTO Multiple measure Crosstabs.html">Multiple measures on crosstabs.</a> </p>
   </div>
+<div class="section" >
+	<h2>Version 3+ notes</h2>
+	<p>Version 3.0.0 introduces <b><a href="changes/v3_0_0 breaking changes.html">breaking changes</a></b></p>
+</div>  
 </div> <!-- column 1 -->
 
 <div id="bodyCol2" class="columnSection" >
@@ -102,31 +103,37 @@ loading...
       <div align="center"><a href="getPro.html" ><img src="images/get_pro.png" alt="get pro!" /></a>  </div>
 <div id="content_top"  >
 		<h2>They talk about DJ </h2>
-		<p style="ptt">          
+		<p style="ptt">
+		  <img src="images/star.jpg" height="12" />          
 	      <a href="http://www.wysmedia.com/2009/05/dance-with-dynamic-jasper-report/" title="Dance with Dynamic Jasper Report" target="_blank">Dance with Dynamic Jasper Report</a> 
 		  <br /><span class="linktt">Wysmedia.Com</span>
 	  </p>  
 		<p style="ptt">          
+		  <img src="images/star.jpg" height="12" />          
 	      <a href="http://www.infoq.com/news/2007/10/dynamicjasper" title="Dance with Dynamic Jasper Report" target="_blank">DynamicJasper: Runtime generation of Jasper Reports</a> 
 		  <br />
 		  <span class="linktt">InfoQ.com</span>
 	  </p>  
-		<p style="ptt">          
+		<p style="ptt">    
+		  <img src="images/star.jpg" height="12" />      
 	      <a href="http://www.infoq.com/news/2009/02/dynamicjasper" title="Dance with Dynamic Jasper Report" target="_blank">Dynamic Report for Java and Grails</a> 
 		  <br />
 		  <span class="linktt">InfoQ.com</span>
 	  </p>  
 	  
-		<p style="ptt">          
+		<p style="ptt">
+		  <img src="images/star.jpg" height="12" />
 	      <a href="http://www.theserverside.com/news/thread.tss?thread_id=53551" title="Dance with Dynamic Jasper Report" target="_blank">DynamicJasper makes possible dynamic reporting in Java</a> 
 		  <br />
 		  <span class="linktt">TheServerSide.com</span>
 		  </p>  	
-		<p style="ptt">          
+		<p style="ptt">
+		  <img src="images/star.jpg" height="12" />          
 	      <a href="http://blog.lucastex.com/2009/04/16/4of25-jasper-reports-in-grails-with-dynamic-jasper/" title="Dance with Dynamic Jasper Report" target="_blank">Jasper Reports In Grails With Dynamic-Jasper</a> 
 		  <br />
 	  <span class="linktt">blog.lucastex.com</span></p>  	
-			<p style="ptt">          
+	  <p style="ptt">
+	  		<img src="images/star.jpg" height="12" />          
 	      <a href="http://www.cochran-software.com/downloads/JasperTalk.pdf" title="Dance with Dynamic Jasper Report" target="_blank">Getting the most out of JasperReports and
 DynamicJasper in Grails (PDF)</a> 
 		  <br />
@@ -178,10 +185,24 @@ DynamicJasper in Grails (PDF)</a>
 <div class="section" id="importantNotes" style="background:#FFCCFF;">
 
 		<div>
-		  <h2 style="border: none;">Important Notes</h2>
-		  <h3 style="border:none;">Compatibility issue</h3>
-		  <p>Dj currently supports <strong>JasperReport</strong> <strong>3.0</strong> to <strong>3.5.1</strong>.</p>
-		  <p><strong>Version 3.5.2+ is NOT yet supported </strong></p>
+		  <h3 style="border:none;">Compatibility table</h3>
+		  <table border="1" cellspacing="0" style="text-align: center; background-color: #fcfcfc">
+		  	<tr style="text-align: center; font-weight: bold;">
+		  		<td>DJ</td>
+		  		<td>JR</td>
+		  		<td>JDK</td>
+		  	</tr>
+		  	<tr>
+		  		<td> &lt;&nbsp;3.0.16</td>
+		  		<td>3.0 to 3.5.1</td>
+		  		<td>1.4</td>
+		  	</tr>
+		  	<tr>
+		  		<td> 3.1.x + </td>
+		  		<td>3.5.2 to 3.7.1+</td>
+		  		<td>1.5</td>
+		  	</tr>
+		  </table>
 		</div>
 		<div >
 		  <h3 style="border:none;">Struts 2 Integration </h3>

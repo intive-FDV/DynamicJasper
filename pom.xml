@@ -243,6 +243,15 @@ API.
 				          <locales>en</locales>
 				        </configuration>
 				      </plugin>
+				      <plugin>
+				        <groupId>org.codehaus.mojo</groupId>
+				        <artifactId>cobertura-maven-plugin</artifactId>
+				        <configuration>
+				          <formats>
+				            <format>html</format>
+				          </formats>
+				        </configuration>				        
+				      </plugin>				      
 				</plugins>
 			</reporting>
 		</profile>
@@ -279,7 +288,7 @@ API.
 		<dependency>
 		    <groupId>jasperreports</groupId>
 		    <artifactId>jasperreports</artifactId>
-		    <version>3.7.0</version>
+		    <version>3.7.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>
@@ -352,7 +361,7 @@ API.
         <dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.2-FINAL</version>
+			<version>3.5-FINAL</version>
             <scope>test</scope>
         </dependency>
         <dependency>

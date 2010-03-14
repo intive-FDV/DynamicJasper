@@ -562,6 +562,7 @@ p.goToNote {
 	font-style:italic;
 	color:#0000FF;
 	font-size: 8pt;
+	padding-right:11px;
 }
 
 p.goToNote a {
