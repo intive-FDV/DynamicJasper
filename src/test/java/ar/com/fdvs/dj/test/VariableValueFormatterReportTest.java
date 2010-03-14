@@ -40,12 +40,15 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
+import ar.com.fdvs.dj.domain.builders.GroupBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 public class VariableValueFormatterReportTest extends BaseDjReportTest {
 
@@ -116,6 +119,13 @@ public class VariableValueFormatterReportTest extends BaseDjReportTest {
 		drb.addColumn(columnaCantidad);
 		drb.addColumn(columnAmount);
 		drb.addColumn(columnaCustomExpression);
+		
+		DJGroup group = new GroupBuilder()
+			.setCriteriaColumn((PropertyColumn) columnState)
+			.addFooterVariable(columnaCustomExpression, DJCalculation.SUM, null, getValueFormatter())
+			.build();
+		
+		drb.addGroup(group);
 
 		drb.setUseFullPageWidth(true);
 

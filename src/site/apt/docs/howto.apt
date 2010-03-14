@@ -112,7 +112,9 @@ HOW TO Guide
 
  * {{{HOWTO Register invisible fields.html}Register invisible fields}}
 
- * {{{HOWTO Create Custom Expressions.html}Create Custom Expressions}} (Manipulate data when using Java code, useful when a plain patter is not enough.)
+ * {{{HOWTO Create Custom Expressions.html}Create Custom Expressions}} (Manipulate data using Java code, useful when a plain pattern is not enough.)
+
+ * {{{HOWTO Create ValueFormatter.html}Create ValueFormatter}} (decouple what you show from the way you calculate it. i.e: time periods like 8'22")
 
  * {{{HOWTO Create a grand total.html}Create a grand total (with no groups)}}
 

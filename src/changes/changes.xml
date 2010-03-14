@@ -36,12 +36,12 @@
 	 <body>
 	 <!-- 
 	  -->
-	 	 		 <release version="3.1.0-beta1" date="2010-03-13" desc="fixes" >
+	 	 		 <release version="3.1.0" date="2010-03-13" desc="catch up with JR 3.7.1" >
 					 <action dev="Juan Manuel Alvarez" type="change">
 					 	DJ is now compiled in JAVA 5. No more support to java 1.4
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
-					 	DJ Supports JasperReport 3.5.2+
+					 	DJ Supports JasperReport 3.5.2+ (up to 3.7.1)
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	Added documentation about new Chart API, see the web

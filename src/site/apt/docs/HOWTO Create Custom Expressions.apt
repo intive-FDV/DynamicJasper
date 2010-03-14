@@ -4,10 +4,10 @@
 
 HOW-TO Create Custom Expressions
 
- <<Custom Expression>>s are a way we provide to let the developer make complex arranging of the data to be displayed in 
+ <<Custom Expression>>s is the way we provide to let the developer make complex arranging of the data to be displayed in 
  the report such as a concatenation of 2 or more fields from the data source, a math calculation, etc.
  Custom Expressions classes must implement the <ar.com.fdvs.dj.domain.CustomExpression> interface, which has
- a single method:  <evaluate(Object object)> , the parameter is a java.util.Map wich contains the elements of the
+ a single method:  <evaluate(Object object)> , the parameter is a java.util.Map which contains the elements of the
  current row.
  
  Custom Expression may be defined in-line (they are like closures)
@@ -16,15 +16,21 @@ HOW-TO Create Custom Expressions
 +------------------------------------------------------------------------------------------------------------+
 AbstractColumn columnaCustomExpression = ColumnBuilder.getNew()
 .setCustomExpression( 
-	new CustomExpression() {
-		public Object evaluate(Object object) {
-			Map map = (Map) object;
-			String state = (String) map.get("state");
-			String branch = (String) map.get("branch");
-			String productLine = (String) map.get("productLine");
-			return state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+		return new CustomExpression() {
+
+			public Object evaluate(Map fields, Map variables, Map parameters) {
+				String state = (String) fields.get("state");
+				String branch = (String) fields.get("branch");
+				String productLine = (String) fields.get("productLine");
+				Integer count = (Integer) variables.get("REPORT_COUNT");
+				return count + ": " +state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+			}
+
+			public String getClassName() {
+				return String.class.getName();
+			}
+
 		}
-	} 
 ).build();	
 +------------------------------------------------------------------------------------------------------------+
 

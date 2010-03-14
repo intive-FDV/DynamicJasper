@@ -71,7 +71,32 @@ loading...
 
 
 	    <h2 style="border: none; font-size: xx-large"><h2>HOW-TO Add a chart (new API)</h2>
-  <p style="border: none">Adding charts to your report is quite simple. Supported charts are:</p>
+  <p style="border: none; width: 100%" >
+  Adding charts to your report is quite simple. what you need to know beforehand is the type of chart you want to add
+  in order to invoke the proper chart builder.
+  <br/><br/>
+  Chart builders are of the form: DJ<b>XXX</b>ChartBuilder, where XXX is the type of chart you want (described below)
+  <br/><br/>
+  Basic data needed by the builder is:
+ 		<ul>
+	 		<li>
+		 		<b>Category:</b> The column to use as category<br/>
+	 		</li>
+	 		<li>
+	 		<b>Series:</b> column(s) to use as series
+	 		</li>	
+ 		</ul>
+Depending on the chart type, needed data for the chart may change (i.e.: pie chart does not have categories.) 		
+<br/>
+<br/>
+Of course there are a lot of many other options for the title, subtitle, plot lines, etc.   
+
+<br/>
+<br/>
+
+  Supported chart types (so far) are:
+  
+  </p>
 <table class="bodyTable"><tbody>
 <tr class="a">
 <th align="left" colspan="2"><b>Type</b></th>
