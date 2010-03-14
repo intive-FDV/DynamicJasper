@@ -1,0 +1,93 @@
+	------------
+	HOW-TO Integrate DynamicJasper with Struts 2
+	------
+	Juan Manuel Alvarez
+	------
+	Date
+
+
+HOW-TO Integrate DynamicJasper with Struts 2
+
+*-----+
+| <<IMPORTANT UPDATE>>
+| Since DJ 3.0.9 Struts 2 integration classes will be in a {{{http://www.fdvs.com.ar/djmaven2/ar/com/fdvs/DynamicJasper-Struts2/}separated jar}} (because they need java 1.5 to compile) 
+*-----+
+
+
+ Struts 2 actually integrates with Jasper Reports through the Jasper Reports Plugin which provides the JasperReportsResult,
+ we extended this class to support DynamicJasper also.
+
+ Firt you have to register the <<dynamic-jasper>> result-type in you <struts.xml> like this
+
++-----------------------------------------------------------------------------+
+<result-types>
+	...
+    <result-type name="dynamic-jasper" class="ar.com.fdvs.dj.struts2.DJStruts2Result"/>
+    ...
+</result-types>
++-----------------------------------------------------------------------------+
+
+ Later in you action definition, the configuration
+
++-----------------------------------------------------------------------------+
+<action name="myAcion" 	class="myActionClass" method="myMethod">
+	...
+	<result name="success" type="dynamic-jasper">
+		 <param name="dynamicReport">myDynamicReport</param>
+		 <param name="dataSource">datasource</param>
+		 <param name="layoutManager">classic</param>
+		 <param name="parameters">params</param>
+		 <param name="documentName">The_final_name_of_the_file</param>
+		 <param name="contentDisposition">application/download</param>
+		 <param name="format">PDF</param>
+	</result>
+</action>
++-----------------------------------------------------------------------------+
+
+* Parameters
+
+	* <<dynamicReport>>: Name of the Action property which holds the DynamicReport to use.
+
+	* <<format>>: which tells the output format to generate. Valid values are PDF (default), CSV, HTML, XLS and XML.
+	Expressions like $\{format\} are valid.
+
+	* <<dataSource>>: <(Optional)> Name of the the action property that holds the data source to use.
+ 	This Action property must be of the type of one of these  supported classes:
+
+		* <<JRDataSource>>: Any implementation
+
+		* <<Collection>>
+
+		* <<Object arrays>>: Object[]
+
+		* <<javax.sql.ResultSet>>
+
+		If the type you need is not here (e.g: XML), the use JRDataSource and make sure your Action provides the proper implementation
+
+		[]
+
+	* <<layoutManager>>: Defines the layout manager to use. The default value is <classic> (<<ClassicLayoutManager>>).
+
+	Other possible values are:
+
+		* <classic>: To use <<ClassicLayoutManager>>
+
+		* <list>: To use <<ListLayoutManager>>
+
+		* <Fully qualified java name>: instantiates the specified class (must implement the <LayoutManager> interface)
+
+		* <$\{expresion\}>: evaluates the content of the expression (relative to Action instance). The expression must return <classic>, <list>,
+		a <LayoutManager> object, or a fully qualified Java class of an <ar.com.fdvs.dj.core.layout.LayoutManager> implementation
+
+ 		[]
+
+	[]
+
+	* <<parameters>>: <(Optional)> The name of an Action property which holds a <java.util.Map> with the report parameters (besides all the accessible
+ 	Action properties).
+
+*---------+
+| <<NOTE>>: Available parameters will be: (in the following order)
+| 1.- Action's parameters map (if defined in struts's action result)
+| 2.- Action's accessible properties
+*---------+
