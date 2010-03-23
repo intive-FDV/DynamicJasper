@@ -36,6 +36,11 @@
 	 <body>
 	 <!-- 
 	  -->
+	 	 		 <release version="3.1.1" date="2010-03-23" desc="bug fix for issue 2975227" >
+					 <action dev="Juan Manuel Alvarez" type="change" issue="2975227">
+					 	fixes the bug 2975227: InstantiationException when JRDesignImage instantiation
+					 </action>
+				</release>
 	 	 		 <release version="3.1.0" date="2010-03-13" desc="catch up with JR 3.7.1" >
 					 <action dev="Juan Manuel Alvarez" type="change">
 					 	DJ is now compiled in JAVA 5. No more support to java 1.4

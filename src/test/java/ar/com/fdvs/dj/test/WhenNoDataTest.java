@@ -39,11 +39,13 @@ import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 
 public class WhenNoDataTest extends BaseDjReportTest {
 
@@ -71,8 +73,13 @@ public class WhenNoDataTest extends BaseDjReportTest {
 			.setSubtitle("This report was generated at " + new Date())
 //			.setWhenNoData("No data for this report", noDataStyle)
 //			.setWhenNoData("No data for this report", noDataStyle,true,false)
-			.setWhenNoData("No data for this report", null,false,true)
-			.setUseFullPageWidth(true);
+			.setWhenNoData("No data for this report", null,true,true)
+			.setUseFullPageWidth(true)
+//			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.ALIGN_LEFT)
+//			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.ALIGN_RIGHT)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(25), ImageBanner.ALIGN_LEFT, ImageScaleMode.FILL)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(150), new Integer(25), ImageBanner.ALIGN_RIGHT, ImageScaleMode.FILL);
+			
 		
 		drb.setTemplateFile("templates/TemplateReportTest.jrxml");
 

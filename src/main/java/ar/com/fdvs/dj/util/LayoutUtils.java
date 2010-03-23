@@ -1,15 +1,19 @@
 package ar.com.fdvs.dj.util;
 
+import java.lang.reflect.Constructor;
 import java.util.Iterator;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRBand;
+import net.sf.jasperreports.engine.JRDefaultStyleProvider;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
+import net.sf.jasperreports.engine.design.JRDesignGraphicElement;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignSection;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
@@ -56,11 +60,18 @@ public class LayoutUtils {
 			JRDesignElement element = (JRDesignElement) iterator.next();
 			JRDesignElement dest = null;
 			try {
-				dest = (JRDesignElement) element.getClass().newInstance();
+				if (element instanceof JRDesignGraphicElement){
+					Constructor<? extends JRDesignElement> constructor = element.getClass().getConstructor(JRDefaultStyleProvider.class);
+					JRDesignStyle style = new JRDesignStyle();
+					dest = constructor.newInstance(new Object[]{style.getDefaultStyleProvider()});
+				} else {
+					dest = (JRDesignElement) element.getClass().newInstance();
+				}
+				
 				BeanUtils.copyProperties(dest, element);
 				dest.setY(dest.getY() + offset);
 			} catch (Exception e) {
-				e.printStackTrace();
+				log.error("Exception copying elements from band to band: " + e.getMessage(),e);
 			}
 			destBand.addElement((JRDesignElement) dest);
 		}
