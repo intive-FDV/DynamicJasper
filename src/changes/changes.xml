@@ -36,6 +36,11 @@
 	 <body>
 	 <!-- 
 	  -->
+	 	 		 <release version="3.1.2" date="2010-04-25" desc="Percentage in crosstabs" >
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	Ability to show percentage in crosstab cells.
+					 </action>
+				</release>
 	 	 		 <release version="3.1.1" date="2010-03-23" desc="bug fix for issue 2975227" >
 					 <action dev="Juan Manuel Alvarez" type="change" issue="2975227">
 					 	fixes the bug 2975227: InstantiationException when JRDesignImage instantiation

@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import net.sf.jasperreports.crosstabs.JRCrosstabMeasure;
 import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabBucket;
@@ -47,6 +48,7 @@ import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabDataset;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabMeasure;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabParameter;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
+import net.sf.jasperreports.crosstabs.fill.JRPercentageCalculatorFactory;
 import net.sf.jasperreports.crosstabs.fill.calculation.BucketDefinition;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
@@ -703,6 +705,21 @@ public class Dj2JrCrosstabBuilder {
 			valueExp.setValueClassName(djmeasure.getProperty().getValueClassName());
 			valueExp.setText("$F{"+djmeasure.getProperty().getProperty()+"}");
 			measure.setValueExpression(valueExp);
+			
+			/**
+			 * PRUEBA PORCENTAGE
+			 */
+			if (djmeasure.getIsPercentage().booleanValue()) {
+				
+				Class valueCass;
+				try {
+					valueCass = Class.forName(djmeasure.getProperty().getValueClassName());
+					measure.setPercentageCalculatorClassName(JRPercentageCalculatorFactory.getPercentageCalculator(null, valueCass).getClass().getName());
+					measure.setPercentageOfType(JRCrosstabMeasure.PERCENTAGE_TYPE_GRAND_TOTAL);
+				} catch (ClassNotFoundException e1) {
+					e1.printStackTrace();
+				}
+			}
 			
 			if (djmeasure.getValueFormatter() != null){
 				/**

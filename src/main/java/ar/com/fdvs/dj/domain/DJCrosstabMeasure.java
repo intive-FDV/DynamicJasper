@@ -57,6 +57,7 @@ public class DJCrosstabMeasure extends DJBaseElement {
 	private List conditionalStyles = new ArrayList();
 	private DJValueFormatter valueFormatter;
 	private DJCRosstabMeasurePrecalculatedTotalProvider precalculatedTotalProvider;
+	private Boolean isPercentage = Boolean.FALSE;
 
 	private Style style;
 	
@@ -153,6 +154,14 @@ public class DJCrosstabMeasure extends DJBaseElement {
 	public void setPrecalculatedTotalProvider(
 			DJCRosstabMeasurePrecalculatedTotalProvider precalculatedTotalProvider) {
 		this.precalculatedTotalProvider = precalculatedTotalProvider;
+	}
+
+	public Boolean getIsPercentage() {
+		return isPercentage;
+	}
+
+	public void setIsPercentage(Boolean isPercentage) {
+		this.isPercentage = isPercentage;
 	}
 
 	

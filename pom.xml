@@ -31,7 +31,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>3.1.1</version>
+	<version>3.1.2</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -419,14 +419,15 @@ API.
 			<version>2.5</version>
 			<scope>test</scope>
 			<optional>true</optional>
-		</dependency>		
-		<dependency>
-			<groupId>fonts</groupId>
-			<artifactId>fonts</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/test/resources/fonts.jar</systemPath>
 		</dependency>
+		 
+		<dependency>
+			<groupId>ar.com.fdvs</groupId>
+			<artifactId>DynamicJasper-test-fonts</artifactId>
+			<version>1.0</version>
+			<scope>test</scope>			
+		</dependency>
+				
 	</dependencies>
 	<distributionManagement>
 		<repository>

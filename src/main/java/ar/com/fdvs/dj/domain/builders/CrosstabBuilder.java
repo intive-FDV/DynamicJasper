@@ -189,6 +189,14 @@ public class CrosstabBuilder {
 		return this;
 	}
 
+	public CrosstabBuilder addMeasure(String property, String className, DJCalculation operation, String title, Style style, boolean isPercentage) {
+		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
+		measure.setStyle(style);
+		measure.setIsPercentage(Boolean.valueOf(isPercentage));
+		crosstab.getMeasures().add(measure);
+		return this;
+	}
+
 	public CrosstabBuilder addMeasure(DJCrosstabMeasure measure) {
 		crosstab.getMeasures().add(measure);
 		return this;
@@ -409,6 +417,16 @@ public class CrosstabBuilder {
 		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
 		measure.setStyle(style);
 		measure.setValueFormatter(valueFormatter);
+		crosstab.getMeasures().add(measure);
+		return this;	
+	}
+
+	public CrosstabBuilder addMeasure(String property, String className, DJCalculation operation, String title, Style style,
+			DJValueFormatter valueFormatter, boolean isPercentage) {
+		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
+		measure.setStyle(style);
+		measure.setValueFormatter(valueFormatter);
+		measure.setIsPercentage(Boolean.valueOf(isPercentage));
 		crosstab.getMeasures().add(measure);
 		return this;	
 	}
