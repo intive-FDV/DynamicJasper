@@ -1,0 +1,60 @@
+	-----------
+	HOW-TO Create Value Formatter
+	-----------
+
+HOW-TO Create Value Formatter
+
+ <<Value Formatter>>s is the mechanism provided by DJ to decouple the way data is obtained or calculated from the way it is shown. 
+ 
+ Value Formatters works like jasper reports patterns, but as they are a java class, complex transformation can be done. 
+ 
+ The good thing about Value Formatters is that they don't mess with the way data is obtained, calculated, or the way you operate with it (i.e: sum),
+ they just work at the time of showing the value.
+ 
+ <<A simple example>> with value formatters: Think of a column which represents an amount of time represented in seconds and you want to show it like mm' ss", 
+ but you also want some totals (you need to sum them). This can be easily done adding a value formatter to an Integer column (which representing seconds). 
+ Calculations would be done using real column property, but it will be shown using the formatter.
+ 
+ The big difference between a <<Custom Expression>> and a <<Value Formatter>> is that the first one aims to replace the column property itself, so the 
+ column property class will the declared by the custom expression, and variable operations will be done using custom expression's output. Value Formatter(s) instead
+ only work at the very moment we shown the value in the report, nothing else, if the column value is obtained through a direct property access or a custom expression
+ it doesn't affects the value formatter, it just takes the value and returns the needed string to be shown in the report.
+ 
+*-----+
+|<<Hint:>> A column with a custom expression can also have a value formatter  
+*-----+
+ 
+ Value Formatter(s) may be defined in-line (they are like closures), lets see an example.
+  
++------------------------------------------------------------------------------------------------------------+
+AbstractColumn columnaCustomExpression = ColumnBuilder.getNew()
+.setCustomExpression( 
+		return new CustomExpression() {
+
+			public Object evaluate(Map fields, Map variables, Map parameters) {
+				String state = (String) fields.get("state");
+				String branch = (String) fields.get("branch");
+				String productLine = (String) fields.get("productLine");
+				Integer count = (Integer) variables.get("REPORT_COUNT");
+				return count + ": " +state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+			}
+
+			public String getClassName() {
+				return String.class.getName();
+			}
+
+		}
+).build();	
++------------------------------------------------------------------------------------------------------------+
+
+*Working examples
+
+ Example 1) {{{../xref-test/ar/com/fdvs/dj/test/VariableValueFormatterReportTest.html}VariableValueFormatterReportTest}} Last column represents a time period.
+
+[../images/examples/VariableValueFormatterReportTest.jpg] 
+
+ Example 2) {{{../xref-test/ar/com/fdvs/dj/test/crosstab/CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest.html}CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest}} 
+ amounts of time are summed and shown formatted in each cell 
+ 
+[../images/examples/CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest.jpg]  
+ 

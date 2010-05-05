@@ -1,0 +1,405 @@
+		------
+		How-to guide
+		------
+		Mariano Simone
+		------
+		 Date
+		 
+Content
+
+ * {{{#HOWTO-001}HOWTO: Use conditional Styles}}
+ 
+ * {{{#HOWTO-002}HOWTO: Add banners to report's headers}}
+ 
+ * {{{#HOWTO-003}HOWTO: Use custom jrxml templates}}
+ 
+ * {{{#HOWTO-004}HOWTO: Add header and/or footer to a report}}
+
+ * {{{#HOWTO-005}HOWTO: Add a chart}}
+
+ * {{{#HOWTO-006}HOWTO: Create Custom Expressions}}
+ 
+ * {{{#HOWTO-007}HOWTO: Create Autotext (ie: Page x/y) out of the box}}
+
+ * {{{#HOWTO-008}HOWTO: Integrate DynamicJasper with Webwork}}
+ 
+ * {{{#HOWTO-009}HOWTO: Add Subreports}}
+
+{HOWTO-001}: Use conditional Styles
+
+ Suppose you need a Column that contains numerical values. If you want to use conditional styles (in order to have different colors depending on the value, for example) you can do this:
+
++------------------------------------------------------------------------------------------------------------+ 
+//Create some styles
+Style style0 = new Style();
+style0.setTextColor(Color.RED);
+Style style1 = new Style();
+style1.setTextColor(Color.GREEN);
+
+//Create some conditions
+StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(5000));
+StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(7000));
+
+//Create the conditional styles, and add them to an Array List
+ArrayList conditionalStyles = new ArrayList();
+conditionalStyles.add(new ConditionalStyle(status0,style0));
+conditionalStyles.add(new ConditionalStyle(status1,style1));
+	
+ColumnBuilder cb = ColumnBuilder.getNew();
+//Builder initialization
+
+cb.addConditionalStyles(conditionalStyles);
++------------------------------------------------------------------------------------------------------------+ 
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/ConditionalStylesReportTest.html}ConditionalStylesReportTest}} for a working example.
+ 
+{HOWTO-002}: Add banners to report's headers
+
+ Adding banners can be done by just sending the images to the Report Builder, like this:
+
++------------------------------------------------------------------------------------------------------------+ 
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+
+drb.addFirstPageImageBanner("pathToImage/firstPageBanner.jpg", new Integer(50), new Integer(50), ImageBanner.ALIGN_LEFT)
+	.addImageBanner("pathToImage/allPagesBanner.jpg", new Integer(30), new Integer(30), ImageBanner.ALIGN_RIGHT);
++------------------------------------------------------------------------------------------------------------+ 
+ 
+ Note that you can set a different banner for the first page. You should set the alignment using the provided constants.
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/ImageBannerReportTest.html}ImageBannerReportTest}} for a working example.
+ 
+{HOWTO-003}: Use custom jrxml templates
+
+ You can write your own jrxml template, and use DynamicJasper to fill it easily:
+
++------------------------------------------------------------------------------------------------------------+ 
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+
+drb.addTemplateFile("pathToTemplate/TemplateName.jrxml");
++------------------------------------------------------------------------------------------------------------+ 
+
+ Templates can be loaded from an Absolute Path, or from the Classpath. The API first tries as an absolute path, if it fails, then tries as a reource in the classpath.
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateFileReportTest.html}TemplateFileReportTest}} for a working example.
+ 
+
+ 
+{HOWTO-004}: Add header and/or footer to a report  
+
+ As DynamicJasper doesn't provide this feature yet, you have to use a Custom Template as shown above, and add the info to the Report Builder, like this:
+
++------------------------------------------------------------------------------------------------------------+ 
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+	
+drb.addTemplateFile("pathToTemplate/TemplateName.jrxml");
+	
+//Assuming you added $P{header} and $P{footer} as content for the textfields used as header and footer, 
+//you must add their content:  
+Map parameters = new HashMap();
+params.put("header","<my header message>");
+params.put("footer","<my footer message>");
+//Creates the JasperPrint, using the parameters map
+JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds, parameters );												
++------------------------------------------------------------------------------------------------------------+ 
+ 
+ Note that you can set a different banner for the first page. You should set the alignment using the provided constants.
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/TemplateFileReportTest.html}TemplateFileReportTest}} for a working example. Here you can see the used jrxml: {{{../examples/TemplateReportTest.jrxml}download}}
+ 
+{HOWTO-005}: Add a chart
+
++------------------------------------------------------------------------------------------------------------+
+DynamicReportBuilder drb = new DynamicReportBuilder();
+//ReportBuilder initialization
+//Group and columns creation
+
+DJChartBuilder cb = new DJChartBuilder();                               // create a chart builder
+DJChart chart =  cb.addType(DJChart.PIE_CHART)                          // define the type of chart (Pie)
+			.addOperation(DJChart.CALCULATION_SUM)         // define the type of operation to be done
+			.addColumnsGroup(g1)                           // define the group that will be represented
+			.addColumn(columnAmount)                       // define the column that will be represented
+			.build();
+			
+drb.addChart(chart);	//add chart
++------------------------------------------------------------------------------------------------------------+
+ 
+ Refer to {{{../xref-test/ar/com/fdvs/dj/test/ChartReportTest.html}ChartReportTest.html}} for a working example.
+ 
+{HOWTO-006}: Create Custom Expressions
+
+ <<Custom Expression>>s are a way we provide to let the developer make complex arranging of the data to be displayed in 
+ the report such as a concatenation of 2 or more fields from the data source, a math calculation, etc.
+ Custom Expressions classes must implement the <ar.com.fdvs.dj.domain.CustomExpression> interface, wich has
+ a single method:  <evaluate(Object object)> , the parameter is a java.util.Map wich contains the elements of the
+ current row.
+ 
+ Custom Expression may be defined inline (they are like clousures)
+ Lets see an example.
+ 
++------------------------------------------------------------------------------------------------------------+
+AbstractColumn columnaCustomExpression = ColumnBuilder.getNew()
+.addCustomExpression( 
+	new CustomExpression() {
+		public Object evaluate(Object object) {
+			Map map = (Map) object;
+			String state = (String) map.get("state");
+			String branch = (String) map.get("branch");
+			String productLine = (String) map.get("productLine");
+			return state.toUpperCase() + " / " + branch.toUpperCase() + " / " + productLine;
+		}
+	} 
+).build();	
++------------------------------------------------------------------------------------------------------------+
+
+ As you can see, the keys of the map are the properties defined at the moment of the creation of the columns.
+
+ If we need to use fields from the datasource that are not directly shown on any column, we must register them
+ like this:
+ 
++------------------------------------------------------------------------------------------------------------+
+drb.addField("productLine", String.class.getName());
+drb.addField("branch", String.class.getName());
++------------------------------------------------------------------------------------------------------------+
+
+{HOWTO-007}: Create Autotext (ie: Page x/y) out of the box
+
+ To add common autotext expressions in header and footer such as "<Page X of Y>", "<Created on 07/23/2007>", etc. Just use the
+ <<DynamicReportBuilder>> like this:
+
+ For page counter
+
++------------------------------------------------------------------------------------------------------------+
+ drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT);
++------------------------------------------------------------------------------------------------------------+
+
+ For creation time
+ 
++------------------------------------------------------------------------------------------------------------+
+drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
++------------------------------------------------------------------------------------------------------------+
+
+ For custom text 
+
++------------------------------------------------------------------------------------------------------------+
+drb.addAutoText("Autotext at top-center", AutoText.POSITION_HEADER, AutoText.ALIGNMENT_CENTER);
++------------------------------------------------------------------------------------------------------------+
+ 
+* Parameters
+
+ All the parameters are constants of the <<AutoText>> class.
+  
+ By the time this how-to was written, the possible autotexts are:
+ 
+** Autotext type
+ 
+ * <<Page counter>>
+ 
+	 * AUTOTEXT_PAGE_X_OF_Y 
+	 
+	   Adds "<Page 1 of 4>"
+	 
+	 * AUTOTEXT_PAGE_X_SLASH_Y
+	 
+	   Adds "<Page 1/4>"
+	 
+	 * AUTOTEXT_PAGE_X
+	 
+	   Adds "<Page 1>"
+
+ * <<Creation time>>
+	  
+	 * AUTOTEXT_CREATED_ON
+	 
+	   Adds "<<Created on \<date\>>>"
+       The date will be formatted deppending on the <pattern> parameter (see bellow)
+
+ * <<Fixed message>>
+     
+   Adds the message passed in the first parameter
+
+** Position
+   
+ The 2nd parameter is the position, it determines if the autotext will be shown in the header or the footer of the report.
+ 
+	 * POSITION_HEADER
+	 
+	 * POSITION_FOOTER
+ 
+** Alignment
+ 
+ The 3rd parameter is the ALIGNMENT, it determines the horizontal alignment (left, right, center).
+ 
+ * ALIGNMENT_LEFT
+ 
+ * ALIGNMENT_RIGHT
+ 
+ * ALIGNMENT_CENTER
+ 
+** Pattern
+ 
+ The 4th parameter is optional, is only usefull when usign AUTOTEXT_CREATED_ON. It determines how to format the creation date/time
+   
+ * PATTERN_DATE_DATE_ONLY
+     
+   Depending on the locale the date will be shown like this: <03/24/2007>
+     
+ * PATTERN_DATE_TIME_ONLY
+     
+   Depending on the locale the time will be shown like this: <21:43:47>
+     
+ * PATTERN_DATE_DATE_TIME
+  
+  Depending on the locale the date will be shown like this: <03/24/2007 21:43:47>
+ 
+ []      
+*-----+
+|<<Note:>> The Autotext feature uses i18N, so the text can be internationalized changing the report locale like this:
+| \ 
+| \ \  <<drb.addReportLocale(new Locale("es","AR"));>>
+| \ 
+|  To localize your messages, you have to create a file named "dj-messages_<<\<locale\>>>.properties" where \<locale\> must be
+|  the desired language-country pair (ie: en_US, es_ES, fr_FR, etc). This file must be in the classpath.
+| \ 
+| Another posibility is to tell the DJ wich resource bundle to use like this:
+| \ 
+| \ \  <<drb.addResourceBundle("other_messages");>>
+| \ 
+| The key needed for translation are:
+| \ 
+| \ \ <autotext.page Page>
+| \ \ <autotext.of of>
+| \ \ <autotext.created_on Created on>
+*-----+ 
+  
+  For an usage example, see the  {{{../xref-test/ar/com/fdvs/dj/test/AutotextReportTest.html}AutotextReportTest}} class
+  
+{HOWTO-008}:  Integrate DynamicJasper with Webwork
+
+ Webwork actually integrates with jasper reports through the JasperReportsResult result-type, we extended this class to support
+ DynamicJasper also.
+ 
+ Firt you have to register the <<dynamic-jasper>> result-type in you <xwork.xml> like this
+
++-----------------------------------------------------------------------------+
+<result-types>
+	...
+    <result-type name="dynamic-jasper" class="ar.com.fdvs.dj.webwork.DJResult"/>
+    ...
+</result-types>
++-----------------------------------------------------------------------------+
+
+ Later in you action definition, the configuration
+ 
++-----------------------------------------------------------------------------+
+<action name="myAcion" 	class="myActionClass" method="myMethod">
+	...
+	<result name="success" type="dynamic-jasper">
+		 <param name="dynamicReport">myDynamicReport</param>
+		 <param name="dataSource">datasource</param>
+		 <param name="documentName">The_final_name_of_the_file</param>
+		 <param name="contentDisposition">application/download</param>
+		 <param name="format">PDF</param>
+	</result>
+</action>
++-----------------------------------------------------------------------------+
+ 
+ The three important parameters here are <<dynamicReport>> wich is the name of the property of the action wich is an instance of DynamicReport
+ 
+ The 2nd is <<format>> wich tells the output format to generate.
+ 
+ And finally <<dataSource>> wich is the name of the property in the action that is an instance of any 
+ of the supported classes to be used as a data source (Collection, Object arrays, ResultSet, etc). 
+ 
+{HOWTO-009}: Add Subreports
+
+ Usefull examples:
+ 
+*----------+--------------+-------+
+| <<Test>> | <<Description>> | <<Download PDF>> |
+*----------+--------------+-------+
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/SubReportBuilderTest.html}ar.com.fdvs.dj.test.subreport.SubReportBuilderTest}} | Creates a single Subreport | {{{../examples/SubReportBuilderTest.pdf}download}} |
+*----------+--------------+-------+ 
+| {{{../xref-test/ar/com/fdvs/dj/test/subreport/ConcatenatedReportTest.html}ar.com.fdvs.dj.test.subreport.ConcatenatedReportTest}} | Creates a subreport composed of 3 subreport | {{{../examples/ConcatenatedReportTest.pdf}download}} |
+*----------+--------------+-------+ 
+
+ Adding a subreport is really easy. The main class to create a report is the <<SubReportBuilder>> class.
+ 
+ Subreports can be placed in the header or footer of a group, or we can just tell the <<DynamicReportBuilder>> 
+ to concatenate a subreport to the end of the report we are building.
+ 
+ A way to concatenate many different report in a single report can be done using subreports.
+ 
+ A simple usage of the <<SubReportBuilder>> class would be:
+
++-----------------------------------------------------------------------------+
+		Subreport subreport = new SubReportBuilder()
+			.addDataSource( DJConstants.SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, 
+							DJConstants.DATA_SOURCE_TYPE_COLLECTION, 
+							"statistics")
+			.addReport( createSubreport() )
+			.build();
+
+		group.getFooterSubreports().add(subreport); //add to an existing group
++-----------------------------------------------------------------------------+
+
+ The first call to the builer is:
+ 
++-----------------------------------------------------------------------------+ 
+ .addDataSource( <origin of the data source>, <type of the data source>, <path to the data source>)
++-----------------------------------------------------------------------------+ 
+
+ The <<origin of the data source>> is a constant from <<DJConstants>> class which can be: 
+ SUBREPORT_DATA_SOURCE_ORIGIN_FIELD or SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, it just tells the
+ subreport where to look for the data source (the parameters map, or if its a property of the current row)
+ 
+ The <<type of the data source>> is also a constant from <<DJConstants>> class, all types constants
+ has a name like DATA_SOURCE_TYPE_\<XXX\>, where \<XXX\> represents the type. Most known types are
+ java.sql.ResultSet, Collection, Array, Xml, etc.
+ 
+ Finally, the <<path to the data source>> is a String that points to the data source. If for example
+ it's value is <"subreportDatasource"> and the first parameter was SUBREPORT_DATA_SOURCE_ORIGIN_PARAMETER, then
+ it will look in the parameters map for an object under the key of <"subreportDatasource">, on the other hand
+ if we pass as first parameter SUBREPORT_DATA_SOURCE_ORIGIN_FIELD, in the current row, there must be a property
+ with the name <"subreportDatasource"> that returns an object of the type DATA_SOURCE_TYPE_\<XXX\>
+ 
+ 
+ The 2nd call is:
+  
++-----------------------------------------------------------------------------+ 
+ .addReport( <JasperReport object> )
++-----------------------------------------------------------------------------+ 
+
+ The subreport need a compiled design (this would be a JasperReport object)
+ 
+ Finally we build the subreport and we add it to a group. In this case, to the footer of a group
+ 
++-----------------------------------------------------------------------------+ 
+ group.getFooterSubreports().add(subreport);
++-----------------------------------------------------------------------------+ 
+
+ Or we can pass it to the <<GroupBuilder>> like this
+
++-----------------------------------------------------------------------------+ 
+ groupBuilder.addHeaderSubreport(subreport);
++-----------------------------------------------------------------------------+ 
+
+ or
+
++-----------------------------------------------------------------------------+ 
+ groupBuilder.addFooterSubreport(subreport);
++-----------------------------------------------------------------------------+ 
+
+*Adding the sub report at the end of the parent report  
+ 
+ If we just want to add the report to the end of the current report, we use the <<DynamicReportBuilder>> like this:
+ 
++-----------------------------------------------------------------------------+ 
+ drb.addConcatenatedReport(subreport)
++-----------------------------------------------------------------------------+ 
+
+ We can add as many reports as we want
+
+ 

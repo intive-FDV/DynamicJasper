@@ -1,0 +1,91 @@
+	----------
+	HOW-TO Create an Excel report
+	----------
+
+HOW-TO Create a clean Excel report
+
+ DynamicJasper is a useful tool when creating plain Excel sheets. The only difference with regular reports, is that we have to use
+ the <<ListLayoutManager>> class instead of the <<ClassicLayoutManager>>. This is because the former layout manager
+ prevents JasperReport to leave blank spaces or have miss aligned cells. You can still use the ClassicLayoutManager
+ when generating XLS files, it will generate the XLS with all the formatting stuff, it depends on what you need.
+
+ The <<ListLayoutManager>> does not pay attention to groups information, and some of the formatting options, its main
+ purpose is to give as result an XLS sheet as clean as possible (best for dynamic tables, etc)
+
+*----------+--------------+
+| <<Test>> | <<Description>> |
+*----------+--------------+
+| {{{../xref-test/ar/com/fdvs/dj/test/XlsReportTest.html}ar.com.fdvs.dj.test.XlsReportTest}} | Creates a simple report using the ListLayoutManager, useful when exporting to Excel XLS format|
+*----------+--------------+
+
+ The code example
+
++-----------------------------------------------------------------------------+
+FastReportBuilder drb = new FastReportBuilder();
+drb.addColumn("State"			, "state"		, String.class.getName(), 30)
+	.addColumn("Branch"		, "branch"		, String.class.getName(), 30)
+	.addColumn("Product Line"	, "productLine"	, String.class.getName(), 50)
+	.addColumn("Item"		, "item"		, String.class.getName(), 50)
+	.addColumn("Item Code"		, "id"			, Long.class.getName()	, 30, true)
+	.addColumn("Quantity"		, "quantity"	, Long.class.getName()	, 60, true)
+	.addColumn("Amount"		, "amount"		, Float.class.getName()	, 70, true)
+	.setPrintColumnNames(true)
+	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
+	.setMargins(0, 0, 0, 0)
+	.setTitle("November 2006 sales report")
+	.setSubtitle("This report was generated at " + new Date())
+	.setUseFullPageWidth(true);
++-----------------------------------------------------------------------------+
+
+ Note this two lines:
+
++-----------------------------------------------------------------------------+
+	.setPrintColumnNames(true)
+	.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
++-----------------------------------------------------------------------------+
+
+ The first tells DJ if to print or not the header with the column names. You may don't want this
+ if the purpose is to create a plain Excel with only data and no header.
+
+ The second line tells DJ if to use JasperReports pagination or not. For Excel you may don't want this
+ so your final result is a whole list with no empty spaces rows (page breaks.)
+
+* Exporting
+
+ The final blow to get the Excel file are these lines
+
++-----------------------------------------------------------------------------+
+	JRXlsExporter exporter = new JRXlsExporter();
+
+	File outputFile = new File(path);
+	FileOutputStream fos = new FileOutputStream(outputFile);
+
+	exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
+	exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos); //and output stream
+
+	//Excel specific parameter
+	exporter.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+	exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+	exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
++-----------------------------------------------------------------------------+
+
+ or use <ReportExporter.exportReportPlainXls(jp, "path to output file");> which contains the very same lines as above
+
+* About sheet names
+
+ To set the Excel sheet name (one sheet only), just set it up through the report name like this
+
++-----------------------------------------------------------------------------+
+drb.setReportName("My Report")
++-----------------------------------------------------------------------------+
+
+ If you need to export a multiple sheet Excel, the the names can be passed through JasperReport Exporter parameters (thanks S�rgio Berlotto)
+
++-----------------------------------------------------------------------------+
+JRXlsExporter exporter = new JRXlsExporter();
+String[] sheetNames = {"Sheet1","Sheet2"};
+...
+exporter.setParameter(JRXlsExporterParameter.SHEET_NAMES, sheetNames );
+...
+exporter.exportReport();
++-----------------------------------------------------------------------------+
