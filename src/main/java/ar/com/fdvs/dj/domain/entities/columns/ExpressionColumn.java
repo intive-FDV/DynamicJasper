@@ -58,6 +58,14 @@ public class ExpressionColumn extends SimpleColumn {
 
 	private String calculatedExpressionText = null;
 
+	protected String getCalculatedExpressionText() {
+		return calculatedExpressionText;
+	}
+
+	protected void setCalculatedExpressionText(String calculatedExpressionText) {
+		this.calculatedExpressionText = calculatedExpressionText;
+	}
+
 	public Collection getVariables() {
 		return variables;
 	}

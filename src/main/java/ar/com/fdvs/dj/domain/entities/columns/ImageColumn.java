@@ -29,17 +29,24 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
  * Just for marking the column as ImageColum
  * @author Juan Manuel
  *
  */
-public class ImageColumn extends SimpleColumn {
+public class ImageColumn extends ExpressionColumn {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+	
+	private static final Log log = LogFactory.getLog(ImageColumn.class);
 	
 	private ImageScaleMode scaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 
@@ -51,5 +58,38 @@ public class ImageColumn extends SimpleColumn {
 		this.scaleMode = scaleMode;
 	}
 
+	public String getValueClassNameForExpression() {
+		if (getExpression() != null)
+			return getExpression().getClassName();
 
+		if (getColumnProperty() != null)
+			return getColumnProperty().getValueClassName();
+		
+		return Object.class.getName();
+
+	}
+
+	public String getTextForExpression() {
+
+		if (getExpression() != null) {
+			if (getCalculatedExpressionText() != null)
+				return getCalculatedExpressionText();
+			
+			String stringExpression = ExpressionUtils.createCustomExpressionInvocationText(getColumnProperty().getProperty());
+			
+			log.debug("Image Column Expression for CustomExpression = " + stringExpression);
+			
+			setCalculatedExpressionText( stringExpression);
+			return stringExpression;
+		}
+		
+		if (getColumnProperty() != null)
+			return  "$F{" + getColumnProperty().getProperty() + "}";
+		
+		throw new DJException("Neither a CustomExpression or a ColumnProperty was set for colulm \"" + getName() + "\"");
+		
+		
+	}
+	
+	
 }

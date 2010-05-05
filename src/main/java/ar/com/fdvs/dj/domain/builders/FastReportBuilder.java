@@ -37,6 +37,7 @@ import java.util.Date;
 
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
@@ -231,6 +232,24 @@ public class FastReportBuilder extends DynamicReportBuilder {
 
 		addColumn(column);
 
+		return this;
+	}
+
+	public FastReportBuilder addImageColumn(String title, CustomExpression expression, int width, boolean fixedWidth,ImageScaleMode imageScaleMode, Style style) throws ColumnBuilderException, ClassNotFoundException {
+		String className = InputStream.class.getName();
+		AbstractColumn column = ColumnBuilder.getNew()
+		.setCustomExpression(expression)
+		.setWidth(new Integer(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
+		.setStyle(style)
+		.build();
+		
+		guessStyle(className, column);
+		
+		addColumn(column);
+		
 		return this;
 	}
 

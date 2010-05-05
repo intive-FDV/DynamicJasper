@@ -168,8 +168,12 @@ public class ColumnBuilder {
 	protected AbstractColumn buildSimpleImageColumn() {
 		ImageColumn column = new ImageColumn();
 		populateCommonAttributes(column);
-		column.setColumnProperty(columnProperty);
+		populateExpressionAttributes(column);
+		
+		column.setExpression(customExpression);
 		column.setExpressionToGroupBy(customExpressionToGroupBy);
+		column.setExpressionForCalculation(customExpressionForCalculation);
+		
 		column.setScaleMode(imageScaleMode);
 		return column;
 	}
@@ -182,6 +186,16 @@ public class ColumnBuilder {
 		ExpressionColumn column = new ExpressionColumn();
 		populateCommonAttributes(column);
 		
+		populateExpressionAttributes(column);
+		
+		column.setExpression(customExpression);
+		column.setExpressionToGroupBy(customExpressionToGroupBy);
+		column.setExpressionForCalculation(customExpressionForCalculation);
+		
+		return column;
+	}
+
+	protected void populateExpressionAttributes(ExpressionColumn column) {
 		if (columnProperty != null ) {
 			columnProperty.getFieldProperties().putAll(fieldProperties);
 			column.setColumnProperty(columnProperty);
@@ -191,12 +205,6 @@ public class ColumnBuilder {
 			long random_ = Math.abs(random.nextLong());
 			column.setColumnProperty(new ColumnProperty("__name_to_be_replaced_in_registration_manager_" + random_,CustomExpression.class.getName()));
 		}
-		
-		column.setExpression(customExpression);
-		column.setExpressionToGroupBy(customExpressionToGroupBy);
-		column.setExpressionForCalculation(customExpressionForCalculation);
-		
-		return column;
 	}
 
 	protected AbstractColumn buildPercentageColumn() {

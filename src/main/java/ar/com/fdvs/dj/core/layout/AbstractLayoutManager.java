@@ -172,8 +172,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			style = getReport().getOptions().getDefaultDetailStyle();
 		}
 
-		if (getReport().isWhenNoDataShowTitle())
+		if (getReport().isWhenNoDataShowTitle()){
+			LayoutUtils.copyBandElements(band, getDesign().getTitle());
 			LayoutUtils.copyBandElements(band, getDesign().getPageHeader());
+		}
 		if (getReport().isWhenNoDataShowColumnHeader())
 			LayoutUtils.copyBandElements(band, getDesign().getColumnHeader());
 
@@ -333,7 +335,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				JRDesignExpression imageExp = new JRDesignExpression();
 				imageExp.setText(column.getTextForExpression());
 
-				imageExp.setValueClassName(imageColumn.getColumnProperty().getValueClassName());
+				imageExp.setValueClassName(imageColumn.getValueClassNameForExpression());
 				image.setExpression(imageExp);
 				image.setHeight(getReport().getOptions().getDetailHeight().intValue());
 				image.setWidth(column.getWidth().intValue());

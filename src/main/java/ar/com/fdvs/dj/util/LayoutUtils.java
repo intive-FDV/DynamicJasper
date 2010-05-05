@@ -19,6 +19,7 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
 import ar.com.fdvs.dj.domain.CustomExpression;
@@ -56,6 +57,13 @@ public class LayoutUtils {
 	 */
 	public static void copyBandElements(JRDesignBand destBand, JRBand sourceBand) {
 		int offset = findVerticalOffset(destBand);
+		
+		if (destBand == null)
+			throw new DJException("destination band cannot be null");
+		
+		if (sourceBand == null)
+			return;
+		
 		for (Iterator iterator = sourceBand.getChildren().iterator(); iterator.hasNext();) {
 			JRDesignElement element = (JRDesignElement) iterator.next();
 			JRDesignElement dest = null;

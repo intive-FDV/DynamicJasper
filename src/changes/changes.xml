@@ -36,9 +36,15 @@
 	 <body>
 	 <!-- 
 	  -->
-	 	 		 <release version="3.1.2" date="2010-04-25" desc="Percentage in crosstabs" >
+	 	 		 <release version="3.1.2" date="2010-05-25" desc="Percentage in crosstabs" >
 					 <action dev="Juan Manuel Alvarez" type="add">
-					 	Ability to show percentage in crosstab cells.
+					 	Ability to show percentage in crosstab cells. See CrosstabReportWithPercentageMeasure as an example
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+					 	Removed duplicated dependencies bcmail-jdk14 and bcprov-jdk14 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="change">
+					 	Image columns can have custom expression. See ImageExpressionColumnReportTest as an example. 
 					 </action>
 				</release>
 	 	 		 <release version="3.1.1" date="2010-03-23" desc="bug fix for issue 2975227" >

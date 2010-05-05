@@ -112,9 +112,10 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 						getDjd().addField(jrfield);
 					}					
 				}
-				if (entity instanceof ExpressionColumn) {
-					//The Custom Expression parameter must be registered
+				if (entity instanceof ExpressionColumn && ((ExpressionColumn) entity).getExpression() != null ) {
 					ExpressionColumn expressionColumn = (ExpressionColumn) entity;
+					
+					//The Custom Expression parameter must be registered
 					expressionColumn.setColumns( getDynamicReport().getAllFields() );
 					expressionColumn.setVariables( new ArrayList(getDjd().getVariablesList()) );
 //					String property_name = expressionColumn.getColumnProperty().getProperty();
