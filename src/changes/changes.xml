@@ -43,17 +43,17 @@
 					 <action dev="Juan Manuel Alvarez" type="fix">
 					 	Removed duplicated dependencies bcmail-jdk14 and bcprov-jdk14 
 					 </action>
-					 <action dev="Juan Manuel Alvarez" type="change">
+					 <action dev="Juan Manuel Alvarez" type="update">
 					 	Image columns can have custom expression. See ImageExpressionColumnReportTest as an example. 
 					 </action>
 				</release>
 	 	 		 <release version="3.1.1" date="2010-03-23" desc="bug fix for issue 2975227" >
-					 <action dev="Juan Manuel Alvarez" type="change" issue="2975227">
+					 <action dev="Juan Manuel Alvarez" type="update" issue="2975227">
 					 	fixes the bug 2975227: InstantiationException when JRDesignImage instantiation
 					 </action>
 				</release>
 	 	 		 <release version="3.1.0" date="2010-03-13" desc="catch up with JR 3.7.1" >
-					 <action dev="Juan Manuel Alvarez" type="change">
+					 <action dev="Juan Manuel Alvarez" type="update">
 					 	DJ is now compiled in JAVA 5. No more support to java 1.4
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
@@ -64,17 +64,17 @@
 					 </action>
 				</release>
 	 	 		 <release version="3.0.15-beta1" date="2009-12-10" desc="fixes" >
-					 <action dev="Juan Manuel Alvarez" type="change">
+					 <action dev="Juan Manuel Alvarez" type="update">
 					 	Hability to use the same property/field in crosstab measures more than once (i.e: sum, average, count)
 					 </action>
 				</release>
 	 	 		 <release version="3.0.14" date="2009-12-08" desc="fixes" >
-					 <action dev="Juan Manuel Alvarez" type="change">
+					 <action dev="Juan Manuel Alvarez" type="update">
 					 	Change in method signature for customized totals legend in crosstabs.
 					 </action>
 				</release>
 	 	 		 <release version="3.0.14-beta6" date="2009-12-03" desc="fixes" >
-					 <action dev="Juan Manuel Alvarez" type="change">
+					 <action dev="Juan Manuel Alvarez" type="update">
 					 	Crosstab totals legend can be customized (see CrosstabReportTest10 for an example).
 					 </action>
 				</release>
