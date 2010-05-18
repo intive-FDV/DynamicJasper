@@ -69,6 +69,7 @@ import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
 import ar.com.fdvs.dj.core.registration.DJGroupVariableDefRegistrationManager;
 import ar.com.fdvs.dj.core.registration.DJGroupRegistrationManager;
+import ar.com.fdvs.dj.core.registration.VariableRegistrationManager;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
@@ -97,6 +98,9 @@ public class DynamicJasperHelper {
 		
 		DJGroupRegistrationManager djGroupRegistrationManager = new DJGroupRegistrationManager(jd,dr,layoutManager);
 		djGroupRegistrationManager.registerEntities(dr.getColumnsGroups());
+		
+		VariableRegistrationManager variableRegistrationManager = new VariableRegistrationManager(jd, dr, layoutManager);
+		variableRegistrationManager.registerEntities(dr.getVariables());
 		
 		registerPercentageColumnsVariables(jd,dr,layoutManager);
 		registerOtherFields(jd,dr.getFields());

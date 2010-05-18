@@ -35,6 +35,8 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
+import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
+
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
@@ -44,14 +46,17 @@ import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
+import ar.com.fdvs.dj.domain.constants.DJVariableResetType;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.customexpression.DJSimpleExpression;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
+import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
@@ -439,6 +444,24 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addColumn(String title, String property, Class clazz, int width, boolean fixedWidth, String pattern, Style style, String fieldDescription) throws ColumnBuilderException, ClassNotFoundException {
 		return addColumn(title, property, clazz.getName(), width, fixedWidth, pattern, style, fieldDescription);
 	}
+	
+	public FastReportBuilder addColumn(String title, CustomExpression expression, int width, boolean fixedWidth, String pattern, Style style) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getNew()
+		.setCustomExpression(expression)
+		.setWidth(new Integer(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setPattern(pattern)
+		.setStyle(style)
+		.build();
+
+		if (style == null)
+			guessStyle(expression.getClassName(), column);
+
+		addColumn(column);
+
+		return this;
+	}	
 
 	protected void guessStyle(Class clazz, AbstractColumn column) throws ClassNotFoundException {
 		guessStyle(clazz.getName(), column);
@@ -468,6 +491,11 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		}
 	}
 
+	/**
+	 * This method should be called after all column have been added to the report.
+	 * @param numgroups
+	 * @return
+	 */
 	public FastReportBuilder addGroups(int numgroups) {
 		groupCount = numgroups;
 		for (int i = 0; i < groupCount; i++) {
@@ -604,5 +632,40 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		group.getFooterCrosstabs().add(djcross);
 		return this;
 	}
+
+	public FastReportBuilder addVariable(String name, DJCalculation calculation,
+			CustomExpression expression) {
+		DJVariable var = new DJVariable(name,expression.getClassName(),calculation,expression);
+		super.addVariable(var);
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param name
+	 * @param calculation
+	 * @param expression
+	 * @param initialValueExpression
+	 * @param resetType
+	 * @param resetGroup group number used to reset (from 1 to N)
+	 * @return
+	 * @throws BuilderException 
+	 */
+	public FastReportBuilder addVariable(String name, DJCalculation calculation,
+			CustomExpression expression, CustomExpression initialValueExpression, DJVariableResetType resetType, int resetGroup) throws BuilderException {
+		
+		DJVariable var = new DJVariable(name,expression.getClassName(),calculation,expression);
+		var.setInitialValueExŕession(initialValueExpression);
+		var.setResetType(resetType);
+		
+		if (DJVariableResetType.GROUP.equals(resetType) && (resetGroup < 1 || resetGroup > report.getColumnsGroups().size())){
+			throw new BuilderException("Invalid parameter [resetGroup = " + resetGroup +"], must be >= 1 and <= group count ");
+		}
+		DJGroup group = getGroup(resetGroup -1);
+		var.setResetGroup(group);
+		
+		super.addVariable(var);
+		return this;
+	}	
 
 }

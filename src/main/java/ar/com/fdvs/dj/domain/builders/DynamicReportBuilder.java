@@ -58,6 +58,7 @@ import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
+import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
@@ -1370,6 +1371,16 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder setTitle(String title, boolean isExpression) {
 		setTitle(title);
 		setTitleIsJrExpression(isExpression);
+		return this;
+	}
+
+	/**
+	 * Use this to register variables manually.
+	 * @param var
+	 * @return
+	 */
+	public DynamicReportBuilder addVariable(DJVariable var) {
+		report.getVariables().add(var);
 		return this;
 	}
 

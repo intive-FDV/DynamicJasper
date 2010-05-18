@@ -263,7 +263,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	protected String createUniqueStyleName() {
 		synchronized (this) {
 			int counter = getReportStyles().values().size() + 1;
-			String tryName = "dj_style_" + counter;
+			String tryName = "dj_style_" + counter + "_"; //FIX for issue 3002761 @SF tracker
 			while (design.getStylesMap().get(tryName) != null){
 				counter++;
 				tryName = "dj_style_" + counter;
@@ -382,6 +382,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 * @param String textForExpression
 	 * @return JRExpression
 	 */
+	/**
+	 * MOVED INSIDE ExpressionUtils
 	protected JRDesignExpression getExpressionForConditionalStyle(ConditionalStyle condition, AbstractColumn column) {
 		//String text = "(("+CustomExpression.class.getName()+")$P{"+paramName+"})."+CustomExpression.EVAL_METHOD_NAME+"("+textForExpression+")";
 		String columExpression = column.getTextForExpression();
@@ -401,6 +403,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		expression.setText(text);
 		return expression;
 	}
+	 */
 
 	protected void generateHeaderBand(JRDesignBand band) {
 		log.debug("Adding column names in header band.");
@@ -722,7 +725,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
              */
             JRDesignStyle groupStyle = Utils.cloneStyle(jrstyle);
 
-			groupStyle.setName(groupStyle.getFontName() +"_for_group_"+index);
+			groupStyle.setName(groupStyle.getFontName() +"_for_group_"+index + "_");
 			textField.setStyle(groupStyle);
 			try {
 				design.addStyle(groupStyle);
@@ -732,7 +735,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         	
         	JRDesignStyle alternateStyle = Utils.cloneStyle(jrstyle);
 
-			alternateStyle.setName(alternateStyle.getFontName() +"_for_column_"+col.getName());
+			alternateStyle.setName(alternateStyle.getFontName() +"_for_column_"+col.getName() + "_");
 			alternateStyle.getConditionalStyleList().clear();
 			textField.setStyle(alternateStyle);
 			try {
@@ -795,7 +798,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			if (getReport().getOptions().isPrintBackgroundOnOddRows() 
 					&& Transparency.TRANSPARENT == condition.getStyle().getTransparency() ){ //condition style + odd row (only if conditional style's background is transparent)
 				
-				JRDesignExpression expressionForConditionalStyle = getExpressionForConditionalStyle(condition, column);
+				JRDesignExpression expressionForConditionalStyle = ExpressionUtils.getExpressionForConditionalStyle(condition, column.getTextForExpression());
 				String expStr = JRExpressionUtil.getExpressionText(expressionForConditionalStyle);
 				
 				//ODD
@@ -822,7 +825,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				jrstyle.addConditionalStyle(condStyleEven);				
 							
 			} else { //No odd row, just the conditional style
-				JRDesignExpression expression = getExpressionForConditionalStyle(condition, column);
+				JRDesignExpression expression = ExpressionUtils.getExpressionForConditionalStyle(condition, column.getTextForExpression());
 				JRDesignConditionalStyle condStyle = makeConditionalStyle( condition.getStyle());
 				condStyle.setConditionExpression(expression);
 				jrstyle.addConditionalStyle(condStyle);						

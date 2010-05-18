@@ -8,6 +8,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 
 public class XlsReportTest extends BaseDjReportTest {
@@ -35,6 +36,7 @@ public class XlsReportTest extends BaseDjReportTest {
 			.setPrintColumnNames(true)
 			.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
 			.setMargins(0, 0, 0, 0)
+			.setPageSizeAndOrientation(Page.Page_Letter_Landscape())
 			.setTitle("November 2006 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setReportName("My Excel Report")
@@ -49,9 +51,9 @@ public class XlsReportTest extends BaseDjReportTest {
 		return dr;
 	}
 
-	protected LayoutManager getLayoutManager() {
-		return new ListLayoutManager();
-	}
+//	protected LayoutManager getLayoutManager() {
+//		return new ListLayoutManager();
+//	}
 
 	protected void exportReport() throws Exception {
 		ReportExporter.exportReportXls(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".xls");

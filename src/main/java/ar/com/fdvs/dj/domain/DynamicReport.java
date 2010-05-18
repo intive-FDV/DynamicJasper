@@ -40,6 +40,7 @@ import java.util.Map;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
@@ -89,6 +90,8 @@ public class DynamicReport extends DJBaseElement {
 
 	//Other parameters needed (E.g. Subreports)
 	private List parameters = new ArrayList();
+	
+	private List<DJVariable> variables = new ArrayList<DJVariable>();
 
 	private Map properties = new HashMap();
 
@@ -438,6 +441,14 @@ public class DynamicReport extends DJBaseElement {
 
 	public void setTitleIsJrExpression(boolean titleIsJrExpression) {
 		this.titleIsJrExpression = titleIsJrExpression;
+	}
+
+	public List<DJVariable> getVariables() {
+		return variables;
+	}
+
+	public void setVariables(List<DJVariable> variables) {
+		this.variables = variables;
 	}
 
 }

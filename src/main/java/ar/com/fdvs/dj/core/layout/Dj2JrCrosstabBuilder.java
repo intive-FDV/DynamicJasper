@@ -637,13 +637,16 @@ public class Dj2JrCrosstabBuilder {
 		
 		for (Iterator iterator = djmeasure.getConditionalStyles().iterator(); iterator.hasNext();) {
 			ConditionalStyle condition = (ConditionalStyle) iterator.next();
-			JRDesignExpression expression = getExpressionForConditionalStyle(condition, columExpression);
+			JRDesignExpression expression = ExpressionUtils.getExpressionForConditionalStyle(condition, columExpression);
 			JRDesignConditionalStyle condStyle = layoutManager.makeConditionalStyle( condition.getStyle());
 			condStyle.setConditionExpression(expression);
 			jrstyle.addConditionalStyle(condStyle);	
 		}
 	}
-	
+
+	/**
+	 * MOVED INSIDE ExpressionUtils
+	 * 
 	protected JRDesignExpression getExpressionForConditionalStyle(ConditionalStyle condition, String columExpression) {
 		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
 		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
@@ -657,6 +660,7 @@ public class Dj2JrCrosstabBuilder {
 		expression.setText(text);
 		return expression;
 	}
+	 */
 	
 	private Style getRowTotalStyle(DJCrosstabRow crosstabRow) {
 		return crosstabRow.getTotalStyle() == null ? this.djcross.getRowTotalStyle(): crosstabRow.getTotalStyle();

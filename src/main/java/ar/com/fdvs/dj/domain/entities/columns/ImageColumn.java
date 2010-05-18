@@ -75,7 +75,7 @@ public class ImageColumn extends ExpressionColumn {
 			if (getCalculatedExpressionText() != null)
 				return getCalculatedExpressionText();
 			
-			String stringExpression = ExpressionUtils.createCustomExpressionInvocationText(getColumnProperty().getProperty());
+			String stringExpression = ExpressionUtils.createCustomExpressionInvocationText(getExpression(),getColumnProperty().getProperty());
 			
 			log.debug("Image Column Expression for CustomExpression = " + stringExpression);
 			

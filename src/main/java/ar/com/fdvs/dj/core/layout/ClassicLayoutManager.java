@@ -616,8 +616,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				else if (caption.getLabelExpression() != null){
 					String name = "expression_for_label_at_header_of_group[" + getReport().getColumnsGroups().indexOf(columnsGroup)+"]_crosstab["+columnsGroup.getHeaderCrosstabs().indexOf(djcross)+"]";
 					LayoutUtils.registerCustomExpressionParameter((DynamicJasperDesign) getDesign(), name , caption.getLabelExpression());
-					captExp =   ExpressionUtils.createExpression(ExpressionUtils.createCustomExpressionInvocationText(name), caption.getLabelExpression().getClassName()) ;
-					log.debug(ExpressionUtils.createCustomExpressionInvocationText(name));
+					String invocationText = ExpressionUtils.createCustomExpressionInvocationText(caption.getLabelExpression(),name);
+					captExp =   ExpressionUtils.createExpression(invocationText, caption.getLabelExpression().getClassName()) ;
+					log.debug(invocationText);
 				} else //a simple text
 					captExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(caption.getText())+ "\"");
 				

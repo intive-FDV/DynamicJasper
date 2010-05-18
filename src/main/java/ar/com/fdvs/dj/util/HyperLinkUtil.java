@@ -29,7 +29,7 @@ public class HyperLinkUtil {
 	public static void applyHyperLinkToElement(DynamicJasperDesign design, DJHyperLink djlink, JRDesignImage image, String name) {
 		StringExpression hce = djlink.getExpression();
 		
-		String text = ExpressionUtils.createCustomExpressionInvocationText(name);
+		String text = ExpressionUtils.createCustomExpressionInvocationText(djlink.getExpression(), name);
 		LayoutUtils.registerCustomExpressionParameter(design, name,hce);
 		JRDesignExpression hlpe = new JRDesignExpression();
 		hlpe.setValueClassName(hce.getClassName());
@@ -41,7 +41,7 @@ public class HyperLinkUtil {
 		if (djlink.getTooltip() != null){
 			StringExpression sExp = djlink.getTooltip();
 			String tooltipParameterName = "hyperlink_tooltip_" +name;
-			String tooltipText = ExpressionUtils.createCustomExpressionInvocationText(tooltipParameterName);
+			String tooltipText = ExpressionUtils.createCustomExpressionInvocationText(djlink.getExpression(), tooltipParameterName);
 			LayoutUtils.registerCustomExpressionParameter(design, tooltipParameterName,sExp);
 			JRDesignExpression tooltipExp = new JRDesignExpression();
 			tooltipExp.setValueClassName(sExp.getClassName());

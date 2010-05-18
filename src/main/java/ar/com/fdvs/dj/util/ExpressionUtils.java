@@ -35,6 +35,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JRVariable;
 import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
@@ -45,15 +46,19 @@ import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.customexpression.DJSimpleExpression;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionStyleExpression;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 
 public class ExpressionUtils {
 
@@ -213,7 +218,7 @@ public class ExpressionUtils {
 	}
 	
 	public static JRDesignExpression createExpression(String name, CustomExpression expression) {
-		String text = ExpressionUtils.createCustomExpressionInvocationText(name);
+		String text = ExpressionUtils.createCustomExpressionInvocationText(expression, name);
 		return createExpression(text, expression.getClassName());
 	}
 	
@@ -269,17 +274,34 @@ public class ExpressionUtils {
 	 * @param customExpName
 	 * @return
 	 */
-	public static String createCustomExpressionInvocationText(String customExpName) {
-
-		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
-		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
-		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";
-		
-//		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+customExpName+"})."
-//				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
-		
-		String stringExpression = "(("+CustomExpression.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get(\""+customExpName+"\"))."
-		+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" )";
+	public static String createCustomExpressionInvocationText(CustomExpression customExpression, String customExpName) {
+		String stringExpression = null;
+		if (customExpression instanceof DJSimpleExpression) {
+			DJSimpleExpression varexp = (DJSimpleExpression)customExpression;
+			String symbol = null;
+			switch(varexp.getType()){
+				case DJSimpleExpression.TYPE_FIELD:
+					symbol = "F";
+				break;
+				case DJSimpleExpression.TYPE_VARIABLE:
+					symbol = "V";
+				break;
+				case DJSimpleExpression.TYPE_PARAMATER:
+					symbol = "P";
+				break;				
+				default:
+					throw new DJException("Invalid DJSimpleExpression, type must be FIELD, VARIABLE or PARAMETER");
+			}
+			stringExpression = "$" +symbol + "{" + varexp.getVariableName() + "}";
+			
+		} else {
+			String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
+			String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
+			String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";
+			
+			stringExpression = "(("+CustomExpression.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get(\""+customExpName+"\"))."
+			+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" )";
+		}
 		
 		return stringExpression;
 	}	
@@ -332,5 +354,22 @@ public class ExpressionUtils {
 		else return null;
 		
 	}
+	
+
+	public static JRDesignExpression getExpressionForConditionalStyle(ConditionalStyle condition, String columExpression) {
+		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
+		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
+		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";		
+
+		String evalMethodParams =  fieldsMap +", " + variablesMap + ", " + parametersMap + ", " + columExpression;
+
+		String text = "(("+ConditionStyleExpression.class.getName()+")$P{" + JRParameter.REPORT_PARAMETERS_MAP + "}.get(\""+condition.getName()+"\"))."+CustomExpression.EVAL_METHOD_NAME+"("+evalMethodParams+")";
+		JRDesignExpression expression = new JRDesignExpression();
+		expression.setValueClass(Boolean.class);
+		expression.setText(text);
+		return expression;
+	}
+		
+	
 
 }
