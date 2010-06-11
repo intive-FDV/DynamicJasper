@@ -303,7 +303,7 @@ public class DynamicJasperHelper {
     		_parameters = new HashMap();
 
     	visitSubreports(dr, _parameters);
-    	compileOrLoadSubreports(dr, _parameters);
+    	compileOrLoadSubreports(dr, _parameters, "r");
 
     	DynamicJasperDesign jd = generateJasperDesign(dr);
     	Map params = new HashMap();
@@ -338,7 +338,7 @@ public class DynamicJasperHelper {
     		_parameters = new HashMap();
 
     	visitSubreports(dr, _parameters);
-    	compileOrLoadSubreports(dr, _parameters);
+    	compileOrLoadSubreports(dr, _parameters, "r");
 
     	DynamicJasperDesign jd = generateJasperDesign(dr);
     	Map params = new HashMap();
@@ -370,6 +370,7 @@ public class DynamicJasperHelper {
     	JasperReport jr = generateJasperReport(dr, layoutManager, _parameters);
     	if (xmlEncoding == null)
     		xmlEncoding = DEFAULT_XML_ENCODING;
+    	log.debug("generating JRXML");
     	return JRXmlWriter.writeReport(jr, xmlEncoding);
     }
 
@@ -404,7 +405,7 @@ public class DynamicJasperHelper {
     		xmlEncoding = DEFAULT_XML_ENCODING;
     	
     	ensurePath(filename);
-    	
+    	log.debug("generating JRXML to " + filename);
     	JRXmlWriter.writeReport(jr, filename, xmlEncoding);
     }
 
@@ -413,7 +414,7 @@ public class DynamicJasperHelper {
     		xmlEncoding = DEFAULT_XML_ENCODING;
     	
 		ensurePath(filename);
-    	
+		log.debug("generating JRXML to " + filename);
     	JRXmlWriter.writeReport(jr, filename, xmlEncoding);
     }
 
@@ -424,32 +425,40 @@ public class DynamicJasperHelper {
 			parentFile.mkdirs();
 	}
 
-    protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters) throws JRException {
-    	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext();) {
+    protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters, String namePrefix) throws JRException {
+    	int groupnum = 1;
+    	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext(); groupnum++) {
 			DJGroup group = (DJGroup) iterator.next();
-
+			int subreportNum = 1;
 			//Header Subreports
-			for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext();) {
+			for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext(); subreportNum++) {
 				Subreport subreport = (Subreport) iterator2.next();
-
+				String name = namePrefix + "_g" + groupnum +"sr" + subreportNum + "h";
+				subreport.setName(name);
+			
 				if (subreport.getDynamicReport() != null){
-					 compileOrLoadSubreports(subreport.getDynamicReport(),_parameters);
-					 JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
-					 _parameters.put(jp.toString(), jp);
+					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters, name);
+					 JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
+					 _parameters.put(name, jp);
 					 subreport.setReport(jp);
+					 log.debug("subreport " + name); 
 				}
 
 			}
 
 			//Footer Subreports
-			for (Iterator iterator2 = group.getFooterSubreports().iterator(); iterator2.hasNext();) {
+			subreportNum = 1;
+			for (Iterator iterator2 = group.getFooterSubreports().iterator(); iterator2.hasNext();subreportNum++) {
 				Subreport subreport = (Subreport) iterator2.next();
+				String name = namePrefix + "_g" + groupnum + "sr" + subreportNum + "f";
+				subreport.setName(name);
 
 				if (subreport.getDynamicReport() != null){
-					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters);
-					JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters);
-					_parameters.put(jp.toString(), jp);
+					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters, name);
+					JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
+					_parameters.put(name, jp);
 					subreport.setReport(jp);
+					log.debug("subreport " + name);
 				}
 
 			}
@@ -506,22 +515,33 @@ public class DynamicJasperHelper {
 	 */
 	public final static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams) throws JRException {
 		log.info("generating JasperReport");
+		JasperReport jr = generateJasperReport(dr, layoutManager, generatedParams, "r");
+			
+		return jr;
+	}
+
+	@SuppressWarnings("unchecked")
+	public final static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams, String nameprefix) throws JRException {
+		log.info("generating JasperReport");
 		JasperReport jr = null;
-			if (generatedParams == null)
-				generatedParams = new HashMap();
-
-			visitSubreports(dr, generatedParams);
-			compileOrLoadSubreports(dr, generatedParams);
-
-			DynamicJasperDesign jd = generateJasperDesign(dr);
-			registerEntities(jd, dr, layoutManager);
-
-			registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
-
-			layoutManager.applyLayout(jd, dr);
-			JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, "ar.com.fdvs.dj.util.DJJRJdtCompiler");			
-			jr = JasperCompileManager.compileReport(jd);
-			generatedParams.putAll(jd.getParametersWithValues());
+		if (generatedParams == null){
+			log.warn("null parameters map passed to DynamicJasperHelper, you wont be able to retrieve some generated values during the layout process.");
+			generatedParams = new HashMap();
+		}
+		
+		visitSubreports(dr, generatedParams);
+		compileOrLoadSubreports(dr, generatedParams, nameprefix);
+		
+		DynamicJasperDesign jd = generateJasperDesign(dr);
+		registerEntities(jd, dr, layoutManager);
+		
+		registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
+		
+		layoutManager.applyLayout(jd, dr);
+		JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, "ar.com.fdvs.dj.util.DJJRJdtCompiler");			
+		jr = JasperCompileManager.compileReport(jd);
+		generatedParams.putAll(jd.getParametersWithValues());
+		log.info("Done generating JasperReport");
 		return jr;
 	}
 
@@ -532,6 +552,7 @@ public class DynamicJasperHelper {
  * @param _parameters
  * @throws JRException
  */
+	@SuppressWarnings("unchecked")
 	protected static void visitSubreports(DynamicReport dr, Map _parameters) throws JRException{
     	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext();) {
 			DJGroup group = (DJGroup) iterator.next();

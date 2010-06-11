@@ -754,7 +754,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 //			int random_ = subReportRandom.nextInt();
 			//the subreport design
-			String paramname = sr.getReport().toString(); //TODO ensure this name is unique among all possible subreports
+//			String paramname = sr.getReport().toString(); //TODO ensure this name is unique among all possible subreports
+			String paramname = sr.getName(); //TODO ensure this name is unique among all possible subreports
 			((DynamicJasperDesign)getDesign()).getParametersWithValues().put(paramname, sr.getReport());
 			String expText = "("+JasperReport.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get( \""+ paramname +"\" )";
 			JRDesignExpression srExpression = ExpressionUtils.createExpression(expText, JasperReport.class);

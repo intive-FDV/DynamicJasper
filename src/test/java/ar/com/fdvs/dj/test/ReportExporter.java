@@ -60,6 +60,7 @@ public class ReportExporter {
 	 * @throws FileNotFoundException
 	 */
 	public static void exportReport(JasperPrint jp, String path) throws JRException, FileNotFoundException{
+		logger.debug("Exporing report to: " + path);
 		JRPdfExporter exporter = new JRPdfExporter();
 
 		File outputFile = new File(path);

@@ -47,6 +47,11 @@ public class Subreport extends DJBaseElement {
 	private JasperReport report;
 
 	/**
+	 * For internal usage 
+	 */
+	private String name;
+	
+	/**
 	 * The full path or URI in the class path of the compiled .jasper report file
 	 */
 	private String path;
@@ -203,6 +208,12 @@ public class Subreport extends DJBaseElement {
 	}
 	public void setSplitAllowed(boolean splitAllowed) {
 		this.splitAllowed = splitAllowed;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }
