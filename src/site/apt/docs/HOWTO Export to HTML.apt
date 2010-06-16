@@ -1,0 +1,100 @@
+	----------
+	HOWTO Export to HTML
+	----------
+	Juan Manuel Alvarez
+	------
+	Date
+	
+HOW-TO Export to HTML
+
+ In your <<web.xml>> declare <<ImageServlet>> (from JasperReports) to allow images in the report to be shown properly.
+ 
++------------------------------------------------------------------------------------------------------------+
+<servlet>
+  <servlet-name>image</servlet-name>
+  <servlet-class>net.sf.jasperreports.j2ee.servlets.ImageServlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>image</servlet-name>
+  <url-pattern>/reports/image/*</url-pattern>
+</servlet-mapping>
++------------------------------------------------------------------------------------------------------------+
+ 
+ 
+ Later in a Servlet or so use the <<DJServletHelper>> class which handles the most common scenario for HTML exporting 
+ in a HTTP web server. 
+ DJServletHelper will directly write the HTML in the response.
+ 
++------------------------------------------------------------------------------------------------------------+
+ DJServletHelper.exportToHtml(request, response, imageServletUrl, dr, layoutManager, ds, parameters, exporterParams); 
++------------------------------------------------------------------------------------------------------------+
+
+ Where:
+ 
+ * <<request, response>>: HTTP Servlet request and response
+ 
+ * <<imageServletUrl>>: is the URI that points to the ImageServlet (declared above).
+ 
+ * <<dr>>: the DynamicReport
+
+ * <<ds>>: a data source (JRDataSource)
+ 
+ * <<parameters>>: a Map with the report parameters.
+
+ * <<exporterParams>>: a Map with the HTML exporter specific parameters.
+ 
+ []
+ 
+* Example
+ 
+
+ In a simple Servlet or Action from your favorite MVC framework do something like this (this is a simple servlet)
+  
++------------------------------------------------------------------------------------------------------------+
+	private void generateReport(HttpServletRequest request, HttpServletResponse response) throws ColumnBuilderException,
+			ClassNotFoundException, JRException, IOException {
+		String realPath = request.getSession().getServletContext().getRealPath("/");
+		
+		DynamicReport dr = createDynamicReport(realPath);
+		
+		String imageServletUrl = "reports/image";
+		LayoutManager layoutManager = new ClassicLayoutManager();
+		JRDataSource ds = new JRBeanCollectionDataSource(getDummyCollectionSorted(dr.getColumns()));
+		Map parameters = new HashMap();
+		Map exporterParams = new HashMap();
+		
+		DJServletHelper.exportToHtml(request, response, imageServletUrl, dr, layoutManager, ds, parameters, exporterParams);
+		
+	}
+
+	private DynamicReport createDynamicReport(String realPath)
+			throws ColumnBuilderException, ClassNotFoundException {
+		FastReportBuilder drb = new FastReportBuilder();
+		drb.addColumn("State", "state", String.class.getName(),30)
+			.addColumn("Branch", "branch", String.class.getName(),30)
+			.addColumn("Product Line", "productLine", String.class.getName(),50)
+			.addColumn("Item", "item", String.class.getName(),50)
+			.addColumn("Item Code", "id", Long.class.getName(),30,true)
+			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
+			.addColumn("Amount", "amount", Float.class.getName(),70,true)
+			.addGroups(2)
+			.addFirstPageImageBanner(realPath + "/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.ALIGN_LEFT)
+			.setTitle("November 2008 sales report")
+			.setSubtitle("This report was generated at " + new Date())
+			.setPrintBackgroundOnOddRows(true)	
+			.setIgnorePagination(true)
+			.setUseFullPageWidth(true);
+		
+		DynamicReport dr = drb.build();
+		return dr;
+	}
+	
+	public Collection getDummyCollectionSorted(List columnlist) {
+		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
+		return SortUtils.sortCollection(dummyCollection,columnlist);
+
+	}	
++------------------------------------------------------------------------------------------------------------+
+
+ See also <<{{{HOWTO tricks when exporting to HTML.html}tricks when exporting to HTML}}>>

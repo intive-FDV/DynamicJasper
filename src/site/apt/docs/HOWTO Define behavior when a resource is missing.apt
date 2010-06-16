@@ -1,0 +1,28 @@
+	-----------
+	HOW-TO Define behavior when a resource is missing
+	-----------
+
+HOW-TO Define behavior when a resource is missing
+
+ JasperReport define 4 possible actions when a resource is missing. These actions are described below.
+ 
+ Using the <DynamicReportBuilder>
+ 
++------------------------------------------------------------------------------------------------------------+
+DynamicReportBuilder setWhenResourceMissing(byte whenResourceMissing)
++------------------------------------------------------------------------------------------------------------+
+ 
+ * <<DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY>>: Leaves an empty space
+ 
+ * <<DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR>>: Throws an exception
+ 
+ * <<DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY>>: Show the key of the missing resource
+ 
+ * <<DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL>>: Return null.
+ 
+ []
+ 
+ These convenient methods are also available:
+ 
+ setWhenResourceMissingLeaveEmptySpace(), setWhenResourceMissingThrowException(), setWhenResourceMissingShowKey() and setWhenResourceMissingReturnNull()
+ 
