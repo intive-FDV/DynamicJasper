@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -408,6 +409,14 @@ public class DynamicReportBuilder {
 		report.getColumns().add(column);
 		return this;
 	}
+	
+	/**
+	 * returns an unmodifiable List of the columns so far
+	 * @return
+	 */
+	public List getColumns(){
+		return Collections.unmodifiableList(report.getColumns()); 
+	}
 
 	public DynamicReportBuilder addGroup(DJGroup group) {
 		report.getColumnsGroups().add(group);
@@ -676,16 +685,103 @@ public class DynamicReportBuilder {
 		return this;
 	}
 	
+	
+
+	
+	public DynamicReportBuilder addGlobalColumnVariable(String position, AbstractColumn col, DJCalculation op) {
+		if (DJConstants.FOOTER.equals(position)){
+			globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op));
+		} else {
+			globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op));
+		}
+		return this;
+	}
+
+	public DynamicReportBuilder addGlobalColumnVariable(String position, AbstractColumn col, DJCalculation op, Style style) {
+		if (DJConstants.FOOTER.equals(position)){
+			globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style));
+		} else {
+			globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op,style));
+		}		
+		return this;
+	}
+
+	public DynamicReportBuilder addGlobalColumnVariable(String position, AbstractColumn col, DJCalculation op, Style style, DJValueFormatter valueFormatter) {
+		if (DJConstants.FOOTER.equals(position)){
+			globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style,valueFormatter));
+		} else {
+			globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op,style,valueFormatter));
+		}			
+		return this;
+	}
+	
+	public DynamicReportBuilder addGlobalColumnVariable(String position, DJGroupVariable variable) {
+		if (DJConstants.FOOTER.equals(position)){
+			globalVariablesGroup.addFooterVariable(variable);
+		} else {
+			globalVariablesGroup.addHeaderVariable(variable);
+		}			
+		return this;
+	}
+	
+	public DynamicReportBuilder addGlobalColumnVariable(String position, AbstractColumn column, CustomExpression valueExpression) {
+		if (DJConstants.FOOTER.equals(position)){
+			globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, valueExpression));
+		} else {
+			globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, valueExpression));
+		}			
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param position DJConstants.FOOTER or DJConstants.HEADER
+	 * @param column column to operate with
+	 * @param valueExpression
+	 * @param style
+	 * @return
+	 */
+	public DynamicReportBuilder addGlobalColumnVariable(String position, AbstractColumn column, CustomExpression valueExpression, Style style) {
+		if (DJConstants.FOOTER.equals(position)){
+			globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, valueExpression, style));
+		} else {
+			globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, valueExpression, style));
+		}
+		return this;
+	}
+	
+	/**
+	 * For variable registration only (can bee later referenced in custom expression)
+	 * @param name
+	 * @param col
+	 * @param op
+	 * @return
+	 */
 	public DynamicReportBuilder addGlobalVariable(String name, AbstractColumn col, DJCalculation op) {
 		globalVariablesGroup.addVariable(new DJGroupVariableDef(name, col, op));
 		return this;
 	}
 
+	/**
+	 * @see DynamicReportBuilder#addGlobalVariable(String, AbstractColumn, DJCalculation)
+	 * @param name
+	 * @param prop
+	 * @param op
+	 * @return
+	 */
 	public DynamicReportBuilder addGlobalVariable(String name, ColumnProperty prop, DJCalculation op) {
 		globalVariablesGroup.addVariable(new DJGroupVariableDef(name, prop, op));
 		return this;
 	}
 
+	/**
+	 * @see DynamicReportBuilder#addGlobalVariable(String, AbstractColumn, DJCalculation)
+	 * @param name
+	 * @param property
+	 * @param className
+	 * @param op
+	 * @return
+	 */
 	public DynamicReportBuilder addGlobalVariable(String name, String property, String className, DJCalculation op) {
 		globalVariablesGroup.addVariable(new DJGroupVariableDef(name, new ColumnProperty(property, className), op));
 		return this;
@@ -750,6 +846,10 @@ public class DynamicReportBuilder {
 		return addField(new ColumnProperty(name,className));
 	}
 
+	public DynamicReportBuilder addField(String name, Class clazz) {
+		return addField(new ColumnProperty(name,clazz.getName()));
+	}
+
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
@@ -759,6 +859,14 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addField(ColumnProperty columnProperty) {
 		report.getFields().add(columnProperty);
 		return this;
+	}
+
+	/**
+	 * Returns registered fields so far.
+	 * @return List<ColumnProperty>
+	 */
+	public List getFields() {
+		return report.getFields();
 	}
 	
 	/**
@@ -964,6 +1072,29 @@ public class DynamicReportBuilder {
 
 		return addSubreportInGroupFooter(groupNumber, subreport);
 	}
+
+	/**
+	 * 
+	 * @param position {@link DJConstants#FOOTER} or {@link DJConstants#HEADER}
+	 * @param groupNumber
+	 * @param dynamicReport
+	 * @param layoutManager
+	 * @param dataSourcePath
+	 * @param dataSourceOrigin
+	 * @param dataSourceType
+	 * @param params
+	 * @return
+	 * @throws DJBuilderException
+	 */
+	public DynamicReportBuilder addSubreportInGroup(String position, int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, SubreportParameter[] params) throws DJBuilderException {
+		if (DJConstants.FOOTER.equals(position)){
+			addSubreportInGroupFooter(groupNumber, dynamicReport, layoutManager, dataSourcePath, dataSourceOrigin, dataSourceType, params);
+		} else {
+			addSubreportInGroupHeader(groupNumber, dynamicReport, layoutManager, dataSourcePath, dataSourceOrigin, dataSourceType, params);
+		}
+		return this;
+	}
+	
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, SubreportParameter[] params) throws DJBuilderException {
 		SubReportBuilder srb = new SubReportBuilder();
 
@@ -1045,6 +1176,36 @@ public class DynamicReportBuilder {
 		Subreport subreport = srb.build();
 
 		return addSubreportInGroupFooter(groupNumber, subreport);
+	}
+
+/**
+ * 
+ * @param position position {@link DJConstants#FOOTER} or {@link DJConstants#HEADER}
+ * @param groupNumber
+ * @param dynamicReport
+ * @param layoutManager
+ * @param dataSourcePath
+ * @param dataSourceOrigin
+ * @param dataSourceType
+ * @param params
+ * @param startInNewPage
+ * @param fitParent
+ * @return
+ * @throws DJBuilderException
+ */
+	public DynamicReportBuilder addSubreportInGroup(String position, int groupNumber,
+			DynamicReport dynamicReport, LayoutManager layoutManager,
+			String dataSourcePath, int dataSourceOrigin, int dataSourceType,
+			SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
+	throws DJBuilderException {
+		
+		if (DJConstants.FOOTER.equals(position)){
+			addSubreportInGroupFooter(groupNumber, dynamicReport, layoutManager, dataSourcePath, dataSourceOrigin, dataSourceType, params, startInNewPage, fitParent);
+		} else {
+			addSubreportInGroupHeader(groupNumber, dynamicReport, layoutManager, dataSourcePath, dataSourceOrigin, dataSourceType, params, startInNewPage, fitParent);
+		}
+		
+		return this;
 	}
 
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber,
@@ -1308,7 +1469,7 @@ public class DynamicReportBuilder {
 	}
 
 	public DynamicReportBuilder addParameter(String name, String className){
-		this.report.getParameters().add(new Parameter(name, className));
+		this.report.addParameter(name, className);
 		return this;
 	}
 

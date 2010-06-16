@@ -36,6 +36,20 @@
 	 <body>
 	 <!-- 
 	  -->
+	 	 		 <release version="3.1.5" date="2010-06-16" desc="small improvements in builders" >
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	DynamicReport now has "addParameter()" method
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	overloaded version of the method "DynamicReportBuilder.addGlobalColumnVariable" to add a "position" parameter to specify footer or header 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	overloaded version of the method "DynamicReportBuilder.addSubreportInGroup" to add a "position" parameter to specify footer or header 
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	overloaded version of the method "FastReportBuilder.addGroupVariable" to add a "position" parameter to specify footer or header 
+					 </action>
+				 </release>
 	 	 		 <release version="3.1.4" date="2010-06-11" desc="fixes in subreports" >
 					 <action dev="Juan Manuel Alvarez" type="change">
 					 	fixed the internal subreport naming to ensure a clear understanding of how they got included.

@@ -43,20 +43,25 @@ public class DynamicReportOptions extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
-	public static final Integer DEFAULT_HEADER_HEIGHT = new Integer(30);
-	public static final Integer DEFAULT_HEADER_VARIABLES_HEIGHT = new Integer(20);
-	public static final Integer DEFAULT_FOOTER_VARIABLES_HEIGHT = new Integer(20);
-	public static final Integer DEFAULT_DETAIL_HEIGHT = new Integer(15);
+	public static final Integer DEFAULT_HEADER_HEIGHT 			= new Integer(30);
+	public static final Integer DEFAULT_HEADER_VARIABLES_HEIGHT	= new Integer(20);
+	public static final Integer DEFAULT_FOOTER_VARIABLES_HEIGHT	= new Integer(20);
+	public static final Integer DEFAULT_DETAIL_HEIGHT 			= new Integer(15);
 	
-	private Integer headerHeight = DEFAULT_HEADER_HEIGHT;
-	private Integer headerVariablesHeight = DEFAULT_HEADER_HEIGHT;
-	private Integer footerVariablesHeight = DEFAULT_FOOTER_VARIABLES_HEIGHT;
-	private Integer detailHeight = DEFAULT_DETAIL_HEIGHT;
+	public static final Integer DEFAULT_MARGIN_TOP 		= new Integer(20);
+	public static final Integer DEFAULT_MARGIN_BOTTOM 	= new Integer(10);
+	public static final Integer DEFAULT_MARGIN_LEFT 	= new Integer(30);
+	public static final Integer DEFAULT_MARGIN_RIGTH 	= new Integer(10);
+	
+	private Integer headerHeight 			= DEFAULT_HEADER_HEIGHT;
+	private Integer headerVariablesHeight 	= DEFAULT_HEADER_HEIGHT;
+	private Integer footerVariablesHeight 	= DEFAULT_FOOTER_VARIABLES_HEIGHT;
+	private Integer detailHeight 			= DEFAULT_DETAIL_HEIGHT;
 
-	private Integer leftMargin = DEFAULT_HEADER_HEIGHT;
-	private Integer rightMargin =  new Integer(10);
-	private Integer topMargin =  new Integer(20);
-	private Integer bottomMargin =  new Integer(10);
+	private Integer leftMargin 		= DEFAULT_MARGIN_LEFT;
+	private Integer rightMargin 	= DEFAULT_MARGIN_RIGTH;
+	private Integer topMargin 		= DEFAULT_MARGIN_TOP;
+	private Integer bottomMargin	= DEFAULT_MARGIN_BOTTOM;
 
 	private Integer columnsPerPage = new Integer(1);
 	private Integer columnSpace = new Integer(0);

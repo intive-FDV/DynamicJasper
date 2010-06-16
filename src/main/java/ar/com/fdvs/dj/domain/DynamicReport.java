@@ -42,6 +42,7 @@ import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
@@ -346,6 +347,10 @@ public class DynamicReport extends DJBaseElement {
 
 	public List getParameters() {
 		return parameters;
+	}
+	
+	public void addParameter(String name, String className){
+		this.parameters.add(new Parameter(name, className));
 	}
 
 	public void setParameters(List parameters) {

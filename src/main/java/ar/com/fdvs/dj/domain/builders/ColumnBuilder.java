@@ -314,6 +314,12 @@ public class ColumnBuilder {
 		return this;
 	}
 
+	public ColumnBuilder setColumnProperty(String propertyName, Class clazz ){
+		ColumnProperty columnProperty = new ColumnProperty(propertyName,clazz.getName());
+		this.columnProperty = columnProperty;
+		return this;
+	}
+
 	public ColumnBuilder setFieldDescription(String fieldDescription){
 		this.fieldDescription = fieldDescription;
 		return this;
