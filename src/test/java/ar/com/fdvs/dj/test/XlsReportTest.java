@@ -51,9 +51,9 @@ public class XlsReportTest extends BaseDjReportTest {
 		return dr;
 	}
 
-//	protected LayoutManager getLayoutManager() {
-//		return new ListLayoutManager();
-//	}
+	protected LayoutManager getLayoutManager() {
+		return new ListLayoutManager();
+	}
 
 	protected void exportReport() throws Exception {
 		ReportExporter.exportReportXls(jp, System.getProperty("user.dir")+ "/target/" + this.getClass().getName() + ".xls");
