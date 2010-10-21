@@ -31,7 +31,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>3.1.5</version>
+	<version>3.1.6-SNAPSHOT</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -201,9 +201,8 @@ API.
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>
-							maven-project-info-reports-plugin
-						</artifactId>
+						<artifactId>maven-project-info-reports-plugin</artifactId>
+						<version>2.1</version>
 						<reportSets>
 							<reportSet>
 								<reports>
@@ -220,18 +219,20 @@ API.
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.7</version>
 						<configuration>
 							<source>1.5</source>
 						</configuration>
 					</plugin>
 					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>jxr-maven-plugin</artifactId>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jxr-plugin</artifactId>
+						<version>2.2</version>
 					</plugin>
 					<plugin>
 				        <groupId>org.apache.maven.plugins</groupId>
 				        <artifactId>maven-changes-plugin</artifactId>
-
+						<version>2.3</version>
 						<reportSets>
 							<reportSet>
 								<reports>
@@ -252,6 +253,7 @@ API.
 				     <plugin>
 				        <groupId>org.apache.maven.plugins</groupId>
 				        <artifactId>maven-site-plugin</artifactId>
+				        <version>2.1.1</version>
 				        <configuration>
 				          <templateDirectory>${basedir}/src/config/</templateDirectory>
 				          <template>maven-site.vm</template>
@@ -261,6 +263,7 @@ API.
 				      <plugin>
 				        <groupId>org.codehaus.mojo</groupId>
 				        <artifactId>cobertura-maven-plugin</artifactId>
+				        <version>2.4</version>
 				        <configuration>
 				          <formats>
 				            <format>html</format>

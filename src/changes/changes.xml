@@ -36,6 +36,11 @@
 	 <body>
 	 <!-- 
 	  -->
+	 	 		 <release version="3.1.6" date="2010-06-16" desc="fixes and inprovements" >
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	added method setHeaderVariablesHeight() to DynamicReportBuilder
+					 </action>
+				 </release>
 	 	 		 <release version="3.1.5" date="2010-06-16" desc="small improvements in builders" >
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	DynamicReport now has "addParameter()" method

@@ -463,6 +463,11 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	public DynamicReportBuilder setHeaderVariablesHeight(Integer height) {
+		options.setHeaderVariablesHeight(height);
+		return this;
+	}
+
 	public DynamicReportBuilder setDetailHeight(Integer height) {
 		options.setDetailHeight(height);
 		return this;
