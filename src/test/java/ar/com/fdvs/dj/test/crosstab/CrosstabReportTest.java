@@ -101,7 +101,7 @@ public class CrosstabReportTest extends BaseDjReportTest {
 			.setUseFullWidth(true)
 			.setColorScheme(4)
 			.setAutomaticTitle(true)
-			.setCellBorder(Border.THIN);
+			.setCellBorder(Border.PEN_1_POINT);
 
 		cb.addMeasure("amount",Float.class.getName(), DJCalculation.SUM , "Amount",measureStyle);
 
@@ -147,7 +147,7 @@ public class CrosstabReportTest extends BaseDjReportTest {
 		col = new CrosstabColumnBuilder().setProperty("branch",String.class.getName())
 			.setHeaderHeight(30).setWidth(60)
 			.setShowTotals(true).setTitle("Branch")
-			.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader)
+			.setTotalStyle(totalStyle).setTotalHeaderStyle(totalHeader).setTotalLegend("Total for \"+ $V{branch}+ \"")
 			.setHeaderStyle(colAndRowHeaderStyle)
 			.build();
 

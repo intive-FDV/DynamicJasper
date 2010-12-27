@@ -53,6 +53,7 @@ import net.sf.jasperreports.engine.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGraphicElement;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
@@ -495,7 +496,12 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			if (textField.isBlankWhenNull() == false && style.isBlankWhenNull()) //TODO Re check if this condition is ok 
 				textField.setBlankWhenNull(true);
 		}
-//		return jrstyle;
+		
+		if (designElemen instanceof JRDesignGraphicElement) {
+			JRDesignGraphicElement graphicElement = (JRDesignGraphicElement) designElemen;
+			graphicElement.setStretchType(style.getStreching().getValue());
+			graphicElement.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
+		}
 		return;
 	}
 

@@ -95,11 +95,11 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 //			.addColumn("Item", "item", String.class.getName(),true)
 //			.addMeasure("id",Long.class.getName(), DJCalculation.SUM , "Id", measureStyle)
 			.addMeasure("quantity",Long.class.getName(), DJCalculation.FIRST , "Time",measureStyle2, null/* new DJValueFormatter() {
-				
+
 				public String getClassName() {
 					return String.class.getName();
 				}
-				
+
 				public Object evaluate(Object value, Map fields, Map variables, Map parameters) {
 					Long val = (Long)value;
 					return getAsMinutes(val); // + " (" + val + ")";
@@ -121,7 +121,7 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 
 		return dr;
 	}
-	
+
 	public static String getAsMinutes(Long value) {
 		if (value == null)
 			return null;
@@ -129,7 +129,7 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 		int sec = amount.intValue() % 60;
 		int mins = amount.intValue() / 60;
 		return mins + "' " + sec + "\"";
-	}	
+	}
 
 
 	/**
@@ -141,7 +141,7 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 			.setHorizontalAlign(HorizontalAlign.LEFT)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setTransparency(Transparency.OPAQUE)
-			.setBorderBottom(Border.PEN_2_POINT)
+			.setBorderBottom(Border.PEN_1_POINT)
 			.build();
 
 		totalHeaderStyle = new StyleBuilder(false)

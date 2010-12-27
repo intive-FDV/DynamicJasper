@@ -34,11 +34,24 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
-	 <!-- 
+	 <!--
 	  -->
-	 	 		 <release version="3.1.6" date="2010-06-16" desc="fixes and inprovements" >
+	 	 		 <release version="3.1.7" date="2010-12-27" desc="small inprovements on crosstabs" >
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	* Full borders on crosstabs are now possible.
+					 	* replaced some deprecated from JR to its new version
+					 </action>
+				 </release>
+	 	 		 <release version="3.1.6" date="2010-11-30" desc="fixes and inprovements" >
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	added method setHeaderVariablesHeight() to DynamicReportBuilder
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix" issue="3116544" due-to="Rutger Jönåker">
+					 	ImageColumn and BarcodeColumn stretch type was not correctly applied. See BarcodeColumnReportTest2 and see how the large row gets
+						the bottom border properly applied.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+					 	ColumnBuilder failed to pass image scale mode properly to the column being built.
 					 </action>
 				 </release>
 	 	 		 <release version="3.1.5" date="2010-06-16" desc="small improvements in builders" >
@@ -46,13 +59,13 @@
 					 	DynamicReport now has "addParameter()" method
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
-					 	overloaded version of the method "DynamicReportBuilder.addGlobalColumnVariable" to add a "position" parameter to specify footer or header 
+					 	overloaded version of the method "DynamicReportBuilder.addGlobalColumnVariable" to add a "position" parameter to specify footer or header
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
-					 	overloaded version of the method "DynamicReportBuilder.addSubreportInGroup" to add a "position" parameter to specify footer or header 
+					 	overloaded version of the method "DynamicReportBuilder.addSubreportInGroup" to add a "position" parameter to specify footer or header
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
-					 	overloaded version of the method "FastReportBuilder.addGroupVariable" to add a "position" parameter to specify footer or header 
+					 	overloaded version of the method "FastReportBuilder.addGroupVariable" to add a "position" parameter to specify footer or header
 					 </action>
 				 </release>
 	 	 		 <release version="3.1.4" date="2010-06-11" desc="fixes in subreports" >
@@ -69,17 +82,17 @@
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	We can now register variables. useful for "balance" columns. See ReportWithVariablesTest for an example
-					 </action>					 
+					 </action>
 				</release>
 	 	 		 <release version="3.1.2" date="2010-05-04" desc="Percentage in crosstabs" >
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	Ability to show percentage in crosstab cells. See CrosstabReportWithPercentageMeasure as an example
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix">
-					 	Removed duplicated dependencies bcmail-jdk14 and bcprov-jdk14 
+					 	Removed duplicated dependencies bcmail-jdk14 and bcprov-jdk14
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="update">
-					 	Image columns can have custom expression. See ImageExpressionColumnReportTest as an example. 
+					 	Image columns can have custom expression. See ImageExpressionColumnReportTest as an example.
 					 </action>
 				</release>
 	 	 		 <release version="3.1.1" date="2010-03-23" desc="bug fix for issue 2975227" >
@@ -140,7 +153,7 @@
 				 </release>
 	 			 <release version="3.0.14-beta1" date="2009-11-19" desc="Bugfixing on crosstabs value formatters" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
-						 Value formatters fails when many concatenated subreports. 
+						 Value formatters fails when many concatenated subreports.
 					 </action>
 				 </release>
 	 			 <release version="3.0.13" date="2009-11-17" desc="New stuff" >
@@ -148,13 +161,13 @@
 						 Possibility to register field variable in group (see GroupLabelTest5)
 					 </action>
 					 <action dev="Ricardo Mariaca" type="fix" due-to="Brian Swain">
-						 Some custom expression classes where not serializable, they are now  
+						 Some custom expression classes where not serializable, they are now
 					 </action>
 					 <action dev="Ricardo Mariaca" type="fix" due-to="Brian Swain">
 						 Fixed problem related to percentage column when no group is defined
-					 </action>	
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Pedro Sousa ( pedrodesousa )" issue="2843177">
-						 Problem with columns TextFormatter 
+						 Problem with columns TextFormatter
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Gabriel Chulim ( gchulim )" issue="2780574">
 						 ClassCastException in class MultiPropertyComparator
@@ -171,26 +184,26 @@
 					 <action dev="Ricardo Mariaca" type="add">
 						 Enabling custom label expression and position in group footer label (see GroupLabelTest4)
 						 Enabling custom label expression in group header/footer variable label (see GroupLabelTest4)
-					 </action>						 
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" >
 					 	Setting style to "blank when null" as true in certain scenarios where an element
 					 	does not have a style and a new one must be provided
-					 </action>	
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						Crosstab can have precalculated values: See DJCRosstabMeasurePrecalculatedTotalProvider class
-						and example test: CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest 
-					 </action>	
+						and example test: CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" >
 						NullPointerException while creating crosstabs due to uninitialized style.
-					 </action>	
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						crosstabs measures can have value formatters. See CrosstabReportWithNullValuesTest for an example
-					 </action>	
-				 </release>			 
-				 
+					 </action>
+				 </release>
+
 				 <release version="3.0.13-beta5" date="2009-11-09" desc="Autotext enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Pedro Sousa ( pedrodesousa )" issue="2843177">
-						 Problem with columns TextFormatter 
+						 Problem with columns TextFormatter
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Gabriel Chulim ( gchulim )" issue="2780574">
 						 ClassCastException in class MultiPropertyComparator
@@ -207,77 +220,77 @@
 					 <action dev="Ricardo Mariaca" type="add">
 						 Enabling custom label expression and position in group footer label (see GroupLabelTest4)
 						 Enabling custom label expression in group header/footer variable label (see GroupLabelTest4)
-					 </action>						 
-				 </release>			 
+					 </action>
+				 </release>
 				 <release version="3.0.13-beta4" date="2009-11-06" desc="Crosstabs enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="fix" >
 					 	Setting style to "blank when null" as true in certain scenarios where an element
 					 	does not have a style and a new one must be provided
-					 </action>	
-				 </release>			 
+					 </action>
+				 </release>
 				 <release version="3.0.13-beta3" date="2009-11-05" desc="Crosstabs enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						Crosstab can have precalculated values: See DJCRosstabMeasurePrecalculatedTotalProvider class
-						and example test: CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest 
-					 </action>	
-				 </release>			 
+						and example test: CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest
+					 </action>
+				 </release>
 				 <release version="3.0.13-beta2" date="2009-11-05" desc="Crosstabs enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="fix" >
 						NullPointerException while creating crosstabs due to uninitialized style.
-					 </action>	
-				 </release>			 
+					 </action>
+				 </release>
 				 <release version="3.0.13-beta1" date="2009-11-04" desc="Crosstabs enhancements" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
 						crosstabs measures can have value formatters. See CrosstabReportWithNullValuesTest for an example
-					 </action>	
-				 </release>			 
+					 </action>
+				 </release>
 				 <release version="3.0.12" date="2009-11-02" desc="Urgent Fix" >
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Ricardo Mariaca">
 						Fixed bug introduced in 3.0.11 which prevented global variables to be shown.
-					 </action>	
-				 </release>			 
+					 </action>
+				 </release>
 				 <release version="3.0.11" date="2009-10-30" desc="Percentage Column" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
-						 DJ Exceptions thrown are properly initialized with real the cause (exception). 
-						 This gives log information for troubleshooting. 
-					 </action>				 
+						 DJ Exceptions thrown are properly initialized with real the cause (exception).
+						 This gives log information for troubleshooting.
+					 </action>
 					 <action dev="Ricardo Mariaca" type="add" due-to="Brian Swain">
 						 Percentage column capability. See example class: PercentageColumnReportTest
-					 </action>				 
+					 </action>
 					 <action dev="Ricardo Mariaca" type="add" due-to="tatiana_athayde">
-						 Group/Global header and footer variable supports custom value expression 
+						 Group/Global header and footer variable supports custom value expression
 					 </action>
 					 <action dev="Ricardo Mariaca" type="add" due-to="Brian Swain">
-						 Group/Global header and footer variable supports print when expression 
+						 Group/Global header and footer variable supports print when expression
 					 </action>
 					 <action dev="Ricardo Mariaca" type="add" due-to="gauravkalra">
-						 Crosstab supports conditional styles 
-					 </action>					 					 					 				 
+						 Crosstab supports conditional styles
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" >
-						 "Summary start in new page" can be configured through the report options 
+						 "Summary start in new page" can be configured through the report options
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Brian Swain" issue="2859359">
-						 Some report options where not being taking into account when a template was used. 
+						 Some report options where not being taking into account when a template was used.
 					 </action>
 				</release>
 				 <release version="3.0.11-beta3" date="2009-10-17" desc="New stuff" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
-						 Some classes related to charting where not serializable, they are now 
-						 (ar.com.fdvs.dj.domain.StringExpression, ar.com.fdvs.dj.domain.chart.plot.DJAxisFormat and ar.com.fdvs.dj.domain.hyperlink.LiteralExpression) 
+						 Some classes related to charting where not serializable, they are now
+						 (ar.com.fdvs.dj.domain.StringExpression, ar.com.fdvs.dj.domain.chart.plot.DJAxisFormat and ar.com.fdvs.dj.domain.hyperlink.LiteralExpression)
 					 </action>
 				</release>
 				 <release version="3.0.11-beta2" date="2009-09-20" desc="New stuff" >
 					 <action dev="Ricardo Mariaca" type="add" due-to="Ricardo Mariaca">
-						 New charts! area chart, stackedarea chart, bar chart, bar3d chart, stackedbar chart, stackedbar3d chart, line chart, 
-						 pie chart, pie3d chart, timeseries chart, xyarea chart, xybar chart, xyline chart, scatter chart. 
+						 New charts! area chart, stackedarea chart, bar chart, bar3d chart, stackedbar chart, stackedbar3d chart, line chart,
+						 pie chart, pie3d chart, timeseries chart, xyarea chart, xybar chart, xyline chart, scatter chart.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
-						 Report definition classes are now serializable. 
+						 Report definition classes are now serializable.
 					 </action>
 				</release>
 				 <release version="3.0.10" date="2009-08-25" desc="Urgent Fix II" >
 					 <action dev="Juan Manuel Alvarez" type="fix" issue="2844168">
-						 JasperCompilation error due to DJValueFormatters 
+						 JasperCompilation error due to DJValueFormatters
 					 </action>
 				</release>
 				 <release version="3.0.9" date="2009-08-15" desc="Urgent Fix" >
@@ -295,10 +308,10 @@
 				</release>
 				 <release version="3.0.7" date="2009-07-30" desc="at last!" >
 					 <action dev="Juan Manuel Alvarez" type="add" >
-						 Fix at DJDefaultScriptlet, which was messing parameter, fields and variables in CustomExpression when subreports or crosstabs where used 
+						 Fix at DJDefaultScriptlet, which was messing parameter, fields and variables in CustomExpression when subreports or crosstabs where used
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" >
-						 DJLabel supports custom expression 
+						 DJLabel supports custom expression
 					 </action>
 				</release>
 				 <release version="3.0.7-b10" date="2009-07-20"	desc="fixes" >
@@ -341,13 +354,13 @@
 						 NPE when using template jrmxl with no detail band.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="update" issue="2747641" >
-						 Report Templates referenced in jrxml where not taken into account. 		 	 
+						 Report Templates referenced in jrxml where not taken into account.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" issue="2382474">
-						 Group header variable is not shown is special scenario when using VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME		 	 
+						 Group header variable is not shown is special scenario when using VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" >
-						Title and subtitle text is escaped properly. Titles with double quotes (") could cause JRException 					 	 
+						Title and subtitle text is escaped properly. Titles with double quotes (") could cause JRException
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="Steve Lancashire ( stevelancashire )" issue="2818370">
 					 	Added SafeReportBuilder in order to prevent building the report twice.
@@ -356,27 +369,27 @@
 					 	Fixed NPE related with group footers
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Geoffrey De Smet ( ge0ffrey )" issue="2768177">
-					 	Groups and expression to group by: It was not being taken into account.  
-					 	See https://sourceforge.net/support/tracker.php?aid=2768177 
+					 	Groups and expression to group by: It was not being taken into account.
+					 	See https://sourceforge.net/support/tracker.php?aid=2768177
 					 	Also see ExpressionToGroupByReportTest
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" >
-					 	Crosstab builder: Default values for cell dimensions, row header width and column header height. 
+					 	Crosstab builder: Default values for cell dimensions, row header width and column header height.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" >
 					 	Crosstab builder: methods for setting cell width and height had to be invoked after all columns and rows where
-					 	added. Now it can be called anytime. 
+					 	added. Now it can be called anytime.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="ricardo">
-					 	Fixed issue related to copying JRStyle objects. Now using JRStyle.clobe(), which forces to use JasperReport 3.0+ 
+					 	Fixed issue related to copying JRStyle objects. Now using JRStyle.clobe(), which forces to use JasperReport 3.0+
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
 					 	Crosstabs: Configurable color schema for automatic coloring (now it is nice!). See CrosstabReportTest6 which uses TwoSeedCrossTabColorShema class
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
 					 	Crosstabs: Can specify colors and styles for each element: row headers, column headers, totals, etc.
-					 	Also default values are provided 
-					 	See CrosstabReportTest7.java 
+					 	Also default values are provided
+					 	See CrosstabReportTest7.java
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
 					 	Crosstabs can use the main report datasource. Use "CrosstabBuilder.useMainReportDatasource(true)". See CrosstabReportTest6.java
@@ -385,14 +398,14 @@
 					 	Fixed problem with Font.XXXXX static shared objects. Now style.setFont( aFont ) gets a copy of the font passed.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Chris Becker ( chris-becker )">
-					 	Fixed problem with conditional styles: conditional styles (for columns) don't work, unless you specify odd row styles, too. 
+					 	Fixed problem with conditional styles: conditional styles (for columns) don't work, unless you specify odd row styles, too.
 					 	It also lets a conditional style override odd row style's background.
-					 	<![CDATA[See https://sourceforge.net/tracker/index.php?func=detail&aid=2809714&group_id=188060&atid=923805 
-					 	for more information]]> 
+					 	<![CDATA[See https://sourceforge.net/tracker/index.php?func=detail&aid=2809714&group_id=188060&atid=923805
+					 	for more information]]>
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="">
-					 <![CDATA[ 
-					 	Ability to hide detail band. Useful (but not efficient with large reports) to show groups & totals. See TotalingReportTest for an example 
+					 <![CDATA[
+					 	Ability to hide detail band. Useful (but not efficient with large reports) to show groups & totals. See TotalingReportTest for an example
 					 ]]>
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="update" due-to="">
@@ -406,19 +419,19 @@
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Geoffrey De Smet (ge0ffrey)">
 					 	Header text and variable got sloppy when the first is too long.
-					 	<![CDATA[See https://sourceforge.net/tracker/index.php?func=detail&aid=2782948&group_id=188060&atid=923805 
+					 	<![CDATA[See https://sourceforge.net/tracker/index.php?func=detail&aid=2782948&group_id=188060&atid=923805
 					 	for more information]]>
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="update">
-					 	 Default footer variables height is "20";		
-					 	 Defaul header variables height is "20"			 	
+					 	 Default footer variables height is "20";
+					 	 Defaul header variables height is "20"
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="update" due-to="Varun Yagain">
 					 	Bar charts series and categories can be switched.
 					 	<![CDATA[See https://sourceforge.net/forum/message.php?msg_id=7396861]]>
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="Fábio Anjos">
-					 	Group Header on Every Page. 
+					 	Group Header on Every Page.
 					 	Use GroupBuilder.setReprintHeaderOnEachPage(bool)
 					 	<![CDATA[See https://sourceforge.net/forum/message.php?msg_id=7427326]]>
 					 </action>
@@ -426,29 +439,29 @@
 				 <release version="3.0.6" date="2009-04-23"	desc="crosstab fixes">
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	ability to have multiple measures on crosstabs.
-					 </action>				 				 
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="Fabio Borges" due-to-email="fabiodsb@sourforge.net">
 					 	columns can have a text formatter (java.text.Format) as an alternative for formatting values
-					 </action>				 				 
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" >
 					 	Removed unneeded imports in many classes
-					 </action>				 				 
+					 </action>
 				 </release>
 				 <release version="3.0.5" date="2009-02-09"	desc="fixes">
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="bucklane">
 					 	Fixed typo in method name: Style.setPaddingBotton should end with an 'm' not an 'n'.
 					 	<![CDATA[See https://sourceforge.net/tracker2/?func=detail&aid=2634753&group_id=188060&atid=923805]]>
-					 </action>				 				 
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA" due-to-email="https://sourceforge.net/forum/message.php?msg_id=6611349">
 					 	Fixed bug related to conditional styles, now working as expected.
-					 </action>				 
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" due-to="ccavanaugh" due-to-email="https://sourceforge.net/forum/message.php?msg_id=6412849">
 					 	Added ability to truncate text defining a suffix like "..."
 					 </action>
 				</release>
 				 <release version="3.0.4" date="2009-02-09"	desc="fixes">
 					 <action dev="Alejandro Gomez" type="fix">
-					 	<![CDATA[Struts 2 (version 2.1.6) was not working due to change in method signature of xwork library. 
+					 	<![CDATA[Struts 2 (version 2.1.6) was not working due to change in method signature of xwork library.
 							 see tracker: https://sourceforge.net/tracker2/?func=detail&aid=2562199&group_id=188060&atid=923808]]>
 					 </action>
 					 <action dev="Alejandro Gomez" type="add">
@@ -456,43 +469,43 @@
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
 						 CustomExpression for Calculation in groups :: When grouping a column, you can specify a CustomExpression to be used for variable calacularion.
-						 see http://dynamicjasper.sourceforge.net/docs/HOWTO Create variables and define specific behavior.html 
+						 see http://dynamicjasper.sourceforge.net/docs/HOWTO Create variables and define specific behavior.html
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add">
 						 Ability to format variables in groups :: When grouping a column, you can specify a DJValueFormatter to be used for variable formatting in group header and/or footer.
-						 see http://dynamicjasper.sourceforge.net/docs/HOWTO Create variables and define specific behavior.html 
+						 see http://dynamicjasper.sourceforge.net/docs/HOWTO Create variables and define specific behavior.html
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Jeremy Goupil" >
 						 Exception on certain cross-tab scenario :: see https://sourceforge.net/forum/message.php?msg_id=6013486
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="tanmay0208" >
-						 Ensure order in crosstabs :: see https://sourceforge.net/forum/message.php?msg_id=5950390 
+						 Ensure order in crosstabs :: see https://sourceforge.net/forum/message.php?msg_id=5950390
 					 </action>
 				</release>
 				 <release version="3.0.3" date="2008-12-23"	desc="Enhancements and fixes">
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Mariano Stampella" >
-						 removed unnecessary static dependency to webwork. 
+						 removed unnecessary static dependency to webwork.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Mariano Stampella" >
-						 Error in charts logic when only 1 group. Now showing the chart once. 
+						 Error in charts logic when only 1 group. Now showing the chart once.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="add" >
-						 Groups variables height can be defined independently on each group. This fix includes 
-						 footer and header grand total height.  
+						 Groups variables height can be defined independently on each group. This fix includes
+						 footer and header grand total height.
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" >
-						 Bug in the logic for choosing default style in group headers and footer  
+						 Bug in the logic for choosing default style in group headers and footer
 					 </action>
 				 </release>
 				 <release version="3.0.2" date="2008-12-09"	desc="Enhancements and fixes">
 					 <action dev="Juan Manuel Alvarez" type="add" >
-						 Performance fix for CustomExpression, now using Jasper's ScriptLet to reuse field, variables and parameters map 
+						 Performance fix for CustomExpression, now using Jasper's ScriptLet to reuse field, variables and parameters map
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Dale Cooper and PeS17" issue="https://sourceforge.net/forum/message.php?msg_id=5722095" >
-						 In CustomExpression's, non  visible fields where not being populated 
+						 In CustomExpression's, non  visible fields where not being populated
 					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA">
-						 Fixed multi line title and subtitle :: Certain style attributes in the title made subtitle not to stretch vertically. See MultiLineTitleReportTest 
+						 Fixed multi line title and subtitle :: Certain style attributes in the title made subtitle not to stretch vertically. See MultiLineTitleReportTest
 						  <![CDATA[https://sourceforge.net/forum/forum.php?thread_id=2591976&forum_id=659589]]>
 					 </action>
 				</release>
@@ -519,14 +532,14 @@
 					 <action dev="Alejandro Gomez" type="add">
                          DynamicJasper result type for Struts 2 integration
 					 </action>
-					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA" >					 
+					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA" >
 						  Report locale was not not working.
 						  <![CDATA[https://sourceforge.net/tracker/?func=detail&atid=923805&aid=2317770&group_id=188060]]>
-					 </action>					 
+					 </action>
 					 <action dev="Juan Manuel Alvarez" type="fix" due-to="Anis BEN RHOUMA">
 						  Border thickness is wrong.
 						  <![CDATA[https://sourceforge.net/forum/message.php?msg_id=5689553]]>
-					 </action>					 
+					 </action>
 				 </release>
 				 <release version="3.0.0" date="2008-11-05"	desc="New Mayor version - Breaking changes">
 					 <action dev="Juan Manuel Alvarez" type="fix">

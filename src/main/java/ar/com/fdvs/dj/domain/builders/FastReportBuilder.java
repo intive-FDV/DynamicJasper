@@ -35,8 +35,6 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
 
-import sun.reflect.ReflectionFactory.GetReflectionFactoryAction;
-
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.ColumnProperty;
@@ -54,7 +52,6 @@ import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.customexpression.DJSimpleExpression;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.DJVariable;
@@ -188,6 +185,29 @@ public class FastReportBuilder extends DynamicReportBuilder {
 
 		return this;
 	}
+
+	public FastReportBuilder addColumn(String title, String property, String className, int width, Style style, Style headerStyle, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
+		AbstractColumn column = ColumnBuilder.getNew()
+		.setColumnProperty(property, className)
+		.setWidth(new Integer(width))
+		.setTitle(title)
+		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setStyle(style)
+		.build();
+		
+    	if (style != null)
+    		column.setStyle(style);
+		else 
+			guessStyle(className, column);
+    	
+    	if (headerStyle != null)
+    		column.setHeaderStyle(headerStyle);		
+		
+		
+		addColumn(column);
+		
+		return this;
+	}
 	
 	public FastReportBuilder addColumn(String title, String property, Class clazz, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
 		return addColumn(title, property, clazz.getName(), width, fixedWidth);
@@ -231,6 +251,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.setTitle(title)
 		.setFixedWidth(Boolean.valueOf(fixedWidth))
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
+		.setImageScaleMode(imageScaleMode)
 		.setStyle(style)
 		.build();
 
@@ -249,6 +270,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		.setTitle(title)
 		.setFixedWidth(Boolean.valueOf(fixedWidth))
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
+		.setImageScaleMode(imageScaleMode)
 		.setStyle(style)
 		.build();
 		

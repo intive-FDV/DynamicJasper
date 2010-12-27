@@ -31,7 +31,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>3.1.6-SNAPSHOT</version>
+	<version>3.1.7</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -117,7 +117,7 @@ API.
 					<finalName>DynamicJasper version ${version}</finalName>
 				</configuration>
 			</plugin>
-			<!-- 
+			<!--
 		      <plugin>
 		        <groupId>org.apache.maven.plugins</groupId>
 		        <artifactId>maven-gpg-plugin</artifactId>
@@ -130,7 +130,7 @@ API.
 		            </goals>
 		          </execution>
 		        </executions>
-		      </plugin>						
+		      </plugin>
 			 -->
     </plugins>
          <extensions>
@@ -247,9 +247,9 @@ API.
 			              <issueLinkTemplate>
 			              	<![CDATA[https://sourceforge.net/tracker/?func=detail&group_id=188060&atid=923805&aid=%ISSUE%]]>
 			              </issueLinkTemplate>
-			            </configuration>						
+			            </configuration>
 					</plugin>
-					
+
 				     <plugin>
 				        <groupId>org.apache.maven.plugins</groupId>
 				        <artifactId>maven-site-plugin</artifactId>
@@ -268,8 +268,8 @@ API.
 				          <formats>
 				            <format>html</format>
 				          </formats>
-				        </configuration>				        
-				      </plugin>				      
+				        </configuration>
+				      </plugin>
 				</plugins>
 			</reporting>
 		</profile>
@@ -319,11 +319,11 @@ API.
                 <exclusion>
                     <groupId>bouncycastle</groupId>
                     <artifactId>bcmail-jdk14</artifactId>
-                </exclusion>					
+                </exclusion>
                 <exclusion>
                     <groupId>bouncycastle</groupId>
                     <artifactId>bcprov-jdk14</artifactId>
-                </exclusion>	                
+                </exclusion>
             </exclusions>
 		</dependency>
 		<dependency>
@@ -446,14 +446,14 @@ API.
 			<scope>test</scope>
 			<optional>true</optional>
 		</dependency>
-		 
+
 		<dependency>
 			<groupId>ar.com.fdvs</groupId>
 			<artifactId>DynamicJasper-test-fonts</artifactId>
 			<version>1.0</version>
-			<scope>test</scope>			
+			<scope>test</scope>
 		</dependency>
-				
+
 	</dependencies>
 	<distributionManagement>
 		<repository>
@@ -553,7 +553,7 @@ API.
 				<role>Charting integration (new charts)</role>
 			</roles>
 			<timezone>-3</timezone>
-		</developer>		
+		</developer>
 	</developers>
 
 
