@@ -36,6 +36,15 @@
 	 <body>
 	 <!--
 	  -->
+	   			<release version="3.1.8" date="2011-01-07" desc="small fixes on crosstabs" >
+					 <action dev="Juan Manuel Alvarez" type="fix">
+					 	borders for totals in crosstab were missing.
+					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+					 	A bug on the internal styles naming was preventing totals on crosstabs to use their own style.
+					 </action>
+
+				 </release>
 	 	 		 <release version="3.1.7" date="2010-12-27" desc="small inprovements on crosstabs" >
 					 <action dev="Juan Manuel Alvarez" type="add">
 					 	* Full borders on crosstabs are now possible.

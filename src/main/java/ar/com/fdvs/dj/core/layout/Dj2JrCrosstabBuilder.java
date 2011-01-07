@@ -506,14 +506,14 @@ public class Dj2JrCrosstabBuilder {
 						jrstyle.setBlankWhenNull(true);
 					}
 
-        	JRDesignStyle alternateStyle = Utils.cloneStyle(jrstyle);
-    			alternateStyle.setName(alternateStyle.getFontName() +"_for_column_" + djmeasure.getProperty());
-    			alternateStyle.getConditionalStyleList().clear();
-    			element.setStyle(alternateStyle);
-    			try {
-    				design.addStyle(alternateStyle);
-    			} catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
-          setUpConditionStyles(alternateStyle, djmeasure, measureExp.getText());
+					JRDesignStyle alternateStyle = Utils.cloneStyle(jrstyle);
+	    			alternateStyle.setName(alternateStyle.getFontName() +"_for_column_" + djmeasure.getProperty().getProperty() + "_i" + i + "_j" + j);
+	    			alternateStyle.getConditionalStyleList().clear();
+	    			element.setStyle(alternateStyle);
+	    			try {
+	    				design.addStyle(alternateStyle);
+	    			} catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
+	    			setUpConditionStyles(alternateStyle, djmeasure, measureExp.getText());
 
 					if (djmeasure.getLink() != null){
 						String name = "cell_" + i + "_" +  j + "_ope" + djmeasure.getOperation().getValue();
@@ -829,7 +829,7 @@ public class Dj2JrCrosstabBuilder {
 			ctRowGroup.setHeader(rowHeaderContents );
 
 			if (crosstabRow.isShowTotals())
-				createRowTotalHeader(ctRowGroup,crosstabRow);
+				createRowTotalHeader(ctRowGroup,crosstabRow,fullBorder);
 
 
 			try {
@@ -916,7 +916,7 @@ public class Dj2JrCrosstabBuilder {
 			ctColGroup.setHeader(colHeaerContent);
 
 			if (crosstabColumn.isShowTotals())
-				createColumTotalHeader(ctColGroup,crosstabColumn);
+				createColumTotalHeader(ctColGroup,crosstabColumn,fullBorder);
 
 
 			try {
@@ -958,7 +958,7 @@ public class Dj2JrCrosstabBuilder {
 	}
 
 
-	private void createRowTotalHeader(JRDesignCrosstabRowGroup ctRowGroup, DJCrosstabRow crosstabRow) {
+	private void createRowTotalHeader(JRDesignCrosstabRowGroup ctRowGroup, DJCrosstabRow crosstabRow, boolean fullBorder) {
 		JRDesignCellContents totalHeaderContent = new JRDesignCellContents();
 		ctRowGroup.setTotalHeader(totalHeaderContent);
 		ctRowGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END); //FIXME the total can be at the end of a group or at the beginin
@@ -1000,7 +1000,7 @@ public class Dj2JrCrosstabBuilder {
 		}
 		element.setWidth(auxWidth);
 
-		applyCellBorder(totalHeaderContent, false, false);
+		applyCellBorder(totalHeaderContent, false, fullBorder);
 
 		totalHeaderContent.addElement(element);
 	}
@@ -1030,7 +1030,7 @@ public class Dj2JrCrosstabBuilder {
 		}
 	}
 
-	private void createColumTotalHeader(JRDesignCrosstabColumnGroup ctColGroup, DJCrosstabColumn crosstabColumn) {
+	private void createColumTotalHeader(JRDesignCrosstabColumnGroup ctColGroup, DJCrosstabColumn crosstabColumn, boolean fullBorder) {
 		JRDesignCellContents totalHeaderContent = new JRDesignCellContents();
 		ctColGroup.setTotalHeader(totalHeaderContent);
 		ctColGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END);
@@ -1070,7 +1070,7 @@ public class Dj2JrCrosstabBuilder {
 		}
 		element.setHeight(auxWidth);
 
-		applyCellBorder(totalHeaderContent, false, false);
+		applyCellBorder(totalHeaderContent, fullBorder, false);
 
 		totalHeaderContent.addElement(element);
 

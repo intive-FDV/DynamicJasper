@@ -57,10 +57,16 @@ import ar.com.fdvs.dj.util.SortUtils;
 
 public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 
-	private Style totalHeaderStyle;
-	private Style colAndRowHeaderStyle;
+	private Style totalColHeaderStyle;
+	private Style totalRowHeaderStyle;
+
+	private Style colHeaderStyle;
+	private Style rowHeaderStyle;
+
 	private Style mainHeaderStyle;
-	private Style totalStyle;
+	private Style totalColStyle;
+	private Style totalRowStyle;
+
 	private Style measureStyle;
 	private Style measureStyle2;
 	private Style titleStyle;
@@ -89,10 +95,10 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 			.setColorScheme(DJConstants.COLOR_SCHEMA_GRAY)
 			.setAutomaticTitle(true)
 			.setCellBorder(Border.PEN_1_POINT)
-			.addRow("Product Line", "productLine", String.class.getName(),false)
-			.addColumn("State","state",String.class.getName(),false)
+			.addRow("Product Line", "productLine", String.class.getName(),true)
+			.addColumn("State","state",String.class.getName(),true)
 			.addRow("Branch","branch",String.class.getName(),true)
-//			.addColumn("Item", "item", String.class.getName(),true)
+			.addColumn("Item", "item", String.class.getName(),true)
 //			.addMeasure("id",Long.class.getName(), DJCalculation.SUM , "Id", measureStyle)
 			.addMeasure("quantity",Long.class.getName(), DJCalculation.FIRST , "Time",measureStyle2, null/* new DJValueFormatter() {
 
@@ -105,8 +111,8 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 					return getAsMinutes(val); // + " (" + val + ")";
 				}
 			}*/)
-			.setRowStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
-			.setColumnStyles(colAndRowHeaderStyle, totalStyle, totalHeaderStyle)
+			.setRowStyles(rowHeaderStyle, totalRowStyle, totalRowHeaderStyle)
+			.setColumnStyles(colHeaderStyle, totalColStyle, totalColHeaderStyle)
 			.setCellDimension(34, 60)
 			.setColumnHeaderHeight(30)
 			.setRowHeaderWidth(80)
@@ -144,13 +150,23 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 			.setBorderBottom(Border.PEN_1_POINT)
 			.build();
 
-		totalHeaderStyle = new StyleBuilder(false)
+		totalColHeaderStyle = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.CENTER)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
-			.setTextColor(Color.BLUE)
+			.setTextColor(Color.WHITE)
+			.setBackgroundColor(Color.BLUE)
 			.build();
-		colAndRowHeaderStyle = new StyleBuilder(false)
+
+		totalRowHeaderStyle = new StyleBuilder(false)
+			.setHorizontalAlign(HorizontalAlign.CENTER)
+			.setVerticalAlign(VerticalAlign.MIDDLE)
+			.setFont(Font.ARIAL_MEDIUM_BOLD)
+			.setTextColor(Color.WHITE)
+			.setBackgroundColor(Color.GREEN)
+			.build();
+
+		rowHeaderStyle = new StyleBuilder(false)
 			.setHorizontalAlign(HorizontalAlign.LEFT)
 			.setVerticalAlign(VerticalAlign.TOP)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
@@ -159,12 +175,23 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 			.setHorizontalAlign(HorizontalAlign.CENTER)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setFont(Font.ARIAL_BIG_BOLD)
-			.setTextColor(Color.BLACK)
+			.setTextColor(Color.WHITE)
+			.setTransparency(Transparency.OPAQUE)
+			.setBackgroundColor(Color.BLACK)
 			.build();
-		totalStyle = new StyleBuilder(false).setPattern("#,###.##")
+
+		totalColStyle = new StyleBuilder(false).setPattern("#,###.##")
 			.setHorizontalAlign(HorizontalAlign.RIGHT)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
+			.setTextColor(Color.GREEN)
 			.build();
+
+		totalRowStyle = new StyleBuilder(false).setPattern("#,###.##")
+			.setHorizontalAlign(HorizontalAlign.RIGHT)
+			.setFont(Font.ARIAL_MEDIUM_BOLD)
+			.setTextColor(Color.MAGENTA)
+			.build();
+
 		measureStyle = new StyleBuilder(false).setPattern("#,###.##")
 			.setHorizontalAlign(HorizontalAlign.RIGHT)
 			.setFont(Font.ARIAL_MEDIUM)
@@ -173,7 +200,7 @@ public class CrosstabReportWithNullValuesTest extends BaseDjReportTest {
 		measureStyle2 = new StyleBuilder(false).setPattern("#,###.##")
 		.setHorizontalAlign(HorizontalAlign.RIGHT)
 		.setFont(new Font(Font.MEDIUM,Font._FONT_ARIAL,false,true,false))
-		.setTextColor(Color.RED)
+		.setTextColor(Color.BLUE)
 		.build();
 	}
 
