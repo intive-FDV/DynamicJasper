@@ -1,0 +1,70 @@
+		------
+		Requeriments
+		------
+		Juan Manuel Alvarez
+		------
+		 Date
+		 
+DynamicJasper Library
+
+ DJ in packaged in a single jar file. {{{javascript:goDownload(this);}download DynamicJasper}}
+
+Dependencies
+
+ DJ stands on JasperReports (since DJ v3.0.5 JasperReports v3.5 is needed), so you will need these jars too.  {{{https://sourceforge.net/project/showfiles.php?group_id=36382}download Jasper Reports}} from SourceForge
+ 
+ Note that JasperReports need some other files in order to export the report to pdf, xls (Excel), rtf (MS Word), etc. 
+ 
+ Below there is a list for the minimum libraries needed
+
+*Libraries to run DynamicJasper
+
+ * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar}Jakarta Commons BeanUtils Component}} (version 1.7 or later)
+
+ * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-collections/commons-collections/3.1/commons-collections-3.1.jar}Jakarta Commons Collections Component}} (version 3.1 or later)
+
+ * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/commons-logging/commons-logging/1.0/commons-logging-1.0.jar}Jakarta Commons Logging Component}} (version 1.0 or later)
+   
+ * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/eclipse/jdtcore/3.1.0/jdtcore-3.1.0.jar}Eclipse jdt-core compiler}}
+
+ []
+
+*Libraries for exporting 
+ 
+ * <<PDF>>
+ 
+   * iText - Free Java-PDF library by Bruno Lowagie and Paulo Soares (version 2.1.7 or later)
+     {{http://www.lowagie.com/iText/}}
+  
+ * <<XLS>> (Only one is needed)
+
+  * Jakarta POI (version 3.5 or later)  
+    {{http://jakarta.apache.org/poi/}}
+
+  * JExcelApi (version 2.5.7 or later)
+    {{http://jexcelapi.sourceforge.net/}}
+   
+ * <<XML>>
+ 
+	* JAXP 1.1 XML Parser
+
+	* Jakarta Commons Digester Component (version 1.7 or later)
+	  {{http://jakarta.apache.org/commons/digester/}}
+	
+	[]  
+ 
+*Other Libraries
+
+ * <<Charts>> 
+
+  * JFree Charts:
+  
+   * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/jfree/jfreechart/1.0.12/jfreechart-1.0.12.jar}JFree Charts 1.0.12}}
+ 
+   * {{{http://mirrors.ibiblio.org/pub/mirrors/maven2/jfree/jcommon/1.0.15/jcommon-1.0.15.jar}JCommon 1.0.15}}
+
+ * <<Barcode generation>>
+ 
+  * {{{http://www.fdvs.com.ar/djmaven2/net/sourceforge/barbecue/1.1/barbecue-1.1.jar}barbecue 1.1}}
+  
+  []
