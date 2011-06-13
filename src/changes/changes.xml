@@ -36,6 +36,11 @@
 	 <body>
 	 <!--
 	  -->
+	   			<release version="3.1.9" date="2011-01-07" desc="small fixes on crosstabs" >
+					 <action dev="Juan Manuel Alvarez" type="add">
+					 	Detuche messages, thanks to Philip Helger
+					 </action>
+				 </release>	  
 	   			<release version="3.1.8" date="2011-01-07" desc="small fixes on crosstabs" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
 					 	borders for totals in crosstab were missing.
