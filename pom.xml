@@ -344,6 +344,7 @@ API.
             <scope>provided</scope>
            <optional>true</optional>
         </dependency>
+        <!-- not needed anymore
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>oscore</artifactId>
@@ -351,6 +352,7 @@ API.
              <scope>provided</scope>
             <optional>true</optional>
         </dependency>
+         -->
         <dependency>
             <groupId>opensymphony</groupId>
             <artifactId>webwork</artifactId>

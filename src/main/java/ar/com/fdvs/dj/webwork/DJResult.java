@@ -62,8 +62,8 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.output.FormatInfoRegistry;
 import ar.com.fdvs.dj.output.ReportWriter;
 import ar.com.fdvs.dj.output.ReportWriterFactory;
+import ar.com.fdvs.dj.util.Utils;
 
-import com.opensymphony.util.TextUtils;
 import com.opensymphony.webwork.WebWorkException;
 import com.opensymphony.webwork.WebWorkStatics;
 import com.opensymphony.webwork.views.jasperreports.JasperReportsResult;
@@ -296,7 +296,7 @@ public class DJResult extends JasperReportsResult {
 
     protected String getFormat(final ActionInvocation _invocation) {
         final String parsedFormat = conditionalParse(format == null ? FORMAT_PDF : format, _invocation);
-        return TextUtils.stringSet(parsedFormat) ? parsedFormat : FORMAT_PDF;
+        return Utils.stringSet(parsedFormat) ? parsedFormat : FORMAT_PDF;
     }
 
     protected String getDocumentName(final ActionInvocation _invocation) {
