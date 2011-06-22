@@ -70,6 +70,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 		headerVariables.setBorderBottom(Border.THIN);
 		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
 		headerVariables.setVerticalAlign(VerticalAlign.TOP);
+		headerVariables.setStretchWithOverflow(true);
 
 		Style groupVariables = new Style("groupVariables");
 		groupVariables.setFont(Font.ARIAL_MEDIUM_BOLD);
@@ -129,7 +130,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 
 		AbstractColumn columnaQuantity = ColumnBuilder.getNew()
 				.setColumnProperty("quantity", Long.class.getName()).setTitle(
-						"Quantity").setWidth(new Integer(80)).setStyle(
+						"Quantity").setWidth(new Integer(25)).setStyle(
 						importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnAmount = ColumnBuilder.getNew()

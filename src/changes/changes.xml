@@ -43,6 +43,9 @@
 					 <action dev="Juan Manuel Alvarez" type="fix">
 					 	Removed unneeded direct dependency to opensymphony:oscore:jar:2.2.4
 					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+					 	Totals in groups footers did not stretch when content overflows (due to wrong evaluation time)
+					 </action>
 				 </release>
 	   			<release version="3.1.8" date="2011-01-07" desc="small fixes on crosstabs" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
