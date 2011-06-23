@@ -38,7 +38,6 @@ import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.SubReportBuilder;
-import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 
 /**

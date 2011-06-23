@@ -33,7 +33,6 @@ import java.awt.Color;
 import java.util.Map;
 
 import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.domain.BooleanExpression;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;

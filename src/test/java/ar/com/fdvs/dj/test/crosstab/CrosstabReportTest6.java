@@ -35,7 +35,6 @@ import java.util.Date;
 import java.util.List;
 
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.TwoSeedCrossTabColorShema;

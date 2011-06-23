@@ -30,10 +30,6 @@
 package ar.com.fdvs.dj.domain.chart.builder;
 
 import java.awt.Color;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import ar.com.fdvs.dj.domain.DJHyperLink;
@@ -42,13 +38,10 @@ import ar.com.fdvs.dj.domain.builders.ChartBuilderException;
 import ar.com.fdvs.dj.domain.chart.DJChart;
 import ar.com.fdvs.dj.domain.chart.DJChartOptions;
 import ar.com.fdvs.dj.domain.chart.dataset.AbstractDataset;
-import ar.com.fdvs.dj.domain.chart.dataset.CategoryDataset;
 import ar.com.fdvs.dj.domain.chart.plot.AbstractPlot;
-import ar.com.fdvs.dj.domain.chart.plot.BarPlot;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {

@@ -2,10 +2,11 @@ package ar.com.fdvs.dj.test.groups;
 
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import net.sf.jasperreports.engine.JRScriptletException;
 import net.sf.jasperreports.engine.fill.JRFillVariable;
+
+import org.apache.log4j.Logger;
+
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 
 /**

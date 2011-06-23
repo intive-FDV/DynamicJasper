@@ -32,8 +32,6 @@ package ar.com.fdvs.dj.test;
 
 import java.util.Date;
 
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.BarcodeTypes;

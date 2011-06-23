@@ -34,7 +34,6 @@ import java.awt.Color;
 import java.util.Date;
 import java.util.Map;
 
-import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.DJCalculation;

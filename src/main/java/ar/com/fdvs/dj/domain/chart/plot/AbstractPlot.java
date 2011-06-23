@@ -34,14 +34,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.sf.jasperreports.engine.JRChartPlot;
+import net.sf.jasperreports.engine.base.JRBaseChartPlot;
+
 import org.jfree.chart.plot.PlotOrientation;
 
 import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.Entity;
-
-import net.sf.jasperreports.engine.JRChartPlot;
-import net.sf.jasperreports.engine.base.JRBaseChartPlot;
 
 public abstract class AbstractPlot extends DJBaseElement {
 	

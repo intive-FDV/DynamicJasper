@@ -67,8 +67,8 @@ import org.apache.commons.logging.LogFactory;
 
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
-import ar.com.fdvs.dj.core.registration.DJGroupVariableDefRegistrationManager;
 import ar.com.fdvs.dj.core.registration.DJGroupRegistrationManager;
+import ar.com.fdvs.dj.core.registration.DJGroupVariableDefRegistrationManager;
 import ar.com.fdvs.dj.core.registration.VariableRegistrationManager;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DJCalculation;
