@@ -1,0 +1,39 @@
+<!DOCTYPE xwork PUBLIC "-//OpenSymphony Group//XWork 1.0//EN" "http://www.opensymphony.com/xwork/xwork-1.1.1.dtd">
+<xwork>
+	<include file="webwork-default.xml" />
+
+	<package name="default" extends="webwork-default">
+	<result-types>
+     <result-type name="dynamic-jasper" class="ar.com.fdvs.dj.webwork.DJResult"/>
+   </result-types>
+		<global-results>
+			<result name="error">/common/error.jsp</result>
+			<result name="login" type="redirect">/LoginInput.do</result>
+		</global-results>
+
+		<action name="generateReport" class="ar.com.fdvs.dj.test.web.webwork.GenerateReportAction">
+	     <result name="success" type="dynamic-jasper">
+	       <param name="dynamicReport">dynamicReport</param>
+	       <param name="dataSource">dataSource</param>
+		   <param name="documentName">Dynamic Report generated with webwork 1</param>
+	       <param name="format">PDF</param>
+	       <param name="layoutManager">classic</param>
+	     </result>
+		</action>
+
+		<action name="generateReportTemplate" class="ar.com.fdvs.dj.test.web.webwork.GenerateReportAction" method="doReportWithTemplate">
+	     <result name="success" type="dynamic-jasper">
+	       <param name="dynamicReport">dynamicReport</param>
+	       <param name="dataSource">dataSource</param>
+	       <param name="documentName">Dynamic Report generated with webwork 2</param>
+	       <param name="parameters">params</param>
+	       <param name="format">PDF</param>
+	       <param name="layoutManager">classic</param>
+	     </result>
+		</action>
+
+	</package>
+
+
+</xwork>
+
