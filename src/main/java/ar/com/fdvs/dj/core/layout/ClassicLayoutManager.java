@@ -1146,11 +1146,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			globalExp.setValueClassName(globalCol.getValueClassNameForExpression());
 			globalTextField.setExpression(globalExp);
 
-//				globalTextField.setHeight(band.getHeight()); //XXX Changed, see if its ok
-//			globalTextField.setHeight(2 + getReport().getOptions().getDetailHeight().intValue()); //XXX be carefull with the "2+ ..."
-			globalTextField.setHeight(2 + height ); //XXX be carefull with the "2+ ..."
+			globalTextField.setHeight(0 + height ); //XXX be carefull with the "2+ ..."
 			globalTextField.setWidth(totalWidth);
-//				globalTextField.setX(((AbstractColumn)getReport().getColumns().get(0)).getPosX().intValue());
+
 			globalTextField.setX(0);
 			if (type.equals(ColumnsGroupVariablesRegistrationManager.HEADER))
 				globalTextField.setY(yOffset);

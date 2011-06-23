@@ -46,6 +46,9 @@
 					 <action dev="Juan Manuel Alvarez" type="fix">
 					 	Totals in groups footers did not stretch when content overflows (due to wrong evaluation time)
 					 </action>
+					 <action dev="Juan Manuel Alvarez" type="fix">
+					 	Group label was miss-aligned. It was 2 (two) pixels higher than other columns
+					 </action>
 				 </release>
 	   			<release version="3.1.8" date="2011-01-07" desc="small fixes on crosstabs" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
