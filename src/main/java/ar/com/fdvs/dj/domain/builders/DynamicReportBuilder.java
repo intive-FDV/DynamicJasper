@@ -96,7 +96,7 @@ public class DynamicReportBuilder {
 	protected ArrayList autoTexts;
 	protected Map groupFooterSubreports = new HashMap();
 	protected Map groupHeaderSubreports = new HashMap();
-	
+
 	protected DJGroup globalVariablesGroup;
 
 
@@ -107,7 +107,7 @@ public class DynamicReportBuilder {
 		super();
 		globalVariablesGroup = createDummyGroup();
 	}
-	
+
 	public DynamicReportBuilder addAutoText(AutoText text) {
 		if (this.autoTexts == null)
 			this.autoTexts = new ArrayList();
@@ -275,7 +275,7 @@ public class DynamicReportBuilder {
 		}
 		return false;
 	}
-	
+
 	private void addGlobalCrosstabs() {
 		//For header
 		if (globalHeaderCrosstabs != null) {
@@ -441,7 +441,7 @@ public class DynamicReportBuilder {
 		options.setFooterVariablesHeight(height);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setFooterVariablesHeight(int height) {
 		options.setFooterVariablesHeight(new Integer(height));
 		return this;
@@ -608,7 +608,7 @@ public class DynamicReportBuilder {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op, Style style) {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op, style));
 		return this;
@@ -618,17 +618,17 @@ public class DynamicReportBuilder {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op,style,valueFormatter));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalHeaderVariable(DJGroupVariable variable) {
 		globalVariablesGroup.addHeaderVariable(variable);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn column, CustomExpression valueExpression) {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, valueExpression));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn column, CustomExpression valueExpression, Style style) {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, valueExpression, style));
 		return this;
@@ -653,22 +653,22 @@ public class DynamicReportBuilder {
 		globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style,valueFormatter));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalFooterVariable(DJGroupVariable variable) {
 		globalVariablesGroup.addFooterVariable(variable);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn column, CustomExpression valueExpression) {
 		globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, valueExpression));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn column, CustomExpression valueExpression, Style style) {
 		globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, valueExpression, style));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalVariable(String name, AbstractColumn col, DJCalculation op) {
 		globalVariablesGroup.addVariable(new DJGroupVariableDef(name, col, op));
 		return this;
@@ -683,7 +683,7 @@ public class DynamicReportBuilder {
 		globalVariablesGroup.addVariable(new DJGroupVariableDef(name, new ColumnProperty(property, className), op));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setTitleHeight(Integer height) {
 		options.setTitleHeight(height);
 		return this;
@@ -718,7 +718,7 @@ public class DynamicReportBuilder {
 		options.getImageBanners().put(new Byte(align), banner);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align) {
 		ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
 		options.getFirstPageImageBanners().put(new Byte(align), banner);
@@ -731,7 +731,7 @@ public class DynamicReportBuilder {
 		options.getFirstPageImageBanners().put(new Byte(align), banner);
 		return this;
 	}
-	
+
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
@@ -753,13 +753,12 @@ public class DynamicReportBuilder {
 		report.getFields().add(columnProperty);
 		return this;
 	}
-	
+
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
 	 * @deprecated
-	 * @param name
-	 * @param className
+	 * @param chart
 	 * @return
 	 */
 	public DynamicReportBuilder addChart(DJChart chart) {
@@ -770,15 +769,14 @@ public class DynamicReportBuilder {
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
-	 * @param name
-	 * @param className
+	 * @param djChart
 	 * @return
 	 */
 	public DynamicReportBuilder addChart(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
 		report.getNewCharts().add(djChart);
 		return this;
 	}
-	
+
 	private void createChartGroups() {
 		for (Iterator iterator = report.getNewCharts().iterator(); iterator.hasNext();) {
 			ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) iterator.next();
@@ -788,20 +786,20 @@ public class DynamicReportBuilder {
 		      		.setGroupLayout(GroupLayout.VALUE_FOR_EACH)
 		      		.build();
 				addGroup(djGroup);
-			}			
+			}
 		}
 	}
-	
+
 	private DJGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
 		PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
 		for (Iterator iterator = report.getColumnsGroups().iterator(); iterator.hasNext();) {
-			DJGroup djGroup = (DJGroup) iterator.next();			
+			DJGroup djGroup = (DJGroup) iterator.next();
 			if (djGroup.getColumnToGroupBy() == columnsGroup)
-				return djGroup;		
+				return djGroup;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * The full path of a jrxml file, or the path in the classpath of a jrxml resource.
 	 * @param path
@@ -889,7 +887,7 @@ public class DynamicReportBuilder {
 		.setDynamicReport(dynamicReport,layoutManager)
 		.setStartInNewPage(startOnNewPage)
 		.build();
-		
+
 		concatenatedReports.add(subreport);
 		return this;
 	}
@@ -909,7 +907,7 @@ public class DynamicReportBuilder {
 		.setReport(jasperReport)
 		.setStartInNewPage(startOnNewPage)
 		.build();
-		
+
 		concatenatedReports.add(subreport);
 		return this;
 	}
@@ -1140,7 +1138,7 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addResourceBundle(String resourceBundle) {
 		return setResourceBundle(resourceBundle);
 	}
-	
+
 	public DynamicReportBuilder setResourceBundle(String resourceBundle) {
 		report.setResourceBundle(resourceBundle);
 		return this;
@@ -1205,7 +1203,7 @@ public class DynamicReportBuilder {
 	}
 
 	/**
-	 * @see setWhenNoDataType
+	 * @see DynamicReportBuilder#setWhenNoData(String, ar.com.fdvs.dj.domain.Style, boolean, boolean)
 	 * @return
 	 */
 	public DynamicReportBuilder setWhenNoDataNoPages() {
@@ -1213,7 +1211,7 @@ public class DynamicReportBuilder {
 		return this;
 	}
 	/**
-	 * @see setWhenNoDataType
+	 * @see DynamicReportBuilder#setWhenNoData(String, ar.com.fdvs.dj.domain.Style, boolean, boolean)
 	 * @return
 	 */
 	public DynamicReportBuilder setWhenNoDataBlankPage() {
@@ -1221,7 +1219,7 @@ public class DynamicReportBuilder {
 		return this;
 	}
 	/**
-	 * @see setWhenNoDataType
+	 * @see DynamicReportBuilder#setWhenNoData(String, ar.com.fdvs.dj.domain.Style, boolean, boolean)
 	 * @return
 	 */
 	public DynamicReportBuilder setWhenNoDataAllSectionNoDetail() {
@@ -1229,7 +1227,7 @@ public class DynamicReportBuilder {
 		return this;
 	}
 	/**
-	 * @see setWhenNoDataType
+	 * @see DynamicReportBuilder#setWhenNoData(String, ar.com.fdvs.dj.domain.Style, boolean, boolean)
 	 * @return
 	 */
 	public DynamicReportBuilder setWhenNoDataShowNoDataSection() {
@@ -1331,7 +1329,7 @@ public class DynamicReportBuilder {
 
 
 	/**
-	 * When false, no detail is shown. This is useful when using certain grouping layout and header variables 
+	 * When false, no detail is shown. This is useful when using certain grouping layout and header variables
 	 * @param bool
 	 * @return
 	 */
@@ -1339,21 +1337,21 @@ public class DynamicReportBuilder {
 		this.options.setShowDetailBand(bool);
 		return this;
 	}
-	
+
 	/**
 	 * Returns the "idx" column, idx is 0 based
-	 * 
+	 *
 	 * @param idx
 	 * @return
 	 */
 	public AbstractColumn getColumn(int idx){
 		return (AbstractColumn) this.report.getColumns().get(idx);
 	}
-	
-	
+
+
 	/**
 	 * Returns the "idx" group, idx is 0 based
-	 * 
+	 *
 	 * @param idx
 	 * @return
 	 */
