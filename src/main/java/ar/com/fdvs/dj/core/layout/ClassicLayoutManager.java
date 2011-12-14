@@ -29,49 +29,11 @@
 
 package ar.com.fdvs.dj.core.layout;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
-import net.sf.jasperreports.engine.JRElement;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.JRGraphicElement;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignBreak;
-import net.sf.jasperreports.engine.design.JRDesignElement;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignImage;
-import net.sf.jasperreports.engine.design.JRDesignRectangle;
-import net.sf.jasperreports.engine.design.JRDesignSection;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.design.JRDesignSubreport;
-import net.sf.jasperreports.engine.design.JRDesignSubreportParameter;
-import net.sf.jasperreports.engine.design.JRDesignTextField;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import ar.com.fdvs.dj.core.CoreException;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.FontHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
-import ar.com.fdvs.dj.domain.AutoText;
-import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJGroupLabel;
-import ar.com.fdvs.dj.domain.DJLabel;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
-import ar.com.fdvs.dj.domain.ImageBanner;
-import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.*;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.LabelPosition;
@@ -87,6 +49,13 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.LayoutUtils;
 import ar.com.fdvs.dj.util.Utils;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.util.*;
 
 /**
  * Main Layout Manager recommended for most cases.</br>
@@ -663,8 +632,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	/**
-	 * @param djcross
-	 * @param crosst
+     * @param amount
+     * @param yOffset
 	 * @return
 	 */
 	protected JRDesignRectangle createBlankRectableCrosstab(int amount,int yOffset) {
@@ -796,6 +765,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				JRDesignGroup jrgroup = getJRGroupFromDJGroup(columnsGroup);
 				JRDesignBand targetBand = null;
 				int idx = getDesign().getGroupsList().indexOf(jrgroup);
+
 				if (DJConstants.HEADER.equals(position)) {
 //					if (idx == 0){
 //						if (getDesign().getColumnHeader() != null)
@@ -862,10 +832,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	/**
 	 * If variables are present for a given group, they are placed in it's
 	 * header/footer band.
-	 * @param DJGroup group
-	 * @param JRDesignGroup jgroup
-	 * @param int labelOffset
-	 * @throws LayoutException
+	 * @param group
+     * @param jgroup
+     * @param labelOffset
+     * @throws LayoutException
 	 */
 	protected void layoutGroupVariables(DJGroup group, JRDesignGroup jgroup, int labelOffset) {
 		log.debug("Starting groups variables layout...");
@@ -1280,7 +1250,4 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			textField.setExpression(null); //this way, the textfield is not added to the band
 		}
 	}
-
-
-
 }
