@@ -29,40 +29,23 @@
 
 package ar.com.fdvs.dj.core.layout;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import ar.com.fdvs.dj.core.DJException;
+import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.builders.DataSetFactory;
+import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.columns.*;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
+import ar.com.fdvs.dj.util.ExpressionUtils;
+import ar.com.fdvs.dj.util.HyperLinkUtil;
+import ar.com.fdvs.dj.util.LayoutUtils;
+import ar.com.fdvs.dj.util.Utils;
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.JRGroup;
-import net.sf.jasperreports.engine.JRStyle;
-import net.sf.jasperreports.engine.JRTextElement;
-import net.sf.jasperreports.engine.JRTextField;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
 import net.sf.jasperreports.engine.base.JRBaseVariable;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignChart;
-import net.sf.jasperreports.engine.design.JRDesignChartDataset;
-import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
-import net.sf.jasperreports.engine.design.JRDesignElement;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignGraphicElement;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignImage;
-import net.sf.jasperreports.engine.design.JRDesignSection;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.design.JRDesignTextElement;
-import net.sf.jasperreports.engine.design.JRDesignTextField;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
-import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.design.*;
 import net.sf.jasperreports.engine.util.JRExpressionUtil;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MultiHashMap;
 import org.apache.commons.collections.MultiMap;
@@ -70,25 +53,9 @@ import org.apache.commons.collections.Predicate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.core.DJException;
-import ar.com.fdvs.dj.domain.DJChart;
-import ar.com.fdvs.dj.domain.DJChartOptions;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.builders.DataSetFactory;
-import ar.com.fdvs.dj.domain.constants.Transparency;
-import ar.com.fdvs.dj.domain.entities.DJGroup;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
-import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
-import ar.com.fdvs.dj.util.ExpressionUtils;
-import ar.com.fdvs.dj.util.HyperLinkUtil;
-import ar.com.fdvs.dj.util.LayoutUtils;
-import ar.com.fdvs.dj.util.Utils;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 /**
  * Abstract Class used as base for the different Layout Managers.</br>
@@ -220,7 +187,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 	/**
-	 * @param baseStyle
+	 * @param style
 	 * @throws JRException
 	 */
 	public void addStyleToDesign(Style style)  {
@@ -652,10 +619,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 	/**
 	 * Creates a JasperReport DesignTextField from a DynamicJasper AbstractColumn.
-	 * @param AbstractColumn col
-	 * @param int height
-	 * @param DJGroup group
-	 * @return JRDesignTextField
+	 * @param col
+     * @param height
+     * @param group
+     * @return JRDesignTextField
 	 */
 	protected JRDesignTextField generateTextFieldFromColumn(AbstractColumn col, int height, DJGroup group) {
 		JRDesignTextField textField = new JRDesignTextField();
@@ -1204,7 +1171,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	
 	/**
 	 * Returns true if at least one group is configured to show the column name in its header
-	 * @param groups
 	 * @return
 	 */
 	protected boolean existsGroupWithColumnNames() {
