@@ -29,43 +29,21 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
-import net.sf.jasperreports.engine.JasperReport;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
-import ar.com.fdvs.dj.domain.AutoText;
-import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.CustomExpression;
-import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.DJChart;
-import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJQuery;
-import ar.com.fdvs.dj.domain.DJValueFormatter;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
-import ar.com.fdvs.dj.domain.ImageBanner;
-import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.*;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Page;
-import ar.com.fdvs.dj.domain.entities.DJGroup;
-import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
-import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
-import ar.com.fdvs.dj.domain.entities.DJVariable;
-import ar.com.fdvs.dj.domain.entities.Subreport;
-import ar.com.fdvs.dj.domain.entities.SubreportParameter;
+import ar.com.fdvs.dj.domain.entities.*;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import net.sf.jasperreports.engine.JasperReport;
+
+import java.util.*;
 
 /**
  * Builder created to give users a friendly way of creating a DynamicReport.</br>
@@ -877,9 +855,7 @@ public class DynamicReportBuilder {
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
 	 * @deprecated
-	 * @param name
-	 * @param className
-	 * @return
+	 * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder addChart(DJChart chart) {
 		report.getCharts().add(chart);
@@ -889,9 +865,8 @@ public class DynamicReportBuilder {
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
-	 * @param name
-	 * @param className
-	 * @return
+	 * @param djChart a DJ chart
+     * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder addChart(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
 		report.getNewCharts().add(djChart);
@@ -1368,8 +1343,8 @@ public class DynamicReportBuilder {
 	/**
 	 * Defines the behaviour when the datasource is empty.
 	 * Defatul vaue is {@link DJConstants#WHEN_NO_DATA_TYPE_NO_PAGES}
-	 * @param whenNoDataType
-	 * @return
+     *
+	 * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder setWhenNoDataType(byte whenNoDataType) {
 		this.report.setWhenNoDataType(whenNoDataType);
@@ -1377,32 +1352,32 @@ public class DynamicReportBuilder {
 	}
 
 	/**
-	 * @see setWhenNoDataType
-	 * @return
+	 * @see DynamicReportBuilder#setWhenNoDataType
+	 * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder setWhenNoDataNoPages() {
 		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES);
 		return this;
 	}
 	/**
-	 * @see setWhenNoDataType
-	 * @return
+	 * @see DynamicReportBuilder#setWhenNoDataType
+	 * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder setWhenNoDataBlankPage() {
 		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE);
 		return this;
 	}
 	/**
-	 * @see setWhenNoDataType
-	 * @return
+	 * @see DynamicReportBuilder#setWhenNoDataType
+	 * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder setWhenNoDataAllSectionNoDetail() {
 		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL);
 		return this;
 	}
 	/**
-	 * @see setWhenNoDataType
-	 * @return
+	 * @see DynamicReportBuilder#setWhenNoDataType
+	 * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder setWhenNoDataShowNoDataSection() {
 		this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
@@ -1461,7 +1436,7 @@ public class DynamicReportBuilder {
  * @param style : the style of the text
  * @param showTitle : if true, the title is shown
  * @param showColumnHeader : if true, the column headers are shown
- * @return
+ * @return A Dynamic Report Builder
  */
 	public DynamicReportBuilder setWhenNoData(String text, Style style, boolean showTitle, boolean showColumnHeader) {
 		this.report.setWhenNoDataStyle(style);
@@ -1481,7 +1456,7 @@ public class DynamicReportBuilder {
 	 * If true and there is no room for a textfield at the end of a page in the detail band, it will be splitted and continued in
 	 * next page.
 	 * @param split
-	 * @return
+	 * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder setAllowDetailSplit(boolean split){
 		this.report.setAllowDetailSplit(split);
@@ -1494,7 +1469,7 @@ public class DynamicReportBuilder {
 	 *
 	 * @param name
 	 * @param value
-	 * @return
+	 * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder setProperty(String name, String value) {
 		this.report.setProperty(name, value);
@@ -1505,7 +1480,7 @@ public class DynamicReportBuilder {
 	/**
 	 * When false, no detail is shown. This is useful when using certain grouping layout and header variables 
 	 * @param bool
-	 * @return
+	 * @return A Dynamic Report Builder
 	 */
 	public DynamicReportBuilder setShowDetailBand(boolean bool) {
 		this.options.setShowDetailBand(bool);
@@ -1548,6 +1523,4 @@ public class DynamicReportBuilder {
 		report.getVariables().add(var);
 		return this;
 	}
-
-
 }
