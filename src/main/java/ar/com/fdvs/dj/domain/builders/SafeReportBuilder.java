@@ -9,15 +9,17 @@ public class SafeReportBuilder extends DynamicReportBuilder {
 	 * delegates to the super class after checking that we have not already been
 	 * built.
 	 * 
-	 * @see DynamicReportBuilder.build()
+	 * @see ar.com.fdvs.dj.domain.builders.DynamicReportBuilder#build()
 	 * @throws IllegalStateException
 	 *             if the report has already been built
 	 */
 	public DynamicReport build() {
-		if (built == true) {
+
+        if (built) {
 			throw new IllegalStateException("Cannot build the dynamic jasper report	twice");
 		}
-		built = true;
+
+        built = true;
 		return super.build();
 	}
 }
