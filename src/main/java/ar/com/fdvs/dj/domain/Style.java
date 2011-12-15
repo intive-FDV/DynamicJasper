@@ -29,21 +29,16 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.awt.Color;
-import java.io.Serializable;
-
+import ar.com.fdvs.dj.domain.constants.*;
+import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.engine.base.JRBaseStyle;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
-import ar.com.fdvs.dj.domain.constants.Border;
-import ar.com.fdvs.dj.domain.constants.Font;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
-import ar.com.fdvs.dj.domain.constants.Rotation;
-import ar.com.fdvs.dj.domain.constants.Stretching;
-import ar.com.fdvs.dj.domain.constants.Transparency;
-import ar.com.fdvs.dj.domain.constants.VerticalAlign;
-import ar.com.fdvs.dj.domain.entities.Entity;
+
+import java.awt.*;
+import java.io.Serializable;
 
 /**
  * Class that should be used to define the different styles in a friendly </br>
@@ -359,14 +354,6 @@ public class Style implements Serializable, Cloneable {
 		this.radius = radius;
 	}
 
-	/**
-	 * @deprecated due to miss spelling
-	 * @return
-	 */
-//	public Integer getPaddingBotton() {
-//		return paddingBottom;
-//	}
-
 	public Integer getPaddingBottom() {
 		return paddingBottom;
 	}
@@ -375,15 +362,7 @@ public class Style implements Serializable, Cloneable {
 		this.paddingBottom = paddingBottom;
 	}
 
-	/**
-	 * @deprecated due to miss spelling
-	 * @param paddingBotton
-	 */
-//	public void setPaddingBotton(Integer paddingBotton) {
-//		this.paddingBottom = paddingBotton;
-//	}
-
-	public Integer getPaddingTop() {
+    public Integer getPaddingTop() {
 		return paddingTop;
 	}
 
@@ -425,11 +404,11 @@ public class Style implements Serializable, Cloneable {
 
 	/**
 	 * Creates a blank style (no default values).
-	 * Usefull when we need a style with a parent style, not defined properties (null ones) will be inherited
+	 * Useful when we need a style with a parent style, not defined properties (null ones) will be inherited
 	 * from parent style
 	 *
-	 * @param name
-	 * @return
+	 * @param name  style name
+	 * @return  Style
 	 */
 	public static Style createBlankStyle(String name){
 		Style style = new Style(name);
