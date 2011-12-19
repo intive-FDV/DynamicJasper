@@ -30,28 +30,26 @@
 package ar.com.fdvs.dj.test;
 
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.util.SortUtils;
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
-import ar.com.fdvs.dj.core.layout.LayoutManager;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.util.SortUtils;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class BaseDjReportTest extends TestCase {
 
@@ -125,14 +123,14 @@ public abstract class BaseDjReportTest extends TestCase {
 	}	
 
 	/**
-	 * @return
+	 * @return JRDataSource
 	 */
 	protected JRDataSource getDataSource() {
 		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
 		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 
 		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
-																										//here contains dummy hardcoded objects...
+																				//here contains dummy hardcoded objects...
 		return ds;
 	}
 
@@ -148,13 +146,14 @@ public abstract class BaseDjReportTest extends TestCase {
 
 	/**
 	 * Uses a non blocking HSQL DB. Also uses HSQL default test data
-	 * @return
+	 * @return a Connection
 	 * @throws Exception
 	 */
 	public static Connection createSQLConnection() throws Exception {
 		Connection con = null;
 		     Class.forName("org.hsqldb.jdbcDriver" );
 			 con = DriverManager.getConnection("jdbc:hsqldb:file:target/test-classes/hsql/test_dj_db", "sa", "");
-		return con;
+
+        return con;
 	  }
 }

@@ -34,7 +34,7 @@ package ar.com.fdvs.dj.domain.builders;
  * @author djmamana
  *
  */
-public class DJBuilderException extends Exception {
+public class DJBuilderException extends RuntimeException {
 
 	private static final long serialVersionUID = 1070114283725367932L;
 

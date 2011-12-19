@@ -75,7 +75,7 @@ public class DynamicReportBuilder {
 	protected ArrayList autoTexts;
 	protected Map groupFooterSubreports = new HashMap();
 	protected Map groupHeaderSubreports = new HashMap();
-	
+
 	protected DJGroup globalVariablesGroup;
 
 
@@ -86,16 +86,16 @@ public class DynamicReportBuilder {
 		super();
 		globalVariablesGroup = createDummyGroup();
 	}
-	
+
 	public DynamicReportBuilder addAutoText(AutoText text) {
 		if (this.autoTexts == null)
 			this.autoTexts = new ArrayList();
-		
+
 		if (AutoText.WIDTH_NOT_SET.equals(text.getWidth()))
 				text.setWidth(AutoText.DEFAULT_WIDTH);
 		if (AutoText.WIDTH_NOT_SET.equals(text.getWidth2()))
 			text.setWidth2(AutoText.DEFAULT_WIDTH);
-		
+
 		autoTexts.add(text);
 		return this;
 	}
@@ -260,7 +260,7 @@ public class DynamicReportBuilder {
 		}
 		return false;
 	}
-	
+
 	private void addGlobalCrosstabs() {
 		//For header
 		if (globalHeaderCrosstabs != null) {
@@ -386,13 +386,13 @@ public class DynamicReportBuilder {
 		report.getColumns().add(column);
 		return this;
 	}
-	
+
 	/**
 	 * returns an unmodifiable List of the columns so far
 	 * @return
 	 */
 	public List getColumns(){
-		return Collections.unmodifiableList(report.getColumns()); 
+		return Collections.unmodifiableList(report.getColumns());
 	}
 
 	public DynamicReportBuilder addGroup(DJGroup group) {
@@ -434,7 +434,7 @@ public class DynamicReportBuilder {
 		options.setFooterVariablesHeight(height);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setFooterVariablesHeight(int height) {
 		options.setFooterVariablesHeight(new Integer(height));
 		return this;
@@ -606,7 +606,7 @@ public class DynamicReportBuilder {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn col, DJCalculation op, Style style) {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op, style));
 		return this;
@@ -616,17 +616,17 @@ public class DynamicReportBuilder {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op,style,valueFormatter));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalHeaderVariable(DJGroupVariable variable) {
 		globalVariablesGroup.addHeaderVariable(variable);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn column, CustomExpression valueExpression) {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, valueExpression));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalHeaderVariable(AbstractColumn column, CustomExpression valueExpression, Style style) {
 		globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, valueExpression, style));
 		return this;
@@ -651,25 +651,25 @@ public class DynamicReportBuilder {
 		globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style,valueFormatter));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalFooterVariable(DJGroupVariable variable) {
 		globalVariablesGroup.addFooterVariable(variable);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn column, CustomExpression valueExpression) {
 		globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, valueExpression));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalFooterVariable(AbstractColumn column, CustomExpression valueExpression, Style style) {
 		globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, valueExpression, style));
 		return this;
 	}
-	
-	
 
-	
+
+
+
 	public DynamicReportBuilder addGlobalColumnVariable(String position, AbstractColumn col, DJCalculation op) {
 		if (DJConstants.FOOTER.equals(position)){
 			globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op));
@@ -684,7 +684,7 @@ public class DynamicReportBuilder {
 			globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style));
 		} else {
 			globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op,style));
-		}		
+		}
 		return this;
 	}
 
@@ -693,30 +693,30 @@ public class DynamicReportBuilder {
 			globalVariablesGroup.addFooterVariable(new DJGroupVariable(col, op,style,valueFormatter));
 		} else {
 			globalVariablesGroup.addHeaderVariable(new DJGroupVariable(col, op,style,valueFormatter));
-		}			
+		}
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalColumnVariable(String position, DJGroupVariable variable) {
 		if (DJConstants.FOOTER.equals(position)){
 			globalVariablesGroup.addFooterVariable(variable);
 		} else {
 			globalVariablesGroup.addHeaderVariable(variable);
-		}			
+		}
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addGlobalColumnVariable(String position, AbstractColumn column, CustomExpression valueExpression) {
 		if (DJConstants.FOOTER.equals(position)){
 			globalVariablesGroup.addFooterVariable(new DJGroupVariable(column, valueExpression));
 		} else {
 			globalVariablesGroup.addHeaderVariable(new DJGroupVariable(column, valueExpression));
-		}			
+		}
 		return this;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param position DJConstants.FOOTER or DJConstants.HEADER
 	 * @param column column to operate with
 	 * @param valueExpression
@@ -731,7 +731,7 @@ public class DynamicReportBuilder {
 		}
 		return this;
 	}
-	
+
 	/**
 	 * For variable registration only (can bee later referenced in custom expression)
 	 * @param name
@@ -768,7 +768,7 @@ public class DynamicReportBuilder {
 		globalVariablesGroup.addVariable(new DJGroupVariableDef(name, new ColumnProperty(property, className), op));
 		return this;
 	}
-	
+
 	public DynamicReportBuilder setTitleHeight(Integer height) {
 		options.setTitleHeight(height);
 		return this;
@@ -803,7 +803,7 @@ public class DynamicReportBuilder {
 		options.getImageBanners().put(new Byte(align), banner);
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align) {
 		ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
 		options.getFirstPageImageBanners().put(new Byte(align), banner);
@@ -816,7 +816,7 @@ public class DynamicReportBuilder {
 		options.getFirstPageImageBanners().put(new Byte(align), banner);
 		return this;
 	}
-	
+
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
@@ -850,7 +850,7 @@ public class DynamicReportBuilder {
 	public List getFields() {
 		return report.getFields();
 	}
-	
+
 	/**
 	 * Registers a field that is not necesary bound to a column, it can be used in a
 	 * custom expression
@@ -872,7 +872,7 @@ public class DynamicReportBuilder {
 		report.getNewCharts().add(djChart);
 		return this;
 	}
-	
+
 	private void createChartGroups() {
 		for (Iterator iterator = report.getNewCharts().iterator(); iterator.hasNext();) {
 			ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) iterator.next();
@@ -882,20 +882,20 @@ public class DynamicReportBuilder {
 		      		.setGroupLayout(GroupLayout.VALUE_FOR_EACH)
 		      		.build();
 				addGroup(djGroup);
-			}			
+			}
 		}
 	}
-	
+
 	private DJGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
 		PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
 		for (Iterator iterator = report.getColumnsGroups().iterator(); iterator.hasNext();) {
-			DJGroup djGroup = (DJGroup) iterator.next();			
+			DJGroup djGroup = (DJGroup) iterator.next();
 			if (djGroup.getColumnToGroupBy() == columnsGroup)
-				return djGroup;		
+				return djGroup;
 		}
 		return null;
 	}
-	
+
 	/**
 	 * The full path of a jrxml file, or the path in the classpath of a jrxml resource.
 	 * @param path
@@ -983,7 +983,7 @@ public class DynamicReportBuilder {
 		.setDynamicReport(dynamicReport,layoutManager)
 		.setStartInNewPage(startOnNewPage)
 		.build();
-		
+
 		concatenatedReports.add(subreport);
 		return this;
 	}
@@ -1003,7 +1003,7 @@ public class DynamicReportBuilder {
 		.setReport(jasperReport)
 		.setStartInNewPage(startOnNewPage)
 		.build();
-		
+
 		concatenatedReports.add(subreport);
 		return this;
 	}
@@ -1053,7 +1053,7 @@ public class DynamicReportBuilder {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param position {@link DJConstants#FOOTER} or {@link DJConstants#HEADER}
 	 * @param groupNumber
 	 * @param dynamicReport
@@ -1073,7 +1073,7 @@ public class DynamicReportBuilder {
 		}
 		return this;
 	}
-	
+
 	public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType, SubreportParameter[] params) throws DJBuilderException {
 		SubReportBuilder srb = new SubReportBuilder();
 
@@ -1158,7 +1158,7 @@ public class DynamicReportBuilder {
 	}
 
 /**
- * 
+ *
  * @param position position {@link DJConstants#FOOTER} or {@link DJConstants#HEADER}
  * @param groupNumber
  * @param dynamicReport
@@ -1177,13 +1177,13 @@ public class DynamicReportBuilder {
 			String dataSourcePath, int dataSourceOrigin, int dataSourceType,
 			SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
 	throws DJBuilderException {
-		
+
 		if (DJConstants.FOOTER.equals(position)){
 			addSubreportInGroupFooter(groupNumber, dynamicReport, layoutManager, dataSourcePath, dataSourceOrigin, dataSourceType, params, startInNewPage, fitParent);
 		} else {
 			addSubreportInGroupHeader(groupNumber, dynamicReport, layoutManager, dataSourcePath, dataSourceOrigin, dataSourceType, params, startInNewPage, fitParent);
 		}
-		
+
 		return this;
 	}
 
@@ -1287,7 +1287,7 @@ public class DynamicReportBuilder {
 	public DynamicReportBuilder addResourceBundle(String resourceBundle) {
 		return setResourceBundle(resourceBundle);
 	}
-	
+
 	public DynamicReportBuilder setResourceBundle(String resourceBundle) {
 		report.setResourceBundle(resourceBundle);
 		return this;
@@ -1478,7 +1478,7 @@ public class DynamicReportBuilder {
 
 
 	/**
-	 * When false, no detail is shown. This is useful when using certain grouping layout and header variables 
+	 * When false, no detail is shown. This is useful when using certain grouping layout and header variables
 	 * @param bool
 	 * @return A Dynamic Report Builder
 	 */
@@ -1486,21 +1486,21 @@ public class DynamicReportBuilder {
 		this.options.setShowDetailBand(bool);
 		return this;
 	}
-	
+
 	/**
 	 * Returns the "idx" column, idx is 0 based
-	 * 
+	 *
 	 * @param idx
 	 * @return
 	 */
 	public AbstractColumn getColumn(int idx){
 		return (AbstractColumn) this.report.getColumns().get(idx);
 	}
-	
-	
+
+
 	/**
 	 * Returns the "idx" group, idx is 0 based
-	 * 
+	 *
 	 * @param idx
 	 * @return
 	 */
@@ -1523,4 +1523,43 @@ public class DynamicReportBuilder {
 		report.getVariables().add(var);
 		return this;
 	}
+
+    /**
+     * Set a colspan in a group of columns. First add the cols to the report
+     *
+     * @param colNumber the index of the col
+     * @param colQuantity the number of cols how i will take
+     * @param colspanTitle colspan title
+     *
+     * @throws ColumnBuilderException When the index of the cols is out of bounds.
+     * @return a Dynamic Report Builder
+     */
+    public DynamicReportBuilder setColspan(int colNumber, int colQuantity, String colspanTitle) {
+        this.setColspan(colNumber, colQuantity, colspanTitle, null);
+
+        return this;
+
+    }
+
+    public DynamicReportBuilder setColspan(int colNumber, int colQuantity, String colspanTitle, Style colspanStyle) {
+        List<AbstractColumn> cols;
+
+        try {
+            cols = report.getColumns().subList(colNumber, (colQuantity + colNumber));
+        } catch (IndexOutOfBoundsException e) {
+            String message = "Cols must be between 0 and " + (report.getColumns().size() - 1);
+            throw new ColumnBuilderException(message, e);
+        }
+
+        DJColSpan colSpan = new DJColSpan();
+        colSpan.setTitle(colspanTitle);
+        colSpan.setColumns(cols);
+        colSpan.setColspanHeaderStyle(colspanStyle);
+
+        for (AbstractColumn abstractColumn : colSpan.getColumns()) {
+            abstractColumn.setColSpan(colSpan);
+        }
+
+        return this;
+   }
 }

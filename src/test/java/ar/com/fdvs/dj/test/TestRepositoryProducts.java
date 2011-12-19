@@ -29,12 +29,12 @@
 
 package ar.com.fdvs.dj.test;
 
+import ar.com.fdvs.dj.test.domain.Product;
+import ar.com.fdvs.dj.util.SortUtils;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-
-import ar.com.fdvs.dj.test.domain.Product;
-import ar.com.fdvs.dj.util.SortUtils;
 
 public class TestRepositoryProducts {
 
@@ -234,7 +234,7 @@ public class TestRepositoryProducts {
 		col.add(new Product( new Long("3"),"book","The Pelican Brief,","Arizona","Railway Station", new Long("550"), new Float("38347")));
 
 		return col;
-	}	
+	}
 	
 	public static List getDummyCollectionSorted1(){
 		List list = getDummyCollection();

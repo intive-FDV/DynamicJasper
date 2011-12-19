@@ -29,15 +29,16 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
-import java.text.Format;
-import java.util.ArrayList;
-import java.util.List;
-
 import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.entities.DJColSpan;
 import ar.com.fdvs.dj.domain.entities.Entity;
+
+import java.text.Format;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Abstract Class used as base for the different Column types.
@@ -55,7 +56,7 @@ public abstract class AbstractColumn extends DJBaseElement {
 	private Integer width = new Integer(100);
 	private Boolean fixedWidth = Boolean.FALSE;
 	private Style style = new Style();
-	private Style headerStyle = null; //new Style();
+	private Style headerStyle = null;
 	private String pattern;
 	private Boolean printRepeatedValues = Boolean.TRUE;
 	private Boolean blankWhenNull = Boolean.TRUE;
@@ -65,6 +66,8 @@ public abstract class AbstractColumn extends DJBaseElement {
 	private DJHyperLink link;
 	
 	private List conditionalStyles = new ArrayList();
+
+    private DJColSpan colSpan;
 
 	public List getConditionalStyles() {
 		return conditionalStyles;
@@ -146,7 +149,7 @@ public abstract class AbstractColumn extends DJBaseElement {
 	 * 
 	 * @param type "FOOTER" or "HEADER"
 	 * @param columnToGroupByProperty
-	 * @return
+	 * @return The name of group of variables
 	 */
 	public abstract String getGroupVariableName(String type, String columnToGroupByProperty);
 
@@ -202,4 +205,15 @@ public abstract class AbstractColumn extends DJBaseElement {
 		this.link = link;
 	}
 
+    public DJColSpan getColSpan() {
+        return colSpan;
+    }
+
+    public void setColSpan(DJColSpan colSpan) {
+        this.colSpan = colSpan;
+    }
+
+    public boolean hasParentCol() {
+        return colSpan != null;
+    }
 }

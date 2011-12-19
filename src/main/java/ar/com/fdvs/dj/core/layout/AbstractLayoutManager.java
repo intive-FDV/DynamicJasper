@@ -33,6 +33,7 @@ import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.domain.*;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
 import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.domain.entities.DJColSpan;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.*;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
@@ -279,8 +280,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				if (column.getLink() != null) {
 					String name = "column_" + getReport().getColumns().indexOf(column);
 					HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(), column.getLink(),image,name);
-				}				
-				
+				}
+
 				applyStyleToElement(column.getStyle(), image);
 
 				detail.addElement(image);
@@ -302,11 +303,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				image.setScaleImage(imageColumn.getScaleMode().getValue());
 
 				applyStyleToElement(column.getStyle(), image);
-				
+
 				if (column.getLink() != null) {
 					String name = "column_" + getReport().getColumns().indexOf(column);
 					HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(),column.getLink(), image,name);
-				}				
+				}
 
 				detail.addElement(image);
 			}
@@ -321,9 +322,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 						String name = "column_" + getReport().getColumns().indexOf(column);
 						HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(),column.getLink(),textField,name);
 					}
-					
+
 					transformDetailBandTextField(column, textField);
-					
+
 					if (textField.getExpression() != null)
 						detail.addElement(textField);
 				}
@@ -334,14 +335,13 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	}
 
 
-
-	/**
-	 * Creates and returns the expression used to apply a conditional style.
-	 * @param String paramName
-	 * @param String textForExpression
-	 * @return JRExpression
-	 */
-	/**
+//	/**
+//	 * Creates and returns the expression used to apply a conditional style.
+//	 * @param String paramName
+//	 * @param String textForExpression
+//	 * @return JRExpression
+//	 */
+	/*
 	 * MOVED INSIDE ExpressionUtils
 	protected JRDesignExpression getExpressionForConditionalStyle(ConditionalStyle condition, AbstractColumn column) {
 		//String text = "(("+CustomExpression.class.getName()+")$P{"+paramName+"})."+CustomExpression.EVAL_METHOD_NAME+"("+textForExpression+")";
@@ -349,10 +349,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		//condition.getCondition().setFieldToEvaluate(exprParams)
 
 		// PeS17 patch, 2008-11-29: put all fields to fields map, including "invisible" i.e. only registered ones
-		
+
 		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
 		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
-		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";		
+		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";
 
 		String evalMethodParams =  fieldsMap +", " + variablesMap + ", " + parametersMap + ", " + columExpression;
 
@@ -365,43 +365,79 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 */
 
 	protected void generateHeaderBand(JRDesignBand band) {
-		log.debug("Adding column names in header band.");
-		band.setHeight(report.getOptions().getHeaderHeight().intValue());
+        log.debug("Adding column names in header band.");
+        band.setHeight(report.getOptions().getHeaderHeight());
 
-		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
+        for (AbstractColumn col : getVisibleColumns()) {
 
-			AbstractColumn col = (AbstractColumn) iter.next();
-			if (col.getTitle() == null)
-				continue;
+            if (col.getTitle() == null)
+                continue;
 
-			JRDesignExpression expression = new JRDesignExpression();
-			JRDesignTextField textField = new JRDesignTextField();
-			expression.setText("\""+ col.getTitle() + "\"");
+            Style headerStyle = col.getHeaderStyle();
+            if (headerStyle == null)
+                headerStyle = report.getOptions().getDefaultHeaderStyle();
 
-			expression.setValueClass(String.class);
+            this.generateColspanHeader(col,band);
 
-			textField.setKey("header_"+col.getTitle());
-			textField.setExpression(expression);
+            JRDesignExpression expression   = new JRDesignExpression();
+            JRDesignTextField textField     = new JRDesignTextField();
+            expression.setText("\"" + col.getTitle() + "\"");
 
-			textField.setX(col.getPosX().intValue());
-			textField.setY(col.getPosY().intValue());
-			textField.setHeight(band.getHeight());
-			textField.setWidth(col.getWidth().intValue());
+            expression.setValueClass(String.class);
 
-			textField.setPrintWhenDetailOverflows(true);
-			textField.setBlankWhenNull(true);
+            textField.setKey("header_" + col.getTitle());
+            textField.setExpression(expression);
 
-			Style headerStyle = col.getHeaderStyle();
-			if (headerStyle == null)
-				headerStyle = report.getOptions().getDefaultHeaderStyle();
+            if (col.hasParentCol()) {
+                textField.setY(col.getPosY() + band.getHeight() / 2);
+                textField.setHeight(band.getHeight() / 2);
 
-			applyStyleToElement(headerStyle, textField);
+            } else {
+                textField.setY(col.getPosY());
+                textField.setHeight(band.getHeight());
+            }
 
-			band.addElement(textField);
-		}
+            textField.setX(col.getPosX().intValue());
+            textField.setWidth(col.getWidth().intValue());
+
+            textField.setPrintWhenDetailOverflows(true);
+            textField.setBlankWhenNull(true);
+
+            applyStyleToElement(headerStyle, textField);
+            band.addElement(textField);
+        }
 	}
 
-	/**
+    private void generateColspanHeader(AbstractColumn col,JRDesignBand band) {
+
+        DJColSpan colSpan = col.getColSpan();
+        if (colSpan != null && colSpan.isFirstColum(col)) {
+            //Set colspan
+            JRDesignTextField spanTitle             = new JRDesignTextField();
+            JRDesignExpression colspanExpression    = new JRDesignExpression();
+            colspanExpression.setValueClassName(String.class.getName());
+            colspanExpression.setText("\"" + col.getColSpan().getTitle() + "\"");
+
+            spanTitle.setExpression(colspanExpression);
+            spanTitle.setKey("colspan-header" + col.getTitle());
+
+            spanTitle.setX(col.getPosX().intValue());
+            spanTitle.setY(col.getPosY());
+            spanTitle.setHeight(band.getHeight() / 2);
+            spanTitle.setWidth(colSpan.getWidth());
+
+            Style spanStyle = colSpan.getColspanHeaderStyle();
+
+            if (spanStyle == null) {
+                spanStyle = report.getOptions().getDefaultHeaderStyle();
+            }
+
+            applyStyleToElement(spanStyle, spanTitle);
+            band.addElement(spanTitle);
+        }
+    }
+
+    /**
 	 * Given a dj-Style, it is applied to the jasper element.
 	 * If the style is being used by the first time, it is registered in the jasper-design,
 	 * if it is the second time, the one created before is used  (cached one)
@@ -437,8 +473,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			jrstyle = style.transform();
 		}
 
-		
-
 		designElemen.setStyle(jrstyle);
 		if (designElemen instanceof JRDesignTextElement ) {
 			JRDesignTextElement textField = (JRDesignTextElement) designElemen;
@@ -451,7 +485,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			JRDesignTextField textField = (JRDesignTextField) designElemen;
 			textField.setStretchWithOverflow(style.isStretchWithOverflow());
 
-			if (textField.isBlankWhenNull() == false && style.isBlankWhenNull()) //TODO Re check if this condition is ok 
+			if (!textField.isBlankWhenNull() && style.isBlankWhenNull()) //TODO Re check if this condition is ok
 				textField.setBlankWhenNull(true);
 		}
 		
@@ -460,8 +494,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			graphicElement.setStretchType(style.getStreching().getValue());
 			graphicElement.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
 		}
-		return;
-	}
+    }
 
 
 	/**
@@ -534,12 +567,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		}
 	}
 
-	/**
-	 * @return
-	 */
-	protected List getVisibleColumns() {
-		List visibleColums = new ArrayList(report.getColumns());
-		return visibleColums;
+    /**
+     * @return A list of visible columns
+     */
+	protected List<AbstractColumn> getVisibleColumns() {
+        return new ArrayList<AbstractColumn>(report.getColumns());
 	}
 
 	/**

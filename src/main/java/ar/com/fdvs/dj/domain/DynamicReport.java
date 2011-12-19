@@ -29,22 +29,17 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.Parameter;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
+
+import java.util.*;
 
 /**
  * One of the main classes of this product. It represents the report itself.
@@ -70,8 +65,8 @@ public class DynamicReport extends DJBaseElement {
 
 	protected Map fontsMap = new HashMap(); //<String, java.awt.Font>
 
-	//<AbstractColumn>
-	private List columns = new ArrayList();
+	private List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
+
 	//<ColumnsGroup>
 	private List columnsGroups = new ArrayList();
 
@@ -172,11 +167,11 @@ public class DynamicReport extends DJBaseElement {
 		this.title = title;
 	}
 
-	public List getColumns() {
+	public List<AbstractColumn> getColumns() {
 		return columns;
 	}
 
-	public void setColumns(List columns) {
+	public void setColumns(List<AbstractColumn> columns) {
 		this.columns = columns;
 	}
 

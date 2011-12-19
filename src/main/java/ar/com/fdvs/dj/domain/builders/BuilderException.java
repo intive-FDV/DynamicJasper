@@ -29,7 +29,7 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-public class BuilderException extends Exception {
+public class BuilderException extends RuntimeException {
 
 	private static final long serialVersionUID = 7345874957927126391L;
 
