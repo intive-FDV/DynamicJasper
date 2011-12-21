@@ -43,8 +43,4 @@ public class MultiColspanTest extends BaseDjReportTest {
         test.testReport();
         JasperViewer.viewReport(test.jp);
     }
-
-    
-    
-
 }
