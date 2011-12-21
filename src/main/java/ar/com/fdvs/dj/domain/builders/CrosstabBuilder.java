@@ -29,22 +29,13 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.util.Iterator;
-
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.CrossTabColorShema;
 import ar.com.fdvs.dj.core.layout.LayoutException;
-import ar.com.fdvs.dj.domain.DJCRosstabMeasurePrecalculatedTotalProvider;
-import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJCrosstabColumn;
-import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
-import ar.com.fdvs.dj.domain.DJCrosstabRow;
-import ar.com.fdvs.dj.domain.DJDataSource;
-import ar.com.fdvs.dj.domain.DJLabel;
-import ar.com.fdvs.dj.domain.DJValueFormatter;
-import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.*;
 import ar.com.fdvs.dj.domain.constants.Border;
+
+import java.util.Iterator;
 
 public class CrosstabBuilder {
 
@@ -55,12 +46,11 @@ public class CrosstabBuilder {
 	int columnHeaderHeight = -1;
 	int rowHeaderWidth = -1;
 	
-	
 	private final int DEFAULT_ROW_HEADER_WIDTH = 90;
 	private final int DEFAULT_COLUMN_HEADER_HEIGHT = 25;
 	private final int DEFAULT_CELL_HEIGHT = 20;
 	private final int DEFAULT_CELL_WIDTH = 90;
-	
+
 	/**
 	 * Build the crosstab. Throws LayoutException if anything is wrong
 	 * @return
@@ -201,6 +191,27 @@ public class CrosstabBuilder {
 		crosstab.getMeasures().add(measure);
 		return this;
 	}
+
+    /**
+	 * Adds a measure to the crosstab. A crosstab can have many measures. DJ will lay out one measure above
+	 * the other.
+	 *
+	 * A measure is what is shown on each intersection of a column and a row. A calculation is performed to
+	 * all occurrences in the datasource where the column and row values matches (between elements)
+     *
+     * The only difference between the prior methods is that this method sets "visible" to false
+	 *
+	 * @param property
+	 * @param className
+     * @param title
+	 * @return
+     */
+    public CrosstabBuilder addInvisibleMeasure(String property, String className, String title) {
+        DJCrosstabMeasure measure = new DJCrosstabMeasure(property, className, DJCalculation.NOTHING, title);
+        measure.setVisible(false);
+        crosstab.getMeasures().add(measure);
+        return this;
+    }
 	
 	/**
 	 * Add a row to the crosstab. In a double entry "X\Y" like table  table, rows are "X" (columns are Y) 

@@ -49,6 +49,8 @@ public class Product {
 	private Float amount;
 	private Code code = new Code();
 
+    private Boolean showAsPrices;
+
 	public static List statistics_ = new ArrayList();
 	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -84,6 +86,11 @@ public class Product {
 		this.branch = branch;
 		this.quantity = quantity;
 		this.amount = amount;
+    }
+
+    public Product(Long id, String productLine, String item, String state, String branch, Long quantity, Float amount, boolean showAsPrices) {
+        this(id, productLine, item, state, branch, quantity, amount);
+        this.showAsPrices = showAsPrices;
     }
 
 	public String getBranch() {
@@ -150,7 +157,15 @@ public class Product {
     public Boolean getIsAvailable(){
     	return Boolean.valueOf(random.nextBoolean());
     }
-    
+
+    public Boolean getShowAsPrices() {
+        return showAsPrices;
+    }
+
+    public void setShowAsPrices(Boolean showAsPrices) {
+        this.showAsPrices = showAsPrices;
+    }
+
     static Random random = new Random();
 
 	public InputStream getImage() {

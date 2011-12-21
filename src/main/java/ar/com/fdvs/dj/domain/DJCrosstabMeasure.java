@@ -29,9 +29,10 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.Transformer;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -58,6 +59,7 @@ public class DJCrosstabMeasure extends DJBaseElement {
 	private DJValueFormatter valueFormatter;
 	private DJCRosstabMeasurePrecalculatedTotalProvider precalculatedTotalProvider;
 	private Boolean isPercentage = Boolean.FALSE;
+	private Boolean visible = Boolean.TRUE;
 
 	private Style style;
 	
@@ -132,20 +134,63 @@ public class DJCrosstabMeasure extends DJBaseElement {
 		this.valueFormatter = valueFormatter;
 	}
 
-	public String getTextForValueFormatterExpression(String variableName) {
-		
-		String fieldsMap = ExpressionUtils.getTextForFieldsFromScriptlet();
-		String parametersMap = ExpressionUtils.getTextForParametersFromScriptlet();
-		String variablesMap = ExpressionUtils.getTextForVariablesFromScriptlet();		
-		
-		String stringExpression = "((("+DJValueFormatter.class.getName()+")$P{crosstab-measure__"+variableName+"_vf}).evaluate( "
-			+ "$V{"+variableName+"}, " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
-		
+	public String getTextForValueFormatterExpression(String variableName, List<DJCrosstabMeasure> measures) {
+       String stringExpression = null;
+        String fieldsMap = ExpressionUtils.getTextForFieldsFromScriptlet();
+        String parametersMap = ExpressionUtils.getTextForParametersFromScriptlet();
+        String variablesMap = ExpressionUtils.getTextForVariablesFromScriptlet();
+        if (this.getValueFormatter() instanceof DjBaseMMValueFormatter){
 
-		logger.debug("Expression for crosstab DJValueFormatter = " + stringExpression);
+            DjBaseMMValueFormatter formatter = DjBaseMMValueFormatter.class.cast(this.getValueFormatter());
+            String[] propertyMeasures = new String[measures.size()];
+
+            int i = 0;
+            for (DJCrosstabMeasure measure : measures) {
+                propertyMeasures[i] = measure.getProperty().getProperty();
+                i++;
+            }
+
+            formatter.setPropertyMeasures(propertyMeasures);
+
+            String rowValuesExp = "new Object[]{";
+            int measureIdx=0;
+            for (Iterator iterator = measures.iterator(); iterator.hasNext(); measureIdx++) {
+                DJCrosstabMeasure djmeasure = (DJCrosstabMeasure) iterator.next();
+
+                if (djmeasure.getProperty()== null){
+                    continue;
+                }
+
+                rowValuesExp += "$V{" +djmeasure.getMeasureIdentifier(measureIdx) +"}";
+                rowValuesExp += ", ";
+            }
+
+            //chop the last comma
+            rowValuesExp = rowValuesExp.substring(0,rowValuesExp.length()-2);
+            rowValuesExp += "}";
+            stringExpression = "((("+DjBaseMMValueFormatter.class.getName()+")$P{crosstab-measure__"+variableName+"_vf}).evaluate( "
+                        + rowValuesExp + ", " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+       }
+        else {
+
+             stringExpression = "((("+DJValueFormatter.class.getName()+")$P{crosstab-measure__"+variableName+"_vf}).evaluate( "
+                    + "$V{"+variableName+"}, " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
+        }
+
+        logger.debug("Expression for crosstab DJValueFormatter = " + stringExpression);
 
 		return stringExpression;
 	}
+
+    public String getMeasureIdentifier(int idx) {
+        String measurePrefix = this.getMeasurePrefix(idx);
+        String measureProperty = measurePrefix + this.getProperty().getProperty();
+        return measureProperty;
+    }
+
+    public String getMeasurePrefix(int idx) {
+        return "idx" + idx + "_";
+    }
 
 	public DJCRosstabMeasurePrecalculatedTotalProvider getPrecalculatedTotalProvider() {
 		return precalculatedTotalProvider;
@@ -164,5 +209,12 @@ public class DJCrosstabMeasure extends DJBaseElement {
 		this.isPercentage = isPercentage;
 	}
 
-	
+
+    public Boolean getVisible() {
+        return visible;
+    }
+
+    public void setVisible(Boolean visible) {
+        this.visible = visible;
+    }
 }

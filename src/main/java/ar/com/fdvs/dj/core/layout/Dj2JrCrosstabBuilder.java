@@ -226,7 +226,6 @@ public class Dj2JrCrosstabBuilder {
 	}
 
 	/**
-	 * @param text
 	 * @return
 	 */
 	private String createAutomaticMainHeaderTitle() {
@@ -367,7 +366,6 @@ public class Dj2JrCrosstabBuilder {
 	 *
 	 * The cell with null/null is the inner most cell in the crosstab<br>
 	 *
-	 * @param djcross
 	 */
 	protected void createCells() {
 		DJCrosstabColumn auxCol = new DJCrosstabColumn();
@@ -412,31 +410,37 @@ public class Dj2JrCrosstabBuilder {
 				JRDesignCellContents contents = new JRDesignCellContents();
 
 				int measureIdx = 0;
-				int measureHeight = crosstabRow.getHeight() / djcross.getMeasures().size();
+				int yOffsetCounter = 0;
+				int measureHeight = crosstabRow.getHeight() / djcross.getVisibleMeasures().size();
 
-				for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext(); measureIdx++) {
+				for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext(); measureIdx++, yOffsetCounter++) {
 					DJCrosstabMeasure djmeasure = (DJCrosstabMeasure) iterator.next();
-					String meausrePrefix = "idx" + measureIdx + "_";
+                    if (!djmeasure.getVisible()) {
+                        yOffsetCounter--;
+                        continue; //IMPORTANT! we need to keep the idx to match the index of the measure in the measure list
+                    }
 
 					JRDesignTextField element = new JRDesignTextField();
 					element.setWidth(crosstabColumn.getWidth());
 					element.setHeight(measureHeight);
-					element.setY(measureIdx*measureHeight);
+					element.setY(yOffsetCounter*measureHeight);
 
 
 					JRDesignExpression measureExp = new JRDesignExpression();
 
 					boolean isTotalCell = isRowTotal || isColumnTotal;
 
-					String measureProperty = meausrePrefix + djmeasure.getProperty().getProperty();
 					String measureValueClassName = djmeasure.getProperty().getValueClassName();
+
+                    String measureProperty = djmeasure.getMeasureIdentifier(measureIdx);
+                    String meausrePrefix = djmeasure.getMeasurePrefix(measureIdx);
 
 					if (!isTotalCell){
 						if (djmeasure.getValueFormatter()== null){
 							measureExp.setValueClassName(measureValueClassName); //FIXME Shouldn't this be of a class "compatible" with measure's operation?
-							measureExp.setText("$V{"+measureProperty+"}");
+                            measureExp.setText("$V{"+ measureProperty +"}");
 						} else {
-							measureExp.setText(djmeasure.getTextForValueFormatterExpression(measureProperty));
+                            measureExp.setText(djmeasure.getTextForValueFormatterExpression(measureProperty, djcross.getMeasures()));
 							measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
 						}
 					} else { //is a total cell
@@ -451,7 +455,7 @@ public class Dj2JrCrosstabBuilder {
 						} else { //have value formatter
 							if (djmeasure.getPrecalculatedTotalProvider() == null) {
 								//has value formatter, no total provider
-								measureExp.setText(djmeasure.getTextForValueFormatterExpression(measureProperty));
+								measureExp.setText(djmeasure.getTextForValueFormatterExpression(measureProperty, djcross.getMeasures()));
 								measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
 
 							} else {
@@ -690,9 +694,6 @@ public class Dj2JrCrosstabBuilder {
 		contents.setBackcolor(color);
 	}
 
-	/**
-	 * @param djcross
-	 */
 	private void registerMeasures() {
 		int measureIdx = 0;
 		for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext(); measureIdx++) {
