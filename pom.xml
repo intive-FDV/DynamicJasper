@@ -282,6 +282,7 @@ API.
 				<url>ftp://fdvs.com.ar/djmaven2/</url>
 			</repository>
 		</distributionManagement>
+
 		</profile>
 		<profile>
 			<id>internal</id>
@@ -289,6 +290,15 @@ API.
 		        <repository>
 		          <id>deployment.webdav</id>
 		          <url>http://archiva.fdvs.com.ar/repository/internal</url>
+		        </repository>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<id>publicRepo</id>
+			<distributionManagement>
+		        <repository>
+		          <id>deployment.webdav</id>
+		          <url>http://archiva.fdvs.com.ar/repository/public1</url>
 		        </repository>
 			</distributionManagement>
 		</profile>
@@ -457,12 +467,18 @@ API.
 		</dependency>
 
 	</dependencies>
+
+<!--    <repositories>
+        <repository>
+            <id>fdvsPublicRepo</id>
+            <name>FDV Solutions Public Repository</name>
+            <url>http://archiva.fdvs.com.ar/repository/public1/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+-->
 	<distributionManagement>
-		<repository>
-			<id>embuRepo</id>
-			<name>Embu Deploy Repo</name>
-			<url>ftp://fdvs.com.ar/maven2</url>
-		</repository>
+
 	</distributionManagement>
 	<mailingLists>
 		<mailingList>
