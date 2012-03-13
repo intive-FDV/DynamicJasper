@@ -6,6 +6,7 @@ import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 import net.sf.jasperreports.view.JasperViewer;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class MultiColspanTest extends BaseDjReportTest {
@@ -24,9 +25,9 @@ public class MultiColspanTest extends BaseDjReportTest {
                 .addColumn("Amount 3", "amount", Float.class.getName(), 60, true)
                 .addGroups(2)
 
-                .setTitle("November 2006 sales report")
+                .setTitle("November " + Calendar.getInstance().get(Calendar.YEAR) + " sales report")
                 .setSubtitle("This report was generated at " + new Date())
-                .setColumnsPerPage(1,10)
+                .setColumnsPerPage(1, 10)
                 .setUseFullPageWidth(true);
 
         frb.setColspan(1, 2, "Estimated");
