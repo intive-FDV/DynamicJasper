@@ -717,7 +717,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 			CustomExpression expression, CustomExpression initialValueExpression, DJVariableResetType resetType, int resetGroup) throws BuilderException {
 		
 		DJVariable var = new DJVariable(name,expression.getClassName(),calculation,expression);
-		var.setInitialValueExŕession(initialValueExpression);
+		var.setInitialValueExpression(initialValueExpression);
 		var.setResetType(resetType);
 		
 		if (DJVariableResetType.GROUP.equals(resetType) && (resetGroup < 1 || resetGroup > report.getColumnsGroups().size())){

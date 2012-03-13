@@ -32,7 +32,7 @@ public class DJVariable extends DJBaseElement {
 	private DJVariableIncrementType incrementType = DJVariableIncrementType.NONE;
 	
 	private CustomExpression expression;
-	private CustomExpression initialValueExŕession;
+	private CustomExpression initialValueExpression;
 	
 	public String getName() {
 		return name;
@@ -58,11 +58,11 @@ public class DJVariable extends DJBaseElement {
 	public void setExpression(CustomExpression expression) {
 		this.expression = expression;
 	}
-	public CustomExpression getInitialValueExŕession() {
-		return initialValueExŕession;
+	public CustomExpression getInitialValueExpression() {
+		return initialValueExpression;
 	}
-	public void setInitialValueExŕession(CustomExpression initialValueExŕession) {
-		this.initialValueExŕession = initialValueExŕession;
+	public void setInitialValueExpression(CustomExpression initialValueExpression) {
+		this.initialValueExpression = initialValueExpression;
 	}
 	public DJGroup getResetGroup() {
 		return resetGroup;

@@ -48,9 +48,9 @@ public class VariableRegistrationManager extends
 		JRDesignExpression expression = ExpressionUtils.createAndRegisterExpression(getDjd(), expressionParamName, var.getExpression());		
 		jrvar.setExpression(expression);
 
-		if (var.getInitialValueExŕession() != null){
+		if (var.getInitialValueExpression() != null){
 			String initialValueExpressionParamName = var.getName() + "_initalValueExpression";
-			JRDesignExpression initialValueExpression = ExpressionUtils.createAndRegisterExpression(getDjd(), initialValueExpressionParamName, var.getInitialValueExŕession());		
+			JRDesignExpression initialValueExpression = ExpressionUtils.createAndRegisterExpression(getDjd(), initialValueExpressionParamName, var.getInitialValueExpression());
 			jrvar.setExpression(initialValueExpression);
 		}
 		
