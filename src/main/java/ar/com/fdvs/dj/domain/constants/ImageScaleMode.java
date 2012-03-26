@@ -30,16 +30,19 @@
 package ar.com.fdvs.dj.domain.constants;
 
 import net.sf.jasperreports.engine.design.JRDesignImage;
+import net.sf.jasperreports.engine.type.ScaleImageEnum;
 
 public class ImageScaleMode  extends BaseDomainConstant{
 
 	private static final long serialVersionUID = 1L;
 
-	private byte value = JRDesignImage.SCALE_IMAGE_RETAIN_SHAPE;
+	private byte value = ScaleImageEnum.RETAIN_SHAPE.getValue();
 
-	public static ImageScaleMode NO_RESIZE = new ImageScaleMode(JRDesignImage.SCALE_IMAGE_CLIP);
-	public static ImageScaleMode FILL = new ImageScaleMode(JRDesignImage.SCALE_IMAGE_FILL_FRAME);
-	public static ImageScaleMode FILL_PROPORTIONALLY = new ImageScaleMode(JRDesignImage.SCALE_IMAGE_RETAIN_SHAPE);
+	public static ImageScaleMode NO_RESIZE = new ImageScaleMode( ScaleImageEnum.CLIP.getValue() );
+	public static ImageScaleMode FILL = new ImageScaleMode( ScaleImageEnum.FILL_FRAME.getValue() );
+	public static ImageScaleMode FILL_PROPORTIONALLY = new ImageScaleMode( ScaleImageEnum.RETAIN_SHAPE.getValue() );
+	public static ImageScaleMode REAL_HEIGHT = new ImageScaleMode( ScaleImageEnum.REAL_HEIGHT.getValue() );
+	public static ImageScaleMode REAL_SIZE = new ImageScaleMode( ScaleImageEnum.REAL_SIZE.getValue() );
 
 	public byte getValue() {
 		return value;

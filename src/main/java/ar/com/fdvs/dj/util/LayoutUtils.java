@@ -4,9 +4,11 @@ import java.lang.reflect.Constructor;
 import java.util.Iterator;
 import java.util.Map;
 
+import ar.com.fdvs.dj.domain.constants.Border;
 import net.sf.jasperreports.engine.JRBand;
 import net.sf.jasperreports.engine.JRDefaultStyleProvider;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.base.JRBoxPen;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignGraphicElement;
@@ -15,6 +17,8 @@ import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignSection;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 
+import net.sf.jasperreports.engine.type.LineStyleEnum;
+import net.sf.jasperreports.engine.type.SplitTypeEnum;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -166,5 +170,27 @@ public class LayoutUtils {
 	public static JRDesignBand getBandFromSection(JRDesignSection section) {
 		return (JRDesignBand) section.getBandsList().get(0);		
 	}
-	
+
+    /**
+     * FIXME there are 3 types of SplitTypeEnum, we are not using the "stretch"
+     * @param allowsplit
+     * @return
+     */
+    public static SplitTypeEnum getSplitTypeFromBoolean( boolean allowsplit ){
+        if (allowsplit)
+            return SplitTypeEnum.IMMEDIATE;
+
+        return SplitTypeEnum.PREVENT;
+    }
+
+
+    public static void convertBorderToPen(Border border, JRBoxPen pen) {
+        if (border == null)
+            return;
+
+        pen.setLineWidth(border.getWidth());
+        pen.setLineStyle(LineStyleEnum.getByValue(border.getLineStyle()));
+        pen.setLineColor(border.getColor());
+
+    }
 }

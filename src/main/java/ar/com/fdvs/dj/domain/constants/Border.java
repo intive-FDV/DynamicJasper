@@ -30,6 +30,10 @@
 package ar.com.fdvs.dj.domain.constants;
 
 import net.sf.jasperreports.engine.JRGraphicElement;
+import net.sf.jasperreports.engine.type.LineStyleEnum;
+import net.sf.jasperreports.engine.type.PenEnum;
+
+import java.awt.*;
 
 /**
  * See value of constants here: 
@@ -41,15 +45,32 @@ public class Border  extends BaseDomainConstant {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static Border NO_BORDER = new Border(JRGraphicElement.PEN_NONE);
-	public static Border THIN = new Border(JRGraphicElement.PEN_THIN);
+	public static Border NO_BORDER = new Border(PenEnum.ONE_POINT.getValue());
+	public static Border THIN = new Border( PenEnum.THIN.getValue() );
 
-	public static Border PEN_1_POINT = new Border(JRGraphicElement.PEN_1_POINT);
-	public static Border PEN_2_POINT = new Border(JRGraphicElement.PEN_2_POINT);
-	public static Border PEN_4_POINT = new Border(JRGraphicElement.PEN_4_POINT);
-	public static Border DOTTED = new Border(JRGraphicElement.PEN_DOTTED);
+	public static Border PEN_1_POINT = new Border( PenEnum.ONE_POINT.getValue() );
+	public static Border PEN_2_POINT = new Border( PenEnum.TWO_POINT.getValue() );
+	public static Border PEN_4_POINT = new Border( PenEnum.FOUR_POINT.getValue() );
+	public static Border DOTTED = new Border( PenEnum.DOTTED.getValue() );
+
+    public static byte BORDER_STYLE_SOLID = LineStyleEnum.SOLID.getValue();
+    public static byte BORDER_STYLE_DASHED = LineStyleEnum.DASHED.getValue();
+    public static byte BORDER_STYLE_DOTTED = LineStyleEnum.DOTTED.getValue();
+    public static byte BORDER_STYLE_DOUBLE = LineStyleEnum.DOUBLE.getValue();
+
+    public static float BORDER_WIDTH_NONE = 0f;
+    public static float BORDER_WIDTH_THIN = 0.2f;
+    public static float BORDER_WIDTH_1POINT = 0.5f;
+    public static float BORDER_WIDTH_2POINT = 1f;
+    public static float BORDER_WIDTH_4POINT = 2f;
+
 
 	private byte value;
+    
+    private float width = BORDER_WIDTH_THIN;
+    private Color color;
+    private byte lineStyle = LineStyleEnum.SOLID.getValue();
+
 
 	public byte getValue() {
 		return value;
@@ -58,5 +79,39 @@ public class Border  extends BaseDomainConstant {
 	private Border(byte value){
 		this.value = value;
 	}
+    
+    public Border(float width, byte lineStyle) {
+        this.lineStyle = lineStyle;
+        this.width = width; 
+    }
 
+    public Border(float width, byte lineStyle, Color color) {
+        this.lineStyle = lineStyle;
+        this.width = width;
+        this.color = color;
+    }
+
+    public float getWidth() {
+        return width;
+    }
+
+    public void setWidth(float width) {
+        this.width = width;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public byte getLineStyle() {
+        return lineStyle;
+    }
+
+    public void setLineStyle(byte lineStyle) {
+        this.lineStyle = lineStyle;
+    }
 }

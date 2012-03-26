@@ -30,11 +30,10 @@
 package ar.com.fdvs.dj.core.registration;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
+import net.sf.jasperreports.engine.JRSection;
+import net.sf.jasperreports.engine.design.*;
 
+import net.sf.jasperreports.engine.type.CalculationEnum;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -119,8 +118,13 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		getLayoutManager().getReferencesMap().put(group.getName(), djgroup);
 
 		group.setCountVariable(new JRDesignVariable());
-		group.setGroupFooter(new JRDesignBand());
-		group.setGroupHeader(new JRDesignBand());
+
+        JRDesignSection gfs = (JRDesignSection) group.getGroupFooterSection();
+        gfs.getBandsList().add(new JRDesignBand());
+
+
+        JRDesignSection ghs = (JRDesignSection) group.getGroupHeaderSection();
+        ghs.getBandsList().add(new JRDesignBand());
 
 		JRDesignExpression jrExpression = new JRDesignExpression();
 		
@@ -172,7 +176,7 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		JRDesignVariable gvar = new JRDesignVariable();
 		String varName = group.getName() + "_variable_for_group_expression";
 		gvar.setName(varName);
-		gvar.setCalculation(JRDesignVariable.CALCULATION_NOTHING);
+		gvar.setCalculation( CalculationEnum.NOTHING );
 		gvar.setValueClassName(customExpression.getClassName());
 		
 		String expText = ExpressionUtils.createCustomExpressionInvocationText(customExpression, expToGroupByName);

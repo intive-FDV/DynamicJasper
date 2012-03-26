@@ -52,6 +52,7 @@ import ar.com.fdvs.dj.util.Utils;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.*;
+import net.sf.jasperreports.engine.type.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -280,7 +281,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				image.setWidth(imageBanner.getWidth());
 				image.setPrintWhenExpression(printWhenExpression);
 				image.setRemoveLineWhenBlank(true);
-				image.setScaleImage(imageBanner.getScaleMode().getValue());
+				image.setScaleImage(ScaleImageEnum.getByValue(imageBanner.getScaleMode().getValue()));
 
 				if (imageBanner.getAlign() == ImageBanner.ALIGN_LEFT)
 					image.setX(0);
@@ -345,7 +346,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		title.setPrintWhenExpression(printWhenExpression);
 		title.setRemoveLineWhenBlank(true);
 		applyStyleToElement(getReport().getTitleStyle(), title);
-		title.setStretchType(JRGraphicElement.STRETCH_TYPE_NO_STRETCH);
+		title.setStretchType( StretchTypeEnum.NO_STRETCH );
 		band.addElement(title);
 
 		JRDesignTextField subtitle = new JRDesignTextField();
@@ -360,7 +361,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			subtitle.setPrintWhenExpression(printWhenExpression);
 			subtitle.setRemoveLineWhenBlank(true);
 			applyStyleToElement(getReport().getSubtitleStyle(), subtitle);
-			title.setStretchType(JRGraphicElement.STRETCH_TYPE_NO_STRETCH);
+			title.setStretchType( StretchTypeEnum.NO_STRETCH );
 			band.addElement(subtitle);
 		}
 
@@ -400,8 +401,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 //			footer.setHeight( getFooterVariableHeight(columnsGroup));
 			footer.setHeight( columnsGroup.getFooterHeight().intValue());
 
-			header.setSplitAllowed(columnsGroup.isAllowHeaderSplit()); //FIXME deprecado
-			footer.setSplitAllowed(columnsGroup.isAllowFooterSplit());
+            header.setSplitType( LayoutUtils.getSplitTypeFromBoolean(columnsGroup.isAllowHeaderSplit()));
+            footer.setSplitType( LayoutUtils.getSplitTypeFromBoolean(columnsGroup.isAllowFooterSplit()));
 
 			if (columnsGroup.getLayout().isPrintHeaders()) {
 				boolean found = false;
@@ -427,8 +428,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					}
 
 					JRDesignTextField designTextField = createColumnNameTextField(columnsGroup, col);
-					designTextField.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT); //XXX changed to see what happens  (must come from the column position property)
-					designTextField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX changed to see what happens (must come from the column property)
+					designTextField.setPositionType( PositionTypeEnum.FLOAT ); //XXX changed to see what happens  (must come from the column position property)
+					designTextField.setStretchType( StretchTypeEnum.NO_STRETCH ); //XXX changed to see what happens (must come from the column property)
 					header.addElement(designTextField);
 				}
 			}
@@ -530,7 +531,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		labelTf.setX(x);
 		labelTf.setY(y);
 		//int yOffsetGlabel = labelTf.getHeight();
-		labelTf.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+		labelTf.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
 		applyStyleToElement(label.getStyle(), labelTf);
 		band.addElement(labelTf);
 	}
@@ -614,7 +615,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			if (djcross.getTopSpace() != 0){
 //				moveBandsElemnts(djcross.getTopSpace(), band);
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), yOffset);
-				rect.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+				rect.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
 				band.addElement(rect);
 				crosst.setY(rect.getY() + rect.getHeight());
 			}
@@ -638,14 +639,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected JRDesignRectangle createBlankRectableCrosstab(int amount,int yOffset) {
 		JRDesignRectangle rect = new JRDesignRectangle();
-		rect.setPen(Border.NO_BORDER.getValue());
-		rect.setMode(Transparency.TRANSPARENT.getValue());
+
+        //FIXME no more Pen
+        //rect.setPen(Border.NO_BORDER.getValue());
+
+		rect.setMode(ModeEnum.getByValue( Transparency.TRANSPARENT.getValue()) );
 //		rect.setMode(Transparency.OPAQUE.getValue());
 //		rect.setBackcolor(Color.RED);
 		rect.setWidth(getReport().getOptions().getPrintableWidth());
 		rect.setHeight(amount);
 		rect.setY(yOffset);
-		rect.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT);
+		rect.setPositionType( PositionTypeEnum.FLOAT );
 		return rect;
 	}
 
@@ -751,8 +755,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			subreport.setX(-getReport().getOptions().getLeftMargin().intValue());
 			subreport.setWidth(getReport().getOptions().getPage().getWidth());
 			subreport.setHeight(SUBREPORT_DEFAULT_HEIGHT);
-			subreport.setPositionType(JRElement.POSITION_TYPE_FLOAT);
-			subreport.setStretchType(JRElement.STRETCH_TYPE_NO_STRETCH);
+			subreport.setPositionType( PositionTypeEnum.FLOAT );
+			subreport.setStretchType( StretchTypeEnum.NO_STRETCH );
 			subreport.setRemoveLineWhenBlank(true); //No subreport, no reserved space
 
 			band.setHeight(offset + subreport.getHeight());
@@ -793,7 +797,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider());
 					pageBreak.setKey(PAGE_BREAK_FOR_ + jrgroup.toString()); //set up a name to recognize the item later
 					pageBreak.setY(0);
-					pageBreak.setPositionType(JRDesignElement.POSITION_TYPE_FLOAT);
+					pageBreak.setPositionType( PositionTypeEnum.FLOAT);
 					targetBand.addElement(pageBreak);
 				}
 
@@ -807,7 +811,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			 * header/footer band to allow it contents to be split. I'm not sure splitting logic works
 			 * inside complex object such as sub-reports since it has it's own bands inside
 			 */
-			band.setSplitAllowed(sr.isSplitAllowed());
+            band.setSplitType( LayoutUtils.getSplitTypeFromBoolean(sr.isSplitAllowed()) );
 		}
 	}
 
@@ -876,7 +880,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		if (layout.isShowValueInHeader() && layout.isHideColumn() && !layout.isShowColumnName()){
 			//textfield for the current value
 			JRDesignTextField currentValue = generateTextFieldFromColumn(column, height.intValue(), group);
-			currentValue.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+			currentValue.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
 
 			//The width will be all the page, except for the width of the header variables
             int headerVariablesWidth = getReport().getOptions().getPrintableWidth();
@@ -1012,7 +1016,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				labelTf.setY(yOffset);
 				yOffsetGlabel = labelTf.getHeight();
 				if (inFooter){
-					labelTf.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+					labelTf.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
 				}
 				applyStyleToElement(label.getStyle(), labelTf);
 				band.addElement(labelTf);
@@ -1023,9 +1027,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignTextField textField = new JRDesignTextField();
 
 			if (inFooter)
-				textField.setEvaluationTime(JRExpression.EVALUATION_TIME_NOW); //This will enable textfield streching
+				textField.setEvaluationTime( EvaluationTimeEnum.NOW ); //This will enable textfield streching
 			else
-				textField.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
+				textField.setEvaluationTime( EvaluationTimeEnum.GROUP );
 
 			if (var.getValueExpression() != null) {
 				expression = ExpressionUtils.createExpression(variableName + "_valueExpression", var.getValueExpression());
@@ -1040,7 +1044,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				PercentageColumn pcol = (PercentageColumn) col;
 				expression.setText(pcol.getTextForExpression(djGroup, djGroup ,type));
 				expression.setValueClassName(pcol.getValueClassNameForExpression());
-				textField.setEvaluationTime(JRExpression.EVALUATION_TIME_AUTO);
+				textField.setEvaluationTime( EvaluationTimeEnum.AUTO );
 			} else {
 				textField.setEvaluationGroup(jgroup);
 			}
@@ -1050,7 +1054,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 
 			if (inFooter){
-				textField.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+				textField.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
 			}
 
 			textField.setX(col.getPosX().intValue());
@@ -1205,7 +1209,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		JRDesignTextField textField = generateTextFieldFromColumn(djgroup.getColumnToGroupBy(), height, djgroup);
 		//fixes issue 2817859, textField has columnToGroupBy style
 		//textField.setHorizontalAlignment(djgroup.getColumnToGroupBy().getStyle().getHorizontalAlign().getValue());
-		textField.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH); //XXX this is a patch for subreports, ensure it works well.
+		textField.setStretchType( StretchTypeEnum.NO_STRETCH ); //XXX this is a patch for subreports, ensure it works well.
 		textField.setY(textField.getY() + headerOffset);
 		headerBand.addElement(textField);
 	}

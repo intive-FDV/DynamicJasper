@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.core.layout;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
+import net.sf.jasperreports.engine.type.HorizontalAlignEnum;
 
 /**
  * @author msimone
@@ -63,7 +64,7 @@ public abstract class HorizontalBandAlignment {
 		}
 
 		public byte getAlignment() {
-			return JRDesignTextField.HORIZONTAL_ALIGN_RIGHT;
+			return HorizontalAlignEnum.RIGHT.getValue();
 		}
 	};
 
@@ -74,7 +75,7 @@ public abstract class HorizontalBandAlignment {
 		}
 
 		public byte getAlignment() {
-			return JRDesignTextField.HORIZONTAL_ALIGN_LEFT;
+			return HorizontalAlignEnum.LEFT.getValue();
 		}
 	};
 
@@ -85,7 +86,7 @@ public abstract class HorizontalBandAlignment {
 		}
 
 		public byte getAlignment() {
-			return JRDesignTextField.HORIZONTAL_ALIGN_CENTER;
+			return HorizontalAlignEnum.CENTER.getValue();
 		}
 	};
 

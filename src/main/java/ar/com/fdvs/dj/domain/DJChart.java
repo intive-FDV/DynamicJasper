@@ -37,6 +37,7 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import net.sf.jasperreports.engine.type.CalculationEnum;
 
 /**
  * Charts to be displayed by dynamicjasper
@@ -53,8 +54,8 @@ public class DJChart extends DJBaseElement{
 //	public static final byte LINE_CHART = JRDesignChart.CHART_TYPE_LINE; //not yet... to much to think left
 
 	//The possible calculation types
-	public static final byte CALCULATION_COUNT = JRDesignVariable.CALCULATION_COUNT;
-	public static final byte CALCULATION_SUM = JRDesignVariable.CALCULATION_SUM;
+	public static final byte CALCULATION_COUNT = CalculationEnum.COUNT.getValue();
+	public static final byte CALCULATION_SUM = CalculationEnum.SUM.getValue();
 
 	//How to build the chart?
 	private byte type;

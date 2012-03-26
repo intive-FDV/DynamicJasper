@@ -6,6 +6,7 @@ import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 
+import net.sf.jasperreports.engine.type.HyperlinkTypeEnum;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -16,14 +17,14 @@ import ar.com.fdvs.dj.domain.StringExpression;
 public class HyperLinkUtil {
 	
 	static final Log log = LogFactory.getLog(HyperLinkUtil.class);
-	
-	/**
-	 * 
-	 * @param design
-	 * @param djHyperLink 
-	 * @param image
-	 * @param column
-	 */
+
+    /**
+     *
+     * @param design
+     * @param djlink
+     * @param image
+     * @param name
+     */
 	public static void applyHyperLinkToElement(DynamicJasperDesign design, DJHyperLink djlink, JRDesignImage image, String name) {
 		StringExpression hce = djlink.getExpression();
 		
@@ -34,7 +35,7 @@ public class HyperLinkUtil {
 		
 		hlpe.setText(text);
 		image.setHyperlinkReferenceExpression(hlpe);
-		image.setHyperlinkType(JRHyperlink.HYPERLINK_TYPE_REFERENCE); //FIXME Should this be a parameter in the future?
+		image.setHyperlinkType( HyperlinkTypeEnum.REFERENCE ); //FIXME Should this be a parameter in the future?
 
 		if (djlink.getTooltip() != null){
 			StringExpression sExp = djlink.getTooltip();
@@ -53,8 +54,9 @@ public class HyperLinkUtil {
 	/**
 	 *  Creates necessary objects to make a textfield an hyperlink
 	 * @param design
+	 * @param djlink
 	 * @param textField
-	 * @param column
+	 * @param name
 	 */
 	public static void applyHyperLinkToElement(DynamicJasperDesign design, DJHyperLink djlink, JRDesignTextField textField, String name) {
 //		DJHyperLink djlink = column.getLink();
@@ -68,7 +70,7 @@ public class HyperLinkUtil {
 		
 		hlpe.setText(text);
 		textField.setHyperlinkReferenceExpression(hlpe);
-		textField.setHyperlinkType(JRHyperlink.HYPERLINK_TYPE_REFERENCE); //FIXME Should this be a parameter in the future?
+		textField.setHyperlinkType( HyperlinkTypeEnum.REFERENCE ); //FIXME Should this be a parameter in the future?
 		
 		
 		if (djlink.getTooltip() != null){
@@ -87,14 +89,16 @@ public class HyperLinkUtil {
 
 	/**
 	 *  Creates necessary objects to make a chart an hyperlink
-	 * @param design
-	 * @param chart
-	 * @param column
-	 */
+     *
+     * @param design
+     * @param djlink
+     * @param chart
+     * @param name
+     */
 	public static void applyHyperLinkToElement(DynamicJasperDesign design, DJHyperLink djlink, JRDesignChart chart, String name) {
 		JRDesignExpression hlpe = ExpressionUtils.createAndRegisterExpression(design, name, djlink.getExpression());
 		chart.setHyperlinkReferenceExpression(hlpe);
-		chart.setHyperlinkType(JRHyperlink.HYPERLINK_TYPE_REFERENCE); //FIXME Should this be a parameter in the future?
+		chart.setHyperlinkType( HyperlinkTypeEnum.REFERENCE ); //FIXME Should this be a parameter in the future?
 				
 		if (djlink.getTooltip() != null){			
 			JRDesignExpression tooltipExp = ExpressionUtils.createAndRegisterExpression(design, "tooltip_" + name, djlink.getTooltip());

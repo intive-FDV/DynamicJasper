@@ -41,6 +41,8 @@ import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import net.sf.jasperreports.engine.type.IncrementTypeEnum;
+import net.sf.jasperreports.engine.type.ResetTypeEnum;
 
 public abstract class AbstractDataset extends DJBaseElement {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
@@ -59,12 +61,12 @@ public abstract class AbstractDataset extends DJBaseElement {
 	protected static void setResetStyle(JRDesignChartDataset dataset, JRDesignGroup group, JRDesignGroup parentGroup){
 		//When to start a new chart? When the group's parent changes
 		dataset.setResetGroup(parentGroup);
-		dataset.setIncrementType(JRDesignVariable.RESET_TYPE_GROUP);
+		dataset.setIncrementType( IncrementTypeEnum.GROUP );
 		dataset.setIncrementGroup(group);
 		if (dataset.getResetGroup().equals(group))
-			dataset.setResetType(JRDesignVariable.RESET_TYPE_REPORT);
+			dataset.setResetType( ResetTypeEnum.REPORT );
 		else
-			dataset.setResetType(JRDesignVariable.RESET_TYPE_GROUP);		
+			dataset.setResetType( ResetTypeEnum.GROUP );
 	}
 	
 	public abstract PropertyColumn getColumnsGroup();

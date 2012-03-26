@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.domain.chart;
 
 import java.awt.Color;
 
+import net.sf.jasperreports.charts.type.EdgeEnum;
 import net.sf.jasperreports.engine.JRChart;
 import net.sf.jasperreports.engine.JRPen;
 import net.sf.jasperreports.engine.design.JRDesignChart;
@@ -41,6 +42,8 @@ import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import net.sf.jasperreports.engine.type.LineStyleEnum;
+import net.sf.jasperreports.engine.type.PenEnum;
 
 public class DJChartOptions extends DJBaseElement {
 	
@@ -49,30 +52,30 @@ public class DJChartOptions extends DJBaseElement {
 	public static final byte POSITION_FOOTER = 1;
 	public static final byte POSITION_HEADER = 2;
 
-	public static final byte EDGE_TOP = JRChart.EDGE_TOP;
-	public static final byte EDGE_BOTTOM = JRChart.EDGE_BOTTOM;
-	public static final byte EDGE_LEFT = JRChart.EDGE_LEFT;
-	public static final byte EDGE_RIGHT = JRChart.EDGE_RIGHT;
+	public static final byte EDGE_TOP = EdgeEnum.TOP.getValue();
+	public static final byte EDGE_BOTTOM = EdgeEnum.BOTTOM.getValue();
+	public static final byte EDGE_LEFT = EdgeEnum.LEFT.getValue();
+	public static final byte EDGE_RIGHT = EdgeEnum.RIGHT.getValue();
 	
 	/**
 	 * Constant useful for specifying solid line style.
 	 */
-	public static final byte LINE_STYLE_SOLID = JRPen.LINE_STYLE_SOLID;
+	public static final byte LINE_STYLE_SOLID =  LineStyleEnum.SOLID.getValue();
 
 	/**
 	 * Constant useful for specifying dashed line style.
 	 */
-	public static final byte LINE_STYLE_DASHED = JRPen.LINE_STYLE_DASHED;
+	public static final byte LINE_STYLE_DASHED = LineStyleEnum.DASHED.getValue();
 
 	/**
 	 * Constant useful for specifying dotted line style.
 	 */
-	public static final byte LINE_STYLE_DOTTED = JRPen.LINE_STYLE_DOTTED;
+	public static final byte LINE_STYLE_DOTTED = LineStyleEnum.DOTTED.getValue();
 
 	/**
 	 * Constant useful for specifying double line style.
 	 */
-	public static final byte LINE_STYLE_DOUBLE = JRPen.LINE_STYLE_DOUBLE;
+	public static final byte LINE_STYLE_DOUBLE = LineStyleEnum.DOUBLE.getValue();
 	
 	private Color backColor;
 	private int height;
@@ -235,7 +238,7 @@ public class DJChartOptions extends DJBaseElement {
 	/**
 	 * Sets the x position.
 	 *
-	 * @param y the x position
+	 * @param x the x position
 	 **/
 	public void setX(int x) {
 		this.x = x;
@@ -603,15 +606,15 @@ public class DJChartOptions extends DJBaseElement {
 		if (legendFont != null)
 			chart.setLegendFont(legendFont.transform());
 		if (legendPosition != null)
-			chart.setLegendPosition(legendPosition);
+			chart.setLegendPosition( EdgeEnum.getByValue(legendPosition) );
 		if (titlePosition != null)
-			chart.setTitlePosition(titlePosition);
+			chart.setTitlePosition( EdgeEnum.getByValue(titlePosition) );
 		
 		if (padding != null)
 			chart.getLineBox().setPadding(padding);
 		
 		if (lineStyle != null)
-			chart.getLineBox().getPen().setLineStyle(lineStyle);
+			chart.getLineBox().getPen().setLineStyle( LineStyleEnum.getByValue(lineStyle) );
 		if (lineWidth != null)
 			chart.getLineBox().getPen().setLineWidth(lineWidth);
 		if (lineColor != null)

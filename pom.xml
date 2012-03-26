@@ -313,10 +313,11 @@ API.
 			<version>3.8.1</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- 
 		<dependency>
 		    <groupId>jasperreports</groupId>
 		    <artifactId>jasperreports</artifactId>
-		    <version>3.7.1</version>
+		    <version>4.0.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>
@@ -336,6 +337,31 @@ API.
                 </exclusion>
             </exclusions>
 		</dependency>
+		 -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports</artifactId>
+		    <version>4.1.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-collections</groupId>
+                    <artifactId>commons-collections</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcmail-jdk14</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcprov-jdk14</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-collections</groupId>
 			<artifactId>commons-collections</artifactId>
@@ -468,7 +494,8 @@ API.
 
 	</dependencies>
 
-<!--    <repositories>
+<!--
+    <repositories>
         <repository>
             <id>fdvsPublicRepo</id>
             <name>FDV Solutions Public Repository</name>

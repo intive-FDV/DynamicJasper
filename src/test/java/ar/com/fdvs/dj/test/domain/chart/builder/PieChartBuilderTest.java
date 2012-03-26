@@ -185,9 +185,9 @@ public class PieChartBuilderTest extends BaseDjReportTest {
 		assertEquals(Color.DARK_GRAY, chart.getLegendColor());
 		testFont(Font.COURIER_NEW_MEDIUM_BOLD, chart.getLegendFont());
 		assertEquals(Color.WHITE, chart.getLegendBackgroundColor());
-		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionByte());
-		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionByte());
-		assertEquals(new Byte(DJChartOptions.LINE_STYLE_DOTTED), chart.getLineBox().getPen().getLineStyle());
+		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
+		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
+		assertEquals(new Byte(DJChartOptions.LINE_STYLE_DOTTED), chart.getLineBox().getPen().getLineStyleValue());
 		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());

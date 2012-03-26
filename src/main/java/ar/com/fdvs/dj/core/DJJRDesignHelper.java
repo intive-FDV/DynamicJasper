@@ -31,21 +31,16 @@ package ar.com.fdvs.dj.core;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
+import java.util.List;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRField;
-import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.JRQuery;
-import net.sf.jasperreports.engine.JRReportTemplate;
-import net.sf.jasperreports.engine.JRStyle;
-import net.sf.jasperreports.engine.JRVariable;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignDataset;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
-import net.sf.jasperreports.engine.design.JasperDesign;
+import ar.com.fdvs.dj.util.LayoutUtils;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.*;
 
+import net.sf.jasperreports.engine.type.OrientationEnum;
+import net.sf.jasperreports.engine.type.PrintOrderEnum;
+import net.sf.jasperreports.engine.type.WhenNoDataTypeEnum;
+import net.sf.jasperreports.engine.type.WhenResourceMissingTypeEnum;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -66,9 +61,11 @@ public class DJJRDesignHelper {
 		DynamicReportOptions options = dr.getOptions();
 		Page page = options.getPage();
 
-		des.setPrintOrder(JasperDesign.PRINT_ORDER_VERTICAL);
+		des.setPrintOrder( PrintOrderEnum.VERTICAL );
 
-		byte orientation = page.isOrientationPortrait() ? JasperReport.ORIENTATION_PORTRAIT : JasperReport.ORIENTATION_LANDSCAPE;
+        OrientationEnum orientation = OrientationEnum.PORTRAIT;
+        if (!page.isOrientationPortrait())
+            orientation = OrientationEnum.LANDSCAPE;
 		des.setOrientation(orientation);
 
 		des.setPageWidth(page.getWidth());
@@ -82,9 +79,8 @@ public class DJJRDesignHelper {
 		des.setBottomMargin(options.getBottomMargin().intValue());
 
 
-
-		des.setDetail(new JRDesignBand());
-
+        JRDesignSection detailSection = (JRDesignSection) des.getDetailSection();
+        detailSection.getBandsList().add(new JRDesignBand());
 
 		des.setPageHeader(new JRDesignBand());
 		des.setPageFooter(new JRDesignBand());
@@ -110,11 +106,19 @@ public class DJJRDesignHelper {
 	protected static void populateBehavioralOptions(DynamicReport dr, DynamicJasperDesign des) {
 		DynamicReportOptions options = dr.getOptions();
 		des.setColumnCount(options.getColumnsPerPage().intValue());
-		des.setWhenNoDataType(dr.getWhenNoDataType());
-		des.setWhenResourceMissingType(dr.getWhenResourceMissing());
+		des.setWhenNoDataType(WhenNoDataTypeEnum.getByValue( dr.getWhenNoDataType() ));
+		des.setWhenResourceMissingType(WhenResourceMissingTypeEnum.getByValue( dr.getWhenResourceMissing() ));
 		des.setTitleNewPage(options.isTitleNewPage());
 		des.setIgnorePagination(options.isIgnorePagination());
-		des.getDetail().setSplitAllowed(dr.isAllowDetailSplit());
+
+        JRDesignSection detailSection = (JRDesignSection) des.getDetailSection();
+        List<JRBand> bands = detailSection.getBandsList();
+
+        //FIXME we can do better in split! there may be more bands
+        JRDesignBand detailBand = (JRDesignBand) bands.iterator().next();
+        detailBand.setSplitType(LayoutUtils.getSplitTypeFromBoolean( dr.isAllowDetailSplit() ));
+
+
 		des.setSummaryNewPage(options.isSummaryNewPage());
 	}
 

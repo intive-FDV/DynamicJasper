@@ -71,7 +71,7 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 		Style importeStyle = new Style();
 		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER); oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);oddRowStyle.setTransparency(Transparency.OPAQUE);
+		oddRowStyle.setBorder(Border.PEN_1_POINT); oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);

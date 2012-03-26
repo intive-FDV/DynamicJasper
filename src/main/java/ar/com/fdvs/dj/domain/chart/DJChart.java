@@ -56,13 +56,15 @@ import ar.com.fdvs.dj.domain.chart.plot.PiePlot;
 import ar.com.fdvs.dj.domain.chart.plot.ScatterPlot;
 import ar.com.fdvs.dj.domain.chart.plot.TimeSeriesPlot;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import net.sf.jasperreports.engine.type.CalculationEnum;
+import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
 
 public class DJChart extends DJBaseElement {
 	
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
-	public static final byte CALCULATION_COUNT = JRDesignVariable.CALCULATION_COUNT;
-	public static final byte CALCULATION_SUM = JRDesignVariable.CALCULATION_SUM;
+	public static final byte CALCULATION_COUNT = CalculationEnum.COUNT.getValue();
+	public static final byte CALCULATION_SUM = CalculationEnum.SUM.getValue();
 
 	public static final byte AREA_CHART = JRDesignChart.CHART_TYPE_AREA;
 	public static final byte STACKEDAREA_CHART = JRDesignChart.CHART_TYPE_STACKEDAREA;
@@ -82,7 +84,7 @@ public class DJChart extends DJBaseElement {
 	private byte chartType;
 	private AbstractDataset dataset;
 	private AbstractPlot plot;
-	private byte operation = JRDesignVariable.CALCULATION_SUM;
+	private byte operation = CalculationEnum.SUM.getValue();
 	private DJChartOptions chartOptions = new DJChartOptions();
 	private DJHyperLink link;
 	
@@ -226,9 +228,9 @@ public class DJChart extends DJBaseElement {
 		getOptions().transform(design, name, chart, width);
 
 		if (group.equals(parentGroup))
-			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_REPORT);
+			chart.setEvaluationTime( EvaluationTimeEnum.REPORT );
 		else {
-			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);		
+			chart.setEvaluationTime( EvaluationTimeEnum.GROUP );
 			chart.setEvaluationGroup(parentGroup);
 		}
 		return chart;	

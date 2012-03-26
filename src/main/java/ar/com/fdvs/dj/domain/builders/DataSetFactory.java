@@ -43,6 +43,7 @@ import net.sf.jasperreports.engine.design.JRDesignVariable;
 import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import net.sf.jasperreports.engine.type.ResetTypeEnum;
 
 public class DataSetFactory {
 
@@ -195,8 +196,8 @@ public class DataSetFactory {
 		//When to start a new chart? When the group's parent changes
 		dataset.setResetGroup(parentGroup);
 		if (dataset.getResetGroup().equals(group))
-			dataset.setResetType(JRDesignVariable.RESET_TYPE_REPORT);
+			dataset.setResetType( ResetTypeEnum.REPORT );
 		else
-			dataset.setResetType(JRDesignVariable.RESET_TYPE_GROUP);
+			dataset.setResetType( ResetTypeEnum.GROUP );
 	}
 }

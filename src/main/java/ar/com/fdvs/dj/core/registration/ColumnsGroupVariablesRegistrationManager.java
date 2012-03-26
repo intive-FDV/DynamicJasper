@@ -37,6 +37,8 @@ import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 
+import net.sf.jasperreports.engine.type.CalculationEnum;
+import net.sf.jasperreports.engine.type.ResetTypeEnum;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -165,10 +167,10 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 		
 		JRDesignVariable variable = new JRDesignVariable();
 		variable.setExpression(expression);
-		variable.setCalculation(groupVariable.getOperation().getValue());
+		variable.setCalculation(CalculationEnum.getByValue(groupVariable.getOperation().getValue()));
 		variable.setName(variableName);		
 
-		variable.setResetType(JRDesignVariable.RESET_TYPE_GROUP);
+		variable.setResetType(ResetTypeEnum.GROUP );
 		variable.setResetGroup(registeredGroup);
 
 		String valueClassName = col.getVariableClassName(op);

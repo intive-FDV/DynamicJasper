@@ -49,6 +49,8 @@ import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabParameter;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
 import net.sf.jasperreports.crosstabs.fill.JRPercentageCalculatorFactory;
 import net.sf.jasperreports.crosstabs.fill.calculation.BucketDefinition;
+import net.sf.jasperreports.crosstabs.type.CrosstabPercentageEnum;
+import net.sf.jasperreports.crosstabs.type.CrosstabTotalPositionEnum;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
@@ -60,6 +62,9 @@ import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.type.CalculationEnum;
+import net.sf.jasperreports.engine.type.ModeEnum;
+import net.sf.jasperreports.engine.type.PositionTypeEnum;
 import net.sf.jasperreports.engine.util.JRPenUtil;
 
 import org.apache.commons.beanutils.BeanUtils;
@@ -103,7 +108,7 @@ public class Dj2JrCrosstabBuilder {
 
 		jrcross = new JRDesignCrosstab();
 
-		jrcross.setPositionType(JRDesignElement.POSITION_TYPE_FIX_RELATIVE_TO_TOP);
+		jrcross.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
 
 		cols = (DJCrosstabColumn[]) djcrosstab.getColumns().toArray(new DJCrosstabColumn[]{});
 		rows = (DJCrosstabRow[]) djcrosstab.getRows().toArray(new DJCrosstabRow[]{});
@@ -188,7 +193,7 @@ public class Dj2JrCrosstabBuilder {
 		JRDesignCellContents contents = new JRDesignCellContents();
 
 		contents.setBackcolor(colors[colors.length-1][colors[0].length-1]);
-		contents.setMode(new Byte(Transparency.OPAQUE.getValue()));
+		contents.setMode( ModeEnum.OPAQUE );
 
 		jrcross.setHeaderCell(contents);
 
@@ -528,7 +533,7 @@ public class Dj2JrCrosstabBuilder {
 
 				}
 
-				contents.setMode(new Byte(Transparency.OPAQUE.getValue()));
+				contents.setMode( ModeEnum.OPAQUE );
 
 				applyBackgroundColor(contents,crosstabRow,crosstabColumn,i,j);
 
@@ -702,7 +707,7 @@ public class Dj2JrCrosstabBuilder {
 			JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
 
 			measure.setName(meausrePrefix + djmeasure.getProperty().getProperty()); //makes the measure.name unique in this crosstab
-			measure.setCalculation(djmeasure.getOperation().getValue());
+			measure.setCalculation(CalculationEnum.getByValue( djmeasure.getOperation().getValue() ));
 			measure.setValueClassName(djmeasure.getProperty().getValueClassName());
 			JRDesignExpression valueExp = new JRDesignExpression();
 			valueExp.setValueClassName(djmeasure.getProperty().getValueClassName());
@@ -718,7 +723,7 @@ public class Dj2JrCrosstabBuilder {
 				try {
 					valueCass = Class.forName(djmeasure.getProperty().getValueClassName());
 					measure.setPercentageCalculatorClassName(JRPercentageCalculatorFactory.getPercentageCalculator(null, valueCass).getClass().getName());
-					measure.setPercentageOfType(JRCrosstabMeasure.PERCENTAGE_TYPE_GRAND_TOTAL);
+					measure.setPercentageType( CrosstabPercentageEnum.GRAND_TOTAL );
 				} catch (ClassNotFoundException e1) {
 					e1.printStackTrace();
 				}
@@ -822,7 +827,7 @@ public class Dj2JrCrosstabBuilder {
 			}
 
 			rowHeaderContents.addElement(rowTitle);
-			rowHeaderContents.setMode(new Byte(Transparency.OPAQUE.getValue()));
+			rowHeaderContents.setMode( ModeEnum.OPAQUE );
 
 			boolean fullBorder = i <= 0; //Only outer most will have full border
 			applyCellBorder(rowHeaderContents, false, fullBorder);
@@ -909,7 +914,7 @@ public class Dj2JrCrosstabBuilder {
 
 
 			colHeaerContent.addElement(colTitle);
-			colHeaerContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
+			colHeaerContent.setMode( ModeEnum.OPAQUE );
 
 			boolean fullBorder = i <= 0; //Only outer most will have full border
 			applyCellBorder(colHeaerContent, fullBorder, false);
@@ -962,12 +967,12 @@ public class Dj2JrCrosstabBuilder {
 	private void createRowTotalHeader(JRDesignCrosstabRowGroup ctRowGroup, DJCrosstabRow crosstabRow, boolean fullBorder) {
 		JRDesignCellContents totalHeaderContent = new JRDesignCellContents();
 		ctRowGroup.setTotalHeader(totalHeaderContent);
-		ctRowGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END); //FIXME the total can be at the end of a group or at the beginin
+		ctRowGroup.setTotalPosition( CrosstabTotalPositionEnum.END ); //FIXME the total can be at the end of a group or at the beginin
 
 
 		Style totalHeaderstyle = crosstabRow.getTotalHeaderStyle() == null ? this.djcross.getRowTotalheaderStyle(): crosstabRow.getTotalHeaderStyle();
 
-		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
+		totalHeaderContent.setMode( ModeEnum.OPAQUE );
 
 		JRDesignTextField element = new JRDesignTextField();
 
@@ -1034,11 +1039,11 @@ public class Dj2JrCrosstabBuilder {
 	private void createColumTotalHeader(JRDesignCrosstabColumnGroup ctColGroup, DJCrosstabColumn crosstabColumn, boolean fullBorder) {
 		JRDesignCellContents totalHeaderContent = new JRDesignCellContents();
 		ctColGroup.setTotalHeader(totalHeaderContent);
-		ctColGroup.setTotalPosition(BucketDefinition.TOTAL_POSITION_END);
+		ctColGroup.setTotalPosition( CrosstabTotalPositionEnum.END );
 
 		Style totalHeaderstyle = crosstabColumn.getTotalHeaderStyle() == null ? this.djcross.getColumnTotalheaderStyle(): crosstabColumn.getTotalHeaderStyle();
 
-		totalHeaderContent.setMode(new Byte(Transparency.OPAQUE.getValue()));
+		totalHeaderContent.setMode( ModeEnum.OPAQUE );
 
 		JRDesignExpression exp = null;
 		if (crosstabColumn.getTotalLegend() != null) {

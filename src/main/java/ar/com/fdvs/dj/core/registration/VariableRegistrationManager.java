@@ -14,6 +14,9 @@ import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.LayoutUtils;
+import net.sf.jasperreports.engine.type.CalculationEnum;
+import net.sf.jasperreports.engine.type.IncrementTypeEnum;
+import net.sf.jasperreports.engine.type.ResetTypeEnum;
 
 public class VariableRegistrationManager extends
 		AbstractEntityRegistrationManager {
@@ -41,7 +44,7 @@ public class VariableRegistrationManager extends
 		jrvar.setValueClassName(var.getClassName());
 		
 		if (var.getCalculation() != null){
-			jrvar.setCalculation(var.getCalculation().getValue());
+			jrvar.setCalculation(CalculationEnum.getByValue(var.getCalculation().getValue()));
 		}
 		
 		String expressionParamName = var.getName() + "_expression";
@@ -55,7 +58,7 @@ public class VariableRegistrationManager extends
 		}
 		
 		if (var.getResetType() != null){
-			jrvar.setResetType(var.getResetType().getValue());
+			jrvar.setResetType(ResetTypeEnum.getByValue( var.getResetType().getValue() ));
 		}		
 		
 		if (var.getResetGroup() != null && DJVariableResetType.GROUP.equals(var.getResetType())){
@@ -64,7 +67,7 @@ public class VariableRegistrationManager extends
 		}
 		
 		if (var.getIncrementType() != null){
-			jrvar.setIncrementType(var.getIncrementType().getValue());
+			jrvar.setIncrementType(IncrementTypeEnum.getByValue( var.getIncrementType().getValue()) );
 		}
 		
 		if (var.getIncrementGroup() != null && DJVariableIncrementType.GROUP.equals(var.getIncrementType())){

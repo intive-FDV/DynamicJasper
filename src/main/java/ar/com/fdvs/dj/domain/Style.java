@@ -33,9 +33,12 @@ import ar.com.fdvs.dj.domain.constants.*;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.util.LayoutUtils;
 import net.sf.jasperreports.engine.base.JRBaseStyle;
+import net.sf.jasperreports.engine.base.JRBoxPen;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.type.*;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -229,37 +232,49 @@ public class Style implements Serializable, Cloneable {
 	}
 
 	protected void setJRBaseStyleProperties(JRBaseStyle transformedStyle) {
-		if (getBorder()!=null)
-			transformedStyle.setBorder(getBorder().getValue());
+        JRBoxPen pen = transformedStyle.getLineBox().getPen();
+        if (getBorder()!=null){
+            //FIXME This is not ok, for sure. border changed a lot! here I am mixing border widths with border styles (double, dashed, etc)
+			//transformedStyle.setBorder(getBorder().getValue());
 
+            //transformedStyle.getLineBox().getPen().setLineWidth( getBorder().getValue() );
+            LayoutUtils.convertBorderToPen(getBorder(),transformedStyle.getLineBox().getPen());
+        }
+
+		//TODO FIX THIS!!!
 		//Borders
+
 		if (getBorderBottom()!= null)
-			transformedStyle.setBottomBorder(getBorderBottom().getValue());
+            LayoutUtils.convertBorderToPen(getBorderBottom(),transformedStyle.getLineBox().getBottomPen());
+			//transformedStyle.setBottomBorder(getBorderBottom().getValue());
 		if (getBorderTop()!= null)
-			transformedStyle.setTopBorder(getBorderTop().getValue());
+            LayoutUtils.convertBorderToPen(getBorderTop(),transformedStyle.getLineBox().getTopPen());
+			//transformedStyle.setTopBorder(getBorderTop().getValue());
 		if (getBorderLeft()!= null)
-			transformedStyle.setLeftBorder(getBorderLeft().getValue());
+            LayoutUtils.convertBorderToPen(getBorderLeft(),transformedStyle.getLineBox().getLeftPen());
+			//transformedStyle.setLeftBorder(getBorderLeft().getValue());
 		if (getBorderRight()!= null)
-			transformedStyle.setRightBorder(getBorderRight().getValue());
+            LayoutUtils.convertBorderToPen(getBorderRight(),transformedStyle.getLineBox().getRightPen());
+			//transformedStyle.setRightBorder(getBorderRight().getValue());
 
 		//Padding
-		transformedStyle.setPadding(getPadding());
+		transformedStyle.getLineBox().setPadding(getPadding());
 
 		if (paddingBottom != null)
-			transformedStyle.setBottomPadding(paddingBottom);
+            transformedStyle.getLineBox().setBottomPadding(paddingBottom);
 		if (paddingTop != null)
-			transformedStyle.setTopPadding(paddingTop);
+            transformedStyle.getLineBox().setTopPadding(paddingTop);
 		if (paddingLeft != null)
-			transformedStyle.setLeftPadding(paddingLeft);
+            transformedStyle.getLineBox().setLeftPadding(paddingLeft);
 		if (paddingRight != null)
-			transformedStyle.setRightPadding(paddingRight);
+            transformedStyle.getLineBox().setRightPadding(paddingRight);
 
 		//Aligns
 		if (getHorizontalAlign() != null)
-			transformedStyle.setHorizontalAlignment(getHorizontalAlign().getValue());
+			transformedStyle.setHorizontalAlignment(HorizontalAlignEnum.getByValue(getHorizontalAlign().getValue() ));
 
 		if (getVerticalAlign() != null)
-			transformedStyle.setVerticalAlignment(getVerticalAlign().getValue());
+			transformedStyle.setVerticalAlignment(VerticalAlignEnum.getByValue(getVerticalAlign().getValue()));
 
 		transformedStyle.setBlankWhenNull(blankWhenNull);
 
@@ -277,12 +292,12 @@ public class Style implements Serializable, Cloneable {
 
 		transformedStyle.setBackcolor(getBackgroundColor());
 		transformedStyle.setForecolor(getTextColor());
-		transformedStyle.setBorderColor(borderColor);
+        pen.setLineColor(borderColor);
 		if (getTransparency() != null)
-			transformedStyle.setMode(getTransparency().getValue());
+			transformedStyle.setMode(ModeEnum.getByValue( getTransparency().getValue() ));
 
 		if (getRotation() != null)
-			transformedStyle.setRotation(getRotation().getValue());
+			transformedStyle.setRotation(RotationEnum.getByValue( getRotation().getValue() ));
 
 		if (getRadius() != null)
 			transformedStyle.setRadius(getRadius().intValue());
@@ -292,9 +307,10 @@ public class Style implements Serializable, Cloneable {
 		/**
 		 * This values are needed when exporting to JRXML
 		 */
-		transformedStyle.setPen((byte)0);
+        //TODO Check if this is still necessary
+        /*transformedStyle.setPen((byte)0);
 		transformedStyle.setFill((byte)1);
-		transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());
+		transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());*/
 	
 	}
 

@@ -46,6 +46,7 @@ import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
 import net.sf.jasperreports.engine.base.JRBaseVariable;
 import net.sf.jasperreports.engine.design.*;
+import net.sf.jasperreports.engine.type.*;
 import net.sf.jasperreports.engine.util.JRExpressionUtil;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MultiHashMap;
@@ -237,11 +238,18 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	 */
 	protected void transformDetailBand() {
 		log.debug("transforming Detail Band...");
-		JRDesignBand detail = (JRDesignBand) design.getDetail();
-		if (detail == null){ //fixes issue 2747664
-			detail = new JRDesignBand();
-			design.setDetail(detail);
-		}
+
+        JRDesignSection detailSection = (JRDesignSection) design.getDetailSection();
+
+        //TODO: With this new way, we can use template content as it comes, and add a new band for DJ on top or bellow it.
+        JRDesignBand detail = null;
+        if (detailSection.getBandsList().isEmpty()){
+            detail = new JRDesignBand();
+            detailSection.getBandsList().add(detail);
+        } else {
+            detail = (JRDesignBand) detailSection.getBandsList().iterator().next();
+        }
+
 		detail.setHeight(report.getOptions().getDetailHeight().intValue());
 
 		for (Iterator iter = getVisibleColumns().iterator(); iter.hasNext();) {
@@ -273,9 +281,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				image.setHeight(getReport().getOptions().getDetailHeight().intValue());
 				image.setWidth(column.getWidth().intValue());
 				image.setX(column.getPosX().intValue());
-				image.setScaleImage(barcodeColumn.getScaleMode().getValue());
+				image.setScaleImage(ScaleImageEnum.getByValue(barcodeColumn.getScaleMode().getValue()));
 
-				image.setOnErrorType(JRDesignImage.ON_ERROR_TYPE_ICON); //FIXME should we provide control of this to the user?
+				image.setOnErrorType(OnErrorTypeEnum.ICON ); //FIXME should we provide control of this to the user?
 
 				if (column.getLink() != null) {
 					String name = "column_" + getReport().getColumns().indexOf(column);
@@ -300,7 +308,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				image.setHeight(getReport().getOptions().getDetailHeight().intValue());
 				image.setWidth(column.getWidth().intValue());
 				image.setX(column.getPosX().intValue());
-				image.setScaleImage(imageColumn.getScaleMode().getValue());
+				image.setScaleImage(ScaleImageEnum.getByValue(imageColumn.getScaleMode().getValue()));
 
 				applyStyleToElement(column.getStyle(), image);
 
@@ -477,8 +485,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		if (designElemen instanceof JRDesignTextElement ) {
 			JRDesignTextElement textField = (JRDesignTextElement) designElemen;
 			if (style.getStreching() != null)
-				textField.setStretchType(style.getStreching().getValue());
-			textField.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
+				textField.setStretchType(StretchTypeEnum.getByValue( style.getStreching().getValue() ));
+			textField.setPositionType(PositionTypeEnum.FLOAT);
 
 		}
 		if (designElemen instanceof JRDesignTextField ) {
@@ -491,8 +499,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		
 		if (designElemen instanceof JRDesignGraphicElement) {
 			JRDesignGraphicElement graphicElement = (JRDesignGraphicElement) designElemen;
-			graphicElement.setStretchType(style.getStreching().getValue());
-			graphicElement.setPositionType(JRTextField.POSITION_TYPE_FLOAT);
+			graphicElement.setStretchType(StretchTypeEnum.getByValue(style.getStreching().getValue()));
+			graphicElement.setPositionType(PositionTypeEnum.FLOAT);
 		}
     }
 
@@ -580,7 +588,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	protected void setBandsFinalHeight() {
 		log.debug("Setting bands final height...");
 		
-		List<JRDesignBand> bands = new ArrayList<JRDesignBand>();
+		List<JRBand> bands = new ArrayList<JRBand>();
 		
 		Utils.addNotNull(bands, (JRDesignBand) design.getPageHeader());
 		Utils.addNotNull(bands, (JRDesignBand) design.getPageFooter());
@@ -600,12 +608,12 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			JRDesignSection headerSection = (JRDesignSection) jrgroup.getGroupHeaderSection();
 			JRDesignSection footerSection = (JRDesignSection) jrgroup.getGroupFooterSection();
 			if (djGroup != null){
-				for (JRDesignBand headerBand : (List<JRDesignBand>)headerSection.getBandsList()) {
-					setBandFinalHeight(headerBand,djGroup.getHeaderHeight(), djGroup.isFitHeaderHeightToContent());
+				for (JRBand headerBand : (List<JRBand>)headerSection.getBandsList()) {
+					setBandFinalHeight((JRDesignBand) headerBand,djGroup.getHeaderHeight(), djGroup.isFitHeaderHeightToContent());
 					
 				}
-				for (JRDesignBand footerBand : (List<JRDesignBand>)footerSection.getBandsList()) {
-					setBandFinalHeight(footerBand,djGroup.getFooterHeight(), djGroup.isFitHeaderHeightToContent());
+				for (JRBand footerBand : (List<JRBand>)footerSection.getBandsList()) {
+					setBandFinalHeight((JRDesignBand) footerBand,djGroup.getFooterHeight(), djGroup.isFitHeaderHeightToContent());
 					
 				}
 			} else {
@@ -614,8 +622,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			}
 		}
 		
-		for (JRDesignBand jrDesignBand : bands) {
-			setBandFinalHeight(jrDesignBand);
+		for (JRBand jrDesignBand : bands) {
+			setBandFinalHeight((JRDesignBand)jrDesignBand);
 		}
 	}
 
@@ -679,7 +687,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				exp.setText(pcol.getTextForExpression(group));
 			}
 
-			textField.setEvaluationTime(JRExpression.EVALUATION_TIME_AUTO);
+			textField.setEvaluationTime(EvaluationTimeEnum.AUTO);
 		} else {
 			exp.setText(col.getTextForExpression());
 			
@@ -777,7 +785,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
     		JRDesignConditionalStyle condStyle = new JRDesignConditionalStyle();
     		condStyle.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
-    		condStyle.setMode(JRDesignElement.MODE_OPAQUE);
+    		condStyle.setMode(ModeEnum.OPAQUE );
 
     		condStyle.setConditionExpression(expression);
     		jrstyle.addConditionalStyle(condStyle);
@@ -807,7 +815,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 				JRDesignConditionalStyle condStyleOdd = makeConditionalStyle( condition.getStyle());			
 //				Utils.copyProperties(condStyleOdd, condition.getStyle().transform());
 				condStyleOdd.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
-				condStyleOdd.setMode(JRDesignElement.MODE_OPAQUE);
+				condStyleOdd.setMode( ModeEnum.OPAQUE );
 				condStyleOdd.setConditionExpression(expressionOdd);
 				jrstyle.addConditionalStyle(condStyleOdd);	
 				
@@ -840,7 +848,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	
 			JRDesignConditionalStyle condStyleOdd = new JRDesignConditionalStyle();
 			condStyleOdd.setBackcolor(oddRowBackgroundStyle.getBackgroundColor());
-			condStyleOdd.setMode(JRDesignElement.MODE_OPAQUE);
+			condStyleOdd.setMode( ModeEnum.OPAQUE );
 			condStyleOdd.setConditionExpression(expressionOdd);
 			
 			jrstyle.addConditionalStyle(condStyleOdd);	
@@ -852,7 +860,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	
 			JRDesignConditionalStyle condStyleEven = new JRDesignConditionalStyle();
 			condStyleEven.setBackcolor(jrstyle.getBackcolor());
-			condStyleEven.setMode(jrstyle.getMode());
+			condStyleEven.setMode(  jrstyle.getModeValue() );
 			condStyleEven.setConditionExpression(expressionEven);
 			
 			jrstyle.addConditionalStyle(condStyleEven);		
@@ -971,7 +979,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			chart.setDataset(chartDataset);
 			interpeterOptions(djChart, chart);
 
-			chart.setEvaluationTime(JRExpression.EVALUATION_TIME_GROUP);
+			chart.setEvaluationTime( EvaluationTimeEnum.GROUP );
 			chart.setEvaluationGroup(jrGroupChart);
 			return chart;
 	}
@@ -989,13 +997,16 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 		//position
 		chart.setX(options.getX());
-		chart.setPadding(10);
+		//FIXME no more padding
+		//chart.setPadding(10);
 		chart.setY(options.getY());
 
 		//options
 		chart.setShowLegend(options.isShowLegend());
 		chart.setBackcolor(options.getBackColor());
-		chart.setBorder(options.getBorder());
+
+        //FIXME no more border, maybe setLineBox(...) or so
+        //chart.setBorder(options.getBorder());
 
 		//colors
 		if (options.getColors() != null){
@@ -1040,9 +1051,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			JRDesignVariable var = new JRDesignVariable();
 			var.setValueClass(clazz);
 			var.setExpression(expression);
-			var.setCalculation(chart.getOperation());
+			var.setCalculation(CalculationEnum.getByValue(chart.getOperation()));
 			var.setResetGroup(group);
-			var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
+			var.setResetType( ResetTypeEnum.GROUP );
 
 			//use the index as part of the name just because I may want 2
 			//different types of chart from the very same column (with the same operation also) making the variables name to be duplicated
@@ -1148,9 +1159,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 			JRDesignVariable var = new JRDesignVariable();
 			var.setValueClass(clazz);
 			var.setExpression(expression);
-			var.setCalculation(chart.getOperation());
+			var.setCalculation(CalculationEnum.getByValue(chart.getOperation()));
 			var.setResetGroup(group);
-			var.setResetType(JRBaseVariable.RESET_TYPE_GROUP);
+			var.setResetType( ResetTypeEnum.GROUP );
 
 			//use the index as part of the name just because I may want 2
 			//different types of chart from the very same column (with the same operation also) making the variables name to be duplicated

@@ -30,6 +30,9 @@
 package ar.com.fdvs.dj.core;
 
 import net.sf.jasperreports.engine.JRReport;
+import net.sf.jasperreports.engine.type.WhenNoDataTypeEnum;
+import net.sf.jasperreports.engine.type.WhenResourceMissingTypeEnum;
+
 /**
  * See value of constants here: 
  * http://jasperreports.sourceforge.net/api/constant-values.html
@@ -78,15 +81,15 @@ public interface DJConstants {
 	String QUERY_LANGUAGE_XPATH = "xPath";
 	String QUERY_LANGUAGE_MONDRIAN = "mdx";
 
-	public static byte WHEN_NO_DATA_TYPE_NO_PAGES = JRReport.WHEN_NO_DATA_TYPE_NO_PAGES;
-	public static byte WHEN_NO_DATA_TYPE_BLANK_PAGE = JRReport.WHEN_NO_DATA_TYPE_BLANK_PAGE;
-	public static byte WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL = JRReport.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL;
-	public static byte WHEN_NO_DATA_TYPE_NO_DATA_SECTION = JRReport.WHEN_NO_DATA_TYPE_NO_DATA_SECTION;
+	public static byte WHEN_NO_DATA_TYPE_NO_PAGES = WhenNoDataTypeEnum.NO_PAGES.getValue();
+	public static byte WHEN_NO_DATA_TYPE_BLANK_PAGE = WhenNoDataTypeEnum.BLANK_PAGE.getValue();
+	public static byte WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL = WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL.getValue();
+	public static byte WHEN_NO_DATA_TYPE_NO_DATA_SECTION = WhenNoDataTypeEnum.NO_DATA_SECTION.getValue();
 
-	public static byte WHEN_RESOURCE_MISSING_TYPE_EMPTY = JRReport.WHEN_RESOURCE_MISSING_TYPE_EMPTY;
-	public static byte WHEN_RESOURCE_MISSING_TYPE_ERROR = JRReport.WHEN_RESOURCE_MISSING_TYPE_ERROR;
-	public static byte WHEN_RESOURCE_MISSING_TYPE_KEY = JRReport.WHEN_RESOURCE_MISSING_TYPE_KEY;
-	public static byte WHEN_RESOURCE_MISSING_TYPE_NULL = JRReport.WHEN_RESOURCE_MISSING_TYPE_NULL;
+	public static byte WHEN_RESOURCE_MISSING_TYPE_EMPTY = WhenResourceMissingTypeEnum.EMPTY.getValue();
+	public static byte WHEN_RESOURCE_MISSING_TYPE_ERROR = WhenResourceMissingTypeEnum.ERROR.getValue();
+	public static byte WHEN_RESOURCE_MISSING_TYPE_KEY = WhenResourceMissingTypeEnum.KEY.getValue();
+	public static byte WHEN_RESOURCE_MISSING_TYPE_NULL = WhenResourceMissingTypeEnum.NULL.getValue();
 
 	int SUBREPORT_PARAM_ORIGIN_FIELD = 1;
 	int SUBREPORT_PARAM_ORIGIN_PARAMETER = 2;
