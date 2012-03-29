@@ -115,8 +115,10 @@ public class DJJRDesignHelper {
         List<JRBand> bands = detailSection.getBandsList();
 
         //FIXME we can do better in split! there may be more bands
-        JRDesignBand detailBand = (JRDesignBand) bands.iterator().next();
-        detailBand.setSplitType(LayoutUtils.getSplitTypeFromBoolean( dr.isAllowDetailSplit() ));
+        if (!bands.isEmpty()){
+            JRDesignBand detailBand = (JRDesignBand) bands.iterator().next();
+            detailBand.setSplitType(LayoutUtils.getSplitTypeFromBoolean( dr.isAllowDetailSplit() ));
+        }
 
 
 		des.setSummaryNewPage(options.isSummaryNewPage());
