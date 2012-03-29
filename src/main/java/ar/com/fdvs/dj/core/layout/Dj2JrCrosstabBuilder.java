@@ -798,6 +798,10 @@ public class Dj2JrCrosstabBuilder {
 			ctRowGroup.setName(crosstabRow.getProperty().getProperty());
 
 			JRDesignCrosstabBucket rowBucket = new JRDesignCrosstabBucket();
+
+            //New in JR 4.1+
+            rowBucket.setValueClassName(crosstabRow.getProperty().getValueClassName());
+
 			ctRowGroup.setBucket(rowBucket);
 
 			JRDesignExpression bucketExp = ExpressionUtils.createExpression("$F{"+crosstabRow.getProperty().getProperty()+"}", crosstabRow.getProperty().getValueClassName());
@@ -883,6 +887,8 @@ public class Dj2JrCrosstabBuilder {
 			ctColGroup.setHeight(crosstabColumn.getHeaderHeight());
 
 			JRDesignCrosstabBucket bucket = new JRDesignCrosstabBucket();
+
+            bucket.setValueClassName(crosstabColumn.getProperty().getValueClassName());
 
 			JRDesignExpression bucketExp = ExpressionUtils.createExpression("$F{"+crosstabColumn.getProperty().getProperty()+"}", crosstabColumn.getProperty().getValueClassName());
 			bucket.setExpression(bucketExp);
