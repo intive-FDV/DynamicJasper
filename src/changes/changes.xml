@@ -34,13 +34,23 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
-	 <!--
-	  -->
-	   			<release version="3.2.2" date="2012-03-12" desc="typo fix release" >
+	   			<release version="4.0.0" date="2012-04-01" desc="Major Release" >
+                    <action dev="Juan Manuel Alvarez" type="change">
+                       DJ now requires JasperReport 4.1.1+
+                    </action>
+                    <action dev="Juan Manuel Alvarez" type="change">
+                       Removed support to JDK 1.5. Now compiled against JDK 1.6
+                    </action>
+                    <action dev="Juan Manuel Alvarez" type="change">
+                    Removed dependency with POI-3.5-FINAL. We now use POI from JasperReports dependency.
+                    </action>
+				 </release>
+                <release version="3.2.2" date="2012-03-12" desc="typo fix release" >
 					 <action dev="Juan Manuel Alvarez" type="fix">
 					 	Just fixed a type in a property name in the DJVariable.java file.
 					 </action>
-				 </release>	   			<release version="3.2.1" date="2011-12-23" desc="improved DJValueFormatter capabilities" >
+				 </release>
+                <release version="3.2.1" date="2011-12-23" desc="improved DJValueFormatter capabilities" >
 					 <action dev="Juan Lagostena" type="add">
 					 	Introducing the DjBaseMMValueFormatter which adds better support to access to measures in crosstabs. See CrosstabReportWithMMValueFormatterTest
                          and CrosstabReportWithInvisibleMeasure
