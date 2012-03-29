@@ -39,6 +39,7 @@ import net.sf.jasperreports.engine.JRFont;
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
+import net.sf.jasperreports.engine.type.LineStyleEnum;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
@@ -181,7 +182,7 @@ public class ScatterChartBuilderTest extends BaseDjReportTest {
 		assertEquals(Color.WHITE, chart.getLegendBackgroundColor());
 		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
 		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
-		assertEquals(new Byte(DJChartOptions.LINE_STYLE_DOTTED), chart.getLineBox().getPen().getLineStyleValue());
+		assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
 		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());

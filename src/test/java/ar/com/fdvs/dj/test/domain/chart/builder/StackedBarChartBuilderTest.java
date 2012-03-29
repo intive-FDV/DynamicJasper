@@ -29,23 +29,7 @@
 
 package ar.com.fdvs.dj.test.domain.chart.builder;
 
-import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
-
-import net.sf.jasperreports.charts.design.JRDesignBarPlot;
-import net.sf.jasperreports.charts.design.JRDesignCategoryDataset;
-import net.sf.jasperreports.engine.JRFont;
-import net.sf.jasperreports.engine.design.JRDesignChart;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
-import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.DJHyperLink;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.StringExpression;
-import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.*;
 import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.DynamicReportBuilder;
 import ar.com.fdvs.dj.domain.builders.GroupBuilder;
@@ -53,17 +37,26 @@ import ar.com.fdvs.dj.domain.chart.DJChart;
 import ar.com.fdvs.dj.domain.chart.DJChartOptions;
 import ar.com.fdvs.dj.domain.chart.builder.DJStackedBarChartBuilder;
 import ar.com.fdvs.dj.domain.chart.plot.DJAxisFormat;
-import ar.com.fdvs.dj.domain.constants.Border;
+import ar.com.fdvs.dj.domain.constants.*;
 import ar.com.fdvs.dj.domain.constants.Font;
-import ar.com.fdvs.dj.domain.constants.GroupLayout;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
-import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
+import net.sf.jasperreports.charts.design.JRDesignBarPlot;
+import net.sf.jasperreports.charts.design.JRDesignCategoryDataset;
+import net.sf.jasperreports.engine.JRFont;
+import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignVariable;
+import net.sf.jasperreports.engine.type.LineStyleEnum;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StackedBarChartBuilderTest extends BaseDjReportTest {
 	private DynamicReportBuilder drb; 
@@ -209,7 +202,7 @@ public class StackedBarChartBuilderTest extends BaseDjReportTest {
 		assertEquals(Color.WHITE, chart.getLegendBackgroundColor());
 		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
 		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
-		assertEquals(new Byte(DJChartOptions.LINE_STYLE_DOTTED), chart.getLineBox().getPen().getLineStyleValue());
+        assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
 		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());

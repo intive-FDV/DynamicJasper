@@ -35,10 +35,12 @@ import java.util.Map;
 
 import net.sf.jasperreports.charts.design.JRDesignBar3DPlot;
 import net.sf.jasperreports.charts.design.JRDesignCategoryDataset;
+import net.sf.jasperreports.charts.type.EdgeEnum;
 import net.sf.jasperreports.engine.JRFont;
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
+import net.sf.jasperreports.engine.type.LineStyleEnum;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJHyperLink;
@@ -207,9 +209,9 @@ public class Bar3DChartBuilderTest extends BaseDjReportTest {
 		assertEquals(Color.DARK_GRAY, chart.getLegendColor());
 		testFont(Font.COURIER_NEW_MEDIUM_BOLD, chart.getLegendFont());
 		assertEquals(Color.WHITE, chart.getLegendBackgroundColor());
-		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
-		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
-		assertEquals(new Byte(DJChartOptions.LINE_STYLE_DOTTED), chart.getLineBox().getPen().getLineStyleValue());
+		assertEquals(EdgeEnum.getByValue(new Byte(DJChartOptions.EDGE_BOTTOM)), chart.getLegendPositionValue() );
+		assertEquals(EdgeEnum.getByValue(new Byte(DJChartOptions.EDGE_TOP)), chart.getTitlePositionValue());
+		assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
 		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());
