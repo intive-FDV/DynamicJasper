@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import ar.com.fdvs.dj.util.LayoutUtils;
 import net.sf.jasperreports.crosstabs.JRCrosstabMeasure;
 import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
@@ -63,6 +64,7 @@ import net.sf.jasperreports.engine.design.JRDesignStyle;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.type.CalculationEnum;
+import net.sf.jasperreports.engine.type.LineStyleEnum;
 import net.sf.jasperreports.engine.type.ModeEnum;
 import net.sf.jasperreports.engine.type.PositionTypeEnum;
 import net.sf.jasperreports.engine.util.JRPenUtil;
@@ -1023,21 +1025,21 @@ public class Dj2JrCrosstabBuilder {
 	 * bottom and right sides.
 	 */
 	private void applyCellBorder(JRDesignCellContents cellContent, boolean topBorder, boolean leftBorder) {
-		if (djcross.getCellBorder() != null && !djcross.getCellBorder().equals(Border.NO_BORDER)){
-			byte penValue = djcross.getCellBorder().getValue();
-			cellContent.getLineBox().getBottomPen().setLineColor(Color.BLACK);
-			JRPenUtil.setLinePenFromPen(penValue, cellContent.getLineBox().getBottomPen());
+        Border cellBorder = djcross.getCellBorder();
+        if (cellBorder != null && !(cellBorder.getWidth() == 0f)){
+			byte lineStyle = cellBorder.getLineStyle();
 
-			cellContent.getLineBox().getRightPen().setLineColor(Color.BLACK);
-			JRPenUtil.setLinePenFromPen(penValue, cellContent.getLineBox().getRightPen());
+            //Bottom border
+            LayoutUtils.convertBorderToPen(cellBorder, cellContent.getLineBox().getBottomPen());
+
+            //Right border
+            LayoutUtils.convertBorderToPen(cellBorder, cellContent.getLineBox().getRightPen());
 
 			if (topBorder){
-				cellContent.getLineBox().getTopPen().setLineColor(Color.BLACK);
-				JRPenUtil.setLinePenFromPen(penValue,cellContent.getLineBox().getTopPen());
+                LayoutUtils.convertBorderToPen(cellBorder, cellContent.getLineBox().getTopPen());
 			}
 			if (leftBorder){
-				cellContent.getLineBox().getLeftPen().setLineColor(Color.BLACK);
-				JRPenUtil.setLinePenFromPen(penValue,cellContent.getLineBox().getLeftPen());
+                LayoutUtils.convertBorderToPen(cellBorder, cellContent.getLineBox().getLeftPen());
 			}
 		}
 	}

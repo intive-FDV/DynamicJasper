@@ -62,7 +62,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorderBottom(Border.PEN_1_POINT);
+		headerStyle.setBorderBottom(Border.PEN_1_POINT());
 		headerStyle.setBackgroundColor(Color.gray);
 		headerStyle.setTextColor(Color.white);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
@@ -71,7 +71,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 
 		Style headerVariablesStyle = new Style();
 		headerVariablesStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerVariablesStyle.setBorderBottom(Border.THIN);
+		headerVariablesStyle.setBorderBottom(Border.THIN());
 		headerVariablesStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		headerVariablesStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 
@@ -80,7 +80,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 		Style importeStyle = new Style();
 		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
+		oddRowStyle.setBorder(Border.NO_BORDER());
 		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
@@ -137,7 +137,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 		GroupBuilder gb1 = new GroupBuilder();
 		
 		Style glabelStyle2 = new StyleBuilder(false).setFont(Font.ARIAL_SMALL)
-			.setHorizontalAlign(HorizontalAlign.RIGHT).setBorderBottom(Border.THIN)
+			.setHorizontalAlign(HorizontalAlign.RIGHT).setBorderBottom(Border.THIN())
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setPadding(new Integer(0))
 			.setStretchWithOverflow(false)

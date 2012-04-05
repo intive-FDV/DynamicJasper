@@ -640,8 +640,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected JRDesignRectangle createBlankRectableCrosstab(int amount,int yOffset) {
 		JRDesignRectangle rect = new JRDesignRectangle();
 
-        //FIXME no more Pen
-        //rect.setPen(Border.NO_BORDER.getValue());
+        LayoutUtils.convertBorderToPen(Border.NO_BORDER(), rect.getLinePen());
 
 		rect.setMode(ModeEnum.getByValue( Transparency.TRANSPARENT.getValue()) );
 //		rect.setMode(Transparency.OPAQUE.getValue());

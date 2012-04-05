@@ -63,7 +63,7 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 		
 		Style col2Style = new Style();
 		col2Style.setFont(Font.ARIAL_BIG_BOLD);
-		col2Style.setBorderBottom(Border.THIN);
+		col2Style.setBorderBottom(Border.THIN());
 		col2Style.setVerticalAlign(VerticalAlign.TOP);
 
 		Style headerStyle = new Style();
@@ -76,7 +76,7 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 
 		Style g1VariablesStyle = new Style();
 		g1VariablesStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		g1VariablesStyle.setBorderTop(Border.THIN);
+		g1VariablesStyle.setBorderTop(Border.THIN());
 		g1VariablesStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		g1VariablesStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		g1VariablesStyle.setTextColor(new Color(50,50,150));
@@ -93,7 +93,7 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 		Style importeStyle = new Style();
 		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
+		oddRowStyle.setBorder(Border.NO_BORDER());
 		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 

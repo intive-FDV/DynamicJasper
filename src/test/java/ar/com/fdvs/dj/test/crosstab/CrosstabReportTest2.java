@@ -110,7 +110,7 @@ public class CrosstabReportTest2 extends BaseDjReportTest {
 			.setUseFullWidth(true)
 			.setColorScheme(4)
 			.setAutomaticTitle(true)
-			.setCellBorder(Border.THIN);
+			.setCellBorder(Border.THIN());
 
 		cb.addMeasure("amount",Float.class.getName(), DJCalculation.SUM , "Amount",measureStyle);
 
@@ -181,7 +181,7 @@ public class CrosstabReportTest2 extends BaseDjReportTest {
 			.setHorizontalAlign(HorizontalAlign.LEFT)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setTransparency(Transparency.OPAQUE)
-			.setBorderBottom(Border.PEN_2_POINT)
+			.setBorderBottom(Border.PEN_2_POINT())
 			.build();
 
 		totalHeader = new StyleBuilder(false)

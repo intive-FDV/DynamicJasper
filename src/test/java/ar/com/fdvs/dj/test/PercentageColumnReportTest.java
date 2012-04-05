@@ -54,7 +54,7 @@ public class PercentageColumnReportTest extends BaseDjReportTest {
 
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
-		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); headerStyle.setBorder(Border.PEN_2_POINT);
+		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD); headerStyle.setBorder(Border.PEN_2_POINT());
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER); headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 
 		Style titleStyle = new Style();
@@ -62,7 +62,7 @@ public class PercentageColumnReportTest extends BaseDjReportTest {
 		Style amountStyle = new Style();
 		amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
+		oddRowStyle.setBorder(Border.NO_BORDER());
 		Color veryLightGrey = new Color(230,230,230);
 		oddRowStyle.setBackgroundColor(veryLightGrey);oddRowStyle.setTransparency(Transparency.OPAQUE);
 

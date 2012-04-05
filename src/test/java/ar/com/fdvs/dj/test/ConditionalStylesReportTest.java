@@ -57,7 +57,7 @@ public class ConditionalStylesReportTest extends BaseDjReportTest {
 		Style detailStyle = new Style();
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_BIG_BOLD);
-		headerStyle.setBorderBottom(Border.PEN_2_POINT);
+		headerStyle.setBorderBottom(Border.PEN_2_POINT());
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		headerStyle.setBackgroundColor(Color.LIGHT_GRAY);
@@ -69,7 +69,7 @@ public class ConditionalStylesReportTest extends BaseDjReportTest {
 		Style amountStyle = new Style();
 		amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
+		oddRowStyle.setBorder(Border.NO_BORDER());
 		Color veryLightGrey = new Color(230,230,230);
 		oddRowStyle.setBackgroundColor(veryLightGrey);oddRowStyle.setTransparency(Transparency.OPAQUE);
 

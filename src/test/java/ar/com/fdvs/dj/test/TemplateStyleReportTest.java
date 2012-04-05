@@ -50,7 +50,7 @@ public class TemplateStyleReportTest extends BaseDjReportTest {
 		Style headerStyle = new Style();
 
 		headerStyle.setBackgroundColor(new Color(230,230,230));
-		headerStyle.setBorderBottom(Border.THIN);
+		headerStyle.setBorderBottom(Border.THIN());
 		headerStyle.setBorderColor(Color.black);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setTransparency(Transparency.OPAQUE);

@@ -62,8 +62,8 @@ public class StylesReport2Test extends BaseDjReportTest {
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
 		headerStyle.getFont().setItalic(true);
-		headerStyle.setBorderTop(Border.PEN_2_POINT);
-		headerStyle.setBorderBottom(Border.THIN);
+		headerStyle.setBorderTop(Border.PEN_2_POINT());
+		headerStyle.setBorderBottom(Border.THIN());
 		headerStyle.setBackgroundColor(Color.blue);
 		headerStyle.setTransparency(Transparency.OPAQUE);
 		headerStyle.setTextColor(Color.white);
@@ -83,7 +83,7 @@ public class StylesReport2Test extends BaseDjReportTest {
 		amountStyle.getFont().setUnderline(true);
 		amountStyle.setPaddingBottom(new Integer(5));
 		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
+		oddRowStyle.setBorder(Border.NO_BORDER());
 		Color veryLightGrey = new Color(230,230,230);
 		oddRowStyle.setBackgroundColor(veryLightGrey);oddRowStyle.setTransparency(Transparency.OPAQUE);
 

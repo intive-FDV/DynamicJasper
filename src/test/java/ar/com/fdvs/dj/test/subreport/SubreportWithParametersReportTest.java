@@ -56,7 +56,7 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 		Style valueStyle = StyleFactory.createGroupTileStyle("gtitleTyle");
-		valueStyle.setBorderBottom(Border.THIN);
+		valueStyle.setBorderBottom(Border.THIN());
 		Style columnTitleStyle = StyleFactory.createGroupDetailStyle("gdetailStyle");
 		Style header = StyleFactory.createHeaderStyle2("header");
 //		header.setTransparency(Transparency.TRANSPARENT);

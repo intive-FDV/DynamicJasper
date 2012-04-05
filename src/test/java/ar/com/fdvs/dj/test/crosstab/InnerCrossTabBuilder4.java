@@ -129,7 +129,7 @@ public class InnerCrossTabBuilder4 extends TestCase {
 									return "Title from custom expresion for year " + fields.get("year");
 								}
 							},null))
-                             .setCellBorder(Border.PEN_1_POINT)
+                             .setCellBorder(Border.PEN_1_POINT())
                              .setDatasource("detail", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
         cb.addColumn("Type", "field2", String.class.getName(), false);

@@ -60,12 +60,12 @@ public class ColumsSpanStyleTest extends BaseDjReportTest {
                 Style colspanStyle = new Style();
                 colspanStyle.setBackgroundColor(Color.RED);
                 colspanStyle.setTransparency(Transparency.OPAQUE);
-                colspanStyle.setBorder(Border.PEN_1_POINT);
+                colspanStyle.setBorder(Border.PEN_1_POINT());
 
                 frb.setColspan(1, 2, "Estimated", colspanStyle);
 
         DynamicReport dynamicReport = frb.build();
-        dynamicReport.getOptions().getDefaultHeaderStyle().setBorder(Border.PEN_1_POINT);
+        dynamicReport.getOptions().getDefaultHeaderStyle().setBorder(Border.PEN_1_POINT());
 
         return dynamicReport;
     }

@@ -36,6 +36,9 @@
 	 <body>
 	   			<release version="4.0.0" date="2012-04-01" desc="Major Release" >
                     <action dev="Juan Manuel Alvarez" type="change">
+                       Style borders break change. They now have their own class. So, no more Border.THIN, but Border.THIN() as a factory method
+                    </action>
+                    <action dev="Juan Manuel Alvarez" type="change">
                        DJ now requires JasperReport 4.1.1+
                     </action>
                     <action dev="Juan Manuel Alvarez" type="change">

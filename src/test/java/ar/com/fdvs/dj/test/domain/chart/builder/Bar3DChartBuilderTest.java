@@ -76,7 +76,7 @@ public class Bar3DChartBuilderTest extends BaseDjReportTest {
 		
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
-		headerStyle.setBorderBottom(Border.PEN_2_POINT);
+		headerStyle.setBorderBottom(Border.PEN_2_POINT());
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		headerStyle.setBackgroundColor(Color.DARK_GRAY);

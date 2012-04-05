@@ -59,7 +59,7 @@ public class ColumnsSpanTest extends BaseDjReportTest {
                 .setColspan(1, 2, "Estimated");
 
         DynamicReport dynamicReport = frb.build();
-        dynamicReport.getOptions().getDefaultHeaderStyle().setBorder(Border.PEN_1_POINT);
+        dynamicReport.getOptions().getDefaultHeaderStyle().setBorder(Border.PEN_1_POINT());
 
         return dynamicReport;
     }

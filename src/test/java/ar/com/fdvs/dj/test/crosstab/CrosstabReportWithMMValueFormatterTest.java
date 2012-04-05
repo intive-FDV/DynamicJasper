@@ -86,7 +86,7 @@ public class CrosstabReportWithMMValueFormatterTest extends BaseDjReportTest {
 			.setUseFullWidth(true)
 			.setColorScheme(DJConstants.COLOR_SCHEMA_GRAY)
 			.setAutomaticTitle(true)
-			.setCellBorder(Border.PEN_1_POINT)
+			.setCellBorder(Border.PEN_1_POINT())
 			.addRow("Product Line", "productLine", String.class.getName(),true)
 			.addColumn("State","state",String.class.getName(),true)
 			.addRow("Branch","branch",String.class.getName(),true)
@@ -139,7 +139,7 @@ public class CrosstabReportWithMMValueFormatterTest extends BaseDjReportTest {
 			.setHorizontalAlign(HorizontalAlign.LEFT)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setTransparency(Transparency.OPAQUE)
-			.setBorderBottom(Border.PEN_1_POINT)
+			.setBorderBottom(Border.PEN_1_POINT())
 			.build();
 
 		totalColHeaderStyle = new StyleBuilder(false)

@@ -22,7 +22,7 @@ public class XlsReportTest extends BaseDjReportTest {
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		Style columDetail = new Style();
-//		columDetail.setBorder(Border.THIN);
+//		columDetail.setBorder(Border.THIN());
 
 		drb.addColumn("State"			, "state"		, String.class.getName(), 30)
 			.addColumn("Branch"			, "branch"		, String.class.getName(), 30)

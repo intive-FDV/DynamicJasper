@@ -34,7 +34,7 @@ public class MultiColspanTest extends BaseDjReportTest {
         frb.setColspan(4,2,"Other");
 
         DynamicReport dynamicReport = frb.build();
-        dynamicReport.getOptions().getDefaultHeaderStyle().setBorder(Border.PEN_1_POINT);
+        dynamicReport.getOptions().getDefaultHeaderStyle().setBorder(Border.PEN_1_POINT());
 
         return dynamicReport;
     }

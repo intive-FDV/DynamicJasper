@@ -4,10 +4,12 @@ import java.lang.reflect.Constructor;
 import java.util.Iterator;
 import java.util.Map;
 
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 import net.sf.jasperreports.engine.JRBand;
 import net.sf.jasperreports.engine.JRDefaultStyleProvider;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPen;
 import net.sf.jasperreports.engine.base.JRBoxPen;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
@@ -184,7 +186,7 @@ public class LayoutUtils {
     }
 
 
-    public static void convertBorderToPen(Border border, JRBoxPen pen) {
+    public static void convertBorderToPen(Border border, JRPen pen) {
         if (border == null)
             return;
 

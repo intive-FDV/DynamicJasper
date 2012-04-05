@@ -62,7 +62,7 @@ public class SystemVariableReportTest extends BaseDjReportTest {
 
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorderBottom(Border.PEN_1_POINT);
+		headerStyle.setBorderBottom(Border.PEN_1_POINT());
 		headerStyle.setBackgroundColor(Color.gray);
 		headerStyle.setTextColor(Color.white);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
@@ -71,7 +71,7 @@ public class SystemVariableReportTest extends BaseDjReportTest {
 
 		Style headerVariables = new Style();
 		headerVariables.setFont(Font.ARIAL_MEDIUM_BOLD);
-//		headerVariables.setBorderBottom(Border.THIN);
+//		headerVariables.setBorderBottom(Border.THIN());
 		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
 		headerVariables.setVerticalAlign(VerticalAlign.MIDDLE);
 
@@ -80,7 +80,7 @@ public class SystemVariableReportTest extends BaseDjReportTest {
 		Style importeStyle = new Style();
 		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
+		oddRowStyle.setBorder(Border.NO_BORDER());
 		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 

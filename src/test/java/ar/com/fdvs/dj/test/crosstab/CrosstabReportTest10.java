@@ -90,7 +90,7 @@ public class CrosstabReportTest10 extends BaseDjReportTest {
 			.setUseFullWidth(true)
 			.setColorScheme(DJConstants.COLOR_SCHEMA_LIGHT_GREEN)
 			.setAutomaticTitle(true)
-			.setCellBorder(Border.THIN)
+			.setCellBorder(Border.THIN())
 			.addRow("Product Line", "productLine", String.class.getName(), true, "P.Line Total")
 //			.addRow("Item", "item", String.class.getName(),true)
 //			.addRow("Id", "id", Long.class.getName(),true)
@@ -126,7 +126,7 @@ public class CrosstabReportTest10 extends BaseDjReportTest {
 			.setHorizontalAlign(HorizontalAlign.LEFT)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setTransparency(Transparency.OPAQUE)
-			.setBorderBottom(Border.PEN_2_POINT)
+			.setBorderBottom(Border.PEN_2_POINT())
 			.build();
 
 		totalHeaderStyle = new StyleBuilder(false)

@@ -50,7 +50,7 @@ import java.io.Serializable;
  * Usage example:</br>
  * Style headerStyle = new Style();</br>
  * headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);</br>
- * headerStyle.setBorder(Border.PEN_2_POINT);</br>
+ * headerStyle.setBorder(Border.PEN_2_POINT());</br>
  * headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);</br>
  * headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);</br>
  */
@@ -67,7 +67,7 @@ public class Style implements Serializable, Cloneable {
 
 	private Font font = Font.ARIAL_MEDIUM;
 
-	private Border border = Border.NO_BORDER;
+	private Border border = Border.NO_BORDER();
 
 	private Border borderTop = null;
 	private Border borderBottom = null;
@@ -234,15 +234,8 @@ public class Style implements Serializable, Cloneable {
 	protected void setJRBaseStyleProperties(JRBaseStyle transformedStyle) {
         JRBoxPen pen = transformedStyle.getLineBox().getPen();
         if (getBorder()!=null){
-            //FIXME This is not ok, for sure. border changed a lot! here I am mixing border widths with border styles (double, dashed, etc)
-			//transformedStyle.setBorder(getBorder().getValue());
-
-            //transformedStyle.getLineBox().getPen().setLineWidth( getBorder().getValue() );
             LayoutUtils.convertBorderToPen(getBorder(),transformedStyle.getLineBox().getPen());
         }
-
-		//TODO FIX THIS!!!
-		//Borders
 
 		if (getBorderBottom()!= null)
             LayoutUtils.convertBorderToPen(getBorderBottom(),transformedStyle.getLineBox().getBottomPen());
@@ -346,12 +339,27 @@ public class Style implements Serializable, Cloneable {
 		this.borderTop = borderTop;
 	}
 
+    /**
+     * use #Style.getBorder().getColor() instead
+     * @return
+     */
+    @Deprecated
 	public Color getBorderColor() {
-		return borderColor;
+        if (getBorder() == null)
+            return null;
+		return getBorder().getColor();
 	}
 
+    /**
+     * Use #Style.setBorder(...) instead
+     * @param borderColor
+     */
+    @Deprecated
 	public void setBorderColor(Color borderColor) {
-		this.borderColor = borderColor;
+        if (getBorder() == null)
+            return;
+
+        this.getBorder().setColor(borderColor);
 	}
 
 	public Rotation getRotation() {

@@ -90,7 +90,7 @@ public class CrosstabReportWithPrecalculatedTotalsTest extends BaseDjReportTest 
 			.setUseFullWidth(true)
 			.setColorScheme(DJConstants.COLOR_SCHEMA_GRAY)
 			.setAutomaticTitle(true)
-			.setCellBorder(Border.PEN_1_POINT)
+			.setCellBorder(Border.PEN_1_POINT())
 			.addRow("Product Line", "productLine", String.class.getName(),false)
 			.addColumn("State","state",String.class.getName(),false)
 			.addRow("Branch","branch",String.class.getName(),true)
@@ -136,7 +136,7 @@ public class CrosstabReportWithPrecalculatedTotalsTest extends BaseDjReportTest 
 			.setHorizontalAlign(HorizontalAlign.LEFT)
 			.setVerticalAlign(VerticalAlign.MIDDLE)
 			.setTransparency(Transparency.OPAQUE)
-			.setBorderBottom(Border.PEN_2_POINT)
+			.setBorderBottom(Border.PEN_2_POINT())
 			.build();
 
 		totalHeaderStyle = new StyleBuilder(false)

@@ -86,7 +86,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		Style defaultHeaderStyle = options.getDefaultHeaderStyle();
 		defaultHeaderStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
 		defaultHeaderStyle.setHorizontalAlign(HorizontalAlign.CENTER);
-		defaultHeaderStyle.setBorderBottom(Border.THIN);
+		defaultHeaderStyle.setBorderBottom(Border.THIN());
 		defaultHeaderStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		defaultHeaderStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		defaultHeaderStyle.setTransparency(Transparency.OPAQUE);

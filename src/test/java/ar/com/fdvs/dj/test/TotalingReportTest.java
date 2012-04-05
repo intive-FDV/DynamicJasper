@@ -55,7 +55,7 @@ public class TotalingReportTest extends BaseDjReportTest {
 		 * the report
 		 */
 				
-		Style headerStyle1 = new StyleBuilder(false).setFont(Font.ARIAL_BIG).setBorderBottom(Border.THIN).setPaddingTop(new Integer(15)) .build();
+		Style headerStyle1 = new StyleBuilder(false).setFont(Font.ARIAL_BIG).setBorderBottom(Border.THIN()).setPaddingTop(new Integer(15)) .build();
 		Style headerStyle2 = new StyleBuilder(false).setFont(Font.ARIAL_SMALL).setPaddingLeft(new Integer(20)).build();
 		
 		FastReportBuilder drb = new FastReportBuilder();
@@ -71,7 +71,7 @@ public class TotalingReportTest extends BaseDjReportTest {
 			.setUseFullPageWidth(true);
 
 					
-			Style hstyle1 = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.RIGHT).setBorderBottom(Border.THIN).build();
+			Style hstyle1 = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.RIGHT).setBorderBottom(Border.THIN()).build();
 			Style hstyle2 = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.RIGHT).setFont(Font.ARIAL_SMALL).build();
 			drb.getGroup(0).addHeaderVariable(new DJGroupVariable(drb.getColumn(2),DJCalculation.SUM,hstyle1));
 			drb.getGroup(1).addHeaderVariable(new DJGroupVariable(drb.getColumn(2),DJCalculation.SUM, hstyle2));

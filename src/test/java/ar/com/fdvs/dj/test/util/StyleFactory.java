@@ -26,7 +26,7 @@ public class StyleFactory {
 	public static Style createGroupDetailStyle(String name){
 		Style style = new Style(name);
 		style.setFont(Font.ARIAL_BIG_BOLD);
-		style.setBorderBottom(Border.THIN);
+		style.setBorderBottom(Border.THIN());
 		style.setVerticalAlign(VerticalAlign.TOP);
 		return style;
 	}
@@ -45,7 +45,7 @@ public class StyleFactory {
 		Style headerStyle = new Style(name);
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
-		headerStyle.setBorderBottom(Border.THIN);
+		headerStyle.setBorderBottom(Border.THIN());
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		headerStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		headerStyle.setTransparency(Transparency.OPAQUE);
@@ -55,7 +55,7 @@ public class StyleFactory {
 	public static Style createGroupVariableStyle(String name){
 		Style style = new Style(name);
 		style.setFont(Font.ARIAL_MEDIUM_BOLD);
-		style.setBorderTop(Border.THIN);
+		style.setBorderTop(Border.THIN());
 		style.setHorizontalAlign(HorizontalAlign.RIGHT);
 		style.setVerticalAlign(VerticalAlign.MIDDLE);
 		style.setTextColor(new Color(50,50,150));

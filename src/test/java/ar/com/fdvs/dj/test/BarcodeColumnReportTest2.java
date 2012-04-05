@@ -57,7 +57,7 @@ public class BarcodeColumnReportTest2 extends BaseDjReportTest {
 
 		Style style = new StyleBuilder(true).setHorizontalAlign(HorizontalAlign.CENTER).build();
 		Style defStyle = new StyleBuilder(true).
-			setBorderBottom(Border.THIN)
+			setBorderBottom(Border.THIN())
 			.setStretching(Stretching.RELATIVE_TO_TALLEST_OBJECT)
 			.setPaddingBottom(3)
 			.setPaddingTop(3)

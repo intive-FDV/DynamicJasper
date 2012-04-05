@@ -124,7 +124,7 @@ public class CrosstabReportTest3 extends BaseDjReportTest {
 			.setUseFullWidth(true)
 			.setColorScheme(2)
 			.setAutomaticTitle(true)
-			.setCellBorder(Border.THIN);
+			.setCellBorder(Border.THIN());
 
 		cb.addMeasure("amount",Float.class.getName(), DJCalculation.SUM , "Amount",measureStyle);
 

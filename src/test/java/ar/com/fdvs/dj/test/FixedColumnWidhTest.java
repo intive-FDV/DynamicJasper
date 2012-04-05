@@ -46,7 +46,7 @@ public class FixedColumnWidhTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 
 		Style detailStyle = new Style();
-			detailStyle.setBorder(Border.THIN);detailStyle.setBorderColor(Color.BLACK);detailStyle.setStretchWithOverflow(false);
+			detailStyle.setBorder(Border.THIN());detailStyle.setBorderColor(Color.BLACK);detailStyle.setStretchWithOverflow(false);
 //			detailStyle.setTransparency(Transparency.OPAQUE);
 		Style headerStyle = new Style(); headerStyle.setBackgroundColor(new Color(230,230,230));headerStyle.setTransparency(Transparency.OPAQUE);
 

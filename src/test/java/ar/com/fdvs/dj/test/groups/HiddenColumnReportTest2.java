@@ -56,7 +56,7 @@ public class HiddenColumnReportTest2 extends BaseDjReportTest {
 		Style detailStyle = new Style();
 		Style specialHeaderStyle = new Style();
 		specialHeaderStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
-//		specialHeaderStyle.setBorderBottom(Border.PEN_2_POINT);
+//		specialHeaderStyle.setBorderBottom(Border.PEN_2_POINT());
 //		specialHeaderStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 //		specialHeaderStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 //		specialHeaderStyle.setBackgroundColor(Color.DARK_GRAY);
@@ -65,7 +65,7 @@ public class HiddenColumnReportTest2 extends BaseDjReportTest {
 
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
-		headerStyle.setBorderBottom(Border.PEN_2_POINT);
+		headerStyle.setBorderBottom(Border.PEN_2_POINT());
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
 		headerStyle.setBackgroundColor(Color.DARK_GRAY);
@@ -77,7 +77,7 @@ public class HiddenColumnReportTest2 extends BaseDjReportTest {
 		Style importeStyle = new Style();
 		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
+		oddRowStyle.setBorder(Border.NO_BORDER());
 		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
@@ -86,7 +86,7 @@ public class HiddenColumnReportTest2 extends BaseDjReportTest {
 
 		Style specialDetailStyle2 = new Style();
 		specialDetailStyle2.setFont(Font.VERDANA_MEDIUM);
-		specialDetailStyle2.setBorderBottom(Border.DOTTED);
+		specialDetailStyle2.setBorderBottom(Border.DOTTED());
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);

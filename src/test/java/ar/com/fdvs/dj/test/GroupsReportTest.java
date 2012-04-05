@@ -58,7 +58,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 
 		Style headerStyle = new Style("header");
 		headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
-		headerStyle.setBorderBottom(Border.PEN_1_POINT);
+		headerStyle.setBorderBottom(Border.PEN_1_POINT());
 		headerStyle.setBackgroundColor(Color.gray);
 		headerStyle.setTextColor(Color.white);
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
@@ -67,7 +67,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 
 		Style headerVariables = new Style("headerVariables");
 		headerVariables.setFont(Font.ARIAL_BIG_BOLD);
-		headerVariables.setBorderBottom(Border.THIN);
+		headerVariables.setBorderBottom(Border.THIN());
 		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
 		headerVariables.setVerticalAlign(VerticalAlign.TOP);
 		headerVariables.setStretchWithOverflow(true);
@@ -75,7 +75,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 		Style groupVariables = new Style("groupVariables");
 		groupVariables.setFont(Font.ARIAL_MEDIUM_BOLD);
 		groupVariables.setTextColor(Color.BLUE);
-		groupVariables.setBorderBottom(Border.THIN);
+		groupVariables.setBorderBottom(Border.THIN());
 		groupVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
 		groupVariables.setVerticalAlign(VerticalAlign.BOTTOM);
 
@@ -84,7 +84,7 @@ public class GroupsReportTest extends BaseDjReportTest {
 		Style importeStyle = new Style();
 		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		Style oddRowStyle = new Style();
-		oddRowStyle.setBorder(Border.NO_BORDER);
+		oddRowStyle.setBorder(Border.NO_BORDER());
 		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
