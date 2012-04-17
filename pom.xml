@@ -31,7 +31,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>4.0.0-beta1</version>
+	<version>4.0.0_beta2</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -491,6 +491,13 @@ API.
 
 		<dependency>
 			<groupId>ar.com.fdvs</groupId>
+			<artifactId>DynamicJasper-core-fonts</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>ar.com.fdvs</groupId>
 			<artifactId>DynamicJasper-test-fonts</artifactId>
 			<version>1.0</version>
 			<scope>test</scope>
@@ -611,39 +618,6 @@ API.
 		<url>http://www.fdvsolutions.com/</url>
 	</organization>
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<google_analitics_url>
-		<![CDATA[
-				<script type="text/javascript">
-				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-				document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-				</script>
-				<script type="text/javascript">
-				try {
-				var pageTracker = _gat._getTracker("UA-2140380-1");
-				pageTracker._setDomainName("none");
-				pageTracker._setAllowLinker(true);
-				pageTracker._trackPageview();
-				} catch(err) {}</script>
-			]]>
-
-		</google_analitics_url>
-		<google_adSense_script>
-
-				&lt;script type="text/javascript">&lt;!--
-				google_ad_client = "pub-7228421883024969";
-				google_ad_width = 728;
-				google_ad_height = 90;
-				google_ad_format = "728x90_as";
-				google_ad_type = "text_image";
-				google_ad_channel = "";
-				google_ui_features = "rc:6";
-				//-->
-				&lt;/script>
-				&lt;script type="text/javascript"
-				  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-				&lt;/script>
-
-		</google_adSense_script>
+    	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 </project>

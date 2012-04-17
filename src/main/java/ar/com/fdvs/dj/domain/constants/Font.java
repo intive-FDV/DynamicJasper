@@ -74,6 +74,8 @@ public class Font extends BaseDomainConstant implements Cloneable {
 	public static final String _FONT_COMIC_SANS = "Comic Sans MS";
 	public static final String _FONT_GEORGIA = "Georgia";
 	public static final String _FONT_VERDANA = "Verdana";
+	public static final String _FONT_MONOSPACED = "Monospaced";
+
 
 	public static final int SMALL = 8;
 	public static final int MEDIUM = 10;
@@ -85,36 +87,48 @@ public class Font extends BaseDomainConstant implements Cloneable {
 	public static Font ARIAL_SMALL_BOLD = new Font(SMALL,_FONT_ARIAL,true,false,false);
 	public static Font ARIAL_MEDIUM_BOLD = new Font(MEDIUM,_FONT_ARIAL,true,false,false);
 	public static Font ARIAL_BIG_BOLD = new Font(BIG,_FONT_ARIAL,true,false,false);
+
 	public static Font TIMES_NEW_ROMAN_SMALL = new Font(SMALL,_FONT_TIMES_NEW_ROMAN,false,false,false);
 	public static Font TIMES_NEW_ROMAN_MEDIUM = new Font(MEDIUM,_FONT_TIMES_NEW_ROMAN,false,false,false);
 	public static Font TIMES_NEW_ROMAN_BIG = new Font(BIG,_FONT_TIMES_NEW_ROMAN,false,false,false);
 	public static Font TIMES_NEW_ROMAN_SMALL_BOLD = new Font(SMALL,_FONT_TIMES_NEW_ROMAN,true,false,false);
 	public static Font TIMES_NEW_ROMAN_MEDIUM_BOLD = new Font(MEDIUM,_FONT_TIMES_NEW_ROMAN,true,false,false);
 	public static Font TIMES_NEW_ROMAN_BIG_BOLD = new Font(BIG,_FONT_TIMES_NEW_ROMAN,true,false,false);
+
 	public static Font COURIER_NEW_SMALL = new Font(SMALL,_FONT_COURIER_NEW,false,false,false);
 	public static Font COURIER_NEW_MEDIUM = new Font(MEDIUM,_FONT_COURIER_NEW,false,false,false);
 	public static Font COURIER_NEW_BIG = new Font(BIG,_FONT_COURIER_NEW,false,false,false);
 	public static Font COURIER_NEW_SMALL_BOLD = new Font(SMALL,_FONT_COURIER_NEW,true,false,false);
 	public static Font COURIER_NEW_MEDIUM_BOLD = new Font(MEDIUM,_FONT_COURIER_NEW,true,false,false);
 	public static Font COURIER_NEW_BIG_BOLD = new Font(BIG,_FONT_COURIER_NEW,true,false,false);
+
 	public static Font COMIC_SANS_SMALL = new Font(SMALL,_FONT_COMIC_SANS,false,false,false);
 	public static Font COMIC_SANS_MEDIUM = new Font(MEDIUM,_FONT_COMIC_SANS,false,false,false);
 	public static Font COMIC_SANS_BIG = new Font(BIG,_FONT_COMIC_SANS,false,false,false);
 	public static Font COMIC_SANS_SMALL_BOLD = new Font(SMALL,_FONT_COMIC_SANS,true,false,false);
 	public static Font COMIC_SANS_MEDIUM_BOLD = new Font(MEDIUM,_FONT_COMIC_SANS,true,false,false);
 	public static Font COMIC_SANS_BIG_BOLD = new Font(BIG,_FONT_COMIC_SANS,true,false,false);
+
 	public static Font GEORGIA_SMALL = new Font(SMALL,_FONT_GEORGIA,false,false,false);
 	public static Font GEORGIA_MEDIUM = new Font(MEDIUM,_FONT_GEORGIA,false,false,false);
 	public static Font GEORGIA_BIG = new Font(BIG,_FONT_GEORGIA,false,false,false);
 	public static Font GEORGIA_SMALL_BOLD = new Font(SMALL,_FONT_GEORGIA,true,false,false);
 	public static Font GEORGIA_MEDIUM_BOLD = new Font(MEDIUM,_FONT_GEORGIA,true,false,false);
 	public static Font GEORGIA_BIG_BOLD = new Font(BIG,_FONT_GEORGIA,true,false,false);
+
 	public static Font VERDANA_SMALL = new Font(SMALL,_FONT_VERDANA,false,false,false);
 	public static Font VERDANA_MEDIUM = new Font(MEDIUM,_FONT_VERDANA,false,false,false);
 	public static Font VERDANA_BIG = new Font(BIG,_FONT_VERDANA,false,false,false);
 	public static Font VERDANA_SMALL_BOLD = new Font(SMALL,_FONT_VERDANA,true,false,false);
 	public static Font VERDANA_MEDIUM_BOLD = new Font(MEDIUM,_FONT_VERDANA,true,false,false);
 	public static Font VERDANA_BIG_BOLD = new Font(BIG,_FONT_VERDANA,true,false,false);
+
+	public static Font MONOSPACED_SMALL = new Font(SMALL,_FONT_MONOSPACED,false,false,false);
+	public static Font MONOSPACED_MEDIUM = new Font(MEDIUM,_FONT_MONOSPACED,false,false,false);
+	public static Font MONOSPACED_BIG = new Font(BIG,_FONT_MONOSPACED,false,false,false);
+	public static Font MONOSPACED_SMALL_BOLD = new Font(SMALL,_FONT_MONOSPACED,true,false,false);
+	public static Font MONOSPACED_MEDIUM_BOLD = new Font(MEDIUM,_FONT_MONOSPACED,true,false,false);
+	public static Font MONOSPACED_BIG_BOLD = new Font(BIG,_FONT_MONOSPACED,true,false,false);
 
 	public Font(int fontSize, String fontName, String pdfFontName, String pdfFontEncoding, boolean pdfFontEmbedded) {
 		super();

@@ -34,6 +34,15 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
+	   			<release version="4.0.0_beta2" date="2012-04-01" desc="Major Release" >
+                    <action dev="Juan Manuel Alvarez" type="add">
+                       Added test dependency to DynamicJasper-core-fonts-1.0 in order to prevent missing fonts.
+                       Fonts added are: Arial, Times New Roman, Courier New, Comic Sans MS, Georgia, Verdana, Monospaced
+                    </action>
+                    <action dev="Juan Manuel Alvarez" type="add">
+                       Added Monospaced font
+                    </action>
+                </release>
 	   			<release version="4.0.0-beta1" date="2012-04-01" desc="Major Release" >
                     <action dev="Juan Manuel Alvarez" type="change">
                        Style borders break change. They now have their own class. So, no more Border.THIN, but Border.THIN() as a factory method
