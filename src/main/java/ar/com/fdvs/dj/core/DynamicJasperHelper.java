@@ -35,15 +35,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -91,6 +83,8 @@ public class DynamicJasperHelper {
 	private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
 	public static final String DEFAULT_XML_ENCODING = "UTF-8";
 	private static final String DJ_RESOURCE_BUNDLE ="dj-messages";
+
+    private static final Random random = new Random(System.currentTimeMillis());
 
 	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
 		ColumnRegistrationManager columnRegistrationManager = new ColumnRegistrationManager(jd,dr,layoutManager);
@@ -206,6 +200,12 @@ public class DynamicJasperHelper {
 				//Create new JasperDesign from the scratch
 				jd = DJJRDesignHelper.getNewDesign(dr);
 			}
+
+            //Force a unique name to the report
+            jd.setName("" + jd.getName() + "_" + random.nextInt(10000));
+
+            log.debug("The name for this report will be: " + jd.getName());
+
 			jd.setScriptletClass(DJDefaultScriptlet.class.getName()); //Set up scripttlet so that custom expressions can do their magic
 			registerParameters(jd,dr);
 		} catch (JRException e) {
@@ -437,11 +437,16 @@ public class DynamicJasperHelper {
 				subreport.setName(name);
 			
 				if (subreport.getDynamicReport() != null){
+                    Map originalParameters = _parameters;
+                    if (subreport.getParametersExpression() != null){
+                        _parameters = (Map) originalParameters.get(subreport.getParametersExpression());
+                    }
 					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters, name);
 					 JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
 					 _parameters.put(name, jp);
 					 subreport.setReport(jp);
-					 log.debug("subreport " + name); 
+					 log.debug("subreport " + name);
+                    _parameters = originalParameters;
 				}
 
 			}
@@ -454,11 +459,21 @@ public class DynamicJasperHelper {
 				subreport.setName(name);
 
 				if (subreport.getDynamicReport() != null){
+                    Map originalParameters = _parameters;
+                    if (subreport.getParametersExpression() != null){
+                        _parameters = (Map) originalParameters.get(subreport.getParametersExpression());
+                        if (_parameters==null){
+                            _parameters = new HashMap();
+                            originalParameters.put(subreport.getParametersExpression(),_parameters);
+                        }
+                    }
+
 					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters, name);
 					JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
 					_parameters.put(name, jp);
 					subreport.setReport(jp);
 					log.debug("subreport " + name);
+                    _parameters = originalParameters;
 				}
 
 			}
