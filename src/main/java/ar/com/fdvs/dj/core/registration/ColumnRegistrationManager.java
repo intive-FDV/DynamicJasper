@@ -75,7 +75,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 		//A default name is setted if the user didn't specify one.
 		AbstractColumn column = (AbstractColumn)entity;
 		if (column.getName() == null){
-			column.setName(COLUMN_NAME_PREFIX + colCounter++ );
+			column.setName(this.getDjd().getName() + "_" + COLUMN_NAME_PREFIX + colCounter++ );
 		}
 		if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty()){
 			ConditionalStylesRegistrationManager conditionalStylesRm = new ConditionalStylesRegistrationManager(getDjd(),getDynamicReport(),column.getName(),getLayoutManager());
@@ -114,8 +114,8 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 					expressionColumn.setVariables( new ArrayList(getDjd().getVariablesList()) );
 //					String property_name = expressionColumn.getColumnProperty().getProperty();
 					
-					//override property column name to make it unique and determinable
-					String property_name = "customExpression_for_"+expressionColumn.getName(); //NOTE Since 3.0.14-beta2 Change added to make variable names determinable inside scriptlets 
+					//override property column name to make it unique and determinable. Add report name as a prefix
+					String property_name = "customExpression_for_"+expressionColumn.getName(); //NOTE Since 3.0.14-beta2 Change added to make variable names determinable inside scriptlets
 					
 					expressionColumn.getColumnProperty().setProperty(property_name);
 					
