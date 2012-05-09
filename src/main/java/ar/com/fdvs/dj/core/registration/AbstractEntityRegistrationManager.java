@@ -81,7 +81,7 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 
 	public final void registerEntities(Collection entities) throws EntitiesRegistrationException {
 //		this.columns = entities;
-		log.debug("Registering entities: " + this.getClass().getName());
+//		log.debug("Registering entities: " + this.getClass().getName());
 		try {
 			if (entities!=null) {
 				Iterator it = entities.iterator();

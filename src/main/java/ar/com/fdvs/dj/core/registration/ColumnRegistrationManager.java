@@ -80,7 +80,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 
         column.setReportName(this.getDjd().getName());
 
-        log.debug("registering column " + column.getName() + " (" + column.getClass().getSimpleName() +")");
+        log.debug("Registering column " + column.getName() + " (" + column.getClass().getSimpleName() +")");
 		if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty()){
 			ConditionalStylesRegistrationManager conditionalStylesRm = new ConditionalStylesRegistrationManager(getDjd(),getDynamicReport(),column.getName(),getLayoutManager());
 			conditionalStylesRm.registerEntities(column.getConditionalStyles());
@@ -89,12 +89,12 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 			JRDesignParameter parameter = new JRDesignParameter();
 			parameter.setName(ExpressionUtils.createParameterName("formatter_for_" + column.getName(), column.getTextFormatter()));
 			parameter.setValueClassName(Object.class.getName());
-			log.debug("registering text formatter: " + parameter.getName());
+			log.debug("Registering text formatter: " + parameter.getName());
 			getDjd().getParametersWithValues().put(parameter.getName(), column.getTextFormatter());
 			try {
 				getDjd().addParameter(parameter);
 			} catch (JRException e) {
-				log.debug("repeated parameter: " + parameter.getName());
+				log.debug("Repeated parameter: " + parameter.getName());
 			}
 		}
 
@@ -142,7 +142,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 		field.setName(columnProperty.getProperty());
 		field.setValueClassName(columnProperty.getValueClassName());
 		
-		log.debug("transforming column property: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +") " + propertyColumn.getName());
+		log.debug("Transforming column: " + propertyColumn.getName() + ", property: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +") " );
 
 		field.setDescription(propertyColumn.getFieldDescription()); //hack for XML data source
 		Iterator iter = columnProperty.getFieldProperties().keySet().iterator();

@@ -63,9 +63,24 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 	}
 
 	protected void registerEntity(Entity entity) {
-		log.debug("registering group...");
 		DJGroup djgroup = (DJGroup) entity;
 		try {
+            //Set Group Name
+            if (djgroup.getName() == null) {
+                PropertyColumn column = djgroup.getColumnToGroupBy();
+                String prefix = this.getDjd().getName() + "_";
+                int groupIndex = getDynamicReport().getColumnsGroups().indexOf(djgroup);
+                int columnIndex = getDynamicReport().getColumns().indexOf(djgroup.getColumnToGroupBy());
+                if (column instanceof GlobalGroupColumn){
+                    djgroup.setName(prefix + "global_column_" + groupIndex);
+                } else {
+                    djgroup.setName(prefix + "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getName());
+                }
+            }
+
+
+            log.debug("registering group " + djgroup.getName());
+
 			JRDesignGroup group = (JRDesignGroup)transformEntity(djgroup);
 			getDjd().addGroup(group);
 			//Variables are registered right after the group where they belong.
@@ -99,21 +114,12 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 
 	//PropertyColumn only can be used for grouping (not OperationColumn)
 	protected Object transformEntity(Entity entity) throws JRException {
-		log.debug("transforming group...");
+		//log.debug("transforming group...");
 		DJGroup djgroup = (DJGroup) entity;
 		PropertyColumn column = djgroup.getColumnToGroupBy();
 		JRDesignGroup group = new JRDesignGroup();
 
-		if (djgroup.getName() == null) {
-            String prefix = this.getDjd().getName() + "_";
-			int groupIndex = getDynamicReport().getColumnsGroups().indexOf(djgroup);
-			int columnIndex = getDynamicReport().getColumns().indexOf(djgroup.getColumnToGroupBy());
-			if (column instanceof GlobalGroupColumn){
-				djgroup.setName(prefix + "global_column_" + groupIndex);
-			} else {
-				djgroup.setName(prefix + "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getName());
-			}			
-		}
+
 		group.setName(djgroup.getName());
 		
 		getLayoutManager().getReferencesMap().put(group.getName(), djgroup);
