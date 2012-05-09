@@ -59,7 +59,7 @@ public class ConditionalStyleReportTest2 extends TestCase {
             drb.setUseFullPageWidth(true);
             drb.setAllowDetailSplit(false);
             drb.setWhenNoData("No data", null, true, true);
-            drb.setReportName("Test inner crosstab");
+            //drb.setReportName("Test inner crosstab");
             ArrayList listCondStyle = getConditonalStyles();
             AbstractColumn columnState1 = ColumnBuilder.getNew()
                                            .setColumnProperty("1", Integer.class.getName()).setTitle("Sales")

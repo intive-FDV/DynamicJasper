@@ -46,9 +46,19 @@ import java.util.List;
 public abstract class AbstractColumn extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
-	
-	//Internal column name
+
+    /**
+     * Internal column name.
+     * used to generate expression names related to this column (variables, custom expression, etc)
+     * Its name is given in the ColumnRegistrationManager
+     */
 	private String name;
+
+    /**
+     * For internal use only. will be initialized with the report name and subclasses can benefit
+     * from it to create expression which needs the report prefix
+     */
+    private String reportName;
 
 	private String title;
 	private Integer posX = new Integer(0);
@@ -215,5 +225,13 @@ public abstract class AbstractColumn extends DJBaseElement {
 
     public boolean hasParentCol() {
         return colSpan != null;
+    }
+
+    public String getReportName() {
+        return reportName;
+    }
+
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
     }
 }

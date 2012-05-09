@@ -31,7 +31,10 @@ package ar.com.fdvs.dj.test;
 
 
 import java.util.Date;
+import java.util.Map;
 
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DynamicReport;
@@ -59,6 +62,19 @@ public class FastReportTest extends BaseDjReportTest {
 			.setSubtitle("This report was generated at " + new Date())
 			.setPrintBackgroundOnOddRows(true)			
 			.setUseFullPageWidth(true);
+
+        drb.addGlobalFooterVariable(drb.getColumn(4), DJCalculation.COUNT, null, new DJValueFormatter() {
+
+            public String getClassName() {
+                return String.class.getName();
+            }
+
+
+            public Object evaluate(Object value, Map fields, Map variables,   Map parameters) {
+                return (value == null ? "0" : value.toString()) + " Clients";
+            }
+        });
+
 
 		DynamicReport dr = drb.build();
 

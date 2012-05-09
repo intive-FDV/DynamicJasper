@@ -81,9 +81,11 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 	}
 
 	protected Object transformEntity(Entity entity) {
-		log.debug("transforming group variable...");
+
 		DJGroupVariableDef columnsGroupVariable = (DJGroupVariableDef) entity;
 		DJCalculation op = columnsGroupVariable.getOperation();
+
+        columnsGroupVariable.setName(this.getDjd().getName() + "_" + columnsGroupVariable.getName());
 
 		JRDesignExpression expression = new JRDesignExpression();
 		
@@ -121,6 +123,8 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 		variable.setExpression(expression);
 		variable.setCalculation(CalculationEnum.getByValue( columnsGroupVariable.getOperation().getValue() ));
 		variable.setName(columnsGroupVariable.getName());
+
+        log.debug("transforming group variable " + variable.getName());
 
 		if (group != null) {
 			variable.setResetType( ResetTypeEnum.GROUP );

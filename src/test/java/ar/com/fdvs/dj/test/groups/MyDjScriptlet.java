@@ -3,6 +3,9 @@ package ar.com.fdvs.dj.test.groups;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRScriptletException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.fill.JRFillParameter;
 import net.sf.jasperreports.engine.fill.JRFillVariable;
 
 import org.apache.log4j.Logger;
@@ -27,14 +30,18 @@ public class MyDjScriptlet extends DJDefaultScriptlet {
 		String currentGroupValue = (String) getFieldValue("state");
 		
 		logger.debug("afterGroupInit [" + groupName + "] = " + currentGroupValue);
+
+        JRFillParameter report = parametersMap.get("JASPER_REPORT");
+        String prefix = ((JasperReport)report.getValue()).getName() + "_";
 		
 		/**
 		 * Recover JasperReport variable (the holder for the calculated value)
-		 * The naming convention used in DJ is: variable-<[header|footer]>_<grouped column property>_<column with the variable>
-		 * As an example: variable-header_state_quantity stands for: a header variable placed in the group for the column "state" 
+		 * The naming convention used in DJ is: <ReportName>_variable-<[header|footer]>_<grouped column property>_<column with the variable>
+		 * As an example: XXXX_variable-header_state_quantity stands for: a header variable placed in the group for the column "state"
 		 * which calculates in the column "quantity"
+         * In the example, XXXX is the report name which is obtained from current JasperReport object (from the parameters map)
 		 */
-		JRFillVariable var = (JRFillVariable) variablesMap.get("variable-header_state_quantity");
+		JRFillVariable var = (JRFillVariable) variablesMap.get(prefix + "variable-header_state_quantity");
 		
 		/**
 		 * Here We get the precalculated value for the current group

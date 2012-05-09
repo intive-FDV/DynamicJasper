@@ -105,12 +105,13 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		JRDesignGroup group = new JRDesignGroup();
 
 		if (djgroup.getName() == null) {
+            String prefix = this.getDjd().getName() + "_";
 			int groupIndex = getDynamicReport().getColumnsGroups().indexOf(djgroup);
 			int columnIndex = getDynamicReport().getColumns().indexOf(djgroup.getColumnToGroupBy());
 			if (column instanceof GlobalGroupColumn){
-				djgroup.setName("global_column_" + groupIndex);
+				djgroup.setName(prefix + "global_column_" + groupIndex);
 			} else {
-				djgroup.setName( "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getName());
+				djgroup.setName(prefix + "group["+groupIndex+"]_for_column_" + columnIndex + "-" +  column.getName());
 			}			
 		}
 		group.setName(djgroup.getName());

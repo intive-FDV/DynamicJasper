@@ -77,6 +77,10 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 		if (column.getName() == null){
 			column.setName(this.getDjd().getName() + "_" + COLUMN_NAME_PREFIX + colCounter++ );
 		}
+
+        column.setReportName(this.getDjd().getName());
+
+        log.debug("registering column " + column.getName() + " (" + column.getClass().getSimpleName() +")");
 		if (column.getConditionalStyles() != null && !column.getConditionalStyles().isEmpty()){
 			ConditionalStylesRegistrationManager conditionalStylesRm = new ConditionalStylesRegistrationManager(getDjd(),getDynamicReport(),column.getName(),getLayoutManager());
 			conditionalStylesRm.registerEntities(column.getConditionalStyles());
@@ -98,7 +102,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 			try {
 				//addField() will throw an exception only if the column has already been registered.
 				PropertyColumn propertyColumn = ((PropertyColumn)entity);
-				log.debug("registering column " + column.getName());
+
 				ColumnProperty columnProperty = propertyColumn.getColumnProperty();
 				if ( columnProperty != null && !columnProperty.getProperty().startsWith("__name_to_be_replaced_in_registration_manager_")){
 					JRField jrfield = (JRField)transformEntity(entity);
@@ -138,7 +142,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 		field.setName(columnProperty.getProperty());
 		field.setValueClassName(columnProperty.getValueClassName());
 		
-		log.debug("transforming column property: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +")");
+		log.debug("transforming column property: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +") " + propertyColumn.getName());
 
 		field.setDescription(propertyColumn.getFieldDescription()); //hack for XML data source
 		Iterator iter = columnProperty.getFieldProperties().keySet().iterator();

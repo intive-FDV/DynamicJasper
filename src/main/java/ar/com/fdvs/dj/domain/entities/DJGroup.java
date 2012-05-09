@@ -80,6 +80,10 @@ public class DJGroup extends DJBaseElement {
 	
 	private boolean fitHeaderHeightToContent = true;
 	private boolean fitFooterHeightToContent = true;
+
+    /**
+     * For internal use only
+     */
 	private String name;
 	
 	public boolean isFitHeaderHeightToContent() {
