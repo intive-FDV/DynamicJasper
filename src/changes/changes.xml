@@ -37,6 +37,9 @@
 	 <!--
 	  -->
 	   			<release version="3.2.3" date="2012-05-12" desc="bug fixing" >
+                       <action dev="Juan Manuel Alvarez" type="fix">
+                           Fixed problem with custom expression in subreport: http://dynamicjasper.com/forum/viewtopic.php?f=8&t=15116
+                       </action>
                        <action dev="Juan Manuel Alvarez" type="add">
                            Added test dependency to DynamicJasper-core-fonts-1.0 in order to prevent missing fonts.
                            Fonts added are: Arial, Times New Roman, Courier New, Comic Sans MS, Georgia, Verdana, Monospaced
