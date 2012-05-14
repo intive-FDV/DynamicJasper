@@ -989,8 +989,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			DJGroupVariable var = (DJGroupVariable) it.next();
 			AbstractColumn col = var.getColumnToApplyOperation();
 
-			//Build the expression for the variable
-			String variableName = col.getGroupVariableName(type, djGroup.getColumnToGroupBy().getColumnProperty().getProperty());
+            String variableName = var.getName();
 
 			//Add the group label
 			DJGroupLabel label = var.getLabel();

@@ -29,42 +29,6 @@
 
 package ar.com.fdvs.dj.core;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.ResourceBundle;
-
-import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JRCompiler;
-import net.sf.jasperreports.engine.design.JRDesignField;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignParameter;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.util.JRProperties;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.engine.xml.JRXmlWriter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
 import ar.com.fdvs.dj.core.registration.DJGroupRegistrationManager;
@@ -82,6 +46,22 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.util.DJCompilerFactory;
 import ar.com.fdvs.dj.util.LayoutUtils;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.*;
+import net.sf.jasperreports.engine.util.JRProperties;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.engine.xml.JRXmlWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.*;
 
 /**
  * Helper class for running a report and some other DJ related stuff
@@ -91,6 +71,8 @@ public class DynamicJasperHelper {
 	private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
 	public static final String DEFAULT_XML_ENCODING = "UTF-8";
 	private static final String DJ_RESOURCE_BUNDLE ="dj-messages";
+
+    private static final Random random = new Random(System.currentTimeMillis());
 
 	private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
 		ColumnRegistrationManager columnRegistrationManager = new ColumnRegistrationManager(jd,dr,layoutManager);
@@ -206,6 +188,12 @@ public class DynamicJasperHelper {
 				//Create new JasperDesign from the scratch
 				jd = DJJRDesignHelper.getNewDesign(dr);
 			}
+
+            //Force a unique name to the report
+            jd.setName("" + jd.getName() + "_" + random.nextInt(10000));
+
+            log.debug("The name for this report will be: " + jd.getName());
+
 			jd.setScriptletClass(DJDefaultScriptlet.class.getName()); //Set up scripttlet so that custom expressions can do their magic
 			registerParameters(jd,dr);
 		} catch (JRException e) {
@@ -437,11 +425,17 @@ public class DynamicJasperHelper {
 				subreport.setName(name);
 			
 				if (subreport.getDynamicReport() != null){
+                    Map originalParameters = _parameters;
+                    if (subreport.getParametersExpression() != null
+                            && subreport.getParametersMapOrigin() == DJConstants.SUBREPORT_PARAMETER_MAP_ORIGIN_PARAMETER){
+                        _parameters = (Map) originalParameters.get(subreport.getParametersExpression());
+                    }
 					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters, name);
 					 JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
 					 _parameters.put(name, jp);
 					 subreport.setReport(jp);
-					 log.debug("subreport " + name); 
+					 log.debug("header subreport: " + name);
+                     _parameters = originalParameters;
 				}
 
 			}
@@ -454,11 +448,17 @@ public class DynamicJasperHelper {
 				subreport.setName(name);
 
 				if (subreport.getDynamicReport() != null){
+                    Map originalParameters = _parameters;
+                    if (subreport.getParametersExpression() != null
+                            && subreport.getParametersMapOrigin() == DJConstants.SUBREPORT_PARAMETER_MAP_ORIGIN_PARAMETER){
+                        _parameters = (Map) originalParameters.get(subreport.getParametersExpression());
+                    }
 					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters, name);
 					JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
 					_parameters.put(name, jp);
 					subreport.setReport(jp);
-					log.debug("subreport " + name);
+					log.debug("footer subreport: " + name);
+                    _parameters = originalParameters;
 				}
 
 			}

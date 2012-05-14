@@ -64,6 +64,9 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 
 	private static final Log log = LogFactory.getLog(ColumnsGroupVariablesRegistrationManager.class);
 
+    /**
+     * It can be "header" o "footer"
+     */
 	private String type;
 	private String columnToGroupByProperty;
 
@@ -76,8 +79,9 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 	protected void registerEntity(Entity entity) {
 		DJGroupVariable columnsGroupVariable = (DJGroupVariable) entity;
 		try {
-			String name = columnsGroupVariable.getColumnToApplyOperation().getGroupVariableName(type, columnToGroupByProperty);
-			if (columnsGroupVariable.getValueExpression() == null) {			
+            String name = this.getDjd().getName() +"_" + columnsGroupVariable.getColumnToApplyOperation().getGroupVariableName(type, columnToGroupByProperty);
+            columnsGroupVariable.setName(name);
+            if (columnsGroupVariable.getValueExpression() == null) {
 				JRDesignVariable jrVariable = (JRDesignVariable)transformEntity(entity);
 				
 				log.debug("registering group variable " + jrVariable.getName() + " (" + jrVariable.getValueClassName() + ")");
@@ -126,18 +130,19 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 	}
 
 	protected Object transformEntity(Entity entity) {
-		log.debug("transforming group variable...");
+
 		DJGroupVariable groupVariable = (DJGroupVariable) entity;
 		AbstractColumn col = groupVariable.getColumnToApplyOperation();
-		DJCalculation op = groupVariable.getOperation();
+
+        String variableName =  groupVariable.getName();
+        log.debug("transforming group variable " +variableName);
+        DJCalculation op = groupVariable.getOperation();
 
 		JRDesignExpression expression = new JRDesignExpression();
 
 		//only variables from the last registered group are important now
 		List groupsList = getDjd().getGroupsList();
 		JRDesignGroup registeredGroup = (JRDesignGroup)groupsList.get(groupsList.size()-1);
-		
-		String variableName = col.getGroupVariableName(type, columnToGroupByProperty);
 
 		if (col instanceof ExpressionColumn && ((ExpressionColumn)col).getExpressionForCalculation() != null){
 			ExpressionColumn expcol = (ExpressionColumn)col;

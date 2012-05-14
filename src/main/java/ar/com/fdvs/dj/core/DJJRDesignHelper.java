@@ -103,7 +103,7 @@ public class DJJRDesignHelper {
 			des.setProperty(name, (String) dr.getProperties().get(name));
 		}
 
-		des.setName(dr.getReportName() != null ? dr.getReportName() : "DynamicReport");
+		des.setName(dr.getReportName() != null ? dr.getReportName() : "DJR");
 		return des;
 	}
 

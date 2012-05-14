@@ -69,9 +69,15 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 	}
 	
 	protected void registerEntity(Entity entity) {
-		log.debug("registering group variable...");
 		try {
-			JRDesignVariable jrVariable = (JRDesignVariable)transformEntity(entity);
+            DJGroupVariableDef columnsGroupVariable = (DJGroupVariableDef) entity;
+            DJCalculation op = columnsGroupVariable.getOperation();
+
+            columnsGroupVariable.setName(this.getDjd().getName() + "_" + columnsGroupVariable.getName());
+
+            log.debug("Registering group variable " + columnsGroupVariable.getName());
+
+            JRDesignVariable jrVariable = (JRDesignVariable)transformEntity(entity);
 			getDjd().addVariable(jrVariable);			
 		} catch (JRException e) {
 			throw new EntitiesRegistrationException(e.getMessage(),e);
@@ -79,7 +85,7 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 	}
 
 	protected Object transformEntity(Entity entity) {
-		log.debug("transforming group variable...");
+
 		DJGroupVariableDef columnsGroupVariable = (DJGroupVariableDef) entity;
 		DJCalculation op = columnsGroupVariable.getOperation();
 
@@ -119,6 +125,8 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 		variable.setExpression(expression);
 		variable.setCalculation(columnsGroupVariable.getOperation().getValue());
 		variable.setName(columnsGroupVariable.getName());
+
+        log.debug("Transforming group variable " + variable.getName());
 
 		if (group != null) {
 			variable.setResetType(JRDesignVariable.RESET_TYPE_GROUP);

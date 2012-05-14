@@ -64,6 +64,11 @@ public class DJGroupVariable extends DJBaseElement {
 	
 	private DJGroupLabel label;
 
+    /**
+     * for Internal use only
+     */
+    private String name;
+
 	/**
 	 * for internal use.
 	 */
@@ -192,5 +197,13 @@ public class DJGroupVariable extends DJBaseElement {
 	public DJGroup getGroup() {
 		return group;
 	}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
 }
