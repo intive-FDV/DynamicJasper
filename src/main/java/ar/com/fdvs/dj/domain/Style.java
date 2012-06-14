@@ -63,7 +63,6 @@ public class Style implements Serializable, Cloneable {
 
 	private Color backgroundColor = Color.WHITE;
 	private Color textColor = Color.BLACK;
-	private Color borderColor = Color.BLACK;
 
 	private Font font = Font.ARIAL_MEDIUM;
 
@@ -285,7 +284,7 @@ public class Style implements Serializable, Cloneable {
 
 		transformedStyle.setBackcolor(getBackgroundColor());
 		transformedStyle.setForecolor(getTextColor());
-        pen.setLineColor(borderColor);
+
 		if (getTransparency() != null)
 			transformedStyle.setMode(ModeEnum.getByValue( getTransparency().getValue() ));
 

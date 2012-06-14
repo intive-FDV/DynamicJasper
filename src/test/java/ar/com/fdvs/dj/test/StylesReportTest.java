@@ -62,6 +62,7 @@ public class StylesReportTest extends BaseDjReportTest {
 		titleStyle.setFont(new Font(18,Font._FONT_VERDANA,true));
 		Style numberStyle = new Style();
 		numberStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
+        detailStyle.setBorder(new Border(Border.BORDER_WIDTH_THIN, Border.BORDER_STYLE_SOLID, Color.green));
 		Style amountStyle = new Style();
 		amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 		amountStyle.setBackgroundColor(Color.cyan);
