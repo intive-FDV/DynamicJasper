@@ -34,7 +34,13 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
-	   			<release version="4.0.0_beta3" date="2012-05-12" desc="Major Release" >
+	   			<release version="4.0.0" date="2012-06-15" desc="Final 4.0 Release" >
+                    <action dev="Juan Manuel Alvarez" type="fix">
+                        <![CDATA[Fixed problem with border colors https://sourceforge.net/tracker/?func=detail&atid=923805&aid=3532995&group_id=188060
+                        ,The test StylesReportTest demostrates how it works properly]]>
+                    </action>
+                </release>
+                <release version="4.0.0_beta3" date="2012-05-12" desc="Major Release" >
                     <action dev="Juan Manuel Alvarez" type="fix">
                         <![CDATA[Fixed problem with custom expression in subreport: http://dynamicjasper.com/forum/viewtopic.php?f=8&t=15116
                         ,The test SubReportBuilder3Test demostrates how it works properly]]>
