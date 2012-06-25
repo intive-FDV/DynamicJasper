@@ -34,6 +34,12 @@
 			<author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
 	</properties>
 	 <body>
+	   			<release version="4.0.1" date="2012-06-25" desc="minor bug fix in charts with custom expression columns" >
+                    <action dev="Juan Manuel Alvarez" type="fix">
+                        <![CDATA[Due to this post http://stackoverflow.com/questions/5667658/using-a-customexpression-in-a-dynamicjasper-chart/11191944#11191944
+                        the proposed solution is used for both: new and old charts]]>
+                    </action>
+                </release>
 	   			<release version="4.0.0" date="2012-06-15" desc="Final 4.0 Release" >
                     <action dev="Juan Manuel Alvarez" type="fix">
                         <![CDATA[Fixed problem with border colors https://sourceforge.net/tracker/?func=detail&atid=923805&aid=3532995&group_id=188060
