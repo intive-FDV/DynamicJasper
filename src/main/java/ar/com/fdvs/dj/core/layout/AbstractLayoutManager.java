@@ -1025,17 +1025,28 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		for (Iterator iterator = chart.getColumns().iterator(); iterator.hasNext();) {
 			AbstractColumn col = (AbstractColumn) iterator.next();
 
-
 			Class clazz = null;
-			try { clazz = Class.forName(((PropertyColumn) col).getColumnProperty().getValueClassName());
-			} catch (ClassNotFoundException e) {
-				throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
-			}
 
 			JRDesignExpression expression = new JRDesignExpression();
-			//FIXME Only PropertyColumn allowed?
-			expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
-			expression.setValueClass(clazz);
+            if (col instanceof ExpressionColumn) {
+                try { clazz = Class.forName(((ExpressionColumn) col).getExpression().getClassName());
+                } catch (ClassNotFoundException e) {
+                    throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
+                }
+
+                ExpressionColumn expCol = (ExpressionColumn) col;
+                expression.setText(expCol.getTextForExpression());
+                expression.setValueClassName(expCol.getExpression().getClassName());
+            }
+            else {
+                try { clazz = Class.forName(((PropertyColumn) col).getColumnProperty().getValueClassName());
+                } catch (ClassNotFoundException e) {
+                    throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
+                }
+
+                expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
+                expression.setValueClass(clazz);
+            }
 
 			JRDesignVariable var = new JRDesignVariable();
 			var.setValueClass(clazz);
@@ -1133,17 +1144,28 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 		for (Iterator iterator = chart.getDataset().getColumns().iterator(); iterator.hasNext();) {
 			AbstractColumn col = (AbstractColumn) iterator.next();
 
-
 			Class clazz = null;
-			try { clazz = Class.forName(col.getValueClassNameForExpression());
-			} catch (ClassNotFoundException e) {
-				throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
-			}
 
 			JRDesignExpression expression = new JRDesignExpression();
-			//FIXME Only PropertyColumn allowed?
-			expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
-			expression.setValueClass(clazz);
+
+            if (col instanceof ExpressionColumn) {
+                try { clazz = Class.forName(((ExpressionColumn) col).getExpression().getClassName());
+                } catch (ClassNotFoundException e) {
+                    throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
+                }
+
+                expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
+                expression.setValueClass(clazz);
+            }
+            else {
+                try { clazz = Class.forName(((PropertyColumn) col).getColumnProperty().getValueClassName());
+                } catch (ClassNotFoundException e) {
+                    throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
+                }
+
+                expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
+                expression.setValueClass(clazz);
+            }
 
 			JRDesignVariable var = new JRDesignVariable();
 			var.setValueClass(clazz);
