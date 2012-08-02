@@ -613,7 +613,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 					
 				}
 				for (JRBand footerBand : (List<JRBand>)footerSection.getBandsList()) {
-					setBandFinalHeight((JRDesignBand) footerBand,djGroup.getFooterHeight(), djGroup.isFitHeaderHeightToContent());
+					setBandFinalHeight((JRDesignBand) footerBand,djGroup.getFooterHeight(), djGroup.isFitFooterHeightToContent());
 					
 				}
 			} else {
