@@ -1562,4 +1562,24 @@ public class DynamicReportBuilder {
 
         return this;
    }
+
+    /**
+     Sets the language of the expressions used in the report
+     * (can be one of java, groovy, or javascript).
+     *
+     * Default is DJConstants#REPORT_LANGUAGE_JAVA
+     *
+     * @see DJConstants#REPORT_LANGUAGE_JAVA
+     *      DJConstants#REPORT_LANGUAGE_GROOVY
+     *      DJConstants#REPORT_LANGUAGE_JAVASCRIPT
+     *
+     * @see DynamicReport#language
+     * @param language
+     * @return
+     */
+    public DynamicReportBuilder setLanguage(String language) {
+        this.report.setLanguage(language);
+        return this;
+
+    }
 }

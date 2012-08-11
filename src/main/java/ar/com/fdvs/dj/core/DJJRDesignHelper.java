@@ -78,6 +78,8 @@ public class DJJRDesignHelper {
 		des.setTopMargin(options.getTopMargin().intValue());
 		des.setBottomMargin(options.getBottomMargin().intValue());
 
+        if (dr.getLanguage() != null)
+            des.setLanguage(dr.getLanguage().toLowerCase());
 
         JRDesignSection detailSection = (JRDesignSection) des.getDetailSection();
         detailSection.getBandsList().add(new JRDesignBand());
