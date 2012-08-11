@@ -1161,8 +1161,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
                     throw new DJException("Exeption creating chart variable: " + e.getMessage(),e);
                 }
 
-                expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
-                expression.setValueClass(clazz);
+                ExpressionColumn expCol = (ExpressionColumn) col;
+                expression.setText(expCol.getTextForExpression());
+                expression.setValueClassName(expCol.getExpression().getClassName());
             }
             else {
                 try { clazz = Class.forName(((PropertyColumn) col).getColumnProperty().getValueClassName());
