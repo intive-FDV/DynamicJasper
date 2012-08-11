@@ -50,7 +50,9 @@
                      <action dev="Patel, Dipesh" type="fix">
                          <![CDATA[Expression Columns in charts was not working. Now adding a test: ExpressionColumnInChartTest]]>
                      </action>
-
+                     <action dev="Juan Manuel Alvarez" type="fix" due-to="Prasad Babu ( prasad1982 )" issue="3548312">
+                         <![CDATA[fix duplicated parameter name when: Two Subreports with Hyperlink columns. See SubReportRecursive2Test]]>
+                     </action>
                  </release>
 
 
