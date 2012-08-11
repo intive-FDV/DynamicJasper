@@ -73,6 +73,16 @@ public abstract class AbstractColumn extends DJBaseElement {
 	private String truncateSuffix = null;
 	private Format textFormatter;
 
+    /**
+     * Markup to use in the column data (html, styled, etc)
+     */
+    private String markup;
+
+    /**
+     * Markup to use in the column header (html, styled, etc)
+     */
+    private String headerMarkup;
+
 	private DJHyperLink link;
 	
 	private List conditionalStyles = new ArrayList();
@@ -233,5 +243,21 @@ public abstract class AbstractColumn extends DJBaseElement {
 
     public void setReportName(String reportName) {
         this.reportName = reportName;
+    }
+
+    public String getMarkup() {
+        return markup;
+    }
+
+    public void setMarkup(String markup) {
+        this.markup = markup;
+    }
+
+    public String getHeaderMarkup() {
+        return headerMarkup;
+    }
+
+    public void setHeaderMarkup(String headerMarkup) {
+        this.headerMarkup = headerMarkup;
     }
 }

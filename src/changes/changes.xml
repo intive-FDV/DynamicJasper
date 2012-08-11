@@ -43,6 +43,10 @@
                     <action dev="Patel, Dipesh" type="add">
                          <![CDATA[you can now set report languaje to java, groovy or javascript]]>
                      </action>
+                    <action dev="Patel, Dipesh" type="add">
+                         <![CDATA[We can now specify columns data and header markup. See ColumnBuilder.setMarkup(...) and ColumnBuilder.setHeaderMarkup(...).
+                          Also see ColumnMarkupFastReportTest]]>
+                     </action>
 
                  </release>
 
