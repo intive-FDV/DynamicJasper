@@ -327,7 +327,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 					JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight().intValue(), null);
 
 					if (column.getLink() != null) {
-						String name = "column_" + getReport().getColumns().indexOf(column);
+						String name = getDesign().getName() + "_column_" + getReport().getColumns().indexOf(column);
 						HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(),column.getLink(),textField,name);
 					}
 
