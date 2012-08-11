@@ -101,5 +101,10 @@ public interface DJConstants {
 	public static String FORMAT_XLS = "XLS";
 	public static String FORMAT_XML = "XML";
 
+	public static String REPORT_LANGUAGE_JAVA = "java";
+	public static String REPORT_LANGUAGE_GROOVY = "groovy";
+	public static String REPORT_LANGUAGE_JAVASCRIPT = "javascript";
+
+
 
 }

@@ -49,6 +49,20 @@ public class DynamicReport extends DJBaseElement {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	private String reportName;
+
+    /**
+     Sets the language of the expressions used in the report
+     * (can be one of java, groovy, or javascript).
+     *
+     * Default is DJConstants#REPORT_LANGUAGE_JAVA
+     *
+     * @see DJConstants#REPORT_LANGUAGE_JAVA
+     *      DJConstants#REPORT_LANGUAGE_GROOVY
+     *      DJConstants#REPORT_LANGUAGE_JAVASCRIPT
+     *
+     */
+    private String language = DJConstants.REPORT_LANGUAGE_JAVA;
+
 	private String title;
 	private boolean titleIsJrExpression = false;
 	
@@ -451,4 +465,15 @@ public class DynamicReport extends DJBaseElement {
 		this.variables = variables;
 	}
 
+    public String getLanguage() {
+        return language;
+    }
+
+    /**
+     * @see DynamicReport#language
+     * @param language
+     */
+    public void setLanguage(String language) {
+        this.language = language;
+    }
 }

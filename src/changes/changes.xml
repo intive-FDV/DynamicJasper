@@ -37,10 +37,16 @@
 	 <!--
 	  -->
                  <release version="3.2.5" date="2012-08-11" desc="bug fixing and some new features" >
-                     <action dev="Juan Manuel Alvarez" type="fix">
+                     <action dev="Martin D'Aloia (from github)" type="fix">
                          <![CDATA[Applied this fix to group footer height calculation: https://github.com/FDVSolutions/DynamicJasper/pull/1]]>
                      </action>
+                    <action dev="Patel, Dipesh" type="add">
+                         <![CDATA[you can now set report languaje to java, groovy or javascript]]>
+                     </action>
+
                  </release>
+
+
                 <release version="3.2.4" date="2012-06-25" desc="minor bug fix in charts with custom expression columns" >
                      <action dev="Juan Manuel Alvarez" type="fix">
                          <![CDATA[Due to this post http://stackoverflow.com/questions/5667658/using-a-customexpression-in-a-dynamicjasper-chart/11191944#11191944
