@@ -44,8 +44,10 @@
                        <action dev="Patel, Dipesh" type="add">
                            <![CDATA[you can now set report languaje to java, groovy or javascript]]>
                        </action>
-
-
+                       <action dev="Patel, Dipesh" type="add">
+                           <![CDATA[We can now specify columns data and header markup. See ColumnBuilder.setMarkup(...) and ColumnBuilder.setHeaderMarkup(...).
+                          Also see ColumnMarkupFastReportTest]]>
+                       </action>
                    </release>
                 <release version="4.0.1" date="2012-06-25" desc="minor bug fix in charts with custom expression columns" >
                     <action dev="Juan Manuel Alvarez" type="fix">

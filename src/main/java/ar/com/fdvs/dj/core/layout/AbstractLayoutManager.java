@@ -391,6 +391,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             JRDesignTextField textField     = new JRDesignTextField();
             expression.setText("\"" + col.getTitle() + "\"");
 
+            //sets header markup (if any)
+            if (col.getHeaderMarkup() != null)
+                textField.setMarkup(col.getHeaderMarkup().toLowerCase());
+
             expression.setValueClass(String.class);
 
             textField.setKey("header_" + col.getTitle());
@@ -704,7 +708,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 		textField.setPattern(col.getPattern());
 
-		textField.setPrintRepeatedValues(col.getPrintRepeatedValues().booleanValue());
+        if (col.getMarkup() != null)
+            textField.setMarkup(col.getMarkup().toLowerCase());
+
+        textField.setPrintRepeatedValues(col.getPrintRepeatedValues().booleanValue());
 
         textField.setPrintWhenDetailOverflows(true);
 

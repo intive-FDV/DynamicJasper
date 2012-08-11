@@ -92,8 +92,18 @@ public class ColumnBuilder {
 //	private String formatParameter;
 	private Format textFormatter;
 	private PropertyColumn percentageColumn;
-    
-	private int columnType = COLUMN_TYPE_DEFAULT;
+
+    /**
+     * Markup to use in the column data (html, styled, etc)
+     */
+    private String markup;
+
+    /**
+     * Markup to use in the column header (html, styled, etc)
+     */
+    private String headerMarkup;
+
+    private int columnType = COLUMN_TYPE_DEFAULT;
 	private static Random random = new Random();
 
 
@@ -250,7 +260,9 @@ public class ColumnBuilder {
 		column.setFixedWidth(fixedWidth);
 		column.setTruncateSuffix(truncateSuffix);
         column.setTextFormatter(textFormatter);
-	}
+        column.setHeaderMarkup(headerMarkup);
+        column.setMarkup(markup);
+    }
 
 	public ColumnBuilder setTitle(String title) {
 		this.title = title;
@@ -485,4 +497,25 @@ public class ColumnBuilder {
   public ColumnBuilder setPercentageColumn(PropertyColumn percentageColumn, DJGroup group) {
   	return setPercentageColumn(percentageColumn);
   }
+
+    /**
+     *  Markup to use in the column data (html, styled, etc)
+     * @param markup
+     * @return
+     */
+    public ColumnBuilder setMarkup(String markup) {
+        this.markup = markup;
+        return this;
+    }
+
+    /**
+     *  Markup to use in the column header (html, styled, etc)
+     * @param markup
+     * @return
+     */
+    public ColumnBuilder setHeaderMarkup(String markup) {
+        this.headerMarkup = markup;
+        return this;
+    }
+
 }
