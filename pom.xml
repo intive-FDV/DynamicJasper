@@ -274,17 +274,6 @@ API.
 			</reporting>
 		</profile>
 		<profile>
-			<id>publicRepo</id>
-		<distributionManagement>
-			<repository>
-				<id>djmaven2</id>
-				<name>DynamicJasper public Repository</name>
-				<url>ftp://fdvs.com.ar/djmaven2/</url>
-			</repository>
-		</distributionManagement>
-
-		</profile>
-		<profile>
 			<id>internal</id>
 			<distributionManagement>
 		        <repository>
