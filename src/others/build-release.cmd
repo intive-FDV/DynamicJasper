@@ -1,0 +1,1 @@
+mvn -f ..\..\pom.xml clean package changes:announcement-generate -P site,sources
