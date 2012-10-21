@@ -1,17 +1,18 @@
 package ar.com.fdvs.dj.core;
 
+import net.sf.jasperreports.engine.fill.JRFillParameter;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
 
-import net.sf.jasperreports.engine.fill.JRFillParameter;
-
 public class ParameterMapWrapper implements Map {
 	
 	private Map map;
-	
-	public ParameterMapWrapper(Map map){
+    private String reportName;
+
+    public ParameterMapWrapper(Map map){
 		this.map = map;
 	}
 
@@ -23,9 +24,12 @@ public class ParameterMapWrapper implements Map {
 		map.clear();
 	}
 
-	public boolean containsKey(Object key) {
-		return map.containsKey(key);
-	}
+    public boolean containsKey(Object key) {
+        boolean contains = map.containsKey(key);
+        if (!contains)
+            return map.containsKey(reportName + "_" + key);
+        return contains;
+    }
 
 	public boolean containsValue(Object value) {
 		throw new DJException("Method not implemented");
@@ -39,13 +43,17 @@ public class ParameterMapWrapper implements Map {
 		return map.equals(o);
 	}
 
-	public Object get(Object key) {
-		Object value = map.get(key);
-		if (value == null)
-			return null;
-		
-		return ((JRFillParameter)value).getValue();
-	}
+    public Object get(Object key) {
+        Object value = map.get(key);
+        if (value == null){
+            value = map.get(reportName + "_" + key);
+        }
+        if (value == null){
+            return null;
+        }
+
+        return ((JRFillParameter)value).getValue();
+    }
 
 	public int hashCode() {
 		return map.hashCode();
@@ -84,6 +92,8 @@ public class ParameterMapWrapper implements Map {
 		
 	}
 
-	
 
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
+    }
 }

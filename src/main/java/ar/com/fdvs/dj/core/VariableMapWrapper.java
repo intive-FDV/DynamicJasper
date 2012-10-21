@@ -10,8 +10,9 @@ import net.sf.jasperreports.engine.fill.JRFillVariable;
 public class VariableMapWrapper implements Map {
 	
 	private Map map;
-	
-	public VariableMapWrapper(Map map){
+    private String reportName;
+
+    public VariableMapWrapper(Map map){
 		this.map = map;
 	}
 
@@ -24,7 +25,10 @@ public class VariableMapWrapper implements Map {
 	}
 
 	public boolean containsKey(Object key) {
-		return map.containsKey(key);
+        boolean contains = map.containsKey(key);
+        if (!contains)
+            return map.containsKey(reportName + "_" + key);
+        return contains;
 	}
 
 	public boolean containsValue(Object value) {
@@ -41,9 +45,13 @@ public class VariableMapWrapper implements Map {
 
 	public Object get(Object key) {
 		Object value = map.get(key);
-		if (value == null)
+		if (value == null){
+            value = map.get(reportName + "_" + key);
+        }
+        if (value == null){
 			return null;
-		
+        }
+
 		return ((JRFillVariable)value).getValue();
 	}
 
@@ -84,6 +92,8 @@ public class VariableMapWrapper implements Map {
 		
 	}
 
-	
 
+    public void setReportName(String reportName) {
+        this.reportName = reportName;
+    }
 }

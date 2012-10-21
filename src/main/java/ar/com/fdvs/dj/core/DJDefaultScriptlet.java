@@ -2,9 +2,14 @@ package ar.com.fdvs.dj.core;
 
 import java.util.Map;
 
+import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
 import net.sf.jasperreports.engine.JRDefaultScriptlet;
+import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.JRScriptletException;
+import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.fill.JRFillGroup;
 
+import net.sf.jasperreports.engine.fill.JRFillParameter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -36,7 +41,6 @@ public class DJDefaultScriptlet extends JRDefaultScriptlet  {
 
 	public void setData(Map parsm, Map fldsm, Map varsm, JRFillGroup[] grps) {
 		super.setData(parsm, fldsm, varsm, grps);
-		
 		putValuesInMap();
 	}
 	
@@ -58,4 +62,13 @@ public class DJDefaultScriptlet extends JRDefaultScriptlet  {
 		return variableMapWrapper;
 	}
 
+    @Override
+    public void beforeReportInit() throws JRScriptletException {
+        super.beforeReportInit();
+        JasperReport jr = (JasperReport) getParameterValue(JRParameter.JASPER_REPORT);
+        variableMapWrapper.setReportName(jr.getName());
+        parameterMapWrapper.setReportName(jr.getName());
+
+
+    }
 }

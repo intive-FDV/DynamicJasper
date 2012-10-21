@@ -36,6 +36,11 @@
 	 <body>
 	 <!--
 	  -->
+                 <release version="3.2.6" date="2012-09-30" desc="bug fixing">
+                     <action dev="Juan Manuel Alvarez" type="fix">
+                         <![CDATA[custom variables and parameters cannot be reached inside custom expression due to new naming strategy.]]>
+                     </action>
+                 </release>
                  <release version="3.2.5" date="2012-08-11" desc="bug fixing and some new features" >
                      <action dev="Martin D'Aloia (from github)" type="fix">
                          <![CDATA[Applied this fix to group footer height calculation: https://github.com/FDVSolutions/DynamicJasper/pull/1]]>
