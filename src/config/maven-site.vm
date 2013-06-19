@@ -365,7 +365,7 @@ $(document).ready(function(){
 	});
 
 function makeImageLinks(){
-	$("div.section img").each(function(){
+/*	$("div.section img").each(function(){
 		var original_name = this.src;
 		var thumb_name = this.src.substring(0,this.src.lastIndexOf(".")) + "_s" + this.src.substring(this.src.lastIndexOf("."));
 		this.src = thumb_name;
@@ -373,8 +373,7 @@ function makeImageLinks(){
 
 	});
 	$("div.section a.imageLink").fancybox({ 'hideOnContentClick': true });
-
-	//$("div.section").fadeIn('slow');
+	*/
 }
 
 function goDownload(elem) {
