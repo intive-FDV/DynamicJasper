@@ -34,6 +34,11 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.0.0" date="2013-10-23" desc="Compatibility release">
+            <action dev="Juan Manuel Alvarez" type="add">
+                <![CDATA[From this version DJ needs Java 1.6+ and jasper resports 4.6.0+. Tested with JasperRepoerts 4.6.0, 4.7.0, 4.8.0, 5.0.0, 5.1.0 and 5.2.0]]>
+            </action>
+        </release>
         <release version="4.0.3" date="2012-09-30" desc="bug fixing">
             <action dev="Juan Manuel Alvarez" type="fix">
                 <![CDATA[custom variables and parameters cannot be reached inside custom expression due to new naming strategy.]]>
