@@ -29,9 +29,7 @@
 
 package ar.com.fdvs.dj.output;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -57,11 +55,21 @@ public class MemoryReportWriter extends ReportWriter {
     }
 
     public void writeTo(final HttpServletResponse _response) throws IOException, JRException {
-        LOGGER.info("entering MemoryReportWriter.writeTo()");
+        LOGGER.info("entering MemoryReportWriter.writeTo(HttpServletResponse)");
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
         exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
         exporter.exportReport();
         _response.setContentLength(stream.size());
         copyStreams(new ByteArrayInputStream(stream.toByteArray()), _response.getOutputStream());
+    }
+
+    @Override
+    public InputStream write() throws IOException, JRException {
+        LOGGER.info("entering MemoryReportWriter.write()");
+        final ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
+        exporter.exportReport();
+
+        return new ByteArrayInputStream(stream.toByteArray());
     }
 }

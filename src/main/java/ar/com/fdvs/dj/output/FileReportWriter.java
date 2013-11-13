@@ -29,9 +29,7 @@
 
 package ar.com.fdvs.dj.output;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -69,4 +67,18 @@ public class FileReportWriter extends ReportWriter {
             file.delete();
         }
     }
+
+    @Override
+    public InputStream write() throws IOException, JRException {
+        LOGGER.info("entering FileReportWriter.writeTo()");
+        final File file = File.createTempFile("djreport", ".tmp");
+
+        file.deleteOnExit();
+        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, file);
+        exporter.exportReport();
+
+        return new FileInputStream(file);
+    }
+
+
 }

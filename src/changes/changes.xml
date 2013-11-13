@@ -34,6 +34,11 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.0.1" date="2013-11-13" desc="Better support for HTML export">
+            <action dev="Juan Manuel Alvarez" type="add">
+                <![CDATA[Better support for HTML export when using frameworks such as GWT or Vaadin when writing to the response is not an option.]]>
+            </action>
+        </release>
         <release version="5.0.0" date="2013-10-23" desc="Compatibility release">
             <action dev="Juan Manuel Alvarez" type="add">
                 <![CDATA[From this version DJ needs Java 1.6+ and jasper resports 4.6.0+. Tested with JasperRepoerts 4.6.0, 4.7.0, 4.8.0, 5.0.0, 5.1.0 and 5.2.0]]>

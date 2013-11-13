@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.output;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -64,7 +65,9 @@ public abstract class ReportWriter {
 
     public abstract void writeTo(HttpServletResponse _response) throws IOException, JRException;
 
-    protected void copyStreams(final InputStream _inputStream, final OutputStream _ouputStream) throws IOException {
+    public abstract InputStream write() throws IOException, JRException;
+
+    public static final void copyStreams(final InputStream _inputStream, final OutputStream _ouputStream) throws IOException {
         final byte[] buffer = new byte[BUFFER_SIZE];
         int c;
         try {
