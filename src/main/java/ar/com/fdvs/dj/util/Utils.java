@@ -62,7 +62,7 @@ public class Utils {
 	                }
 
 	                Class propertyType = origDescriptors[i].getPropertyType();
-					if (! Boolean.class.equals(propertyType) && ! (boolean.class.equals(propertyType) ))
+					if (! Boolean.class.equals(propertyType) && !(Boolean.class.equals(propertyType) ))
 	                	continue;
 
 	                if (!putils.isReadable(orig, name)){ //because of bad convention
