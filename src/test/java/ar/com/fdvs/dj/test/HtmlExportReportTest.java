@@ -129,6 +129,7 @@ public class HtmlExportReportTest extends BaseDjReportTest {
 
         //Exporting and returning an InputStream
         MockHttpServletRequest request2 = new MockHttpServletRequest();
+        DJServletHelper.setPageTreshold(0);
         InputStream is = DJServletHelper.exportToHtml(request2, "/images", jp, null);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ReportWriter.copyStreams(is,out);

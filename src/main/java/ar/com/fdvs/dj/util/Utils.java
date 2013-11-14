@@ -104,7 +104,7 @@ public class Utils {
 	 * The double quotes (") must be escaped to <b>\"</b>, and in java that would be <b>\\\\\"</b><br>
 	 *
 	 * To understand better, the expression can be tested in iReport expression editor.
-	 * @param title
+	 * @param text
 	 * @return
 	 */
 	public static String escapeTextForExpression(String text) {

@@ -24,6 +24,22 @@ import ar.com.fdvs.dj.output.ReportWriterFactory;
 
 public class DJServletHelper {
 
+    private static ThreadLocal<Integer> pageTreshold = new ThreadLocal<Integer>();
+
+    static {
+        pageTreshold.set(5);
+    }
+
+    /**
+     * Sets the number of pages to keep the report in memory, if the report surpases such limit, a file will
+     * be used.
+     * @param treshold
+     */
+    public static void setPageTreshold(int treshold){
+        if (treshold >= 0)
+            pageTreshold.set(treshold);
+    }
+
     /**
      * Generates the report as HTML and setups everything for a clean response (serving images as well).
      * You have to declare JasperReport servlet in web.xml (net.sf.jasperreports.j2ee.servlets.ImageServlet)
@@ -66,8 +82,6 @@ public class DJServletHelper {
             exporterParams = new HashMap();
 
         JasperPrint _jasperPrint = DynamicJasperHelper.generateJasperPrint(dynamicReport, layoutManager, ds, parameters);
-        final ReportWriter reportWriter = ReportWriterFactory.getInstance().getReportWriter(_jasperPrint, DJConstants.FORMAT_HTML, parameters);
-
         exportToHtml(request,response,imageServletUrl,_jasperPrint,exporterParams);
 
     }
@@ -84,7 +98,7 @@ public class DJServletHelper {
 
         exporterParams.put(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
 
-        final ReportWriter reportWriter = ReportWriterFactory.getInstance().getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
+        final ReportWriter reportWriter = ReportWriterFactory.build(pageTreshold.get()).getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
 
         Map imagesMap = new HashMap();
         JRExporter exporter = reportWriter.getExporter();
@@ -123,7 +137,7 @@ public class DJServletHelper {
 
         exporterParams.put(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
 
-        final ReportWriter reportWriter = ReportWriterFactory.getInstance().getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
+        final ReportWriter reportWriter = ReportWriterFactory.build(pageTreshold.get()).getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
 
         Map imagesMap = new HashMap();
         JRExporter exporter = reportWriter.getExporter();

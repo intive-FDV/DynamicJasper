@@ -41,10 +41,25 @@ import net.sf.jasperreports.engine.JasperPrint;
  */
 public class ReportWriterFactory {
 
-    private static final int PAGES_THRESHHOLD = 2;
+    private int PAGES_THRESHHOLD = 2;
 
     private static final ReportWriterFactory INSTANCE = new ReportWriterFactory();
 
+    public ReportWriterFactory(){
+    };
+
+    public ReportWriterFactory(int pagesThreshold){
+        if (pagesThreshold >= 0)
+            PAGES_THRESHHOLD = pagesThreshold;
+    };
+
+    /**
+     * Returns a ReportWriter that which will use memory or a file depending on the parameter PAGES_THRESHOLD
+     * @param _jasperPrint
+     * @param _format
+     * @param _parameters
+     * @return
+     */
     public ReportWriter getReportWriter(final JasperPrint _jasperPrint, final String _format, final Map _parameters) {
         final JRExporter exporter = FormatInfoRegistry.getInstance().getExporter(_format);
         exporter.setParameters(_parameters);
@@ -58,5 +73,16 @@ public class ReportWriterFactory {
 
     public static ReportWriterFactory getInstance() {
         return INSTANCE;
+    }
+
+    /**
+     *
+     * @param pagesThreshold an integer that represent limit of pages to use in-memory report generation, if the report
+     *                       surpases this limit, it will internally use a file. if pagesThreshold = 0, it will always use
+     *                       a file.
+     * @return
+     */
+    public static ReportWriterFactory build(int pagesThreshold) {
+        return new ReportWriterFactory(pagesThreshold);
     }
 }
