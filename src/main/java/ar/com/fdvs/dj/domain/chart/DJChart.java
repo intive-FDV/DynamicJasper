@@ -29,40 +29,26 @@
 
 package ar.com.fdvs.dj.domain.chart;
 
-import java.util.Map;
-
-import net.sf.jasperreports.engine.JRExpression;
+import ar.com.fdvs.dj.domain.DJBaseElement;
+import ar.com.fdvs.dj.domain.DJHyperLink;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.chart.dataset.*;
+import ar.com.fdvs.dj.domain.chart.plot.*;
+import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
-import ar.com.fdvs.dj.domain.DJBaseElement;
-import ar.com.fdvs.dj.domain.DJHyperLink;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.chart.dataset.AbstractDataset;
-import ar.com.fdvs.dj.domain.chart.dataset.CategoryDataset;
-import ar.com.fdvs.dj.domain.chart.dataset.PieDataset;
-import ar.com.fdvs.dj.domain.chart.dataset.TimeSeriesDataset;
-import ar.com.fdvs.dj.domain.chart.dataset.XYDataset;
-import ar.com.fdvs.dj.domain.chart.plot.AbstractPlot;
-import ar.com.fdvs.dj.domain.chart.plot.AreaPlot;
-import ar.com.fdvs.dj.domain.chart.plot.Bar3DPlot;
-import ar.com.fdvs.dj.domain.chart.plot.BarPlot;
-import ar.com.fdvs.dj.domain.chart.plot.LinePlot;
-import ar.com.fdvs.dj.domain.chart.plot.Pie3DPlot;
-import ar.com.fdvs.dj.domain.chart.plot.PiePlot;
-import ar.com.fdvs.dj.domain.chart.plot.ScatterPlot;
-import ar.com.fdvs.dj.domain.chart.plot.TimeSeriesPlot;
-import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.engine.type.CalculationEnum;
 import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
 
+import java.util.Map;
+
 public class DJChart extends DJBaseElement {
-	
+
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
-	
+
 	public static final byte CALCULATION_COUNT = CalculationEnum.COUNT.getValue();
 	public static final byte CALCULATION_SUM = CalculationEnum.SUM.getValue();
 
@@ -80,21 +66,22 @@ public class DJChart extends DJBaseElement {
 	public static final byte XYBAR_CHART = JRDesignChart.CHART_TYPE_XYBAR;
 	public static final byte XYLINE_CHART = JRDesignChart.CHART_TYPE_XYLINE;
 	public static final byte SCATTER_CHART = JRDesignChart.CHART_TYPE_SCATTER;
-	
+	public static final byte MULTI_AXIS_CHART = JRDesignChart.CHART_TYPE_MULTI_AXIS;
+
 	private byte chartType;
 	private AbstractDataset dataset;
 	private AbstractPlot plot;
 	private byte operation = CalculationEnum.SUM.getValue();
 	private DJChartOptions chartOptions = new DJChartOptions();
 	private DJHyperLink link;
-	
+
 	public DJChart(byte chartType) {
 		setChartType(chartType);
 	}
 
 	private void setChartType(byte chartType)	{
 		this.chartType = chartType;
-		
+
 		switch(chartType) {
 			case AREA_CHART:
 			case STACKEDAREA_CHART:
@@ -143,11 +130,15 @@ public class DJChart extends DJBaseElement {
 				dataset = new XYDataset();
 				plot = new ScatterPlot();
 				break;
+			case MULTI_AXIS_CHART:
+				dataset = new MultiAxisDataset();
+				plot = new MultiAxisPlot();
+				break;
 			default:
 				throw new JRRuntimeException("Chart type not supported.");
 		}
 	}
-	
+
 	/**
 	 * Sets the chart data operation (DJChart.CALCULATION_COUNT or DJChart.CALCULATION_SUM).
 	 *
@@ -183,7 +174,7 @@ public class DJChart extends DJBaseElement {
 	public DJChartOptions getOptions() {
 		return chartOptions;
 	}
-	
+
 	/**
 	 * Returns the chart dataset.
 	 *
@@ -192,7 +183,7 @@ public class DJChart extends DJBaseElement {
 	public AbstractDataset getDataset() {
 		return dataset;
 	}
-	
+
 	/**
 	 * Returns the chart plot.
 	 *
@@ -201,7 +192,7 @@ public class DJChart extends DJBaseElement {
 	public AbstractPlot getPlot() {
 		return plot;
 	}
-	
+
 	/**
 	 * Returns the hyperlink.
 	 *
@@ -219,13 +210,13 @@ public class DJChart extends DJBaseElement {
 	public void setLink(DJHyperLink link) {
 		this.link = link;
 	}
-	
+
 	public JRDesignChart transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars, int width) {
 		JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), chartType);
 		JRDesignChartDataset chartDataset = dataset.transform(design, name, group, parentGroup, vars);
 		chart.setDataset(chartDataset);
-		plot.transform(design, chart.getPlot(), name);
 		getOptions().transform(design, name, chart, width);
+		plot.transform(chart.getPlot(), design, name, group, parentGroup, vars, width);
 
 		if (group.equals(parentGroup))
 			chart.setEvaluationTime( EvaluationTimeEnum.REPORT );
@@ -233,6 +224,6 @@ public class DJChart extends DJBaseElement {
 			chart.setEvaluationTime( EvaluationTimeEnum.GROUP );
 			chart.setEvaluationGroup(parentGroup);
 		}
-		return chart;	
+		return chart;
 	}
 }

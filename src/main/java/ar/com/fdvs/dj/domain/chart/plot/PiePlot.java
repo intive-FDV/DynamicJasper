@@ -31,14 +31,17 @@ package ar.com.fdvs.dj.domain.chart.plot;
 
 import net.sf.jasperreports.charts.design.JRDesignPiePlot;
 import net.sf.jasperreports.engine.JRChartPlot;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
+import java.util.Map;
+
 public class PiePlot extends AbstractPiePlot {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
-	
-	public void transform(DynamicJasperDesign design, JRChartPlot plot, String name) {
-		super.transform(design, plot, name);
+
+	public void transform(JRChartPlot plot, DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars, int width) {
+		super.transform(plot, design, name, group, parentGroup, vars, width);
 		JRDesignPiePlot piePlot = (JRDesignPiePlot) plot;
 		if (getCircular() != null)
 			piePlot.setCircular(getCircular());

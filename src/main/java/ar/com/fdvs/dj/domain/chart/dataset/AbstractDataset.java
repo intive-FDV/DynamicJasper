@@ -57,7 +57,7 @@ public abstract class AbstractDataset extends DJBaseElement {
 		exp.setValueClass(var.getValueClass());
 		return exp;
 	}
-	
+
 	protected static void setResetStyle(JRDesignChartDataset dataset, JRDesignGroup group, JRDesignGroup parentGroup){
 		//When to start a new chart? When the group's parent changes
 		dataset.setResetGroup(parentGroup);
@@ -68,12 +68,12 @@ public abstract class AbstractDataset extends DJBaseElement {
 		else
 			dataset.setResetType( ResetTypeEnum.GROUP );
 	}
-	
+
 	public abstract PropertyColumn getColumnsGroup();
-	
+
 	public abstract List getColumns();
-	
+
 	public abstract JRDesignChartDataset transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars);
-	
+
 	public abstract void addSerie(AbstractColumn column);
 }

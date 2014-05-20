@@ -29,36 +29,39 @@
 
 package ar.com.fdvs.dj.domain.chart.plot;
 
-import net.sf.jasperreports.charts.design.JRDesignAreaPlot;
-import net.sf.jasperreports.engine.JRChartPlot;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import net.sf.jasperreports.charts.design.JRDesignAreaPlot;
+import net.sf.jasperreports.engine.JRChartPlot;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
+
+import java.util.Map;
 
 public class AreaPlot extends AbstractCategoryAxisPlot {
-	
+
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
-	
-	public void transform(DynamicJasperDesign design, JRChartPlot plot, String name) {
-		super.transform(design, plot, name);
+
+	public void transform(JRChartPlot plot, DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars, int width) {
+		super.transform(plot, design, name, group, parentGroup, vars, width);
 		JRDesignAreaPlot areaPlot = (JRDesignAreaPlot) plot;
-		
+
 		StringExpression categoryAxisLabelExp = getCategoryAxisFormat().getLabelExpression();
 		if (categoryAxisLabelExp != null) {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "categoryAxisLabel_" + name, categoryAxisLabelExp);
 			areaPlot.setCategoryAxisLabelExpression(exp);
 		}
-		if (getCategoryAxisFormat().getTickLabelMask() != null) 
-			areaPlot.setCategoryAxisTickLabelMask(getCategoryAxisFormat().getTickLabelMask());	
+		if (getCategoryAxisFormat().getTickLabelMask() != null)
+			areaPlot.setCategoryAxisTickLabelMask(getCategoryAxisFormat().getTickLabelMask());
 		if (getCategoryAxisFormat().getLabelColor() != null)
 			areaPlot.setCategoryAxisLabelColor(getCategoryAxisFormat().getLabelColor());
 		if (getCategoryAxisFormat().getLabelFont() != null)
 			areaPlot.setCategoryAxisLabelFont(getCategoryAxisFormat().getLabelFont().transform());
 		if (getCategoryAxisFormat().getLineColor() != null)
-			areaPlot.setCategoryAxisLineColor(getCategoryAxisFormat().getLineColor());		
+			areaPlot.setCategoryAxisLineColor(getCategoryAxisFormat().getLineColor());
 		if (getCategoryAxisFormat().getTickLabelColor() != null)
 			areaPlot.setCategoryAxisTickLabelColor(getCategoryAxisFormat().getTickLabelColor());
 		if (getCategoryAxisFormat().getTickLabelFont() != null)
@@ -73,20 +76,20 @@ public class AreaPlot extends AbstractCategoryAxisPlot {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "categoryAxisRangeMaxValue_" + name, categoryAxisRangeMaxValueExp);
 			areaPlot.setDomainAxisMaxValueExpression(exp);
 		}
-		
+
 		StringExpression valueAxisLabelExp = getValueAxisFormat().getLabelExpression();
 		if (valueAxisLabelExp != null) {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisLabel_" + name, valueAxisLabelExp);
 			areaPlot.setValueAxisLabelExpression(exp);
 		}
-		if (getValueAxisFormat().getTickLabelMask() != null) 
-			areaPlot.setValueAxisTickLabelMask(getValueAxisFormat().getTickLabelMask());	
+		if (getValueAxisFormat().getTickLabelMask() != null)
+			areaPlot.setValueAxisTickLabelMask(getValueAxisFormat().getTickLabelMask());
 		if (getValueAxisFormat().getLabelColor() != null)
 			areaPlot.setValueAxisLabelColor(getValueAxisFormat().getLabelColor());
 		if (getValueAxisFormat().getLabelFont() != null)
 			areaPlot.setValueAxisLabelFont(getValueAxisFormat().getLabelFont().transform());
 		if (getValueAxisFormat().getLineColor() != null)
-			areaPlot.setValueAxisLineColor(getValueAxisFormat().getLineColor());		
+			areaPlot.setValueAxisLineColor(getValueAxisFormat().getLineColor());
 		if (getValueAxisFormat().getTickLabelColor() != null)
 			areaPlot.setValueAxisTickLabelColor(getValueAxisFormat().getTickLabelColor());
 		if (getValueAxisFormat().getTickLabelFont() != null)

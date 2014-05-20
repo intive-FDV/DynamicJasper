@@ -47,93 +47,93 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 public class PieDataset extends AbstractDataset {
-	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
-	
-	private PropertyColumn key = null;
-	private List series = new ArrayList();
-		
-	/**
-	 * Sets the key column.
-	 *
-	 * @param key the key column
+    private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
+
+    private PropertyColumn key = null;
+    private List series = new ArrayList();
+
+    /**
+     * Sets the key column.
+     *
+     * @param key the key column
 	 **/
-	public void setKey(PropertyColumn key) {
-		this.key = key;
-	}
-	
-	/**
-	 * Returns the key column.
-	 *
+    public void setKey(PropertyColumn key) {
+        this.key = key;
+    }
+
+    /**
+     * Returns the key column.
+     *
 	 * @return	the key column
 	 **/
-	public PropertyColumn getKey() {
-		return key;
-	}
-	
-	/**
-	 * Adds the specified serie column to the dataset.
-	 * 
-	 * @param column the serie column
-	 **/
-	public void addSerie(AbstractColumn column) {
-		series.add(column);
-	}
-	
-	/**
-	 * Removes the specified serie column from the dataset.
-	 * 
-	 * @param column the serie column	 
-	 **/
-	public void removeSerie(AbstractColumn column) {
-		series.remove(column);
-	}
+    public PropertyColumn getKey() {
+        return key;
+    }
 
-	/**
-	 * Removes all defined series.
-	 */
-	public void clearSeries() {
-		series.clear();
-	}
-	
-	/**
-	 * Returns a list of all the defined series.  Every entry in the list is of type AbstractColumn.
-	 * If there are no defined series this method will return an empty list, not null. 
-	 *
+    /**
+     * Adds the specified serie column to the dataset.
+     *
+     * @param column the serie column
+	 **/
+    public void addSerie(AbstractColumn column) {
+        series.add(column);
+    }
+
+    /**
+     * Removes the specified serie column from the dataset.
+     *
+     * @param column the serie column
+	 **/
+    public void removeSerie(AbstractColumn column) {
+        series.remove(column);
+    }
+
+    /**
+     * Removes all defined series.
+     */
+    public void clearSeries() {
+        series.clear();
+    }
+
+    /**
+     * Returns a list of all the defined series.  Every entry in the list is of type AbstractColumn.
+     * If there are no defined series this method will return an empty list, not null.
+     *
 	 * @return	the list of series
 	 **/
 	public List getSeries()	{
-		return series;
-	}
-	
-	public JRDesignChartDataset transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars) {
-		JRDesignPieDataset data = new JRDesignPieDataset(null);
+        return series;
+    }
+
+    public JRDesignChartDataset transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars) {
+        JRDesignPieDataset data = new JRDesignPieDataset(null);
 
 		for (Iterator iterator = series.iterator(); iterator.hasNext();) {
-			JRDesignPieSeries serie = new JRDesignPieSeries();
-			AbstractColumn column = (AbstractColumn) iterator.next();
-			
-			//And use it as value for each bar
-			JRDesignExpression varExp = getExpressionFromVariable((JRDesignVariable) vars.get(column));
-			serie.setValueExpression(varExp);
-	
-			//The key for each bar
-			JRExpression exp2 = group.getExpression();			
-			serie.setKeyExpression(exp2);
-				
-			data.addPieSeries(serie);
-		}
-		
-		setResetStyle(data, group, parentGroup);
+            JRDesignPieSeries serie = new JRDesignPieSeries();
+            AbstractColumn column = (AbstractColumn) iterator.next();
 
-		return data;
-	}
+            //And use it as value for each bar
+            JRDesignExpression varExp = getExpressionFromVariable((JRDesignVariable) vars.get(column));
+            serie.setValueExpression(varExp);
 
-	public List getColumns() {
-		return series;
-	}
+            //The key for each bar
+            JRExpression exp2 = group.getExpression();
+            serie.setKeyExpression(exp2);
 
-	public PropertyColumn getColumnsGroup() {
-		return key;
-	}
+            data.addPieSeries(serie);
+        }
+
+        setResetStyle(data, group, parentGroup);
+
+        return data;
+    }
+
+    public List getColumns() {
+        return series;
+    }
+
+    public PropertyColumn getColumnsGroup() {
+        return key;
+    }
 
 }
