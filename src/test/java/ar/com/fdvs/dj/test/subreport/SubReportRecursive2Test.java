@@ -31,10 +31,13 @@ package ar.com.fdvs.dj.test.subreport;
 
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.StringExpression;
+import ar.com.fdvs.dj.domain.builders.ColumnBuilder;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -112,6 +115,20 @@ public class SubReportRecursive2Test extends BaseDjReportTest {
 
 	private DynamicReport createLevel3Subreport() throws Exception {
 		FastReportBuilder rb = new FastReportBuilder();
+
+		AbstractColumn customExpCol = ColumnBuilder.getNew().setTitle("Sub-Sub Expression").setCustomExpression(
+				new CustomExpression() {
+					public Object evaluate(Map fields, Map variables, Map parameters) {
+						return "Sub-Sub-report";
+					}
+
+					public String getClassName() {
+						return String.class.getName();
+					}
+				}
+		).setWidth(150).build();
+		rb.addColumn(customExpCol); // Comment out this line to see this report work. Seemingly, DJ cannot handle a sub-sub report with a CustomExpression.
+
 		rb
 		.addColumn("Name", "name", String.class.getName(), 100)
 		.addColumn("Number", "number", Long.class.getName(), 50)
