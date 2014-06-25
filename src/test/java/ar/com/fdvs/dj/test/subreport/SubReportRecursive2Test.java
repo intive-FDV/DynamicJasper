@@ -97,7 +97,7 @@ public class SubReportRecursive2Test extends BaseDjReportTest {
 			.setTitle("Level 2 Subreport")
 			.addSubreportInGroupFooter(1, createLevel3Subreport(), new ClassicLayoutManager(),
 				"dummy3", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
-			.build();
+		;
 
         DJHyperLink djlink = new DJHyperLink();
         djlink.setExpression(new StringExpression() {
