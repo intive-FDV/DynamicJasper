@@ -258,11 +258,11 @@ public class CommonExpressionsHelper {
 		JRDesignExpression expression = new JRDesignExpression();
 		expression.setValueClass(String.class);
 
-        if (autoText.isMessageKeyIsJRExpression()) {
-            expression.setText(autoText.getMessageKey());
-        } else {
-            expression.setText("\"" + autoText.getMessageKey() + "\"");
-        }
+		if (autoText.isMessageKeyIsJRExpression()) {
+			expression.setText(autoText.getMessageKey());
+		} else {
+			expression.setText("\"" + autoText.getMessageKey() + "\"");
+		}
 
 		textfield.setExpression(expression);
 		textfield.setHeight(autoText.getHeight().intValue());

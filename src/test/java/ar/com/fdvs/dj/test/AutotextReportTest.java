@@ -72,9 +72,9 @@ public class AutotextReportTest extends BaseDjReportTest {
 		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X, AutoText.POSITION_HEADER, AutoText.ALIGNMENT_LEFT,200,40, atStyle);
 		drb.addAutoText("Autotext below Page counter", AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT);
 
-        AutoText autoText = new AutoText("($V{PAGE_NUMBER} == 1) ? \"First Page!\" : \"Some other page\"", AutoText.POSITION_HEADER, HorizontalBandAlignment.RIGHT, 300);
-        autoText.setMessageKeyIsJRExpression(true);
-        drb.addAutoText(autoText);
+		AutoText autoText = new AutoText("($V{PAGE_NUMBER} == 1) ? \"First Page!\" : \"Some other page\"", AutoText.POSITION_HEADER, HorizontalBandAlignment.RIGHT, 300);
+		autoText.setMessageKeyIsJRExpression(true);
+		drb.addAutoText(autoText);
 
 		//Note the styled text: <b>msimone</b>, valid tags are: <b>, <i> and <u>
 		drb.addAutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT,200);

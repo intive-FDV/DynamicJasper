@@ -87,7 +87,7 @@ public class AutoText extends DJBaseElement {
 
 	private String messageKey;
 
-    private boolean messageKeyIsJRExpression = false;
+	private boolean messageKeyIsJRExpression = false;
 
 	private byte pattern; //Applies for CREATED_ON, its the pattern used for dates
 
@@ -240,11 +240,11 @@ public class AutoText extends DJBaseElement {
 		return printWhenExpression;
 	}
 
-    public boolean isMessageKeyIsJRExpression() {
-        return messageKeyIsJRExpression;
-    }
+	public boolean isMessageKeyIsJRExpression() {
+		return messageKeyIsJRExpression;
+	}
 
-    public void setMessageKeyIsJRExpression(boolean messageKeyIsJRExpression) {
-        this.messageKeyIsJRExpression = messageKeyIsJRExpression;
-    }
+	public void setMessageKeyIsJRExpression(boolean messageKeyIsJRExpression) {
+		this.messageKeyIsJRExpression = messageKeyIsJRExpression;
+	}
 }
