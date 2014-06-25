@@ -29,19 +29,18 @@
 
 package ar.com.fdvs.dj.core.layout;
 
-import java.util.Random;
-
-import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignTextField;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
 import net.sf.jasperreports.engine.type.HorizontalAlignEnum;
 import net.sf.jasperreports.engine.type.PositionTypeEnum;
+
+import java.util.Random;
 
 /**
  * @author msimone
@@ -258,7 +257,13 @@ public class CommonExpressionsHelper {
 		}
 		JRDesignExpression expression = new JRDesignExpression();
 		expression.setValueClass(String.class);
-		expression.setText( "\"" + autoText.getMessageKey() + "\"");
+
+        if (autoText.isMessageKeyIsJRExpression()) {
+            expression.setText(autoText.getMessageKey());
+        } else {
+            expression.setText("\"" + autoText.getMessageKey() + "\"");
+        }
+
 		textfield.setExpression(expression);
 		textfield.setHeight(autoText.getHeight().intValue());
 		textfield.setMarkup("styled"); //FIXME there are some other markups: see http://stackoverflow.com/questions/8135215/style-a-text-field-in-jasperreports

@@ -29,20 +29,20 @@
 
 package ar.com.fdvs.dj.test;
 
-import java.awt.Color;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
-
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
+import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.domain.AutoText;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Font;
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.awt.*;
+import java.util.Date;
+import java.util.HashMap;
 
 public class AutotextReportTest extends BaseDjReportTest {
 
@@ -72,11 +72,15 @@ public class AutotextReportTest extends BaseDjReportTest {
 		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X, AutoText.POSITION_HEADER, AutoText.ALIGNMENT_LEFT,200,40, atStyle);
 		drb.addAutoText("Autotext below Page counter", AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT);
 
+        AutoText autoText = new AutoText("($V{PAGE_NUMBER} == 1) ? \"First Page!\" : \"Some other page\"", AutoText.POSITION_HEADER, HorizontalBandAlignment.RIGHT, 300);
+        autoText.setMessageKeyIsJRExpression(true);
+        drb.addAutoText(autoText);
+
 		//Note the styled text: <b>msimone</b>, valid tags are: <b>, <i> and <u>
 		drb.addAutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT,200);
 		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT,30,30,atStyle2);
 
-		drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
+		drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_CENTER,AutoText.PATTERN_DATE_DATE_TIME);
 
 		//Now in HEADER
 		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_HEADER, AutoText.ALIGNMENT_LEFT,100,40);
@@ -87,7 +91,7 @@ public class AutotextReportTest extends BaseDjReportTest {
 		DynamicReport dr = drb.build();
 
 		//i18N, you can set a Locale, different than the default in the VM
-		drb.setReportLocale(new Locale("es","AR"));
+//		drb.setReportLocale(new Locale("es","AR"));
 //		drb.setReportLocale(new Locale("pt","BR"));
 //		drb.setReportLocale(new Locale("fr","FR"));
 
