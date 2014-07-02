@@ -441,7 +441,7 @@ public class DynamicJasperHelper {
                     if (subreport.getParametersExpression() != null){
                         _parameters = (Map) originalParameters.get(subreport.getParametersExpression());
                     }
-					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters, name);
+
 					 JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
 					 _parameters.put(name, jp);
 					 subreport.setReport(jp);
@@ -468,7 +468,6 @@ public class DynamicJasperHelper {
                         }
                     }
 
-					compileOrLoadSubreports(subreport.getDynamicReport(),_parameters, name);
 					JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
 					_parameters.put(name, jp);
 					subreport.setReport(jp);
