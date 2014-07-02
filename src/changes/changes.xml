@@ -34,6 +34,20 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.0.2" date="2014-07-02" desc="">
+            <action dev="inanutshellus" type="update" due-to="inanutshellus">
+                <![CDATA[Some performance fixes on subreport handling, thanks to inanutshellus]]>
+            </action>
+            <action dev="inanutshellus" type="update" due-to="inanutshellus">
+                <![CDATA[Changing dependency to POI 3.10-FINAL, thanks to inanutshellus]]>
+            </action>
+            <action dev="pauloremoli" type="add" due-to="pauloremoli">
+                <![CDATA[Added Portuguese translation. Thanks to pauloremoli]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="fix">
+                <![CDATA[DynamicReportBuilder throws Exception if build() methid is invoked more than once.]]>
+            </action>
+        </release>
         <release version="5.0.1" date="2013-11-13" desc="Better support for HTML export">
             <action dev="Juan Manuel Alvarez" type="add">
                 <![CDATA[Better support for HTML export when using frameworks such as GWT or Vaadin when writing to the response is not an option.]]>
