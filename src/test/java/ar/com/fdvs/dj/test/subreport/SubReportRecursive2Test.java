@@ -90,14 +90,24 @@ public class SubReportRecursive2Test extends BaseDjReportTest {
 			.addColumn("Average", "average", Float.class.getName(), 50)
 			.addColumn("%", "percentage", Float.class.getName(), 50)
 			.addColumn("Amount", "amount", Float.class.getName(), 50)
+            .addColumn("ExpCol-Sr1",new CustomExpression() {
+                    @Override
+                    public Object evaluate(Map fields, Map variables, Map parameters) {
+                        return "fixed value!";
+                    }
+
+                    @Override
+                    public String getClassName() {
+                        return String.class.getName();
+                    }
+                },20,false,null,null)
 			.addGroups(1)
 			.addField("dummy3", Collection.class.getName())
 			.setMargins(5, 5, 20, 20)
 			.setUseFullPageWidth(true)
 			.setTitle("Level 2 Subreport")
 			.addSubreportInGroupFooter(1, createLevel3Subreport(), new ClassicLayoutManager(),
-				"dummy3", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION)
-			.build();
+				"dummy3", DJConstants.DATA_SOURCE_ORIGIN_FIELD, DJConstants.DATA_SOURCE_TYPE_COLLECTION);
 
         DJHyperLink djlink = new DJHyperLink();
         djlink.setExpression(new StringExpression() {
@@ -134,8 +144,8 @@ public class SubReportRecursive2Test extends BaseDjReportTest {
 		.addColumn("Number", "number", Long.class.getName(), 50)
 		.setMargins(5, 5, 20, 20)
 		.setUseFullPageWidth(false)
-		.setTitle("Level 3 Subreport")
-		.build();
+		.setTitle("Level 3 Subreport");
+
 
         DJHyperLink djlink = new DJHyperLink();
         djlink.setExpression(new StringExpression() {

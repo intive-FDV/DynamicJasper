@@ -56,7 +56,7 @@ public class DJJRDesignHelper {
 	private static final Log log = LogFactory.getLog(DJJRDesignHelper.class);
 
 	public static DynamicJasperDesign getNewDesign(DynamicReport dr) {
-		log.info("obtaining DynamicJasperDesign instance");
+		log.info("Creating DynamicJasperDesign");
 		DynamicJasperDesign des = new DynamicJasperDesign();
 		DynamicReportOptions options = dr.getOptions();
 		Page page = options.getPage();

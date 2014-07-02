@@ -426,6 +426,7 @@ public class DynamicJasperHelper {
 	}
 
     protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters, String namePrefix) throws JRException {
+      log.debug("Visiting subreports for " + namePrefix);
     	int groupnum = 1;
     	for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext(); groupnum++) {
 			DJGroup group = (DJGroup) iterator.next();
@@ -437,16 +438,16 @@ public class DynamicJasperHelper {
 				subreport.setName(name);
 			
 				if (subreport.getDynamicReport() != null){
-                    Map originalParameters = _parameters;
-                    if (subreport.getParametersExpression() != null){
-                        _parameters = (Map) originalParameters.get(subreport.getParametersExpression());
-                    }
+						Map originalParameters = _parameters;
+						if (subreport.getParametersExpression() != null){
+								_parameters = (Map) originalParameters.get(subreport.getParametersExpression());
+						}
 
-					 JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
-					 _parameters.put(name, jp);
-					 subreport.setReport(jp);
-					 log.debug("subreport " + name);
-                    _parameters = originalParameters;
+						JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
+						_parameters.put(name, jp);
+						subreport.setReport(jp);
+						log.debug("Adding Header Subreport " + name + " to parameters map");
+						_parameters = originalParameters;
 				}
 
 			}
@@ -455,28 +456,29 @@ public class DynamicJasperHelper {
 			subreportNum = 1;
 			for (Iterator iterator2 = group.getFooterSubreports().iterator(); iterator2.hasNext();subreportNum++) {
 				Subreport subreport = (Subreport) iterator2.next();
-				String name = namePrefix + "_g" + groupnum + "sr" + subreportNum + "f";
+				String name = namePrefix + "[g" + groupnum + "sr" + subreportNum + "footer]";
 				subreport.setName(name);
 
 				if (subreport.getDynamicReport() != null){
-                    Map originalParameters = _parameters;
-                    if (subreport.getParametersExpression() != null){
-                        _parameters = (Map) originalParameters.get(subreport.getParametersExpression());
-                        if (_parameters==null){
-                            _parameters = new HashMap();
-                            originalParameters.put(subreport.getParametersExpression(),_parameters);
-                        }
-                    }
+						Map originalParameters = _parameters;
+						if (subreport.getParametersExpression() != null){
+								_parameters = (Map) originalParameters.get(subreport.getParametersExpression());
+								if (_parameters==null){
+										_parameters = new HashMap();
+										originalParameters.put(subreport.getParametersExpression(),_parameters);
+								}
+						}
 
-					JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
-					_parameters.put(name, jp);
-					subreport.setReport(jp);
-					log.debug("subreport " + name);
-                    _parameters = originalParameters;
+						JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
+						_parameters.put(name, jp);
+						subreport.setReport(jp);
+						log.debug("Adding Footer Subreport " + name + " to parameters map");
+						_parameters = originalParameters;
 				}
 
 			}
 		}
+        log.debug("Finished compiling and loading subreports for " + namePrefix);
 	}
 
 	/**
@@ -528,7 +530,7 @@ public class DynamicJasperHelper {
 	 * @throws JRException
 	 */
 	public final static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams) throws JRException {
-		log.info("generating JasperReport");
+		log.info("generating JasperReport (DynamicReport dr, LayoutManager layoutManager, Map generatedParams)");
 		JasperReport jr = generateJasperReport(dr, layoutManager, generatedParams, "r");
 			
 		return jr;
@@ -536,7 +538,7 @@ public class DynamicJasperHelper {
 
 	@SuppressWarnings("unchecked")
 	public final static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams, String nameprefix) throws JRException {
-		log.info("generating JasperReport");
+		log.info("generating JasperReport with prefix: " + nameprefix);
 		JasperReport jr = null;
 		if (generatedParams == null){
 			log.warn("null parameters map passed to DynamicJasperHelper, you wont be able to retrieve some generated values during the layout process.");
@@ -545,6 +547,7 @@ public class DynamicJasperHelper {
 		
 		visitSubreports(dr, generatedParams);
 		compileOrLoadSubreports(dr, generatedParams, nameprefix);
+		log.debug("Continuing with Jasper Design for " + nameprefix);
 		
 		DynamicJasperDesign jd = generateJasperDesign(dr);
 		registerEntities(jd, dr, layoutManager);
@@ -555,7 +558,7 @@ public class DynamicJasperHelper {
 		JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, "ar.com.fdvs.dj.util.DJJRJdtCompiler");			
 		jr = JasperCompileManager.compileReport(jd);
 		generatedParams.putAll(jd.getParametersWithValues());
-		log.info("Done generating JasperReport");
+		log.info("Done generating JasperReport for design with name: " + jd.getName());
 		return jr;
 	}
 

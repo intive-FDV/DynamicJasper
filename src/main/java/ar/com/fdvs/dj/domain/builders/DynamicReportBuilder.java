@@ -65,6 +65,12 @@ import java.util.*;
  */
 public class DynamicReportBuilder {
 
+    /**
+     * DynamicReportBuilder cannot be used twice since this produced undesired
+     * results on the generated DynamicReport Object.
+      */
+  protected boolean built = false;
+
 	protected DynamicReport report = new DynamicReport();
 	protected DynamicReportOptions options = new DynamicReportOptions();
 //	protected String grandTotalLegend = "";
@@ -235,7 +241,19 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+    /**
+     * Builds the DynamicReport object.
+     * Cannot be used twice since this produced undesired results on the generated DynamicReport object
+     * @return
+     */
 	public DynamicReport build(){
+
+        if (built){
+            throw new DJBuilderException("DynamicReport already built. Cannot use more than once.");
+        } else {
+            built = true;
+        }
+
 		report.setOptions(options);
 		if (!globalVariablesGroup.getFooterVariables().isEmpty() || !globalVariablesGroup.getHeaderVariables().isEmpty() || !globalVariablesGroup.getVariables().isEmpty() || hasPercentageColumn()) {
 			report.getColumnsGroups().add(0,globalVariablesGroup);
