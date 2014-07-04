@@ -822,11 +822,24 @@ public class DynamicReportBuilder {
 		return this;
 	}
 
+	public DynamicReportBuilder addFooterImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
+		ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
+		banner.setScaleMode(scaleMode);
+		options.getFooterImageBanners().put(new Byte(align), banner);
+		return this;
+	}
+
 	public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align) {
 		ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
 		options.getFirstPageImageBanners().put(new Byte(align), banner);
 		return this;
 	}
+
+    public DynamicReportBuilder addFirstPageFooterImageBanner(String path, Integer width, Integer height, byte align) {
+        ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
+        options.getFirstPageFooterImageBanners().put(new Byte(align), banner);
+        return this;
+    }
 
 	public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
 		ImageBanner banner = new ImageBanner(path,width.intValue(),height.intValue(),align);
@@ -1600,4 +1613,6 @@ public class DynamicReportBuilder {
         return this;
 
     }
+
+
 }

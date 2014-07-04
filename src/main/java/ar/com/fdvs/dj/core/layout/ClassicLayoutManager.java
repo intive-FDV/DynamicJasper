@@ -160,6 +160,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		super.endLayout();
 		applyBanners();
 		applyFooterAutotexts();
+        applyFooterBanners();
 		setBandsFinalHeight();
 	}
 
@@ -217,33 +218,57 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 *
 	 */
 	protected void applyBanners() {
+        DynamicReportOptions options = getReport().getOptions();
+        if (options.getFirstPageImageBanners().isEmpty() && options.getImageBanners().isEmpty()){
+            return;
+        }
+
 		/**
 		 * First create image banners for the first page only
 		 */
 		JRDesignBand title = (JRDesignBand) getDesign().getTitle();
 		//if there is no title band, but there are banner images for the first page, we create a title band
-		if (title == null && !getReport().getOptions().getFirstPageImageBanners().isEmpty()){
+		if (title == null && !options.getFirstPageImageBanners().isEmpty()){
 			title = new JRDesignBand();
 			getDesign().setTitle(title);
 		}
-		applyImageBannersToBand(title,getReport().getOptions().getFirstPageImageBanners().values(),null);
+		applyImageBannersToBand(title, options.getFirstPageImageBanners().values(), null, true);
 
 		/**
 		 * Now create image banner for the rest of the pages
 		 */
 		JRDesignBand pageHeader = (JRDesignBand) getDesign().getPageHeader();
 		//if there is no title band, but there are banner images for the first page, we create a title band
-		if (pageHeader == null && !getReport().getOptions().getImageBanners().isEmpty()){
+		if (pageHeader == null && !options.getImageBanners().isEmpty()){
 			pageHeader = new JRDesignBand();
 			getDesign().setPageHeader(pageHeader);
 		}
 		JRDesignExpression printWhenExpression = null;
-		if (!getReport().getOptions().getFirstPageImageBanners().isEmpty()){
+		if (!options.getFirstPageImageBanners().isEmpty()){
 			printWhenExpression = new JRDesignExpression();
 			printWhenExpression.setValueClass(Boolean.class);
 			printWhenExpression.setText(EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE);
 		}
-		applyImageBannersToBand(pageHeader,getReport().getOptions().getImageBanners().values(),printWhenExpression);
+		applyImageBannersToBand(pageHeader, options.getImageBanners().values(),printWhenExpression, true);
+
+
+
+	}
+
+    /**
+     *
+     */
+	protected void applyFooterBanners() {
+        // explicitly add banner to footer band..
+        JRDesignBand pageFooter = (JRDesignBand)getDesign().getPageFooter();
+
+        // if there is no footer band we create one
+        if(pageFooter == null) {
+            pageFooter = new JRDesignBand();
+            getDesign().setPageFooter(pageFooter);
+        }
+
+        applyImageBannersToBand(pageFooter,getReport().getOptions().getFooterImageBanners().values(),null,false);
 
 
 	}
@@ -253,20 +278,29 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param printWhenExpression
 	 *
 	 */
-	protected void applyImageBannersToBand(JRDesignBand band, Collection imageBanners, JRDesignExpression printWhenExpression ) {
+	protected void applyImageBannersToBand(JRDesignBand band, Collection imageBanners, JRDesignExpression printWhenExpression, boolean placeOnTop ) {
 		int maxHeight = 0;
-		for (Iterator iter = imageBanners.iterator(); iter.hasNext();) {
-			ImageBanner imageBanner = (ImageBanner) iter.next();
-			if (imageBanner.getHeight() > maxHeight)
-				maxHeight = imageBanner.getHeight();
-		}
+        if (placeOnTop){
+            for (Iterator iter = imageBanners.iterator(); iter.hasNext();) {
+                ImageBanner imageBanner = (ImageBanner) iter.next();
+                if (imageBanner.getHeight() > maxHeight)
+                    maxHeight = imageBanner.getHeight();
+            }
+        } else {
+            maxHeight = LayoutUtils.findVerticalOffset(band);
+        }
 
 		if (band != null){
 			//move everything down
-			for (Iterator iter =band.getChildren().iterator(); iter.hasNext();) {
-				JRDesignElement element = (JRDesignElement) iter.next();
-				element.setY(element.getY() + maxHeight);
-			}
+            if (placeOnTop){
+                for (Iterator iter =band.getChildren().iterator(); iter.hasNext();) {
+                    JRDesignElement element = (JRDesignElement) iter.next();
+                    element.setY(element.getY() + maxHeight);
+                }
+            }
+            int yPosition = 0;
+            if (!placeOnTop)
+                yPosition = maxHeight+1;
 
 			for (Iterator iter = imageBanners.iterator(); iter.hasNext();) {
 				ImageBanner imageBanner = (ImageBanner) iter.next();
@@ -294,7 +328,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					image.setX(getReport().getOptions().getLeftMargin().intValue() + x);
 				}
 
-				image.setY(0);
+
+                image.setY(yPosition);
 				band.addElement(image);
 
 			}

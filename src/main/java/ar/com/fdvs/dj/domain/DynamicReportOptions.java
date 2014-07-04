@@ -102,13 +102,29 @@ public class DynamicReportOptions extends DJBaseElement {
 	 */
 	private HashMap imageBanners = new HashMap();
 
+    /**
+     * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
+     * value: ImageBanner
+     */
+    private HashMap footerImageBanners = new HashMap();
+
 	/**
 	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
 	 * value: ImageBanner
 	 */
 	private HashMap firstPageImageBanners = new HashMap();
 
-	public HashMap getImageBanners() {
+    /**
+     * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
+     * value: ImageBanner
+     */
+	private HashMap firstPageFooterImageBanners = new HashMap();
+
+    public HashMap getFirstPageFooterImageBanners() {
+        return firstPageFooterImageBanners;
+    }
+
+    public HashMap getImageBanners() {
 		return imageBanners;
 	}
 
@@ -375,4 +391,7 @@ public class DynamicReportOptions extends DJBaseElement {
 		this.summaryNewPage = summaryNewPage;
 	}
 
+    public HashMap getFooterImageBanners() {
+        return footerImageBanners;
+    }
 }

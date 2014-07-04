@@ -68,7 +68,7 @@ public class MultiLineTitleReportTest extends BaseDjReportTest {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
-			.setTitle("November 2006 \\nsales report")
+			.setTitle("November" + getYear() +"\\nsales report")
 			.setSubtitle("This report was generated at" + new Date() + "\\n*** This information is confidential ***")
 			.setSubtitleHeight(new Integer(20))
 			.setSubtitleStyle(subtitleStyle)

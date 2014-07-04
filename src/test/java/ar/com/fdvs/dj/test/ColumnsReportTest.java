@@ -51,7 +51,7 @@ public class ColumnsReportTest extends BaseDjReportTest {
 			.addColumn("Item", "item", String.class.getName(),50)
 			.addColumn("Amount", "amount", Float.class.getName(),60,true)
 			.addGroups(2)
-			.setTitle("November 2006 sales report")
+			.setTitle("November" + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setColumnsPerPage(2,10)
 			.setUseFullPageWidth(true);

@@ -66,7 +66,7 @@ public class ImageColumnReportTest extends BaseDjReportTest {
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
 			.setDetailHeight(17)
-			.setTitle("November 2006 sales report")
+			.setTitle("November" + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
 

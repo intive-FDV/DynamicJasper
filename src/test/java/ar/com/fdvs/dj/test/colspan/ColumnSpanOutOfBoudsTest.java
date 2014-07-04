@@ -33,6 +33,7 @@ import ar.com.fdvs.dj.domain.builders.ColumnBuilderException;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import junit.framework.TestCase;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class ColumnSpanOutOfBoudsTest extends TestCase {
@@ -46,9 +47,9 @@ public class ColumnSpanOutOfBoudsTest extends TestCase {
                     .addColumn("Branch", "branch", String.class.getName(), 30)
                     .addColumn("Item", "item", String.class.getName(), 50)
                     .addColumn("Amount", "amount", Float.class.getName(), 60, true)
-                    .setTitle("November 2006 sales report")
+                    .setTitle("November " + Calendar.getInstance().get(Calendar.YEAR) + " sales report")
                     .setSubtitle("This report was generated at " + new Date())
-                    .setColumnsPerPage(1,10)
+                    .setColumnsPerPage(1, 10)
                     .setUseFullPageWidth(true);
 
         try {

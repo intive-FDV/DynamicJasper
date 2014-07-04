@@ -104,7 +104,7 @@ public class InnerCrossTabBuilder4 extends TestCase {
         	.setAllowDetailSplit(false)
         	.setWhenNoDataAllSectionNoDetail()
         	.setReportName("Inner crosstab")
-        	.setTitle("Sales detail by year")
+        	.setTitle(" sales detail by year")
         	.setPrintColumnNames(false);
 
 
@@ -118,7 +118,7 @@ public class InnerCrossTabBuilder4 extends TestCase {
         CrosstabBuilder cb = new CrosstabBuilder().setUseFullWidth(true)
                              .setAutomaticTitle(false).setMainHeaderTitle("")
                              .setHeight(50)
-//                             .setCaption(new DJLabel("\"Sales for year \" + $F{field2}",null,true) )
+//                             .setCaption(new DJLabel("\" sales for year \" + $F{field2}",null,true) )
                              .setCaption(new DJLabel(new CustomExpression() {
 
 								public String getClassName() {

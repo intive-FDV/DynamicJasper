@@ -46,10 +46,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class BaseDjReportTest extends TestCase {
 
@@ -155,5 +152,9 @@ public abstract class BaseDjReportTest extends TestCase {
 			 con = DriverManager.getConnection("jdbc:hsqldb:file:target/test-classes/hsql/test_dj_db", "sa", "");
 
         return con;
-	  }
+	}
+
+    public int getYear(){
+        return Calendar.getInstance().get(Calendar.YEAR);
+    }
 }

@@ -76,7 +76,7 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
 			drb.setTitleStyle(titleStyle)
-			.setTitle("November 2006 sales report")					//defines the title of the report
+			.setTitle("November" + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setDetailHeight(new Integer(15))

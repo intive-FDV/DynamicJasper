@@ -83,7 +83,7 @@ public class CrosstabReportTest extends BaseDjReportTest {
 			.addGroups(1)
 			.addFooterVariable(1, 7, DJCalculation.SUM, null)
 			.addFooterVariable(1, 6, DJCalculation.SUM, null)
-			.setTitle("November 2006 sales report")
+			.setTitle("November" + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setUseFullPageWidth(true);

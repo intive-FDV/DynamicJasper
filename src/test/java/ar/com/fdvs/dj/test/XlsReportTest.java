@@ -37,7 +37,7 @@ public class XlsReportTest extends BaseDjReportTest {
 			.setIgnorePagination(true) //for Excel, we may dont want pagination, just a plain list
 			.setMargins(0, 0, 0, 0)
 			.setPageSizeAndOrientation(Page.Page_Letter_Landscape())
-			.setTitle("November 2006 sales report")
+			.setTitle("November" + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setReportName("My Excel Report")
 			.setDefaultStyles(null, null, null, columDetail)
