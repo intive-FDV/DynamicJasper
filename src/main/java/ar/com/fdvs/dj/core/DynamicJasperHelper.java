@@ -562,6 +562,34 @@ public class DynamicJasperHelper {
 		return jr;
 	}
 
+
+    public final static DynamicJasperDesign generateDynamicJasperDesign(DynamicReport dr, LayoutManager layoutManager, Map generatedParams, String nameprefix) throws JRException {
+		log.info("generating JasperReport with prefix: " + nameprefix);
+		JasperReport jr = null;
+		if (generatedParams == null){
+			log.warn("null parameters map passed to DynamicJasperHelper, you wont be able to retrieve some generated values during the layout process.");
+			generatedParams = new HashMap();
+		}
+
+		visitSubreports(dr, generatedParams);
+		compileOrLoadSubreports(dr, generatedParams, nameprefix);
+		log.debug("Continuing with Jasper Design for " + nameprefix);
+
+		DynamicJasperDesign jd = generateJasperDesign(dr);
+		registerEntities(jd, dr, layoutManager);
+
+		registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
+
+		layoutManager.applyLayout(jd, dr);
+
+		generatedParams.putAll(jd.getParametersWithValues());
+		log.info("Done generating JasperReport for design with name: " + jd.getName());
+		return jd;
+	}
+
+
+
+
 /**
  * Performs any needed operation on subreports after they are built like ensuring proper subreport with
  * if "fitToParentPrintableArea" flag is set to true

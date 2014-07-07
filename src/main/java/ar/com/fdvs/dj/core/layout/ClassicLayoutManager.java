@@ -46,6 +46,9 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.domain.entities.container.ElementContainer;
+import ar.com.fdvs.dj.domain.entities.container.GraphicElement;
+import ar.com.fdvs.dj.domain.entities.container.StaticTextElement;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.LayoutUtils;
 import ar.com.fdvs.dj.util.Utils;
@@ -400,9 +403,102 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			band.addElement(subtitle);
 		}
 
+        if (!getReport().getTitleElements().isEmpty()){
+            int voffset = LayoutUtils.findVerticalOffset(band);
+            layoutElementsInBand(band,getReport().getTitleElements(), voffset+1);
+        }
+
+
 	}
 
-	/**
+    private void layoutElementsInBand(JRDesignBand band, List<ElementContainer> elements, int vOffset) {
+        for (ElementContainer elementContainer : elements) {
+            layoutElementsInBand(band, elementContainer, vOffset);
+            vOffset = LayoutUtils.findVerticalOffset(band);
+        }
+    }
+
+    private void layoutElementsInBand(JRDesignBand band, ElementContainer elementContainer, int vOffset) {
+
+        /**
+         * Calculate width for non-fixed elements
+         */
+        if (elementContainer.getFixedWidth() == false){
+            elementContainer.setWidth(getReport().getOptions().getPrintableWidth());
+        }
+        int parentWidth = elementContainer.getWidth();
+        List<GraphicElement> fixedElements = new ArrayList<GraphicElement>();
+        List<GraphicElement> nonFixedElements = new ArrayList<GraphicElement>();
+
+        int sumNonFixed = 0;
+        int sumFixed = 0;
+        for (GraphicElement element : elementContainer.getElementsArray()) {
+            if (element.getFixedWidth()) {
+                fixedElements.add(element);
+                sumFixed += element.getWidth();
+            }
+            else {
+                nonFixedElements.add(element);
+                sumNonFixed+=element.getWidth();
+            }
+        }
+
+        int availableNonFixed = parentWidth - sumFixed;
+        if (availableNonFixed <= 0) {
+            throw new LayoutException("No room for elements in band. Fixed elements width are wider than available print space.");
+        }
+
+        float factor = (float) (availableNonFixed) / (float) (sumNonFixed);
+        int nonFixedWithSum = 0;
+        for (GraphicElement nonFixedElement : nonFixedElements) {
+            nonFixedElement.setWidth(new Float(nonFixedElement.getWidth()*factor).intValue());
+            nonFixedWithSum += nonFixedElement.getWidth();
+        }
+
+        int remaining = availableNonFixed - nonFixedWithSum; //Rounding error
+
+        while (remaining > 0){
+            for (GraphicElement nonFixedElement : nonFixedElements) {
+                nonFixedElement.setWidth(nonFixedElement.getWidth()+1);
+                remaining--;
+                if (remaining<0)
+                    break;
+            }
+        }
+
+
+        /**
+         * Set element X position
+         */
+        int posx = 0;
+        for (GraphicElement graphicElement : elementContainer.getElementsArray()) {
+            graphicElement.setPosX(posx);
+            posx+=graphicElement.getWidth();
+        }
+
+        /**
+         * Draw elements
+         */
+        for (GraphicElement graphicElement : elementContainer.getElementsArray()) {
+            if (graphicElement instanceof StaticTextElement){
+                StaticTextElement ste = (StaticTextElement) graphicElement;
+                JRDesignStaticText jrst = new JRDesignStaticText();
+                jrst.setText(ste.getText());
+                jrst.setX(ste.getPosX());
+                jrst.setY(ste.getPosY()+vOffset);
+                jrst.setHeight(ste.getHeight());
+                jrst.setWidth(ste.getWidth());
+                applyStyleToElement(ste.getStyle(),jrst);
+
+                band.addElement(jrst);
+
+            }
+        }
+
+
+    }
+
+    /**
 	 * Layout columns in groups by reading the corresponding report options.
 	 * @throws LayoutException
 	 */
@@ -1266,6 +1362,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			getDesign().setColumnHeader(header);
 		}
 
+        if (!getReport().getHeaderElements().isEmpty()){
+            LayoutUtils.findVerticalOffset(header);
+        }
 
 		/**
 		 * Note: Te column names, when in header, are printed at the begining of every page.

@@ -81,7 +81,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 	private HashMap reportStyles = new HashMap();
 
 	/**
-	 * Holds the original groups binded to a column.
+	 * Holds the original groups bind to a column.
 	 * Needed for later reference
 	 * List<JRDesignGroup>
 	 */

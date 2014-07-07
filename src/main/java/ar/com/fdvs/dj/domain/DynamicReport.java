@@ -38,6 +38,7 @@ import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
+import ar.com.fdvs.dj.domain.entities.container.ElementContainer;
 
 import java.util.*;
 
@@ -92,6 +93,10 @@ public class DynamicReport extends DJBaseElement {
 	private List newCharts = new ArrayList();
 	
 	private DynamicReportOptions options;
+
+    private List<ElementContainer> headerElements = new ArrayList<ElementContainer>();
+
+    private List<ElementContainer> titleElements = new ArrayList<ElementContainer>();
 
 	/**
 	 * List of ColumnProperty
@@ -478,4 +483,11 @@ public class DynamicReport extends DJBaseElement {
         this.language = language;
     }
 
+    public List<ElementContainer> getHeaderElements() {
+        return headerElements;
+    }
+
+    public List<ElementContainer> getTitleElements() {
+        return titleElements;
+    }
 }
