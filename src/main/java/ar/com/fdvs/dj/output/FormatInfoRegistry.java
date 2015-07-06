@@ -52,6 +52,7 @@ public class FormatInfoRegistry {
 	public static final String EXPORTER_CLASS_HTML = "net.sf.jasperreports.engine.export.JRHtmlExporter";
 	public static final String EXPORTER_CLASS_PDF = "net.sf.jasperreports.engine.export.JRPdfExporter";
 	public static final String EXPORTER_CLASS_XML = "net.sf.jasperreports.engine.export.JRXmlExporter";
+	public static final String EXPORTER_CLASS_RTF = "net.sf.jasperreports.engine.export.JRRtfExporter";
 
 	
     private static final Map FORMAT_INFO = new HashMap();
@@ -61,6 +62,7 @@ public class FormatInfoRegistry {
         FORMAT_INFO.put(DJConstants.FORMAT_PDF, new FormatInfo("application/pdf", EXPORTER_CLASS_PDF, ClassicLayoutManager.class.getName()));
         FORMAT_INFO.put(DJConstants.FORMAT_XLS, new FormatInfo("application/vnd.ms-excel", EXPORTER_CLASS_XLS, ListLayoutManager.class.getName()));
         FORMAT_INFO.put(DJConstants.FORMAT_XML, new FormatInfo("text/xml", EXPORTER_CLASS_XML, ClassicLayoutManager.class.getName()));
+        FORMAT_INFO.put(DJConstants.FORMAT_RTF, new FormatInfo("application/rtf", EXPORTER_CLASS_RTF, ClassicLayoutManager.class.getName()));
     }
 
     private static final FormatInfoRegistry INSTANCE = new FormatInfoRegistry();
