@@ -149,7 +149,10 @@ public class DJJRDesignHelper {
 						djd.addParameter(element);
 					} catch (JRException e) {
 						if (log.isDebugEnabled()){
-							log.warn(e.getMessage());
+							String message = e.getMessage();
+							if (!message.startsWith("Duplicate declaration of parameter")){
+								log.warn(message);
+							}
 						}
 					}
 				}
