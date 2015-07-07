@@ -34,6 +34,14 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.0.3" date="2015-07-07" desc="">
+            <action dev="Leonid Rozenblyum" type="fix" due-to="Leonid Rozenblyum">
+                <![CDATA[Added support for RTF. It was missing from the very beginning]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="fix" due-to="Leonid Rozenblyum">
+                <![CDATA[Avoid warn message when duplicate report param if loading a tempalte file]]>
+            </action>
+        </release>
         <release version="5.0.2" date="2014-07-02" desc="">
             <action dev="inanutshellus" type="update" due-to="inanutshellus">
                 <![CDATA[Some performance fixes on subreport handling, thanks to inanutshellus]]>
