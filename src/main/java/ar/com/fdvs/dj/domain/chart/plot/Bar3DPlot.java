@@ -32,11 +32,14 @@ package ar.com.fdvs.dj.domain.chart.plot;
 import net.sf.jasperreports.charts.design.JRDesignBar3DPlot;
 import net.sf.jasperreports.engine.JRChartPlot;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+
+import java.util.Map;
 
 public class Bar3DPlot extends AbstractCategoryAxisPlot {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
@@ -79,7 +82,7 @@ public class Bar3DPlot extends AbstractCategoryAxisPlot {
 	public Double getYOffset() {
 		return yOffset;
 	}
-	
+
 	/**
 	 * Sets the labels visibility.
 	 *
@@ -97,9 +100,9 @@ public class Bar3DPlot extends AbstractCategoryAxisPlot {
 	public Boolean getShowLabels() {
 		return showLabels;
 	}
-	
-	public void transform(DynamicJasperDesign design, JRChartPlot plot, String name) {
-		super.transform(design, plot, name);
+
+	public void transform(JRChartPlot plot, DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars, int width) {
+		super.transform(plot, design, name, group, parentGroup, vars, width);
 		JRDesignBar3DPlot barPlot = (JRDesignBar3DPlot) plot;
 
 		StringExpression categoryAxisLabelExp = getCategoryAxisFormat().getLabelExpression();
@@ -107,14 +110,14 @@ public class Bar3DPlot extends AbstractCategoryAxisPlot {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "categoryAxisLabel_" + name, categoryAxisLabelExp);
 			barPlot.setCategoryAxisLabelExpression(exp);
 		}
-		if (getCategoryAxisFormat().getTickLabelMask() != null) 
-			barPlot.setCategoryAxisTickLabelMask(getCategoryAxisFormat().getTickLabelMask());	
+		if (getCategoryAxisFormat().getTickLabelMask() != null)
+			barPlot.setCategoryAxisTickLabelMask(getCategoryAxisFormat().getTickLabelMask());
 		if (getCategoryAxisFormat().getLabelColor() != null)
 			barPlot.setCategoryAxisLabelColor(getCategoryAxisFormat().getLabelColor());
 		if (getCategoryAxisFormat().getLabelFont() != null)
 			barPlot.setCategoryAxisLabelFont(getCategoryAxisFormat().getLabelFont().transform());
 		if (getCategoryAxisFormat().getLineColor() != null)
-			barPlot.setCategoryAxisLineColor(getCategoryAxisFormat().getLineColor());		
+			barPlot.setCategoryAxisLineColor(getCategoryAxisFormat().getLineColor());
 		if (getCategoryAxisFormat().getTickLabelColor() != null)
 			barPlot.setCategoryAxisTickLabelColor(getCategoryAxisFormat().getTickLabelColor());
 		if (getCategoryAxisFormat().getTickLabelFont() != null)
@@ -129,20 +132,20 @@ public class Bar3DPlot extends AbstractCategoryAxisPlot {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "categoryAxisRangeMaxValue_" + name, categoryAxisRangeMaxValueExp);
 			barPlot.setDomainAxisMaxValueExpression(exp);
 		}
-		
+
 		StringExpression valueAxisLabelExp = getValueAxisFormat().getLabelExpression();
 		if (valueAxisLabelExp != null) {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisLabel_" + name, valueAxisLabelExp);
 			barPlot.setValueAxisLabelExpression(exp);
 		}
-		if (getValueAxisFormat().getTickLabelMask() != null) 
-			barPlot.setValueAxisTickLabelMask(getValueAxisFormat().getTickLabelMask());	
+		if (getValueAxisFormat().getTickLabelMask() != null)
+			barPlot.setValueAxisTickLabelMask(getValueAxisFormat().getTickLabelMask());
 		if (getValueAxisFormat().getLabelColor() != null)
 			barPlot.setValueAxisLabelColor(getValueAxisFormat().getLabelColor());
 		if (getValueAxisFormat().getLabelFont() != null)
 			barPlot.setValueAxisLabelFont(getValueAxisFormat().getLabelFont().transform());
 		if (getValueAxisFormat().getLineColor() != null)
-			barPlot.setValueAxisLineColor(getValueAxisFormat().getLineColor());		
+			barPlot.setValueAxisLineColor(getValueAxisFormat().getLineColor());
 		if (getValueAxisFormat().getTickLabelColor() != null)
 			barPlot.setValueAxisTickLabelColor(getValueAxisFormat().getTickLabelColor());
 		if (getValueAxisFormat().getTickLabelFont() != null)
@@ -157,7 +160,7 @@ public class Bar3DPlot extends AbstractCategoryAxisPlot {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisRangeMaxValue_" + name, valueAxisRangeMaxValueExp);
 			barPlot.setRangeAxisMaxValueExpression(exp);
 		}
-		
+
 		if (showLabels != null)
 			barPlot.setShowLabels(showLabels);
 		if (xOffset != null)

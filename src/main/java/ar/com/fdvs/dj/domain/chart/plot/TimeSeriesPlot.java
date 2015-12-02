@@ -32,11 +32,14 @@ package ar.com.fdvs.dj.domain.chart.plot;
 import net.sf.jasperreports.charts.design.JRDesignTimeSeriesPlot;
 import net.sf.jasperreports.engine.JRChartPlot;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+
+import java.util.Map;
 
 public class TimeSeriesPlot extends AbstractPlot {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
@@ -44,7 +47,7 @@ public class TimeSeriesPlot extends AbstractPlot {
 	private DJAxisFormat valueAxisFormat = new DJAxisFormat();
 	private Boolean showShapes = null;
 	private Boolean showLines = null;
-	
+
 	/**
 	 * Sets the shapes visibility.
 	 *
@@ -80,7 +83,7 @@ public class TimeSeriesPlot extends AbstractPlot {
 	public Boolean getShowLines() {
 		return showLines;
 	}
-	
+
 	/**
 	 * Sets the time axis format.
 	 *
@@ -116,24 +119,24 @@ public class TimeSeriesPlot extends AbstractPlot {
 	public DJAxisFormat getValueAxisFormat() {
 		return valueAxisFormat;
 	}
-	
-	public void transform(DynamicJasperDesign design, JRChartPlot plot, String name) {
-		super.transform(design, plot, name);
+
+	public void transform(JRChartPlot plot, DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars, int width) {
+		super.transform(plot, design, name, group, parentGroup, vars, width);
 		JRDesignTimeSeriesPlot timeSeriesPlot = (JRDesignTimeSeriesPlot) plot;
-		
+
 		StringExpression timeAxisLabelExp = getTimeAxisFormat().getLabelExpression();
 		if (timeAxisLabelExp != null) {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "timeAxisLabel_" + name, timeAxisLabelExp);
 			timeSeriesPlot.setTimeAxisLabelExpression(exp);
 		}
-		if (timeAxisFormat.getTickLabelMask() != null) 
-			timeSeriesPlot.setTimeAxisTickLabelMask(timeAxisFormat.getTickLabelMask());	
+		if (timeAxisFormat.getTickLabelMask() != null)
+			timeSeriesPlot.setTimeAxisTickLabelMask(timeAxisFormat.getTickLabelMask());
 		if (timeAxisFormat.getLabelColor() != null)
 			timeSeriesPlot.setTimeAxisLabelColor(timeAxisFormat.getLabelColor());
 		if (timeAxisFormat.getLabelFont() != null)
 			timeSeriesPlot.setTimeAxisLabelFont(timeAxisFormat.getLabelFont().transform());
 		if (timeAxisFormat.getLineColor() != null)
-			timeSeriesPlot.setTimeAxisLineColor(timeAxisFormat.getLineColor());		
+			timeSeriesPlot.setTimeAxisLineColor(timeAxisFormat.getLineColor());
 		if (timeAxisFormat.getTickLabelColor() != null)
 			timeSeriesPlot.setTimeAxisTickLabelColor(timeAxisFormat.getTickLabelColor());
 		if (timeAxisFormat.getTickLabelFont() != null)
@@ -148,20 +151,20 @@ public class TimeSeriesPlot extends AbstractPlot {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "timeAxisRangeMaxValue_" + name, timeAxisRangeMaxValueExp);
 			timeSeriesPlot.setDomainAxisMaxValueExpression(exp);
 		}
-		
+
 		StringExpression valueAxisLabelExp = getValueAxisFormat().getLabelExpression();
 		if (valueAxisLabelExp != null) {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisLabel_" + name, valueAxisLabelExp);
 			timeSeriesPlot.setValueAxisLabelExpression(exp);
 		}
-		if (valueAxisFormat.getTickLabelMask() != null) 
-			timeSeriesPlot.setValueAxisTickLabelMask(valueAxisFormat.getTickLabelMask());	
+		if (valueAxisFormat.getTickLabelMask() != null)
+			timeSeriesPlot.setValueAxisTickLabelMask(valueAxisFormat.getTickLabelMask());
 		if (valueAxisFormat.getLabelColor() != null)
 			timeSeriesPlot.setValueAxisLabelColor(valueAxisFormat.getLabelColor());
 		if (valueAxisFormat.getLabelFont() != null)
 			timeSeriesPlot.setValueAxisLabelFont(valueAxisFormat.getLabelFont().transform());
 		if (valueAxisFormat.getLineColor() != null)
-			timeSeriesPlot.setValueAxisLineColor(valueAxisFormat.getLineColor());		
+			timeSeriesPlot.setValueAxisLineColor(valueAxisFormat.getLineColor());
 		if (valueAxisFormat.getTickLabelColor() != null)
 			timeSeriesPlot.setValueAxisTickLabelColor(valueAxisFormat.getTickLabelColor());
 		if (valueAxisFormat.getTickLabelFont() != null)
@@ -176,7 +179,7 @@ public class TimeSeriesPlot extends AbstractPlot {
 			JRDesignExpression exp = ExpressionUtils.createAndRegisterExpression(design, "valueAxisRangeMaxValue_" + name, valueAxisRangeMaxValueExp);
 			timeSeriesPlot.setRangeAxisMaxValueExpression(exp);
 		}
-		
+
 		if (showShapes != null)
 			timeSeriesPlot.setShowShapes(showShapes);
 		if (showLines != null)

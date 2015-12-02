@@ -31,13 +31,16 @@ package ar.com.fdvs.dj.domain.chart.plot;
 
 import net.sf.jasperreports.charts.design.JRDesignPie3DPlot;
 import net.sf.jasperreports.engine.JRChartPlot;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.Entity;
+
+import java.util.Map;
 
 public class Pie3DPlot extends AbstractPiePlot {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	private Double depthFactor = null;
-	
+
 	/**
 	 * Sets the depth factor.
 	 *
@@ -55,9 +58,9 @@ public class Pie3DPlot extends AbstractPiePlot {
 	public Double getDepthFactor() {
 		return depthFactor;
 	}
-	
-	public void transform(DynamicJasperDesign design, JRChartPlot plot, String name) {
-		super.transform(design, plot, name);
+
+	public void transform(JRChartPlot plot, DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars, int width) {
+		super.transform(plot, design, name, group, parentGroup, vars, width);
 		JRDesignPie3DPlot piePlot = (JRDesignPie3DPlot) plot;
 		if (getCircular() != null)
 			piePlot.setCircular(getCircular());
