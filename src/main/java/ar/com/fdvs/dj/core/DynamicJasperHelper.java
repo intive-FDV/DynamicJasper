@@ -29,6 +29,8 @@
 
 package ar.com.fdvs.dj.core;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -36,13 +38,18 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.*;
+import java.util.List;
 
-import ar.com.fdvs.dj.util.Utils;
-import ar.com.fdvs.dj.util.WaterMarkRenderer;
+import ar.com.fdvs.dj.domain.constants.*;
+import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.util.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.*;
+import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
+import net.sf.jasperreports.engine.type.OnErrorTypeEnum;
 import net.sf.jasperreports.engine.type.PositionTypeEnum;
+import net.sf.jasperreports.engine.type.ScaleImageEnum;
 import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
@@ -65,8 +72,8 @@ import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
-import ar.com.fdvs.dj.util.DJCompilerFactory;
-import ar.com.fdvs.dj.util.LayoutUtils;
+
+import javax.imageio.ImageIO;
 
 /**
  * Helper class for running a report and some other DJ related stuff
@@ -541,27 +548,50 @@ public class DynamicJasperHelper {
     private static void registerWatermark(DynamicJasperDesign jd, Map generatedParams) {
 
         JRDesignBand backgroundBand = (JRDesignBand) jd.getBackground();
+
         if (backgroundBand == null){
             backgroundBand = new JRDesignBand();
             jd.setBackground(backgroundBand);
         }
-        backgroundBand.setHeight(jd.getPageHeight());
-        generatedParams.put("watermark", new WaterMarkRenderer(true));
-        JRDesignParameter jrparam = new JRDesignParameter();
-        jrparam.setName("watermark");
-        jrparam.setValueClass(Renderable.class);
-        jd.getParametersMap().put("watermark",jrparam);
+        int printableHeight = jd.getPageHeight() - jd.getTopMargin() - jd.getBottomMargin();
+        int printableWidth = jd.getPageWidth() - jd.getLeftMargin() - jd.getRightMargin();
+        backgroundBand.setHeight(printableHeight);
 
-        JRDesignExpression imageExp = new JRDesignExpression();
-        imageExp.setText("$P{watermark}");
-        imageExp.setValueClass(Renderable.class);
+        generatedParams.put("watermarkText", "Esto es \nTOP SECRET");
+        JRDesignParameter jrparam = new JRDesignParameter();
+        jrparam.setName("watermarkText");
+        jrparam.setValueClass(String.class);
+        jd.getParametersMap().put("watermarkText",jrparam);
 
         JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
-        image.setExpression(imageExp);
-        image.setPositionType(PositionTypeEnum.FLOAT);
-        image.setHeight(jd.getPageHeight()-jd.getTopMargin()-jd.getBottomMargin());
-        image.setWidth(jd.getPageWidth()-jd.getLeftMargin() - jd.getRightMargin());
+        JRDesignExpression imageExp = null;
 
+        Font arialBig = Font.ARIAL_BIG;
+        BufferedImage watermark = WaterMarkRenderer.rotateText("Este es mi texto\nTOP SECRET!!!",
+                new java.awt.Font(arialBig.getFontName(), 1, arialBig.getFontSize()*20),
+                printableWidth*4,
+                printableHeight*4,
+                320, Color.PINK);
+        try {
+            File outputfile = File.createTempFile("dynamicJasper","watermark.png");
+            outputfile.deleteOnExit();
+            ImageIO.write(watermark, "png", outputfile);
+            String absolutePath = outputfile.getAbsolutePath();
+            log.debug("Watermark Image: " + absolutePath);
+            String escapeTextForExpression = Utils.escapeTextForExpression(absolutePath);
+            imageExp = ExpressionUtils.createStringExpression("\"" + escapeTextForExpression + "\"");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        image.setExpression(imageExp);
+
+        image.setHeight(printableHeight);
+
+        image.setWidth(printableWidth);
+        image.setScaleImage(ScaleImageEnum.RETAIN_SHAPE);
+        image.setOnErrorType(OnErrorTypeEnum.ICON );
         backgroundBand.addElement(image);
     }
 

@@ -103,6 +103,8 @@ public class Utils {
 	 * For example: if the title text is: <b>November "2009" sales</b><br>
 	 * The double quotes (") must be escaped to <b>\"</b>, and in java that would be <b>\\\\\"</b><br>
 	 *
+	 * single bars "\" are escaped to "\\"
+	 *
 	 * To understand better, the expression can be tested in iReport expression editor.
 	 * @param text
 	 * @return
@@ -110,6 +112,7 @@ public class Utils {
 	public static String escapeTextForExpression(String text) {
 		if (text == null)
 			return null;
+		text = text.replaceAll("\\\\", "\\\\\\\\");
 		text = text.replaceAll("\"", "\\\\\"");
 		return text;
 	}

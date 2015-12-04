@@ -1,17 +1,14 @@
 package ar.com.fdvs.dj.core;
 
-import java.util.Map;
-
-import com.opensymphony.webwork.views.jasperreports.JasperReportConstants;
 import net.sf.jasperreports.engine.JRDefaultScriptlet;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRScriptletException;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.fill.JRFillGroup;
-
-import net.sf.jasperreports.engine.fill.JRFillParameter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import java.util.Map;
 
 /**
  * This class handles parameter passing to custom expressions in runtime (during report fill)

@@ -72,7 +72,7 @@ public class DynamicReportOptions extends DJBaseElement {
 
 	private boolean printBackgroundOnOddRows = false;
 	private Style oddRowBackgroundStyle = new StyleBuilder(false,"defaultOddRowStyle")
-												.setBackgroundColor(new Color(200,200,200))
+												.setBackgroundColor(new Color(200,200,200,128))
 												.build();
 	private Integer titleHeight =  DEFAULT_HEADER_HEIGHT;
 	private boolean titleNewPage =  false;
