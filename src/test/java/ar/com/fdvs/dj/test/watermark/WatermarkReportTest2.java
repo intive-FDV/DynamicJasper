@@ -67,7 +67,7 @@ public class WatermarkReportTest2 extends BaseDjReportTest {
 			.addGroups(2)
 			.setTitle("November " + getYear() + " sales report")
 			.setSubtitle("This report was generated at " + new Date())
-			.addWatermark("CONFIDENTIAL", courierNewBigBold, Color.CYAN, DJWaterMark.ANGLE_0)
+			.addWatermark("SUPER CONFIDEN TIAL", courierNewBigBold, Color.CYAN, DJWaterMark.ANGLE_0)
 			.setUseFullPageWidth(true);
 
         drb.addGlobalFooterVariable(drb.getColumn(4), DJCalculation.COUNT, null, new DJValueFormatter() {

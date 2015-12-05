@@ -31,7 +31,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>5.0.3</version>
+	<version>5.0.4</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -52,6 +52,8 @@ design doing the layout of the elements).
 You can use the classic .jrxml files as templates while the
 content and layout of the report elements are handled by the DJ
 API.
+
+http://dynamicjasper.com
 
 	</description>
 	<url>http://sourceforge.net/projects/dynamicjasper</url>
