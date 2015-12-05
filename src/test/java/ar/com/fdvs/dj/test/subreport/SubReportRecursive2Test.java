@@ -57,7 +57,7 @@ public class SubReportRecursive2Test extends BaseDjReportTest {
 			.addGroups(2)
 			.setMargins(5, 5, 20, 20)
 			.addField("statistics", Collection.class.getName())
-			.setTitle("November" + getYear() +" sales report")
+			.setTitle("November " + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
 

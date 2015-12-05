@@ -33,6 +33,7 @@ import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Page;
@@ -43,7 +44,9 @@ import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import net.sf.jasperreports.engine.JasperReport;
 
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 /**
  * Builder created to give users a friendly way of creating a DynamicReport.</br>
@@ -1615,4 +1618,16 @@ public class DynamicReportBuilder {
     }
 
 
+	public DynamicReportBuilder addWatermark(String text) {
+		return addWatermark(new DJWaterMark(text));
+	}
+
+	public DynamicReportBuilder addWatermark(DJWaterMark waterMark) {
+		this.report.setWaterMark(waterMark);
+		return this;
+	}
+
+	public DynamicReportBuilder addWatermark(String text, Font font, Color color, int angle) {
+		return addWatermark(new DJWaterMark(text,font,Color.cyan,angle));
+	}
 }

@@ -29,8 +29,6 @@
 
 package ar.com.fdvs.dj.core;
 
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -40,16 +38,11 @@ import java.sql.ResultSet;
 import java.util.*;
 import java.util.List;
 
-import ar.com.fdvs.dj.domain.constants.*;
-import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.*;
 import ar.com.fdvs.dj.util.*;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.*;
-import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
-import net.sf.jasperreports.engine.type.OnErrorTypeEnum;
-import net.sf.jasperreports.engine.type.PositionTypeEnum;
-import net.sf.jasperreports.engine.type.ScaleImageEnum;
 import net.sf.jasperreports.engine.util.JRProperties;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
@@ -62,18 +55,12 @@ import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
 import ar.com.fdvs.dj.core.registration.DJGroupRegistrationManager;
 import ar.com.fdvs.dj.core.registration.DJGroupVariableDefRegistrationManager;
 import ar.com.fdvs.dj.core.registration.VariableRegistrationManager;
-import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
-
-import javax.imageio.ImageIO;
 
 /**
  * Helper class for running a report and some other DJ related stuff
@@ -86,7 +73,7 @@ public class DynamicJasperHelper {
 
     private static final Random random = new Random(System.currentTimeMillis());
 
-    private final static void registerEntities(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
+    private static void registerEntities(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
         ColumnRegistrationManager columnRegistrationManager = new ColumnRegistrationManager(jd, dr, layoutManager);
         columnRegistrationManager.registerEntities(dr.getColumns());
 
@@ -107,7 +94,7 @@ public class DynamicJasperHelper {
             try {
                 messages = ResourceBundle.getBundle(dr.getResourceBundle(), locale);
             } catch (MissingResourceException e) {
-                log.warn(e.getMessage() + ", usign default (dj-messages)");
+                log.warn(e.getMessage() + ", using default (dj-messages)");
             }
         }
 
@@ -115,11 +102,11 @@ public class DynamicJasperHelper {
             try {
                 messages = ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, locale);
             } catch (MissingResourceException e) {
-                log.warn(e.getMessage() + ", usign default (dj-messages)");
+                log.warn(e.getMessage() + ", using default (dj-messages)");
                 try {
                     messages = ResourceBundle.getBundle(DJ_RESOURCE_BUNDLE, Locale.ENGLISH); //this cannot fail because is included in the DJ jar
                 } catch (MissingResourceException e2) {
-                    log.error("Default messajes not found: " + DJ_RESOURCE_BUNDLE + ", " + e2.getMessage(), e2);
+                    log.error("Default messages not found: " + DJ_RESOURCE_BUNDLE + ", " + e2.getMessage(), e2);
                     throw new DJException("Default messajes file not found: " + DJ_RESOURCE_BUNDLE + "en.properties", e2);
                 }
             }
@@ -129,17 +116,15 @@ public class DynamicJasperHelper {
     }
 
     private static void registerPercentageColumnsVariables(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
-        for (Iterator iterator = dr.getColumns().iterator(); iterator.hasNext(); ) {
-            AbstractColumn column = (AbstractColumn) iterator.next();
-
+        for (AbstractColumn column : dr.getColumns()) {
             /**
              * Group should not be needed in the percentage column. There should be a variable for each group, using
              * parent group as "rest group"
              */
             if (column instanceof PercentageColumn) {
                 PercentageColumn percentageColumn = ((PercentageColumn) column);
-                for (Iterator iterator2 = dr.getColumnsGroups().iterator(); iterator2.hasNext(); ) {
-                    DJGroup djGroup = (DJGroup) iterator2.next();
+                for (Object o : dr.getColumnsGroups()) {
+                    DJGroup djGroup = (DJGroup) o;
                     JRDesignGroup jrGroup = LayoutUtils.getJRDesignGroup(jd, layoutManager, djGroup);
                     DJGroupVariableDefRegistrationManager variablesRM = new DJGroupVariableDefRegistrationManager(jd, dr, layoutManager, jrGroup);
                     DJGroupVariableDef variable = new DJGroupVariableDef(percentageColumn.getGroupVariableName(djGroup), percentageColumn.getPercentageColumn(), DJCalculation.SUM);
@@ -153,8 +138,8 @@ public class DynamicJasperHelper {
 
 
     private static void registerOtherFields(DynamicJasperDesign jd, List fields) {
-        for (Iterator iter = fields.iterator(); iter.hasNext(); ) {
-            ColumnProperty element = (ColumnProperty) iter.next();
+        for (Object field1 : fields) {
+            ColumnProperty element = (ColumnProperty) field1;
             JRDesignField field = new JRDesignField();
             field.setValueClassName(element.getValueClassName());
             field.setName(element.getProperty());
@@ -171,7 +156,7 @@ public class DynamicJasperHelper {
 
 
     protected static DynamicJasperDesign generateJasperDesign(DynamicReport dr) throws CoreException {
-        DynamicJasperDesign jd = null;
+        DynamicJasperDesign jd;
         try {
             if (dr.getTemplateFileName() != null) {
                 log.info("about to load template file: " + dr.getTemplateFileName() + ", Attemping to find the file directly in the file system.");
@@ -182,6 +167,9 @@ public class DynamicJasperHelper {
                 } else {
                     log.info("Not found: Attemping to find the file in the classpath...");
                     URL url = DynamicJasperHelper.class.getClassLoader().getResource(dr.getTemplateFileName());
+                    if (url == null)
+                        throw new CoreException("could not open template file: " + dr.getTemplateFileName());
+
                     JasperDesign jdesign = JRXmlLoader.load(url.openStream());
                     jd = DJJRDesignHelper.downCast(jdesign, dr);
                 }
@@ -209,8 +197,8 @@ public class DynamicJasperHelper {
     }
 
     protected static void registerParameters(DynamicJasperDesign jd, DynamicReport dr) {
-        for (Iterator iterator = dr.getParameters().iterator(); iterator.hasNext(); ) {
-            Parameter param = (Parameter) iterator.next();
+        for (Object o : dr.getParameters()) {
+            Parameter param = (Parameter) o;
             JRDesignParameter jrparam = new JRDesignParameter();
             jrparam.setName(param.getName());
             jrparam.setValueClassName(param.getClassName());
@@ -250,7 +238,7 @@ public class DynamicJasperHelper {
      */
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, JRDataSource ds, Map _parameters) throws JRException {
         log.info("generating JasperPrint");
-        JasperPrint jp = null;
+        JasperPrint jp;
 
 
         JasperReport jr = DynamicJasperHelper.generateJasperReport(dr, layoutManager, _parameters);
@@ -271,7 +259,7 @@ public class DynamicJasperHelper {
      */
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Connection con, Map _parameters) throws JRException {
         log.info("generating JasperPrint");
-        JasperPrint jp = null;
+        JasperPrint jp;
 
         if (_parameters == null)
             _parameters = new HashMap();
@@ -307,7 +295,7 @@ public class DynamicJasperHelper {
      */
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Map _parameters) throws JRException {
         log.info("generating JasperPrint");
-        JasperPrint jp = null;
+        JasperPrint jp;
 
         if (_parameters == null)
             _parameters = new HashMap();
@@ -400,6 +388,7 @@ public class DynamicJasperHelper {
         File outputFile = new File(filename);
         File parentFile = outputFile.getParentFile();
         if (parentFile != null)
+            //noinspection ResultOfMethodCallIgnored
             parentFile.mkdirs();
     }
 
@@ -467,8 +456,7 @@ public class DynamicJasperHelper {
      * @param _parameters
      */
     public static void registerParams(DynamicJasperDesign jd, Map _parameters) {
-        for (Iterator iterator = _parameters.keySet().iterator(); iterator.hasNext(); ) {
-            Object key = iterator.next();
+        for (Object key : _parameters.keySet()) {
             if (key instanceof String) {
                 try {
                     Object value = _parameters.get(key);
@@ -509,17 +497,15 @@ public class DynamicJasperHelper {
      * @return
      * @throws JRException
      */
-    public final static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams) throws JRException {
+    public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams) throws JRException {
         log.info("generating JasperReport (DynamicReport dr, LayoutManager layoutManager, Map generatedParams)");
-        JasperReport jr = generateJasperReport(dr, layoutManager, generatedParams, "r");
-
-        return jr;
+        return generateJasperReport(dr, layoutManager, generatedParams, "r");
     }
 
     @SuppressWarnings("unchecked")
-    public final static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams, String nameprefix) throws JRException {
+    public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams, String nameprefix) throws JRException {
         log.info("generating JasperReport with prefix: " + nameprefix);
-        JasperReport jr = null;
+        JasperReport jr;
         if (generatedParams == null) {
             log.warn("null parameters map passed to DynamicJasperHelper, you wont be able to retrieve some generated values during the layout process.");
             generatedParams = new HashMap();
@@ -534,9 +520,6 @@ public class DynamicJasperHelper {
 
         registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
 
-        registerWatermark(jd, generatedParams);
-
-
         layoutManager.applyLayout(jd, dr);
         JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
         jr = JasperCompileManager.compileReport(jd);
@@ -545,57 +528,7 @@ public class DynamicJasperHelper {
         return jr;
     }
 
-    private static void registerWatermark(DynamicJasperDesign jd, Map generatedParams) {
-
-        JRDesignBand backgroundBand = (JRDesignBand) jd.getBackground();
-
-        if (backgroundBand == null){
-            backgroundBand = new JRDesignBand();
-            jd.setBackground(backgroundBand);
-        }
-        int printableHeight = jd.getPageHeight() - jd.getTopMargin() - jd.getBottomMargin();
-        int printableWidth = jd.getPageWidth() - jd.getLeftMargin() - jd.getRightMargin();
-        backgroundBand.setHeight(printableHeight);
-
-        generatedParams.put("watermarkText", "Esto es \nTOP SECRET");
-        JRDesignParameter jrparam = new JRDesignParameter();
-        jrparam.setName("watermarkText");
-        jrparam.setValueClass(String.class);
-        jd.getParametersMap().put("watermarkText",jrparam);
-
-        JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
-        JRDesignExpression imageExp = null;
-
-        Font arialBig = Font.ARIAL_BIG;
-        BufferedImage watermark = WaterMarkRenderer.rotateText("Este es mi texto\nTOP SECRET!!!",
-                new java.awt.Font(arialBig.getFontName(), 1, arialBig.getFontSize()*20),
-                printableWidth*4,
-                printableHeight*4,
-                320, Color.PINK);
-        try {
-            File outputfile = File.createTempFile("dynamicJasper","watermark.png");
-            outputfile.deleteOnExit();
-            ImageIO.write(watermark, "png", outputfile);
-            String absolutePath = outputfile.getAbsolutePath();
-            log.debug("Watermark Image: " + absolutePath);
-            String escapeTextForExpression = Utils.escapeTextForExpression(absolutePath);
-            imageExp = ExpressionUtils.createStringExpression("\"" + escapeTextForExpression + "\"");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        image.setExpression(imageExp);
-
-        image.setHeight(printableHeight);
-
-        image.setWidth(printableWidth);
-        image.setScaleImage(ScaleImageEnum.RETAIN_SHAPE);
-        image.setOnErrorType(OnErrorTypeEnum.ICON );
-        backgroundBand.addElement(image);
-    }
-
-    /**
+     /**
      * Performs any needed operation on subreports after they are built like ensuring proper subreport with
      * if "fitToParentPrintableArea" flag is set to true
      *
@@ -604,27 +537,27 @@ public class DynamicJasperHelper {
      * @throws JRException
      */
     @SuppressWarnings("unchecked")
-    protected static void visitSubreports(DynamicReport dr, Map _parameters) throws JRException {
-        for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext(); ) {
-            DJGroup group = (DJGroup) iterator.next();
+    protected static void visitSubreports(DynamicReport dr, Map _parameters) {
+        for (Object o2 : dr.getColumnsGroups()) {
+            DJGroup group = (DJGroup) o2;
 
             //Header Subreports
-            for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext(); ) {
-                Subreport subreport = (Subreport) iterator2.next();
+            for (Object o1 : group.getHeaderSubreports()) {
+                Subreport subreport = (Subreport) o1;
 
                 if (subreport.getDynamicReport() != null) {
-                    visitSubreport(dr, subreport, _parameters);
+                    visitSubreport(dr, subreport);
                     visitSubreports(subreport.getDynamicReport(), _parameters);
                 }
 
             }
 
             //Footer Subreports
-            for (Iterator iterator2 = group.getFooterSubreports().iterator(); iterator2.hasNext(); ) {
-                Subreport subreport = (Subreport) iterator2.next();
+            for (Object o : group.getFooterSubreports()) {
+                Subreport subreport = (Subreport) o;
 
                 if (subreport.getDynamicReport() != null) {
-                    visitSubreport(dr, subreport, _parameters);
+                    visitSubreport(dr, subreport);
                     visitSubreports(subreport.getDynamicReport(), _parameters);
                 }
 
@@ -633,7 +566,7 @@ public class DynamicJasperHelper {
 
     }
 
-    protected static void visitSubreport(DynamicReport parentDr, Subreport subreport, Map _parameters) {
+    protected static void visitSubreport(DynamicReport parentDr, Subreport subreport) {
         DynamicReport childDr = subreport.getDynamicReport();
         if (subreport.isFitToParentPrintableArea()) {
             childDr.getOptions().setPage(parentDr.getOptions().getPage());

@@ -64,7 +64,7 @@ public class ReportWithVariablesTest extends BaseDjReportTest {
 			.addColumn("Balance",new DJSimpleExpression(DJSimpleExpression.TYPE_VARIABLE, "acum", Float.class.getName()),80,false,null,style)
 			.addVariable("acum", DJCalculation.SUM, new DJSimpleExpression(DJSimpleExpression.TYPE_FIELD, "amount", Float.class.getName()))
 			.addGroups(2)
-			.setTitle("November \"2006\" sales report")
+			.setTitle("November " + getYear() + " sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setPrintBackgroundOnOddRows(true)			
 			.setUseFullPageWidth(true);

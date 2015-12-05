@@ -78,7 +78,7 @@ public class BarcodeColumnReportTest2 extends BaseDjReportTest {
 			.addGroups(1)
 			.setDetailHeight(30)
 			.addField("productLine",  String.class.getName())
-			.setTitle("November" + getYear() +" sales report")
+			.setTitle("November " + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setDefaultStyles(title, subtitle, columnHeader, defStyle)
 			.setUseFullPageWidth(true);

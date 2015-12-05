@@ -66,7 +66,7 @@ public class TemplateFileReportTest extends BaseDjReportTest {
 		 * the report
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		drb.setTitle("November" + getYear() +" sales report")					//defines the title of the report
+		drb.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setDetailHeight(15)						//defines the height for each record of the report

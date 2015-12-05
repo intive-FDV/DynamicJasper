@@ -136,4 +136,10 @@ public class Utils {
     }
 
 
+	public static boolean isEmpty(String text) {
+		if (text == null || "".equals(text.trim()))
+			return true;
+
+		return false;
+	}
 }

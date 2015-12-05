@@ -72,11 +72,11 @@ public class DJJRDesignHelper {
         des.setPageHeight(page.getHeight());
 
         des.setColumnWidth(options.getColumnWidth());
-        des.setColumnSpacing(options.getColumnSpace().intValue());
-        des.setLeftMargin(options.getLeftMargin().intValue());
-        des.setRightMargin(options.getRightMargin().intValue());
-        des.setTopMargin(options.getTopMargin().intValue());
-        des.setBottomMargin(options.getBottomMargin().intValue());
+        des.setColumnSpacing(options.getColumnSpace());
+        des.setLeftMargin(options.getLeftMargin());
+        des.setRightMargin(options.getRightMargin());
+        des.setTopMargin(options.getTopMargin());
+        des.setBottomMargin(options.getBottomMargin());
 
         if (dr.getLanguage() != null)
             des.setLanguage(dr.getLanguage().toLowerCase());
@@ -96,8 +96,8 @@ public class DJJRDesignHelper {
             des.setQuery(query);
         }
 
-        for (Iterator iterator = dr.getProperties().keySet().iterator(); iterator.hasNext(); ) {
-            String name = (String) iterator.next();
+        for (Object o : dr.getProperties().keySet()) {
+            String name = (String) o;
             des.setProperty(name, (String) dr.getProperties().get(name));
         }
 
@@ -107,7 +107,7 @@ public class DJJRDesignHelper {
 
     protected static void populateBehavioralOptions(DynamicReport dr, DynamicJasperDesign des) {
         DynamicReportOptions options = dr.getOptions();
-        des.setColumnCount(options.getColumnsPerPage().intValue());
+        des.setColumnCount(options.getColumnsPerPage());
         des.setWhenNoDataType(WhenNoDataTypeEnum.getByValue(dr.getWhenNoDataType()));
         des.setWhenResourceMissingType(WhenResourceMissingTypeEnum.getByValue(dr.getWhenResourceMissing()));
         des.setTitleNewPage(options.isTitleNewPage());
@@ -143,8 +143,7 @@ public class DJJRDesignHelper {
             //BeanUtils.copyProperties does not perform deep copy,
             //adding original parameter definitions manually
             if (dr.isTemplateImportParameters()) {
-                for (Iterator iter = jd.getParametersList().iterator(); iter.hasNext(); ) {
-                    JRParameter element = (JRParameter) iter.next();
+                for (JRParameter element : jd.getParametersList()) {
                     try {
                         djd.addParameter(element);
                     } catch (JRException e) {
@@ -161,8 +160,7 @@ public class DJJRDesignHelper {
             //BeanUtils.copyProperties does not perform deep copy,
             //adding original fields definitions manually
             if (dr.isTemplateImportFields()) {
-                for (Iterator iter = jd.getFieldsList().iterator(); iter.hasNext(); ) {
-                    JRField element = (JRField) iter.next();
+                for (JRField element : jd.getFieldsList()) {
                     try {
                         djd.addField(element);
                     } catch (JRException e) {
@@ -176,8 +174,7 @@ public class DJJRDesignHelper {
             //BeanUtils.copyProperties does not perform deep copy,
             //adding original variables definitions manually
             if (dr.isTemplateImportVariables()) {
-                for (Iterator iter = jd.getVariablesList().iterator(); iter.hasNext(); ) {
-                    JRVariable element = (JRVariable) iter.next();
+                for (JRVariable element : jd.getVariablesList()) {
                     try {
                         if (element instanceof JRDesignVariable) {
                             djd.addVariable((JRDesignVariable) element);
@@ -201,8 +198,8 @@ public class DJJRDesignHelper {
                             .getLanguage()));
                 }
 
-                for (Iterator iter = jd.getDatasetsList().iterator(); iter.hasNext(); ) {
-                    JRDesignDataset dataset = (JRDesignDataset) iter.next();
+                for (JRDataset jrDataset : jd.getDatasetsList()) {
+                    JRDesignDataset dataset = (JRDesignDataset) jrDataset;
                     try {
                         djd.addDataset(dataset);
                     } catch (JRException e) {
@@ -216,16 +213,14 @@ public class DJJRDesignHelper {
             //BeanUtils.copyProperties does not perform deep copy,
             //adding original properties definitions manually
             String[] properties = jd.getPropertyNames();
-            for (int i = 0; i < properties.length; i++) {
-                String propName = properties[i];
+            for (String propName : properties) {
                 String propValue = jd.getProperty(propName);
                 djd.setProperty(propName, propValue);
             }
 
 
             //Add all existing styles in the design to the new one
-            for (Iterator iterator = jd.getStylesList().iterator(); iterator.hasNext(); ) {
-                JRStyle style = (JRStyle) iterator.next();
+            for (JRStyle style : jd.getStylesList()) {
                 try {
                     djd.addStyle(style);
                 } catch (JRException e) {
@@ -238,8 +233,8 @@ public class DJJRDesignHelper {
             //Adding style templates templates
             JRReportTemplate[] templates = jd.getTemplates();
             if (templates != null) {
-                for (int i = 0; i < templates.length; i++) {
-                    djd.addTemplate(templates[i]); //TODO Make a test for this!
+                for (JRReportTemplate template : templates) {
+                    djd.addTemplate(template); //TODO Make a test for this!
                 }
             }
 
@@ -266,13 +261,13 @@ public class DJJRDesignHelper {
     protected static void populateReportOptionsFromDesign(DynamicJasperDesign jd, DynamicReport dr) {
         DynamicReportOptions options = dr.getOptions();
 
-        options.setBottomMargin(new Integer(jd.getBottomMargin()));
-        options.setTopMargin(new Integer(jd.getTopMargin()));
-        options.setLeftMargin(new Integer(jd.getLeftMargin()));
-        options.setRightMargin(new Integer(jd.getRightMargin()));
+        options.setBottomMargin(jd.getBottomMargin());
+        options.setTopMargin(jd.getTopMargin());
+        options.setLeftMargin(jd.getLeftMargin());
+        options.setRightMargin(jd.getRightMargin());
 
-        options.setColumnSpace(new Integer(jd.getColumnSpacing()));
-        options.setColumnsPerPage(new Integer(jd.getColumnCount()));
+        options.setColumnSpace(jd.getColumnSpacing());
+        options.setColumnsPerPage(jd.getColumnCount());
 
         boolean isPortrait = true;
         if (jd.getOrientationValue() == OrientationEnum.LANDSCAPE) {

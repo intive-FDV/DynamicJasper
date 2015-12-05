@@ -57,7 +57,7 @@ public class AutotextReportTest extends BaseDjReportTest {
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
-			.setTitle("November" + getYear() +" sales report")
+			.setTitle("November " + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
 
@@ -74,7 +74,7 @@ public class AutotextReportTest extends BaseDjReportTest {
 
 		//Note the styled text: <b>msimone</b>, valid tags are: <b>, <i> and <u>
 		drb.addAutoText("Created by <b>msimone</b>", AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT,200);
-		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT,30,30,atStyle2);
+		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT,30,30,atStyle2);
 
 		drb.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_LEFT,AutoText.PATTERN_DATE_DATE_TIME);
 

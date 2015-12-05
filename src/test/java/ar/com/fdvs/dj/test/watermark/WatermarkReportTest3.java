@@ -27,30 +27,26 @@
  *
  */
 
-package ar.com.fdvs.dj.test;
+package ar.com.fdvs.dj.test.watermark;
 
 
-import java.awt.Color;
-import java.util.Date;
-
-import net.sf.jasperreports.view.JasperViewer;
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
+import ar.com.fdvs.dj.domain.DJWaterMark;
 import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.builders.StyleBuilder;
-import ar.com.fdvs.dj.domain.constants.Border;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
-import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.test.BaseDjReportTest;
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
 
-public class ImageColumnReportTest extends BaseDjReportTest {
+import java.util.Date;
+import java.util.Map;
+
+public class WatermarkReportTest3 extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
 
-		Style style = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.CENTER)
-		.setStretching(Stretching.RELATIVE_TO_TALLEST_OBJECT)
-		.setBorderColor(Color.BLACK).setBorder(Border.THIN()).build();
 		/**
 		 * Creates the DynamicReportBuilder and sets the basic options for
 		 * the report
@@ -59,16 +55,26 @@ public class ImageColumnReportTest extends BaseDjReportTest {
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
 			.addColumn("Product Line", "productLine", String.class.getName(),50)
-			.addImageColumn("IMG", "image", 50, true,ImageScaleMode.FILL ,style)
-			.addColumn("Item", "item", String.class.getName(),20)
+			.addColumn("Item", "item", String.class.getName(),50)
 			.addColumn("Item Code", "id", Long.class.getName(),30,true)
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
-			.setDetailHeight(17)
-			.setTitle("November " + getYear() +" sales report")
+			.setTitle("November " + getYear() + " sales report")
 			.setSubtitle("This report was generated at " + new Date())
+			.addWatermark(new DJWaterMark("DRAFT"))
 			.setUseFullPageWidth(true);
+
+        drb.addGlobalFooterVariable(drb.getColumn(4), DJCalculation.COUNT, null, new DJValueFormatter() {
+
+            public String getClassName() {
+                return String.class.getName();
+            }
+
+            public Object evaluate(Object value, Map fields, Map variables,   Map parameters) {
+                return (value == null ? "0" : value.toString()) + " Clients";
+            }
+        });
 
 
 		DynamicReport dr = drb.build();
@@ -77,9 +83,11 @@ public class ImageColumnReportTest extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		ImageColumnReportTest test = new ImageColumnReportTest();
+		WatermarkReportTest3 test = new WatermarkReportTest3();
 		test.testReport();
+		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
+		JasperDesignViewer.viewReportDesign(test.jr);
 	}
 
 }
