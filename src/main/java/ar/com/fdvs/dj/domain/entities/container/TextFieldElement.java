@@ -5,19 +5,19 @@ import ar.com.fdvs.dj.domain.Style;
 /**
  * Created by mamana on 7/7/14.
  */
-public class StaticTextElement extends GraphicElement {
+public class TextFieldElement extends GraphicElement {
 
-    public StaticTextElement() {
+    public TextFieldElement() {
         setWidth(50);
         setHeight(18);
     }
 
-    public StaticTextElement(String text) {
+    public TextFieldElement(String text) {
         this();
         this.text = text;
     }
 
-    public StaticTextElement(String text, int width, boolean fixedWidth, Style style) {
+    public TextFieldElement(String text, int width, boolean fixedWidth, Style style) {
         this();
         this.text = text;
         setWidth(width);

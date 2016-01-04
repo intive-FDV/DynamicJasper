@@ -67,7 +67,7 @@ public class CustomExpressionReportTest2 extends BaseDjReportTest {
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		Integer margin = new Integer(20);
 		drb
-			.setTitle("November" + getYear() +" sales report")					//defines the title of the report
+			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
 					.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))

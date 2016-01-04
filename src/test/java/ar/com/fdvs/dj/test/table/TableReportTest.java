@@ -32,9 +32,12 @@ package ar.com.fdvs.dj.test.table;
 
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.entities.container.ElementContainer;
 import ar.com.fdvs.dj.domain.entities.container.StaticTextElement;
+import ar.com.fdvs.dj.domain.entities.container.TextFieldElement;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
 import ar.com.fdvs.dj.test.BaseDjReportTest2;
 import ar.com.fdvs.dj.util.LayoutUtils;
@@ -69,54 +72,70 @@ public class TableReportTest extends BaseDjReportTest2 {
 			.addColumn("Item", "item", String.class.getName(),50)
 			.addColumn("Amount", "amount", Float.class.getName(),60,true)
 			.addGroups(2)
-			.setTitle("November" + getYear() +" sales report")
+			.setTitle("November " + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
-			.setColumnsPerPage(2,10)
+			//.setColumnsPerPage(2,10)
 			.setUseFullPageWidth(true);
 
 		DynamicReport dr = drb.build();
 
+        Style elementStyle = new Style();
+        elementStyle.setBorder(Border.PEN_1_POINT());
+        elementStyle.getBorder().setColor(Color.BLUE);
+
         ElementContainer elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 1"));
-        elementContainer.add(new StaticTextElement("Texto 2"));
-        elementContainer.add(new StaticTextElement("Texto 3"));
+        elementContainer.add(new StaticTextElement("Texto 1",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 2",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 3",30,false,elementStyle));
         dr.getTitleElements().add(elementContainer);
 
         elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 4"));
-        elementContainer.add(new StaticTextElement("Texto 5"));
-        elementContainer.add(new StaticTextElement("Texto 6"));
-        elementContainer.add(new StaticTextElement("Texto 7"));
+        elementContainer.add(new StaticTextElement("Texto 4",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 5",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 7",30,false,elementStyle));
+//        dr.getTitleElements().add(elementContainer);
+
+        elementContainer = new ElementContainer();
+        elementContainer.add(new StaticTextElement("Texto 4",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 5",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
+        elementContainer.add(new TextFieldElement("Texto Muy largo lleno de cosas que no creo que entren",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 7",30,false,elementStyle));
         dr.getTitleElements().add(elementContainer);
 
         elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 4"));
-        elementContainer.add(new StaticTextElement("Texto 5"));
-        elementContainer.add(new StaticTextElement("Texto 6"));
-        elementContainer.add(new StaticTextElement("Texto 7"));
-        elementContainer.add(new StaticTextElement("Texto 8"));
+        elementContainer.add(new StaticTextElement("Texto 4",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 5",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 7",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 8",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 9",30,false,elementStyle));
         dr.getTitleElements().add(elementContainer);
 
         elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 4"));
-        elementContainer.add(new StaticTextElement("Texto 5"));
-        elementContainer.add(new StaticTextElement("Texto 6"));
-        elementContainer.add(new StaticTextElement("Texto 7"));
-        elementContainer.add(new StaticTextElement("Texto 8"));
-        elementContainer.add(new StaticTextElement("Texto 9"));
-        dr.getTitleElements().add(elementContainer);
-
-        elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 4"));
-        elementContainer.add(new StaticTextElement("Texto 5"));
-        elementContainer.add(new StaticTextElement("Texto 6"));
-        StaticTextElement element = new StaticTextElement("Texto 7");
+        elementContainer.add(new StaticTextElement("Texto 4",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 5",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
+        StaticTextElement element = new StaticTextElement("Texto 7",30,false,elementStyle);
         element.setFixedWidth(false);
         element.setWidth(200);
         elementContainer.add(element);
-        elementContainer.add(new StaticTextElement("Texto 8"));
-        elementContainer.add(new StaticTextElement("Texto 9"));
-        dr.getTitleElements().add(elementContainer);
+        elementContainer.add(new StaticTextElement("Texto 8",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 9",30,false,elementStyle));
+//        dr.getTitleElements().add(elementContainer);
+
+        elementContainer = new ElementContainer();
+        elementContainer.add(new StaticTextElement("<b>field 1:</b>",40, true, elementStyle));
+        elementContainer.add(new StaticTextElement("Value 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 00 11 22",50, true, elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
+        element = new StaticTextElement("Texto 7",30,false,elementStyle);
+        element.setFixedWidth(false);
+        element.setWidth(200);
+        elementContainer.add(element);
+        elementContainer.add(new StaticTextElement("Texto 8",30,false,elementStyle));
+        elementContainer.add(new StaticTextElement("Texto 9",30,false,elementStyle));
+//        dr.getTitleElements().add(elementContainer);
 
 		return dr;
 	}

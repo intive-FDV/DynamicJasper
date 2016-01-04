@@ -73,7 +73,7 @@ public class CrosstabReportWithPrecalculatedTotalsAndValueFormatterTest extends 
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 			drb
-			.setTitle("November" + getYear() +" sales report")
+			.setTitle("November " + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setPageSizeAndOrientation(Page.Page_A4_Landscape())
 			.setPrintColumnNames(false)

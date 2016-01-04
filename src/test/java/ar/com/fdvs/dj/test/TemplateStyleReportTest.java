@@ -79,7 +79,7 @@ public class TemplateStyleReportTest extends BaseDjReportTest {
 		 * the report
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		drb.setTitle("November" + getYear() +" sales report")
+		drb.setTitle("November " + getYear() +" sales report")
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
 			.setDetailHeight(15)

@@ -49,6 +49,8 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.container.ElementContainer;
 import ar.com.fdvs.dj.domain.entities.container.GraphicElement;
 import ar.com.fdvs.dj.domain.entities.container.StaticTextElement;
+import ar.com.fdvs.dj.domain.entities.container.TextFieldElement;
+import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.LayoutUtils;
 import ar.com.fdvs.dj.util.Utils;
@@ -413,20 +415,20 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
     private void layoutElementsInBand(JRDesignBand band, List<ElementContainer> elements, int vOffset) {
         for (ElementContainer elementContainer : elements) {
-            layoutElementsInBand(band, elementContainer, vOffset);
+            layoutElementsInBand(band, elementContainer, vOffset, getReport().getOptions().getPrintableWidth());
             vOffset = LayoutUtils.findVerticalOffset(band);
         }
     }
 
-    private void layoutElementsInBand(JRDesignBand band, ElementContainer elementContainer, int vOffset) {
+    private void layoutElementsInBand(JRDesignBand band, ElementContainer elementContainer, int vOffset, int parentWidth) {
 
         /**
          * Calculate width for non-fixed elements
          */
         if (elementContainer.getFixedWidth() == false){
-            elementContainer.setWidth(getReport().getOptions().getPrintableWidth());
+            elementContainer.setWidth(parentWidth);
         }
-        int parentWidth = elementContainer.getWidth();
+        //int parentWidth = elementContainer.getWidth();
         List<GraphicElement> fixedElements = new ArrayList<GraphicElement>();
         List<GraphicElement> nonFixedElements = new ArrayList<GraphicElement>();
 
@@ -455,7 +457,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
             nonFixedWithSum += nonFixedElement.getWidth();
         }
 
-        int remaining = availableNonFixed - nonFixedWithSum; //Rounding error
+        int remaining = availableNonFixed - nonFixedWithSum - 1; //Rounding error
 
         while (remaining > 0){
             for (GraphicElement nonFixedElement : nonFixedElements) {
@@ -479,23 +481,56 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
         /**
          * Draw elements
          */
+        JRDesignFrame jrDesignFrame = new JRDesignFrame();
+        jrDesignFrame.setY(vOffset);
+        jrDesignFrame.setWidth(elementContainer.getWidth());
+        jrDesignFrame.setX(0);
+        jrDesignFrame.setStretchType(StretchTypeEnum.RELATIVE_TO_TALLEST_OBJECT);
+        jrDesignFrame.setPositionType(PositionTypeEnum.FIX_RELATIVE_TO_TOP);
         for (GraphicElement graphicElement : elementContainer.getElementsArray()) {
             if (graphicElement instanceof StaticTextElement){
                 StaticTextElement ste = (StaticTextElement) graphicElement;
                 JRDesignStaticText jrst = new JRDesignStaticText();
                 jrst.setText(ste.getText());
                 jrst.setX(ste.getPosX());
-                jrst.setY(ste.getPosY()+vOffset);
+                //jrst.setY(ste.getPosY()+vOffset);
+                jrst.setY(0);
                 jrst.setHeight(ste.getHeight());
                 jrst.setWidth(ste.getWidth());
+                jrst.setStretchType(StretchTypeEnum.RELATIVE_TO_TALLEST_OBJECT);
+                jrst.setPositionType(PositionTypeEnum.FIX_RELATIVE_TO_TOP);
+                jrst.setMarkup("styled");
                 applyStyleToElement(ste.getStyle(),jrst);
 
-                band.addElement(jrst);
+                jrDesignFrame.addElement(jrst);
 
+            } else if (graphicElement instanceof TextFieldElement){
+                TextFieldElement ste = (TextFieldElement) graphicElement;
+
+                JRDesignTextField jrst = new JRDesignTextField();
+                JRDesignExpression jrde = new JRDesignExpression();
+
+                jrde.setText("\"" + Utils.escapeTextForExpression(ste.getText()) + "\"");
+
+                jrst.setExpression(jrde);
+                jrst.setX(ste.getPosX());
+//                jrst.setY(ste.getPosY()+vOffset);
+                jrst.setY(0);
+                jrst.setHeight(ste.getHeight());
+                jrst.setWidth(ste.getWidth());
+                jrst.setStretchType(StretchTypeEnum.RELATIVE_TO_TALLEST_OBJECT);
+                jrst.setPositionType(PositionTypeEnum.FIX_RELATIVE_TO_TOP);
+                jrst.setMarkup("styled");
+                applyStyleToElement(ste.getStyle(),jrst);
+
+
+                jrDesignFrame.addElement(jrst);
             }
         }
-
-
+        int height = LayoutUtils.findVerticalOffset(jrDesignFrame);
+        jrDesignFrame.setHeight(height);
+        band.addElement(jrDesignFrame);
+        band.setSplitType(SplitTypeEnum.STRETCH);
     }
 
     /**

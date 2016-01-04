@@ -6,10 +6,7 @@ import java.util.Map;
 
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
-import net.sf.jasperreports.engine.JRBand;
-import net.sf.jasperreports.engine.JRDefaultStyleProvider;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRPen;
+import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.base.JRBoxPen;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
@@ -42,7 +39,7 @@ public class LayoutUtils {
 	 * @param band
 	 * @return
 	 */
-	public static int findVerticalOffset(JRDesignBand band) {
+	public static int findVerticalOffset(JRElementGroup band) {
 		int finalHeight = 0;
 		if (band != null) {
 			for (Iterator iter = band.getChildren().iterator(); iter.hasNext();) {
@@ -93,7 +90,7 @@ public class LayoutUtils {
 	
 	/**
 	 * Moves the elements contained in "band" in the Y axis "yOffset"
-	 * @param intValue
+	 * @param yOffset
 	 * @param band
 	 */
 	public static void moveBandsElemnts(int yOffset, JRDesignBand band) {

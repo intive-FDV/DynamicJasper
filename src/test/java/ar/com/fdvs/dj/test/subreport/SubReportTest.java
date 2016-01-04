@@ -54,7 +54,7 @@ public class SubReportTest extends BaseDjReportTest {
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
 			.setMargins(5, 5, 20, 20)
-			.setTitle("November" + getYear() +" sales report")
+			.setTitle("November " + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
 

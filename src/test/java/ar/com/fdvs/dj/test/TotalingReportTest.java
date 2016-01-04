@@ -63,7 +63,7 @@ public class TotalingReportTest extends BaseDjReportTest {
 			.addColumn("Branch", "branch", String.class.getName(),70, headerStyle2, headerStyle2)
 			.addColumn("Amount", "amount", Float.class.getName(),70)
 			.addGroups(2)
-			.setTitle("November" + getYear() +" sales report")
+			.setTitle("November " + getYear() +" sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setPrintBackgroundOnOddRows(false)
 			.setPrintColumnNames(false)

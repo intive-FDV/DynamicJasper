@@ -52,7 +52,7 @@ public class ColumsSpanStyleTest extends BaseDjReportTest {
                 .addColumn("Item", "item", String.class.getName(), 50)
                 .addColumn("Amount", "amount", Float.class.getName(), 60, true)
                 .addGroups(2)
-                .setTitle("November" + getYear() +" sales report")
+                .setTitle("November " + getYear() +" sales report")
                 .setSubtitle("This report was generated at " + new Date())
                 .setColumnsPerPage(1,10)
                 .setUseFullPageWidth(true);
