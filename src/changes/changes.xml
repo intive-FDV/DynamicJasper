@@ -34,6 +34,11 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.0.5" date="2016-01-04" desc="">
+            <action dev="Juan Manuel Alvarez" type="add">
+                <![CDATA[Introducing ExtendedListLayoutManager for xls export with title and subtitle.]]>
+            </action>
+        </release>
         <release version="5.0.4" date="2015-12-04" desc="">
             <action dev="Juan Manuel Alvarez" type="fix" due-to="Andrej Jepifanow">
                 <![CDATA[Load from template honors page orientation]]>
