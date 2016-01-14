@@ -979,7 +979,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             //Reverse iteration of the charts to meet insertion order
             for (int i = l.size(); i > 0; i--) {
                 ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) l.get(i - 1);
-                String name = "chart_" + (i - 1);
+                String name = "chart_" + (i - 1) + new Date().getTime();
                 JRDesignChart chart = createChart(djChart, name);
 
                 if (djChart.getLink() != null)
