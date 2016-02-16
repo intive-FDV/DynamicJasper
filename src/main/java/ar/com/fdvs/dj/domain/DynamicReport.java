@@ -152,6 +152,7 @@ public class DynamicReport extends DJBaseElement {
 	 **********************/
 	private byte whenResourceMissing = DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY;
 
+	private DJWaterMark waterMark;
 
 	public void addStyle(Style style) {
 		styles.put(style.getName(), style);
@@ -483,6 +484,13 @@ public class DynamicReport extends DJBaseElement {
         this.language = language;
     }
 
+	public DJWaterMark getWaterMark() {
+		return waterMark;
+	}
+
+	public void setWaterMark(DJWaterMark waterMark) {
+		this.waterMark = waterMark;
+	}
     public List<ElementContainer> getHeaderElements() {
         return headerElements;
     }

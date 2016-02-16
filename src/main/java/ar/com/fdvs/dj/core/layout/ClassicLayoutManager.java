@@ -80,7 +80,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected static final String EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() != 1)";
 	protected static final String EXPRESSION_TRUE_WHEN_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() == 1)";
 
-	protected Map referencesMap = new HashMap();
+	protected final Map referencesMap = new HashMap();
 
 	public Map getReferencesMap() {
 		return referencesMap;
@@ -119,18 +119,18 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		ArrayList autotexts = new ArrayList(getReport().getAutoTexts());
 		Collections.reverse(autotexts);
 
-		int totalYoffset = findTotalOffset(positions,autotexts, AutoText.POSITION_HEADER);
+		int totalYoffset = findTotalOffset(positions, AutoText.POSITION_HEADER);
 		LayoutUtils.moveBandsElemnts(totalYoffset, headerband);
 
-		for (Iterator iterator = positions.iterator(); iterator.hasNext();) {
-			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) iterator.next();
+		for (Object position : positions) {
+			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) position;
 			int yOffset = 0;
 
-			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
-				AutoText text = (AutoText) iter.next();
+			for (Object o : getReport().getAutoTexts()) {
+				AutoText text = (AutoText) o;
 				if (text.getPosition() == AutoText.POSITION_HEADER && text.getAlignment().equals(currentAlignment)) {
-					CommonExpressionsHelper.add(yOffset,(DynamicJasperDesign) getDesign(), this, headerband, text);
-					yOffset += text.getHeight().intValue();
+					CommonExpressionsHelper.add(yOffset, (DynamicJasperDesign) getDesign(), this, headerband, text);
+					yOffset += text.getHeight();
 				}
 			}
 		}
@@ -141,18 +141,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	/**
 	 * Finds the highest sum of height for each possible alignment (left, center, right)
 	 * @param aligments
-	 * @param autotexts
 	 * @return
 	 */
-	protected int findTotalOffset(ArrayList aligments, ArrayList autotexts, byte position) {
+	protected int findTotalOffset(ArrayList aligments, byte position) {
 		int total = 0;
-		for (Iterator iterator = aligments.iterator(); iterator.hasNext();) {
-			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) iterator.next();
+		for (Object aligment : aligments) {
+			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) aligment;
 			int aux = 0;
-			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
-				AutoText autotext = (AutoText) iter.next();
+			for (Object o : getReport().getAutoTexts()) {
+				AutoText autotext = (AutoText) o;
 				if (autotext.getPosition() == position && currentAlignment.equals(autotext.getAlignment())) {
-					aux += autotext.getHeight().intValue();
+					aux += autotext.getHeight();
 				}
 			}
 			if (aux > total)
@@ -184,17 +183,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		positions.add(HorizontalBandAlignment.CENTER);
 		positions.add(HorizontalBandAlignment.RIGHT);
 
-		for (Iterator iterator = positions.iterator(); iterator.hasNext();) {
-			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) iterator.next();
+		for (Object position : positions) {
+			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) position;
 			int yOffset = 0;
 			/**
 			 * Apply the autotext in footer if any
 			 */
-			for (Iterator iter = getReport().getAutoTexts().iterator(); iter.hasNext();) {
-				AutoText autotext = (AutoText) iter.next();
-				if (autotext.getPosition() == AutoText.POSITION_FOOTER && autotext.getAlignment().equals(currentAlignment) ) {
-					CommonExpressionsHelper.add(yOffset,(DynamicJasperDesign) getDesign(), this, footerband, autotext);
-					yOffset += autotext.getHeight().intValue();
+			for (Object o : getReport().getAutoTexts()) {
+				AutoText autotext = (AutoText) o;
+				if (autotext.getPosition() == AutoText.POSITION_FOOTER && autotext.getAlignment().equals(currentAlignment)) {
+					CommonExpressionsHelper.add(yOffset, (DynamicJasperDesign) getDesign(), this, footerband, autotext);
+					yOffset += autotext.getHeight();
 				}
 			}
 
@@ -208,9 +207,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected List getVisibleColumns() {
 		List visibleColums = new ArrayList(getReport().getColumns());
-		for (Iterator iterator = getReport().getColumnsGroups().iterator(); iterator.hasNext();) {
-			DJGroup group = (DJGroup) iterator.next();
-			if (group.getLayout().isHideColumn()){
+		for (Object o : getReport().getColumnsGroups()) {
+			DJGroup group = (DJGroup) o;
+			if (group.getLayout().isHideColumn()) {
 				visibleColums.remove(group.getColumnToGroupBy());
 			}
 		}
@@ -286,11 +285,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected void applyImageBannersToBand(JRDesignBand band, Collection imageBanners, JRDesignExpression printWhenExpression, boolean placeOnTop ) {
 		int maxHeight = 0;
         if (placeOnTop){
-            for (Iterator iter = imageBanners.iterator(); iter.hasNext();) {
-                ImageBanner imageBanner = (ImageBanner) iter.next();
-                if (imageBanner.getHeight() > maxHeight)
-                    maxHeight = imageBanner.getHeight();
-            }
+			for (Object imageBanner1 : imageBanners) {
+				ImageBanner imageBanner = (ImageBanner) imageBanner1;
+				if (imageBanner.getHeight() > maxHeight)
+					maxHeight = imageBanner.getHeight();
+			}
         } else {
             maxHeight = LayoutUtils.findVerticalOffset(band);
         }
@@ -298,17 +297,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		if (band != null){
 			//move everything down
             if (placeOnTop){
-                for (Iterator iter =band.getChildren().iterator(); iter.hasNext();) {
-                    JRDesignElement element = (JRDesignElement) iter.next();
-                    element.setY(element.getY() + maxHeight);
-                }
+				for (JRChild jrChild : band.getChildren()) {
+					JRDesignElement element = (JRDesignElement) jrChild;
+					element.setY(element.getY() + maxHeight);
+				}
             }
             int yPosition = 0;
             if (!placeOnTop)
                 yPosition = maxHeight+1;
 
-			for (Iterator iter = imageBanners.iterator(); iter.hasNext();) {
-				ImageBanner imageBanner = (ImageBanner) iter.next();
+			for (Object imageBanner1 : imageBanners) {
+				ImageBanner imageBanner = (ImageBanner) imageBanner1;
 				String path = "\"" + imageBanner.getImagePath().replaceAll("\\\\", "/") + "\"";
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
 				JRDesignExpression imageExp = new JRDesignExpression();
@@ -325,16 +324,16 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				if (imageBanner.getAlign() == ImageBanner.ALIGN_LEFT)
 					image.setX(0);
 				else if (imageBanner.getAlign() == ImageBanner.ALIGN_RIGHT)
-					image.setX(getReport().getOptions().getPage().getWidth() -  getReport().getOptions().getLeftMargin().intValue() - getReport().getOptions().getRightMargin().intValue() - imageBanner.getWidth());
-				else if (imageBanner.getAlign() == ImageBanner.ALIGN_CENTER){
+					image.setX(getReport().getOptions().getPage().getWidth() - getReport().getOptions().getLeftMargin() - getReport().getOptions().getRightMargin() - imageBanner.getWidth());
+				else if (imageBanner.getAlign() == ImageBanner.ALIGN_CENTER) {
 					int x = (getReport().getOptions().getPage().getWidth() -
-							getReport().getOptions().getRightMargin().intValue() -
-							getReport().getOptions().getLeftMargin().intValue() - imageBanner.getWidth()) / 2;
-					image.setX(getReport().getOptions().getLeftMargin().intValue() + x);
+							getReport().getOptions().getRightMargin() -
+							getReport().getOptions().getLeftMargin() - imageBanner.getWidth()) / 2;
+					image.setX(getReport().getOptions().getLeftMargin() + x);
 				}
 
 
-                image.setY(yPosition);
+				image.setY(yPosition);
 				band.addElement(image);
 
 			}
@@ -381,7 +380,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		exp.setValueClass(String.class);
 		title.setExpression(exp);
 		title.setWidth(getReport().getOptions().getPrintableWidth());
-		title.setHeight(getReport().getOptions().getTitleHeight().intValue());
+		title.setHeight(getReport().getOptions().getTitleHeight());
 		title.setY(yOffset);
 		title.setPrintWhenExpression(printWhenExpression);
 		title.setRemoveLineWhenBlank(true);
@@ -396,7 +395,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			exp2.setValueClass(String.class);
 			subtitle.setExpression(exp2);
 			subtitle.setWidth(getReport().getOptions().getPrintableWidth());
-			subtitle.setHeight(getReport().getOptions().getSubtitleHeight().intValue());
+			subtitle.setHeight(getReport().getOptions().getSubtitleHeight());
 			subtitle.setY(title.getY() + title.getHeight());
 			subtitle.setPrintWhenExpression(printWhenExpression);
 			subtitle.setRemoveLineWhenBlank(true);
@@ -539,13 +538,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected void layoutGroups() {
 		log.debug("Starting groups layout...");
-		for (Iterator iter = getReport().getColumnsGroups().iterator(); iter.hasNext();) {
-			DJGroup columnsGroup = (DJGroup) iter.next();
+		for (Object o1 : getReport().getColumnsGroups()) {
+			DJGroup columnsGroup = (DJGroup) o1;
 			JRDesignGroup jgroup = getJRGroupFromDJGroup(columnsGroup);
 
-			jgroup.setStartNewPage(columnsGroup.getStartInNewPage().booleanValue());
-			jgroup.setStartNewColumn(columnsGroup.getStartInNewColumn().booleanValue());
-			jgroup.setReprintHeaderOnEachPage(columnsGroup.getReprintHeaderOnEachPage().booleanValue());
+			jgroup.setStartNewPage(columnsGroup.getStartInNewPage());
+			jgroup.setStartNewColumn(columnsGroup.getStartInNewColumn());
+			jgroup.setReprintHeaderOnEachPage(columnsGroup.getReprintHeaderOnEachPage());
 
 			JRDesignSection headerSection = (JRDesignSection) jgroup.getGroupHeaderSection();
 			JRDesignSection footerSection = (JRDesignSection) jgroup.getGroupFooterSection();
@@ -554,33 +553,33 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignBand footer = LayoutUtils.getBandFromSection(footerSection);
 
 			//double check to prevent NPE
-			if (header == null){
+			if (header == null) {
 				header = new JRDesignBand();
 				headerSection.addBand(header);
 			}
-			if (footer == null){
+			if (footer == null) {
 				footer = new JRDesignBand();
 				footerSection.addBand(footer);
 			}
 
-			header.setHeight(columnsGroup.getHeaderHeight().intValue());
+			header.setHeight(columnsGroup.getHeaderHeight());
 //			footer.setHeight( getFooterVariableHeight(columnsGroup));
-			footer.setHeight( columnsGroup.getFooterHeight().intValue());
+			footer.setHeight(columnsGroup.getFooterHeight());
 
-            header.setSplitType( LayoutUtils.getSplitTypeFromBoolean(columnsGroup.isAllowHeaderSplit()));
-            footer.setSplitType( LayoutUtils.getSplitTypeFromBoolean(columnsGroup.isAllowFooterSplit()));
+			header.setSplitType(LayoutUtils.getSplitTypeFromBoolean(columnsGroup.isAllowHeaderSplit()));
+			footer.setSplitType(LayoutUtils.getSplitTypeFromBoolean(columnsGroup.isAllowFooterSplit()));
 
 			if (columnsGroup.getLayout().isPrintHeaders()) {
 				boolean found = false;
 				boolean skipPreviousGroupHeaders = false;
 				int groupIdx = getReport().getColumnsGroups().indexOf(columnsGroup);
-				if (groupIdx>0){
-					DJGroup prevG =  (DJGroup) getReport().getColumnsGroups().get(groupIdx-1);
-                    if(!(prevG.getColumnToGroupBy() instanceof GlobalGroupColumn))
-                        skipPreviousGroupHeaders = !prevG.getLayout().isShowValueForEachRow();
+				if (groupIdx > 0) {
+					DJGroup prevG = (DJGroup) getReport().getColumnsGroups().get(groupIdx - 1);
+					if (!(prevG.getColumnToGroupBy() instanceof GlobalGroupColumn))
+						skipPreviousGroupHeaders = !prevG.getLayout().isShowValueForEachRow();
 				}
-				for (Iterator iterator =  getVisibleColumns().iterator(); iterator.hasNext();) {
-					AbstractColumn col = (AbstractColumn) iterator.next();
+				for (Object o : getVisibleColumns()) {
+					AbstractColumn col = (AbstractColumn) o;
 
 					//If in a nested group, header for column prior to this groups column
 					//depends on configuration
@@ -589,13 +588,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 						found = true;
 					}
 
-					if (!found && skipPreviousGroupHeaders){
+					if (!found && skipPreviousGroupHeaders) {
 						continue;
 					}
 
 					JRDesignTextField designTextField = createColumnNameTextField(columnsGroup, col);
-					designTextField.setPositionType( PositionTypeEnum.FLOAT ); //XXX changed to see what happens  (must come from the column position property)
-					designTextField.setStretchType( StretchTypeEnum.NO_STRETCH ); //XXX changed to see what happens (must come from the column property)
+					designTextField.setPositionType(PositionTypeEnum.FLOAT); //XXX changed to see what happens  (must come from the column position property)
+					designTextField.setStretchType(StretchTypeEnum.NO_STRETCH); //XXX changed to see what happens (must come from the column property)
 					header.addElement(designTextField);
 				}
 			}
@@ -605,7 +604,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				List footerVariables = columnsGroup.getFooterVariables();
 				PropertyColumn col = columnsGroup.getColumnToGroupBy();
 //				JRDesignBand band = (JRDesignBand)jgroup.getGroupFooter();
-				JRDesignBand band = footer;
 				int x = 0, y = 0;
 				//max width
 				int width = getDesign().getPageWidth() - getDesign().getLeftMargin() - getDesign().getRightMargin();
@@ -614,43 +612,37 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				if (label.getLabelPosition() == LabelPosition.LEFT) {
 					DJGroupVariable lmvar = findLeftMostColumn(footerVariables);
 
-					x = col.getPosX().intValue(); //label starts in the column-to-group-by x position
-					y = findYOffsetForGroupLabel(band);
+					x = col.getPosX(); //label starts in the column-to-group-by x position
+					y = findYOffsetForGroupLabel(footer);
 					if (lmvar != null) {
 						AbstractColumn lmColumn = lmvar.getColumnToApplyOperation();
-						width = lmColumn.getPosX().intValue() - x;
-					}
-					else
+						width = lmColumn.getPosX() - x;
+					} else
 						width -= x;
 					height = getFooterVariableHeight(columnsGroup);
-				}
-				else if (label.getLabelPosition() == LabelPosition.RIGHT) {
+				} else if (label.getLabelPosition() == LabelPosition.RIGHT) {
 					DJGroupVariable rmvar = findRightMostColumn(footerVariables);
 
 					if (rmvar != null) {
 						AbstractColumn rmColumn = rmvar.getColumnToApplyOperation();
-						x = rmColumn.getPosX().intValue() + rmColumn.getWidth().intValue();
-					}
-					else
-						x = col.getPosX().intValue(); //label starts in the column-to-group-by x position
-					y = findYOffsetForGroupLabel(band);
+						x = rmColumn.getPosX() + rmColumn.getWidth();
+					} else
+						x = col.getPosX(); //label starts in the column-to-group-by x position
+					y = findYOffsetForGroupLabel(footer);
 					width -= x;
 					height = getFooterVariableHeight(columnsGroup);
-				}
-				else if (label.getLabelPosition() == LabelPosition.TOP) {
-					x = col.getPosX().intValue(); //label starts in the column-to-group-by x position
+				} else if (label.getLabelPosition() == LabelPosition.TOP) {
+					x = col.getPosX(); //label starts in the column-to-group-by x position
 					width -= x;
 					yOffset = height;
-				}
-				else if (label.getLabelPosition() == LabelPosition.BOTTOM) {
-					x = col.getPosX().intValue(); //label starts in the column-to-group-by x position
+				} else if (label.getLabelPosition() == LabelPosition.BOTTOM) {
+					x = col.getPosX(); //label starts in the column-to-group-by x position
 					y = getFooterVariableHeight(columnsGroup);
 					width -= x;
 				}
 				layoutGroupFooterLabels(columnsGroup, jgroup, x, y, width, height);
 				layoutGroupVariables(columnsGroup, jgroup, yOffset);
-			}
-			else {
+			} else {
 				layoutGroupVariables(columnsGroup, jgroup, 0);
 			}
 
@@ -709,9 +701,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	private int findYOffsetForGroupLabel(JRDesignBand band) {
 		int offset = 0;
-		for (Iterator iterator = band.getChildren().iterator(); iterator.hasNext();) {
-			JRDesignElement elem = (JRDesignElement) iterator.next();
-			if (elem.getKey() != null && elem.getKey().startsWith("variable_for_column_")){
+		for (JRChild jrChild : band.getChildren()) {
+			JRDesignElement elem = (JRDesignElement) jrChild;
+			if (elem.getKey() != null && elem.getKey().startsWith("variable_for_column_")) {
 				offset = elem.getY();
 				break;
 			}
@@ -726,14 +718,14 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param jgroup
 	 */
 	protected void layoutGroupCrosstabs(DJGroup columnsGroup,	JRDesignGroup jgroup) {
-		for (Iterator iterator = columnsGroup.getHeaderCrosstabs().iterator(); iterator.hasNext();) {
-			DJCrosstab djcross = (DJCrosstab) iterator.next();
+		for (Object o1 : columnsGroup.getHeaderCrosstabs()) {
+			DJCrosstab djcross = (DJCrosstab) o1;
 
 			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
 
-			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
+			JRDesignCrosstab crosst = djcb.createCrosstab(djcross, this);
 			JRDesignBand band = LayoutUtils.getBandFromSection((JRDesignSection) jgroup.getGroupHeaderSection());
-			if (djcross.getBottomSpace() != 0){
+			if (djcross.getBottomSpace() != 0) {
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), 0);
 				LayoutUtils.moveBandsElemnts(rect.getHeight(), band);
 				band.addElement(rect);
@@ -742,46 +734,46 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			LayoutUtils.moveBandsElemnts(crosst.getHeight(), band);
 			band.addElement(crosst);
 			DJLabel caption = djcross.getCaption();
-			if (caption!=null){
-				JRDesignExpression captExp = null;
+			if (caption != null) {
+				JRDesignExpression captExp;
 				if (caption.isJasperExpression()) //a text with things like "$F{myField}"
 					captExp = ExpressionUtils.createStringExpression(caption.getText());
-				else if (caption.getLabelExpression() != null){
-					String name = "expression_for_label_at_header_of_group[" + getReport().getColumnsGroups().indexOf(columnsGroup)+"]_crosstab["+columnsGroup.getHeaderCrosstabs().indexOf(djcross)+"]";
-					LayoutUtils.registerCustomExpressionParameter((DynamicJasperDesign) getDesign(), name , caption.getLabelExpression());
-					String invocationText = ExpressionUtils.createCustomExpressionInvocationText(caption.getLabelExpression(),name);
-					captExp =   ExpressionUtils.createExpression(invocationText, caption.getLabelExpression().getClassName()) ;
+				else if (caption.getLabelExpression() != null) {
+					String name = "expression_for_label_at_header_of_group[" + getReport().getColumnsGroups().indexOf(columnsGroup) + "]_crosstab[" + columnsGroup.getHeaderCrosstabs().indexOf(djcross) + "]";
+					LayoutUtils.registerCustomExpressionParameter((DynamicJasperDesign) getDesign(), name, caption.getLabelExpression());
+					String invocationText = ExpressionUtils.createCustomExpressionInvocationText(caption.getLabelExpression(), name);
+					captExp = ExpressionUtils.createExpression(invocationText, caption.getLabelExpression().getClassName());
 					log.debug(invocationText);
 				} else //a simple text
-					captExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(caption.getText())+ "\"");
+					captExp = ExpressionUtils.createStringExpression("\"" + Utils.escapeTextForExpression(caption.getText()) + "\"");
 
 				JRDesignTextField captTf = new JRDesignTextField();
-				captTf.setExpression(captExp );
+				captTf.setExpression(captExp);
 				captTf.setHeight(caption.getHeight());
 				captTf.setWidth(getReport().getOptions().getPrintableWidth());
 				LayoutUtils.moveBandsElemnts(caption.getHeight(), band);
 				band.addElement(captTf);
 			}
 
-			if (djcross.getTopSpace() != 0){
+			if (djcross.getTopSpace() != 0) {
 				LayoutUtils.moveBandsElemnts(djcross.getTopSpace(), band);
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), 0);
 				band.addElement(rect);
 			}
 		}
 
-		for (Iterator iterator = columnsGroup.getFooterCrosstabs().iterator(); iterator.hasNext();) {
-			DJCrosstab djcross = (DJCrosstab) iterator.next();
+		for (Object o : columnsGroup.getFooterCrosstabs()) {
+			DJCrosstab djcross = (DJCrosstab) o;
 
 			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
 
-			JRDesignCrosstab crosst = djcb.createCrosstab(djcross,this);
+			JRDesignCrosstab crosst = djcb.createCrosstab(djcross, this);
 			JRDesignBand band = LayoutUtils.getBandFromSection((JRDesignSection) jgroup.getGroupFooterSection());
 			int yOffset = LayoutUtils.findVerticalOffset(band);
-			if (djcross.getTopSpace() != 0){
+			if (djcross.getTopSpace() != 0) {
 //				moveBandsElemnts(djcross.getTopSpace(), band);
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), yOffset);
-				rect.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
+				rect.setPositionType(PositionTypeEnum.FIX_RELATIVE_TO_TOP);
 				band.addElement(rect);
 				crosst.setY(rect.getY() + rect.getHeight());
 			}
@@ -789,7 +781,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			band.addElement(crosst);
 
 
-			if (djcross.getBottomSpace() != 0){
+			if (djcross.getBottomSpace() != 0) {
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), crosst.getY() + crosst.getHeight());
 				band.addElement(rect);
 			}
@@ -829,10 +821,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		exp.setText("\"" + col.getTitle() + "\"");
 		exp.setValueClass(String.class);
 		designStaticText.setExpression(exp);
-		designStaticText.setHeight(columnsGroup.getHeaderHeight().intValue());
-		designStaticText.setWidth(col.getWidth().intValue());
-		designStaticText.setX(col.getPosX().intValue());
-		designStaticText.setY(col.getPosY().intValue());
+		designStaticText.setHeight(columnsGroup.getHeaderHeight());
+		designStaticText.setWidth(col.getWidth());
+		designStaticText.setX(col.getPosX());
+		designStaticText.setY(col.getPosY());
 
 		Style headerStyle = columnsGroup.getColumnHeaderStyle(col);
 		if (headerStyle == null)
@@ -870,13 +862,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				? columnsGroup.getFooterSubreports()
 				: columnsGroup.getHeaderSubreports();
 
-		for (Iterator iterator = subreportsList.iterator(); iterator.hasNext();) {
-			Subreport sr = (Subreport) iterator.next();
+		for (Object aSubreportsList : subreportsList) {
+			Subreport sr = (Subreport) aSubreportsList;
 			JRDesignSubreport subreport = new JRDesignSubreport(new JRDesignStyle().getDefaultStyleProvider());
 
 			//The data source
 			int dataSourceOrigin = sr.getDatasource().getDataSourceOrigin();
-			if (DJConstants.DATA_SOURCE_ORIGIN_USE_REPORT_CONNECTION == dataSourceOrigin){
+			if (DJConstants.DATA_SOURCE_ORIGIN_USE_REPORT_CONNECTION == dataSourceOrigin) {
 				JRDesignExpression connectionExpression = ExpressionUtils.getReportConnectionExpression();
 				subreport.setConnectionExpression(connectionExpression);
 			} else if (DJConstants.DATA_SOURCE_TYPE_SQL_CONNECTION == sr.getDatasource().getDataSourceType()) {
@@ -891,25 +883,25 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			//the subreport design
 //			String paramname = sr.getReport().toString(); //TODO ensure this name is unique among all possible subreports
 			String paramname = sr.getName(); //TODO ensure this name is unique among all possible subreports
-			((DynamicJasperDesign)getDesign()).getParametersWithValues().put(paramname, sr.getReport());
-			String expText = "("+JasperReport.class.getName()+")$P{REPORT_PARAMETERS_MAP}.get( \""+ paramname +"\" )";
+			((DynamicJasperDesign) getDesign()).getParametersWithValues().put(paramname, sr.getReport());
+			String expText = "(" + JasperReport.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get( \"" + paramname + "\" )";
 			JRDesignExpression srExpression = ExpressionUtils.createExpression(expText, JasperReport.class);
-			subreport.setExpression(srExpression );
+			subreport.setExpression(srExpression);
 
 
 			//set the parameters
 			subreport.setParametersMapExpression(ExpressionUtils.getParameterExpression(sr));
-			for (Iterator subreportParamsIter = sr.getParameters().iterator(); subreportParamsIter.hasNext();) {
-				SubreportParameter srparam = (SubreportParameter) subreportParamsIter.next();
+			for (Object o : sr.getParameters()) {
+				SubreportParameter srparam = (SubreportParameter) o;
 				JRDesignSubreportParameter subreportParameter = new JRDesignSubreportParameter();
 				subreportParameter.setName(srparam.getName());
 				JRExpression expression2 = ExpressionUtils.createExpression(getDesign(), srparam);
 				subreportParameter.setExpression(expression2);
 				try {
-					subreport.addParameter(subreportParameter );
+					subreport.addParameter(subreportParameter);
 				} catch (JRException e) {
 					log.error("Error registering parameter for subreport, there must be another parameter with the same name");
-					throw new CoreException(e.getMessage(),e);
+					throw new CoreException(e.getMessage(), e);
 				}
 			}
 
@@ -917,11 +909,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			//subreport.setStretchType(JRDesignElement.STRETCH_TYPE_NO_STRETCH);
 			int offset = LayoutUtils.findVerticalOffset(band);
 			subreport.setY(offset);
-			subreport.setX(-getReport().getOptions().getLeftMargin().intValue());
+			subreport.setX(-getReport().getOptions().getLeftMargin());
 			subreport.setWidth(getReport().getOptions().getPage().getWidth());
 			subreport.setHeight(SUBREPORT_DEFAULT_HEIGHT);
-			subreport.setPositionType( PositionTypeEnum.FLOAT );
-			subreport.setStretchType( StretchTypeEnum.NO_STRETCH );
+			subreport.setPositionType(PositionTypeEnum.FLOAT);
+			subreport.setStretchType(StretchTypeEnum.NO_STRETCH);
 			subreport.setRemoveLineWhenBlank(true); //No subreport, no reserved space
 
 			band.setHeight(offset + subreport.getHeight());
@@ -946,9 +938,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 //					}
 //					else
 //						targetBand = (JRDesignBand) ((JRDesignGroup) getDesign().getGroupsList().get(idx-1)).getGroupHeader();
-				}
-				else { //footer subreport (and concatenated report)
-					if (idx+1 <  getDesign().getGroupsList().size())
+				} else { //footer subreport (and concatenated report)
+					if (idx + 1 < getDesign().getGroupsList().size())
 						idx++;
 					JRDesignGroup jrGroup = (JRDesignGroup) getDesign().getGroupsList().get(idx);
 					targetBand = LayoutUtils.getBandFromSection((JRDesignSection) jrGroup.getGroupFooterSection());
@@ -958,11 +949,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				 * There is no meaning in adding a page-break in header sub reports since
 				 * they will be placed right after the group header
 				 */
-				if (DJConstants.FOOTER.equals(position)){
+				if (DJConstants.FOOTER.equals(position) && targetBand != null) {
 					JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider());
 					pageBreak.setKey(PAGE_BREAK_FOR_ + jrgroup.toString()); //set up a name to recognize the item later
 					pageBreak.setY(0);
-					pageBreak.setPositionType( PositionTypeEnum.FLOAT);
+					pageBreak.setPositionType(PositionTypeEnum.FLOAT);
 					targetBand.addElement(pageBreak);
 				}
 
@@ -976,7 +967,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			 * header/footer band to allow it contents to be split. I'm not sure splitting logic works
 			 * inside complex object such as sub-reports since it has it's own bands inside
 			 */
-            band.setSplitType( LayoutUtils.getSplitTypeFromBoolean(sr.isSplitAllowed()) );
+			band.setSplitType(LayoutUtils.getSplitTypeFromBoolean(sr.isSplitAllowed()));
 		}
 	}
 
@@ -988,9 +979,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected void sendPageBreakToBottom(JRDesignBand band) {
 		JRElement[] elems = band.getElements();
 		JRElement aux = null;
-		for (int i = 0; i < elems.length; i++) {
-			if ((""+elems[i].getKey()).startsWith(PAGE_BREAK_FOR_)){
-				aux = elems[i];
+		for (JRElement elem : elems) {
+			if (("" + elem.getKey()).startsWith(PAGE_BREAK_FOR_)) {
+				aux = elem;
 				break;
 			}
 		}
@@ -1044,7 +1035,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		//VALUE_IN_HEADER_AND_FOR_EACH_WITH_HEADERS
 		if (layout.isShowValueInHeader() && layout.isHideColumn() && !layout.isShowColumnName()){
 			//textfield for the current value
-			JRDesignTextField currentValue = generateTextFieldFromColumn(column, height.intValue(), group);
+			JRDesignTextField currentValue = generateTextFieldFromColumn(column, height, group);
 			currentValue.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
 
 			//The width will be all the page, except for the width of the header variables
@@ -1052,9 +1043,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
             if (!group.getHeaderVariables().isEmpty()){
             	DJGroupVariable leftmostcol = findLeftMostColumn(group.getHeaderVariables());
-            	headerVariablesWidth = leftmostcol.getColumnToApplyOperation().getPosX().intValue();
+            	headerVariablesWidth = leftmostcol.getColumnToApplyOperation().getPosX();
             	if (groupLabelsPresent(group.getHeaderVariables())){
-            		currentValue.setY(height.intValue());
+            		currentValue.setY(height);
             		currentValue.setHeight(getHeaderVariablesHeight(group));
             	}
             }
@@ -1068,7 +1059,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			LayoutUtils.moveBandsElemnts(yOffset-1, headerBand); //Don't know why, but without the "-1" it wont show the headers
 
 			if (group.getLayout().isPrintHeaders()){
-				headerOffset += group.getHeaderHeight().intValue() + getReport().getOptions().getDetailHeight().intValue();
+				headerOffset += group.getHeaderHeight() + getReport().getOptions().getDetailHeight();
 			}
 
 			headerBand.addElement(currentValue);
@@ -1085,7 +1076,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			columnNameTf.setY(columnNameTf.getY() + headerOffset);
 
 			//textfield for the current value
-			JRDesignTextField currentValue = generateTextFieldFromColumn(column, height.intValue(), group);
+			JRDesignTextField currentValue = generateTextFieldFromColumn(column, height, group);
 
 			//The width will be (width of the page) - (column name width)
 			currentValue.setWidth(getReport().getOptions().getPrintableWidth() - columnNameTf.getWidth());
@@ -1119,8 +1110,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @return
 	 */
 	protected boolean groupLabelsPresent(List groupVariables) {
-		for (Iterator iterator = groupVariables.iterator(); iterator.hasNext();) {
-			DJGroupVariable var = (DJGroupVariable) iterator.next();
+		for (Object groupVariable : groupVariables) {
+			DJGroupVariable var = (DJGroupVariable) groupVariable;
 			if (var.getLabel() != null)
 				return true;
 
@@ -1146,7 +1137,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 		log.debug("Placing variables in "+type+" band for group " + djGroup.getColumnToGroupBy().getTextForExpression());
 
-		int height = 0;
+		int height;
 		if (inFooter)
 			height = getFooterVariableHeight(djGroup);
 		else
@@ -1174,9 +1165,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					labelExp = ExpressionUtils.createStringExpression("\""+ label.getText() + "\"");
 				labelTf = new JRDesignTextField();
 				labelTf.setExpression(labelExp);
-				labelTf.setWidth(col.getWidth().intValue());
+				labelTf.setWidth(col.getWidth());
 				labelTf.setHeight(label.getHeight());
-				labelTf.setX(col.getPosX().intValue());
+				labelTf.setX(col.getPosX());
 				labelTf.setY(yOffset);
 				yOffsetGlabel = labelTf.getHeight();
 				if (inFooter){
@@ -1221,14 +1212,14 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				textField.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
 			}
 
-			textField.setX(col.getPosX().intValue());
+			textField.setX(col.getPosX());
 
 			//if (yOffset!=0)
 			textField.setY(yOffset + yOffsetGlabel);
 
-			textField.setHeight(0 + height ); //XXX be carefull with the "2+ ..."
+			textField.setHeight(height); //XXX be carefull with the "2+ ..."
 
-			textField.setWidth(col.getWidth().intValue());
+			textField.setWidth(col.getWidth());
 
 
 			textField.setKey("variable_for_column_"+ getVisibleColumns().indexOf(col) + "_in_group_" + getDesign().getGroupsList().indexOf(jgroup));
@@ -1247,6 +1238,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				//Last resource is to use the column style, but a copy of it because
 				//the one in the internal cache can get modified by the layout manager (like in the odd row case)
 				Style style = col.getStyle();
+				//noinspection EmptyCatchBlock
 				try {
 					style = (Style) style.clone();
 					style.setName(null); //set to null to make applyStyleToElement(...) assign a name
@@ -1268,10 +1260,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		}
 
 		if (djGroup.getColumnToGroupBy() instanceof GlobalGroupColumn) {
-			int totalWidth = 0;
+			int totalWidth;
 
 			DJGroupVariable leftmostColumn = findLeftMostColumn(variables);
-			totalWidth = leftmostColumn.getColumnToApplyOperation().getPosX().intValue();
+			totalWidth = leftmostColumn.getColumnToApplyOperation().getPosX();
 
 			GlobalGroupColumn globalCol = (GlobalGroupColumn) djGroup.getColumnToGroupBy();
 
@@ -1281,7 +1273,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			globalExp.setValueClassName(globalCol.getValueClassNameForExpression());
 			globalTextField.setExpression(globalExp);
 
-			globalTextField.setHeight(0 + height ); //XXX be carefull with the "2+ ..."
+			globalTextField.setHeight(height); //XXX be carefull with the "2+ ..."
 			globalTextField.setWidth(totalWidth);
 
 			globalTextField.setX(0);
@@ -1300,7 +1292,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		height = columnsGroup.getHeaderVariablesHeight()!=null
 					? columnsGroup.getHeaderVariablesHeight()
 					: DynamicReportOptions.DEFAULT_HEADER_VARIABLES_HEIGHT;
-		return height.intValue();
+		return height;
 	}
 
 	protected int getFooterVariableHeight(DJGroup columnsGroup) {
@@ -1308,7 +1300,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		height = columnsGroup.getFooterVariablesHeight()!=null
 					? columnsGroup.getFooterVariablesHeight()
 					: DynamicReportOptions.DEFAULT_FOOTER_VARIABLES_HEIGHT;
-		return height.intValue();
+		return height;
 	}
 
 	/**
@@ -1338,37 +1330,37 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected DJGroupVariable findLeftMostColumn(List variables) {
 		int mostLeftX = Integer.MAX_VALUE;
 		DJGroupVariable mostLeftColumn =  null;
-		for (Iterator iterator = variables.iterator(); iterator.hasNext();) {
-			DJGroupVariable currentCol = (DJGroupVariable) iterator.next();
-			if (currentCol.getColumnToApplyOperation().getPosX().intValue() <= mostLeftX) {
+		for (Object variable : variables) {
+			DJGroupVariable currentCol = (DJGroupVariable) variable;
+			if (currentCol.getColumnToApplyOperation().getPosX() <= mostLeftX) {
 				mostLeftColumn = currentCol;
-                mostLeftX = mostLeftColumn.getColumnToApplyOperation().getPosX().intValue();
-            }
-        }
+				mostLeftX = mostLeftColumn.getColumnToApplyOperation().getPosX();
+			}
+		}
 		return mostLeftColumn;
 	}
 
 	protected DJGroupVariable findRightMostColumn(List variables) {
 		int mostRightX = Integer.MIN_VALUE;
 		DJGroupVariable mostRightColumn =  null;
-		for (Iterator iterator = variables.iterator(); iterator.hasNext();) {
-			DJGroupVariable currentCol = (DJGroupVariable) iterator.next();
-			if (currentCol.getColumnToApplyOperation().getPosX().intValue() >= mostRightX) {
+		for (Object variable : variables) {
+			DJGroupVariable currentCol = (DJGroupVariable) variable;
+			if (currentCol.getColumnToApplyOperation().getPosX() >= mostRightX) {
 				mostRightColumn = currentCol;
-                mostRightX = mostRightColumn.getColumnToApplyOperation().getPosX().intValue();
-            }
-        }
+				mostRightX = mostRightColumn.getColumnToApplyOperation().getPosX();
+			}
+		}
 		return mostRightColumn;
 	}
 
 	protected void insertValueInHeader(JRDesignBand headerBand, DJGroup djgroup, int headerOffset) {
 //		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), columnsGroup.getHeaderHeight().intValue(), columnsGroup);
-		int height = getReport().getOptions().getDetailHeight().intValue();
+		int height = getReport().getOptions().getDetailHeight();
 
 		if (!djgroup.getHeaderVariables().isEmpty())
 			height = djgroup.getHeaderVariablesHeight()!=null
-						? djgroup.getHeaderVariablesHeight().intValue()
-						:getReport().getOptions().getDetailHeight().intValue();
+						? djgroup.getHeaderVariablesHeight()
+						: getReport().getOptions().getDetailHeight();
 
 		JRDesignTextField textField = generateTextFieldFromColumn(djgroup.getColumnToGroupBy(), height, djgroup);
 		//fixes issue 2817859, textField has columnToGroupBy style
@@ -1382,10 +1374,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		int result = 0;
 		if (!headerBand.getChildren().isEmpty()) {
 			int acu = headerBand.getHeight();
-			headerBand.setHeight(headerBand.getHeight() + columnsGroup.getHeaderHeight().intValue());
+			headerBand.setHeight(headerBand.getHeight() + columnsGroup.getHeaderHeight());
 			result = acu;
 		} else
-			headerBand.setHeight(getReport().getOptions().getHeaderVariablesHeight().intValue());
+			headerBand.setHeight(getReport().getOptions().getHeaderVariablesHeight());
 		return result;
 	}
 

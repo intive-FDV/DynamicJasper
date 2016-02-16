@@ -27,20 +27,24 @@
  *
  */
 
-package ar.com.fdvs.dj.test;
+package ar.com.fdvs.dj.test.watermark;
 
-
-import java.util.Date;
-import java.util.Map;
 
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJValueFormatter;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
+import ar.com.fdvs.dj.domain.DJWaterMark;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.test.BaseDjReportTest;
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
 
-public class FastReportTest extends BaseDjReportTest {
+import java.awt.*;
+import java.util.Date;
+import java.util.Map;
+
+public class WatermarkReportTest2 extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -50,6 +54,9 @@ public class FastReportTest extends BaseDjReportTest {
 		 * the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
+		Font courierNewBigBold = (Font) Font.COURIER_NEW_BIG_BOLD.clone();
+		courierNewBigBold.setFontSize(80);
+
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
 			.addColumn("Product Line", "productLine", String.class.getName(),50)
@@ -60,7 +67,7 @@ public class FastReportTest extends BaseDjReportTest {
 			.addGroups(2)
 			.setTitle("November " + getYear() + " sales report")
 			.setSubtitle("This report was generated at " + new Date())
-			.setPrintBackgroundOnOddRows(true)			
+			.addWatermark("SUPER CONFIDEN TIAL", courierNewBigBold, Color.CYAN, DJWaterMark.ANGLE_0)
 			.setUseFullPageWidth(true);
 
         drb.addGlobalFooterVariable(drb.getColumn(4), DJCalculation.COUNT, null, new DJValueFormatter() {
@@ -68,7 +75,6 @@ public class FastReportTest extends BaseDjReportTest {
             public String getClassName() {
                 return String.class.getName();
             }
-
 
             public Object evaluate(Object value, Map fields, Map variables,   Map parameters) {
                 return (value == null ? "0" : value.toString()) + " Clients";
@@ -82,7 +88,7 @@ public class FastReportTest extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		FastReportTest test = new FastReportTest();
+		WatermarkReportTest2 test = new WatermarkReportTest2();
 		test.testReport();
 		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);	//finally display the report report

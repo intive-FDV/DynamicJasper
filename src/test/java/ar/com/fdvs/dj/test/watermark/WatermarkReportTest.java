@@ -27,20 +27,21 @@
  *
  */
 
-package ar.com.fdvs.dj.test;
+package ar.com.fdvs.dj.test.watermark;
 
+
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.test.BaseDjReportTest;
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.util.Date;
 import java.util.Map;
 
-import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.DJValueFormatter;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-
-public class FastReportTest extends BaseDjReportTest {
+public class WatermarkReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
@@ -60,7 +61,7 @@ public class FastReportTest extends BaseDjReportTest {
 			.addGroups(2)
 			.setTitle("November " + getYear() + " sales report")
 			.setSubtitle("This report was generated at " + new Date())
-			.setPrintBackgroundOnOddRows(true)			
+			.addWatermark("TOP SECRET")
 			.setUseFullPageWidth(true);
 
         drb.addGlobalFooterVariable(drb.getColumn(4), DJCalculation.COUNT, null, new DJValueFormatter() {
@@ -68,7 +69,6 @@ public class FastReportTest extends BaseDjReportTest {
             public String getClassName() {
                 return String.class.getName();
             }
-
 
             public Object evaluate(Object value, Map fields, Map variables,   Map parameters) {
                 return (value == null ? "0" : value.toString()) + " Clients";
@@ -82,7 +82,7 @@ public class FastReportTest extends BaseDjReportTest {
 	}
 
 	public static void main(String[] args) throws Exception {
-		FastReportTest test = new FastReportTest();
+		WatermarkReportTest test = new WatermarkReportTest();
 		test.testReport();
 		test.exportToJRXML();
 		JasperViewer.viewReport(test.jp);	//finally display the report report

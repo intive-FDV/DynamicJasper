@@ -265,4 +265,18 @@ public class Font extends BaseDomainConstant implements Cloneable {
 		return font;
 	}
 
+	public  java.awt.Font toAwtFont() {
+		//Font style:  PLAIN, BOLD, ITALIC, or BOLD+ITALIC.
+		int style = 0;
+		if (this.isBold() && this.isItalic())
+			style = 3;
+		else if (this.isItalic())
+			style = 2;
+		else if (this.isBold())
+			style = 1;
+		java.awt.Font font = new java.awt.Font(this.getFontName(), style, this.getFontSize());
+
+		return font;
+	}
+
 }
