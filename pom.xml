@@ -416,9 +416,9 @@ API.
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge</groupId>
+            <groupId>net.sourceforge.barbecue</groupId>
             <artifactId>barbecue</artifactId>
-            <version>1.1</version>
+            <version>1.5-beta1</version>
             <optional>true</optional>
         </dependency>
 
