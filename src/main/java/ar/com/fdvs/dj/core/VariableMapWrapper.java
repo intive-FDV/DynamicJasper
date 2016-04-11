@@ -8,8 +8,8 @@ import java.util.Set;
 import net.sf.jasperreports.engine.fill.JRFillVariable;
 
 public class VariableMapWrapper implements Map {
-	
-	private Map map;
+
+	private  Map<String,JRFillVariable> map;
     private String reportName;
 
     public VariableMapWrapper(Map map){
@@ -68,15 +68,15 @@ public class VariableMapWrapper implements Map {
 	}
 
 	public Object put(Object arg0, Object arg1) {
-		return map.put(arg0, arg1);
+		throw new DJException("Method not implemented");
 	}
 
 	public void putAll(Map arg0) {
-		map.putAll(arg0);
+		throw new DJException("Method not implemented");
 	}
 
 	public Object remove(Object key) {
-		return map.remove(key);
+		throw new DJException("Method not implemented");
 	}
 
 	public int size() {
@@ -92,8 +92,16 @@ public class VariableMapWrapper implements Map {
 		
 	}
 
-
     public void setReportName(String reportName) {
         this.reportName = reportName;
     }
+
+	public Map<String, JRFillVariable> getMap() {
+		return map;
+	}
+
+	public JRFillVariable getJRFillVariable(String key){
+		return map.get(key);
+	}
+
 }

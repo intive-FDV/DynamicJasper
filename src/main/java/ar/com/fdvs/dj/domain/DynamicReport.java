@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.domain;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.Parameter;
@@ -39,6 +40,7 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 import ar.com.fdvs.dj.domain.entities.container.ElementContainer;
+import net.sf.jasperreports.components.table.ColumnGroup;
 
 import java.util.*;
 
@@ -83,8 +85,8 @@ public class DynamicReport extends DJBaseElement {
 
 	private List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
 
-	//<ColumnsGroup>
-	private List columnsGroups = new ArrayList();
+	//<DJGroup>
+	private List<DJGroup> columnsGroups = new ArrayList<DJGroup>();
 
 	//<DJChart>
 	private List charts = new ArrayList();
@@ -196,7 +198,7 @@ public class DynamicReport extends DJBaseElement {
 		this.columns = columns;
 	}
 
-	public List getColumnsGroups() {
+	public List<DJGroup> getColumnsGroups() {
 		return columnsGroups;
 	}
 

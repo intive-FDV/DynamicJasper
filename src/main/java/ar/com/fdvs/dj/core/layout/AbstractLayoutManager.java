@@ -81,7 +81,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
     protected static final String EXPRESSION_TRUE_WHEN_EVEN = "new java.lang.Boolean(((Number)$V{REPORT_COUNT}).doubleValue() % 2 != 0)";
 
-    JasperDesign design;
+    DynamicJasperDesign design;
 
     private DynamicReport report;
 
@@ -104,7 +104,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         this.reportStyles = reportStyles;
     }
 
-    public void applyLayout(JasperDesign design, DynamicReport report) throws LayoutException {
+    public void applyLayout(DynamicJasperDesign design, DynamicReport report) throws LayoutException {
         log.debug("Applying Layout...");
         try {
             setDesign(design);
@@ -1314,11 +1314,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
     }
 
 
-    protected JasperDesign getDesign() {
+    protected DynamicJasperDesign getDesign() {
         return design;
     }
 
-    protected void setDesign(JasperDesign design) {
+    protected void setDesign(DynamicJasperDesign design) {
         this.design = design;
     }
 

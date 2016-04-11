@@ -7,9 +7,9 @@ import java.util.Set;
 
 import net.sf.jasperreports.engine.fill.JRFillField;
 
-public class FieldMapWrapper implements Map {
-	
-	private Map map;
+public class FieldMapWrapper implements Map<String, Object> {
+
+	private Map<String, JRFillField> map;
 	
 	public FieldMapWrapper(Map map){
 		this.map = map;
@@ -23,12 +23,22 @@ public class FieldMapWrapper implements Map {
 		map.clear();
 	}
 
+	@Override
+	public Set<String> keySet() {
+		return map.keySet();
+	}
+
 	public boolean containsKey(Object key) {
 		return map.containsKey(key);
 	}
 
 	public boolean containsValue(Object value) {
 		throw new DJException("Method not implemented");
+	}
+
+	@Override
+	public Object get(Object key) {
+		return null;
 	}
 
 	public Set entrySet() {
@@ -39,7 +49,7 @@ public class FieldMapWrapper implements Map {
 		return map.equals(o);
 	}
 
-	public Object get(Object key) {
+	public Object get(String key) {
 		Object value = map.get(key);
 		if (value == null)
 			return null;
@@ -55,20 +65,16 @@ public class FieldMapWrapper implements Map {
 		return map.isEmpty();
 	}
 
-	public Set keySet() {
-		return map.keySet();
-	}
-
-	public Object put(Object arg0, Object arg1) {
-		return map.put(arg0, arg1);
+	public Object put(String arg0, Object arg1) {
+		throw new DJException("Method not supported");
 	}
 
 	public void putAll(Map arg0) {
-		map.putAll(arg0);
+		throw new DJException("Method not supported");
 	}
 
 	public Object remove(Object key) {
-		return map.remove(key);
+		throw new DJException("Method not supported");
 	}
 
 	public int size() {
@@ -83,6 +89,13 @@ public class FieldMapWrapper implements Map {
 		this.map = fldsm;
 	}
 
+	public Map<String, JRFillField> getMap(){
+		return map;
+	}
+
+	public JRFillField getJRFillField(String key){
+		return map.get(key);
+	}
 	
 
 }

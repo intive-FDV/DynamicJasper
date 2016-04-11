@@ -33,6 +33,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.Map;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRParameter;
@@ -166,12 +167,36 @@ public class ExpressionUtils {
 		return dsType;
 	}
 
+	/**
+	 * Creates a JRDesignExpression of type String.class This method does not make any escaping of the text
+	 * not surrounds the expression with "\""
+	 * @param text the bare string to pass to the JRDesignExpression.setText(text)
+	 * @return
+     */
 	public static JRDesignExpression createStringExpression(String text) {
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setValueClass(String.class);
 		exp.setText(text);
 		return exp;
 	}
+
+	/**
+	 * Creates a JRDesignExpression of type String.class
+	 * @param text
+	 * @return
+     */
+	public static JRDesignExpression createStringExpressionWithText(String text) {
+		if (text == null)
+			text = "";
+
+		JRDesignExpression exp = new JRDesignExpression();
+		exp.setValueClassName(String.class.getName());
+		exp.setText("\"" + Utils.escapeTextForExpression(text) + "\"");
+		return exp;
+	}
+
+
+
 	public static JRDesignExpression createExpression(String text, Class clazz) {
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setValueClass(clazz);
@@ -214,7 +239,12 @@ public class ExpressionUtils {
 		LayoutUtils.registerCustomExpressionParameter(design, name, expression);
 		return createExpression(name, expression);
 	}
-	
+
+	public static JRDesignExpression createAndRegisterExpression(JasperDesign design, Map parametersMap, String name, CustomExpression expression) {
+		LayoutUtils.registerCustomExpressionParameter(design, parametersMap, name, expression);
+		return createExpression(name, expression);
+	}
+
 	public static JRDesignExpression createExpression(String name, CustomExpression expression) {
 		String text = ExpressionUtils.createCustomExpressionInvocationText(expression, name);
 		return createExpression(text, expression.getClassName());
@@ -367,7 +397,12 @@ public class ExpressionUtils {
 		expression.setText(text);
 		return expression;
 	}
-		
-	
 
+
+	public static JRDesignExpression createExpressionForPath(String path) {
+		String pathExpText = "\"" + path.replaceAll("\\\\", "/") + "\"";
+		JRDesignExpression imageExp = new JRDesignExpression();
+		imageExp.setText(pathExpText);
+		return imageExp;
+	}
 }

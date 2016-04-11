@@ -34,6 +34,7 @@ package ar.com.fdvs.dj.core.layout;
 
 import java.util.Map;
 
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
 
@@ -45,11 +46,11 @@ public interface LayoutManager {
 
 	/**
 	 * Entry point for applying a given layout.
-	 * @param design The deseign to be used
+	 * @param design The design to be used
 	 * @param report The report to show
 	 * @throws LayoutException
 	 */
-	void applyLayout(JasperDesign design, DynamicReport report) throws LayoutException;
+	void applyLayout(DynamicJasperDesign design, DynamicReport report) throws LayoutException;
 
 	/**
 	 * Useful as shared object between RegistrationManagers and the LayOutManager.

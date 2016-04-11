@@ -35,26 +35,22 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
+import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.entities.container.ElementContainer;
-import ar.com.fdvs.dj.domain.entities.container.StaticTextElement;
-import ar.com.fdvs.dj.domain.entities.container.TextFieldElement;
-import ar.com.fdvs.dj.test.BaseDjReportTest;
+import ar.com.fdvs.dj.domain.entities.container.ImageElement;
+import ar.com.fdvs.dj.domain.entities.container.TextElement;
+import ar.com.fdvs.dj.domain.entities.container.CustomExpressionElement;
 import ar.com.fdvs.dj.test.BaseDjReportTest2;
-import ar.com.fdvs.dj.util.LayoutUtils;
-import ar.com.fdvs.dj.util.Utils;
-import net.sf.jasperreports.components.table.*;
-import net.sf.jasperreports.engine.JRBand;
-import net.sf.jasperreports.engine.JRElement;
-import net.sf.jasperreports.engine.convert.ReportConverter;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignFrame;
 import net.sf.jasperreports.engine.design.JRDesignStaticText;
-import net.sf.jasperreports.engine.type.ModeEnum;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
-import org.xml.sax.Attributes;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.Date;
 
 public class TableReportTest extends BaseDjReportTest2 {
@@ -79,63 +75,93 @@ public class TableReportTest extends BaseDjReportTest2 {
 
 		DynamicReport dr = drb.build();
 
-        Style elementStyle = new Style();
+        Style elementStyle = Style.createBlankStyle("textElement");
         elementStyle.setBorder(Border.PEN_1_POINT());
         elementStyle.getBorder().setColor(Color.BLUE);
+        elementStyle.setStretchWithOverflow(true);
+        elementStyle.setPadding(3);
+
+        ElementContainer elementContainer1 = new ElementContainer();
+        elementContainer1.add(new TextElement("Text 1",30,false,elementStyle));
+        dr.getTitleElements().add(elementContainer1);
+
+        ElementContainer elementContainer2 = new ElementContainer();
+        elementContainer2.add(new TextElement("Text 1",30,false,elementStyle));
+        elementContainer2.add(new TextElement("Text 2",30,false,elementStyle));
+        dr.getTitleElements().add(elementContainer2);
+
 
         ElementContainer elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 1",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 2",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 3",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 1",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 2",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 3",30,false,elementStyle));
         dr.getTitleElements().add(elementContainer);
 
         elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 4",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 5",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 7",30,false,elementStyle));
-//        dr.getTitleElements().add(elementContainer);
-
-        elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 4",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 5",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
-        elementContainer.add(new TextFieldElement("Texto Muy largo lleno de cosas que no creo que entren",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 7",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 4",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 5",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 6",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 7",30,false,elementStyle));
         dr.getTitleElements().add(elementContainer);
 
         elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 4",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 5",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 7",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 8",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 9",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 4",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 5",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 6",30,false,elementStyle));
+        elementContainer.add(new TextElement("Lorem ipsum dolor sit amet, consectetur adipiscing elit, " +
+                "sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 7",30,false,elementStyle));
         dr.getTitleElements().add(elementContainer);
 
         elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("Texto 4",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 5",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
-        StaticTextElement element = new StaticTextElement("Texto 7",30,false,elementStyle);
-        element.setFixedWidth(false);
-        element.setWidth(200);
-        elementContainer.add(element);
-        elementContainer.add(new StaticTextElement("Texto 8",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 9",30,false,elementStyle));
-//        dr.getTitleElements().add(elementContainer);
+        elementContainer.add(new TextElement("Text 4",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 5",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 6",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 7",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 8",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 9",30,false,elementStyle));
+        dr.getTitleElements().add(elementContainer);
 
         elementContainer = new ElementContainer();
-        elementContainer.add(new StaticTextElement("<b>field 1:</b>",40, true, elementStyle));
-        elementContainer.add(new StaticTextElement("Value 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 00 11 22",50, true, elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 6",30,false,elementStyle));
-        element = new StaticTextElement("Texto 7",30,false,elementStyle);
-        element.setFixedWidth(false);
-        element.setWidth(200);
-        elementContainer.add(element);
-        elementContainer.add(new StaticTextElement("Texto 8",30,false,elementStyle));
-        elementContainer.add(new StaticTextElement("Texto 9",30,false,elementStyle));
-//        dr.getTitleElements().add(elementContainer);
+        elementContainer.add(new TextElement("Text 4",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 5",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 6",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 7 (fixed)",200, true,elementStyle));
+        elementContainer.add(new TextElement("Text 8",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 9",30,false,elementStyle));
+        dr.getTitleElements().add(elementContainer);
+
+        elementContainer = new ElementContainer();
+        elementContainer.add(new TextElement("<b>field 1:</b>",40, true, elementStyle));
+        TextElement element1 = new TextElement("Value 1 2 3 4 5 1 2 3 4 5 1 2 3 4 5 00 11 22", 50, true, elementStyle);
+        elementContainer.add(element1);
+        elementContainer.add(new TextElement("Text 6",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 7",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 8",30,false,elementStyle));
+        elementContainer.add(new TextElement("Text 9",30,false,elementStyle));
+        dr.getTitleElements().add(elementContainer);
+
+        elementContainer = new ElementContainer();
+        String path = System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.jpg";
+        elementContainer.add(new ImageElement(path, 197, 60, ImageScaleMode.FILL_PROPORTIONALLY, HorizontalAlign.LEFT));
+        dr.getTitleElements().add(elementContainer);
+
+        elementContainer = new ElementContainer();
+        elementContainer.add(new ImageElement(path, 197, 60, ImageScaleMode.FILL_PROPORTIONALLY, HorizontalAlign.CENTER));
+        dr.getTitleElements().add(elementContainer);
+
+        elementContainer = new ElementContainer();
+        elementContainer.add(new ImageElement(path, 197, 60, ImageScaleMode.FILL_PROPORTIONALLY, HorizontalAlign.RIGHT));
+        dr.getTitleElements().add(elementContainer);
+
+        elementContainer = new ElementContainer();
+        elementContainer.add(new ImageElement(path, 197, 60, ImageScaleMode.FILL, HorizontalAlign.RIGHT));
+        dr.getTitleElements().add(elementContainer);
+
+        elementContainer = new ElementContainer();
+        BufferedImage bufferedImage = ImageIO.read(new FileInputStream(new File(path)));
+        elementContainer.add(new ImageElement(new FileInputStream(new File(path)), 197, 60, ImageScaleMode.FILL, HorizontalAlign.CENTER));
+        dr.getTitleElements().add(elementContainer);
 
 		return dr;
 	}
@@ -143,28 +169,6 @@ public class TableReportTest extends BaseDjReportTest2 {
     @Override
     protected void handleDesign(DynamicJasperDesign djd) {
         super.handleDesign(djd);
-
-        if (true)
-            return;
-
-        JRDesignBand header = (JRDesignBand) djd.getPageHeader();
-        int voffset = LayoutUtils.findVerticalOffset(header);
-
-        JRDesignFrame frame = new JRDesignFrame();
-
-        frame.setY(voffset+1);
-        frame.setWidth(dr.getOptions().getPrintableWidth());
-        frame.setHeight(200);
-
-        JRDesignStaticText staticText = createStaticText("texto!");
-        staticText.setWidth(80);
-        staticText.setHeight(30);
-        frame.addElement(staticText);
-        frame.setBackcolor(Color.CYAN);
-        frame.setMode(ModeEnum.OPAQUE);
-
-        header.addElement(frame);
-        header.setHeight(voffset+200+1);
 
     }
 

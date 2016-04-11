@@ -29,21 +29,17 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
+import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.domain.entities.container.ElementContainer;
+import org.apache.commons.collections.list.UnmodifiableList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.collections.list.UnmodifiableList;
-
-import ar.com.fdvs.dj.domain.DJBaseElement;
-import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJGroupLabel;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.constants.GroupLayout;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 /**
  * Entity created to handle groups of columns.</br>
@@ -52,318 +48,346 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
  */
 public class DJGroup extends DJBaseElement {
 
-	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
-	
-	//The column used to group by
-	private PropertyColumn columnToGroupBy;
+    private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
-	public PropertyColumn getColumnToGroupBy() {
-		return columnToGroupBy;
-	}
+    //The column used to group by
+    private PropertyColumn columnToGroupBy;
 
-	public void setColumnToGroupBy(PropertyColumn columnToGroupBy) {
-		this.columnToGroupBy = columnToGroupBy;
-	}
+    public PropertyColumn getColumnToGroupBy() {
+        return columnToGroupBy;
+    }
 
-	/**
-	 * Map<Column, Style>
-	 */
-	private Map columnHeaderStyles = new HashMap();
-	private Style defaultColumnHeaederStyle;
+    public void setColumnToGroupBy(PropertyColumn columnToGroupBy) {
+        this.columnToGroupBy = columnToGroupBy;
+    }
 
-	//<DJGroupVariable>
-	private List headerVariables = new ArrayList();
-	//<DJGroupVariable>
-	private List footerVariables = new ArrayList();
-	//<DJGroupTemporalVariable>
-	private List variables = new ArrayList();
-	
-	private boolean fitHeaderHeightToContent = true;
-	private boolean fitFooterHeightToContent = true;
+    /**
+     * Map<Column, Style>
+     */
+    private Map columnHeaderStyles = new HashMap();
+    private Style defaultColumnHeaederStyle;
+
+    //<DJGroupVariable>
+    private List<DJGroupVariable> headerVariables = new ArrayList<DJGroupVariable>();
+    //<DJGroupVariable>
+    private List<DJGroupVariable> footerVariables = new ArrayList<DJGroupVariable>();
+    //<DJGroupTemporalVariable>
+    private List variables = new ArrayList();
+
+    private boolean fitHeaderHeightToContent = true;
+    private boolean fitFooterHeightToContent = true;
+
+    private List<ElementContainer> headerElements = new ArrayList<ElementContainer>();
+    private List<ElementContainer> footerElements = new ArrayList<ElementContainer>();
 
     /**
      * For internal use only
      */
-	private String name;
-	
-	public boolean isFitHeaderHeightToContent() {
-		return fitHeaderHeightToContent;
-	}
+    private String name;
 
-	public void setFitHeaderHeightToContent(boolean fitHeaderHeightToContent) {
-		this.fitHeaderHeightToContent = fitHeaderHeightToContent;
-	}
+    public boolean isFitHeaderHeightToContent() {
+        return fitHeaderHeightToContent;
+    }
 
-	public boolean isFitFooterHeightToContent() {
-		return fitFooterHeightToContent;
-	}
+    public void setFitHeaderHeightToContent(boolean fitHeaderHeightToContent) {
+        this.fitHeaderHeightToContent = fitHeaderHeightToContent;
+    }
 
-	/**
-	 * When false, the footer height is not shrink to its content (variables in general), leaving a white space 
-	 * @param fitFooterHeightToContent
-	 */
-	public void setFitFooterHeightToContent(boolean fitFooterHeightToContent) {
-		this.fitFooterHeightToContent = fitFooterHeightToContent;
-	}
+    public boolean isFitFooterHeightToContent() {
+        return fitFooterHeightToContent;
+    }
 
-	private Integer headerHeight = DynamicReportOptions.DEFAULT_HEADER_HEIGHT; //for headers
-	private Integer footerHeight = DynamicReportOptions.DEFAULT_FOOTER_VARIABLES_HEIGHT; //for headers
-	
-	private Integer headerVariablesHeight = null; //for values such as calculations, current value, etc.
-	private Integer footerVariablesHeight = null; //for values such as calculations, current value, etc.
-	
-	private GroupLayout layout = GroupLayout.DEFAULT;
-	private List footerSubreports = new ArrayList();
-	private List headerSubreports = new ArrayList();
+    /**
+     * When false, the footer height is not shrink to its content (variables in general), leaving a white space
+     *
+     * @param fitFooterHeightToContent
+     */
+    public void setFitFooterHeightToContent(boolean fitFooterHeightToContent) {
+        this.fitFooterHeightToContent = fitFooterHeightToContent;
+    }
 
-	private List headerCrosstabs = new ArrayList();
-	private List footerCrosstabs = new ArrayList();
+    private Integer headerHeight = DynamicReportOptions.DEFAULT_HEADER_HEIGHT; //for headers
+    private Integer footerHeight = DynamicReportOptions.DEFAULT_FOOTER_VARIABLES_HEIGHT; //for headers
 
-	private Boolean startInNewPage = Boolean.FALSE;
-	private Boolean startInNewColumn = Boolean.FALSE;
-	
-	/**
-	 * If the group is configured to print column names, they will be printed on every page 
-	 * (even if a group is splitted in two pages)
-	 * NOTE: this may cause unexpected results if header variables are present. 
-	 */
-	private Boolean reprintHeaderOnEachPage = Boolean.FALSE;
-	
-	private DJGroupLabel footerLabel; //general label, goes at the right of the group variables
+    private Integer headerVariablesHeight = null; //for values such as calculations, current value, etc.
+    private Integer footerVariablesHeight = null; //for values such as calculations, current value, etc.
 
-	/**
-	 * pass-through property to setup group header band "allowSplit" property.
-	 * When FALSE, if the content reaches end of the page, the whole band gets pushed
-	 * to the next page.
-	 */
-	private boolean allowHeaderSplit = true;
+    private GroupLayout layout = GroupLayout.DEFAULT;
+    private List footerSubreports = new ArrayList();
+    private List headerSubreports = new ArrayList();
 
-	/**
-	 * pass-through property to setup group footer band "allowSplit" property.
-	 * When FALSE, if the content reaches end of the page, the whole band gets pushed
-	 * to the next page.
-	 */
-	private boolean allowFooterSplit = true;
+    private List headerCrosstabs = new ArrayList();
+    private List footerCrosstabs = new ArrayList();
 
-	/**
-	 * Default Style for variables when showing in footer.
-	 * First looks for the style at the ColumnsGroupVariable, then the default, finally
-	 * it uses the columns style.
-	 */
-	private Style defaulFooterVariableStyle;
+    private Boolean startInNewPage = Boolean.FALSE;
+    private Boolean startInNewColumn = Boolean.FALSE;
 
-	/**
-	 * Default Style for variables when showing in header.
-	 * The lookup order is the same as for "defaulFooterStyle"
-	 */
-	private Style defaulHeaderVariableStyle;
+    /**
+     * If the group is configured to print column names, they will be printed on every page
+     * (even if a group is splitted in two pages)
+     * NOTE: this may cause unexpected results if header variables are present.
+     */
+    private Boolean reprintHeaderOnEachPage = Boolean.FALSE;
 
-	public Style getDefaulFooterVariableStyle() {
-		return defaulFooterVariableStyle;
-	}
+    private DJGroupLabel footerLabel; //general label, goes at the right of the group variables
 
-	public void setDefaulFooterVariableStyle(Style defaulFooterStyle) {
-		this.defaulFooterVariableStyle = defaulFooterStyle;
-	}
+    /**
+     * pass-through property to setup group header band "allowSplit" property.
+     * When FALSE, if the content reaches end of the page, the whole band gets pushed
+     * to the next page.
+     */
+    private boolean allowHeaderSplit = true;
 
-	public Style getDefaulHeaderVariableStyle() {
-		return defaulHeaderVariableStyle;
-	}
+    /**
+     * pass-through property to setup group footer band "allowSplit" property.
+     * When FALSE, if the content reaches end of the page, the whole band gets pushed
+     * to the next page.
+     */
+    private boolean allowFooterSplit = true;
 
-	public void setDefaulHeaderVariableStyle(Style defaulHeaderStyle) {
-		this.defaulHeaderVariableStyle = defaulHeaderStyle;
-	}
+    /**
+     * Default Style for variables when showing in footer.
+     * First looks for the style at the ColumnsGroupVariable, then the default, finally
+     * it uses the columns style.
+     */
+    private Style defaulFooterVariableStyle;
 
-	public List getFooterVariables() {
-		return UnmodifiableList.decorate(footerVariables);
-	}
+    /**
+     * Default Style for variables when showing in header.
+     * The lookup order is the same as for "defaulFooterStyle"
+     */
+    private Style defaulHeaderVariableStyle;
 
-	public void setFooterVariables(ArrayList footerVariables) {
-		this.footerVariables = footerVariables;
-	}
+    public Style getDefaulFooterVariableStyle() {
+        return defaulFooterVariableStyle;
+    }
 
-	public List getHeaderVariables() {
-		return  UnmodifiableList.decorate(headerVariables);
-	}
+    public void setDefaulFooterVariableStyle(Style defaulFooterStyle) {
+        this.defaulFooterVariableStyle = defaulFooterStyle;
+    }
 
-	public void setHeaderVariables(ArrayList headerVariables) {
-		this.headerVariables = headerVariables;
-	}
+    public Style getDefaulHeaderVariableStyle() {
+        return defaulHeaderVariableStyle;
+    }
 
-	public List getVariables() {
-		return variables;
-	}
+    public void setDefaulHeaderVariableStyle(Style defaulHeaderStyle) {
+        this.defaulHeaderVariableStyle = defaulHeaderStyle;
+    }
 
-	public void setVariables(ArrayList variables) {
-		this.variables = variables;
-	}
-	
-	public Integer getFooterHeight() {
-		return footerHeight;
-	}
+    public List<DJGroupVariable> getFooterVariables() {
+        return UnmodifiableList.decorate(footerVariables);
+    }
 
-	public void setFooterHeight(Integer footerHeight) {
-		this.footerHeight = footerHeight;
-	}
+    public void setFooterVariables(List<DJGroupVariable> footerVariables) {
+        this.footerVariables = footerVariables;
+    }
 
-	public Integer getHeaderHeight() {
-		return headerHeight;
-	}
+    public List<DJGroupVariable> getHeaderVariables() {
+        return UnmodifiableList.decorate(headerVariables);
+    }
 
-	public void setHeaderHeight(Integer headerHeight) {
-		this.headerHeight = headerHeight;
-	}
+    public void setHeaderVariables(List<DJGroupVariable> headerVariables) {
+        this.headerVariables = headerVariables;
+    }
 
-	public GroupLayout getLayout() {
-		return layout;
-	}
+    public List getVariables() {
+        return variables;
+    }
 
-	public void setLayout(GroupLayout layout) {
-		this.layout = layout;
-	}
+    public void setVariables(ArrayList variables) {
+        this.variables = variables;
+    }
 
-	public List getFooterSubreports() {
-		return footerSubreports;
-	}
+    public Integer getFooterHeight() {
+        return footerHeight;
+    }
 
-	public List getHeaderSubreports() {
-		return headerSubreports;
-	}
+    public void setFooterHeight(Integer footerHeight) {
+        this.footerHeight = footerHeight;
+    }
 
-	public Boolean getStartInNewPage() {
-		return startInNewPage;
-	}
+    public Integer getHeaderHeight() {
+        return headerHeight;
+    }
 
-	public void setStartInNewPage(Boolean startInNewPage) {
-		this.startInNewPage = startInNewPage;
-	}
+    public void setHeaderHeight(Integer headerHeight) {
+        this.headerHeight = headerHeight;
+    }
 
-	public Boolean getStartInNewColumn() {
-		return startInNewColumn;
-	}
+    public GroupLayout getLayout() {
+        return layout;
+    }
 
-	public void setStartInNewColumn(Boolean startInNewColumn) {
-		this.startInNewColumn = startInNewColumn;
-	}
+    public void setLayout(GroupLayout layout) {
+        this.layout = layout;
+    }
 
-	public List getHeaderCrosstabs() {
-		return headerCrosstabs;
-	}
+    public List getFooterSubreports() {
+        return footerSubreports;
+    }
 
-	public void setHeaderCrosstabs(List headerCrosstabs) {
-		this.headerCrosstabs = headerCrosstabs;
-	}
+    public List getHeaderSubreports() {
+        return headerSubreports;
+    }
 
-	public List getFooterCrosstabs() {
-		return footerCrosstabs;
-	}
+    public Boolean getStartInNewPage() {
+        return startInNewPage;
+    }
 
-	public void setFooterCrosstabs(List footerCrosstabs) {
-		this.footerCrosstabs = footerCrosstabs;
-	}
+    public void setStartInNewPage(Boolean startInNewPage) {
+        this.startInNewPage = startInNewPage;
+    }
 
-	public Map getColumnHeaderStyles() {
-		return columnHeaderStyles;
-	}
+    public Boolean getStartInNewColumn() {
+        return startInNewColumn;
+    }
 
-	public void setColumnHeaderStyles(Map columnHeaderStyles) {
-		this.columnHeaderStyles = columnHeaderStyles;
-	}
+    public void setStartInNewColumn(Boolean startInNewColumn) {
+        this.startInNewColumn = startInNewColumn;
+    }
 
-	public void addColumHeaderStyle(AbstractColumn col, Style style) {
-		columnHeaderStyles.put(col, style);
-	}
+    public List getHeaderCrosstabs() {
+        return headerCrosstabs;
+    }
 
-	public Style getColumnHeaderStyle(AbstractColumn col) {
-		if (this.columnHeaderStyles == null)
-			return null;
+    public void setHeaderCrosstabs(List headerCrosstabs) {
+        this.headerCrosstabs = headerCrosstabs;
+    }
 
-		return (Style) this.columnHeaderStyles.get(col);
-	}
+    public List getFooterCrosstabs() {
+        return footerCrosstabs;
+    }
 
-	public Style getDefaultColumnHeaederStyle() {
-		return defaultColumnHeaederStyle;
-	}
+    public void setFooterCrosstabs(List footerCrosstabs) {
+        this.footerCrosstabs = footerCrosstabs;
+    }
 
-	public void setDefaultColumnHeaederStyle(Style defaultColumnHeaederStyle) {
-		this.defaultColumnHeaederStyle = defaultColumnHeaederStyle;
-	}
+    public Map getColumnHeaderStyles() {
+        return columnHeaderStyles;
+    }
 
-	public boolean isAllowHeaderSplit() {
-		return allowHeaderSplit;
-	}
+    public void setColumnHeaderStyles(Map columnHeaderStyles) {
+        this.columnHeaderStyles = columnHeaderStyles;
+    }
 
-	public void setAllowHeaederSplit(boolean allowHeaederSplit) {
-		this.allowHeaderSplit = allowHeaederSplit;
-	}
+    public void addColumHeaderStyle(AbstractColumn col, Style style) {
+        columnHeaderStyles.put(col, style);
+    }
 
-	public boolean isAllowFooterSplit() {
-		return allowFooterSplit;
-	}
+    public Style getColumnHeaderStyle(AbstractColumn col) {
+        if (this.columnHeaderStyles == null)
+            return null;
 
-	public void setAllowFooterSplit(boolean allowFooterSplit) {
-		this.allowFooterSplit = allowFooterSplit;
-	}
+        return (Style) this.columnHeaderStyles.get(col);
+    }
 
-	public Integer getHeaderVariablesHeight() {
-		return headerVariablesHeight;
-	}
+    public Style getDefaultColumnHeaederStyle() {
+        return defaultColumnHeaederStyle;
+    }
 
-	public void setHeaderVariablesHeight(Integer headerVariablesHeight) {
-		this.headerVariablesHeight = headerVariablesHeight;
-	}
+    public void setDefaultColumnHeaederStyle(Style defaultColumnHeaederStyle) {
+        this.defaultColumnHeaederStyle = defaultColumnHeaederStyle;
+    }
 
-	public Integer getFooterVariablesHeight() {
-		return footerVariablesHeight;
-	}
+    public boolean isAllowHeaderSplit() {
+        return allowHeaderSplit;
+    }
 
-	public void setFooterVariablesHeight(Integer footerVariablesHeight) {
-		this.footerVariablesHeight = footerVariablesHeight;
-	}
-	
-	public void addHeaderVariable(DJGroupVariable var) {
-		headerVariables.add(var);
-		var.setGroup(this);
-	}
-	
-	public void addFooterVariable(DJGroupVariable var) {
-		footerVariables.add(var);
-		var.setGroup(this);
-	}
+    public void setAllowHeaederSplit(boolean allowHeaederSplit) {
+        this.allowHeaderSplit = allowHeaederSplit;
+    }
 
-	public void addVariable(DJGroupVariableDef var) {
-		variables.add(var);
-	}
-	
-	public DJGroupLabel getFooterLabel() {
-		return footerLabel;
-	}
+    public boolean isAllowFooterSplit() {
+        return allowFooterSplit;
+    }
 
-	public void setFooterLabel(DJGroupLabel footerLabel) {
-		this.footerLabel = footerLabel;
-	}
+    public void setAllowFooterSplit(boolean allowFooterSplit) {
+        this.allowFooterSplit = allowFooterSplit;
+    }
 
-	public Boolean getReprintHeaderOnEachPage() {
-		return reprintHeaderOnEachPage;
-	}
+    public Integer getHeaderVariablesHeight() {
+        return headerVariablesHeight;
+    }
 
-	public void setReprintHeaderOnEachPage(Boolean reprintHeaderOnEachPage) {
-		this.reprintHeaderOnEachPage = reprintHeaderOnEachPage;
-	}
+    public void setHeaderVariablesHeight(Integer headerVariablesHeight) {
+        this.headerVariablesHeight = headerVariablesHeight;
+    }
 
-	public void addHeaderCrosstab(DJCrosstab cross){
-		this.headerCrosstabs.add(cross);
-	}
-	
-	public void addFooterCrosstab(DJCrosstab cross){
-		this.footerCrosstabs.add(cross);
-	}
+    public Integer getFooterVariablesHeight() {
+        return footerVariablesHeight;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
-	public String getName() {
-		return name;
-	}
+    public void setFooterVariablesHeight(Integer footerVariablesHeight) {
+        this.footerVariablesHeight = footerVariablesHeight;
+    }
+
+    public void addHeaderVariable(DJGroupVariable var) {
+        headerVariables.add(var);
+        var.setGroup(this);
+    }
+
+    public void addFooterVariable(DJGroupVariable var) {
+        footerVariables.add(var);
+        var.setGroup(this);
+    }
+
+    public void addVariable(DJGroupVariableDef var) {
+        variables.add(var);
+    }
+
+    public DJGroupLabel getFooterLabel() {
+        return footerLabel;
+    }
+
+    public void setFooterLabel(DJGroupLabel footerLabel) {
+        this.footerLabel = footerLabel;
+    }
+
+    public Boolean getReprintHeaderOnEachPage() {
+        return reprintHeaderOnEachPage;
+    }
+
+    public void setReprintHeaderOnEachPage(Boolean reprintHeaderOnEachPage) {
+        this.reprintHeaderOnEachPage = reprintHeaderOnEachPage;
+    }
+
+    public void addHeaderCrosstab(DJCrosstab cross) {
+        this.headerCrosstabs.add(cross);
+    }
+
+    public void addFooterCrosstab(DJCrosstab cross) {
+        this.footerCrosstabs.add(cross);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void addHeaderElement(ElementContainer element){
+        headerElements.add(element);
+    }
+
+    public void addFooterElement(ElementContainer element){
+        footerElements.add(element);
+    }
+
+    public List<ElementContainer> getHeaderElements() {
+        return UnmodifiableList.decorate(headerElements);
+    }
+
+    public void setHeaderElements(List<ElementContainer> headerElements) {
+        this.headerElements = headerElements;
+    }
+
+    public List<ElementContainer> getFooterElements() {
+        return UnmodifiableList.decorate(footerElements);
+    }
+
+    public void setFooterElements(List<ElementContainer> footerElements) {
+        this.footerElements = footerElements;
+    }
 }

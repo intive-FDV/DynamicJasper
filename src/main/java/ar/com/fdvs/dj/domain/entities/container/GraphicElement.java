@@ -8,12 +8,13 @@ import ar.com.fdvs.dj.domain.Style;
  */
 public class GraphicElement extends DJBaseElement {
 
-    private Integer posX = new Integer(0);
-    private Integer posY = new Integer(0);
-    private Integer width = new Integer(100);
-    private Integer height = new Integer(30);
-    private Boolean fixedWidth = Boolean.FALSE;
-    private Style style = new Style();
+    protected Integer posX = new Integer(0);
+    protected Integer posY = new Integer(0);
+    protected Integer width = new Integer(100);
+    protected Integer height = new Integer(30);
+    protected Boolean fixedWidth = false;
+    protected Style style = new Style();
+    protected Boolean removeWhenBlank = true;
 
     public Integer getPosX() {
         return posX;
@@ -61,5 +62,13 @@ public class GraphicElement extends DJBaseElement {
 
     public void setHeight(Integer height) {
         this.height = height;
+    }
+
+    public Boolean getRemoveWhenBlank() {
+        return removeWhenBlank;
+    }
+
+    public void setRemoveWhenBlank(Boolean removeWhenBlank) {
+        this.removeWhenBlank = removeWhenBlank;
     }
 }
