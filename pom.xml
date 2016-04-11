@@ -31,7 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ar.com.fdvs</groupId>
     <artifactId>DynamicJasper</artifactId>
-    <version>5.0.5</version>
+    <version>5.0.6</version>
     <name>DynamicJasper</name>
     <packaging>jar</packaging>
     <description>
@@ -56,10 +56,10 @@
         http://dynamicjasper.com
 
     </description>
-    <url>http://sourceforge.net/projects/dynamicjasper</url>
+    <url>https://github.com/FDVSolutions/DynamicJasper</url>
     <issueManagement>
-        <system>SourceForge Tracker</system>
-        <url>http://sourceforge.net/tracker/?group_id=188060</url>
+        <system>GitHub Tracker</system>
+        <url>https://github.com/FDVSolutions/DynamicJasper/issues</url>
     </issueManagement>
     <inceptionYear>2006</inceptionYear>
     <build>
@@ -354,9 +354,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge</groupId>
+            <groupId>net.sourceforge.barbecue</groupId>
             <artifactId>barbecue</artifactId>
-            <version>1.1</version>
+            <version>1.5-beta1</version>
             <optional>true</optional>
         </dependency>
 
