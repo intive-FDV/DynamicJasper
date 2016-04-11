@@ -95,18 +95,49 @@
                     </execution>
                 </executions>
             </plugin>
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.2.1</version>
                 <executions>
                     <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changes-plugin</artifactId>
@@ -117,13 +148,6 @@
                 </configuration>
             </plugin>
         </plugins>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ftp</artifactId>
-                <version>1.0-beta-2</version>
-            </extension>
-        </extensions>
     </build>
     <profiles>
         <profile>
@@ -424,8 +448,16 @@
     </dependencies>
 
     <distributionManagement>
-
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
+
     <mailingLists>
         <mailingList>
             <name>DynamicJasper News List</name>
@@ -450,15 +482,13 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
     <scm>
-        <connection>
-            scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk
-        </connection>
-        <developerConnection>
-            scm:svn:http://dynamicjasper.svn.sourceforge.net/svnroot/dynamicjasper/api/trunk
-        </developerConnection>
-        <url>http://dynamicjasper.svn.sourceforge.net</url>
+        <connection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</connection>
+        <developerConnection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</developerConnection>
+        <url>git@github.com:FDVSolutions/DynamicJasper.git</url>
     </scm>
+
     <!-- =============================== -->
     <!--	PEOPLE                      -->
     <!-- =============================== -->
