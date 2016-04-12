@@ -33,8 +33,7 @@ import ar.com.fdvs.dj.test.domain.Product;
 import ar.com.fdvs.dj.util.SortUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class TestRepositoryProducts {
 
@@ -241,8 +240,88 @@ public class TestRepositoryProducts {
 		return SortUtils.sortCollection(list, new String[]{"state","branch","item"});
 		
 	}	
-	
+
+	public static List getDummyCollectionOfsize(int size){
+		List list = getDummyCollection();
+		return new BigList(list,size);
+
+	}
+
 	public static void main(String[] args) {
-		System.out.println(getDummyCollectionSorted1());
+		List big = getDummyCollectionOfsize(500);
+
+		System.out.println("Size of big: " + big.size());
+		int cursor = 0;
+
+		for (Object o : big) {
+			System.out.println(cursor++ + " -> " + o.toString());
+		}
+	}
+
+	public static class BigList<E> extends ArrayList<E> {
+
+		private  ArrayList<E> list;
+		private int mSize;
+
+		protected BigList(Collection<? extends E> c, int size) {
+			super(c);
+			this.list = new ArrayList<E>(c);
+			this.mSize  = size;
+		}
+
+		private BigList(Collection<? extends E> c) {
+			super(c);
+		}
+
+		private BigList() {
+			super();
+		}
+
+		protected BigList(int initialCapacity) {
+			super(initialCapacity);
+		}
+
+		@Override
+		public int size() {
+			return mSize;
+		}
+
+		@Override
+		public Iterator<E> iterator() {
+			return new Itr();
+		}
+
+		private class Itr implements Iterator<E> {
+			int cursor;       // index of next element to return
+			int lastRet = -1; // index of last element returned; -1 if no such
+			int expectedModCount = modCount;
+
+			public boolean hasNext() {
+				return cursor != mSize;
+			}
+
+			@SuppressWarnings("unchecked")
+			public E next() {
+				checkForComodification();
+				int i = cursor;
+				if (i >= mSize)
+					throw new NoSuchElementException();
+
+				cursor = i + 1;
+				int auxCursor = cursor % list.size();
+				return (E) list.get(auxCursor);
+			}
+
+			public void remove() {
+				throw new RuntimeException("Method not implemented");
+			}
+
+			final void checkForComodification() {
+				if (modCount != expectedModCount)
+					throw new ConcurrentModificationException();
+			}
+		}
+
+
 	}
 }
