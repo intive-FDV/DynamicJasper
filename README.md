@@ -11,11 +11,19 @@ a easy way (it only interferes with the creation of the report design doing the 
 You can use the classic .jrxml files as templates while the content and layout of the report elements are handled by the DJ
 API.
 
-### New Maven Reposorty (as of Jun 29 2015)
+http://dynamicjasper.com/
 
-   http://nexus.fdvs.com.ar/content/groups/public/
+### Maven dependency
 
-Find documentation and examples at http://www.dynamicjasper.com
+    <dependency>
+      <groupId>ar.com.fdvs</groupId>
+      <artifactId>DynamicJasper</artifactId>
+      <version>5.0.7</version>
+    </dependency>
+
+### Documentation and Examples
+
+Find documentation and examples at http://dynamicjasper.com/documentation-examples/
 
 ## Report Concept
 
@@ -56,10 +64,6 @@ Styles: Each column can have its own style for its title and detail data (defini
 * __Export to most popular formats__: As DJ stands over Jasper Reports, it can export to PDF, XML, HTML, CSV, XLS, RTF, TXT.
 * __Clean Excel export__: One of the most valuable features that DJ provides is exporting plain reports to excel, with no data formatting, no page break, etc. This is very valuable for end users that use this report to create dynamic tables in Excel, creating these reports just with Jasper Reports can demand a lot of design time.
 
-## Documentation and support 
-
-Complete set of tutorial and examples are available. Community support is also available through the forums.
-
 ## Professional support
 
-Alternative professional support available.
+Alternative professional support available. http://dynamicjasper.com/support/professional-support-eng/
