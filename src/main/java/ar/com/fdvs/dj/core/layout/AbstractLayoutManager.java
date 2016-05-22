@@ -418,7 +418,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 		// PeS17 patch, 2008-11-29: put all fields to fields map, including "invisible" i.e. only registered ones
 
-		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
+		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFields()";
 		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
 		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";
 
@@ -979,7 +979,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             //Reverse iteration of the charts to meet insertion order
             for (int i = l.size(); i > 0; i--) {
                 ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) l.get(i - 1);
-                String name = "chart_" + (i - 1);
+                String name = "chart_" + (i - 1) + new Date().getTime();
                 JRDesignChart chart = createChart(djChart, name);
 
                 if (djChart.getLink() != null)

@@ -9,19 +9,19 @@ import net.sf.jasperreports.engine.fill.JRFillField;
 
 public class FieldMapWrapper implements Map<String, Object> {
 
-	private Map<String, JRFillField> map;
+	protected Map<String, JRFillField> map;
 	
 	public FieldMapWrapper(Map map){
 		this.map = map;
 	}
 
-	public FieldMapWrapper() {
-		this.map = Collections.EMPTY_MAP;
-	}
+    public FieldMapWrapper() {
+        this.map = Collections.EMPTY_MAP;
+    }
 
-	public void clear() {
-		map.clear();
-	}
+    public void clear() {
+        map.clear();
+    }
 
 	@Override
 	public Set<String> keySet() {
@@ -32,9 +32,9 @@ public class FieldMapWrapper implements Map<String, Object> {
 		return map.containsKey(key);
 	}
 
-	public boolean containsValue(Object value) {
-		throw new DJException("Method not implemented");
-	}
+    public boolean containsValue(Object value) {
+        throw new DJException("Method not implemented");
+    }
 
 	@Override
 	public Object get(Object key) {
@@ -45,9 +45,9 @@ public class FieldMapWrapper implements Map<String, Object> {
 		return map.entrySet();
 	}
 
-	public boolean equals(Object o) {
-		return map.equals(o);
-	}
+    public boolean equals(Object o) {
+        return map.equals(o);
+    }
 
 	public Object get(String key) {
 		Object value = map.get(key);
@@ -57,13 +57,13 @@ public class FieldMapWrapper implements Map<String, Object> {
 		return ((JRFillField)value).getValue();
 	}
 
-	public int hashCode() {
-		return map.hashCode();
-	}
+    public int hashCode() {
+        return map.hashCode();
+    }
 
-	public boolean isEmpty() {
-		return map.isEmpty();
-	}
+    public boolean isEmpty() {
+        return map.isEmpty();
+    }
 
 	public Object put(String arg0, Object arg1) {
 		throw new DJException("Method not supported");
@@ -77,17 +77,17 @@ public class FieldMapWrapper implements Map<String, Object> {
 		throw new DJException("Method not supported");
 	}
 
-	public int size() {
-		return map.size();
-	}
+    public int size() {
+        return map.size();
+    }
 
-	public Collection values() {
-		throw new DJException("Method not implemented");
-	}
+    public Collection values() {
+        throw new DJException("Method not implemented");
+    }
 
-	public void setMap(Map fldsm) {
-		this.map = fldsm;
-	}
+    public void setMap(Map fldsm) {
+        this.map = fldsm;
+    }
 
 	public Map<String, JRFillField> getMap(){
 		return map;
@@ -96,6 +96,25 @@ public class FieldMapWrapper implements Map<String, Object> {
 	public JRFillField getJRFillField(String key){
 		return map.get(key);
 	}
-	
 
+
+    public Map getPreviousValues() {
+        return new PreviousValuesMap(this);
+    }
+
+    class PreviousValuesMap extends FieldMapWrapper {
+
+        public PreviousValuesMap(FieldMapWrapper fieldMapWrapper) {
+            this.map = fieldMapWrapper.map;
+        }
+
+        @Override
+        public Object get(Object key) {
+            Object value = map.get(key);
+            if (value == null)
+                return null;
+
+            return ((JRFillField) value).getOldValue();
+        }
+    }
 }

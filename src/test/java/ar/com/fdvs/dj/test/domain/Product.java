@@ -186,4 +186,9 @@ public class Product {
 			return "001-123ABC-HRC";
 		}
 	}
+
+	@Override
+	public String toString() {
+		return "" + id + "|" + productLine + "|" + item + "|" + state;
+	}
 }

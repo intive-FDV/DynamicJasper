@@ -34,6 +34,17 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.0.7" date="2016-04-16" desc="">
+            <action dev="mguimaraes" type="Fix">
+                <![CDATA[Fixes "Unable to create more than one subreport with charts"
+                https://github.com/FDVSolutions/DynamicJasper/issues/16]]>
+            </action>
+        </release>
+        <release version="5.0.6" date="2016-04-16" desc="">
+            <action dev="Juan Manuel Alvarez" type="Fix">
+                <![CDATA[POM updated for Maven Central (nexus OSS)]]>
+            </action>
+        </release>
         <release version="5.0.5" date="2016-01-04" desc="">
             <action dev="Juan Manuel Alvarez" type="add">
                 <![CDATA[Introducing ExtendedListLayoutManager for xls export with title and subtitle.]]>

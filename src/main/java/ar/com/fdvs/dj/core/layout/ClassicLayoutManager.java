@@ -758,25 +758,25 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 		int yOffset = findYOffsetForGroupLabel(band);*/
 
-        JRDesignExpression labelExp;
-        if (label.isJasperExpression()) //a text with things like "$F{myField}"
-            labelExp = ExpressionUtils.createStringExpression(label.getText());
-        else if (label.getLabelExpression() != null) {
-            labelExp = ExpressionUtils.createExpression(jgroup.getName() + "_labelExpression", label.getLabelExpression());
-        } else //a simple text
-            //labelExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(label.getText())+ "\"");
-            labelExp = ExpressionUtils.createStringExpression("\"" + label.getText() + "\"");
-        JRDesignTextField labelTf = new JRDesignTextField();
-        labelTf.setExpression(labelExp);
-        labelTf.setWidth(width);
-        labelTf.setHeight(height);
-        labelTf.setX(x);
-        labelTf.setY(y);
-        //int yOffsetGlabel = labelTf.getHeight();
-        labelTf.setPositionType(PositionTypeEnum.FIX_RELATIVE_TO_TOP);
-        applyStyleToElement(label.getStyle(), labelTf);
-        band.addElement(labelTf);
-    }
+		JRDesignExpression labelExp;
+		if (label.isJasperExpression()) //a text with things like "$F{myField}"
+			labelExp = ExpressionUtils.createStringExpression(label.getText());
+		else if (label.getLabelExpression() != null){
+			labelExp = ExpressionUtils.createExpression(jgroup.getName() + "_labelExpression", label.getLabelExpression(), true);
+		} else //a simple text
+			//labelExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(label.getText())+ "\"");
+			labelExp = ExpressionUtils.createStringExpression("\""+ label.getText() + "\"");
+		JRDesignTextField labelTf = new JRDesignTextField();
+		labelTf.setExpression(labelExp);
+		labelTf.setWidth(width);
+		labelTf.setHeight(height);
+		labelTf.setX(x);
+		labelTf.setY(y);
+		//int yOffsetGlabel = labelTf.getHeight();
+		labelTf.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
+		applyStyleToElement(label.getStyle(), labelTf);
+		band.addElement(labelTf);
+	}
 
     /**
      * Used to ensure that the general footer label will be at the same Y position as the variables in the band.
@@ -816,21 +816,21 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
                 band.addElement(rect);
             }
 
-            LayoutUtils.moveBandsElemnts(crosst.getHeight(), band);
-            band.addElement(crosst);
-            DJLabel caption = djcross.getCaption();
-            if (caption != null) {
-                JRDesignExpression captExp;
-                if (caption.isJasperExpression()) //a text with things like "$F{myField}"
-                    captExp = ExpressionUtils.createStringExpression(caption.getText());
-                else if (caption.getLabelExpression() != null) {
-                    String name = "expression_for_label_at_header_of_group[" + getReport().getColumnsGroups().indexOf(columnsGroup) + "]_crosstab[" + columnsGroup.getHeaderCrosstabs().indexOf(djcross) + "]";
-                    LayoutUtils.registerCustomExpressionParameter((DynamicJasperDesign) getDesign(), name, caption.getLabelExpression());
-                    String invocationText = ExpressionUtils.createCustomExpressionInvocationText(caption.getLabelExpression(), name);
-                    captExp = ExpressionUtils.createExpression(invocationText, caption.getLabelExpression().getClassName());
-                    log.debug(invocationText);
-                } else //a simple text
-                    captExp = ExpressionUtils.createStringExpression("\"" + Utils.escapeTextForExpression(caption.getText()) + "\"");
+			LayoutUtils.moveBandsElemnts(crosst.getHeight(), band);
+			band.addElement(crosst);
+			DJLabel caption = djcross.getCaption();
+			if (caption != null) {
+				JRDesignExpression captExp;
+				if (caption.isJasperExpression()) //a text with things like "$F{myField}"
+					captExp = ExpressionUtils.createStringExpression(caption.getText());
+				else if (caption.getLabelExpression() != null) {
+					String name = "expression_for_label_at_header_of_group[" + getReport().getColumnsGroups().indexOf(columnsGroup) + "]_crosstab[" + columnsGroup.getHeaderCrosstabs().indexOf(djcross) + "]";
+					LayoutUtils.registerCustomExpressionParameter((DynamicJasperDesign) getDesign(), name, caption.getLabelExpression());
+					String invocationText = ExpressionUtils.createCustomExpressionInvocationText(caption.getLabelExpression(), name, false);
+					captExp = ExpressionUtils.createExpression(invocationText, caption.getLabelExpression().getClassName());
+					log.debug(invocationText);
+				} else //a simple text
+					captExp = ExpressionUtils.createStringExpression("\"" + Utils.escapeTextForExpression(caption.getText()) + "\"");
 
                 JRDesignTextField captTf = new JRDesignTextField();
                 captTf.setExpression(captExp);
@@ -1237,30 +1237,30 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
             String variableName = var.getName();
 
-            //Add the group label
-            DJGroupLabel label = var.getLabel();
-            JRDesignTextField labelTf = null;
-            if (label != null) {
-                JRDesignExpression labelExp;
-                if (label.isJasperExpression()) //a text with things like "$F{myField}"
-                    labelExp = ExpressionUtils.createStringExpression(label.getText());
-                else if (label.getLabelExpression() != null) {
-                    labelExp = ExpressionUtils.createExpression(variableName + "_labelExpression", label.getLabelExpression());
-                } else //a simple text
-                    //labelExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(label.getText())+ "\"");
-                    labelExp = ExpressionUtils.createStringExpression("\"" + label.getText() + "\"");
-                labelTf = new JRDesignTextField();
-                labelTf.setExpression(labelExp);
-                labelTf.setWidth(col.getWidth());
-                labelTf.setHeight(label.getHeight());
-                labelTf.setX(col.getPosX());
-                labelTf.setY(yOffset);
-                yOffsetGlabel = labelTf.getHeight();
-                if (inFooter) {
-                    labelTf.setPositionType(PositionTypeEnum.FIX_RELATIVE_TO_TOP);
-                }
-                applyStyleToElement(label.getStyle(), labelTf);
-                band.addElement(labelTf);
+			//Add the group label
+			DJGroupLabel label = var.getLabel();
+			JRDesignTextField labelTf = null;
+			if (label != null){
+				JRDesignExpression labelExp;
+				if (label.isJasperExpression()) //a text with things like "$F{myField}"
+					labelExp = ExpressionUtils.createStringExpression(label.getText());
+				else if (label.getLabelExpression() != null){
+					labelExp = ExpressionUtils.createExpression(variableName + "_labelExpression", label.getLabelExpression(), false);
+				} else //a simple text
+					//labelExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(label.getText())+ "\"");
+					labelExp = ExpressionUtils.createStringExpression("\""+ label.getText() + "\"");
+				labelTf = new JRDesignTextField();
+				labelTf.setExpression(labelExp);
+				labelTf.setWidth(col.getWidth());
+				labelTf.setHeight(label.getHeight());
+				labelTf.setX(col.getPosX());
+				labelTf.setY(yOffset);
+				yOffsetGlabel = labelTf.getHeight();
+				if (inFooter){
+					labelTf.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
+				}
+				applyStyleToElement(label.getStyle(), labelTf);
+				band.addElement(labelTf);
 
             }
 
@@ -1272,10 +1272,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
             else
                 textField.setEvaluationTime(EvaluationTimeEnum.GROUP);
 
-            if (var.getValueExpression() != null) {
-                expression = ExpressionUtils.createExpression(variableName + "_valueExpression", var.getValueExpression());
-            } else
-                setTextAndClassToExpression(expression, var, col, variableName);
+			if (var.getValueExpression() != null) {
+				expression = ExpressionUtils.createExpression(variableName + "_valueExpression", var.getValueExpression(), false);
+			}
+			else
+				setTextAndClassToExpression(expression,var,col,variableName);
 
             if (var.getOperation() != DJCalculation.COUNT && var.getOperation() != DJCalculation.DISTINCT_COUNT)
                 textField.setPattern(col.getPattern());
@@ -1333,12 +1334,12 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
             } else if (defStyle != null)
                 applyStyleToElement(defStyle, textField);
 
-            if (var.getPrintWhenExpression() != null) {
-                JRDesignExpression exp = ExpressionUtils.createExpression(variableName + "_printWhenExpression", var.getPrintWhenExpression());
-                textField.setPrintWhenExpression(exp);
-                if (labelTf != null)
-                    labelTf.setPrintWhenExpression(exp);
-            }
+			if (var.getPrintWhenExpression() != null) {
+				JRDesignExpression exp = ExpressionUtils.createExpression(variableName + "_printWhenExpression", var.getPrintWhenExpression(), false);
+				textField.setPrintWhenExpression(exp);
+				if (labelTf != null)
+					labelTf.setPrintWhenExpression(exp);
+			}
 
             band.addElement(textField);
 

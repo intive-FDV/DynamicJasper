@@ -657,7 +657,7 @@ public class Dj2JrCrosstabBuilder {
 	 * MOVED INSIDE ExpressionUtils
 	 *
 	protected JRDesignExpression getExpressionForConditionalStyle(ConditionalStyle condition, String columExpression) {
-		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFiels()";
+		String fieldsMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentFields()";
 		String parametersMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentParams()";
 		String variablesMap = "(("+DJDefaultScriptlet.class.getName() + ")$P{REPORT_SCRIPTLET}).getCurrentVariables()";
 
