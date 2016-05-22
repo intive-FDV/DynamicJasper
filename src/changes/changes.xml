@@ -34,6 +34,11 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.0.8" date="2016-05-22" desc="">
+            <action dev="Juan Manuel Alvarez" type="Fix">
+                <![CDATA[Group Labels Coustom Expression shows wrong field values]]>
+            </action>
+        </release>
         <release version="5.0.7" date="2016-04-16" desc="">
             <action dev="mguimaraes" type="Fix">
                 <![CDATA[Fixes "Unable to create more than one subreport with charts"
