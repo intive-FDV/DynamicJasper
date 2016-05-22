@@ -12,52 +12,48 @@ import java.util.Map;
 
 /**
  * This class handles parameter passing to custom expressions in runtime (during report fill)
- * @author mamana
  *
+ * @author mamana
  */
-public class DJDefaultScriptlet extends JRDefaultScriptlet  {
-	
-	int veces = 0;
-	public DJDefaultScriptlet(){
-		super();
-//		logger.debug("Im a new Scrptlet  " + this);
-	}
-	
-	/**
-	 * Logger for this class
-	 */
-	private static final Log logger = LogFactory.getLog(DJDefaultScriptlet.class);
-	
-	protected static final String VARS_KEY = "vars";
-	protected static final String PARAMS_KEY = "params";
-	protected static final String FIELDS_KEY = "fields";
-	
-	protected FieldMapWrapper fieldMapWrapper = new FieldMapWrapper();
-	protected ParameterMapWrapper parameterMapWrapper = new ParameterMapWrapper();
-	protected VariableMapWrapper variableMapWrapper = new VariableMapWrapper();
+public class DJDefaultScriptlet extends JRDefaultScriptlet {
 
-	public void setData(Map parsm, Map fldsm, Map varsm, JRFillGroup[] grps) {
-		super.setData(parsm, fldsm, varsm, grps);
-		putValuesInMap();
-	}
-	
-	protected void putValuesInMap() {
-		fieldMapWrapper.setMap(this.fieldsMap);
-		parameterMapWrapper.setMap(this.parametersMap);
-		variableMapWrapper.setMap(this.variablesMap);
-	}
+    public DJDefaultScriptlet() {
+        super();
+    }
 
-	public Map getCurrentFiels() {
-		return fieldMapWrapper; 
-	}
+    private static final Log logger = LogFactory.getLog(DJDefaultScriptlet.class);
 
-	public Map getCurrentParams() {
-		return parameterMapWrapper;
-	}
 
-	public Map getCurrentVariables() {
-		return variableMapWrapper;
-	}
+    protected FieldMapWrapper fieldMapWrapper = new FieldMapWrapper();
+    protected ParameterMapWrapper parameterMapWrapper = new ParameterMapWrapper();
+    protected VariableMapWrapper variableMapWrapper = new VariableMapWrapper();
+
+    public void setData(Map parsm, Map fldsm, Map varsm, JRFillGroup[] grps) {
+        super.setData(parsm, fldsm, varsm, grps);
+        putValuesInMap();
+    }
+
+    protected void putValuesInMap() {
+        fieldMapWrapper.setMap(this.fieldsMap);
+        parameterMapWrapper.setMap(this.parametersMap);
+        variableMapWrapper.setMap(this.variablesMap);
+    }
+
+    public Map getCurrentFields() {
+        return fieldMapWrapper;
+    }
+
+    public Map getPreviousFields() {
+        return fieldMapWrapper.getPreviousValues();
+    }
+
+    public Map getCurrentParams() {
+        return parameterMapWrapper;
+    }
+
+    public Map getCurrentVariables() {
+        return variableMapWrapper;
+    }
 
     @Override
     public void beforeReportInit() throws JRScriptletException {
@@ -65,7 +61,5 @@ public class DJDefaultScriptlet extends JRDefaultScriptlet  {
         JasperReport jr = (JasperReport) getParameterValue(JRParameter.JASPER_REPORT);
         variableMapWrapper.setReportName(jr.getName());
         parameterMapWrapper.setReportName(jr.getName());
-
-
     }
 }

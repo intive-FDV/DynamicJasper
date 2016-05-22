@@ -1,6 +1,5 @@
 package ar.com.fdvs.dj.util;
 
-import net.sf.jasperreports.engine.JRHyperlink;
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignImage;
@@ -28,7 +27,7 @@ public class HyperLinkUtil {
 	public static void applyHyperLinkToElement(DynamicJasperDesign design, DJHyperLink djlink, JRDesignImage image, String name) {
 		StringExpression hce = djlink.getExpression();
 		
-		String text = ExpressionUtils.createCustomExpressionInvocationText(djlink.getExpression(), name);
+		String text = ExpressionUtils.createCustomExpressionInvocationText(djlink.getExpression(), name, false);
 		LayoutUtils.registerCustomExpressionParameter(design, name,hce);
 		JRDesignExpression hlpe = new JRDesignExpression();
 		hlpe.setValueClassName(hce.getClassName());
@@ -40,7 +39,7 @@ public class HyperLinkUtil {
 		if (djlink.getTooltip() != null){
 			StringExpression sExp = djlink.getTooltip();
 			String tooltipParameterName = "hyperlink_tooltip_" +name;
-			String tooltipText = ExpressionUtils.createCustomExpressionInvocationText(djlink.getExpression(), tooltipParameterName);
+			String tooltipText = ExpressionUtils.createCustomExpressionInvocationText(djlink.getExpression(), tooltipParameterName, false);
 			LayoutUtils.registerCustomExpressionParameter(design, tooltipParameterName,sExp);
 			JRDesignExpression tooltipExp = new JRDesignExpression();
 			tooltipExp.setValueClassName(sExp.getClassName());

@@ -547,7 +547,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		if (label.isJasperExpression()) //a text with things like "$F{myField}"
 			labelExp = ExpressionUtils.createStringExpression(label.getText());
 		else if (label.getLabelExpression() != null){
-			labelExp = ExpressionUtils.createExpression(jgroup.getName() + "_labelExpression", label.getLabelExpression());
+			labelExp = ExpressionUtils.createExpression(jgroup.getName() + "_labelExpression", label.getLabelExpression(), true);
 		} else //a simple text
 			//labelExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(label.getText())+ "\"");
 			labelExp = ExpressionUtils.createStringExpression("\""+ label.getText() + "\"");
@@ -610,7 +610,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				else if (caption.getLabelExpression() != null) {
 					String name = "expression_for_label_at_header_of_group[" + getReport().getColumnsGroups().indexOf(columnsGroup) + "]_crosstab[" + columnsGroup.getHeaderCrosstabs().indexOf(djcross) + "]";
 					LayoutUtils.registerCustomExpressionParameter((DynamicJasperDesign) getDesign(), name, caption.getLabelExpression());
-					String invocationText = ExpressionUtils.createCustomExpressionInvocationText(caption.getLabelExpression(), name);
+					String invocationText = ExpressionUtils.createCustomExpressionInvocationText(caption.getLabelExpression(), name, false);
 					captExp = ExpressionUtils.createExpression(invocationText, caption.getLabelExpression().getClassName());
 					log.debug(invocationText);
 				} else //a simple text
@@ -1028,7 +1028,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				if (label.isJasperExpression()) //a text with things like "$F{myField}"
 					labelExp = ExpressionUtils.createStringExpression(label.getText());
 				else if (label.getLabelExpression() != null){
-					labelExp = ExpressionUtils.createExpression(variableName + "_labelExpression", label.getLabelExpression());
+					labelExp = ExpressionUtils.createExpression(variableName + "_labelExpression", label.getLabelExpression(), false);
 				} else //a simple text
 					//labelExp = ExpressionUtils.createStringExpression("\""+ Utils.escapeTextForExpression(label.getText())+ "\"");
 					labelExp = ExpressionUtils.createStringExpression("\""+ label.getText() + "\"");
@@ -1056,7 +1056,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				textField.setEvaluationTime( EvaluationTimeEnum.GROUP );
 
 			if (var.getValueExpression() != null) {
-				expression = ExpressionUtils.createExpression(variableName + "_valueExpression", var.getValueExpression());
+				expression = ExpressionUtils.createExpression(variableName + "_valueExpression", var.getValueExpression(), false);
 			}
 			else
 				setTextAndClassToExpression(expression,var,col,variableName);
@@ -1118,7 +1118,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				applyStyleToElement(defStyle, textField);
 
 			if (var.getPrintWhenExpression() != null) {
-				JRDesignExpression exp = ExpressionUtils.createExpression(variableName + "_printWhenExpression", var.getPrintWhenExpression());
+				JRDesignExpression exp = ExpressionUtils.createExpression(variableName + "_printWhenExpression", var.getPrintWhenExpression(), false);
 				textField.setPrintWhenExpression(exp);
 				if (labelTf != null)
 					labelTf.setPrintWhenExpression(exp);

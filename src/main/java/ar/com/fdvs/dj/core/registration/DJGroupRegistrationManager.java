@@ -30,7 +30,6 @@
 package ar.com.fdvs.dj.core.registration;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRSection;
 import net.sf.jasperreports.engine.design.*;
 
 import net.sf.jasperreports.engine.type.CalculationEnum;
@@ -186,7 +185,7 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		gvar.setCalculation( CalculationEnum.NOTHING );
 		gvar.setValueClassName(customExpression.getClassName());
 		
-		String expText = ExpressionUtils.createCustomExpressionInvocationText(customExpression, expToGroupByName);
+		String expText = ExpressionUtils.createCustomExpressionInvocationText(customExpression, expToGroupByName, false);
 		JRDesignExpression gvarExp = new JRDesignExpression();
 		gvarExp.setValueClassName(customExpression.getClassName());
 		gvarExp.setText(expText);

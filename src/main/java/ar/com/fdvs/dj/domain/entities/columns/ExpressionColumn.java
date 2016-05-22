@@ -101,7 +101,7 @@ public class ExpressionColumn extends SimpleColumn {
 		if (this.calculatedExpressionText != null)
 			return this.calculatedExpressionText;
 
-		String stringExpression = ExpressionUtils.createCustomExpressionInvocationText(expression, getColumnProperty().getProperty());
+		String stringExpression = ExpressionUtils.createCustomExpressionInvocationText(expression, getColumnProperty().getProperty(), false);
 		
 		log.debug("Expression for CustomExpression = " + stringExpression);
 
@@ -111,7 +111,7 @@ public class ExpressionColumn extends SimpleColumn {
 
 	public String getTextForExpressionForCalculartion() {
 		
-		String stringExpression = ExpressionUtils.createCustomExpressionInvocationText(expressionForCalculation, getColumnProperty().getProperty()+"_calc");
+		String stringExpression = ExpressionUtils.createCustomExpressionInvocationText(expressionForCalculation, getColumnProperty().getProperty()+"_calc", false);
 		
 		log.debug("Calculation Expression for CustomExpression = " + stringExpression);
 		

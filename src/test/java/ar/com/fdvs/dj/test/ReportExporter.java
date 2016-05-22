@@ -39,6 +39,7 @@ import org.apache.commons.logging.LogFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.Map;
 
 public class ReportExporter {
 	/**
@@ -54,6 +55,10 @@ public class ReportExporter {
 	 * @throws FileNotFoundException
 	 */
 	public static void exportReport(JasperPrint jp, String path) throws JRException, FileNotFoundException{
+		exportReport(jp,path,null);
+	}
+
+	public static void exportReport(JasperPrint jp, String path, Map<JRExporterParameter, Object>exporterParams) throws JRException, FileNotFoundException {
 		logger.debug("Exporing report to: " + path);
 		JRPdfExporter exporter = new JRPdfExporter();
 
@@ -65,6 +70,12 @@ public class ReportExporter {
 
 		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jp);
 		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, fos);
+
+		if (exporterParams != null) {
+			for (Map.Entry<JRExporterParameter, Object> entry : exporterParams.entrySet()) {
+				exporter.setParameter(entry.getKey(), entry.getValue());
+			}
+		}
 
 		exporter.exportReport();
 
