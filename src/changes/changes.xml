@@ -36,7 +36,11 @@
     <body>
         <release version="5.0.8" date="2016-05-22" desc="">
             <action dev="Juan Manuel Alvarez" type="Fix">
-                <![CDATA[Group Labels Coustom Expression shows wrong field values]]>
+                <![CDATA[Group Labels Custom Expression shows wrong field values]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Added Reset Page Number flag in groups.
+                https://github.com/FDVSolutions/DynamicJasper/issues/27]]>
             </action>
         </release>
         <release version="5.0.7" date="2016-04-16" desc="">

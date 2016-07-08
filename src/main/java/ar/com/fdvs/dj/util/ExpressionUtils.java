@@ -234,7 +234,7 @@ public class ExpressionUtils {
      * @param name
      * @param expression
      * @param usePreviousFieldValues if true, the Map with field values passed to the CustomExpresion contains the previous
-     *                               field value. This is needed when in group footer bands were at the time executing the
+     *                               field value. This is needed when in group footer bands were at the time of executing the
      *                               CustomExpression the fields values already corresponds to the next group value.
      * @return
      */

@@ -127,8 +127,14 @@ public class DJGroup extends DJBaseElement {
 	 * (even if a group is splitted in two pages)
 	 * NOTE: this may cause unexpected results if header variables are present. 
 	 */
-	private Boolean reprintHeaderOnEachPage = Boolean.FALSE;
-	
+	private boolean reprintHeaderOnEachPage = false;
+
+	/**
+	 * Same as in JasperReports
+	 */
+	private boolean resetPageNumber = false;
+
+
 	private DJGroupLabel footerLabel; //general label, goes at the right of the group variables
 
 	/**
@@ -343,11 +349,11 @@ public class DJGroup extends DJBaseElement {
 		this.footerLabel = footerLabel;
 	}
 
-	public Boolean getReprintHeaderOnEachPage() {
+	public boolean isReprintHeaderOnEachPage() {
 		return reprintHeaderOnEachPage;
 	}
 
-	public void setReprintHeaderOnEachPage(Boolean reprintHeaderOnEachPage) {
+	public void setReprintHeaderOnEachPage(boolean reprintHeaderOnEachPage) {
 		this.reprintHeaderOnEachPage = reprintHeaderOnEachPage;
 	}
 
@@ -366,4 +372,13 @@ public class DJGroup extends DJBaseElement {
 	public String getName() {
 		return name;
 	}
+
+	public boolean isResetPageNumber() {
+		return resetPageNumber;
+	}
+
+	public void setResetPageNumber(boolean resetPageNumber) {
+		this.resetPageNumber = resetPageNumber;
+	}
+
 }

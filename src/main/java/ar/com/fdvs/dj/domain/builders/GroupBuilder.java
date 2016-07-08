@@ -173,8 +173,9 @@ public class GroupBuilder {
 	 * 
 	 * 
 	 * @param name
-	 * @param col
-	 * @param op
+	 * @param property
+	 * @param className
+	 * @param operation
 	 * @return
 	 */
 	public GroupBuilder addVariable(String name, String property, String className, DJCalculation operation) {		
@@ -381,6 +382,11 @@ public class GroupBuilder {
 
 	public GroupBuilder addFooterCrosstab(DJCrosstab cross){
 		group.addFooterCrosstab(cross);
+		return this;
+	}
+
+	public GroupBuilder setResetPageNumber(boolean resetPageNumber){
+		group.setResetPageNumber(resetPageNumber);
 		return this;
 	}
 
