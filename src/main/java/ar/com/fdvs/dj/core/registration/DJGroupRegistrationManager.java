@@ -29,13 +29,6 @@
 
 package ar.com.fdvs.dj.core.registration;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.design.*;
-
-import net.sf.jasperreports.engine.type.CalculationEnum;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
@@ -46,6 +39,11 @@ import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.design.*;
+import net.sf.jasperreports.engine.type.CalculationEnum;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Manager invoked to register groups of columns. A ColumnsGroup is read and </br>

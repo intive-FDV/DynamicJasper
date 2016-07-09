@@ -29,11 +29,11 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.awt.Color;
+import ar.com.fdvs.dj.domain.entities.Entity;
+
+import java.awt.*;
 import java.util.Arrays;
 import java.util.List;
-
-import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
  * Some color templates to be used by charts.

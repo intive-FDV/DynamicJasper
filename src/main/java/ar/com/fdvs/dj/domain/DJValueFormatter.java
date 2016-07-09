@@ -29,9 +29,9 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.util.Map;
-
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
+
+import java.util.Map;
 
 /**
  * Powerful interface. The idea behind this is that anybody could implement </br>

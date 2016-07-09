@@ -29,15 +29,7 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.util.Iterator;
-
-import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.CustomExpression;
-import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJGroupLabel;
-import ar.com.fdvs.dj.domain.DJValueFormatter;
-import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.*;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
@@ -45,6 +37,8 @@ import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+
+import java.util.Iterator;
 
 /**
  * Builder created to give users a friendly way of adding groups to a report.</br>

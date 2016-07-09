@@ -29,7 +29,6 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-import net.sf.jasperreports.engine.design.JRDesignImage;
 import net.sf.jasperreports.engine.type.ScaleImageEnum;
 
 public class ImageScaleMode  extends BaseDomainConstant{

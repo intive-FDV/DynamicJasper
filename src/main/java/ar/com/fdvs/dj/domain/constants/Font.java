@@ -30,7 +30,6 @@
 package ar.com.fdvs.dj.domain.constants;
 
 import net.sf.jasperreports.engine.JRFont;
-import net.sf.jasperreports.engine.JRStyleContainer;
 import net.sf.jasperreports.engine.base.JRBaseFont;
 import net.sf.jasperreports.engine.design.JRDesignFont;
 

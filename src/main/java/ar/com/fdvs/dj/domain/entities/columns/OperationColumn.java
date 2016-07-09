@@ -29,12 +29,12 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
-import java.util.Iterator;
-import java.util.List;
-
 import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.entities.Entity;
+
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Column created to handle numerical operations between two or more </br>

@@ -29,11 +29,15 @@
 
 package ar.com.fdvs.dj.util;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.util.Collection;
-import java.util.Iterator;
-
+import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.DJDefaultScriptlet;
+import ar.com.fdvs.dj.core.DJException;
+import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.customexpression.DJSimpleExpression;
+import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.SubreportParameter;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionStyleExpression;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
@@ -44,19 +48,11 @@ import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import net.sf.jasperreports.engine.design.JasperDesign;
-import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.core.DJDefaultScriptlet;
-import ar.com.fdvs.dj.core.DJException;
-import ar.com.fdvs.dj.domain.ColumnProperty;
-import ar.com.fdvs.dj.domain.CustomExpression;
-import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.DJDataSource;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.customexpression.DJSimpleExpression;
-import ar.com.fdvs.dj.domain.entities.Subreport;
-import ar.com.fdvs.dj.domain.entities.SubreportParameter;
-import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionStyleExpression;
-import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class ExpressionUtils {
 

@@ -29,14 +29,14 @@
 
 package ar.com.fdvs.dj.core;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
-import java.util.List;
-
+import ar.com.fdvs.dj.domain.DJQuery;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.DynamicReportOptions;
+import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.util.LayoutUtils;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.*;
-
 import net.sf.jasperreports.engine.type.OrientationEnum;
 import net.sf.jasperreports.engine.type.PrintOrderEnum;
 import net.sf.jasperreports.engine.type.WhenNoDataTypeEnum;
@@ -45,11 +45,8 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.domain.DJQuery;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
-import ar.com.fdvs.dj.domain.constants.Page;
+import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public class DJJRDesignHelper {
 

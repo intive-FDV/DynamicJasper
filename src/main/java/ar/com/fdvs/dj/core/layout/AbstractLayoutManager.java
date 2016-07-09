@@ -31,11 +31,7 @@ package ar.com.fdvs.dj.core.layout;
 
 import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.domain.*;
-import ar.com.fdvs.dj.domain.DJChart;
-import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
-import ar.com.fdvs.dj.domain.chart.*;
-import ar.com.fdvs.dj.domain.constants.*;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.DJColSpan;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
@@ -45,7 +41,6 @@ import ar.com.fdvs.dj.util.*;
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
-import net.sf.jasperreports.engine.base.JRBaseVariable;
 import net.sf.jasperreports.engine.design.*;
 import net.sf.jasperreports.engine.type.*;
 import net.sf.jasperreports.engine.util.JRExpressionUtil;
@@ -58,7 +53,6 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

@@ -29,14 +29,14 @@
 
 package ar.com.fdvs.dj.domain.chart.plot;
 
-import net.sf.jasperreports.charts.design.JRDesignLinePlot;
-import net.sf.jasperreports.engine.JRChartPlot;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import net.sf.jasperreports.charts.design.JRDesignLinePlot;
+import net.sf.jasperreports.engine.JRChartPlot;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
 
 public class LinePlot extends AbstractCategoryAxisPlot {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;

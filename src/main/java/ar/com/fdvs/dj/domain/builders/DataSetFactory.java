@@ -29,9 +29,9 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.util.Iterator;
-import java.util.List;
-
+import ar.com.fdvs.dj.core.DJException;
+import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import net.sf.jasperreports.charts.design.JRDesignCategoryDataset;
 import net.sf.jasperreports.charts.design.JRDesignCategorySeries;
 import net.sf.jasperreports.charts.design.JRDesignPieDataset;
@@ -40,10 +40,10 @@ import net.sf.jasperreports.engine.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
-import ar.com.fdvs.dj.core.DJException;
-import ar.com.fdvs.dj.domain.DJChart;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import net.sf.jasperreports.engine.type.ResetTypeEnum;
+
+import java.util.Iterator;
+import java.util.List;
 
 public class DataSetFactory {
 

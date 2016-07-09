@@ -29,15 +29,15 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
-
 import ar.com.fdvs.dj.domain.DJChart;
 import ar.com.fdvs.dj.domain.DJChartColors;
 import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DJChartBuilder {
 	private Byte type;

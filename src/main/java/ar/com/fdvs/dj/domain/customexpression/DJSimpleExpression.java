@@ -1,9 +1,9 @@
 package ar.com.fdvs.dj.domain.customexpression;
 
-import java.util.Map;
-
 import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.domain.CustomExpression;
+
+import java.util.Map;
 
 public class DJSimpleExpression implements CustomExpression {
 

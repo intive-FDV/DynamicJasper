@@ -1,37 +1,27 @@
 package ar.com.fdvs.dj.util;
 
-import java.lang.reflect.Constructor;
-import java.util.Iterator;
-import java.util.Map;
-
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.constants.Border;
-import net.sf.jasperreports.engine.JRBand;
-import net.sf.jasperreports.engine.JRDefaultStyleProvider;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRPen;
-import net.sf.jasperreports.engine.base.JRBoxPen;
-import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignElement;
-import net.sf.jasperreports.engine.design.JRDesignGraphicElement;
-import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignParameter;
-import net.sf.jasperreports.engine.design.JRDesignSection;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-
-import net.sf.jasperreports.engine.type.LineStyleEnum;
-import net.sf.jasperreports.engine.type.SplitTypeEnum;
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
+import net.sf.jasperreports.engine.JRBand;
+import net.sf.jasperreports.engine.JRDefaultStyleProvider;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRPen;
+import net.sf.jasperreports.engine.design.*;
+import net.sf.jasperreports.engine.type.LineStyleEnum;
+import net.sf.jasperreports.engine.type.SplitTypeEnum;
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.lang.reflect.Constructor;
+import java.util.Iterator;
+import java.util.Map;
 
 public class LayoutUtils {
 	

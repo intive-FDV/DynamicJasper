@@ -29,7 +29,6 @@
 
 package ar.com.fdvs.dj.domain;
 
-import net.sf.jasperreports.engine.JRVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
 import net.sf.jasperreports.engine.type.CalculationEnum;

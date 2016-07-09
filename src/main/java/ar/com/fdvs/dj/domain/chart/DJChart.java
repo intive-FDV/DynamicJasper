@@ -29,37 +29,20 @@
 
 package ar.com.fdvs.dj.domain.chart;
 
-import java.util.Map;
-
-import net.sf.jasperreports.engine.JRDefaultStyleProvider;
-import net.sf.jasperreports.engine.JRExpression;
+import ar.com.fdvs.dj.domain.DJBaseElement;
+import ar.com.fdvs.dj.domain.DJHyperLink;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.chart.dataset.*;
+import ar.com.fdvs.dj.domain.chart.plot.*;
+import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
-import ar.com.fdvs.dj.domain.DJBaseElement;
-import ar.com.fdvs.dj.domain.DJHyperLink;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.chart.dataset.AbstractDataset;
-import ar.com.fdvs.dj.domain.chart.dataset.CategoryDataset;
-import ar.com.fdvs.dj.domain.chart.dataset.PieDataset;
-import ar.com.fdvs.dj.domain.chart.dataset.TimeSeriesDataset;
-import ar.com.fdvs.dj.domain.chart.dataset.XYDataset;
-import ar.com.fdvs.dj.domain.chart.plot.AbstractPlot;
-import ar.com.fdvs.dj.domain.chart.plot.AreaPlot;
-import ar.com.fdvs.dj.domain.chart.plot.Bar3DPlot;
-import ar.com.fdvs.dj.domain.chart.plot.BarPlot;
-import ar.com.fdvs.dj.domain.chart.plot.LinePlot;
-import ar.com.fdvs.dj.domain.chart.plot.Pie3DPlot;
-import ar.com.fdvs.dj.domain.chart.plot.PiePlot;
-import ar.com.fdvs.dj.domain.chart.plot.ScatterPlot;
-import ar.com.fdvs.dj.domain.chart.plot.TimeSeriesPlot;
-import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.engine.type.CalculationEnum;
 import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
-import net.sf.jasperreports.engine.util.StyleResolver;
+
+import java.util.Map;
 
 public class DJChart extends DJBaseElement {
 	

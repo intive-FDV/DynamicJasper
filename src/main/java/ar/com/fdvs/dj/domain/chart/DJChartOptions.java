@@ -29,21 +29,18 @@
 
 package ar.com.fdvs.dj.domain.chart;
 
-import java.awt.Color;
-
-import net.sf.jasperreports.charts.type.EdgeEnum;
-import net.sf.jasperreports.engine.JRChart;
-import net.sf.jasperreports.engine.JRPen;
-import net.sf.jasperreports.engine.design.JRDesignChart;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
 import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import net.sf.jasperreports.charts.type.EdgeEnum;
+import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.type.LineStyleEnum;
-import net.sf.jasperreports.engine.type.PenEnum;
+
+import java.awt.*;
 
 public class DJChartOptions extends DJBaseElement {
 	

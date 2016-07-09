@@ -29,21 +29,16 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
+import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import org.apache.commons.collections.list.UnmodifiableList;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.collections.list.UnmodifiableList;
-
-import ar.com.fdvs.dj.domain.DJBaseElement;
-import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJGroupLabel;
-import ar.com.fdvs.dj.domain.DynamicReportOptions;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.constants.GroupLayout;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 /**
  * Entity created to handle groups of columns.</br>

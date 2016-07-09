@@ -29,12 +29,6 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import java.text.Format;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Random;
-
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.ColumnProperty;
@@ -42,16 +36,15 @@ import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
-import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
-import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
-import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
+import ar.com.fdvs.dj.domain.entities.columns.*;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.PropertiesMap;
+
+import java.text.Format;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Builder created to give users a friendly way of adding columns to a report.</br>

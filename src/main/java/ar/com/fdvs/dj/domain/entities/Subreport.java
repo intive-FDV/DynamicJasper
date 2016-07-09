@@ -29,16 +29,16 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.sf.jasperreports.engine.JasperReport;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DJDataSource;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
+import net.sf.jasperreports.engine.JasperReport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Subreport extends DJBaseElement {
 

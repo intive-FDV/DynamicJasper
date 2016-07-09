@@ -186,7 +186,7 @@ public class ChartsMultipleReportTest extends BaseDjReportTest {
 
 		DynamicReport dr = drb.build();
 
-		dr.getProperties().put(JRPieDataset.PROPERTY_IGNORE_DUPLICATED_KEY,"true"); //Needed in old API
+		dr.getProperties().put("net.sf.jasperreports.chart.pie.ignore.duplicated.key","true"); //Needed in old API
 
 		return dr;
 	}

@@ -29,12 +29,12 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.awt.Color;
-import java.util.HashMap;
-
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.entities.Entity;
+
+import java.awt.*;
+import java.util.HashMap;
 
 /**
  * Class that defines the report configuration.

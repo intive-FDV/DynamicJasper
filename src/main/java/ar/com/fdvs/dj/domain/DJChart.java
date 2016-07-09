@@ -29,15 +29,14 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import net.sf.jasperreports.engine.design.JRDesignChart;
-import net.sf.jasperreports.engine.design.JRDesignVariable;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.type.CalculationEnum;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Charts to be displayed by dynamicjasper

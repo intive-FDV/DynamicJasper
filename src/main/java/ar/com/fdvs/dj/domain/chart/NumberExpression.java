@@ -29,10 +29,10 @@
 
 package ar.com.fdvs.dj.domain.chart;
 
+import ar.com.fdvs.dj.domain.CustomExpression;
+
 import java.io.Serializable;
 import java.util.Map;
-
-import ar.com.fdvs.dj.domain.CustomExpression;
 
 public class NumberExpression implements CustomExpression, Serializable {
 	private static final long serialVersionUID = 1L;

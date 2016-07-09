@@ -29,18 +29,14 @@
 
 package ar.com.fdvs.dj.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-
 import ar.com.fdvs.dj.domain.DJCrosstab;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.DJCrosstabRow;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+
+import java.util.*;
 
 public class SortUtils {
 

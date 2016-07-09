@@ -32,10 +32,10 @@
  */
 package ar.com.fdvs.dj.core.layout;
 
-import java.util.Map;
-
-import net.sf.jasperreports.engine.design.JasperDesign;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+
+import java.util.Map;
 
 /**
  * An interface that represents a a Manager to make elements respect a desired Layout.

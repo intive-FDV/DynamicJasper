@@ -1,11 +1,11 @@
 package ar.com.fdvs.dj.domain;
 
-import java.util.Map;
-
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.customexpression.PageNumberCustomExpression;
 import ar.com.fdvs.dj.util.customexpression.RecordsInPageCustomExpression;
 import ar.com.fdvs.dj.util.customexpression.RecordsInReportCustomExpression;
+
+import java.util.Map;
 
 public class ExpressionHelper {
 	private static final BooleanExpression printInFirstPage = new PrintInFirstPage();

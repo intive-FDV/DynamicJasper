@@ -29,10 +29,10 @@
 
 package ar.com.fdvs.dj.domain.entities.conditionalStyle;
 
-import java.util.Map;
-
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.entities.Entity;
+
+import java.util.Map;
 
 /**
  * Special CustomExpression that complements very well with Conditionl Styles.

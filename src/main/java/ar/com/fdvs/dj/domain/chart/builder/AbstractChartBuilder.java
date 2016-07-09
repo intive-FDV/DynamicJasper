@@ -29,9 +29,6 @@
 
 package ar.com.fdvs.dj.domain.chart.builder;
 
-import java.awt.Color;
-import java.util.List;
-
 import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.builders.ChartBuilderException;
@@ -42,6 +39,9 @@ import ar.com.fdvs.dj.domain.chart.plot.AbstractPlot;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+
+import java.awt.*;
+import java.util.List;
 
 @SuppressWarnings("unchecked")
 public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {

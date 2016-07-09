@@ -1,11 +1,11 @@
 package ar.com.fdvs.dj.core;
 
+import net.sf.jasperreports.engine.fill.JRFillVariable;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;
-
-import net.sf.jasperreports.engine.fill.JRFillVariable;
 
 public class VariableMapWrapper implements Map {
 	

@@ -29,15 +29,13 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import ar.com.fdvs.dj.core.layout.CrossTabColorShema;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.entities.Entity;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class DJCrosstab extends DJBaseElement {
 

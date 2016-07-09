@@ -29,11 +29,10 @@
 
 package ar.com.fdvs.dj.core;
 
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
 import ar.com.fdvs.dj.domain.constants.Font;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class FontHelper {
 

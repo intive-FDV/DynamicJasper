@@ -29,66 +29,32 @@
 
 package ar.com.fdvs.dj.core.layout;
 
-import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
+import ar.com.fdvs.dj.core.DJDefaultScriptlet;
+import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
+import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.constants.Border;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
+import ar.com.fdvs.dj.util.ExpressionUtils;
+import ar.com.fdvs.dj.util.HyperLinkUtil;
 import ar.com.fdvs.dj.util.LayoutUtils;
-import net.sf.jasperreports.crosstabs.JRCrosstabMeasure;
-import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabBucket;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabCell;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabColumnGroup;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabDataset;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabMeasure;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabParameter;
-import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
+import ar.com.fdvs.dj.util.Utils;
+import net.sf.jasperreports.crosstabs.design.*;
 import net.sf.jasperreports.crosstabs.fill.JRPercentageCalculatorFactory;
-import net.sf.jasperreports.crosstabs.fill.calculation.BucketDefinition;
 import net.sf.jasperreports.crosstabs.type.CrosstabPercentageEnum;
 import net.sf.jasperreports.crosstabs.type.CrosstabTotalPositionEnum;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
-import net.sf.jasperreports.engine.design.JRDesignDataset;
-import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
-import net.sf.jasperreports.engine.design.JRDesignElement;
-import net.sf.jasperreports.engine.design.JRDesignExpression;
-import net.sf.jasperreports.engine.design.JRDesignField;
-import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.design.JRDesignTextField;
-import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.design.*;
 import net.sf.jasperreports.engine.type.CalculationEnum;
-import net.sf.jasperreports.engine.type.LineStyleEnum;
 import net.sf.jasperreports.engine.type.ModeEnum;
 import net.sf.jasperreports.engine.type.PositionTypeEnum;
-import net.sf.jasperreports.engine.util.JRPenUtil;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.core.DJDefaultScriptlet;
-import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
-import ar.com.fdvs.dj.domain.DJCRosstabMeasurePrecalculatedTotalProvider;
-import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJCrosstabColumn;
-import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
-import ar.com.fdvs.dj.domain.DJCrosstabRow;
-import ar.com.fdvs.dj.domain.DJValueFormatter;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.constants.Border;
-import ar.com.fdvs.dj.domain.constants.Transparency;
-import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
-import ar.com.fdvs.dj.util.ExpressionUtils;
-import ar.com.fdvs.dj.util.HyperLinkUtil;
-import ar.com.fdvs.dj.util.Utils;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 public class Dj2JrCrosstabBuilder {
 

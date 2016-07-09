@@ -1,8 +1,8 @@
 package ar.com.fdvs.dj.domain.hyperlink;
 
-import java.util.Map;
-
 import ar.com.fdvs.dj.domain.StringExpression;
+
+import java.util.Map;
 
 public class LiteralExpression extends StringExpression {
 	

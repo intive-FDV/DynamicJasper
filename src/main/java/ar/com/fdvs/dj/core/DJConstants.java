@@ -29,7 +29,6 @@
 
 package ar.com.fdvs.dj.core;
 
-import net.sf.jasperreports.engine.JRReport;
 import net.sf.jasperreports.engine.type.WhenNoDataTypeEnum;
 import net.sf.jasperreports.engine.type.WhenResourceMissingTypeEnum;
 

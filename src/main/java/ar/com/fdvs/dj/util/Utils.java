@@ -1,17 +1,15 @@
 package ar.com.fdvs.dj.util;
 
-import java.beans.PropertyDescriptor;
-import java.lang.reflect.Method;
-import java.util.Collection;
-
+import ar.com.fdvs.dj.core.DJException;
+import ar.com.fdvs.dj.domain.Style;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
-
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
 import org.apache.commons.beanutils.PropertyUtils;
 
-import ar.com.fdvs.dj.core.DJException;
-import ar.com.fdvs.dj.domain.Style;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
+import java.util.Collection;
 
 
 public class Utils {

@@ -29,15 +29,14 @@
 
 package ar.com.fdvs.dj.domain;
 
-import java.util.*;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Transformer;
+import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.util.ExpressionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import ar.com.fdvs.dj.domain.entities.Entity;
-import ar.com.fdvs.dj.util.ExpressionUtils;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 
 public class DJCrosstabMeasure extends DJBaseElement {

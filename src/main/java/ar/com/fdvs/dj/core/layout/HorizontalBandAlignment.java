@@ -31,7 +31,6 @@ package ar.com.fdvs.dj.core.layout;
 
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignElement;
-import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.type.HorizontalAlignEnum;
 
 /**

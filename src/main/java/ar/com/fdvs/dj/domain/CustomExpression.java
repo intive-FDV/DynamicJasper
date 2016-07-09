@@ -29,10 +29,10 @@
 
 package ar.com.fdvs.dj.domain;
 
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
+
 import java.io.Serializable;
 import java.util.Map;
-
-import ar.com.fdvs.dj.domain.entities.conditionalStyle.StatusLightCondition;
 
 /**
  * Powerful interface. The idea behind this is that anybody could implement </br>

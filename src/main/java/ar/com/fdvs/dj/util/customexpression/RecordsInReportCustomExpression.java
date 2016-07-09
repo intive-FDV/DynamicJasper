@@ -1,9 +1,9 @@
 package ar.com.fdvs.dj.util.customexpression;
 
-import java.util.Map;
-
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.entities.Entity;
+
+import java.util.Map;
 
 /**
  * Convenient CustomExpression that returns the record number for whole report 
