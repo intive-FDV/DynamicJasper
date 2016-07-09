@@ -34,7 +34,12 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
-        <release version="5.0.8" date="2016-05-22" desc="">
+        <release version="5.0.9" date="2016-07-09" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Support JasperReports from 4.6.0 yo 6.3.0]]>
+            </action>
+        </release>
+        <release version="5.0.8" date="2016-07-09" desc="">
             <action dev="Juan Manuel Alvarez" type="Fix">
                 <![CDATA[Group Labels Custom Expression shows wrong field values]]>
             </action>
