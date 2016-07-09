@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.design.JRJavacCompiler;
 
 /**
@@ -42,6 +43,13 @@ import net.sf.jasperreports.engine.design.JRJavacCompiler;
  *         Time: 11:07:07 AM
  */
 public class DJJRJavacCompiler extends JRJavacCompiler {
+
+    /**
+     * @param jasperReportsContext
+     */
+    public DJJRJavacCompiler(JasperReportsContext jasperReportsContext) {
+        super(jasperReportsContext);
+    }
 
     public String compileClasses(File[] sourceFiles, String classpath) throws JRException {
         String[] source = new String[sourceFiles.length + 5];

@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
 
+import net.sf.jasperreports.charts.JRPieDataset;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DJChart;
@@ -157,7 +158,7 @@ public class ChartsMultipleReportTest extends BaseDjReportTest {
 						.setHeight(200)
 						.build();
 
-		drb.addChart(chart); //add chart
+		//drb.addChart(chart); //add chart
 		
 		DJChartBuilder cb2 = new DJChartBuilder();
 		DJChart chart2 =  cb2.addType(DJChart.PIE_CHART)
@@ -169,7 +170,7 @@ public class ChartsMultipleReportTest extends BaseDjReportTest {
 						.setHeight(200)
 						.build();
 
-		drb.addChart(chart2); //add chart	
+		drb.addChart(chart2); //add chart
 		
 		DJChartBuilder cb3 = new DJChartBuilder();
 		DJChart chart3 =  cb3.setType(DJChart.PIE_CHART)
@@ -181,9 +182,11 @@ public class ChartsMultipleReportTest extends BaseDjReportTest {
 		.setHeight(200)
 		.build();
 		
-		drb.addChart(chart3); //add chart		
+		//drb.addChart(chart3); //add chart
 
 		DynamicReport dr = drb.build();
+
+		dr.getProperties().put(JRPieDataset.PROPERTY_IGNORE_DUPLICATED_KEY,"true"); //Needed in old API
 
 		return dr;
 	}
@@ -192,6 +195,7 @@ public class ChartsMultipleReportTest extends BaseDjReportTest {
 		ChartsMultipleReportTest test = new ChartsMultipleReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);
+
 //		JasperDesignViewer.viewReportDesign(DynamicJasperHelper.generateJasperReport(dr, new ClassicLayoutManager()));
 	}
 

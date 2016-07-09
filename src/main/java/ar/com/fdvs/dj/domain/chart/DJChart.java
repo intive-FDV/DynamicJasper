@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.domain.chart;
 
 import java.util.Map;
 
+import net.sf.jasperreports.engine.JRDefaultStyleProvider;
 import net.sf.jasperreports.engine.JRExpression;
 import net.sf.jasperreports.engine.JRRuntimeException;
 import net.sf.jasperreports.engine.design.JRDesignChart;
@@ -58,6 +59,7 @@ import ar.com.fdvs.dj.domain.chart.plot.TimeSeriesPlot;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.engine.type.CalculationEnum;
 import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
+import net.sf.jasperreports.engine.util.StyleResolver;
 
 public class DJChart extends DJBaseElement {
 	
@@ -221,7 +223,7 @@ public class DJChart extends DJBaseElement {
 	}
 	
 	public JRDesignChart transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars, int width) {
-		JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), chartType);
+		JRDesignChart chart = new JRDesignChart(design, chartType);
 		JRDesignChartDataset chartDataset = dataset.transform(design, name, group, parentGroup, vars);
 		chart.setDataset(chartDataset);
 		plot.transform(design, chart.getPlot(), name);

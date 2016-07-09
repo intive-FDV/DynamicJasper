@@ -31,7 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ar.com.fdvs</groupId>
     <artifactId>DynamicJasper</artifactId>
-    <version>5.0.8</version>
+    <version>5.0.9-SNAPSHOT</version>
     <name>DynamicJasper</name>
     <packaging>jar</packaging>
     <description>
@@ -120,6 +120,9 @@
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -194,7 +197,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-jar-plugin</artifactId>
-                        <version>2.4</version>
+                        <version>2.5</version>
                         <executions>
                             <execution>
                                 <goals>
@@ -301,7 +304,7 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>5.2.0</version>
+            <version>6.3.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>

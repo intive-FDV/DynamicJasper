@@ -35,6 +35,7 @@ import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.design.JRJdk13Compiler;
 import net.sf.jasperreports.engine.util.JRClassLoader;
 
@@ -46,6 +47,13 @@ import net.sf.jasperreports.engine.util.JRClassLoader;
 public class DJJRJdk13Compiler extends JRJdk13Compiler {
 
     private static final int MODERN_COMPILER_SUCCESS = 0;
+
+    /**
+     * @param jasperReportsContext
+     */
+    public DJJRJdk13Compiler(JasperReportsContext jasperReportsContext) {
+        super(jasperReportsContext);
+    }
 
     public String compileClasses(File[] sourceFiles, String classpath) throws JRException {
         String[] source = new String[sourceFiles.length + 4];

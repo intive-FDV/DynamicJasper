@@ -29,6 +29,31 @@
 
 package ar.com.fdvs.dj.core;
 
+import ar.com.fdvs.dj.core.layout.LayoutManager;
+import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
+import ar.com.fdvs.dj.core.registration.DJGroupRegistrationManager;
+import ar.com.fdvs.dj.core.registration.DJGroupVariableDefRegistrationManager;
+import ar.com.fdvs.dj.core.registration.VariableRegistrationManager;
+import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
+import ar.com.fdvs.dj.domain.entities.Parameter;
+import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
+import ar.com.fdvs.dj.util.DJCompilerFactory;
+import ar.com.fdvs.dj.util.LayoutUtils;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.*;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.engine.xml.JRXmlWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -36,31 +61,6 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.*;
-import java.util.List;
-
-import ar.com.fdvs.dj.domain.*;
-import ar.com.fdvs.dj.util.*;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.*;
-import net.sf.jasperreports.engine.util.JRProperties;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.engine.xml.JRXmlWriter;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import ar.com.fdvs.dj.core.layout.LayoutManager;
-import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
-import ar.com.fdvs.dj.core.registration.DJGroupRegistrationManager;
-import ar.com.fdvs.dj.core.registration.DJGroupVariableDefRegistrationManager;
-import ar.com.fdvs.dj.core.registration.VariableRegistrationManager;
-import ar.com.fdvs.dj.domain.entities.DJGroup;
-import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
-import ar.com.fdvs.dj.domain.entities.Parameter;
-import ar.com.fdvs.dj.domain.entities.Subreport;
-import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 
 /**
  * Helper class for running a report and some other DJ related stuff
@@ -275,7 +275,8 @@ public class DynamicJasperHelper {
         }
         registerEntities(jd, dr, layoutManager);
         layoutManager.applyLayout(jd, dr);
-        JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
+        JRPropertiesUtil.getInstance(DefaultJasperReportsContext.getInstance()).setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
+        //JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
         JasperReport jr = JasperCompileManager.compileReport(jd);
         params.putAll(jd.getParametersWithValues());
         jp = JasperFillManager.fillReport(jr, params, con);
@@ -311,8 +312,7 @@ public class DynamicJasperHelper {
         }
         registerEntities(jd, dr, layoutManager);
         layoutManager.applyLayout(jd, dr);
-//    	JRProperties.setProperty(JRProperties.COMPILER_CLASS, DJCompilerFactory.getCompilerClassName());
-        JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
+        JRPropertiesUtil.getInstance(DefaultJasperReportsContext.getInstance()).setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
         JasperReport jr = JasperCompileManager.compileReport(jd);
         params.putAll(jd.getParametersWithValues());
         jp = JasperFillManager.fillReport(jr, params);
@@ -521,7 +521,8 @@ public class DynamicJasperHelper {
         registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
 
         layoutManager.applyLayout(jd, dr);
-        JRProperties.setProperty(JRCompiler.COMPILER_PREFIX, "ar.com.fdvs.dj.util.DJJRJdtCompiler");
+        JRPropertiesUtil.getInstance(DefaultJasperReportsContext.getInstance()).setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
+
         jr = JasperCompileManager.compileReport(jd);
         generatedParams.putAll(jd.getParametersWithValues());
         log.info("Done generating JasperReport for design with name: " + jd.getName());

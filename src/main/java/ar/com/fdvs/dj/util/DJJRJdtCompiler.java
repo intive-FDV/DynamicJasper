@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.util;
 
 import java.util.Map;
 
+import net.sf.jasperreports.engine.JasperReportsContext;
 import net.sf.jasperreports.engine.design.JRJdtCompiler;
 import net.sf.jasperreports.engine.util.JRClassLoader;
 
@@ -40,6 +41,13 @@ import net.sf.jasperreports.engine.util.JRClassLoader;
  *         Time: 1:47:28 PM
  */
 public class DJJRJdtCompiler extends JRJdtCompiler {
+
+    /**
+     * @param jasperReportsContext
+     */
+    public DJJRJdtCompiler(JasperReportsContext jasperReportsContext) {
+        super(jasperReportsContext);
+    }
 
     protected Map getJdtSettings() {
         final Map settings = super.getJdtSettings();

@@ -226,7 +226,7 @@ public class AreaChartBuilderTest extends BaseDjReportTest {
 		
 		assertNotNull(plot.getCategoryAxisLabelExpression().getText());
 		testFont(Font.ARIAL_SMALL, plot.getCategoryAxisLabelFont());
-		assertEquals(Color.DARK_GRAY, plot.getCategoryAxisLabelColor());		
+		assertEquals(Color.DARK_GRAY, plot.getCategoryAxisLabelColor());
 		testFont(Font.ARIAL_SMALL, plot.getCategoryAxisTickLabelFont());
 		assertEquals(Color.DARK_GRAY, plot.getCategoryAxisTickLabelColor());
 		assertEquals("", plot.getCategoryAxisTickLabelMask());
