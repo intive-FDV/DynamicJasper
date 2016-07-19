@@ -48,6 +48,10 @@ public abstract class AutoTextExpressionUtils {
 	private static final String PAGE_NUMBER_VAR = "$V{PAGE_NUMBER}";
 
 	public static JRDesignExpression getPageNumberExpression(String before, String after, boolean useI18n) {
+            return getPageNumberExpression(before, after, 0, useI18n);
+        }
+        
+	public static JRDesignExpression getPageNumberExpression(String before, String after,int pageOffset, boolean useI18n) {
 		JRDesignExpression expression = new JRDesignExpression();
 		String text = null;
 		if (useI18n) {
@@ -57,7 +61,7 @@ public abstract class AutoTextExpressionUtils {
 			if (!emptyString(after)){
 				after = "$R{" + after + "}";
 			} else {after = "\"" + after + "\"";}
-			 text = before + "+\" \" + " + PAGE_NUMBER_VAR + "+\" \" + " + after;
+			 text = before + "+\" \" + (" + PAGE_NUMBER_VAR +"+"+pageOffset+ ")+\" \" + " + after;
 		} else {
 			if (emptyString(before)){
 				before = "\"\"";
@@ -65,7 +69,7 @@ public abstract class AutoTextExpressionUtils {
 			if (emptyString(after)){
 				after = "\"\"";
 			} else {after = "\"" + after + "\"";}
-			text = before + "+\" \" + " + PAGE_NUMBER_VAR + "+\" \" + " + after;
+			text = before + "+\" \" + (" + PAGE_NUMBER_VAR +"+"+pageOffset+ ")+\" \" + " + after;
 
 		}
 		expression.setText( text );

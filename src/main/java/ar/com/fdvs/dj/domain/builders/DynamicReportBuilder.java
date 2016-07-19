@@ -47,6 +47,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import net.sf.jasperreports.engine.JRExpression;
 
 /**
  * Builder created to give users a friendly way of creating a DynamicReport.</br>
@@ -216,8 +217,14 @@ public class DynamicReportBuilder {
 	}
 
 	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment, int width, int width2, Style style) {
+            return addAutoText(type, position, alignment, width, width2, 0,false, style);
+        }
+
+	public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment, int width, int width2,int pageOffset,boolean printPageLegend, Style style) {
 		HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
 		AutoText text = new AutoText(type,position,alignment_);
+                text.setPageOffset(pageOffset);
+                text.setPrintPageLegend(printPageLegend);
 		text.setWidth(new Integer(width));
 		text.setWidth2(new Integer(width2));
 		text.setStyle(style);

@@ -34,7 +34,7 @@ package ar.com.fdvs.dj.domain;
 
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.domain.entities.Entity;
-
+import net.sf.jasperreports.engine.JRExpression;
 /**
  * @author msimone
  *
@@ -54,7 +54,8 @@ public class AutoText extends DJBaseElement {
 	public static final byte AUTOTEXT_PAGE_X = 2;
 	public static final byte AUTOTEXT_CREATED_ON = 3;
 	public static final byte AUTOTEXT_CUSTOM_MESSAGE = 4;
-
+	public static final byte AUTOTEXT_JREXPRESSION = 5;
+	
 	/**
 	 *@Deprecated due to miss spell
 	 *use ALIGNMENT_LEFT 
@@ -86,7 +87,9 @@ public class AutoText extends DJBaseElement {
 	private byte position;
 
 	private String messageKey;
-
+	private JRExpression expresion;
+	private int pageOffset=0;
+	private boolean printPageLegend;
 	private byte pattern; //Applies for CREATED_ON, its the pattern used for dates
 
 	private Integer height = new Integer(15);
@@ -194,6 +197,15 @@ public class AutoText extends DJBaseElement {
 		this.fixedWith = false;
 	}
 
+	public AutoText(JRExpression expression, byte position, HorizontalBandAlignment alignment, Integer with) {
+		this.type = AUTOTEXT_JREXPRESSION;
+		this.position = position;
+		this.alignment = alignment;
+		this.expresion = expression;
+		this.width = with;
+		this.fixedWith = false;
+	}
+
 	public HorizontalBandAlignment getAlignment() {
 		return alignment;
 	}
@@ -236,5 +248,29 @@ public class AutoText extends DJBaseElement {
 
 	public BooleanExpression getPrintWhenExpression() {
 		return printWhenExpression;
+	}
+	
+	public JRExpression getExpresion() {
+		return expresion;
+	}
+
+	public void setExpresion(JRExpression expresion) {
+		this.expresion = expresion;
+	}
+
+	public int getPageOffset() {
+		return pageOffset;
+	}
+
+	public void setPageOffset(int pageStartNumber) {
+		this.pageOffset = pageStartNumber;
+	}
+
+	public boolean isPrintPageLegend() {
+		return printPageLegend;
+	}
+
+	public void setPrintPageLegend(boolean printPageLegend) {
+		this.printPageLegend = printPageLegend;
 	}
 }
