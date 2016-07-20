@@ -128,7 +128,7 @@ public class CommonExpressionsHelper {
 		}
 
                 pageNumber.setHorizontalAlignment(HorizontalAlignEnum.RIGHT);
-                pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",autoText.getPageOffset(), autoText.isPrintPageLegend()));
+                pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",autoText.getPageOffset(), autoText.isUseI18n()));
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(autoText.getWidth().intValue());
 		pageNumber.setY(yOffset);
@@ -186,7 +186,7 @@ public class CommonExpressionsHelper {
 		}
 
 		pageNumber.setHorizontalAlignment( HorizontalAlignEnum.RIGHT );
-		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",autoText.getPageOffset(), autoText.isPrintPageLegend()));
+		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",autoText.getPageOffset(), autoText.isUseI18n()));
 		pageNumber.setHeight(height);
 		if (AutoText.WIDTH_NOT_SET.equals(autoText.getWidth())){
 			pageNumber.setWidth(report.getOptions().getPrintableWidth());
