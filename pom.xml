@@ -305,6 +305,15 @@ API.
 		        </repository>
 			</distributionManagement>
 		</profile>
+		<profile>
+			<id>omidbiz</id>
+			<distributionManagement>
+		        <repository>
+			<id>omidbiz_repo</id>
+			<url>http://omidbiz.com/nexus/content/sites/omidbiz_repo</url>
+		</repository>
+			</distributionManagement>
+		</profile>
 	</profiles>
 
 
@@ -315,6 +324,19 @@ API.
 			<artifactId>junit</artifactId>
 			<version>3.8.1</version>
 			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss</groupId>
+			<artifactId>jboss-vfs</artifactId>
+			<version>3.1.0.Final</version>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>jboss-logging</artifactId>
+					<groupId>org.jboss.logging</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<dependency>
@@ -475,12 +497,12 @@ API.
 			<scope>provided</scope>
 		</dependency>
 
-		<dependency>
+<!--		<dependency>
 			<groupId>ar.com.fdvs</groupId>
 			<artifactId>DynamicJasper-test-fonts</artifactId>
 			<version>1.0</version>
 			<scope>test</scope>
-		</dependency>
+		</dependency>-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
@@ -495,7 +517,12 @@ API.
         </dependency>
 
 	</dependencies>
-
+<repositories>
+   <repository>
+     <id>fdvsolution.public</id>
+     <url>http://archiva.fdvs.com.ar/repository/public1/</url>
+   </repository>
+</repositories>
 <!--
     <repositories>
         <repository>

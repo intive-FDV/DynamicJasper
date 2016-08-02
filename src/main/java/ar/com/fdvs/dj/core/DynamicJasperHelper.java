@@ -30,8 +30,11 @@
 package ar.com.fdvs.dj.core;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -56,6 +59,8 @@ import net.sf.jasperreports.engine.xml.JRXmlWriter;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jboss.vfs.VFS;
+import org.jboss.vfs.VirtualFile;
 
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.registration.ColumnRegistrationManager;
@@ -184,16 +189,52 @@ public class DynamicJasperHelper {
 		try {
 			if (dr.getTemplateFileName() != null) {
 				log.info("about to load template file: "+dr.getTemplateFileName() + ", Attemping to find the file directly in the file system.");
-				File file = new File(dr.getTemplateFileName());
-				if (file.exists()){
-					JasperDesign jdesign = JRXmlLoader.load(file);
-					jd = DJJRDesignHelper.downCast(jdesign,dr);
-				} else {
-					log.info("Not found: Attemping to find the file in the classpath...");
-					URL url = DynamicJasperHelper.class.getClassLoader().getResource(dr.getTemplateFileName());
-					JasperDesign jdesign = JRXmlLoader.load(url.openStream());
-					jd = DJJRDesignHelper.downCast(jdesign,dr);
-				}
+				boolean useJbossVirtuaFileSystem = false;
+		        try
+		        {
+		            Class.forName("org.jboss.vfs.VFS", false, DynamicJasperHelper.class.getClassLoader());
+		            useJbossVirtuaFileSystem = true;
+		        }
+		        catch (ClassNotFoundException e1)
+		        {
+		        }
+		        File file = new File(dr.getTemplateFileName());
+	            if (file.exists()){
+	                JasperDesign jdesign = JRXmlLoader.load(file);
+	                jd = DJJRDesignHelper.downCast(jdesign,dr);
+	            } else {
+	                log.info("Not found: Attemping to find the file in the classpath(Supports VFS)...");
+	                URL url = DynamicJasperHelper.class.getClassLoader().getResource(dr.getTemplateFileName());
+	                if(useJbossVirtuaFileSystem)
+	                {
+	                    InputStream is = null;
+	                    try
+	                    {
+    	                    VirtualFile vfs = VFS.getChild(url);
+    	                    if (vfs.exists() == false)
+    	                    {
+    	                        throw new IllegalArgumentException("reportemplate  not found");
+    	                    }
+	                        is = vfs.openStream();
+	                        JasperDesign jdesign =JRXmlLoader.load(is);
+	                        jd = DJJRDesignHelper.downCast(jdesign,dr);
+                        }
+                        catch (URISyntaxException e)
+                        {
+                            log.info("VFS Not found: URI IS INVALID...");
+                        }
+                        finally
+                        {
+                            if(is != null)
+                                is.close();
+                        }
+	                }
+	                else
+	                {
+	                    JasperDesign jdesign = JRXmlLoader.load(url.openStream());
+	                    jd = DJJRDesignHelper.downCast(jdesign,dr);
+	                }
+	            }
 				DJJRDesignHelper.populateReportOptionsFromDesign(jd,dr);
 
 			} else {
