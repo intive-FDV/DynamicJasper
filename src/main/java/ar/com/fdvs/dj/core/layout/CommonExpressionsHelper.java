@@ -74,7 +74,7 @@ public class CommonExpressionsHelper {
 			lm.applyStyleToElement(autoText.getStyle(), pageNumber);
 		}
 
-		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression(KEY_autotext_page, KEY_autotext_of,true));
+                pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression(KEY_autotext_page, KEY_autotext_of,autoText.getPageOffset(), true));
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(autoText.getWidth().intValue());
 		pageNumber.setY(yOffset);
@@ -87,7 +87,7 @@ public class CommonExpressionsHelper {
 		}
 		
 
-		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression(" ", "",false));
+                pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression(" ", "",autoText.getPageOffset(), false));
 		pageCounter.setHeight(height);
 		pageCounter.setWidth(autoText.getWidth2().intValue());
 		pageCounter.setY(yOffset);
@@ -127,8 +127,8 @@ public class CommonExpressionsHelper {
 			lm.applyStyleToElement(autoText.getStyle(), pageNumber);
 		}
 
-		pageNumber.setHorizontalAlignment( HorizontalAlignEnum.RIGHT );
-		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
+                pageNumber.setHorizontalAlignment(HorizontalAlignEnum.RIGHT);
+                pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",autoText.getPageOffset(), autoText.isUseI18n()));
 		pageNumber.setHeight(height);
 		pageNumber.setWidth(autoText.getWidth().intValue());
 		pageNumber.setY(yOffset);
@@ -137,7 +137,7 @@ public class CommonExpressionsHelper {
 		if (autoText.getStyle() != null) { //page counter shares font attrs, color, etc.
 			lm.applyStyleToElement(autoText.getStyle(), pageCounter);
 		}		
-		pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("/", "",false));
+        pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("/", "",autoText.getPageOffset(), false));
 		pageCounter.setHeight(height);
 		pageCounter.setWidth(autoText.getWidth().intValue());
 		pageCounter.setHorizontalAlignment( HorizontalAlignEnum.LEFT );
@@ -186,7 +186,7 @@ public class CommonExpressionsHelper {
 		}
 
 		pageNumber.setHorizontalAlignment( HorizontalAlignEnum.RIGHT );
-		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",false));
+		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",autoText.getPageOffset(), autoText.isUseI18n()));
 		pageNumber.setHeight(height);
 		if (AutoText.WIDTH_NOT_SET.equals(autoText.getWidth())){
 			pageNumber.setWidth(report.getOptions().getPrintableWidth());
