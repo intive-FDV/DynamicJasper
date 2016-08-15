@@ -32,6 +32,7 @@ package ar.com.fdvs.dj.test.groups.labels;
 
 import ar.com.fdvs.dj.domain.*;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.LabelPosition;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
@@ -46,6 +47,7 @@ public class LabelFooterValuesTest extends BaseDjReportTest {
     public DynamicReport buildReport() throws Exception {
 
         Style labelStyle = new Style("labelStyle");
+        labelStyle.setBorder(Border.PEN_1_POINT());
 
         FastReportBuilder drb = new FastReportBuilder();
         drb.addColumn("State", "state", String.class.getName(), 30)
@@ -79,7 +81,8 @@ public class LabelFooterValuesTest extends BaseDjReportTest {
                 return "SUM for state " + fields.get("state");
             }
         },labelStyle, LabelPosition.BOTTOM);
-        DJGroupVariable groupVariable = new DJGroupVariable(drb.getColumn(5), DJCalculation.SUM, null, null, label);
+
+        DJGroupVariable groupVariable = new DJGroupVariable(drb.getColumn(5), DJCalculation.SUM, labelStyle, null, label);
         drb.getGroup(0).addFooterVariable(groupVariable);
 
 

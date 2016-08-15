@@ -130,8 +130,7 @@ public class UTF8ReportTest extends BaseDjReportTest {
 
     @Override
     protected void exportReport() throws Exception {
-        Map<JRExporterParameter, Object> exportParams = new HashMap<JRExporterParameter, Object>();
-        ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/reports/" + this.getClass().getName() + ".pdf", exportParams);
+        ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/reports/" + this.getClass().getName() + ".pdf");
         exportToJRXML();
     }
 
