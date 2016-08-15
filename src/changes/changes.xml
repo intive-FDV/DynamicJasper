@@ -34,6 +34,12 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.0.10" date="2016-08-15" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add" due-to="NerdKnight">
+                <![CDATA[AutoText Page X, and Page X / Y supports passing an offset for the starting page.
+Many Thanks to NerdKnight.]]>
+            </action>
+        </release>
         <release version="5.0.9" date="2016-07-09" desc="">
             <action dev="Juan Manuel Alvarez" type="Add">
                 <![CDATA[Support JasperReports from 4.6.0 yo 6.3.0]]>
