@@ -31,7 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ar.com.fdvs</groupId>
     <artifactId>DynamicJasper</artifactId>
-    <version>5.0.10</version>
+    <version>5.0.11-SNAPSHOT</version>
     <name>DynamicJasper</name>
     <packaging>jar</packaging>
     <description>
@@ -447,13 +447,6 @@
             <version>3.2.2.RELEASE</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.albfernandez</groupId>
-            <artifactId>juniversalchardet</artifactId>
-            <version>2.0.0</version>
-            <scope>test</scope>
-        </dependency>
-
     </dependencies>
 
     <distributionManagement>
