@@ -520,7 +520,16 @@ public class DynamicJasperHelper {
 
         registerParams(jd, generatedParams); //if we have parameters from the outside, we register them
 
+        if (dr.getJasperDesignDecorator()!=null){
+            dr.getJasperDesignDecorator().beforeLayout(jd,generatedParams);
+        }
+
         layoutManager.applyLayout(jd, dr);
+
+        if (dr.getJasperDesignDecorator()!=null){
+            dr.getJasperDesignDecorator().afterLayout(jd,generatedParams);
+        }
+
         JRPropertiesUtil.getInstance(DefaultJasperReportsContext.getInstance()).setProperty(JRCompiler.COMPILER_PREFIX, DJCompilerFactory.getCompilerClassName());
 
         jr = JasperCompileManager.compileReport(jd);

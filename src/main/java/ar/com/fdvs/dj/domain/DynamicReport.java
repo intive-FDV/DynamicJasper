@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.JasperDesignDecorator;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.entities.DJVariable;
@@ -148,6 +149,8 @@ public class DynamicReport extends DJBaseElement {
 	private byte whenResourceMissing = DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY;
 
 	private DJWaterMark waterMark;
+
+	private JasperDesignDecorator jasperDesignDecorator;
 
 	public void addStyle(Style style) {
 		styles.put(style.getName(), style);
@@ -485,5 +488,13 @@ public class DynamicReport extends DJBaseElement {
 
 	public void setWaterMark(DJWaterMark waterMark) {
 		this.waterMark = waterMark;
+	}
+
+	public void setJasperDesignDecorator(JasperDesignDecorator jasperDesignDecorator) {
+		this.jasperDesignDecorator = jasperDesignDecorator;
+	}
+
+	public JasperDesignDecorator getJasperDesignDecorator() {
+		return jasperDesignDecorator;
 	}
 }

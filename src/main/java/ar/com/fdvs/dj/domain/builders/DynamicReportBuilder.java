@@ -29,6 +29,7 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.JasperDesignDecorator;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.*;
@@ -46,7 +47,6 @@ import net.sf.jasperreports.engine.JasperReport;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import net.sf.jasperreports.engine.JRExpression;
 
 /**
  * Builder created to give users a friendly way of creating a
@@ -76,9 +76,6 @@ public class DynamicReportBuilder {
 
     protected DynamicReport report = new DynamicReport();
     protected DynamicReportOptions options = new DynamicReportOptions();
-//	protected String grandTotalLegend = "";
-//	protected ArrayList globalFooterVariables;
-//	protected ArrayList globalHeaderVariables;
     protected ArrayList globalFooterCrosstabs;
     protected ArrayList globalHeaderCrosstabs;
     protected ArrayList autoTexts;
@@ -88,7 +85,6 @@ public class DynamicReportBuilder {
     protected DJGroup globalVariablesGroup;
 
     protected ArrayList concatenatedReports = new ArrayList();
-//	private Style grandTotalStyle;
 
     public DynamicReportBuilder() {
         super();
@@ -118,15 +114,14 @@ public class DynamicReportBuilder {
      * The parameters are all constants from the
      * <code>ar.com.fdvs.dj.domain.AutoText</code> class
      *
-     * @param type One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br>
-     * AUTOTEXT_PAGE_X_SLASH_Y <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br>
-     * AUTOTEXT_CUSTOM_MESSAGE
-     *
-     * @param position POSITION_HEADER or POSITION_FOOTER
-     * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
-     * ALIGMENT_RIGHT
-     * @param pattern only for dates:  <br>PATTERN_DATE_DATE_ONLY <br>
-     * PATTERN_DATE_TIME_ONLY <br> PATTERN_DATE_DATE_TIME
+     * @param type      One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br>
+     *                  AUTOTEXT_PAGE_X_SLASH_Y <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br>
+     *                  AUTOTEXT_CUSTOM_MESSAGE
+     * @param position  POSITION_HEADER or POSITION_FOOTER
+     * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
+     *                  ALIGMENT_RIGHT
+     * @param pattern   only for dates:  <br>PATTERN_DATE_DATE_ONLY <br>
+     *                  PATTERN_DATE_TIME_ONLY <br> PATTERN_DATE_DATE_TIME
      * @return
      */
     public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment, byte pattern) {
@@ -144,21 +139,20 @@ public class DynamicReportBuilder {
      * The parameters are all constants from the
      * <code>ar.com.fdvs.dj.domain.AutoText</code> class
      *
-     * @param type One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br>
-     * AUTOTEXT_PAGE_X_SLASH_Y <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br>
-     * AUTOTEXT_CUSTOM_MESSAGE
-     *
-     * @param position POSITION_HEADER or POSITION_FOOTER
-     * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
-     * ALIGMENT_RIGHT
-     * @param pattern only for dates:  <br>PATTERN_DATE_DATE_ONLY <br>
-     * PATTERN_DATE_TIME_ONLY <br> PATTERN_DATE_DATE_TIME
-     * @param width with of the autotext. If autotext is of the type
-     * AUTOTEXT_PAGE_X_OF_Y or AUTOTEXT_PAGE_X_SLASH_Y then is the width of the
-     * first part
-     * @param width2 If autotext is of the type AUTOTEXT_PAGE_X_OF_Y or
-     * AUTOTEXT_PAGE_X_SLASH_Y, this defines the width given to the "total page"
-     * variable
+     * @param type      One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br>
+     *                  AUTOTEXT_PAGE_X_SLASH_Y <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br>
+     *                  AUTOTEXT_CUSTOM_MESSAGE
+     * @param position  POSITION_HEADER or POSITION_FOOTER
+     * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
+     *                  ALIGMENT_RIGHT
+     * @param pattern   only for dates:  <br>PATTERN_DATE_DATE_ONLY <br>
+     *                  PATTERN_DATE_TIME_ONLY <br> PATTERN_DATE_DATE_TIME
+     * @param width     with of the autotext. If autotext is of the type
+     *                  AUTOTEXT_PAGE_X_OF_Y or AUTOTEXT_PAGE_X_SLASH_Y then is the width of the
+     *                  first part
+     * @param width2    If autotext is of the type AUTOTEXT_PAGE_X_OF_Y or
+     *                  AUTOTEXT_PAGE_X_SLASH_Y, this defines the width given to the "total page"
+     *                  variable
      * @return
      */
     public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment, byte pattern, int width, int width2) {
@@ -177,10 +171,10 @@ public class DynamicReportBuilder {
      * <br>
      * <br>
      *
-     * @param message The text to show
-     * @param position POSITION_HEADER or POSITION_FOOTER
+     * @param message   The text to show
+     * @param position  POSITION_HEADER or POSITION_FOOTER
      * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
-     * ALIGMENT_RIGHT
+     *                  ALIGMENT_RIGHT
      * @return
      */
     public DynamicReportBuilder addAutoText(String message, byte position, byte alignment) {
@@ -199,11 +193,11 @@ public class DynamicReportBuilder {
      * <br>
      * <br>
      *
-     * @param message The text to show
-     * @param position POSITION_HEADER or POSITION_FOOTER
+     * @param message   The text to show
+     * @param position  POSITION_HEADER or POSITION_FOOTER
      * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
-     * ALIGMENT_RIGHT
-     * @param width the width of the message
+     *                  ALIGMENT_RIGHT
+     * @param width     the width of the message
      * @return
      */
     public DynamicReportBuilder addAutoText(String message, byte position, byte alignment, int width) {
@@ -228,12 +222,12 @@ public class DynamicReportBuilder {
      * The parameters are all constants from the
      * <code>ar.com.fdvs.dj.domain.AutoText</code> class
      *
-     * @param type One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br>
-     * AUTOTEXT_PAGE_X_SLASH_Y
-     * <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
-     * @param position POSITION_HEADER or POSITION_FOOTER
-     * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
-     * ALIGMENT_RIGHT
+     * @param type      One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br>
+     *                  AUTOTEXT_PAGE_X_SLASH_Y
+     *                  <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
+     * @param position  POSITION_HEADER or POSITION_FOOTER
+     * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
+     *                  ALIGMENT_RIGHT
      * @return
      */
     public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment, int width, int width2) {
@@ -272,12 +266,12 @@ public class DynamicReportBuilder {
      * The parameters are all constants from the
      * <code>ar.com.fdvs.dj.domain.AutoText</code> class
      *
-     * @param type One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br>
-     * AUTOTEXT_PAGE_X_SLASH_Y
-     * <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
-     * @param position POSITION_HEADER or POSITION_FOOTER
-     * @param alignment  <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
-     * ALIGMENT_RIGHT
+     * @param type      One of these constants:     <br>AUTOTEXT_PAGE_X_OF_Y <br>
+     *                  AUTOTEXT_PAGE_X_SLASH_Y
+     *                  <br> AUTOTEXT_PAGE_X, AUTOTEXT_CREATED_ON <br> AUTOTEXT_CUSTOM_MESSAGE
+     * @param position  POSITION_HEADER or POSITION_FOOTER
+     * @param alignment <br>ALIGMENT_LEFT <br> ALIGMENT_CENTER <br>
+     *                  ALIGMENT_RIGHT
      * @return
      */
     public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment) {
@@ -321,7 +315,7 @@ public class DynamicReportBuilder {
     }
 
     private boolean hasPercentageColumn() {
-        for (Iterator iterator = report.getColumns().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = report.getColumns().iterator(); iterator.hasNext(); ) {
             if (iterator.next() instanceof PercentageColumn) {
                 return true;
             }
@@ -332,7 +326,7 @@ public class DynamicReportBuilder {
     private void addGlobalCrosstabs() {
         //For header
         if (globalHeaderCrosstabs != null) {
-            for (Iterator iterator = globalHeaderCrosstabs.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = globalHeaderCrosstabs.iterator(); iterator.hasNext(); ) {
                 DJCrosstab djcross = (DJCrosstab) iterator.next();
                 DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabHeaderGroup-" + globalHeaderCrosstabs.indexOf(djcross));
                 globalGroup.getHeaderCrosstabs().add(djcross);
@@ -342,7 +336,7 @@ public class DynamicReportBuilder {
 
         //For footer
         if (globalFooterCrosstabs != null) {
-            for (Iterator iterator = globalFooterCrosstabs.iterator(); iterator.hasNext();) {
+            for (Iterator iterator = globalFooterCrosstabs.iterator(); iterator.hasNext(); ) {
                 DJCrosstab djcross = (DJCrosstab) iterator.next();
                 DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabFooterGroup-" + globalFooterCrosstabs.indexOf(djcross));
                 globalGroup.getFooterCrosstabs().add(djcross);
@@ -357,7 +351,7 @@ public class DynamicReportBuilder {
      * all the subreports that must go inside a group are handled here.
      */
     protected void addSubreportsToGroups() {
-        for (Iterator iterator = groupFooterSubreports.keySet().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = groupFooterSubreports.keySet().iterator(); iterator.hasNext(); ) {
             Integer groupNum = (Integer) iterator.next();
             List list = (List) groupFooterSubreports.get(groupNum);
 
@@ -365,7 +359,7 @@ public class DynamicReportBuilder {
             group.getFooterSubreports().addAll(list);
         }
 
-        for (Iterator iterator = groupHeaderSubreports.keySet().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = groupHeaderSubreports.keySet().iterator(); iterator.hasNext(); ) {
             Integer groupNum = (Integer) iterator.next();
             List list = (List) groupHeaderSubreports.get(groupNum);
 
@@ -385,7 +379,7 @@ public class DynamicReportBuilder {
             DJGroup globalGroup = createDummyGroup();
             report.getColumnsGroups().add(0, globalGroup);
         }
-        for (Iterator iterator = concatenatedReports.iterator(); iterator.hasNext();) {
+        for (Iterator iterator = concatenatedReports.iterator(); iterator.hasNext(); ) {
             Subreport subreport = (Subreport) iterator.next();
             DJGroup globalGroup = createDummyGroup();
             globalGroup.getFooterSubreports().add(subreport);
@@ -481,8 +475,8 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * @deprecated @param height
      * @return
+     * @deprecated @param height
      */
     public DynamicReportBuilder setFooterHeight(Integer height) {
         options.setFooterVariablesHeight(height);
@@ -490,8 +484,8 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * @deprecated @param height
      * @return
+     * @deprecated @param height
      */
     public DynamicReportBuilder setFooterHeight(int height) {
         options.setFooterVariablesHeight(new Integer(height));
@@ -783,9 +777,8 @@ public class DynamicReportBuilder {
     }
 
     /**
-     *
-     * @param position DJConstants.FOOTER or DJConstants.HEADER
-     * @param column column to operate with
+     * @param position        DJConstants.FOOTER or DJConstants.HEADER
+     * @param column          column to operate with
      * @param valueExpression
      * @param style
      * @return
@@ -814,12 +807,12 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * @see DynamicReportBuilder#addGlobalVariable(String, AbstractColumn,
-     * DJCalculation)
      * @param name
      * @param prop
      * @param op
      * @return
+     * @see DynamicReportBuilder#addGlobalVariable(String, AbstractColumn,
+     * DJCalculation)
      */
     public DynamicReportBuilder addGlobalVariable(String name, ColumnProperty prop, DJCalculation op) {
         globalVariablesGroup.addVariable(new DJGroupVariableDef(name, prop, op));
@@ -827,13 +820,13 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * @see DynamicReportBuilder#addGlobalVariable(String, AbstractColumn,
-     * DJCalculation)
      * @param name
      * @param property
      * @param className
      * @param op
      * @return
+     * @see DynamicReportBuilder#addGlobalVariable(String, AbstractColumn,
+     * DJCalculation)
      */
     public DynamicReportBuilder addGlobalVariable(String name, String property, String className, DJCalculation op) {
         globalVariablesGroup.addVariable(new DJGroupVariableDef(name, new ColumnProperty(property, className), op));
@@ -943,8 +936,8 @@ public class DynamicReportBuilder {
      * Registers a field that is not necesary bound to a column, it can be used
      * in a custom expression
      *
-     * @deprecated
      * @return A Dynamic Report Builder
+     * @deprecated
      */
     public DynamicReportBuilder addChart(DJChart chart) {
         report.getCharts().add(chart);
@@ -964,7 +957,7 @@ public class DynamicReportBuilder {
     }
 
     private void createChartGroups() {
-        for (Iterator iterator = report.getNewCharts().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = report.getNewCharts().iterator(); iterator.hasNext(); ) {
             ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) iterator.next();
             DJGroup djGroup = getChartColumnsGroup(djChart);
             if (djGroup == null) {
@@ -978,7 +971,7 @@ public class DynamicReportBuilder {
 
     private DJGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
         PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
-        for (Iterator iterator = report.getColumnsGroups().iterator(); iterator.hasNext();) {
+        for (Iterator iterator = report.getColumnsGroups().iterator(); iterator.hasNext(); ) {
             DJGroup djGroup = (DJGroup) iterator.next();
             if (djGroup.getColumnToGroupBy() == columnsGroup) {
                 return djGroup;
@@ -1155,8 +1148,7 @@ public class DynamicReportBuilder {
     }
 
     /**
-     *
-     * @param position {@link DJConstants#FOOTER} or {@link DJConstants#HEADER}
+     * @param position         {@link DJConstants#FOOTER} or {@link DJConstants#HEADER}
      * @param groupNumber
      * @param dynamicReport
      * @param layoutManager
@@ -1194,9 +1186,9 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber,
-            DynamicReport dynamicReport, LayoutManager layoutManager,
-            String dataSourcePath, int dataSourceOrigin, int dataSourceType,
-            SubreportParameter[] params, boolean startInNewPage)
+                                                          DynamicReport dynamicReport, LayoutManager layoutManager,
+                                                          String dataSourcePath, int dataSourceOrigin, int dataSourceType,
+                                                          SubreportParameter[] params, boolean startInNewPage)
             throws DJBuilderException {
         SubReportBuilder srb = new SubReportBuilder();
 
@@ -1216,9 +1208,9 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber,
-            DynamicReport dynamicReport, LayoutManager layoutManager,
-            String dataSourcePath, int dataSourceOrigin, int dataSourceType,
-            SubreportParameter[] params, boolean startInNewPage)
+                                                          DynamicReport dynamicReport, LayoutManager layoutManager,
+                                                          String dataSourcePath, int dataSourceOrigin, int dataSourceType,
+                                                          SubreportParameter[] params, boolean startInNewPage)
             throws DJBuilderException {
         SubReportBuilder srb = new SubReportBuilder();
 
@@ -1238,9 +1230,9 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber,
-            DynamicReport dynamicReport, LayoutManager layoutManager,
-            String dataSourcePath, int dataSourceOrigin, int dataSourceType,
-            SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
+                                                          DynamicReport dynamicReport, LayoutManager layoutManager,
+                                                          String dataSourcePath, int dataSourceOrigin, int dataSourceType,
+                                                          SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
             throws DJBuilderException {
         SubReportBuilder srb = new SubReportBuilder();
 
@@ -1260,9 +1252,8 @@ public class DynamicReportBuilder {
     }
 
     /**
-     *
-     * @param position position {@link DJConstants#FOOTER} or
-     * {@link DJConstants#HEADER}
+     * @param position         position {@link DJConstants#FOOTER} or
+     *                         {@link DJConstants#HEADER}
      * @param groupNumber
      * @param dynamicReport
      * @param layoutManager
@@ -1276,9 +1267,9 @@ public class DynamicReportBuilder {
      * @throws DJBuilderException
      */
     public DynamicReportBuilder addSubreportInGroup(String position, int groupNumber,
-            DynamicReport dynamicReport, LayoutManager layoutManager,
-            String dataSourcePath, int dataSourceOrigin, int dataSourceType,
-            SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
+                                                    DynamicReport dynamicReport, LayoutManager layoutManager,
+                                                    String dataSourcePath, int dataSourceOrigin, int dataSourceType,
+                                                    SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
             throws DJBuilderException {
 
         if (DJConstants.FOOTER.equals(position)) {
@@ -1291,9 +1282,9 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber,
-            DynamicReport dynamicReport, LayoutManager layoutManager,
-            String dataSourcePath, int dataSourceOrigin, int dataSourceType,
-            SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
+                                                          DynamicReport dynamicReport, LayoutManager layoutManager,
+                                                          String dataSourcePath, int dataSourceOrigin, int dataSourceType,
+                                                          SubreportParameter[] params, boolean startInNewPage, boolean fitParent)
             throws DJBuilderException {
         SubReportBuilder srb = new SubReportBuilder();
 
@@ -1313,8 +1304,8 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber,
-            String pathToSubreport, String dataSourcePath,
-            int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
+                                                          String pathToSubreport, String dataSourcePath,
+                                                          int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
 
         Subreport subreport = new SubReportBuilder().setDataSource(
                 dataSourceOrigin, dataSourceType, dataSourcePath)
@@ -1324,14 +1315,14 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber,
-            String pathToSubreport, String dataSourcePath,
-            int dataSourceOrigin, int dataSourceType, boolean startInNewPage)
+                                                          String pathToSubreport, String dataSourcePath,
+                                                          int dataSourceOrigin, int dataSourceType, boolean startInNewPage)
             throws DJBuilderException {
 
         Subreport subreport = new SubReportBuilder().setDataSource(
                 dataSourceOrigin, dataSourceType, dataSourcePath)
                 .setPathToReport(pathToSubreport).setStartInNewPage(
-                startInNewPage).build();
+                        startInNewPage).build();
 
         return addSubreportInGroupFooter(groupNumber, subreport);
     }
@@ -1385,8 +1376,8 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * @deprecated @param resourceBundle
      * @return
+     * @deprecated @param resourceBundle
      */
     public DynamicReportBuilder addResourceBundle(String resourceBundle) {
         return setResourceBundle(resourceBundle);
@@ -1460,8 +1451,8 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * @see DynamicReportBuilder#setWhenNoDataType
      * @return A Dynamic Report Builder
+     * @see DynamicReportBuilder#setWhenNoDataType
      */
     public DynamicReportBuilder setWhenNoDataNoPages() {
         this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_PAGES);
@@ -1469,8 +1460,8 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * @see DynamicReportBuilder#setWhenNoDataType
      * @return A Dynamic Report Builder
+     * @see DynamicReportBuilder#setWhenNoDataType
      */
     public DynamicReportBuilder setWhenNoDataBlankPage() {
         this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_BLANK_PAGE);
@@ -1478,8 +1469,8 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * @see DynamicReportBuilder#setWhenNoDataType
      * @return A Dynamic Report Builder
+     * @see DynamicReportBuilder#setWhenNoDataType
      */
     public DynamicReportBuilder setWhenNoDataAllSectionNoDetail() {
         this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL);
@@ -1487,8 +1478,8 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * @see DynamicReportBuilder#setWhenNoDataType
      * @return A Dynamic Report Builder
+     * @see DynamicReportBuilder#setWhenNoDataType
      */
     public DynamicReportBuilder setWhenNoDataShowNoDataSection() {
         this.report.setWhenNoDataType(DJConstants.WHEN_NO_DATA_TYPE_NO_DATA_SECTION);
@@ -1551,8 +1542,8 @@ public class DynamicReportBuilder {
      * Defines the text to show when the data source is empty.<br>
      *
      * @param text
-     * @param style : the style of the text
-     * @param showTitle : if true, the title is shown
+     * @param style            : the style of the text
+     * @param showTitle        : if true, the title is shown
      * @param showColumnHeader : if true, the column headers are shown
      * @return A Dynamic Report Builder
      */
@@ -1647,13 +1638,12 @@ public class DynamicReportBuilder {
     /**
      * Set a colspan in a group of columns. First add the cols to the report
      *
-     * @param colNumber the index of the col
-     * @param colQuantity the number of cols how i will take
+     * @param colNumber    the index of the col
+     * @param colQuantity  the number of cols how i will take
      * @param colspanTitle colspan title
-     *
-     * @throws ColumnBuilderException When the index of the cols is out of
-     * bounds.
      * @return a Dynamic Report Builder
+     * @throws ColumnBuilderException When the index of the cols is out of
+     *                                bounds.
      */
     public DynamicReportBuilder setColspan(int colNumber, int colQuantity, String colspanTitle) {
         this.setColspan(colNumber, colQuantity, colspanTitle, null);
@@ -1687,15 +1677,14 @@ public class DynamicReportBuilder {
     /**
      * Sets the language of the expressions used in the report (can be one of
      * java, groovy, or javascript).
-     *
+     * <p>
      * Default is DJConstants#REPORT_LANGUAGE_JAVA
      *
-     * @see DJConstants#REPORT_LANGUAGE_JAVA DJConstants#REPORT_LANGUAGE_GROOVY
-     * DJConstants#REPORT_LANGUAGE_JAVASCRIPT
-     *
-     * @see DynamicReport#language
      * @param language
      * @return
+     * @see DJConstants#REPORT_LANGUAGE_JAVA DJConstants#REPORT_LANGUAGE_GROOVY
+     * DJConstants#REPORT_LANGUAGE_JAVASCRIPT
+     * @see DynamicReport#language
      */
     public DynamicReportBuilder setLanguage(String language) {
         this.report.setLanguage(language);
@@ -1714,5 +1703,10 @@ public class DynamicReportBuilder {
 
     public DynamicReportBuilder addWatermark(String text, Font font, Color color, int angle) {
         return addWatermark(new DJWaterMark(text, font, Color.cyan, angle));
+    }
+
+    public DynamicReportBuilder setJasperDesignDecorator(JasperDesignDecorator jasperDesignDecorator) {
+        this.report.setJasperDesignDecorator(jasperDesignDecorator);
+        return this;
     }
 }
