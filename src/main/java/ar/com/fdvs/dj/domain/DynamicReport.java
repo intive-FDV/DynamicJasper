@@ -48,10 +48,8 @@ import java.util.*;
 public class DynamicReport extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
-	
+	protected Map fontsMap = new HashMap(); //<String, java.awt.Font>
 	private String reportName;
-
-
     /**
      Sets the language of the expressions used in the report
      * (can be one of java, groovy, or javascript).
@@ -64,10 +62,8 @@ public class DynamicReport extends DJBaseElement {
      *
      */
     private String language = DJConstants.REPORT_LANGUAGE_JAVA;
-
     private String title;
 	private boolean titleIsJrExpression = false;
-	
 	private String subtitle;
 	private Style titleStyle = new StyleBuilder(false,"reportTitleStyle")
 								.setStretching(Stretching.NO_STRETCH)
@@ -75,12 +71,8 @@ public class DynamicReport extends DJBaseElement {
 	private Style subtitleStyle = new StyleBuilder(false,"reportSubtitleStyle")
 									.setStretching(Stretching.NO_STRETCH)
 									.build();
-
 	private Locale reportLocale = Locale.getDefault();
 	private String resourceBundle = null;
-
-	protected Map fontsMap = new HashMap(); //<String, java.awt.Font>
-
 	private List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
 
 	//<ColumnsGroup>
@@ -152,6 +144,18 @@ public class DynamicReport extends DJBaseElement {
 
 	private JasperDesignDecorator jasperDesignDecorator;
 
+    private String defaultEncoding;
+
+	public DynamicReport() {}
+
+	public DynamicReport(String title, List columns, List columnsGroups, List charts, DynamicReportOptions options) {
+		this.title = title;
+		this.columns = columns;
+		this.columnsGroups = columnsGroups;
+		this.charts = charts;
+		this.options = options;
+	}
+
 	public void addStyle(Style style) {
 		styles.put(style.getName(), style);
 	}
@@ -166,16 +170,6 @@ public class DynamicReport extends DJBaseElement {
 
 	public void setProperty(String name, String value) {
 		properties.put(name, value);
-	}
-
-	public DynamicReport() {}
-
-	public DynamicReport(String title, List columns, List columnsGroups, List charts, DynamicReportOptions options) {
-		this.title = title;
-		this.columns = columns;
-		this.columnsGroups = columnsGroups;
-		this.charts = charts;
-		this.options = options;
 	}
 
 	public String getTitle() {
@@ -363,12 +357,12 @@ public class DynamicReport extends DJBaseElement {
 		return parameters;
 	}
 	
-	public void addParameter(String name, String className){
-		this.parameters.add(new Parameter(name, className));
-	}
-
 	public void setParameters(List parameters) {
 		this.parameters = parameters;
+	}
+
+	public void addParameter(String name, String className){
+		this.parameters.add(new Parameter(name, className));
 	}
 
 	public boolean isAllowDetailSplit() {
@@ -490,11 +484,19 @@ public class DynamicReport extends DJBaseElement {
 		this.waterMark = waterMark;
 	}
 
+	public JasperDesignDecorator getJasperDesignDecorator() {
+		return jasperDesignDecorator;
+	}
+
 	public void setJasperDesignDecorator(JasperDesignDecorator jasperDesignDecorator) {
 		this.jasperDesignDecorator = jasperDesignDecorator;
 	}
 
-	public JasperDesignDecorator getJasperDesignDecorator() {
-		return jasperDesignDecorator;
-	}
+    public String getDefaultEncoding() {
+        return defaultEncoding;
+    }
+
+    public void setDefaultEncoding(String defaultEncoding) {
+        this.defaultEncoding = defaultEncoding;
+    }
 }

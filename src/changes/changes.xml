@@ -34,6 +34,16 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.0.11" date="2016-09-28" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add" >
+                <![CDATA[Introducing JasperDesignDecorator. This enables you to tweak the JasperDesign object
+ before and after applying the layout. Check for JasperDesignDecoratorReportTest for an example]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="Add" >
+                <![CDATA[DynamicReportBuilder.setDefaultEncoding(String) to use as default encoding in the report. Useful when
+exporting to PDF. Checkout DefaultEncodingReportTest for an example.]]>
+            </action>
+        </release>
         <release version="5.0.10" date="2016-08-15" desc="">
             <action dev="Juan Manuel Alvarez" type="Add" due-to="NerdKnight">
                 <![CDATA[AutoText Page X, and Page X / Y supports passing an offset for the starting page.

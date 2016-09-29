@@ -157,6 +157,7 @@ public class Font extends BaseDomainConstant implements Cloneable {
 	public Font(int fontSize, String fontName, boolean bold) {
 		this.fontSize = fontSize;
 		this.fontName = fontName;
+		this.pdfFontName = fontName;
 		this.bold = bold;
 	}
 

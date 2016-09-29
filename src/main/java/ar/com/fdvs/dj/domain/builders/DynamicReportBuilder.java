@@ -1709,4 +1709,9 @@ public class DynamicReportBuilder {
         this.report.setJasperDesignDecorator(jasperDesignDecorator);
         return this;
     }
+
+    public DynamicReportBuilder setDefaultEncoding(String encoding) {
+        this.report.setDefaultEncoding(encoding);
+        return this;
+    }
 }

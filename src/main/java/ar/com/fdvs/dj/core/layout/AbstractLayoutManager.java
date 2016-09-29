@@ -250,6 +250,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      */
     public void addStyleToDesign(Style style) {
         JRDesignStyle jrstyle = style.transform();
+
+        if (style.getFont() != null && style.getFont().getPdfFontEncoding() == null && getReport().getDefaultEncoding() != null) {
+            style.getFont().setPdfFontEncoding(getReport().getDefaultEncoding());
+        }
+
         try {
             if (jrstyle.getName() == null) {
                 String name = createUniqueStyleName();
