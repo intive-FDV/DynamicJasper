@@ -120,10 +120,10 @@ public class DynamicReportBuilder {
             this.autoTexts = new ArrayList();
         }
 
-        if (AutoText.WIDTH_NOT_SET.equals(text.getWidth())) {
+        if (AutoText.WIDTH_NOT_SET == text.getWidth()) {
             text.setWidth(AutoText.DEFAULT_WIDTH);
         }
-        if (AutoText.WIDTH_NOT_SET.equals(text.getWidth2())) {
+        if (AutoText.WIDTH_NOT_SET == text.getWidth2()) {
             text.setWidth2(AutoText.DEFAULT_WIDTH);
         }
 

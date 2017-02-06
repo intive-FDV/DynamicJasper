@@ -749,8 +749,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			//set the parameters
 			subreport.setParametersMapExpression(ExpressionUtils.getParameterExpression(sr));
-			for (Object o : sr.getParameters()) {
-				SubreportParameter srparam = (SubreportParameter) o;
+			for (SubreportParameter srparam : sr.getParameters()) {
 				JRDesignSubreportParameter subreportParameter = new JRDesignSubreportParameter();
 				subreportParameter.setName(srparam.getName());
 				JRExpression expression2 = ExpressionUtils.createExpression(getDesign(), srparam);

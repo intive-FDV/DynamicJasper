@@ -8,9 +8,7 @@ import ar.com.fdvs.dj.domain.constants.DJVariableResetType;
 
 public class DJVariable extends DJBaseElement {
 	
-	public DJVariable(){
-
-	}
+	public DJVariable(){}
 
 	public DJVariable(String name, String className, DJCalculation calculation, CustomExpression expression) {
 		super();

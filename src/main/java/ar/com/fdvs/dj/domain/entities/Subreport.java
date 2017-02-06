@@ -89,7 +89,7 @@ public class Subreport extends DJBaseElement {
 	 * List<SubreportParamter>
 	 * The objects from the parent report that will be visible as parameters in the subreport
 	 */
-	private List parameters = new ArrayList();
+	private List<SubreportParameter> parameters = new ArrayList();
 
 	private Style style;
 
@@ -143,24 +143,6 @@ public class Subreport extends DJBaseElement {
 	public void setReport(JasperReport design) {
 		this.report = design;
 	}
-//	public String getDataSourceExpression() {
-//		return dataSourceExpression;
-//	}
-//	public void setDataSourceExpression(String dataSourceExpression) {
-//		this.dataSourceExpression = dataSourceExpression;
-//	}
-//	public int getDataSourceOrigin() {
-//		return dataSourceOrigin;
-//	}
-//	public void setDataSourceOrigin(int dataSourceOrigin) {
-//		this.dataSourceOrigin = dataSourceOrigin;
-//	}
-//	public int getDataSourceType() {
-//		return dataSourceType;
-//	}
-//	public void setDataSourceType(int dataSourceType) {
-//		this.dataSourceType = dataSourceType;
-//	}
 	public String getPath() {
 		return path;
 	}
@@ -185,10 +167,10 @@ public class Subreport extends DJBaseElement {
 	public void setDatasource(DJDataSource datasource) {
 		this.datasource = datasource;
 	}
-	public List getParameters() {
+	public List<SubreportParameter> getParameters() {
 		return parameters;
 	}
-	public void setParameters(List parameters) {
+	public void setParameters(List<SubreportParameter> parameters) {
 		this.parameters = parameters;
 	}
 	public boolean isStartInNewPage() {

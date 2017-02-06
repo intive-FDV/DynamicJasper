@@ -69,7 +69,7 @@ public class AutotextReportTest2 extends BaseDjReportTest {
 		 * Adding many autotexts in the same position (header/footer and aligment) makes them to be one on top of the other
 		 */		
 		AutoText autoText = new AutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_HEADER, HorizontalBandAlignment.CENTER);
-		autoText.setWidth(new Integer(200));
+		autoText.setWidth(200);
 		autoText.setStyle(atStyle);
 		autoText.setPrintWhenExpression(ExpressionHelper.printInFirstPage());
 		drb.addAutoText(autoText);
