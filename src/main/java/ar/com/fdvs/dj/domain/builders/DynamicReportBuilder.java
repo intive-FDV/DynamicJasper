@@ -928,7 +928,7 @@ public class DynamicReportBuilder {
      *
      * @return List<ColumnProperty>
      */
-    public List getFields() {
+    public List<ColumnProperty> getFields() {
         return report.getFields();
     }
 

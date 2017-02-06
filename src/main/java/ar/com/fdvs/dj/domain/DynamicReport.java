@@ -41,7 +41,12 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * One of the main classes of this product. It represents the report itself.
@@ -91,7 +96,7 @@ public class DynamicReport extends DJBaseElement {
 	 * List of ColumnProperty
 	 * Other fields to register, not necessary assigned to columns
 	 */
-	private List fields = new ArrayList();
+	private List<ColumnProperty> fields = new ArrayList<ColumnProperty>();
 
 	//Other parameters needed (E.g. Subreports)
 	private List parameters = new ArrayList();
@@ -108,8 +113,7 @@ public class DynamicReport extends DJBaseElement {
 
 	private List autoTexts = new ArrayList();
 
-	private Map styles = new LinkedHashMap();
-
+	private Map<String, Style> styles = new LinkedHashMap<String, Style>();
 	private DJQuery query;
 
 	private String whenNoDataText;
@@ -161,7 +165,7 @@ public class DynamicReport extends DJBaseElement {
 		styles.put(style.getName(), style);
 	}
 
-	public Map getStyles() {
+	public Map<String, Style> getStyles() {
 		return styles;
 	}
 
@@ -242,7 +246,7 @@ public class DynamicReport extends DJBaseElement {
 		this.templateFileName = templateFileName;
 	}
 
-	public List getFields() {
+	public List<ColumnProperty> getFields() {
 		return fields;
 	}
 
@@ -427,22 +431,16 @@ public class DynamicReport extends DJBaseElement {
 	}
 	
 	/**
-	 * 
+	 * Collects all the fields from columns and also the fields not bounds to columns
 	 * @return List<ColumnProperty>
 	 */
-	public List getAllFields(){
-		ArrayList l = new ArrayList();
-		for (Iterator iter = this.columns.iterator(); iter.hasNext();) {
-			Object o = iter.next();
-			ColumnProperty columnProperty = null;
-
-			if (o instanceof SimpleColumn && !(o instanceof ExpressionColumn)) {
-				SimpleColumn propcol = (SimpleColumn)o;
-				columnProperty = propcol.getColumnProperty();
-				l.add(columnProperty);
+	public List<ColumnProperty> getAllFields(){
+		ArrayList<ColumnProperty> l = new ArrayList();
+		for (AbstractColumn abstractColumn : this.getColumns()) {
+			if (abstractColumn instanceof SimpleColumn && !(abstractColumn instanceof ExpressionColumn)) {
+				l.add(((SimpleColumn)abstractColumn).getColumnProperty());
 			}
 		}
-		
 		l.addAll(this.getFields());
 
 		return l;

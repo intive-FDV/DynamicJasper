@@ -136,9 +136,8 @@ public class DynamicJasperHelper {
     }
 
 
-    private static void registerOtherFields(DynamicJasperDesign jd, List fields) {
-        for (Object field1 : fields) {
-            ColumnProperty element = (ColumnProperty) field1;
+    private static void registerOtherFields(DynamicJasperDesign jd, List<ColumnProperty> fields) {
+        for (ColumnProperty element : fields) {
             JRDesignField field = new JRDesignField();
             field.setValueClassName(element.getValueClassName());
             field.setName(element.getProperty());

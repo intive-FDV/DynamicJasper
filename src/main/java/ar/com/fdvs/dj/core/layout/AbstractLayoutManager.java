@@ -228,8 +228,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      */
     protected void ensureDJStyles() {
         //first of all, register all parent styles if any
-        for (Object o : getReport().getStyles().values()) {
-            Style style = (Style) o;
+        for (Style style : getReport().getStyles().values()) {
             addStyleToDesign(style);
         }
 
