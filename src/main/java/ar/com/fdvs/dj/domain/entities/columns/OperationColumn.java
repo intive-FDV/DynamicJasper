@@ -48,7 +48,7 @@ public class OperationColumn extends AbstractColumn {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	private ColumnOperation columnOperation;
-	private List columns;
+	private List<SimpleColumn> columns;
 
 	public ColumnOperation getColumnOperation() {
 		return columnOperation;
@@ -58,19 +58,18 @@ public class OperationColumn extends AbstractColumn {
 		this.columnOperation = columnOperation;
 	}
 
-	public List getColumns() {
+	public List<SimpleColumn> getColumns() {
 		return columns;
 	}
 
-	public void setColumns(List columns) {
+	public void setColumns(List<SimpleColumn> columns) {
 		this.columns = columns;
 	}
 
 	public String getTextForExpression() {
 		StringBuffer exp = new StringBuffer();
-		for (Iterator iter = columns.iterator(); iter
-				.hasNext();) {
-			SimpleColumn col = (SimpleColumn) iter.next();
+		for (Iterator<SimpleColumn> iter = columns.iterator(); iter.hasNext();) {
+			SimpleColumn col = iter.next();
 			exp.append(" ((java.lang.Number)$F{" + col.getColumnProperty().getProperty()
 					+ "}).doubleValue() ");
 			if (iter.hasNext())

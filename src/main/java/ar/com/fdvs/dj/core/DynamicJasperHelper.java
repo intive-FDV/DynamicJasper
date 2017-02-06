@@ -397,8 +397,8 @@ public class DynamicJasperHelper {
             groupnum++;
             int subreportNum = 1;
             //Header Subreports
-            for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext(); subreportNum++) {
-                Subreport subreport = (Subreport) iterator2.next();
+            for (Iterator<Subreport> iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext(); subreportNum++) {
+                Subreport subreport = iterator2.next();
                 String name = namePrefix + "_g" + groupnum + "sr" + subreportNum + "h";
                 subreport.setName(name);
 
@@ -419,8 +419,8 @@ public class DynamicJasperHelper {
 
             //Footer Subreports
             subreportNum = 1;
-            for (Iterator iterator2 = group.getFooterSubreports().iterator(); iterator2.hasNext(); subreportNum++) {
-                Subreport subreport = (Subreport) iterator2.next();
+            for (Iterator<Subreport> iterator2 = group.getFooterSubreports().iterator(); iterator2.hasNext(); subreportNum++) {
+                Subreport subreport = iterator2.next();
                 String name = namePrefix + "[g" + groupnum + "sr" + subreportNum + "footer]";
                 subreport.setName(name);
 
@@ -550,25 +550,19 @@ public class DynamicJasperHelper {
     protected static void visitSubreports(DynamicReport dr, Map _parameters) {
         for (DJGroup group : dr.getColumnsGroups()) {
             //Header Subreports
-            for (Object o1 : group.getHeaderSubreports()) {
-                Subreport subreport = (Subreport) o1;
-
+            for (Subreport subreport : group.getHeaderSubreports()) {
                 if (subreport.getDynamicReport() != null) {
                     visitSubreport(dr, subreport);
                     visitSubreports(subreport.getDynamicReport(), _parameters);
                 }
-
             }
 
             //Footer Subreports
-            for (Object o : group.getFooterSubreports()) {
-                Subreport subreport = (Subreport) o;
-
+            for (Subreport subreport : group.getFooterSubreports()) {
                 if (subreport.getDynamicReport() != null) {
                     visitSubreport(dr, subreport);
                     visitSubreports(subreport.getDynamicReport(), _parameters);
                 }
-
             }
         }
 

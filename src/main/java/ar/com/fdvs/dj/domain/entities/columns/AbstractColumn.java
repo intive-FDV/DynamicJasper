@@ -61,9 +61,9 @@ public abstract class AbstractColumn extends DJBaseElement {
     private String reportName;
 
 	private String title;
-	private Integer posX = new Integer(0);
-	private Integer posY = new Integer(0);
-	private Integer width = new Integer(100);
+	private int posX = 0;
+	private int posY = 0;
+	private int width = 100;
 	private Boolean fixedWidth = Boolean.FALSE;
 	private Style style = new Style();
 	private Style headerStyle = null;
@@ -105,19 +105,19 @@ public abstract class AbstractColumn extends DJBaseElement {
 		this.title = label;
 	}
 
-	public Integer getPosX() {
+	public int getPosX() {
 		return posX;
 	}
 
-	public void setPosX(Integer posX) {
+	public void setPosX(int posX) {
 		this.posX = posX;
 	}
 
-	public Integer getPosY() {
+	public int getPosY() {
 		return posY;
 	}
 
-	public void setPosY(Integer posY) {
+	public void setPosY(int posY) {
 		this.posY = posY;
 	}
 
@@ -137,11 +137,11 @@ public abstract class AbstractColumn extends DJBaseElement {
 		this.style = style;
 	}
 
-	public Integer getWidth() {
+	public int getWidth() {
 		return width;
 	}
 
-	public void setWidth(Integer width) {
+	public void setWidth(int width) {
 		this.width = width;
 	}
 

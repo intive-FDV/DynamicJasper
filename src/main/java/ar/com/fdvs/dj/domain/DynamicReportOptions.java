@@ -44,6 +44,7 @@ public class DynamicReportOptions extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
+	public static final int UNSET_VALUE 			= -1;
 	public static final int DEFAULT_HEADER_HEIGHT 			= 30;
 	public static final int DEFAULT_HEADER_VARIABLES_HEIGHT	= 20;
 	public static final int DEFAULT_FOOTER_VARIABLES_HEIGHT	= 20;

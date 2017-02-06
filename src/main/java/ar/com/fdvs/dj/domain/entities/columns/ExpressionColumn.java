@@ -29,10 +29,12 @@
 
 package ar.com.fdvs.dj.domain.entities.columns;
 
+import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
+import net.sf.jasperreports.engine.JRVariable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -51,8 +53,8 @@ public class ExpressionColumn extends SimpleColumn {
 	private CustomExpression expression; //for showing
 	private CustomExpression expressionForCalculation; //for calculation
 
-	private Collection columns;
-	private Collection variables; //List of JRVariables
+	private Collection<ColumnProperty> columns;
+	private Collection<JRVariable> variables; //List of JRVariables
 
 	private String calculatedExpressionText = null;
 
@@ -64,19 +66,19 @@ public class ExpressionColumn extends SimpleColumn {
 		this.calculatedExpressionText = calculatedExpressionText;
 	}
 
-	public Collection getVariables() {
+	public Collection<JRVariable> getVariables() {
 		return variables;
 	}
 
-	public void setVariables(Collection variables) {
+	public void setVariables(Collection<JRVariable> variables) {
 		this.variables = variables;
 	}
 
-	public Collection getColumns() {
+	public Collection<ColumnProperty> getColumns() {
 		return columns;
 	}
 
-	public void setColumns(Collection columns) {
+	public void setColumns(Collection<ColumnProperty> columns) {
 		this.columns = columns;
 	}
 

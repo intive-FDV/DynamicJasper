@@ -100,15 +100,15 @@ public class DynamicReportBuilder {
 
     protected DynamicReport report = new DynamicReport();
     protected DynamicReportOptions options = new DynamicReportOptions();
-    protected ArrayList globalFooterCrosstabs;
-    protected ArrayList globalHeaderCrosstabs;
+    protected List<DJCrosstab> globalFooterCrosstabs = new ArrayList<DJCrosstab>();
+    protected List<DJCrosstab> globalHeaderCrosstabs = new ArrayList<DJCrosstab>();
     protected ArrayList autoTexts;
     protected Map groupFooterSubreports = new HashMap();
     protected Map groupHeaderSubreports = new HashMap();
 
     protected DJGroup globalVariablesGroup;
 
-    protected ArrayList concatenatedReports = new ArrayList();
+    protected List<Subreport> concatenatedReports = new ArrayList();
 
     public DynamicReportBuilder() {
         super();
@@ -349,25 +349,20 @@ public class DynamicReportBuilder {
 
     private void addGlobalCrosstabs() {
         //For header
-        if (globalHeaderCrosstabs != null) {
-            for (Iterator iterator = globalHeaderCrosstabs.iterator(); iterator.hasNext(); ) {
-                DJCrosstab djcross = (DJCrosstab) iterator.next();
-                DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabHeaderGroup-" + globalHeaderCrosstabs.indexOf(djcross));
-                globalGroup.getHeaderCrosstabs().add(djcross);
-                report.getColumnsGroups().add(0, globalGroup);
-            }
+        for (DJCrosstab djcross : globalHeaderCrosstabs) {
+            DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabHeaderGroup-" + globalHeaderCrosstabs.indexOf(djcross));
+            globalGroup.getHeaderCrosstabs().add(djcross);
+            report.getColumnsGroups().add(0, globalGroup);
+
         }
 
         //For footer
-        if (globalFooterCrosstabs != null) {
-            for (Iterator iterator = globalFooterCrosstabs.iterator(); iterator.hasNext(); ) {
-                DJCrosstab djcross = (DJCrosstab) iterator.next();
-                DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabFooterGroup-" + globalFooterCrosstabs.indexOf(djcross));
-                globalGroup.getFooterCrosstabs().add(djcross);
-                report.getColumnsGroups().add(0, globalGroup);
-            }
-        }
+        for (DJCrosstab djcross : globalFooterCrosstabs) {
+            DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabFooterGroup-" + globalFooterCrosstabs.indexOf(djcross));
+            globalGroup.getFooterCrosstabs().add(djcross);
+            report.getColumnsGroups().add(0, globalGroup);
 
+        }
     }
 
     /**
@@ -403,8 +398,8 @@ public class DynamicReportBuilder {
             DJGroup globalGroup = createDummyGroup();
             report.getColumnsGroups().add(0, globalGroup);
         }
-        for (Iterator iterator = concatenatedReports.iterator(); iterator.hasNext(); ) {
-            Subreport subreport = (Subreport) iterator.next();
+
+        for (Subreport subreport : concatenatedReports) {
             DJGroup globalGroup = createDummyGroup();
             globalGroup.getFooterSubreports().add(subreport);
             report.getColumnsGroups().add(0, globalGroup);
@@ -418,13 +413,7 @@ public class DynamicReportBuilder {
         DJGroup globalGroup = new DJGroup();
         globalGroup.setLayout(GroupLayout.EMPTY);
         GlobalGroupColumn globalCol = new GlobalGroupColumn("global");
-//		globalCol.setTitle(grandTotalLegend);
-//		globalCol.setHeaderStyle(grandTotalStyle);
-//		globalCol.setStyle(grandTotalStyle);
-
         globalGroup.setColumnToGroupBy(globalCol);
-//		globalGroup.setHeaderVariables(globalHeaderVariables);
-//		globalGroup.setFooterVariables(globalFooterVariables);
         return globalGroup;
     }
 
@@ -432,11 +421,7 @@ public class DynamicReportBuilder {
         DJGroup globalGroup = new DJGroup();
         globalGroup.setLayout(GroupLayout.EMPTY);
         GlobalGroupColumn globalCol = new GlobalGroupColumn(name);
-
         globalCol.setTitle("");
-//		globalCol.setHeaderStyle(grandTotalStyle);
-//		globalCol.setStyle(grandTotalStyle);
-
         globalGroup.setColumnToGroupBy(globalCol);
         return globalGroup;
     }
@@ -1425,9 +1410,6 @@ public class DynamicReportBuilder {
      * @return
      */
     public DynamicReportBuilder addHeaderCrosstab(DJCrosstab cross) {
-        if (this.globalHeaderCrosstabs == null) {
-            this.globalHeaderCrosstabs = new ArrayList();
-        }
         this.globalHeaderCrosstabs.add(cross);
         return this;
     }
@@ -1439,9 +1421,6 @@ public class DynamicReportBuilder {
      * @return
      */
     public DynamicReportBuilder addFooterCrosstab(DJCrosstab cross) {
-        if (this.globalFooterCrosstabs == null) {
-            this.globalFooterCrosstabs = new ArrayList();
-        }
         this.globalFooterCrosstabs.add(cross);
         return this;
     }

@@ -80,10 +80,10 @@ public class ImageBannerFooterReportTest extends BaseDjReportTest {
 			.setPrintBackgroundOnOddRows(true)
 			.setOddRowBackgroundStyle(oddRowStyle)
             .addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT)
-//			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.ALIGN_LEFT)
-//			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.ALIGN_RIGHT)
-			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(25), ImageBanner.ALIGN_LEFT, ImageScaleMode.FILL)
-			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", new Integer(150), new Integer(45), ImageBanner.ALIGN_RIGHT, ImageScaleMode.FILL)
+//			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.Alignment.Right)
+//			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.Alignment.Right)
+			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(25), ImageBanner.Alignment.Left, ImageScaleMode.FILL)
+			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", new Integer(150), new Integer(45), ImageBanner.Alignment.Right, ImageScaleMode.FILL)
             ;
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())

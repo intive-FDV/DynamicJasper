@@ -410,8 +410,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		for (DJGroup columnsGroup : getReport().getColumnsGroups()) {
 			JRDesignGroup jgroup = getJRGroupFromDJGroup(columnsGroup);
 
-			jgroup.setStartNewPage(columnsGroup.getStartInNewPage());
-			jgroup.setStartNewColumn(columnsGroup.getStartInNewColumn());
+			jgroup.setStartNewPage(columnsGroup.isStartInNewPage());
+			jgroup.setStartNewColumn(columnsGroup.isStartInNewColumn());
 			jgroup.setReprintHeaderOnEachPage(columnsGroup.isReprintHeaderOnEachPage());
 			jgroup.setResetPageNumber(columnsGroup.isResetPageNumber());
 
@@ -432,7 +432,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 
 			header.setHeight(columnsGroup.getHeaderHeight());
-//			footer.setHeight( getFooterVariableHeight(columnsGroup));
 			footer.setHeight(columnsGroup.getFooterHeight());
 
 			header.setSplitType(LayoutUtils.getSplitTypeFromBoolean(columnsGroup.isAllowHeaderSplit()));
@@ -469,10 +468,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 
 			DJGroupLabel label = columnsGroup.getFooterLabel();
-			if (label != null /*&& !footerVariables.isEmpty()*/) {
+			if (label != null) {
 				List footerVariables = columnsGroup.getFooterVariables();
 				PropertyColumn col = columnsGroup.getColumnToGroupBy();
-//				JRDesignBand band = (JRDesignBand)jgroup.getGroupFooter();
 				int x = 0, y = 0;
 				//max width
 				int width = getDesign().getPageWidth() - getDesign().getLeftMargin() - getDesign().getRightMargin();
@@ -587,9 +585,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param jgroup
 	 */
 	protected void layoutGroupCrosstabs(DJGroup columnsGroup,	JRDesignGroup jgroup) {
-		for (Object o1 : columnsGroup.getHeaderCrosstabs()) {
-			DJCrosstab djcross = (DJCrosstab) o1;
-
+		for (DJCrosstab djcross : columnsGroup.getHeaderCrosstabs()) {
 			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
 
 			JRDesignCrosstab crosst = djcb.createCrosstab(djcross, this);
@@ -631,9 +627,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 		}
 
-		for (Object o : columnsGroup.getFooterCrosstabs()) {
-			DJCrosstab djcross = (DJCrosstab) o;
-
+		for (DJCrosstab djcross : columnsGroup.getFooterCrosstabs()) {
 			Dj2JrCrosstabBuilder djcb = new Dj2JrCrosstabBuilder();
 
 			JRDesignCrosstab crosst = djcb.createCrosstab(djcross, this);
@@ -648,7 +642,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 
 			band.addElement(crosst);
-
 
 			if (djcross.getBottomSpace() != 0) {
 				JRDesignRectangle rect = createBlankRectableCrosstab(djcross.getBottomSpace(), crosst.getY() + crosst.getHeight());
@@ -727,12 +720,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected void layOutSubReportInBand(DJGroup columnsGroup, JRDesignBand band, String position) {
 
-		List subreportsList = DJConstants.FOOTER.equals(position)
+		List<Subreport> subreportsList = DJConstants.FOOTER.equals(position)
 				? columnsGroup.getFooterSubreports()
 				: columnsGroup.getHeaderSubreports();
 
-		for (Object aSubreportsList : subreportsList) {
-			Subreport sr = (Subreport) aSubreportsList;
+		for (Subreport sr : subreportsList) {
 			JRDesignSubreport subreport = new JRDesignSubreport(new JRDesignStyle().getDefaultStyleProvider());
 
 			//The data source
@@ -748,9 +740,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				subreport.setDataSourceExpression(dataSourceExpression);
 			}
 
-//			int random_ = subReportRandom.nextInt();
-			//the subreport design
-//			String paramname = sr.getReport().toString(); //TODO ensure this name is unique among all possible subreports
 			String paramname = sr.getName(); //TODO ensure this name is unique among all possible subreports
 			((DynamicJasperDesign) getDesign()).getParametersWithValues().put(paramname, sr.getReport());
 			String expText = "(" + JasperReport.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get( \"" + paramname + "\" )";
@@ -894,7 +883,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		//Only the value in header
 		PropertyColumn column = group.getColumnToGroupBy();
 
-		Integer height = group.getHeaderVariablesHeight()!=null
+		int height = group.getHeaderVariablesHeight()!= DynamicReportOptions.UNSET_VALUE
 		? group.getHeaderVariablesHeight()
 				:getReport().getOptions().getDetailHeight();
 
@@ -997,7 +986,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param band
 	 * @param yOffset
 	 */
-	protected void placeVariableInBand(List variables, DJGroup djGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
+	protected void placeVariableInBand(List<DJGroupVariable> variables, DJGroup djGroup, JRDesignGroup jgroup, String type, JRDesignBand band, int yOffset) {
 		if ((variables == null) || (variables.isEmpty())) {
 			return;
 		}
@@ -1012,10 +1001,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		else
 			height = getHeaderVariablesHeight(djGroup);
 
-		Iterator it = variables.iterator();
+		Iterator<DJGroupVariable> it = variables.iterator();
 		int yOffsetGlabel = 0;
 		while (it.hasNext()) {
-			DJGroupVariable var = (DJGroupVariable) it.next();
+			DJGroupVariable var = it.next();
 			AbstractColumn col = var.getColumnToApplyOperation();
 
 			String variableName = var.getName();
@@ -1157,16 +1146,14 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	protected int getHeaderVariablesHeight(DJGroup columnsGroup) {
-		Integer height;
-		height = columnsGroup.getHeaderVariablesHeight()!=null
+		int height = columnsGroup.getHeaderVariablesHeight()!=DynamicReportOptions.UNSET_VALUE
 					? columnsGroup.getHeaderVariablesHeight()
 					: DynamicReportOptions.DEFAULT_HEADER_VARIABLES_HEIGHT;
 		return height;
 	}
 
 	protected int getFooterVariableHeight(DJGroup columnsGroup) {
-		Integer height;
-		height = columnsGroup.getFooterVariablesHeight()!=null
+		int height = columnsGroup.getFooterVariablesHeight()!=DynamicReportOptions.UNSET_VALUE
 					? columnsGroup.getFooterVariablesHeight()
 					: DynamicReportOptions.DEFAULT_FOOTER_VARIABLES_HEIGHT;
 		return height;
@@ -1196,13 +1183,12 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		}
 	}
 
-	protected DJGroupVariable findLeftMostColumn(List variables) {
+	protected DJGroupVariable findLeftMostColumn(List<DJGroupVariable> variables) {
 		int mostLeftX = Integer.MAX_VALUE;
 		DJGroupVariable mostLeftColumn =  null;
-		for (Object variable : variables) {
-			DJGroupVariable currentCol = (DJGroupVariable) variable;
-			if (currentCol.getColumnToApplyOperation().getPosX() <= mostLeftX) {
-				mostLeftColumn = currentCol;
+		for (DJGroupVariable groupVariable : variables) {
+			if (groupVariable.getColumnToApplyOperation().getPosX() <= mostLeftX) {
+				mostLeftColumn = groupVariable;
 				mostLeftX = mostLeftColumn.getColumnToApplyOperation().getPosX();
 			}
 		}
@@ -1226,7 +1212,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		int height = getReport().getOptions().getDetailHeight();
 
 		if (!djgroup.getHeaderVariables().isEmpty())
-			height = djgroup.getHeaderVariablesHeight()!=null
+			height = djgroup.getHeaderVariablesHeight()!=DynamicReportOptions.UNSET_VALUE
 						? djgroup.getHeaderVariablesHeight()
 						: getReport().getOptions().getDetailHeight();
 
