@@ -99,7 +99,7 @@ public class DynamicReport extends DJBaseElement {
 	private List<ColumnProperty> fields = new ArrayList<ColumnProperty>();
 
 	//Other parameters needed (E.g. Subreports)
-	private List parameters = new ArrayList();
+	private List<Parameter> parameters = new ArrayList<Parameter>();
 	
 	private List<DJVariable> variables = new ArrayList<DJVariable>();
 
@@ -350,11 +350,11 @@ public class DynamicReport extends DJBaseElement {
 		this.whenNoDataShowColumnHeader = whenNoDataShowColumnHeader;
 	}
 
-	public List getParameters() {
+	public List<Parameter> getParameters() {
 		return parameters;
 	}
 	
-	public void setParameters(List parameters) {
+	public void setParameters(List<Parameter> parameters) {
 		this.parameters = parameters;
 	}
 

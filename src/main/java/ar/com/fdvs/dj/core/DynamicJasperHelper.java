@@ -195,8 +195,7 @@ public class DynamicJasperHelper {
     }
 
     protected static void registerParameters(DynamicJasperDesign jd, DynamicReport dr) {
-        for (Object o : dr.getParameters()) {
-            Parameter param = (Parameter) o;
+        for (Parameter param  : dr.getParameters()) {
             JRDesignParameter jrparam = new JRDesignParameter();
             jrparam.setName(param.getName());
             jrparam.setValueClassName(param.getClassName());
