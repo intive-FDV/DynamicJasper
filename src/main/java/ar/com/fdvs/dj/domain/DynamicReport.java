@@ -85,7 +85,7 @@ public class DynamicReport extends DJBaseElement {
 	private List<DJGroup> columnsGroups = new ArrayList<DJGroup>();
 
 	//<DJChart>
-	private List charts = new ArrayList();
+	private List<DJChart> charts = new ArrayList();
 
 	//<DJChart>
 	private List<ar.com.fdvs.dj.domain.chart.DJChart> newCharts = new ArrayList();
@@ -152,14 +152,6 @@ public class DynamicReport extends DJBaseElement {
     private String defaultEncoding;
 
 	public DynamicReport() {}
-
-	public DynamicReport(String title, List columns, List<DJGroup> columnsGroups, List charts, DynamicReportOptions options) {
-		this.title = title;
-		this.columns = columns;
-		this.columnsGroups = new ArrayList<DJGroup>(columnsGroups);
-		this.charts = charts;
-		this.options = options;
-	}
 
 	public void addStyle(Style style) {
 		styles.put(style.getName(), style);
@@ -254,11 +246,11 @@ public class DynamicReport extends DJBaseElement {
 		this.fields = fields;
 	}
 
-	public List getCharts() {
+	public List<DJChart> getCharts() {
 		return charts;
 	}
 
-	public void setCharts(List charts) {
+	public void setCharts(List<DJChart> charts) {
 		this.charts = charts;
 	}
 
