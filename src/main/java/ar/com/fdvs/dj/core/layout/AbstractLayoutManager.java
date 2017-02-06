@@ -966,8 +966,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         //Pre-sort charts by group column
         mmap = new MultiHashMap();
-        for (Object o : getReport().getNewCharts()) {
-            ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) o;
+        for (ar.com.fdvs.dj.domain.chart.DJChart djChart : getReport().getNewCharts()) {
             mmap.put(djChart.getDataset().getColumnsGroup(), djChart);
         }
 

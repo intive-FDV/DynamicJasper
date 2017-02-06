@@ -32,21 +32,44 @@ import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.JasperDesignDecorator;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
-import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.AutoText;
+import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJQuery;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
+import ar.com.fdvs.dj.domain.DJWaterMark;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.DynamicReportOptions;
+import ar.com.fdvs.dj.domain.ImageBanner;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Page;
-import ar.com.fdvs.dj.domain.entities.*;
+import ar.com.fdvs.dj.domain.entities.DJColSpan;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
+import ar.com.fdvs.dj.domain.entities.DJVariable;
+import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import net.sf.jasperreports.engine.JasperReport;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Builder created to give users a friendly way of creating a
@@ -957,8 +980,7 @@ public class DynamicReportBuilder {
     }
 
     private void createChartGroups() {
-        for (Iterator iterator = report.getNewCharts().iterator(); iterator.hasNext(); ) {
-            ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) iterator.next();
+        for (ar.com.fdvs.dj.domain.chart.DJChart djChart : report.getNewCharts()) {
             DJGroup djGroup = getChartColumnsGroup(djChart);
             if (djGroup == null) {
                 djGroup = new GroupBuilder().setCriteriaColumn(djChart.getDataset().getColumnsGroup())
@@ -971,8 +993,7 @@ public class DynamicReportBuilder {
 
     private DJGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
         PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
-        for (Iterator<DJGroup> iterator = report.getColumnsGroups().iterator(); iterator.hasNext(); ) {
-            DJGroup djGroup = iterator.next();
+        for (DJGroup djGroup : report.getColumnsGroups()) {
             if (djGroup.getColumnToGroupBy() == columnsGroup) {
                 return djGroup;
             }

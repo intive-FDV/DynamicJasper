@@ -88,7 +88,7 @@ public class DynamicReport extends DJBaseElement {
 	private List charts = new ArrayList();
 
 	//<DJChart>
-	private List newCharts = new ArrayList();
+	private List<ar.com.fdvs.dj.domain.chart.DJChart> newCharts = new ArrayList();
 	
 	private DynamicReportOptions options;
 
@@ -262,7 +262,7 @@ public class DynamicReport extends DJBaseElement {
 		this.charts = charts;
 	}
 
-	public List getNewCharts() {
+	public List<ar.com.fdvs.dj.domain.chart.DJChart> getNewCharts() {
 		return newCharts;
 	}
 
