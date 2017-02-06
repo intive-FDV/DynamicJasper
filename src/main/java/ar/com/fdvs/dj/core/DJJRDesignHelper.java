@@ -93,9 +93,8 @@ public class DJJRDesignHelper {
             des.setQuery(query);
         }
 
-        for (Object o : dr.getProperties().keySet()) {
-            String name = (String) o;
-            des.setProperty(name, (String) dr.getProperties().get(name));
+        for (String name : dr.getProperties().keySet()) {
+            des.setProperty(name, dr.getProperties().get(name));
         }
 
         des.setName(dr.getReportName() != null ? dr.getReportName() : "DJR");

@@ -103,7 +103,7 @@ public class DynamicReport extends DJBaseElement {
 	
 	private List<DJVariable> variables = new ArrayList<DJVariable>();
 
-	private Map properties = new HashMap();
+	private Map<String, String> properties = new HashMap<String, String>();
 
 	private String templateFileName = null;
 	private boolean templateImportDatasets = false;
@@ -402,7 +402,7 @@ public class DynamicReport extends DJBaseElement {
 		this.templateImportParameters = templateImportParameters;
 	}
 
-	public Map getProperties() {
+	public Map<String, String> getProperties() {
 		return properties;
 	}
 
@@ -410,7 +410,7 @@ public class DynamicReport extends DJBaseElement {
 	 * Must be a Map<String, String>
 	 * @param properties
 	 */
-	public void setProperties(Map properties) {
+	public void setProperties(Map<String, String> properties) {
 		this.properties = properties;
 	}
 
