@@ -202,8 +202,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected List getVisibleColumns() {
 		List visibleColums = new ArrayList(getReport().getColumns());
-		for (Object o : getReport().getColumnsGroups()) {
-			DJGroup group = (DJGroup) o;
+		for (DJGroup group : getReport().getColumnsGroups()) {
 			if (group.getLayout().isHideColumn()) {
 				visibleColums.remove(group.getColumnToGroupBy());
 			}
@@ -399,6 +398,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			band.addElement(subtitle);
 		}
 
+
 	}
 
 	/**
@@ -407,8 +407,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 */
 	protected void layoutGroups() {
 		log.debug("Starting groups layout...");
-		for (Object o1 : getReport().getColumnsGroups()) {
-			DJGroup columnsGroup = (DJGroup) o1;
+		for (DJGroup columnsGroup : getReport().getColumnsGroups()) {
 			JRDesignGroup jgroup = getJRGroupFromDJGroup(columnsGroup);
 
 			jgroup.setStartNewPage(columnsGroup.getStartInNewPage());
@@ -444,7 +443,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				boolean skipPreviousGroupHeaders = false;
 				int groupIdx = getReport().getColumnsGroups().indexOf(columnsGroup);
 				if (groupIdx > 0) {
-					DJGroup prevG = (DJGroup) getReport().getColumnsGroups().get(groupIdx - 1);
+					DJGroup prevG = getReport().getColumnsGroups().get(groupIdx - 1);
 					if (!(prevG.getColumnToGroupBy() instanceof GlobalGroupColumn))
 						skipPreviousGroupHeaders = !prevG.getLayout().isShowValueForEachRow();
 				}

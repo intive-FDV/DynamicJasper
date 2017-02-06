@@ -83,7 +83,7 @@ public class LayoutUtils {
 	
 	/**
 	 * Moves the elements contained in "band" in the Y axis "yOffset"
-	 * @param intValue
+	 * @param yOffset
 	 * @param band
 	 */
 	public static void moveBandsElemnts(int yOffset, JRDesignBand band) {
@@ -136,7 +136,7 @@ public class LayoutUtils {
 		int gidx = dr.getColumnsGroups().indexOf(djgroup);
 		if (gidx > 0) {
 			gidx--;
-			DJGroup djParentGroup = (DJGroup) dr.getColumnsGroups().get(gidx);
+			DJGroup djParentGroup = dr.getColumnsGroups().get(gidx);
 			JRDesignGroup jrParentGroup = LayoutUtils.getJRDesignGroup(djd, layoutManager, djParentGroup);
 			registeredGroup = jrParentGroup;
 		} else
@@ -149,7 +149,7 @@ public class LayoutUtils {
 		int gidx = dr.getColumnsGroups().indexOf(djgroup);
 		if (gidx+1 < dr.getColumnsGroups().size()) {
 			gidx++;
-			child = (DJGroup) dr.getColumnsGroups().get(gidx);
+			child = dr.getColumnsGroups().get(gidx);
 		} 
 		return child;
 	}

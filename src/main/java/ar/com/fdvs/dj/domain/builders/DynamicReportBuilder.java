@@ -355,7 +355,7 @@ public class DynamicReportBuilder {
             Integer groupNum = (Integer) iterator.next();
             List list = (List) groupFooterSubreports.get(groupNum);
 
-            DJGroup group = (DJGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
+            DJGroup group = report.getColumnsGroups().get(groupNum.intValue() - 1);
             group.getFooterSubreports().addAll(list);
         }
 
@@ -363,7 +363,7 @@ public class DynamicReportBuilder {
             Integer groupNum = (Integer) iterator.next();
             List list = (List) groupHeaderSubreports.get(groupNum);
 
-            DJGroup group = (DJGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
+            DJGroup group = report.getColumnsGroups().get(groupNum.intValue() - 1);
             group.getHeaderSubreports().addAll(list);
         }
 
@@ -971,8 +971,8 @@ public class DynamicReportBuilder {
 
     private DJGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
         PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
-        for (Iterator iterator = report.getColumnsGroups().iterator(); iterator.hasNext(); ) {
-            DJGroup djGroup = (DJGroup) iterator.next();
+        for (Iterator<DJGroup> iterator = report.getColumnsGroups().iterator(); iterator.hasNext(); ) {
+            DJGroup djGroup = iterator.next();
             if (djGroup.getColumnToGroupBy() == columnsGroup) {
                 return djGroup;
             }
@@ -1615,7 +1615,7 @@ public class DynamicReportBuilder {
      * @return
      */
     public DJGroup getGroup(int idx) {
-        return (DJGroup) this.report.getColumnsGroups().get(idx);
+        return this.report.getColumnsGroups().get(idx);
     }
 
     public DynamicReportBuilder setTitle(String title, boolean isExpression) {

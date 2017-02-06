@@ -579,7 +579,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	private DJGroup getGroupByNumber(int groupNum) throws BuilderException {
 		DJGroup group;
 		try {
-			group = (DJGroup) report.getColumnsGroups().get(groupNum-1);
+			group = report.getColumnsGroups().get(groupNum-1);
 		} catch (IndexOutOfBoundsException e) {
 			throw new BuilderException("No such group, use addGroups(int) first");
 		}

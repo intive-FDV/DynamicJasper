@@ -740,12 +740,12 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             textField.getPropertiesMap().setProperty(JRTextElement.PROPERTY_TRUNCATE_SUFFIX, col.getTruncateSuffix());
         }
 
-        List columnsGroups = getReport().getColumnsGroups();
+        List<DJGroup> columnsGroups = getReport().getColumnsGroups();
         if (col instanceof PercentageColumn) {
             PercentageColumn pcol = (PercentageColumn) col;
 
             if (group == null) { //we are in the detail band
-                DJGroup innerMostGroup = (DJGroup) columnsGroups.get(columnsGroups.size() - 1);
+                DJGroup innerMostGroup = columnsGroups.get(columnsGroups.size() - 1);
                 exp.setText(pcol.getTextForExpression(innerMostGroup));
             } else {
                 exp.setText(pcol.getTextForExpression(group));
@@ -1154,8 +1154,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
     protected JRDesignGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
         PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
-        for (Object o : getReport().getColumnsGroups()) {
-            DJGroup djGroup = (DJGroup) o;
+        for (DJGroup djGroup : getReport().getColumnsGroups()) {
             if (djGroup.getColumnToGroupBy() == columnsGroup)
                 return getJRGroupFromDJGroup(djGroup);
         }
@@ -1304,8 +1303,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 
     protected DJGroup getDJGroup(AbstractColumn col) {
-        for (Object o : getReport().getColumnsGroups()) {
-            DJGroup group = (DJGroup) o;
+        for (DJGroup group : getReport().getColumnsGroups()) {
             if (group.getColumnToGroupBy().equals(col))
                 return group;
         }

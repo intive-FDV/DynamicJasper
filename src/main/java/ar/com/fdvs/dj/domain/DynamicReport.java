@@ -33,6 +33,7 @@ import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.JasperDesignDecorator;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.Parameter;
@@ -75,8 +76,8 @@ public class DynamicReport extends DJBaseElement {
 	private String resourceBundle = null;
 	private List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
 
-	//<ColumnsGroup>
-	private List columnsGroups = new ArrayList();
+	//<DJGroup>
+	private List<DJGroup> columnsGroups = new ArrayList<DJGroup>();
 
 	//<DJChart>
 	private List charts = new ArrayList();
@@ -148,10 +149,10 @@ public class DynamicReport extends DJBaseElement {
 
 	public DynamicReport() {}
 
-	public DynamicReport(String title, List columns, List columnsGroups, List charts, DynamicReportOptions options) {
+	public DynamicReport(String title, List columns, List<DJGroup> columnsGroups, List charts, DynamicReportOptions options) {
 		this.title = title;
 		this.columns = columns;
-		this.columnsGroups = columnsGroups;
+		this.columnsGroups = new ArrayList<DJGroup>(columnsGroups);
 		this.charts = charts;
 		this.options = options;
 	}
@@ -188,11 +189,11 @@ public class DynamicReport extends DJBaseElement {
 		this.columns = columns;
 	}
 
-	public List getColumnsGroups() {
+	public List<DJGroup> getColumnsGroups() {
 		return columnsGroups;
 	}
 
-	public void setColumnsGroups(List columnsGroups) {
+	public void setColumnsGroups(List<DJGroup> columnsGroups) {
 		this.columnsGroups = columnsGroups;
 	}
 

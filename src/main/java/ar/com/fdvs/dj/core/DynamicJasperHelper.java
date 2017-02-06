@@ -123,8 +123,7 @@ public class DynamicJasperHelper {
              */
             if (column instanceof PercentageColumn) {
                 PercentageColumn percentageColumn = ((PercentageColumn) column);
-                for (Object o : dr.getColumnsGroups()) {
-                    DJGroup djGroup = (DJGroup) o;
+                for (DJGroup djGroup : dr.getColumnsGroups()) {
                     JRDesignGroup jrGroup = LayoutUtils.getJRDesignGroup(jd, layoutManager, djGroup);
                     DJGroupVariableDefRegistrationManager variablesRM = new DJGroupVariableDefRegistrationManager(jd, dr, layoutManager, jrGroup);
                     DJGroupVariableDef variable = new DJGroupVariableDef(percentageColumn.getGroupVariableName(djGroup), percentageColumn.getPercentageColumn(), DJCalculation.SUM);
@@ -394,9 +393,10 @@ public class DynamicJasperHelper {
 
     protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters, String namePrefix) throws JRException {
         log.debug("Visiting subreports for " + namePrefix);
-        int groupnum = 1;
-        for (Iterator iterator = dr.getColumnsGroups().iterator(); iterator.hasNext(); groupnum++) {
-            DJGroup group = (DJGroup) iterator.next();
+        int groupnum = 0;
+
+        for (DJGroup group : dr.getColumnsGroups()) {
+            groupnum++;
             int subreportNum = 1;
             //Header Subreports
             for (Iterator iterator2 = group.getHeaderSubreports().iterator(); iterator2.hasNext(); subreportNum++) {
@@ -444,7 +444,9 @@ public class DynamicJasperHelper {
                 }
 
             }
+
         }
+
         log.debug("Finished compiling and loading subreports for " + namePrefix);
     }
 
@@ -548,9 +550,7 @@ public class DynamicJasperHelper {
      */
     @SuppressWarnings("unchecked")
     protected static void visitSubreports(DynamicReport dr, Map _parameters) {
-        for (Object o2 : dr.getColumnsGroups()) {
-            DJGroup group = (DJGroup) o2;
-
+        for (DJGroup group : dr.getColumnsGroups()) {
             //Header Subreports
             for (Object o1 : group.getHeaderSubreports()) {
                 Subreport subreport = (Subreport) o1;

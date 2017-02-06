@@ -49,7 +49,7 @@ public class XlsReportTest extends BaseDjReportTest {
 
 		DynamicReport dr = drb.build();
 
-		DJGroup group = (DJGroup) dr.getColumnsGroups().iterator().next();
+		DJGroup group = dr.getColumnsGroups().iterator().next();
 		group.setLayout(GroupLayout.EMPTY); //not used by ListLayoutManager
 
 		return dr;
