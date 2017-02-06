@@ -54,7 +54,7 @@ import java.util.Map;
 public class DynamicReport extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
-	protected Map fontsMap = new HashMap(); //<String, java.awt.Font>
+	protected Map<String, java.awt.Font> fontsMap = new HashMap<String, java.awt.Font>(); //<String, java.awt.Font>
 	private String reportName;
     /**
      Sets the language of the expressions used in the report
@@ -294,11 +294,11 @@ public class DynamicReport extends DJBaseElement {
 		this.query = query;
 	}
 
-	public Map getFontsMap() {
+	public Map<String, java.awt.Font> getFontsMap() {
 		return fontsMap;
 	}
 
-	public void setFontsMap(Map fontsMap) {
+	public void setFontsMap(Map<String, java.awt.Font> fontsMap) {
 		this.fontsMap = fontsMap;
 	}
 
