@@ -152,11 +152,10 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 		
 		log.debug("transforming column property for group variable: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +")");
 
-//		field.setDescription(propertyColumn.getFieldDescription()); //hack for XML data source
-		Iterator iter = columnProperty.getFieldProperties().keySet().iterator();
+		Iterator<String> iter = columnProperty.getFieldProperties().keySet().iterator();
 		while (iter.hasNext()) {
-			String key = (String) iter.next();
-			field.getPropertiesMap().setProperty(key, (String) columnProperty.getFieldProperties().get(key));
+			String key = iter.next();
+			field.getPropertiesMap().setProperty(key, columnProperty.getFieldProperties().get(key));
 		}
 		try {
 			if (getDjd().getFieldsMap().get(field.getName())==null){

@@ -78,7 +78,7 @@ public class ColumnBuilder {
 	private ArrayList conditionalStyles = new ArrayList();
 	private ColumnOperation operation;
 	private List operationColumns = new ArrayList();
-	private PropertiesMap fieldProperties = new PropertiesMap();
+	private PropertiesMap<String, String> fieldProperties = new PropertiesMap();
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	private String fieldDescription;
 	private String truncateSuffix;
