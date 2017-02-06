@@ -36,18 +36,23 @@ public class ImageBanner extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
+	@Deprecated
 	public static final byte ALIGN_LEFT = 0;
+
+	@Deprecated
 	public static final byte ALIGN_RIGHT = 1;
+
+	@Deprecated
 	public static final byte ALIGN_CENTER = 2;
 
 	private String imagePath;
 	private int width = 0;
 	private int height= 0;
-	private byte align = 0;
+	private Alignment align = Alignment.Left;
+
 	private ImageScaleMode scaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	
-	public ImageBanner(){
-	};
+	public ImageBanner(){};
 
 	public int getHeight() {
 		return height;
@@ -61,10 +66,15 @@ public class ImageBanner extends DJBaseElement {
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
 	}
-	public byte getAlign() {
+	public Alignment getAlign() {
 		return align;
 	}
+
+	@Deprecated
 	public void setAlign(byte orientation) {
+		this.align = Alignment.fromValue(orientation);
+	}
+	public void setAlign(Alignment orientation) {
 		this.align = orientation;
 	}
 	public int getWidth() {
@@ -81,12 +91,44 @@ public class ImageBanner extends DJBaseElement {
 	public void setScaleMode(ImageScaleMode scaleMode) {
 		this.scaleMode = scaleMode;
 	}
-	
+
+	@Deprecated
 	public ImageBanner(String imagePath, int width, int height, byte align) {
 		this.imagePath = imagePath;
 		this.width = width;
 		this.height = height;
-		this.align = align;
+		Alignment alignment = Alignment.fromValue(align);
+		this.align = (alignment!=null?alignment:Alignment.Left);
+	}
+
+	public ImageBanner(String imagePath, int width, int height, Alignment align) {
+		this.imagePath = imagePath;
+		this.width = width;
+		this.height = height;
+		this.align = align!=null?align:Alignment.Left;
+	}
+
+	public static enum Alignment {
+		Left((byte)0), Right((byte)1), Center((byte)2);
+
+		private Alignment(byte value){
+			this.value = value;
+		}
+
+		private byte value;
+
+		public byte getValue() {
+			return value;
+		}
+
+		public static Alignment fromValue(byte value) {
+			for (Alignment alignment : Alignment.values()) {
+				if (alignment.getValue() == value)
+					return alignment;
+			}
+
+			return null;
+		}
 	}
 
 }

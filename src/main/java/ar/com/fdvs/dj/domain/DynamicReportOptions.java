@@ -35,6 +35,7 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 
 import java.awt.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class that defines the report configuration.
@@ -43,28 +44,28 @@ public class DynamicReportOptions extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
-	public static final Integer DEFAULT_HEADER_HEIGHT 			= new Integer(30);
-	public static final Integer DEFAULT_HEADER_VARIABLES_HEIGHT	= new Integer(20);
-	public static final Integer DEFAULT_FOOTER_VARIABLES_HEIGHT	= new Integer(20);
-	public static final Integer DEFAULT_DETAIL_HEIGHT 			= new Integer(15);
+	public static final int DEFAULT_HEADER_HEIGHT 			= 30;
+	public static final int DEFAULT_HEADER_VARIABLES_HEIGHT	= 20;
+	public static final int DEFAULT_FOOTER_VARIABLES_HEIGHT	= 20;
+	public static final int DEFAULT_DETAIL_HEIGHT 			= 15;
 	
-	public static final Integer DEFAULT_MARGIN_TOP 		= new Integer(20);
-	public static final Integer DEFAULT_MARGIN_BOTTOM 	= new Integer(10);
-	public static final Integer DEFAULT_MARGIN_LEFT 	= new Integer(30);
-	public static final Integer DEFAULT_MARGIN_RIGTH 	= new Integer(10);
+	public static final int DEFAULT_MARGIN_TOP 		= 20;
+	public static final int DEFAULT_MARGIN_BOTTOM 	= 10;
+	public static final int DEFAULT_MARGIN_LEFT 	= 30;
+	public static final int DEFAULT_MARGIN_RIGTH 	= 10;
 	
-	private Integer headerHeight 			= DEFAULT_HEADER_HEIGHT;
-	private Integer headerVariablesHeight 	= DEFAULT_HEADER_HEIGHT;
-	private Integer footerVariablesHeight 	= DEFAULT_FOOTER_VARIABLES_HEIGHT;
-	private Integer detailHeight 			= DEFAULT_DETAIL_HEIGHT;
+	private int headerHeight 			= DEFAULT_HEADER_HEIGHT;
+	private int headerVariablesHeight 	= DEFAULT_HEADER_HEIGHT;
+	private int footerVariablesHeight 	= DEFAULT_FOOTER_VARIABLES_HEIGHT;
+	private int detailHeight 			= DEFAULT_DETAIL_HEIGHT;
 
-	private Integer leftMargin 		= DEFAULT_MARGIN_LEFT;
-	private Integer rightMargin 	= DEFAULT_MARGIN_RIGTH;
-	private Integer topMargin 		= DEFAULT_MARGIN_TOP;
-	private Integer bottomMargin	= DEFAULT_MARGIN_BOTTOM;
+	private int leftMargin 		= DEFAULT_MARGIN_LEFT;
+	private int rightMargin 	= DEFAULT_MARGIN_RIGTH;
+	private int topMargin 		= DEFAULT_MARGIN_TOP;
+	private int bottomMargin	= DEFAULT_MARGIN_BOTTOM;
 
-	private Integer columnsPerPage = new Integer(1);
-	private Integer columnSpace = new Integer(0);
+	private int columnsPerPage = 1;
+	private int columnSpace = 0;
 
 	private boolean useFullPageWidth = false;
 
@@ -74,10 +75,10 @@ public class DynamicReportOptions extends DJBaseElement {
 	private Style oddRowBackgroundStyle = new StyleBuilder(false,"defaultOddRowStyle")
 												.setBackgroundColor(new Color(200,200,200,128))
 												.build();
-	private Integer titleHeight =  DEFAULT_HEADER_HEIGHT;
+	private int titleHeight =  DEFAULT_HEADER_HEIGHT;
 	private boolean titleNewPage =  false;
 	private boolean summaryNewPage =  false;
-	private Integer subtitleHeight = DEFAULT_DETAIL_HEIGHT;
+	private int subtitleHeight = DEFAULT_DETAIL_HEIGHT;
 	private boolean showDetailBand = true;
 
 	/**
@@ -100,69 +101,69 @@ public class DynamicReportOptions extends DJBaseElement {
 	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
 	 * value: ImageBanner
 	 */
-	private HashMap imageBanners = new HashMap();
+	private Map<ImageBanner.Alignment, ImageBanner> imageBanners = new HashMap();
 
     /**
      * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
      * value: ImageBanner
      */
-    private HashMap footerImageBanners = new HashMap();
+    private Map<ImageBanner.Alignment, ImageBanner> footerImageBanners = new HashMap();
 
 	/**
 	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
 	 * value: ImageBanner
 	 */
-	private HashMap firstPageImageBanners = new HashMap();
+	private Map<ImageBanner.Alignment, ImageBanner> firstPageImageBanners = new HashMap();
 
     /**
      * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
      * value: ImageBanner
      */
-	private HashMap firstPageFooterImageBanners = new HashMap();
+	private Map<ImageBanner.Alignment, ImageBanner> firstPageFooterImageBanners = new HashMap();
 
-    public HashMap getFirstPageFooterImageBanners() {
+    public Map<ImageBanner.Alignment, ImageBanner> getFirstPageFooterImageBanners() {
         return firstPageFooterImageBanners;
     }
 
-    public HashMap getImageBanners() {
+    public Map<ImageBanner.Alignment, ImageBanner> getImageBanners() {
 		return imageBanners;
 	}
 
-	public Integer getFooterVariablesHeight() {
+	public int getFooterVariablesHeight() {
 		return footerVariablesHeight;
 	}
 
-	public void setFooterVariablesHeight(Integer footerHeight) {
-		if (footerHeight == null)
+	public void setFooterVariablesHeight(int footerHeight) {
+		if (footerHeight < 0)
 			footerHeight = DEFAULT_FOOTER_VARIABLES_HEIGHT;
 		this.footerVariablesHeight = footerHeight;
 	}
 
-	public Integer getHeaderHeight() {
+	public int getHeaderHeight() {
 		return headerHeight;
 	}
 
-	public void setHeaderHeight(Integer headerHeight) {
-		if (headerHeight ==  null)
+	public void setHeaderHeight(int headerHeight) {
+		if (headerHeight <  0)
 			headerHeight = DEFAULT_HEADER_HEIGHT;
 		this.headerHeight = headerHeight;
 	}
 
-	public Integer getDetailHeight() {
+	public int getDetailHeight() {
 		return detailHeight;
 	}
 
-	public void setDetailHeight(Integer detailHeight) {
-		if (detailHeight == null)
+	public void setDetailHeight(int detailHeight) {
+		if (detailHeight < 0)
 			detailHeight = DEFAULT_DETAIL_HEIGHT;
 		this.detailHeight = detailHeight;
 	}
 
-	public Integer getLeftMargin() {
+	public int getLeftMargin() {
 		return leftMargin;
 	}
 
-	public void setLeftMargin(Integer leftMargin) {
+	public void setLeftMargin(int leftMargin) {
 		this.leftMargin = leftMargin;
 	}
 
@@ -174,43 +175,43 @@ public class DynamicReportOptions extends DJBaseElement {
 		this.useFullPageWidth = useFullPageWidth;
 	}
 
-	public Integer getBottomMargin() {
+	public int getBottomMargin() {
 		return bottomMargin;
 	}
 
-	public void setBottomMargin(Integer bottomMargin) {
+	public void setBottomMargin(int bottomMargin) {
 		this.bottomMargin = bottomMargin;
 	}
 
-	public Integer getRightMargin() {
+	public int getRightMargin() {
 		return rightMargin;
 	}
 
-	public void setRightMargin(Integer rightMargin) {
+	public void setRightMargin(int rightMargin) {
 		this.rightMargin = rightMargin;
 	}
 
-	public Integer getTopMargin() {
+	public int getTopMargin() {
 		return topMargin;
 	}
 
-	public void setTopMargin(Integer topMargin) {
+	public void setTopMargin(int topMargin) {
 		this.topMargin = topMargin;
 	}
 
-	public Integer getColumnsPerPage() {
+	public int getColumnsPerPage() {
 		return columnsPerPage;
 	}
 
-	public void setColumnsPerPage(Integer columnsPerPage) {
+	public void setColumnsPerPage(int columnsPerPage) {
 		this.columnsPerPage = columnsPerPage;
 	}
 
-	public Integer getColumnSpace() {
+	public int getColumnSpace() {
 		return columnSpace;
 	}
 
-	public void setColumnSpace(Integer columnSpace) {
+	public void setColumnSpace(int columnSpace) {
 		this.columnSpace = columnSpace;
 	}
 
@@ -228,7 +229,7 @@ public class DynamicReportOptions extends DJBaseElement {
 	 * @return int
 	 */
 	public int getPrintableWidth(){
-		return page.getWidth() - leftMargin.intValue() - rightMargin.intValue();
+		return page.getWidth() - leftMargin - rightMargin;
 	}
 
 	/**
@@ -237,8 +238,8 @@ public class DynamicReportOptions extends DJBaseElement {
 	 * @return int
 	 */
 	public int getColumnWidth(){
-		int usableWidth = page.getWidth()-getLeftMargin().intValue()-getRightMargin().intValue()-((getColumnsPerPage().intValue()-1)*getColumnSpace().intValue());
-		return usableWidth / getColumnsPerPage().intValue();
+		int usableWidth = page.getWidth()-getLeftMargin()-getRightMargin()-((getColumnsPerPage()-1)*getColumnSpace());
+		return usableWidth / getColumnsPerPage();
 	}
 
 	public Style getOddRowBackgroundStyle() {
@@ -257,23 +258,23 @@ public class DynamicReportOptions extends DJBaseElement {
 		this.printBackgroundOnOddRows = printBackgroundOnOddRows;
 	}
 
-	public Integer getTitleHeight() {
+	public int getTitleHeight() {
 		return this.titleHeight;
 	}
 
-	public Integer getSubtitleHeight() {
+	public int getSubtitleHeight() {
 		return this.subtitleHeight;
 	}
 
-	public void setSubtitleHeight(Integer subtitleHeight) {
+	public void setSubtitleHeight(int subtitleHeight) {
 		this.subtitleHeight = subtitleHeight;
 	}
 
-	public void setTitleHeight(Integer titleHeight) {
+	public void setTitleHeight(int titleHeight) {
 		this.titleHeight = titleHeight;
 	}
 
-	public HashMap getFirstPageImageBanners() {
+	public Map<ImageBanner.Alignment, ImageBanner> getFirstPageImageBanners() {
 		return firstPageImageBanners;
 	}
 
@@ -361,12 +362,12 @@ public class DynamicReportOptions extends DJBaseElement {
 		this.ignorePagination = ignorePagination;
 	}
 
-	public Integer getHeaderVariablesHeight() {
+	public int getHeaderVariablesHeight() {
 		return headerVariablesHeight;
 	}
 
-	public void setHeaderVariablesHeight(Integer headerVariablesHeight) {
-		if (headerVariablesHeight==null)
+	public void setHeaderVariablesHeight(int headerVariablesHeight) {
+		if (headerVariablesHeight < 0)
 			headerVariablesHeight = DEFAULT_HEADER_VARIABLES_HEIGHT;
 		this.headerVariablesHeight = headerVariablesHeight;
 	}
@@ -391,7 +392,7 @@ public class DynamicReportOptions extends DJBaseElement {
 		this.summaryNewPage = summaryNewPage;
 	}
 
-    public HashMap getFooterImageBanners() {
+    public Map<ImageBanner.Alignment, ImageBanner> getFooterImageBanners() {
         return footerImageBanners;
     }
 }

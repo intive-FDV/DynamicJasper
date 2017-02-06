@@ -55,8 +55,8 @@ public class ListLayoutManager extends AbstractLayoutManager {
 	}	
 
 	protected void startLayout() {
-		getReport().getOptions().setColumnsPerPage(new Integer(1));
-		getReport().getOptions().setColumnSpace(new Integer(0));
+		getReport().getOptions().setColumnsPerPage(1);
+		getReport().getOptions().setColumnSpace(0);
 		getDesign().setColumnCount(1);
 		getDesign().setColumnWidth(getReport().getOptions().getColumnWidth());
 		super.startLayout();

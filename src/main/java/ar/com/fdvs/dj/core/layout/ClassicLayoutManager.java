@@ -315,11 +315,11 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				image.setRemoveLineWhenBlank(true);
 				image.setScaleImage(ScaleImageEnum.getByValue(imageBanner.getScaleMode().getValue()));
 
-				if (imageBanner.getAlign() == ImageBanner.ALIGN_LEFT)
+				if (imageBanner.getAlign() == ImageBanner.Alignment.Left)
 					image.setX(0);
-				else if (imageBanner.getAlign() == ImageBanner.ALIGN_RIGHT)
+				else if (imageBanner.getAlign() == ImageBanner.Alignment.Right)
 					image.setX(getReport().getOptions().getPage().getWidth() - getReport().getOptions().getLeftMargin() - getReport().getOptions().getRightMargin() - imageBanner.getWidth());
-				else if (imageBanner.getAlign() == ImageBanner.ALIGN_CENTER) {
+				else if (imageBanner.getAlign() == ImageBanner.Alignment.Center) {
 					int x = (getReport().getOptions().getPage().getWidth() -
 							getReport().getOptions().getRightMargin() -
 							getReport().getOptions().getLeftMargin() - imageBanner.getWidth()) / 2;
@@ -1223,7 +1223,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	protected void insertValueInHeader(JRDesignBand headerBand, DJGroup djgroup, int headerOffset) {
-//		JRDesignTextField textField = generateTextFieldFromColumn(columnsGroup.getColumnToGroupBy(), columnsGroup.getHeaderHeight().intValue(), columnsGroup);
 		int height = getReport().getOptions().getDetailHeight();
 
 		if (!djgroup.getHeaderVariables().isEmpty())
@@ -1232,8 +1231,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 						: getReport().getOptions().getDetailHeight();
 
 		JRDesignTextField textField = generateTextFieldFromColumn(djgroup.getColumnToGroupBy(), height, djgroup);
-		//fixes issue 2817859, textField has columnToGroupBy style
-		//textField.setHorizontalAlignment(djgroup.getColumnToGroupBy().getStyle().getHorizontalAlign().getValue());
 		textField.setStretchType( StretchTypeEnum.NO_STRETCH ); //XXX this is a patch for subreports, ensure it works well.
 		textField.setY(textField.getY() + headerOffset);
 		headerBand.addElement(textField);

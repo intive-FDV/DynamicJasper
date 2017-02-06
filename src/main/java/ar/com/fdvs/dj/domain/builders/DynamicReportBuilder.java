@@ -29,6 +29,7 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.core.JasperDesignDecorator;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
@@ -487,22 +488,8 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setHeaderHeight(Integer height) {
-        options.setHeaderHeight(height);
-        return this;
-    }
-
     public DynamicReportBuilder setHeaderHeight(int height) {
-        options.setHeaderHeight(new Integer(height));
-        return this;
-    }
-
-    /**
-     * @return
-     * @deprecated @param height
-     */
-    public DynamicReportBuilder setFooterHeight(Integer height) {
-        options.setFooterVariablesHeight(height);
+        options.setHeaderHeight(height);
         return this;
     }
 
@@ -511,104 +498,59 @@ public class DynamicReportBuilder {
      * @deprecated @param height
      */
     public DynamicReportBuilder setFooterHeight(int height) {
-        options.setFooterVariablesHeight(new Integer(height));
-        return this;
-    }
-
-    public DynamicReportBuilder setFooterVariablesHeight(Integer height) {
         options.setFooterVariablesHeight(height);
         return this;
     }
 
     public DynamicReportBuilder setFooterVariablesHeight(int height) {
-        options.setFooterVariablesHeight(new Integer(height));
+        options.setFooterVariablesHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setHeaderVariablesHeight(Integer height) {
+    public DynamicReportBuilder setHeaderVariablesHeight(int height) {
         options.setHeaderVariablesHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setDetailHeight(Integer height) {
+    public DynamicReportBuilder setDetailHeight(int height) {
         options.setDetailHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setDetailHeight(int height) {
-        options.setDetailHeight(new Integer(height));
-        return this;
-    }
-
-    public DynamicReportBuilder setLeftMargin(Integer margin) {
+    public DynamicReportBuilder setLeftMargin(int margin) {
         options.setLeftMargin(margin);
         return this;
     }
 
-    public DynamicReportBuilder setLeftMargin(int margin) {
-        options.setLeftMargin(new Integer(margin));
-        return this;
-    }
-
-    public DynamicReportBuilder setRightMargin(Integer margin) {
+    public DynamicReportBuilder setRightMargin(int margin) {
         options.setRightMargin(margin);
         return this;
     }
 
-    public DynamicReportBuilder setRightMargin(int margin) {
-        options.setRightMargin(new Integer(margin));
-        return this;
-    }
-
-    public DynamicReportBuilder setTopMargin(Integer margin) {
+    public DynamicReportBuilder setTopMargin(int margin) {
         options.setTopMargin(margin);
         return this;
     }
 
-    public DynamicReportBuilder setTopMargin(int margin) {
-        options.setTopMargin(new Integer(margin));
-        return this;
-    }
 
-    public DynamicReportBuilder setBottomMargin(Integer margin) {
+    public DynamicReportBuilder setBottomMargin(int margin) {
         options.setBottomMargin(margin);
         return this;
     }
 
-    public DynamicReportBuilder setBottomMargin(int margin) {
-        options.setBottomMargin(new Integer(margin));
-        return this;
-    }
-
-    public DynamicReportBuilder setColumnsPerPage(Integer numColumns) {
+    public DynamicReportBuilder setColumnsPerPage(int numColumns) {
         options.setColumnsPerPage(numColumns);
         return this;
     }
 
-    public DynamicReportBuilder setColumnsPerPage(int numColumns) {
-        options.setColumnsPerPage(new Integer(numColumns));
-        return this;
-    }
-
     public DynamicReportBuilder setColumnsPerPage(int numColumns, int columnSpace) {
-        options.setColumnsPerPage(new Integer(numColumns));
-        options.setColumnSpace(new Integer(columnSpace));
-        return this;
-    }
-
-    public DynamicReportBuilder setColumnsPerPage(Integer numColumns, Integer columnSpace) {
         options.setColumnsPerPage(numColumns);
         options.setColumnSpace(columnSpace);
         return this;
     }
 
-    public DynamicReportBuilder setColumnSpace(Integer columSpace) {
-        options.setColumnSpace(columSpace);
-        return this;
-    }
-
     public DynamicReportBuilder setColumnSpace(int columSpace) {
-        options.setColumnSpace(new Integer(columSpace));
+        options.setColumnSpace(columSpace);
         return this;
     }
 
@@ -639,11 +581,6 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setUseFullPageWidth(Boolean useFullwidth) {
-        options.setUseFullPageWidth(useFullwidth.booleanValue());
-        return this;
-    }
-
     public DynamicReportBuilder setTitleStyle(Style titleStyle) {
         this.report.setTitleStyle(titleStyle);
         return this;
@@ -659,11 +596,6 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setPrintBackgroundOnOddRows(Boolean printBackgroundOnOddRows) {
-        this.options.setPrintBackgroundOnOddRows(printBackgroundOnOddRows.booleanValue());
-        return this;
-    }
-
     public DynamicReportBuilder setOddRowBackgroundStyle(Style oddRowBackgroundStyle) {
         this.options.setOddRowBackgroundStyle(oddRowBackgroundStyle);
         return this;
@@ -674,12 +606,12 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setGlobalHeaderVariableHeight(Integer height) {
+    public DynamicReportBuilder setGlobalHeaderVariableHeight(int height) {
         globalVariablesGroup.setHeaderVariablesHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setGlobalFooterVariableHeight(Integer height) {
+    public DynamicReportBuilder setGlobalFooterVariableHeight(int height) {
         globalVariablesGroup.setFooterVariablesHeight(height);
         return this;
     }
@@ -856,12 +788,12 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setTitleHeight(Integer height) {
+    public DynamicReportBuilder setTitleHeight(int height) {
         options.setTitleHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setSubtitleHeight(Integer height) {
+    public DynamicReportBuilder setSubtitleHeight(int height) {
         options.setSubtitleHeight(height);
         return this;
     }
@@ -879,44 +811,115 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder addImageBanner(String path, Integer width, Integer height, byte align) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
-        options.getImageBanners().put(new Byte(align), banner);
+    @Deprecated
+    public DynamicReportBuilder addImageBanner(String path, int width, int height, byte align) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getImageBanners().put(alignment, banner);
         return this;
     }
 
-    public DynamicReportBuilder addImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
+    public DynamicReportBuilder addImageBanner(String path, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    @Deprecated
+    public DynamicReportBuilder addImageBanner(String path, int width, int height, byte align, ImageScaleMode scaleMode) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
         banner.setScaleMode(scaleMode);
-        options.getImageBanners().put(new Byte(align), banner);
+        options.getImageBanners().put(alignment, banner);
         return this;
     }
 
-    public DynamicReportBuilder addFooterImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
+    public DynamicReportBuilder addImageBanner(String path, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
         banner.setScaleMode(scaleMode);
-        options.getFooterImageBanners().put(new Byte(align), banner);
+        options.getImageBanners().put(alignment, banner);
         return this;
     }
 
-    public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
-        options.getFirstPageImageBanners().put(new Byte(align), banner);
-        return this;
-    }
+    @Deprecated
+    public DynamicReportBuilder addFooterImageBanner(String path, int width, int height, byte align, ImageScaleMode scaleMode) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
 
-    public DynamicReportBuilder addFirstPageFooterImageBanner(String path, Integer width, Integer height, byte align) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
-        options.getFirstPageFooterImageBanners().put(new Byte(align), banner);
-        return this;
-    }
-
-    public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
         banner.setScaleMode(scaleMode);
-        options.getFirstPageImageBanners().put(new Byte(align), banner);
+        options.getFooterImageBanners().put(alignment, banner);
         return this;
     }
+
+    public DynamicReportBuilder addFooterImageBanner(String path, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+
+    public DynamicReportBuilder addFirstPageImageBanner(String path, int width, int height, ImageBanner.Alignment align) {
+        ImageBanner banner = new ImageBanner(path, width, height, align);
+        options.getFirstPageImageBanners().put(align, banner);
+        return this;
+    }
+
+    @Deprecated
+    public DynamicReportBuilder addFirstPageImageBanner(String path, int width, int height, byte align) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    @Deprecated
+    public DynamicReportBuilder addFirstPageFooterImageBanner(String path, int width, int height, byte align) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getFirstPageFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    public DynamicReportBuilder addFirstPageFooterImageBanner(String path, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getFirstPageFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    @Deprecated
+    public DynamicReportBuilder addFirstPageImageBanner(String path, int width, int height, byte align, ImageScaleMode scaleMode) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    public DynamicReportBuilder addFirstPageImageBanner(String path, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
 
     /**
      * Registers a field that is not necesary bound to a column, it can be used
@@ -1031,10 +1034,10 @@ public class DynamicReportBuilder {
 
     public DynamicReportBuilder setMargins(int top, int bottom, int left, int right) {
 
-        options.setTopMargin(new Integer(top));
-        options.setBottomMargin(new Integer(bottom));
-        options.setLeftMargin(new Integer(left));
-        options.setRightMargin(new Integer(right));
+        options.setTopMargin(top);
+        options.setBottomMargin(bottom);
+        options.setLeftMargin(left);
+        options.setRightMargin(right);
 
         return this;
     }
