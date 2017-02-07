@@ -31,20 +31,42 @@ package ar.com.fdvs.dj.core.layout;
 
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
-import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.DJCRosstabMeasurePrecalculatedTotalProvider;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJCrosstabColumn;
+import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
+import ar.com.fdvs.dj.domain.DJCrosstabRow;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.HyperLinkUtil;
 import ar.com.fdvs.dj.util.LayoutUtils;
 import ar.com.fdvs.dj.util.Utils;
-import net.sf.jasperreports.crosstabs.design.*;
+import net.sf.jasperreports.crosstabs.design.JRDesignCellContents;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabBucket;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabCell;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabColumnGroup;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabDataset;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabMeasure;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabParameter;
+import net.sf.jasperreports.crosstabs.design.JRDesignCrosstabRowGroup;
 import net.sf.jasperreports.crosstabs.fill.JRPercentageCalculatorFactory;
 import net.sf.jasperreports.crosstabs.type.CrosstabPercentageEnum;
 import net.sf.jasperreports.crosstabs.type.CrosstabTotalPositionEnum;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
-import net.sf.jasperreports.engine.design.*;
+import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
+import net.sf.jasperreports.engine.design.JRDesignDataset;
+import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignField;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.design.JRDesignTextField;
+import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.type.CalculationEnum;
 import net.sf.jasperreports.engine.type.ModeEnum;
 import net.sf.jasperreports.engine.type.PositionTypeEnum;
@@ -52,9 +74,13 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class Dj2JrCrosstabBuilder {
 
@@ -78,8 +104,8 @@ public class Dj2JrCrosstabBuilder {
 
 		jrcross.setPositionType( PositionTypeEnum.FIX_RELATIVE_TO_TOP );
 
-		cols = (DJCrosstabColumn[]) djcrosstab.getColumns().toArray(new DJCrosstabColumn[]{});
-		rows = (DJCrosstabRow[]) djcrosstab.getRows().toArray(new DJCrosstabRow[]{});
+		cols = djcrosstab.getColumns().toArray(new DJCrosstabColumn[]{});
+		rows = djcrosstab.getRows().toArray(new DJCrosstabRow[]{});
 
 		JRDesignExpression mapExp = new JRDesignExpression();
 		mapExp.setText("$P{REPORT_PARAMETERS_MAP}");
@@ -175,12 +201,10 @@ public class Dj2JrCrosstabBuilder {
 		else if (djcross.getMainHeaderTitle() != null)
 			text = "\"" + djcross.getMainHeaderTitle() +  "\"";
 
-		for (Iterator iterator = djcross.getColumns().iterator(); iterator.hasNext();) {
-			DJCrosstabColumn col = (DJCrosstabColumn) iterator.next();
+		for (DJCrosstabColumn col : djcross.getColumns()) {
 			auxHeight += col.getHeaderHeight();
 		}
-		for (Iterator iterator = djcross.getRows().iterator(); iterator.hasNext();) {
-			DJCrosstabRow row = (DJCrosstabRow) iterator.next();
+		for (DJCrosstabRow row : djcross.getRows()) {
 			auxWidth += row.getHeaderWidth();
 		}
 
@@ -203,17 +227,16 @@ public class Dj2JrCrosstabBuilder {
 	 */
 	private String createAutomaticMainHeaderTitle() {
 		String text = "";
-		for (Iterator iterator = djcross.getColumns().iterator(); iterator.hasNext();) {
-			DJCrosstabColumn col = (DJCrosstabColumn) iterator.next();
-//			auxHeight += col.getHeaderHeight();
+		for (Iterator<DJCrosstabColumn> iterator = djcross.getColumns().iterator(); iterator.hasNext();) {
+			DJCrosstabColumn col = iterator.next();
 			text += col.getTitle();
 			if (iterator.hasNext())
 				text += ", ";
 		}
+
 		text += "\\nvs.\\n";
-		for (Iterator iterator = djcross.getRows().iterator(); iterator.hasNext();) {
-			DJCrosstabRow row = (DJCrosstabRow) iterator.next();
-//			auxWidth += row.getHeaderWidth();
+		for (Iterator<DJCrosstabRow> iterator = djcross.getRows().iterator(); iterator.hasNext();) {
+			DJCrosstabRow row = iterator.next();
 			text += row.getTitle();
 			if (iterator.hasNext())
 				text += ", ";
@@ -352,13 +375,13 @@ public class Dj2JrCrosstabBuilder {
 		auxCol.setProperty(null);
 		auxRow.setProperty(null);
 
-		List auxColsList = new ArrayList(djcross.getColumns());
+		List<DJCrosstabColumn> auxColsList = new ArrayList(djcross.getColumns());
 		auxColsList.add(auxCol);
-		List auxRowsList = new ArrayList(djcross.getRows());
+		List<DJCrosstabRow> auxRowsList = new ArrayList(djcross.getRows());
 		auxRowsList.add(auxRow);
 
-		DJCrosstabColumn[] auxCols = (DJCrosstabColumn[]) auxColsList.toArray(new DJCrosstabColumn[]{});
-		DJCrosstabRow[] auxRows = (DJCrosstabRow[]) auxRowsList.toArray(new DJCrosstabRow[]{});
+		DJCrosstabColumn[] auxCols = auxColsList.toArray(new DJCrosstabColumn[]{});
+		DJCrosstabRow[] auxRows = auxRowsList.toArray(new DJCrosstabRow[]{});
 
 
 		for (int i = auxCols.length-1; i >= 0; i--) {
@@ -826,8 +849,7 @@ public class Dj2JrCrosstabBuilder {
 	private int getRowHeaderMaxHeight(DJCrosstabRow crosstabRow) {
 		int auxHeight = crosstabRow.getHeight();
 		boolean found = false;
-		for (Iterator iterator = djcross.getRows().iterator(); iterator.hasNext();) {
-			DJCrosstabRow row = (DJCrosstabRow) iterator.next();
+		for (DJCrosstabRow row : djcross.getRows()) {
 			if (!row.equals(crosstabRow) && found == false){
 				continue;
 			} else {
@@ -839,6 +861,7 @@ public class Dj2JrCrosstabBuilder {
 
 			if (row.isShowTotals())
 				auxHeight += row.getHeight();
+
 		}
 		return auxHeight;
 	}
@@ -915,11 +938,9 @@ public class Dj2JrCrosstabBuilder {
 	private int calculateRowHeaderMaxWidth(DJCrosstabColumn crosstabColumn) {
 		int auxWidth = 0;
 		boolean firstTime = true;
-		List auxList = new ArrayList(djcross.getColumns());
+		List<DJCrosstabColumn> auxList = new ArrayList(djcross.getColumns());
 		Collections.reverse(auxList);
-		for (Iterator iterator = auxList.iterator(); iterator.hasNext();) {
-			DJCrosstabColumn col = (DJCrosstabColumn) iterator.next();
-
+		for (DJCrosstabColumn col : auxList) {
 			if (col.equals(crosstabColumn)){
 				if (auxWidth == 0)
 					auxWidth = col.getWidth();
@@ -965,17 +986,15 @@ public class Dj2JrCrosstabBuilder {
 			layoutManager.applyStyleToElement(totalHeaderstyle, element);
 		}
 
-		//The width can be the sum of the with of all the rows starting from the current one, up to the inner most one.
+		//The width can be the sum of the width of all the rows starting from the current one, up to the inner most one.
 		int auxWidth = 0;
 		boolean found = false;
-		for (Iterator iterator = djcross.getRows().iterator(); iterator.hasNext();) {
-			DJCrosstabRow row = (DJCrosstabRow) iterator.next();
+		for (DJCrosstabRow row : djcross.getRows()) {
 			if (!row.equals(crosstabRow) && found == false){
 				continue;
 			} else {
 				found = true;
 			}
-
 			auxWidth += row.getHeaderWidth();
 		}
 		element.setWidth(auxWidth);
@@ -1038,8 +1057,7 @@ public class Dj2JrCrosstabBuilder {
 		//The height can be the sum of the heights of all the columns starting from the current one, up to the inner most one.
 		int auxWidth = 0;
 		boolean found = false;
-		for (Iterator iterator = djcross.getColumns().iterator(); iterator.hasNext();) {
-			DJCrosstabColumn col = (DJCrosstabColumn) iterator.next();
+		for (DJCrosstabColumn col : djcross.getColumns()) {
 			if (!col.equals(crosstabColumn) && found == false){
 				continue;
 			} else {
@@ -1048,12 +1066,12 @@ public class Dj2JrCrosstabBuilder {
 
 			auxWidth += col.getHeaderHeight();
 		}
+
 		element.setHeight(auxWidth);
 
 		applyCellBorder(totalHeaderContent, fullBorder, false);
 
 		totalHeaderContent.addElement(element);
-
 	}
 
 }
