@@ -85,20 +85,20 @@ public class SystemVariableReportTest extends BaseDjReportTest {
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitleStyle(titleStyle)
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+			.setDetailHeight(15).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(false)
 			.setGrandTotalLegend("Grand Total")
 			.setGrandTotalLegendStyle(headerVariables)
 			.setDefaultStyles(titleStyle, null, headerStyle, detailStyle)
 			.setPrintColumnNames(true)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_RIGHT)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 30, ImageBanner.ALIGN_RIGHT)
 			.setOddRowBackgroundStyle(oddRowStyle);
 			
 
@@ -155,14 +155,14 @@ public class SystemVariableReportTest extends BaseDjReportTest {
 		drb.setUseFullPageWidth(true);
 		drb.addAutoText(AutoText.AUTOTEXT_PAGE_X_SLASH_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT);
 		
-		/**
-		 * The scriptlet that will know how to get precalculated values
+		/*
+		  The scriptlet that will know how to get precalculated values
 		 */
 		MyDjScriptlet myDjScriptlet = new MyDjScriptlet();
 		myDjScriptlet.setPrecalculatedValues(getPrecalculatedValues());
 		
-		/**
-		 * The scriptlet is introduced as a parameter
+		/*
+		  The scriptlet is introduced as a parameter
 		 */
 		params.put(JRParameter.REPORT_SCRIPTLET, myDjScriptlet);
 
@@ -176,10 +176,10 @@ public class SystemVariableReportTest extends BaseDjReportTest {
 	 */
 	private Map getPrecalculatedValues() {
 		Map map = new HashMap();
-		map.put("Arizona", new Long(111));
-		map.put("Florida", new Long(999));
-		map.put("New York", new Long(555));
-		map.put("Washington", new Long(888));
+		map.put("Arizona", 111L);
+		map.put("Florida", 999L);
+		map.put("New York", 555L);
+		map.put("Washington", 888L);
 		return map;
 	}
 

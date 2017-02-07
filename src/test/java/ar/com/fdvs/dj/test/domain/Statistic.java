@@ -44,10 +44,10 @@ public class Statistic {
 	public static List dummy3 = new ArrayList();
 
 	static {
-		dummy3.add(new DummyLevel3("name1",new Long(1)));
-		dummy3.add(new DummyLevel3("name2",new Long(2)));
-		dummy3.add(new DummyLevel3("name3",new Long(3)));
-		dummy3.add(new DummyLevel3("name3",new Long(4)));
+		dummy3.add(new DummyLevel3("name1", 1L));
+		dummy3.add(new DummyLevel3("name2", 2L));
+		dummy3.add(new DummyLevel3("name3", 3L));
+		dummy3.add(new DummyLevel3("name3", 4L));
 	}
 
 	public Statistic() {

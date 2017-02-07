@@ -55,15 +55,15 @@ public class TemplateStyleReportTest extends BaseDjReportTest {
 		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
 		headerStyle.setTransparency(Transparency.OPAQUE);
 
-		/**
-		 * "titleStyle" exists in the template .jrxml file
-		 * The title should be seen in a big font size, violet foreground and light green background
+		/*
+		  "titleStyle" exists in the template .jrxml file
+		  The title should be seen in a big font size, violet foreground and light green background
 		 */
 		Style titleStyle = new Style("titleStyle");
 
-		/**
-		 * "subtitleStyleParent" is meant to be used as a parent style, while
-		 * "subtitleStyle" is the child.
+		/*
+		  "subtitleStyleParent" is meant to be used as a parent style, while
+		  "subtitleStyle" is the child.
 		 */
 		Style subtitleStyleParent = new Style("subtitleParent");
 		subtitleStyleParent.setBackgroundColor(Color.CYAN);
@@ -74,9 +74,9 @@ public class TemplateStyleReportTest extends BaseDjReportTest {
 
 		Style amountStyle = new Style(); amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		drb.setTitle("November " + getYear() +" sales report")
@@ -88,14 +88,14 @@ public class TemplateStyleReportTest extends BaseDjReportTest {
 			.addStyle(subtitleStyleParent); //register the parent style
 
 
-		/**
-		 * Note that we didn't call the build() method yet
+		/*
+		  Note that we didn't call the build() method yet
 		 */
 
-		/**
-		 * Column definitions. We use a new ColumnBuilder instance for each
-		 * column, the ColumnBuilder.getNew() method returns a new instance
-		 * of the builder
+		/*
+		  Column definitions. We use a new ColumnBuilder instance for each
+		  column, the ColumnBuilder.getNew() method returns a new instance
+		  of the builder
 		 */
 		AbstractColumn columnState = ColumnBuilder.getNew()		//creates a new instance of a ColumnBuilder
 			.setColumnProperty("state", String.class.getName())			//defines the field of the data source that this column will show, also its type
@@ -136,9 +136,9 @@ public class TemplateStyleReportTest extends BaseDjReportTest {
 			.setStyle(amountStyle)		//special style for this column (align right)
 			.build();
 
-		/**
-		 * We add the columns to the report (through the builder) in the order
-		 * we want them to appear
+		/*
+		  We add the columns to the report (through the builder) in the order
+		  we want them to appear
 		 */
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
@@ -148,8 +148,8 @@ public class TemplateStyleReportTest extends BaseDjReportTest {
 		drb.addColumn(columnaCantidad);
 		drb.addColumn(columnAmount);
 
-		/**
-		 * add some more options to the report (through the builder)
+		/*
+		  add some more options to the report (through the builder)
 		 */
 		drb.setUseFullPageWidth(true);	//we tell the report to use the full width of the page. this rezises
 										//the columns width proportionally to meet the page width.

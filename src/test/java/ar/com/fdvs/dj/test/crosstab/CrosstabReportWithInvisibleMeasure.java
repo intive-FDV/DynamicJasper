@@ -60,15 +60,14 @@ public class CrosstabReportWithInvisibleMeasure extends BaseDjReportTest {
 	private Style totalColStyle;
 	private Style totalRowStyle;
 
-	private Style measureStyle;
-	private Style measureStyle2;
+    private Style measureStyle2;
 	private Style titleStyle;
 
 	public DynamicReport buildReport() throws Exception {
 		initStyles(); //init some styles to be used
 
-		/**
-		 * Create an empty report (no columns)!
+		/*
+		  Create an empty report (no columns)!
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 			drb
@@ -130,7 +129,7 @@ public class CrosstabReportWithInvisibleMeasure extends BaseDjReportTest {
 	public static String getAsMinutes(Long value) {
 		if (value == null)
 			return null;
-		Long amount = (Long) value;
+		Long amount = value;
 		int sec = amount.intValue() % 60;
 		int mins = amount.intValue() / 60;
 		return mins + "' " + sec + "\"";
@@ -191,10 +190,10 @@ public class CrosstabReportWithInvisibleMeasure extends BaseDjReportTest {
 			.setTextColor(Color.MAGENTA)
 			.build();
 
-		measureStyle = new StyleBuilder(false).setPattern("#,###.##")
-			.setHorizontalAlign(HorizontalAlign.RIGHT)
-			.setFont(Font.ARIAL_MEDIUM)
-			.build();
+        Style measureStyle = new StyleBuilder(false).setPattern("#,###.##")
+                .setHorizontalAlign(HorizontalAlign.RIGHT)
+                .setFont(Font.ARIAL_MEDIUM)
+                .build();
 
 		measureStyle2 = new StyleBuilder(false).setPattern("#,###.##")
 		.setHorizontalAlign(HorizontalAlign.RIGHT)

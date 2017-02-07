@@ -1,5 +1,6 @@
 package ar.com.fdvs.dj.test.crosstab;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Map;
 
@@ -10,15 +11,15 @@ public class MyCrosstabTotalProvider implements DJCRosstabMeasurePrecalculatedTo
 	Map values = Collections.EMPTY_MAP;
 
 	public Object getValueFor(String[] colProp, Object colValue[], String rowProp[], Object rowValue[]) {
-		System.out.println("row " + rowProp + " = " + rowValue);
-		System.out.println("col " + colProp + " = " + colValue);
+		System.out.println("row " + Arrays.toString(rowProp) + " = " + Arrays.toString(rowValue));
+		System.out.println("col " + Arrays.toString(colProp) + " = " + Arrays.toString(colValue));
 		
-		/**
-		 * Here make some logic to determine proper value for the total.
+		/*
+		  Here make some logic to determine proper value for the total.
 		 */
 		
 //		return values.get("" + colProp + "|" + rowProp);
-		return new Long(99);
+		return 99L;
 	}
 
 	public void setValues(Map values) {

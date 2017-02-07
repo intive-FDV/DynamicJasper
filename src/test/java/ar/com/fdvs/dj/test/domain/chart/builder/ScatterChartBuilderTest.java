@@ -67,7 +67,8 @@ public class ScatterChartBuilderTest extends BaseDjReportTest {
 	private JRDesignChart chart;
 	
 	protected void setUp() throws Exception {
-		drb = new DynamicReportBuilder();
+        super.setUp();
+        drb = new DynamicReportBuilder();
 
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
@@ -183,7 +184,7 @@ public class ScatterChartBuilderTest extends BaseDjReportTest {
 		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
 		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
 		assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
-		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
+		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());
 	}

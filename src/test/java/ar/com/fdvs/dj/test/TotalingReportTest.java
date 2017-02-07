@@ -50,9 +50,9 @@ public class TotalingReportTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 				
 		Style headerStyle1 = new StyleBuilder(false).setFont(Font.ARIAL_BIG).setBorderBottom(Border.THIN()).setPaddingTop(15) .build();

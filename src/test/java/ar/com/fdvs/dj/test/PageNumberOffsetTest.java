@@ -63,9 +63,9 @@ public class PageNumberOffsetTest extends BaseDjReportTest {
         Style atStyle = new StyleBuilder(true).setFont(Font.COMIC_SANS_SMALL).setTextColor(Color.red).build();
         Style atStyle2 = new StyleBuilder(true).setFont(new Font(9, Font._FONT_TIMES_NEW_ROMAN, false, true, false)).setTextColor(Color.BLUE).build();
 
-        /**
-         * Adding many autotexts in the same position (header/footer and
-         * aligment) makes them to be one on top of the other
+        /*
+          Adding many autotexts in the same position (header/footer and
+          aligment) makes them to be one on top of the other
          */
         //Setting the page offset, the first page number will be 150
         int pageOffset = 150;

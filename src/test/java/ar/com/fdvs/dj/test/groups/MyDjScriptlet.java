@@ -3,7 +3,6 @@ package ar.com.fdvs.dj.test.groups;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRScriptletException;
-import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.fill.JRFillParameter;
 import net.sf.jasperreports.engine.fill.JRFillVariable;
@@ -34,17 +33,17 @@ public class MyDjScriptlet extends DJDefaultScriptlet {
         JRFillParameter report = parametersMap.get("JASPER_REPORT");
         String prefix = ((JasperReport)report.getValue()).getName() + "_";
 		
-		/**
-		 * Recover JasperReport variable (the holder for the calculated value)
-		 * The naming convention used in DJ is: <ReportName>_variable-<[header|footer]>_<grouped column property>_<column with the variable>
-		 * As an example: XXXX_variable-header_state_quantity stands for: a header variable placed in the group for the column "state"
-		 * which calculates in the column "quantity"
-         * In the example, XXXX is the report name which is obtained from current JasperReport object (from the parameters map)
+		/*
+		  Recover JasperReport variable (the holder for the calculated value)
+		  The naming convention used in DJ is: <ReportName>_variable-<[header|footer]>_<grouped column property>_<column with the variable>
+		  As an example: XXXX_variable-header_state_quantity stands for: a header variable placed in the group for the column "state"
+		  which calculates in the column "quantity"
+          In the example, XXXX is the report name which is obtained from current JasperReport object (from the parameters map)
 		 */
-		JRFillVariable var = (JRFillVariable) variablesMap.get(prefix + "variable-header_state_quantity");
+		JRFillVariable var = variablesMap.get(prefix + "variable-header_state_quantity");
 		
-		/**
-		 * Here We get the precalculated value for the current group
+		/*
+		  Here We get the precalculated value for the current group
 		 */
 		Object precalculatedValue = getPrecalculatedValue("state", currentGroupValue);
 		

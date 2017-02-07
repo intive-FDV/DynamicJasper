@@ -66,8 +66,8 @@ public class CrosstabReportWithMMValueFormatterTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 		initStyles(); //init some styles to be used
 
-		/**
-		 * Create an empty report (no columns)!
+		/*
+		  Create an empty report (no columns)!
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 			drb
@@ -123,7 +123,7 @@ public class CrosstabReportWithMMValueFormatterTest extends BaseDjReportTest {
 	public static String getAsMinutes(Long value) {
 		if (value == null)
 			return null;
-		Long amount = (Long) value;
+		Long amount = value;
 		int sec = amount.intValue() % 60;
 		int mins = amount.intValue() / 60;
 		return mins + "' " + sec + "\"";

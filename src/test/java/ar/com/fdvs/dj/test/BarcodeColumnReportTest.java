@@ -49,9 +49,9 @@ public class BarcodeColumnReportTest extends BaseDjReportTest {
 
 
 		Style style = new StyleBuilder(true).setHorizontalAlign(HorizontalAlign.CENTER).build();
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("State", "state", String.class.getName(),20)

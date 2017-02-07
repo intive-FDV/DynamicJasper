@@ -82,20 +82,20 @@ public class GroupsReportTest2 extends BaseDjReportTest {
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitleStyle(titleStyle)
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+			.setDetailHeight(15).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(false)
 			.setGrandTotalLegend("Grand Total")
 			.setGrandTotalLegendStyle(headerVariables)
 			.setDefaultStyles(titleStyle, null, headerStyle, detailStyle)
 			.setPrintColumnNames(false)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_RIGHT)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 30, ImageBanner.ALIGN_RIGHT)
 			.setOddRowBackgroundStyle(oddRowStyle);
 
 
@@ -172,7 +172,7 @@ public class GroupsReportTest2 extends BaseDjReportTest {
 				.addColumnHeaderStyle(columnAmount, styleg2Header)
 				.setDefaultColumnHeaderStyle(styleg2HeaderDefault)
 				.setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)
-				.setHeaderHeight(new Integer(10))
+				.setHeaderHeight(10)
 				.build();
 
 		drb.addColumn(columnState);

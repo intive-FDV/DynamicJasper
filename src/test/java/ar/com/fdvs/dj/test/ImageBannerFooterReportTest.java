@@ -39,7 +39,6 @@ import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 
@@ -67,12 +66,12 @@ public class ImageBannerFooterReportTest extends BaseDjReportTest {
 		oddRowStyle.setBorder(Border.NO_BORDER()); oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 			drb.setTitleStyle(titleStyle)
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15))
+			.setDetailHeight(15)
 			.setLeftMargin(margin)
 			.setRightMargin(margin)
 			.setTopMargin(margin)
@@ -82,8 +81,8 @@ public class ImageBannerFooterReportTest extends BaseDjReportTest {
             .addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT)
 //			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.Alignment.Right)
 //			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.Alignment.Right)
-			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(25), ImageBanner.Alignment.Left, ImageScaleMode.FILL)
-			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", new Integer(150), new Integer(45), ImageBanner.Alignment.Right, ImageScaleMode.FILL)
+			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 25, ImageBanner.Alignment.Left, ImageScaleMode.FILL)
+			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", 150, 45, ImageBanner.Alignment.Right, ImageScaleMode.FILL)
             ;
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())

@@ -58,16 +58,16 @@ public class ConcatenatedReportTest extends BaseDjReportTest {
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(24, Font._FONT_VERDANA, true));
 
-		/**
-		 * 1st) Whe create an empty report (just title) and add 2 sub-reports
+		/*
+		  1st) Whe create an empty report (just title) and add 2 sub-reports
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitleStyle(titleStyle)
 			.setTitle("Concatenated reports")					//defines the title of the report
 			.setSubtitle("All the reports shown here are concatenated as sub reports")
-			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+			.setDetailHeight(15).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setUseFullPageWidth(true)
 			.setWhenNoDataAllSectionNoDetail()
@@ -89,8 +89,8 @@ public class ConcatenatedReportTest extends BaseDjReportTest {
 		//Add the data source of the sub-report as a parameter
 		params.put("statisticsArray", Product.statistics_.toArray() );
 
-		/**
-		 * Add one more report (from another test)
+		/*
+		  Add one more report (from another test)
 		 */
 		//Create a subreport
 		ChartReportTest crt = new ChartReportTest();
@@ -112,9 +112,9 @@ public class ConcatenatedReportTest extends BaseDjReportTest {
 
 			jr = DynamicJasperHelper.generateJasperReport(dr, getLayoutManager(), params);
 
-			/**
-			 * Creates the JasperPrint object, we pass as a Parameter
-			 * the JasperReport object, and the JRDataSource
+			/*
+			  Creates the JasperPrint object, we pass as a Parameter
+			  the JasperReport object, and the JRDataSource
 			 */
 			jp = JasperFillManager.fillReport(jr, params);			
 			ReportExporter.exportReport(jp, System.getProperty("user.dir") + "/target/ConcatenatedReportTest.pdf");

@@ -81,13 +81,13 @@ public class HiddenColumnReportTest extends BaseDjReportTest {
 		specialDetailStyle2.setBorderBottom(Border.DOTTED());
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitleStyle(titleStyle)
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+			.setDetailHeight(15).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
 			.setOddRowBackgroundStyle(oddRowStyle);

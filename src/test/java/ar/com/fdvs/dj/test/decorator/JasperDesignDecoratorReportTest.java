@@ -48,9 +48,9 @@ public class JasperDesignDecoratorReportTest extends BaseDjReportTest {
     public DynamicReport buildReport() throws Exception {
 
 
-        /**
-         * Creates the DynamicReportBuilder and sets the basic options for
-         * the report
+        /*
+          Creates the DynamicReportBuilder and sets the basic options for
+          the report
          */
         FastReportBuilder drb = new FastReportBuilder();
         drb.addColumn("State", "state", String.class.getName(), 30)

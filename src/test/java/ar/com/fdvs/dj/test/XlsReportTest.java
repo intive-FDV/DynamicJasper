@@ -18,9 +18,9 @@ public class XlsReportTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		Style columDetail = new Style();

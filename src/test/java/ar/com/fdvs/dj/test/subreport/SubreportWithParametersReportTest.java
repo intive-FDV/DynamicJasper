@@ -60,9 +60,9 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 		Style columnTitleStyle = StyleFactory.createGroupDetailStyle("gdetailStyle");
 		Style header = StyleFactory.createHeaderStyle2("header");
 //		header.setTransparency(Transparency.TRANSPARENT);
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb
@@ -143,9 +143,6 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager(),params);
-		} catch (Exception e) {
-			//log.error(e.getMessage(), e);
-			throw e;
 		} finally {
 			if (con != null) {
 				con.close();

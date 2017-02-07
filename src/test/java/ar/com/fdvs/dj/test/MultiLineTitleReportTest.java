@@ -50,9 +50,9 @@ public class MultiLineTitleReportTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		Style subtitleStyle = new Style("subtitle_style");
@@ -70,7 +70,7 @@ public class MultiLineTitleReportTest extends BaseDjReportTest {
 			.addGroups(2)
 			.setTitle("November " + getYear() +"\\nsales report")
 			.setSubtitle("This report was generated at" + new Date() + "\\n*** This information is confidential ***")
-			.setSubtitleHeight(new Integer(20))
+			.setSubtitleHeight(20)
 			.setSubtitleStyle(subtitleStyle)
 			.setUseFullPageWidth(true);
 

@@ -49,9 +49,9 @@ public class ReportWithVariablesTest extends BaseDjReportTest {
 		style.setHorizontalAlign(HorizontalAlign.RIGHT);
 		style.setPattern("$ #,###.00");
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("State", "state", String.class.getName(),30)

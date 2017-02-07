@@ -69,9 +69,9 @@ public class CrosstabReportTest3 extends BaseDjReportTest {
 
 
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 			drb
@@ -103,7 +103,7 @@ public class CrosstabReportTest3 extends BaseDjReportTest {
 		DynamicReport dr = drb.build();
 
 		DJGroup g = dr.getColumnsGroups().get(0);
-		g.setHeaderHeight(new Integer(40));
+		g.setHeaderHeight(40);
 		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
 
 		return dr;

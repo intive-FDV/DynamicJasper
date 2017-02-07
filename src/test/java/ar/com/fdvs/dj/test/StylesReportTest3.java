@@ -58,19 +58,19 @@ public class StylesReportTest3 extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 		
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setTitleHeight(new Integer(30))
-			.setSubtitleHeight(new Integer(20))
-			.setDetailHeight(new Integer(15))
+			.setTitleHeight(30)
+			.setSubtitleHeight(20)
+			.setDetailHeight(15)
 			.setLeftMargin(margin)
 			.setRightMargin(margin)
 			.setTopMargin(margin)
 			.setBottomMargin(margin)
-			.setColumnsPerPage(new Integer(1))
-			.setColumnSpace(new Integer(5));
+			.setColumnsPerPage(1)
+			.setColumnSpace(5);
 
 		Style style1 = new Style("style1");
 		style1.setFont(Font.ARIAL_MEDIUM_BOLD);

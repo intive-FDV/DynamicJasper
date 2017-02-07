@@ -1,6 +1,5 @@
 package ar.com.fdvs.dj.test;
 
-import java.util.Iterator;
 import java.util.List;
 
 import net.sf.jasperreports.engine.JRDataSource;
@@ -22,13 +21,11 @@ import ar.com.fdvs.dj.test.hibernate.TestSchema;
 
 public class HQLReportTest extends BaseDjReportTest {
 
-	private Session hsession;
-
 	public DynamicReport buildReport() throws Exception {
 		Style groupStyle = new StyleBuilder(false).setFont(new Font(18, Font._FONT_VERDANA, true)).build();
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb
@@ -46,7 +43,7 @@ public class HQLReportTest extends BaseDjReportTest {
 
 		DynamicReport dr = drb.build();
 
-		this.hsession = HibernateUtil.getSession();
+		Session hsession = HibernateUtil.getSession();
 		params.put(JRHibernateQueryExecuterFactory.PARAMETER_HIBERNATE_SESSION, hsession);
 
 
@@ -69,8 +66,8 @@ public class HQLReportTest extends BaseDjReportTest {
 		TestSchema.buildConfiguration();
 		Session s = HibernateUtil.getSession();
 		List l = s.createQuery("from Customer order by lastName").list();
-		for (Iterator iterator = l.iterator(); iterator.hasNext();) {
-			Customer cust = (Customer) iterator.next();
+		for (Object aL : l) {
+			Customer cust = (Customer) aL;
 			log.debug(cust.getFirstName() + ", " + cust.getLastName());
 		}
 	}

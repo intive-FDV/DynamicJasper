@@ -155,7 +155,7 @@ public class Product {
     }
     
     public Boolean getIsAvailable(){
-    	return Boolean.valueOf(random.nextBoolean());
+    	return random.nextBoolean();
     }
 
     public Boolean getShowAsPrices() {

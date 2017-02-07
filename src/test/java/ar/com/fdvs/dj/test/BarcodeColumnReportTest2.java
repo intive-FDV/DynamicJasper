@@ -62,9 +62,9 @@ public class BarcodeColumnReportTest2 extends BaseDjReportTest {
 			.setPaddingBottom(3)
 			.setPaddingTop(3)
 			.build();
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		Style title = null;

@@ -39,7 +39,6 @@ import net.sf.jasperreports.engine.JRFont;
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
-import net.sf.jasperreports.engine.type.LineSpacingEnum;
 import net.sf.jasperreports.engine.type.LineStyleEnum;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DJCalculation;
@@ -73,7 +72,8 @@ public class BarChartNoDetailTest extends BaseDjReportTest {
 	private JRDesignChart chart;
 
 	protected void setUp() throws Exception {
-		drb = new DynamicReportBuilder();
+        super.setUp();
+        drb = new DynamicReportBuilder();
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
 		headerStyle.setBorderBottom(Border.PEN_2_POINT());
@@ -138,7 +138,7 @@ public class BarChartNoDetailTest extends BaseDjReportTest {
 		valueAxisFormat.setTickLabelColor(Color.DARK_GRAY);
 		valueAxisFormat.setTickLabelMask("#,##0.0");
 		valueAxisFormat.setLineColor(Color.DARK_GRAY);
-		valueAxisFormat.setRangeMaxValueExpression(new NumberExpression(new Integer(100000)));
+		valueAxisFormat.setRangeMaxValueExpression(new NumberExpression(100000));
 
 		DJChart djChart = new DJBarChartBuilder()
 		//chart
@@ -217,7 +217,7 @@ public class BarChartNoDetailTest extends BaseDjReportTest {
 		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
 		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
         assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
-		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
+		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());
 	}

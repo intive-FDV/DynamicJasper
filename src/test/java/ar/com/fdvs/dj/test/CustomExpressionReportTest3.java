@@ -71,22 +71,22 @@ public class CustomExpressionReportTest3 extends BaseDjReportTest {
 		oddRowStyle.setBackgroundColor(veryLightGrey);oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-					.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
-			.setSubtitleHeight(new Integer(20))
-			.setDetailHeight(new Integer(15))
+					.setTitleStyle(titleStyle).setTitleHeight(30)
+			.setSubtitleHeight(20)
+			.setDetailHeight(15)
 			.setLeftMargin(margin)
 			.setRightMargin(margin)
 			.setTopMargin(margin)
 			.setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
 			.setOddRowBackgroundStyle(oddRowStyle)
-			.setColumnsPerPage(new Integer(1))
-			.setColumnSpace(new Integer(5));
+			.setColumnsPerPage(1)
+			.setColumnSpace(5);
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())
 			.setTitle("State").setWidth(new Integer(85))
@@ -147,9 +147,9 @@ public class CustomExpressionReportTest3 extends BaseDjReportTest {
 			.addVariable("amount_sum_g1", columnAmount,DJCalculation.SUM)
 			.addFooterVariable(columnaCustomExpression, getGroupRatioExpression())
 			.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
-			.setFooterVariablesHeight(new Integer(20))
-			.setFooterHeight(new Integer(50),true)
-			.setHeaderVariablesHeight(new Integer(35))
+			.setFooterVariablesHeight(20)
+			.setFooterHeight(50,true)
+			.setHeaderVariablesHeight(35)
 			.build();	
 	
 	drb.addGroup(g1);
@@ -168,7 +168,7 @@ public class CustomExpressionReportTest3 extends BaseDjReportTest {
 			public Object evaluate(Map fields, Map variables, Map parameters) {
 				Long quantity = (Long) fields.get("quantity");
 				Float amount = (Float) fields.get("amount");
-				return new Double(amount.doubleValue() / quantity.doubleValue());
+				return amount.doubleValue() / quantity.doubleValue();
 			}
 
 			public String getClassName() {
@@ -184,7 +184,7 @@ public class CustomExpressionReportTest3 extends BaseDjReportTest {
 			public Object evaluate(Map fields, Map variables, Map parameters) {
 				Long quantity = (Long) variables.get("quantity_sum");
 				Float amount = (Float) variables.get("amount_sum");
-				return new Double(amount.doubleValue() / quantity.doubleValue());
+				return amount.doubleValue() / quantity.doubleValue();
 			}
 
 			public String getClassName() {
@@ -200,7 +200,7 @@ public class CustomExpressionReportTest3 extends BaseDjReportTest {
 			public Object evaluate(Map fields, Map variables, Map parameters) {
 				Long quantity = (Long) variables.get("quantity_sum_g1");
 				Float amount = (Float) variables.get("amount_sum_g1");
-				return new Double(amount.doubleValue() / quantity.doubleValue());
+				return amount.doubleValue() / quantity.doubleValue();
 			}
 
 			public String getClassName() {

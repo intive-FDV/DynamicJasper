@@ -47,9 +47,9 @@ public class FontReportTest extends BaseDjReportTest {
 		Font font = new Font(28,"Colonna MT","/fonts/COLONNA.TTF",Font.PDF_ENCODING_Identity_H_Unicode_with_horizontal_writing,true);
 		Style titleStyle = new StyleBuilder(false).setFont(font).build();
 		
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("State", "state", String.class.getName(),30)

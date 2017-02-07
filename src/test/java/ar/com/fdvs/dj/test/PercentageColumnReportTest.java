@@ -67,22 +67,22 @@ public class PercentageColumnReportTest extends BaseDjReportTest {
 		oddRowStyle.setBackgroundColor(veryLightGrey);oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-					.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
-			.setSubtitleHeight(new Integer(20))
-			.setDetailHeight(new Integer(16))
+					.setTitleStyle(titleStyle).setTitleHeight(30)
+			.setSubtitleHeight(20)
+			.setDetailHeight(16)
 			.setLeftMargin(margin)
 			.setRightMargin(margin)
 			.setTopMargin(margin)
 			.setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
 			.setOddRowBackgroundStyle(oddRowStyle)
-			.setColumnsPerPage(new Integer(1))
-			.setColumnSpace(new Integer(5));
+			.setColumnsPerPage(1)
+			.setColumnSpace(5);
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())
 			.setTitle("State").setWidth(new Integer(85))
@@ -130,9 +130,9 @@ public class PercentageColumnReportTest extends BaseDjReportTest {
 	DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 			.addFooterVariable(columnAmount,DJCalculation.SUM)
 			.setGroupLayout(GroupLayout.DEFAULT) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
-			.setFooterVariablesHeight(new Integer(20))
-			.setFooterHeight(new Integer(50),true)
-			.setHeaderVariablesHeight(new Integer(35))
+			.setFooterVariablesHeight(20)
+			.setFooterHeight(50,true)
+			.setHeaderVariablesHeight(35)
 			.build();
 	
 	GroupBuilder gb2 = new GroupBuilder();		
@@ -140,9 +140,9 @@ public class PercentageColumnReportTest extends BaseDjReportTest {
 	.addFooterVariable(columnAmount,DJCalculation.SUM)
 	.addFooterVariable(columnPercentageAmount,DJCalculation.SUM)
 	.setGroupLayout(GroupLayout.DEFAULT) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
-	.setFooterVariablesHeight(new Integer(20))
-	.setFooterHeight(new Integer(50),true)
-	.setHeaderVariablesHeight(new Integer(35))
+	.setFooterVariablesHeight(20)
+	.setFooterHeight(50,true)
+	.setHeaderVariablesHeight(35)
 	.build();
 		
 	drb.addGroup(g1);

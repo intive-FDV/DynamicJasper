@@ -72,6 +72,7 @@ public class Bar3DChartBuilderTest extends BaseDjReportTest {
 	private JRDesignChart chart;
 	
 	protected void setUp() throws Exception {
+		super.setUp();
 		drb = new DynamicReportBuilder();
 		
 		Style headerStyle = new Style();
@@ -212,7 +213,7 @@ public class Bar3DChartBuilderTest extends BaseDjReportTest {
 		assertEquals(EdgeEnum.getByValue(new Byte(DJChartOptions.EDGE_BOTTOM)), chart.getLegendPositionValue() );
 		assertEquals(EdgeEnum.getByValue(new Byte(DJChartOptions.EDGE_TOP)), chart.getTitlePositionValue());
 		assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
-		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
+		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());
 	}
@@ -226,8 +227,8 @@ public class Bar3DChartBuilderTest extends BaseDjReportTest {
 	
 	public void testPlot() {
 		JRDesignBar3DPlot plot = (JRDesignBar3DPlot) chart.getPlot();
-		assertEquals(new Double(10), plot.getXOffsetDouble());
-		assertEquals(new Double(10), plot.getYOffsetDouble());
+		assertEquals(10d, plot.getXOffsetDouble());
+		assertEquals(10d, plot.getYOffsetDouble());
 		assertEquals(Boolean.FALSE, plot.getShowLabels());
 		
 		assertNotNull(plot.getCategoryAxisLabelExpression().getText());

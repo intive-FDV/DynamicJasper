@@ -47,9 +47,9 @@ public class PlainReportTest extends BaseDjReportTest {
 		Style subtitleStyle = new Style();
 		Style amountStyle = new Style(); amountStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		DynamicReportBuilder drb = new DynamicReportBuilder();
 		drb.setTitle("November " + getYear() +" sales report")					//defines the title of the report
@@ -60,14 +60,14 @@ public class PlainReportTest extends BaseDjReportTest {
 			.setDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
 			.setColumnsPerPage(1);						//defines columns per page (like in the telephone guide)
 
-		/**
-		 * Note that we still didn�t call the build() method
+		/*
+		  Note that we still didn�t call the build() method
 		 */
 
-		/**
-		 * Column definitions. We use a new ColumnBuilder instance for each
-		 * column, the ColumnBuilder.getNew() method returns a new instance
-		 * of the builder
+		/*
+		  Column definitions. We use a new ColumnBuilder instance for each
+		  column, the ColumnBuilder.getNew() method returns a new instance
+		  of the builder
 		 */
 		AbstractColumn columnState = ColumnBuilder.getNew()		//creates a new instance of a ColumnBuilder
 			.setColumnProperty("state", String.class.getName())			//defines the field of the data source that this column will show, also its type
@@ -108,9 +108,9 @@ public class PlainReportTest extends BaseDjReportTest {
 			.setStyle(amountStyle)		//special style for this column (align right)
 			.build();
 
-		/**
-		 * We add the columns to the report (through the builder) in the order
-		 * we want them to appear
+		/*
+		  We add the columns to the report (through the builder) in the order
+		  we want them to appear
 		 */
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
@@ -120,8 +120,8 @@ public class PlainReportTest extends BaseDjReportTest {
 		drb.addColumn(columnaCantidad);
 		drb.addColumn(columnAmount);
 
-		/**
-		 * add some more options to the report (through the builder)
+		/*
+		  add some more options to the report (through the builder)
 		 */
 		drb.setUseFullPageWidth(true);	//we tell the report to use the full width of the page. this rezises
 										//the columns width proportionally to meat the page width.

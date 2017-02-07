@@ -39,7 +39,6 @@ import net.sf.jasperreports.engine.JRFont;
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
-import net.sf.jasperreports.engine.type.LineSpacingEnum;
 import net.sf.jasperreports.engine.type.LineStyleEnum;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DJHyperLink;
@@ -68,6 +67,7 @@ public class XYLineChartBuilderTest extends BaseDjReportTest {
 	private JRDesignChart chart;
 	
 	protected void setUp() throws Exception {
+		super.setUp();
 		drb = new DynamicReportBuilder();
 
 		Style headerStyle = new Style();
@@ -184,7 +184,7 @@ public class XYLineChartBuilderTest extends BaseDjReportTest {
 		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
 		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
         assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
-		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
+		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());
 	}

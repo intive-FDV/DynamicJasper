@@ -65,8 +65,8 @@ public class AutotextReportTest2 extends BaseDjReportTest {
 
 
 		Style atStyle = new StyleBuilder(true).setFont(Font.COMIC_SANS_SMALL).setTextColor(Color.red).build();
-		/**
-		 * Adding many autotexts in the same position (header/footer and aligment) makes them to be one on top of the other
+		/*
+		  Adding many autotexts in the same position (header/footer and aligment) makes them to be one on top of the other
 		 */		
 		AutoText autoText = new AutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_HEADER, HorizontalBandAlignment.CENTER);
 		autoText.setWidth(200);
