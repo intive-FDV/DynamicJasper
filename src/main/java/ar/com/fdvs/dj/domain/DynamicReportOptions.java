@@ -99,25 +99,25 @@ public class DynamicReportOptions extends DJBaseElement {
 	private Style defaultGroupFooterStyle = new Style("defaultGroupFooterStyle");
 
 	/**
-	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
+	 * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
 	 * value: ImageBanner
 	 */
 	private Map<ImageBanner.Alignment, ImageBanner> imageBanners = new HashMap();
 
     /**
-     * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
+     * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
      * value: ImageBanner
      */
     private Map<ImageBanner.Alignment, ImageBanner> footerImageBanners = new HashMap();
 
 	/**
-	 * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
+	 * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
 	 * value: ImageBanner
 	 */
 	private Map<ImageBanner.Alignment, ImageBanner> firstPageImageBanners = new HashMap();
 
     /**
-     * Key: Byte (ImageBanner.ALIGN_RIGHT, ImageBanner.ALIGN_LEFT, ImageBanner.ALIGN_CENTER)<br/>
+     * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
      * value: ImageBanner
      */
 	private Map<ImageBanner.Alignment, ImageBanner> firstPageFooterImageBanners = new HashMap();

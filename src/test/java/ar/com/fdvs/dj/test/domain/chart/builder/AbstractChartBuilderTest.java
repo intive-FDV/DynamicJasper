@@ -241,7 +241,7 @@ public class AbstractChartBuilderTest extends BaseDjReportTest {
 
 	private void testFont(Font djFont, JRFont jrFont) {
 		assertEquals(djFont.getFontName(), jrFont.getFontName());
-		assertEquals(djFont.getFontSize(), jrFont.getFontSize());
+		assertEquals(djFont.getFontSize(), jrFont.getFontsize());
 		assertEquals(djFont.isBold(), jrFont.isBold());
 		assertEquals(djFont.isItalic(), jrFont.isItalic());
 	}

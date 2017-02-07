@@ -71,7 +71,7 @@ public class StylesReportTest extends BaseDjReportTest {
 		oddRowStyle.setBorder(Border.THIN());
 		Color veryLightGrey = new Color(230,230,230);
 		Color veryLightBlue = new Color(210,210,250);
-		oddRowStyle.setBorderColor(veryLightBlue);
+		oddRowStyle.getBorder().setColor(veryLightBlue);
 		oddRowStyle.setBackgroundColor(veryLightGrey);oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();

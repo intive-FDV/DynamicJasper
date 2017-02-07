@@ -39,44 +39,41 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 public class SortUtils {
 
-	public static List sortCollection(Collection dummyCollection, List columns) {
-        ArrayList l = new ArrayList(dummyCollection);
-        ArrayList info = new ArrayList();
-        for (Iterator iter = columns.iterator(); iter.hasNext();) {
-            Object object = iter.next();
+	public static <T> List<T> sortCollection(Collection<T> dummyCollection, List columns) {
+        ArrayList<T> l = new ArrayList<T>(dummyCollection);
+        ArrayList<SortInfo> info = new ArrayList<SortInfo>();
+        for (Object object : columns) {
             if (object instanceof String) {
-                info.add(new SortInfo((String)object, true));
+                info.add(new SortInfo((String) object, true));
             } else if (object instanceof ExpressionColumn || object instanceof ImageColumn) {
-            	//do nothing with expression columns
-            	continue;
-	        } else if (object instanceof PropertyColumn) {
-	        	info.add(new SortInfo(((PropertyColumn)object).getColumnProperty().getProperty(), true));
-	        }
+                //do nothing with expression columns
+            } else if (object instanceof PropertyColumn) {
+                info.add(new SortInfo(((PropertyColumn) object).getColumnProperty().getProperty(), true));
+            }
         }
-        MultiPropertyComparator mpc = new MultiPropertyComparator(info);
+        MultiPropertyComparator<T> mpc = new MultiPropertyComparator<T>(info);
         Collections.sort(l, mpc);
         return l;
     }
 	
-	public static List sortCollection(Collection dummyCollection, String[] properties) {
-		ArrayList l = new ArrayList(dummyCollection);
-		ArrayList info = new ArrayList();
-		for (int i = 0; i < properties.length; i++) {
-			info.add(new SortInfo(properties[i], true));
-		}
-		MultiPropertyComparator mpc = new MultiPropertyComparator(info);
+	public static <T> List<T> sortCollection(Collection<T> dummyCollection, String[] properties) {
+		ArrayList<T> l = new ArrayList<T>(dummyCollection);
+		ArrayList<SortInfo> info = new ArrayList<SortInfo>();
+        for (String property : properties) {
+            info.add(new SortInfo(property, true));
+        }
+        MultiPropertyComparator<T> mpc = new MultiPropertyComparator<T>(info);
 		Collections.sort(l, mpc);
 		return l;
 	}
 	
-	public static List sortCollection(Collection dummyCollection, DJCrosstab crosstab) {
-		ArrayList l = new ArrayList(dummyCollection);
-		ArrayList info = new ArrayList();
+	public static <T> List<T> sortCollection(Collection<T> dummyCollection, DJCrosstab crosstab) {
+		ArrayList<T> l = new ArrayList<T>(dummyCollection);
+		ArrayList<SortInfo> info = new ArrayList<SortInfo>();
 		for (DJCrosstabRow row : crosstab.getRows()) {
 			info.add(new SortInfo(row.getProperty().getProperty(), true));
 		}
@@ -86,7 +83,7 @@ public class SortUtils {
 
 		}
 
-		MultiPropertyComparator mpc = new MultiPropertyComparator(info);
+        MultiPropertyComparator<T> mpc = new MultiPropertyComparator<T>(info);
 		Collections.sort(l, mpc);
 		return l;
 	}

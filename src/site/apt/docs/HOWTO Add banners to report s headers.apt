@@ -10,8 +10,8 @@ HOW-TO Add banners to report's headers
 DynamicReportBuilder drb = new DynamicReportBuilder();
 //ReportBuilder initialization
 
-drb.addFirstPageImageBanner("pathToImage/firstPageBanner.jpg", new Integer(50), new Integer(50), ImageBanner.ALIGN_LEFT)
-	.addImageBanner("pathToImage/allPagesBanner.jpg", new Integer(30), new Integer(30), ImageBanner.ALIGN_RIGHT);
+drb.addFirstPageImageBanner("pathToImage/firstPageBanner.jpg", new Integer(50), new Integer(50), ImageBanner.Alignment.Left)
+	.addImageBanner("pathToImage/allPagesBanner.jpg", new Integer(30), new Integer(30), ImageBanner.Alignment.Right);
 +------------------------------------------------------------------------------------------------------------+ 
  
  Note that you can set a different banner for the first page. You should set the alignment using the provided constants.

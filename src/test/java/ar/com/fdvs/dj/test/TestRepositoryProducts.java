@@ -38,12 +38,12 @@ import java.util.List;
 
 public class TestRepositoryProducts {
 
-	public static List getDummyCollection(){
+	public static List<Product> getDummyCollection(){
 
 		SimpleDateFormat dateFormat = new SimpleDateFormat();
 		dateFormat.applyPattern("dd/MM/yyyy");
 
-		List col =  new ArrayList();
+		List<Product> col =  new ArrayList<Product>();
 
 		//The collection is ordered by State, Branch and Product Line
 		col.add(new Product( new Long("1"),"book","Harry Potter 7","Florida","Main Street", new Long("2500"), new Float("10000")));

@@ -75,10 +75,10 @@ public class WhenNoDataTest extends BaseDjReportTest {
 //			.setWhenNoData("No data for this report", noDataStyle,true,false)
 			.setWhenNoData("No data for this report", null,true,true)
 			.setUseFullPageWidth(true)
-//			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.ALIGN_LEFT)
-//			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.ALIGN_RIGHT)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 25, ImageBanner.ALIGN_LEFT, ImageScaleMode.FILL)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", 150, 25, ImageBanner.ALIGN_RIGHT, ImageScaleMode.FILL);
+//			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.Alignment.Left)
+//			.addFirstPageImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.Alignment.Right)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 25, ImageBanner.Alignment.Left, ImageScaleMode.FILL)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", 150, 25, ImageBanner.Alignment.Right, ImageScaleMode.FILL);
 			
 		
 		drb.setTemplateFile("templates/TemplateReportTest.jrxml");

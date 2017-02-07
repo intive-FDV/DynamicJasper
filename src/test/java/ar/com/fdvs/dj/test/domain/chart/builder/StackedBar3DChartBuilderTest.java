@@ -186,7 +186,7 @@ public class StackedBar3DChartBuilderTest extends BaseDjReportTest {
 		djlink.setTooltip(new LiteralExpression("I'm a literal tootltip"));		
 		djChart.setLink(djlink);
 		
-		HashMap vars = new HashMap();
+		Map<AbstractColumn, JRDesignVariable> vars = new HashMap<AbstractColumn, JRDesignVariable>();
 		vars.put(columnaQuantity, new JRDesignVariable());
 		vars.put(columnAmount, new JRDesignVariable());
 		JRDesignGroup group = new JRDesignGroup();
@@ -253,7 +253,7 @@ public class StackedBar3DChartBuilderTest extends BaseDjReportTest {
 
 	private void testFont(Font djFont, JRFont jrFont) {
 		assertEquals(djFont.getFontName(), jrFont.getFontName());
-		assertEquals(djFont.getFontSize(), jrFont.getFontSize());
+		assertEquals(djFont.getFontSize(), jrFont.getFontsize());
 		assertEquals(djFont.isBold(), jrFont.isBold());
 		assertEquals(djFont.isItalic(), jrFont.isItalic());
 	}

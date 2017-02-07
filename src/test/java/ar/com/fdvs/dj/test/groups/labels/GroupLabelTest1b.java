@@ -100,7 +100,7 @@ public class GroupLabelTest1b extends BaseDjReportTest {
 			.setGrandTotalLegendStyle(headerVariables)
 			.setDefaultStyles(titleStyle, null, headerStyle, detailStyle)
 			.setPrintColumnNames(true)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 30, ImageBanner.ALIGN_RIGHT)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 30, ImageBanner.Alignment.Right)
 			.setOddRowBackgroundStyle(oddRowStyle);
 
 
