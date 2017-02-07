@@ -588,7 +588,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             for (Object visibleColum : visibleColums) {
                 AbstractColumn col = (AbstractColumn) visibleColum;
                 columnsWidth += col.getWidth();
-                if (col.getFixedWidth())
+                if (col.isFixedWidth())
                     notRezisableWidth += col.getWidth();
             }
 
@@ -607,7 +607,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             //Select the non-resizable columns
             Collection resizableColumns = CollectionUtils.select(visibleColums, new Predicate() {
                 public boolean evaluate(Object arg0) {
-                    return !((AbstractColumn) arg0).getFixedWidth();
+                    return !((AbstractColumn) arg0).isFixedWidth();
                 }
 
             });
@@ -763,14 +763,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         textField.setY(col.getPosY());
         textField.setHeight(height);
 
-        textField.setBlankWhenNull(col.getBlankWhenNull());
+        textField.setBlankWhenNull(col.isBlankWhenNull());
 
         textField.setPattern(col.getPattern());
 
         if (col.getMarkup() != null)
             textField.setMarkup(col.getMarkup().toLowerCase());
 
-        textField.setPrintRepeatedValues(col.getPrintRepeatedValues());
+        textField.setPrintRepeatedValues(col.isPrintRepeatedValues());
 
         textField.setPrintWhenDetailOverflows(true);
 
@@ -863,9 +863,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         if (Utils.isEmpty(column.getConditionalStyles()))
             return;
 
-        for (Object o : column.getConditionalStyles()) {
-            ConditionalStyle condition = (ConditionalStyle) o;
-
+        for (ConditionalStyle condition : column.getConditionalStyles()) {
             if (getReport().getOptions().isPrintBackgroundOnOddRows()
                     && Transparency.TRANSPARENT == condition.getStyle().getTransparency()) { //condition style + odd row (only if conditional style's background is transparent)
 

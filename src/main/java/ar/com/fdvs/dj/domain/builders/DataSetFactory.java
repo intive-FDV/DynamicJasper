@@ -42,12 +42,11 @@ import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.type.ResetTypeEnum;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class DataSetFactory {
 
-	public static JRDesignChartDataset getDataset(DJChart djchart, JRDesignGroup group, JRDesignGroup parentGroup, List vars){
+	public static JRDesignChartDataset getDataset(DJChart djchart, JRDesignGroup group, JRDesignGroup parentGroup, List<JRDesignVariable> vars){
 
 		JRDesignChartDataset dataSet = null;
 		
@@ -59,9 +58,6 @@ public class DataSetFactory {
 		else if (chartType == DJChart.BAR_CHART) {
 			dataSet = createBarDataset(group,parentGroup, vars, djchart);
 		}
-//		else if (chartType ==  DJChart.LINE_CHART) {
-//			dataSet = createLineDataset(group,parentGroup, vars, djchart);
-//		}
 
 		if (dataSet == null){
 			throw new DJException("Error creating dataset for chart, no valid dataset type.");
@@ -117,41 +113,40 @@ public class DataSetFactory {
 		return data;
 	}
 
-	protected static JRDesignChartDataset createBarDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {
+	protected static JRDesignChartDataset createBarDataset(JRDesignGroup group, JRDesignGroup parentGroup, List<JRDesignVariable> vars, DJChart djchart) {
 		JRDesignCategoryDataset data = new JRDesignCategoryDataset(null);
 
-		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
+		for (JRDesignVariable var1 : vars) {
 			JRDesignCategorySeries serie = new JRDesignCategorySeries();
-			JRDesignVariable var = (JRDesignVariable) iterator.next();
-			
+
 			//And use it as value for each bar
-			JRDesignExpression varExp = getExpressionFromVariable(var);
+			JRDesignExpression varExp = getExpressionFromVariable(var1);
 			serie.setValueExpression(varExp);
-	
+
 			//The key for each bar
 			JRExpression exp2 = group.getExpression();
-	
+
 			JRDesignExpression exp3 = new JRDesignExpression();
-			int index = vars.indexOf(var);
+			int index = vars.indexOf(var1);
 			AbstractColumn col = (AbstractColumn) djchart.getColumns().get(index);
 			exp3.setText("\"" + col.getTitle() + "\"");
 			exp3.setValueClass(String.class);
-	
+
 			//Here you can set subgroups of bars
-			if (!djchart.getOptions().isUseColumnsAsCategorie()){
+			if (!djchart.getOptions().isUseColumnsAsCategorie()) {
 				serie.setCategoryExpression(exp3);
-				
+
 				serie.setLabelExpression(exp2);
 				serie.setSeriesExpression(exp2);
 			} else {
 				//FIXED: due to https://sourceforge.net/forum/message.php?msg_id=7396861
 				serie.setCategoryExpression(exp2);
-				
+
 				serie.setLabelExpression(exp3);
 				serie.setSeriesExpression(exp3);
 			}
 
-				
+
 			data.addCategorySeries(serie);
 		}
 
@@ -160,12 +155,11 @@ public class DataSetFactory {
 		return data;
 	}
 
-	protected static JRDesignChartDataset createPieDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {		
+	protected static JRDesignChartDataset createPieDataset(JRDesignGroup group, JRDesignGroup parentGroup, List<JRDesignVariable> vars, DJChart djchart) {
 		JRDesignPieDataset data = new JRDesignPieDataset(null);
 
-		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
-			JRDesignVariable var = (JRDesignVariable) iterator.next();
-			
+		//noinspection LoopStatementThatDoesntLoop
+		for (JRDesignVariable var : vars) {
 			//And transform it in the value for each pie slice
 			JRDesignExpression expression = getExpressionFromVariable(var);
 			data.setValueExpression(expression);

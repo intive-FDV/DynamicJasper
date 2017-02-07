@@ -35,14 +35,14 @@ import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DJChartBuilder {
 	private Byte type;
 	private DJGroup columnsGroup;
-	private List columns = new ArrayList();
+	private List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
 	private Byte operation;
 	private DJChartOptions chartOptions;
 

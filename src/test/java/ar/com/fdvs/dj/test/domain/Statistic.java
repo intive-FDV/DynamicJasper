@@ -41,7 +41,7 @@ public class Statistic {
 	private float average;
 	private float amount;
 
-	public static List dummy3 = new ArrayList();
+	public static List<DummyLevel3> dummy3 = new ArrayList<DummyLevel3>();
 
 	static {
 		dummy3.add(new DummyLevel3("name1", 1L));
@@ -91,7 +91,7 @@ public class Statistic {
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
-	public List getDummy3() {
+	public List<DummyLevel3> getDummy3() {
 		return dummy3;
 	}
 

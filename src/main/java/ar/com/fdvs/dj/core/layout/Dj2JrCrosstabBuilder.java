@@ -127,40 +127,40 @@ public class Dj2JrCrosstabBuilder {
 
 		initColors();
 
-		/**
-		 * Set the size
+		/*
+		  Set the size
 		 */
 		setCrosstabOptions();
 
-		/**
-		 * Register COLUMNS
+		/*
+		  Register COLUMNS
 		 */
 		registerColumns();
 
-		/**
-		 * Register ROWS
+		/*
+		  Register ROWS
 		 */
 		registerRows();
 
-		/**
-		 * Measures
+		/*
+		  Measures
 		 */
 		registerMeasures();
 
 
-		/**
-		 * Create CELLS
+		/*
+		  Create CELLS
 		 */
 		createCells();
 
 
-		/**
-		 * Create main header cell
+		/*
+		  Create main header cell
 		 */
 		createMainHeaderCell();
 
-		/**
-		 * Register DATASET
+		/*
+		  Register DATASET
 		 */
 		registerDataSet(djcrosstab);
 
@@ -299,9 +299,8 @@ public class Dj2JrCrosstabBuilder {
 			}
 		}
 
-		for (Iterator iterator = djcrosstab.getMeasures().iterator(); iterator.hasNext();) {
+		for (DJCrosstabMeasure djmeasure : djcrosstab.getMeasures()) {
 			JRDesignField field = new JRDesignField();
-			DJCrosstabMeasure djmeasure = (DJCrosstabMeasure) iterator.next();
 			field.setName(djmeasure.getProperty().getProperty());
 			field.setValueClassName(djmeasure.getProperty().getValueClassName());
 			try {
@@ -331,7 +330,7 @@ public class Dj2JrCrosstabBuilder {
 
 		log.debug("Crosstab dataset name = " + dsName);
 		try {
-				if ( design.getDatasetMap().containsKey(jrDataset.getName())==false)
+				if (!design.getDatasetMap().containsKey(jrDataset.getName()))
 					design.addDataset(jrDataset);
 			} catch (JRException e) {
 				//Will never happen
@@ -375,9 +374,9 @@ public class Dj2JrCrosstabBuilder {
 		auxCol.setProperty(null);
 		auxRow.setProperty(null);
 
-		List<DJCrosstabColumn> auxColsList = new ArrayList(djcross.getColumns());
+		List<DJCrosstabColumn> auxColsList = new ArrayList<DJCrosstabColumn>(djcross.getColumns());
 		auxColsList.add(auxCol);
-		List<DJCrosstabRow> auxRowsList = new ArrayList(djcross.getRows());
+		List<DJCrosstabRow> auxRowsList = new ArrayList<DJCrosstabRow>(djcross.getRows());
 		auxRowsList.add(auxRow);
 
 		DJCrosstabColumn[] auxCols = auxColsList.toArray(new DJCrosstabColumn[]{});
@@ -391,8 +390,8 @@ public class Dj2JrCrosstabBuilder {
 
 				JRDesignCrosstabCell cell = new JRDesignCrosstabCell();
 
-				cell.setWidth(new Integer(crosstabColumn.getWidth()));
-				cell.setHeight(new Integer(crosstabRow.getHeight()));
+				cell.setWidth(crosstabColumn.getWidth());
+				cell.setHeight(crosstabRow.getHeight());
 
 				boolean isRowTotal = crosstabRow.getProperty() != null;
 				boolean isColumnTotal = crosstabColumn.getProperty() != null;
@@ -409,8 +408,8 @@ public class Dj2JrCrosstabBuilder {
 				int yOffsetCounter = 0;
 				int measureHeight = crosstabRow.getHeight() / djcross.getVisibleMeasures().size();
 
-				for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext(); measureIdx++, yOffsetCounter++) {
-					DJCrosstabMeasure djmeasure = (DJCrosstabMeasure) iterator.next();
+				for (Iterator<DJCrosstabMeasure> iterator = djcross.getMeasures().iterator(); iterator.hasNext(); measureIdx++, yOffsetCounter++) {
+					DJCrosstabMeasure djmeasure = iterator.next();
                     if (!djmeasure.getVisible()) {
                         yOffsetCounter--;
                         continue; //IMPORTANT! we need to keep the idx to match the index of the measure in the measure list
@@ -512,7 +511,7 @@ public class Dj2JrCrosstabBuilder {
 	    			element.setStyle(alternateStyle);
 	    			try {
 	    				design.addStyle(alternateStyle);
-	    			} catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
+	    			} catch (JRException e) { /*e.printStackTrace(); //Already there, nothing to do **/}
 	    			setUpConditionStyles(alternateStyle, djmeasure, measureExp.getText());
 
 					if (djmeasure.getLink() != null){
@@ -528,8 +527,7 @@ public class Dj2JrCrosstabBuilder {
 
 				applyBackgroundColor(contents,crosstabRow,crosstabColumn,i,j);
 
-				boolean fullBorder = false;
-				applyCellBorder(contents, fullBorder, fullBorder);
+				applyCellBorder(contents, false, false);
 
 				cell.setContents(contents);
 
@@ -668,7 +666,7 @@ public class Dj2JrCrosstabBuilder {
 	}
 
 	/**
-	 * Apllies background coloring upong the matrix described in {@link Dj2JrCrosstabBuilder#createCells}}
+	 * Aplies background coloring upon the matrix described in {@link Dj2JrCrosstabBuilder#createCells}}
 	 * @param contents
 	 * @param crosstabRow
 	 * @param crosstabColumn
@@ -678,8 +676,8 @@ public class Dj2JrCrosstabBuilder {
 	private void applyBackgroundColor(JRDesignCellContents contents, DJCrosstabRow crosstabRow,
 			DJCrosstabColumn crosstabColumn, int i,int j) {
 
-		Color color = null;
-		if (i==j && i ==0 && false){
+		Color color;
+		if (i==j && i ==0 && false){ //FIXME what is this???
 			if (this.djcross.getMeasureStyle() != null)
 				color = this.djcross.getMeasureStyle().getBackgroundColor();
 		} else {
@@ -691,8 +689,8 @@ public class Dj2JrCrosstabBuilder {
 
 	private void registerMeasures() {
 		int measureIdx = 0;
-		for (Iterator iterator = djcross.getMeasures().iterator(); iterator.hasNext(); measureIdx++) {
-			DJCrosstabMeasure djmeasure = (DJCrosstabMeasure) iterator.next();
+		for (Iterator<DJCrosstabMeasure> iterator = djcross.getMeasures().iterator(); iterator.hasNext(); measureIdx++) {
+			DJCrosstabMeasure djmeasure = iterator.next();
 			String meausrePrefix = "idx" + measureIdx + "_";
 			JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
 
@@ -704,10 +702,10 @@ public class Dj2JrCrosstabBuilder {
 			valueExp.setText("$F{"+djmeasure.getProperty().getProperty()+"}");
 			measure.setValueExpression(valueExp);
 
-			/**
-			 * PRUEBA PORCENTAGE
+			/*
+			  PRUEBA PORCENTAGE
 			 */
-			if (djmeasure.getIsPercentage().booleanValue()) {
+			if (djmeasure.getIsPercentage()) {
 
 				Class valueCass;
 				try {
@@ -720,9 +718,9 @@ public class Dj2JrCrosstabBuilder {
 			}
 
 			if (djmeasure.getValueFormatter() != null){
-				/**
-				 * No need to declare parameter in the report design, just in the crosstab, otherwise duplicated
-				 * parameter exception may ocurr if many crosstabs are introduced in the report.
+				/*
+				  No need to declare parameter in the report design, just in the crosstab, otherwise duplicated
+				  parameter exception may ocurr if many crosstabs are introduced in the report.
 				 */
 //				JRDesignParameter dparam = new JRDesignParameter();
 //				dparam.setName("crosstab-measure__" + measure.getName() + "_vf"); //value formater suffix
@@ -743,9 +741,9 @@ public class Dj2JrCrosstabBuilder {
 			}
 
 			if (djmeasure.getPrecalculatedTotalProvider() != null){
-				/**
-				 * No need to declare parameter in the report design, just in the crosstab, otherwise duplicated
-				 * parameter exception may ocurr if many crosstabs are introduced in the report.
+				/*
+				  No need to declare parameter in the report design, just in the crosstab, otherwise duplicated
+				  parameter exception may ocurr if many crosstabs are introduced in the report.
 				 */
 
 //				JRDesignParameter dparam = new JRDesignParameter();
@@ -849,7 +847,7 @@ public class Dj2JrCrosstabBuilder {
 		int auxHeight = crosstabRow.getHeight();
 		boolean found = false;
 		for (DJCrosstabRow row : djcross.getRows()) {
-			if (!row.equals(crosstabRow) && found == false){
+			if (!row.equals(crosstabRow) && !found){
 				continue;
 			} else {
 				found = true;
@@ -937,7 +935,7 @@ public class Dj2JrCrosstabBuilder {
 	private int calculateRowHeaderMaxWidth(DJCrosstabColumn crosstabColumn) {
 		int auxWidth = 0;
 		boolean firstTime = true;
-		List<DJCrosstabColumn> auxList = new ArrayList(djcross.getColumns());
+		List<DJCrosstabColumn> auxList = new ArrayList<DJCrosstabColumn>(djcross.getColumns());
 		Collections.reverse(auxList);
 		for (DJCrosstabColumn col : auxList) {
 			if (col.equals(crosstabColumn)){
@@ -989,7 +987,7 @@ public class Dj2JrCrosstabBuilder {
 		int auxWidth = 0;
 		boolean found = false;
 		for (DJCrosstabRow row : djcross.getRows()) {
-			if (!row.equals(crosstabRow) && found == false){
+			if (!row.equals(crosstabRow) && !found){
 				continue;
 			} else {
 				found = true;
@@ -1037,7 +1035,7 @@ public class Dj2JrCrosstabBuilder {
 
 		totalHeaderContent.setMode( ModeEnum.OPAQUE );
 
-		JRDesignExpression exp = null;
+		JRDesignExpression exp;
 		if (crosstabColumn.getTotalLegend() != null) {
 			exp = ExpressionUtils.createExpression("\""+crosstabColumn.getTotalLegend()+"\"",String.class);
 		} else {
@@ -1057,7 +1055,7 @@ public class Dj2JrCrosstabBuilder {
 		int auxWidth = 0;
 		boolean found = false;
 		for (DJCrosstabColumn col : djcross.getColumns()) {
-			if (!col.equals(crosstabColumn) && found == false){
+			if (!col.equals(crosstabColumn) && !found){
 				continue;
 			} else {
 				found = true;

@@ -62,7 +62,7 @@ public class SubReportBuilder {
 
 		//If the subreport comes from a file, then we load it now
 		if (subreport.getPath() != null) {
-			JasperReport jr = null;
+			JasperReport jr;
 			File file = new File(subreport.getPath());
 			if (file.exists()){
 				logger.debug("Loading subreport from file path");
@@ -123,7 +123,6 @@ public class SubReportBuilder {
 
 	/**
 	 * like addDataSource(int origin, String expression) but the origin will be from a Parameter
-	 * @param origin
 	 * @param expression
 	 * @return
 	 */

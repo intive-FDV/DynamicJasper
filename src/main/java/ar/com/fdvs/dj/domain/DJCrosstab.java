@@ -41,9 +41,9 @@ public class DJCrosstab extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
-	private List<DJCrosstabRow> rows = new ArrayList();
-	private List<DJCrosstabColumn> columns = new ArrayList();
-	private List measures = new ArrayList();
+	private List<DJCrosstabRow> rows = new ArrayList<DJCrosstabRow>();
+	private List<DJCrosstabColumn> columns = new ArrayList<DJCrosstabColumn>();
+	private List<DJCrosstabMeasure> measures = new ArrayList<DJCrosstabMeasure>();
 
 	private DJLabel caption;
 	
@@ -131,11 +131,11 @@ public class DJCrosstab extends DJBaseElement {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	public List getMeasures() {
+	public List<DJCrosstabMeasure> getMeasures() {
 		return measures;
 	}
 	
-	public void setMeasures(List measures) {
+	public void setMeasures(List<DJCrosstabMeasure> measures) {
 		this.measures = measures;
 	}
 

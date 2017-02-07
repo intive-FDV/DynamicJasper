@@ -51,7 +51,7 @@ public class Product {
 
     private Boolean showAsPrices;
 
-	public static List statistics_ = new ArrayList();
+	public static List<Statistic> statistics_ = new ArrayList<Statistic>();
 	private static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 	static String[] images = {"confused.gif","cool.gif","happy.gif","puaj.gif","ungry.gif","what.gif"};
@@ -69,7 +69,7 @@ public class Product {
 		}
 	}
 
-	public List getStatistics(){
+	public List<Statistic> getStatistics(){
 		return statistics_;
 	}
 	public List getEmptyStatistics(){

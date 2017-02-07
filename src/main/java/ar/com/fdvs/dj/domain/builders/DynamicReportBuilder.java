@@ -67,7 +67,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -90,6 +89,7 @@ import java.util.Map;
  * mehtod.
  * </br>
  */
+@SuppressWarnings("WeakerAccess")
 public class DynamicReportBuilder {
 
     /**
@@ -98,17 +98,17 @@ public class DynamicReportBuilder {
      */
     protected boolean built = false;
 
-    protected DynamicReport report = new DynamicReport();
-    protected DynamicReportOptions options = new DynamicReportOptions();
-    protected List<DJCrosstab> globalFooterCrosstabs = new ArrayList<DJCrosstab>();
-    protected List<DJCrosstab> globalHeaderCrosstabs = new ArrayList<DJCrosstab>();
-    protected ArrayList autoTexts;
-    protected Map groupFooterSubreports = new HashMap();
-    protected Map groupHeaderSubreports = new HashMap();
+    protected final DynamicReport report = new DynamicReport();
+    protected final DynamicReportOptions options = new DynamicReportOptions();
+    protected final List<DJCrosstab> globalFooterCrosstabs = new ArrayList<DJCrosstab>();
+    protected final List<DJCrosstab> globalHeaderCrosstabs = new ArrayList<DJCrosstab>();
+    protected final List<AutoText> autoTexts = new ArrayList<AutoText>();
+    protected final Map<Integer, List<Subreport>> groupFooterSubreports = new HashMap<Integer, List<Subreport>>();
+    protected final Map<Integer, List<Subreport>> groupHeaderSubreports = new HashMap<Integer, List<Subreport>>();
 
-    protected DJGroup globalVariablesGroup;
+    protected final DJGroup globalVariablesGroup;
 
-    protected List<Subreport> concatenatedReports = new ArrayList();
+    protected final List<Subreport> concatenatedReports = new ArrayList<Subreport>();
 
     public DynamicReportBuilder() {
         super();
@@ -116,10 +116,6 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addAutoText(AutoText text) {
-        if (this.autoTexts == null) {
-            this.autoTexts = new ArrayList();
-        }
-
         if (AutoText.WIDTH_NOT_SET == text.getWidth()) {
             text.setWidth(AutoText.DEFAULT_WIDTH);
         }
@@ -152,7 +148,6 @@ public class DynamicReportBuilder {
         HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
         AutoText text = new AutoText(type, position, alignment_, pattern);
         addAutoText(text);
-
         return this;
     }
 
@@ -226,14 +221,14 @@ public class DynamicReportBuilder {
      */
     public DynamicReportBuilder addAutoText(String message, byte position, byte alignment, int width) {
         HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
-        AutoText text = new AutoText(message, position, alignment_, new Integer(width));
+        AutoText text = new AutoText(message, position, alignment_, width);
         addAutoText(text);
         return this;
     }
 
     public DynamicReportBuilder addAutoText(String message, byte position, byte alignment, int width, Style style) {
         HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
-        AutoText text = new AutoText(message, position, alignment_, new Integer(width));
+        AutoText text = new AutoText(message, position, alignment_, width);
         text.setStyle(style);
         addAutoText(text);
         return this;
@@ -257,8 +252,8 @@ public class DynamicReportBuilder {
     public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment, int width, int width2) {
         HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
         AutoText text = new AutoText(type, position, alignment_);
-        text.setWidth(new Integer(width));
-        text.setWidth2(new Integer(width2));
+        text.setWidth(width);
+        text.setWidth2(width2);
         addAutoText(text);
         return this;
     }
@@ -276,8 +271,8 @@ public class DynamicReportBuilder {
         AutoText text = new AutoText(type, position, alignment_);
         text.setPageOffset(pageOffset);
         text.setUseI18n(useI18n);
-        text.setWidth(new Integer(width));
-        text.setWidth2(new Integer(width2));
+        text.setWidth(width);
+        text.setWidth2(width2);
         text.setStyle(style);
         addAutoText(text);
         return this;
@@ -339,8 +334,8 @@ public class DynamicReportBuilder {
     }
 
     private boolean hasPercentageColumn() {
-        for (Iterator iterator = report.getColumns().iterator(); iterator.hasNext(); ) {
-            if (iterator.next() instanceof PercentageColumn) {
+        for (AbstractColumn abstractColumn : report.getColumns()) {
+            if (abstractColumn instanceof PercentageColumn) {
                 return true;
             }
         }
@@ -370,19 +365,15 @@ public class DynamicReportBuilder {
      * all the subreports that must go inside a group are handled here.
      */
     protected void addSubreportsToGroups() {
-        for (Iterator iterator = groupFooterSubreports.keySet().iterator(); iterator.hasNext(); ) {
-            Integer groupNum = (Integer) iterator.next();
-            List list = (List) groupFooterSubreports.get(groupNum);
-
-            DJGroup group = report.getColumnsGroups().get(groupNum.intValue() - 1);
+        for (Integer groupNum : groupFooterSubreports.keySet()) {
+            List<Subreport> list = groupFooterSubreports.get(groupNum);
+            DJGroup group = report.getColumnsGroups().get(groupNum - 1);
             group.getFooterSubreports().addAll(list);
         }
 
-        for (Iterator iterator = groupHeaderSubreports.keySet().iterator(); iterator.hasNext(); ) {
-            Integer groupNum = (Integer) iterator.next();
-            List list = (List) groupHeaderSubreports.get(groupNum);
-
-            DJGroup group = report.getColumnsGroups().get(groupNum.intValue() - 1);
+        for (Integer groupNum : groupHeaderSubreports.keySet()) {
+            List<Subreport> list = groupHeaderSubreports.get(groupNum);
+            DJGroup group = report.getColumnsGroups().get(groupNum - 1);
             group.getHeaderSubreports().addAll(list);
         }
 
@@ -1120,11 +1111,15 @@ public class DynamicReportBuilder {
      * @return
      */
     public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, Subreport subreport) {
-        Integer groupNum = new Integer(groupNumber);
-        List list = (List) groupFooterSubreports.get(groupNum);
+        return addSubreportInContainer(groupNumber, subreport, groupFooterSubreports);
+    }
+
+    protected DynamicReportBuilder addSubreportInContainer(int groupNumber, Subreport subreport, Map<Integer, List<Subreport>> container) {
+        Integer groupNum = groupNumber;
+        List<Subreport> list = container.get(groupNum);
         if (list == null) {
-            list = new ArrayList();
-            groupFooterSubreports.put(groupNum, list);
+            list = new ArrayList<Subreport>();
+            container.put(groupNum, list);
         }
         list.add(subreport);
         return this;
@@ -1146,8 +1141,8 @@ public class DynamicReportBuilder {
                 .setDynamicReport(dynamicReport, layoutManager);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1184,8 +1179,8 @@ public class DynamicReportBuilder {
                 .setDynamicReport(dynamicReport, layoutManager);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1206,8 +1201,8 @@ public class DynamicReportBuilder {
                 dynamicReport, layoutManager);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1228,8 +1223,8 @@ public class DynamicReportBuilder {
                 dynamicReport, layoutManager);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1250,8 +1245,8 @@ public class DynamicReportBuilder {
                 dynamicReport, layoutManager).setFitToParentPrintableArea(fitParent);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1302,8 +1297,8 @@ public class DynamicReportBuilder {
                 dynamicReport, layoutManager).setFitToParentPrintableArea(fitParent);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1337,14 +1332,7 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, Subreport subreport) {
-        Integer groupNum = new Integer(groupNumber);
-        List list = (List) groupHeaderSubreports.get(groupNum);
-        if (list == null) {
-            list = new ArrayList();
-            groupHeaderSubreports.put(groupNum, list);
-        }
-        list.add(subreport);
-        return this;
+        return addSubreportInContainer(groupNumber, subreport, groupHeaderSubreports);
     }
 
     public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
@@ -1608,7 +1596,7 @@ public class DynamicReportBuilder {
      * @return
      */
     public AbstractColumn getColumn(int idx) {
-        return (AbstractColumn) this.report.getColumns().get(idx);
+        return this.report.getColumns().get(idx);
     }
 
     /**

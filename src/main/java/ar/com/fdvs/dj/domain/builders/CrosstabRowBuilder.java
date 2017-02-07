@@ -60,8 +60,8 @@ public class CrosstabRowBuilder {
 		row.setProperty(new ColumnProperty(property,className));
 		return this;
 	}
-	public CrosstabRowBuilder setHeaderWidth(int height){
-		row.setHeaderWidth(height);
+	public CrosstabRowBuilder setHeaderWidth(int width){
+		row.setHeaderWidth(width);
 		return this;
 	}
 	public CrosstabRowBuilder setHeight(int height){

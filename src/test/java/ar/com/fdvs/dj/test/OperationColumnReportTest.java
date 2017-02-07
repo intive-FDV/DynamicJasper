@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
 
+import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.ColumnOperation;
 import ar.com.fdvs.dj.domain.DJCalculation;
@@ -118,7 +119,7 @@ public class OperationColumnReportTest extends BaseDjReportTest {
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn operation = ColumnBuilder.getNew()
-			.addColumnOperation(ColumnOperation.SUM, new AbstractColumn[]{columnaQuantity,columnAmount})
+			.addColumnOperation(ColumnOperation.SUM, new SimpleColumn[]{(SimpleColumn) columnaQuantity, (SimpleColumn) columnAmount})
 			.setTitle("Price").setWidth(new Integer(90)).setPattern("$ 0.00")
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 

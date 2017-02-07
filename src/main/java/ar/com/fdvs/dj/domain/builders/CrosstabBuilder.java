@@ -44,8 +44,6 @@ import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 
-import java.util.Iterator;
-
 public class CrosstabBuilder {
 
 	private DJCrosstab crosstab = new DJCrosstab();
@@ -187,7 +185,7 @@ public class CrosstabBuilder {
 	public CrosstabBuilder addMeasure(String property, String className, DJCalculation operation, String title, Style style, boolean isPercentage) {
 		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
 		measure.setStyle(style);
-		measure.setIsPercentage(Boolean.valueOf(isPercentage));
+		measure.setIsPercentage(isPercentage);
 		crosstab.getMeasures().add(measure);
 		return this;
 	}
@@ -442,7 +440,7 @@ public class CrosstabBuilder {
 		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
 		measure.setStyle(style);
 		measure.setValueFormatter(valueFormatter);
-		measure.setIsPercentage(Boolean.valueOf(isPercentage));
+		measure.setIsPercentage(isPercentage);
 		crosstab.getMeasures().add(measure);
 		return this;	
 	}

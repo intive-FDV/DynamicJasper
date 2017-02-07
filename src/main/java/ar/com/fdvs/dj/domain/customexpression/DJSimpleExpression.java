@@ -13,9 +13,9 @@ public class DJSimpleExpression implements CustomExpression {
 	public static final byte TYPE_VARIABLE 	= 1;
 	public static final byte TYPE_PARAMATER	= 2;
 	
-	private String variableName;
-	private String className;
-	private byte type;
+	private final String variableName;
+	private final String className;
+	private final byte type;
 	
 	public DJSimpleExpression(byte type, String variableName, String className){
 		this.variableName=variableName;
