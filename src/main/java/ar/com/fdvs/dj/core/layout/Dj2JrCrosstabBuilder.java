@@ -633,8 +633,7 @@ public class Dj2JrCrosstabBuilder {
 		if (Utils.isEmpty(djmeasure.getConditionalStyles()))
 			return;
 
-		for (Iterator iterator = djmeasure.getConditionalStyles().iterator(); iterator.hasNext();) {
-			ConditionalStyle condition = (ConditionalStyle) iterator.next();
+		for (ConditionalStyle condition : djmeasure.getConditionalStyles()) {
 			JRDesignExpression expression = ExpressionUtils.getExpressionForConditionalStyle(condition, columExpression);
 			JRDesignConditionalStyle condStyle = layoutManager.makeConditionalStyle( condition.getStyle());
 			condStyle.setConditionExpression(expression);

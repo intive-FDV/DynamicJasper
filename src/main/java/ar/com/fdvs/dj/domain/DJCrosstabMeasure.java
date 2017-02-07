@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain;
 
 import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -54,7 +55,7 @@ public class DJCrosstabMeasure extends DJBaseElement {
 	private ColumnProperty property;
 	private DJCalculation operation;
 	private String title;
-	private List conditionalStyles = new ArrayList();
+	private List<ConditionalStyle> conditionalStyles = new ArrayList();
 	private DJValueFormatter valueFormatter;
 	private DJCRosstabMeasurePrecalculatedTotalProvider precalculatedTotalProvider;
 	private Boolean isPercentage = Boolean.FALSE;
@@ -72,11 +73,11 @@ public class DJCrosstabMeasure extends DJBaseElement {
 		this.style = style;
 	}
 
-	public List getConditionalStyles() {
+	public List<ConditionalStyle> getConditionalStyles() {
 		return conditionalStyles;
 	}
 
-	public void setConditionalStyles(List conditionalStyles) {
+	public void setConditionalStyles(List<ConditionalStyle> conditionalStyles) {
 		this.conditionalStyles = conditionalStyles;
 	}
 	
