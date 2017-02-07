@@ -55,7 +55,7 @@ public class DJCrosstabMeasure extends DJBaseElement {
 	private ColumnProperty property;
 	private DJCalculation operation;
 	private String title;
-	private List<ConditionalStyle> conditionalStyles = new ArrayList();
+	private List<ConditionalStyle> conditionalStyles = new ArrayList<ConditionalStyle>();
 	private DJValueFormatter valueFormatter;
 	private DJCRosstabMeasurePrecalculatedTotalProvider precalculatedTotalProvider;
 	private Boolean isPercentage = Boolean.FALSE;
@@ -135,7 +135,7 @@ public class DJCrosstabMeasure extends DJBaseElement {
 	}
 
 	public String getTextForValueFormatterExpression(String variableName, List<DJCrosstabMeasure> measures) {
-       String stringExpression = null;
+       String stringExpression;
         String fieldsMap = ExpressionUtils.getTextForFieldsFromScriptlet();
         String parametersMap = ExpressionUtils.getTextForParametersFromScriptlet();
         String variablesMap = ExpressionUtils.getTextForVariablesFromScriptlet();
@@ -184,8 +184,7 @@ public class DJCrosstabMeasure extends DJBaseElement {
 
     public String getMeasureIdentifier(int idx) {
         String measurePrefix = this.getMeasurePrefix(idx);
-        String measureProperty = measurePrefix + this.getProperty().getProperty();
-        return measureProperty;
+		return measurePrefix + this.getProperty().getProperty();
     }
 
     public String getMeasurePrefix(int idx) {

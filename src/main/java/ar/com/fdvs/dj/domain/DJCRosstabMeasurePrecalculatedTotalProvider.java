@@ -15,5 +15,5 @@ public interface DJCRosstabMeasurePrecalculatedTotalProvider {
 	 * @param rowValue row values so far
 	 * @return
 	 */
-	public Object getValueFor(String[] colProp, Object colValue[], String rowProp[], Object rowValue[]);
+	Object getValueFor(String[] colProp, Object colValue[], String rowProp[], Object rowValue[]);
 }

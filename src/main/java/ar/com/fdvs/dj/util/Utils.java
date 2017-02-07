@@ -129,7 +129,7 @@ public class Utils {
      * @param string the <code>String</code> to check
      * @return a boolean indicating whether the string was non-empty (and non-null)
      */
-	public final static boolean stringSet(String string) {
+	public static boolean stringSet(String string) {
         return (string != null) && !"".equals(string);
     }
 

@@ -46,14 +46,19 @@ public class Border  extends BaseDomainConstant {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static Border NO_BORDER() {return  new Border(BORDER_WIDTH_NONE, LineStyleEnum.SOLID.getValue()); };
-	public static Border THIN() {return new Border( BORDER_WIDTH_THIN );};
+	public static Border NO_BORDER() {return  new Border(BORDER_WIDTH_NONE, LineStyleEnum.SOLID.getValue()); }
 
-	public static Border PEN_1_POINT() {return  new Border( BORDER_WIDTH_1POINT );};
-	public static Border PEN_2_POINT() {return  new Border( BORDER_WIDTH_2POINT );};
-	public static Border PEN_4_POINT() {return  new Border( BORDER_WIDTH_4POINT );};
-	public static Border DOTTED() {return  new Border( BORDER_WIDTH_1POINT, LineStyleEnum.DOTTED.getValue() );};
-	public static Border DASHED() {return  new Border( BORDER_WIDTH_1POINT, LineStyleEnum.DASHED.getValue() );};
+    public static Border THIN() {return new Border( BORDER_WIDTH_THIN );}
+
+    public static Border PEN_1_POINT() {return  new Border( BORDER_WIDTH_1POINT );}
+
+    public static Border PEN_2_POINT() {return  new Border( BORDER_WIDTH_2POINT );}
+
+    public static Border PEN_4_POINT() {return  new Border( BORDER_WIDTH_4POINT );}
+
+    public static Border DOTTED() {return  new Border( BORDER_WIDTH_1POINT, LineStyleEnum.DOTTED.getValue() );}
+
+    public static Border DASHED() {return  new Border( BORDER_WIDTH_1POINT, LineStyleEnum.DASHED.getValue() );}
 
     public static byte BORDER_STYLE_SOLID = LineStyleEnum.SOLID.getValue();
     public static byte BORDER_STYLE_DASHED = LineStyleEnum.DASHED.getValue();

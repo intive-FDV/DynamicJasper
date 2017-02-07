@@ -46,12 +46,12 @@ public class ReportWriterFactory {
     private static final ReportWriterFactory INSTANCE = new ReportWriterFactory();
 
     public ReportWriterFactory(){
-    };
+    }
 
     public ReportWriterFactory(int pagesThreshold){
         if (pagesThreshold >= 0)
             PAGES_THRESHHOLD = pagesThreshold;
-    };
+    }
 
     /**
      * Returns a ReportWriter that which will use memory or a file depending on the parameter PAGES_THRESHOLD

@@ -111,7 +111,7 @@ public class DynamicReport extends DJBaseElement {
 	private boolean templateImportVariables = false;
 	private boolean templateImportParameters = true;
 
-	private List autoTexts = new ArrayList();
+	private List<AutoText> autoTexts = new ArrayList<AutoText>();
 
 	private Map<String, Style> styles = new LinkedHashMap<String, Style>();
 	private DJQuery query;
@@ -262,11 +262,11 @@ public class DynamicReport extends DJBaseElement {
 		this.newCharts = charts;
 	}
 	
-	public List getAutoTexts() {
+	public List<AutoText> getAutoTexts() {
 		return autoTexts;
 	}
 
-	public void setAutoTexts(List autoTexts) {
+	public void setAutoTexts(List<AutoText> autoTexts) {
 		this.autoTexts = autoTexts;
 	}
 

@@ -38,7 +38,7 @@ public class ColumnProperty extends DJBaseElement {
 	
 	private String property;
 	private String valueClassName;
-	private PropertiesMap<String, String> fieldProperties = new PropertiesMap();
+	private PropertiesMap<String, String> fieldProperties = new PropertiesMap<String, String>();
 
     public ColumnProperty(String property, String valueClass) {
     	this.setProperty(property);

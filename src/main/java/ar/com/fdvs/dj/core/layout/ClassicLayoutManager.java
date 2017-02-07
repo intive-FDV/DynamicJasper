@@ -33,7 +33,15 @@ import ar.com.fdvs.dj.core.CoreException;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.FontHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
-import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.AutoText;
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJGroupLabel;
+import ar.com.fdvs.dj.domain.DJLabel;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReportOptions;
+import ar.com.fdvs.dj.domain.ImageBanner;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.LabelPosition;
@@ -50,13 +58,37 @@ import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.LayoutUtils;
 import ar.com.fdvs.dj.util.Utils;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.*;
-import net.sf.jasperreports.engine.type.*;
+import net.sf.jasperreports.engine.JRChild;
+import net.sf.jasperreports.engine.JRElement;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExpression;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignBreak;
+import net.sf.jasperreports.engine.design.JRDesignElement;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignImage;
+import net.sf.jasperreports.engine.design.JRDesignRectangle;
+import net.sf.jasperreports.engine.design.JRDesignSection;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.design.JRDesignSubreport;
+import net.sf.jasperreports.engine.design.JRDesignSubreportParameter;
+import net.sf.jasperreports.engine.design.JRDesignTextField;
+import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
+import net.sf.jasperreports.engine.type.ModeEnum;
+import net.sf.jasperreports.engine.type.PositionTypeEnum;
+import net.sf.jasperreports.engine.type.ScaleImageEnum;
+import net.sf.jasperreports.engine.type.StretchTypeEnum;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Main Layout Manager recommended for most cases.</br>
@@ -64,6 +96,7 @@ import java.util.*;
  * It provides DJ full features (styles, groups, conditional styles, </br>
  * expressions, group and total variables, etc)
  */
+@SuppressWarnings("WeakerAccess")
 public class ClassicLayoutManager extends AbstractLayoutManager {
 
 	protected static final String PAGE_BREAK_FOR_ = "pageBreak_for_";
@@ -106,23 +139,21 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			getDesign().setPageHeader(headerband);
 		}
 
-		ArrayList positions = new ArrayList();
+		ArrayList<HorizontalBandAlignment> positions = new ArrayList<HorizontalBandAlignment>();
 		positions.add(HorizontalBandAlignment.LEFT);
 		positions.add(HorizontalBandAlignment.CENTER);
 		positions.add(HorizontalBandAlignment.RIGHT);
 
-		ArrayList autotexts = new ArrayList(getReport().getAutoTexts());
-		Collections.reverse(autotexts);
+		//ArrayList<AutoText> autotexts = new ArrayList<AutoText>(getReport().getAutoTexts());
+		//Collections.reverse(autotexts);
 
 		int totalYoffset = findTotalOffset(positions, AutoText.POSITION_HEADER);
 		LayoutUtils.moveBandsElemnts(totalYoffset, headerband);
 
-		for (Object position : positions) {
-			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) position;
+		for (HorizontalBandAlignment currentAlignment : positions) {
 			int yOffset = 0;
 
-			for (Object o : getReport().getAutoTexts()) {
-				AutoText text = (AutoText) o;
+			for (AutoText text : getReport().getAutoTexts()) {
 				if (text.getPosition() == AutoText.POSITION_HEADER && text.getAlignment().equals(currentAlignment)) {
 					CommonExpressionsHelper.add(yOffset, (DynamicJasperDesign) getDesign(), this, headerband, text);
 					yOffset += text.getHeight();
@@ -143,8 +174,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		for (Object aligment : aligments) {
 			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) aligment;
 			int aux = 0;
-			for (Object o : getReport().getAutoTexts()) {
-				AutoText autotext = (AutoText) o;
+			for (AutoText autotext : getReport().getAutoTexts()) {
 				if (autotext.getPosition() == position && currentAlignment.equals(autotext.getAlignment())) {
 					aux += autotext.getHeight();
 				}
@@ -173,19 +203,17 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			getDesign().setPageFooter(footerband);
 		}
 
-		ArrayList positions = new ArrayList();
+		ArrayList<HorizontalBandAlignment> positions = new ArrayList<HorizontalBandAlignment>();
 		positions.add(HorizontalBandAlignment.LEFT);
 		positions.add(HorizontalBandAlignment.CENTER);
 		positions.add(HorizontalBandAlignment.RIGHT);
 
-		for (Object position : positions) {
-			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) position;
+		for (HorizontalBandAlignment currentAlignment : positions) {
 			int yOffset = 0;
 			/**
 			 * Apply the autotext in footer if any
 			 */
-			for (Object o : getReport().getAutoTexts()) {
-				AutoText autotext = (AutoText) o;
+			for (AutoText autotext : getReport().getAutoTexts()) {
 				if (autotext.getPosition() == AutoText.POSITION_FOOTER && autotext.getAlignment().equals(currentAlignment)) {
 					CommonExpressionsHelper.add(yOffset, (DynamicJasperDesign) getDesign(), this, footerband, autotext);
 					yOffset += autotext.getHeight();
@@ -200,8 +228,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * Invisible column are the one whose group is configured with hideColumn = true (in the GroupLayout)
 	 * @return
 	 */
-	protected List getVisibleColumns() {
-		List visibleColums = new ArrayList(getReport().getColumns());
+	protected List<AbstractColumn> getVisibleColumns() {
+		List<AbstractColumn> visibleColums = new ArrayList<AbstractColumn>(getReport().getColumns());
 		for (DJGroup group : getReport().getColumnsGroups()) {
 			if (group.getLayout().isHideColumn()) {
 				visibleColums.remove(group.getColumnToGroupBy());
@@ -469,7 +497,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			DJGroupLabel label = columnsGroup.getFooterLabel();
 			if (label != null) {
-				List footerVariables = columnsGroup.getFooterVariables();
+				List<DJGroupVariable> footerVariables = columnsGroup.getFooterVariables();
 				PropertyColumn col = columnsGroup.getColumnToGroupBy();
 				int x = 0, y = 0;
 				//max width
@@ -1145,17 +1173,15 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	protected int getHeaderVariablesHeight(DJGroup columnsGroup) {
-		int height = columnsGroup.getHeaderVariablesHeight()!=DynamicReportOptions.UNSET_VALUE
+		return columnsGroup.getHeaderVariablesHeight()!=DynamicReportOptions.UNSET_VALUE
 					? columnsGroup.getHeaderVariablesHeight()
 					: DynamicReportOptions.DEFAULT_HEADER_VARIABLES_HEIGHT;
-		return height;
 	}
 
 	protected int getFooterVariableHeight(DJGroup columnsGroup) {
-		int height = columnsGroup.getFooterVariablesHeight()!=DynamicReportOptions.UNSET_VALUE
+		return columnsGroup.getFooterVariablesHeight()!=DynamicReportOptions.UNSET_VALUE
 					? columnsGroup.getFooterVariablesHeight()
 					: DynamicReportOptions.DEFAULT_FOOTER_VARIABLES_HEIGHT;
-		return height;
 	}
 
 	/**

@@ -11,8 +11,8 @@ import java.util.Map;
  */
 public class JasperDesignDecorator {
 
-    public void beforeLayout(JasperDesign jd, Map param) {};
+    public void beforeLayout(JasperDesign jd, Map param) {}
 
-    public void afterLayout(JasperDesign jd, Map param) {};
+    public void afterLayout(JasperDesign jd, Map param) {}
 
 }

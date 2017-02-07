@@ -52,9 +52,9 @@ public class ImageBanner extends DJBaseElement {
 
 	private ImageScaleMode scaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	
-	public ImageBanner(){};
+	public ImageBanner(){}
 
-	public int getHeight() {
+    public int getHeight() {
 		return height;
 	}
 	public void setHeight(int height) {
@@ -108,10 +108,10 @@ public class ImageBanner extends DJBaseElement {
 		this.align = align!=null?align:Alignment.Left;
 	}
 
-	public static enum Alignment {
+	public enum Alignment {
 		Left((byte)0), Right((byte)1), Center((byte)2);
 
-		private Alignment(byte value){
+		Alignment(byte value){
 			this.value = value;
 		}
 
