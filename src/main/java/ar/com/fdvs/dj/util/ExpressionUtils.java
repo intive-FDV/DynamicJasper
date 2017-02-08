@@ -52,7 +52,6 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class ExpressionUtils {
 
@@ -186,7 +185,7 @@ public class ExpressionUtils {
     public static JRDesignExpression createExpression(JasperDesign jasperDesign, SubreportParameter sp) {
         JRDesignExpression exp = new JRDesignExpression();
         exp.setValueClassName(sp.getClassName());
-        String text = null;
+        String text;
         if (sp.getParameterOrigin() == DJConstants.SUBREPORT_PARAM_ORIGIN_FIELD) {
             text = "$F{" + sp.getExpression() + "}";
             //We need to set proper class type to expression according to field class
@@ -240,17 +239,16 @@ public class ExpressionUtils {
     }
 
     /**
-     * @param Collection of ColumnProperty
      * @return
      */
     public static String getFieldsMapExpression(Collection columnsAndFields) {
-        StringBuffer fieldsMap = new StringBuffer("new  " + PropertiesMap.class.getName() + "()");
-        for (Iterator iter = columnsAndFields.iterator(); iter.hasNext(); ) {
-            ColumnProperty columnProperty = (ColumnProperty) iter.next();
+        StringBuilder fieldsMap = new StringBuilder("new  " + PropertiesMap.class.getName() + "()");
+        for (Object columnsAndField : columnsAndFields) {
+            ColumnProperty columnProperty = (ColumnProperty) columnsAndField;
 
             if (columnProperty != null) {
                 String propname = columnProperty.getProperty();
-                fieldsMap.append(".with(\"" + propname + "\",$F{" + propname + "})");
+                fieldsMap.append(".with(\"").append(propname).append("\",$F{").append(propname).append("})");
             }
         }
 
@@ -264,11 +262,11 @@ public class ExpressionUtils {
      * @return
      */
     public static String getVariablesMapExpression(Collection variables) {
-        StringBuffer variablesMap = new StringBuffer("new  " + PropertiesMap.class.getName() + "()");
-        for (Iterator iter = variables.iterator(); iter.hasNext(); ) {
-            JRVariable jrvar = (JRVariable) iter.next();
+        StringBuilder variablesMap = new StringBuilder("new  " + PropertiesMap.class.getName() + "()");
+        for (Object variable : variables) {
+            JRVariable jrvar = (JRVariable) variable;
             String varname = jrvar.getName();
-            variablesMap.append(".with(\"" + varname + "\",$V{" + varname + "})");
+            variablesMap.append(".with(\"").append(varname).append("\",$V{").append(varname).append("})");
         }
         return variablesMap.toString();
     }
@@ -294,10 +292,10 @@ public class ExpressionUtils {
      * @return
      */
     public static String createCustomExpressionInvocationText(CustomExpression customExpression, String customExpName, boolean usePreviousFieldValues) {
-        String stringExpression = null;
+        String stringExpression;
         if (customExpression instanceof DJSimpleExpression) {
             DJSimpleExpression varexp = (DJSimpleExpression) customExpression;
-            String symbol = null;
+            String symbol;
             switch (varexp.getType()) {
                 case DJSimpleExpression.TYPE_FIELD:
                     symbol = "F";
@@ -344,10 +342,8 @@ public class ExpressionUtils {
 //		String stringExpression = "((("+CustomExpression.class.getName()+")$P{"+customExpName+"})."
 //				+CustomExpression.EVAL_METHOD_NAME+"( "+ fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
 
-        String stringExpression = "((" + CustomExpression.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"" + customExpName + "\"))."
+        return "((" + CustomExpression.class.getName() + ")$P{REPORT_PARAMETERS_MAP}.get(\"" + customExpName + "\"))."
                 + CustomExpression.EVAL_METHOD_NAME + "( " + fieldsMap + ", " + variablesMap + ", " + parametersMap + " )";
-
-        return stringExpression;
     }
 
     public static String getTextForVariablesFromScriptlet() {

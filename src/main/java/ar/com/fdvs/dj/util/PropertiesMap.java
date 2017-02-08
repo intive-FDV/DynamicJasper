@@ -45,11 +45,6 @@ public class PropertiesMap<K, V> extends HashMap<K, V> {
 		return super.put(key, value);
 	}
 
-	public static void main(String[] args) {
-		String a = new PropertiesMap().with("a","a").with("b", "b").toString();
-		System.out.println(a);
-	}
-
 	public PropertiesMap() {
 		super();
 	}
@@ -62,7 +57,7 @@ public class PropertiesMap<K, V> extends HashMap<K, V> {
 		super(initialCapacity);
 	}
 
-	public PropertiesMap(Map arg0) {
+	public PropertiesMap(Map<K, V> arg0) {
 		super(arg0);
 	}
 }

@@ -27,8 +27,8 @@
  *
  */
 
-/**
- *
+/*
+
  */
 package ar.com.fdvs.dj.core.layout;
 
@@ -53,7 +53,7 @@ public abstract class AutoTextExpressionUtils {
         
 	public static JRDesignExpression getPageNumberExpression(String before, String after,int pageOffset, boolean useI18n) {
 		JRDesignExpression expression = new JRDesignExpression();
-		String text = null;
+		String text;
 		if (useI18n) {
 			if (!emptyString(before)){
 				before = "$R{" + before + "}";
@@ -78,13 +78,8 @@ public abstract class AutoTextExpressionUtils {
 	}
 
     private static boolean emptyString(String str) {
-		if (str == null)
-			return true;
+		return str == null || "".equals(str.trim());
 
-		if ("".equals(str.trim()))
-			return true;
-
-		return false;
 	}
 
 	public static JRDesignExpression getDateExpression(String before, String after, Locale locale, byte pattern) {
@@ -94,7 +89,7 @@ public abstract class AutoTextExpressionUtils {
 		if (!emptyString(after)){
 			after = "$R{" + after + "}";
 		} else {after = "\"" + after + "\"";}
-		DateFormat dateFormatter = null;
+		DateFormat dateFormatter;
 		if (AutoText.PATTERN_DATE_DATE_ONLY ==  pattern)
 		 dateFormatter = DateFormat.getDateInstance(DateFormat.DEFAULT,locale);
 		else if (AutoText.PATTERN_DATE_TIME_ONLY ==  pattern)

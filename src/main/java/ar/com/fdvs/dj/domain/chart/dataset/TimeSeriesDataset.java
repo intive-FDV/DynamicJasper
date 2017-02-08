@@ -29,7 +29,6 @@
 
 package ar.com.fdvs.dj.domain.chart.dataset;
 
-import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.entities.Entity;
@@ -62,8 +61,8 @@ public class TimeSeriesDataset extends AbstractDataset {
 	public static final Class MILLISECOND = Millisecond.class;
 	
 	private PropertyColumn timePeriod = null;
-	private List series = new ArrayList();
-	private Map seriesLabels = new HashMap();
+	private final List<AbstractColumn> series = new ArrayList<AbstractColumn>();
+	private final Map<AbstractColumn, StringExpression> seriesLabels = new HashMap<AbstractColumn, StringExpression>();
 	private Class timePeriodClass = DAY;	
 		
 	/**
@@ -166,32 +165,30 @@ public class TimeSeriesDataset extends AbstractDataset {
 		if (timePeriodClass != null)
 			data.setTimePeriod(timePeriodClass);
 
-		for (Iterator iterator = series.iterator(); iterator.hasNext();) {
+		for (AbstractColumn sery : series) {
 			JRDesignTimeSeries serie = new JRDesignTimeSeries();
-			AbstractColumn column = (AbstractColumn) iterator.next();
-			
+
 			//And use it as value for each bar
-			JRDesignExpression varExp = getExpressionFromVariable((JRDesignVariable) vars.get(column));
+			JRDesignExpression varExp = getExpressionFromVariable((JRDesignVariable) vars.get(sery));
 			serie.setValueExpression(varExp);
-	
+
 			//The key for each bar
 			JRExpression exp2 = group.getExpression();
-	
+
 			JRDesignExpression exp3;
-			if (seriesLabels.containsKey(column)) {
-				exp3 = ExpressionUtils.createAndRegisterExpression(design, "dataset_" + column.getName() + "_" + name, (CustomExpression) seriesLabels.get(column));
-			}
-			else {
+			if (seriesLabels.containsKey(sery)) {
+				exp3 = ExpressionUtils.createAndRegisterExpression(design, "dataset_" + sery.getName() + "_" + name, seriesLabels.get(sery));
+			} else {
 				exp3 = new JRDesignExpression();
-				exp3.setText("\"" + column.getTitle() + "\"");
+				exp3.setText("\"" + sery.getTitle() + "\"");
 			}
 			exp3.setValueClass(String.class);
-	
+
 			serie.setTimePeriodExpression(exp2);
-				
+
 			serie.setLabelExpression(exp3);
 			serie.setSeriesExpression(exp3);
-				
+
 			data.addTimeSeries(serie);
 		}
 

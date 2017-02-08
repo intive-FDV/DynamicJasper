@@ -42,7 +42,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * Abstract Class used as base for the different Entities Registration Managers.</br>
@@ -78,27 +77,22 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 	}
 
 	public final void registerEntities(Collection entities) throws EntitiesRegistrationException {
-//		this.columns = entities;
 //		log.debug("Registering entities: " + this.getClass().getName());
 		try {
 			if (entities!=null) {
-				Iterator it = entities.iterator();
-				while (it.hasNext()) {
-					Entity entity = (Entity)it.next();
+				for (Object entity1 : entities) {
+					Entity entity = (Entity) entity1;
 					registerEntity(entity);
 				}
 			}
 		} catch (RuntimeException e) {
 			throw new EntitiesRegistrationException(e.getMessage(),e);
-		} finally {
-//			this.columns = null;
 		}
 	}
 
 	/**
 	 * Registers in the report's JasperDesign instance whatever is needed to
 	 * show a given entity.
-	 * @param Entity entity
 	 * @throws EntitiesRegistrationException
 	 */
 	protected abstract void registerEntity(Entity entity);
@@ -106,7 +100,6 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 	/**
 	 * Transforms a DynamicJasper entity into a JasperReport one
 	 * (JRDesignField, JRDesignParameter, JRDesignVariable)
-	 * @param Entity entity
 	 * @throws EntitiesRegistrationException
 	 */
 	protected abstract Object transformEntity(Entity entity) throws JRException;

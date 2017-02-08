@@ -23,11 +23,8 @@ public class Utils {
 	 * @param col
 	 * @return
 	 */
-	public static boolean isEmpty(Collection col){
-		if (col == null)
-			return true;
-
-		return col.isEmpty();
+	public static boolean isEmpty(Collection col) {
+		return col == null || col.isEmpty();
 
 	}
 
@@ -53,26 +50,26 @@ public class Utils {
 				PropertyUtils putils = new PropertyUtils();
 	            PropertyDescriptor origDescriptors[] = putils.getPropertyDescriptors(orig);
 
-	            for (int i = 0; i < origDescriptors.length; i++) {
-	                String name = origDescriptors[i].getName();
-	                if ("class".equals(name)) {
-	                    continue; // No point in trying to set an object's class
-	                }
+				for (PropertyDescriptor origDescriptor : origDescriptors) {
+					String name = origDescriptor.getName();
+					if ("class".equals(name)) {
+						continue; // No point in trying to set an object's class
+					}
 
-	                Class propertyType = origDescriptors[i].getPropertyType();
-					if (! Boolean.class.equals(propertyType) && !(Boolean.class.equals(propertyType) ))
-	                	continue;
+					Class propertyType = origDescriptor.getPropertyType();
+					if (!Boolean.class.equals(propertyType) && !(Boolean.class.equals(propertyType)))
+						continue;
 
-	                if (!putils.isReadable(orig, name)){ //because of bad convention
-	                	Method m = orig.getClass().getMethod("is" + name.substring(0,1).toUpperCase() + name.substring(1)  , null);
-	                	Object value = m.invoke(orig, null);
+					if (!putils.isReadable(orig, name)) { //because of bad convention
+						Method m = orig.getClass().getMethod("is" + name.substring(0, 1).toUpperCase() + name.substring(1), (Class<?>[]) null);
+						Object value = m.invoke(orig, (Object[]) null);
 
-	                	if (m!=null && putils.isWriteable(dest, name)){
-	                		BeanUtilsBean.getInstance().copyProperty(dest, name, value);
-	                	}
-	                }
+						if (putils.isWriteable(dest, name)) {
+							BeanUtilsBean.getInstance().copyProperty(dest, name, value);
+						}
+					}
 
-	            }
+				}
 			}
 		} catch (Exception e) {
 			throw new DJException("Could not copy properties for shared object: " + orig +", message: " + e.getMessage(),e);
@@ -135,9 +132,7 @@ public class Utils {
 
 
 	public static boolean isEmpty(String text) {
-		if (text == null || "".equals(text.trim()))
-			return true;
+		return text == null || "".equals(text.trim());
 
-		return false;
 	}
 }

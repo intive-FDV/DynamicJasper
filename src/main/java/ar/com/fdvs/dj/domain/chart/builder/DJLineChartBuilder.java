@@ -44,7 +44,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import java.awt.*;
 import java.util.List;
 
-public class DJLineChartBuilder extends AbstractChartBuilder {
+public class DJLineChartBuilder extends AbstractChartBuilder<DJLineChartBuilder> {
 	//chart
 	/**
 	 * Sets the chart data operation (DJChart.CALCULATION_COUNT or DJChart.CALCULATION_SUM).
@@ -130,7 +130,6 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 	/**
 	 * Sets the x position.
 	 *
-	 * @param y the x position
 	 **/
 	public DJLineChartBuilder setX(int x) {
 		this.chart.getOptions().setX(x);
@@ -143,7 +142,7 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 	 * @param showLegend the legend visibility
 	 **/
 	public DJLineChartBuilder setShowLegend(boolean showLegend) {
-		this.chart.getOptions().setShowLegend(new Boolean(showLegend));
+		this.chart.getOptions().setShowLegend(showLegend);
 		return this;
 	}
 
@@ -304,7 +303,7 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 	 * @param lineWidth the line width
 	 **/
 	public DJLineChartBuilder setLineWidth(float lineWidth) {
-		this.chart.getOptions().setLineWidth(new Float(lineWidth));
+		this.chart.getOptions().setLineWidth(lineWidth);
 		return this;
 	}
 
@@ -324,7 +323,7 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 	 * @param padding the padding
 	 **/
 	public DJLineChartBuilder setPadding(int padding) {
-		this.chart.getOptions().setPadding(new Integer(padding));
+		this.chart.getOptions().setPadding(padding);
 		return this;
 	}
 
@@ -373,7 +372,6 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 	 * Adds the specified serie column to the dataset with custom label.
 	 * 
 	 * @param column the serie column
-	 * @param label column the custom label
 	 **/
 	public DJLineChartBuilder addSerie(AbstractColumn column, StringExpression labelExpression) {
 		getDataset().addSerie(column, labelExpression);
@@ -393,7 +391,7 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 	 * @param labelRotation the label rotation
 	 **/
 	public DJLineChartBuilder setLabelRotation(double labelRotation) {
-		this.getPlot().setLabelRotation(new Double(labelRotation));
+		this.getPlot().setLabelRotation(labelRotation);
 		return this;
 	}
 
@@ -422,7 +420,7 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 	 * 
 	 * @param seriesColors the series colors
 	 **/
-	public DJLineChartBuilder setSeriesColors(List seriesColors) {
+	public DJLineChartBuilder setSeriesColors(List<Color> seriesColors) {
 		getPlot().setSeriesColors(seriesColors);
 		return this;
 	}
@@ -455,7 +453,7 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 	 * @param showShapes the shapes visibility
 	 **/
 	public DJLineChartBuilder setShowShapes(boolean showShapes) {
-		getPlot().setShowShapes(new Boolean(showShapes));
+		getPlot().setShowShapes(showShapes);
 		return this;
 	}
 
@@ -465,7 +463,7 @@ public class DJLineChartBuilder extends AbstractChartBuilder {
 	 * @param showLines the lines visibility
 	 **/
 	public DJLineChartBuilder setShowLines(boolean showLines) {
-		getPlot().setShowLines(new Boolean(showLines));
+		getPlot().setShowLines(showLines);
 		return this;
 	}
 	

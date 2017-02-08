@@ -49,8 +49,8 @@ public class DJJRJdtCompiler extends JRJdtCompiler {
         super(jasperReportsContext);
     }
 
-    protected Map getJdtSettings() {
-        final Map settings = super.getJdtSettings();
+    protected Map<String,String> getJdtSettings() {
+        final Map<String,String> settings = super.getJdtSettings();
         final String encoding = System.getProperty("file.encoding");
         if (encoding != null) {
 //            settings.put(CompilerOptions.OPTION_Encoding, encoding); //this needs and import from here: import org.eclipse.jdt.internal.compiler.impl.CompilerOptions;

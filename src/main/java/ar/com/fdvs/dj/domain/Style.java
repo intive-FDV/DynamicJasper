@@ -78,8 +78,8 @@ public class Style implements Serializable, Cloneable {
 
 	private Integer paddingBottom, paddingTop, paddingLeft, paddingRight;
 
-	private Integer padding = new Integer(2);
-	private Integer radius = new Integer(0);
+	private Integer padding = 2;
+	private Integer radius = 0;
 
 	private Transparency transparency = Transparency.TRANSPARENT;
 
@@ -299,8 +299,8 @@ public class Style implements Serializable, Cloneable {
 
 		transformedStyle.setPattern(this.pattern);
 
-		/**
-		 * This values are needed when exporting to JRXML
+		/*
+		  This values are needed when exporting to JRXML
 		 */
         //TODO Check if this is still necessary
         /*transformedStyle.setPen((byte)0);

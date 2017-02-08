@@ -85,10 +85,10 @@ public class DynamicReport extends DJBaseElement {
 	private List<DJGroup> columnsGroups = new ArrayList<DJGroup>();
 
 	//<DJChart>
-	private List<DJChart> charts = new ArrayList();
+	private List<DJChart> charts = new ArrayList<DJChart>();
 
 	//<DJChart>
-	private List<ar.com.fdvs.dj.domain.chart.DJChart> newCharts = new ArrayList();
+	private List<ar.com.fdvs.dj.domain.chart.DJChart> newCharts = new ArrayList<ar.com.fdvs.dj.domain.chart.DJChart>();
 	
 	private DynamicReportOptions options;
 
@@ -161,7 +161,7 @@ public class DynamicReport extends DJBaseElement {
 		return styles;
 	}
 
-	public void setStyles(Map styles) {
+	public void setStyles(Map<String, Style> styles) {
 		this.styles = styles;
 	}
 
@@ -242,7 +242,7 @@ public class DynamicReport extends DJBaseElement {
 		return fields;
 	}
 
-	public void setFields(List fields) {
+	public void setFields(List<ColumnProperty> fields) {
 		this.fields = fields;
 	}
 
@@ -258,7 +258,7 @@ public class DynamicReport extends DJBaseElement {
 		return newCharts;
 	}
 
-	public void setNewCharts(List charts) {
+	public void setNewCharts(List<ar.com.fdvs.dj.domain.chart.DJChart> charts) {
 		this.newCharts = charts;
 	}
 	
@@ -427,7 +427,7 @@ public class DynamicReport extends DJBaseElement {
 	 * @return List<ColumnProperty>
 	 */
 	public List<ColumnProperty> getAllFields(){
-		ArrayList<ColumnProperty> l = new ArrayList();
+		ArrayList<ColumnProperty> l = new ArrayList<ColumnProperty>();
 		for (AbstractColumn abstractColumn : this.getColumns()) {
 			if (abstractColumn instanceof SimpleColumn && !(abstractColumn instanceof ExpressionColumn)) {
 				l.add(((SimpleColumn)abstractColumn).getColumnProperty());

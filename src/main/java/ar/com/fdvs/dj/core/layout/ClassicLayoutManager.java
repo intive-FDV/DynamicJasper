@@ -108,9 +108,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected static final String EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() != 1)";
 	protected static final String EXPRESSION_TRUE_WHEN_FIRST_PAGE = "new java.lang.Boolean(((Number)$V{PAGE_NUMBER}).doubleValue() == 1)";
 
-	protected final Map referencesMap = new HashMap();
+	protected final Map<String, Object> referencesMap = new HashMap<String, Object>();
 
-	public Map getReferencesMap() {
+	public Map<String, Object> getReferencesMap() {
 		return referencesMap;
 	}
 
@@ -130,8 +130,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	protected void applyHeaderAutotexts() {
 		if (getReport().getAutoTexts() == null)
 			return;
-		/**
-		 * Apply the autotext in footer if any
+		/*
+		  Apply the autotext in footer if any
 		 */
 		JRDesignBand headerband = (JRDesignBand) getDesign().getPageHeader();
 		if (headerband == null ) {
@@ -161,7 +161,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 		}
 
-		/** END */
+		/* END */
 	}
 
 	/**
@@ -210,8 +210,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 		for (HorizontalBandAlignment currentAlignment : positions) {
 			int yOffset = 0;
-			/**
-			 * Apply the autotext in footer if any
+			/*
+			  Apply the autotext in footer if any
 			 */
 			for (AutoText autotext : getReport().getAutoTexts()) {
 				if (autotext.getPosition() == AutoText.POSITION_FOOTER && autotext.getAlignment().equals(currentAlignment)) {
@@ -249,8 +249,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
             return;
         }
 
-		/**
-		 * First create image banners for the first page only
+		/*
+		  First create image banners for the first page only
 		 */
 		JRDesignBand title = (JRDesignBand) getDesign().getTitle();
 		//if there is no title band, but there are banner images for the first page, we create a title band
@@ -260,8 +260,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		}
 		applyImageBannersToBand(title, options.getFirstPageImageBanners().values(), null, true);
 
-		/**
-		 * Now create image banner for the rest of the pages
+		/*
+		  Now create image banner for the rest of the pages
 		 */
 		JRDesignBand pageHeader = (JRDesignBand) getDesign().getPageHeader();
 		//if there is no title band, but there are banner images for the first page, we create a title band
@@ -830,9 +830,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					targetBand = LayoutUtils.getBandFromSection((JRDesignSection) jrGroup.getGroupFooterSection());
 				}
 
-				/**
-				 * There is no meaning in adding a page-break in header sub reports since
-				 * they will be placed right after the group header
+				/*
+				  There is no meaning in adding a page-break in header sub reports since
+				  they will be placed right after the group header
 				 */
 				if (DJConstants.FOOTER.equals(position) && targetBand != null) {
 					JRDesignBreak pageBreak = new JRDesignBreak(new JRDesignStyle().getDefaultStyleProvider());
@@ -847,10 +847,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 			sendPageBreakToBottom(band);
 
-			/**
-			 * A subreport is placed in a group header or footer. This option configures the group's
-			 * header/footer band to allow it contents to be split. I'm not sure splitting logic works
-			 * inside complex object such as sub-reports since it has it's own bands inside
+			/*
+			  A subreport is placed in a group header or footer. This option configures the group's
+			  header/footer band to allow it contents to be split. I'm not sure splitting logic works
+			  inside complex object such as sub-reports since it has it's own bands inside
 			 */
 			band.setSplitType(LayoutUtils.getSplitTypeFromBoolean(sr.isSplitAllowed()));
 		}
@@ -1267,9 +1267,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		}
 
 
-		/**
-		 * Note: Te column names, when in header, are printed at the begining of every page.
-		 * You may dont want this option if you have groups that prints column names.
+		/*
+		  Note: Te column names, when in header, are printed at the begining of every page.
+		  You may dont want this option if you have groups that prints column names.
 		 */
 		if (getReport().getOptions().isPrintColumnNames()){
 			generateHeaderBand(header);

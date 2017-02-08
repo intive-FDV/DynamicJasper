@@ -276,9 +276,8 @@ public class Font extends BaseDomainConstant implements Cloneable {
 			style = 2;
 		else if (this.isBold())
 			style = 1;
-		java.awt.Font font = new java.awt.Font(this.getFontName(), style, Math.round(this.getFontSize()) );
 
-		return font;
+        return new java.awt.Font(this.getFontName(), style, Math.round(this.getFontSize()) );
 	}
 
 }

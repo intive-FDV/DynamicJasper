@@ -37,7 +37,7 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import org.apache.commons.collections.list.UnmodifiableList;
+import org.apache.commons.collections4.list.UnmodifiableList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,12 +67,12 @@ public class DJGroup extends DJBaseElement {
 	/**
 	 * Map<Column, Style>
 	 */
-	private Map<AbstractColumn, Style> columnHeaderStyles = new HashMap();
+	private Map<AbstractColumn, Style> columnHeaderStyles = new HashMap<AbstractColumn, Style>();
 	private Style defaultColumnHeaederStyle;
 
-	private List<DJGroupVariable> headerVariables = new ArrayList();
-	private List<DJGroupVariable> footerVariables = new ArrayList();
-	private List<DJGroupVariableDef> variables = new ArrayList();
+	private List<DJGroupVariable> headerVariables = new ArrayList<DJGroupVariable>();
+	private List<DJGroupVariable> footerVariables = new ArrayList<DJGroupVariable>();
+	private List<DJGroupVariableDef> variables = new ArrayList<DJGroupVariableDef>();
 	
 	private boolean fitHeaderHeightToContent = true;
 	private boolean fitFooterHeightToContent = true;
@@ -109,11 +109,11 @@ public class DJGroup extends DJBaseElement {
 	private int footerVariablesHeight = DynamicReportOptions.UNSET_VALUE; //for values such as calculations, current value, etc.
 	
 	private GroupLayout layout = GroupLayout.DEFAULT;
-	private List<Subreport> footerSubreports = new ArrayList();
-	private List<Subreport> headerSubreports = new ArrayList();
+	private List<Subreport> footerSubreports = new ArrayList<Subreport>();
+	private List<Subreport> headerSubreports = new ArrayList<Subreport>();
 
-	private List<DJCrosstab> headerCrosstabs = new ArrayList();
-	private List<DJCrosstab> footerCrosstabs = new ArrayList();
+	private List<DJCrosstab> headerCrosstabs = new ArrayList<DJCrosstab>();
+	private List<DJCrosstab> footerCrosstabs = new ArrayList<DJCrosstab>();
 
 	private boolean startInNewPage = false;
 	private boolean startInNewColumn = false;
@@ -177,7 +177,7 @@ public class DJGroup extends DJBaseElement {
 	}
 
 	public List<DJGroupVariable> getFooterVariables() {
-		return UnmodifiableList.decorate(footerVariables);
+		return new UnmodifiableList<DJGroupVariable>(footerVariables);
 	}
 
 	public void setFooterVariables(List<DJGroupVariable> footerVariables) {
@@ -185,7 +185,7 @@ public class DJGroup extends DJBaseElement {
 	}
 
 	public List<DJGroupVariable> getHeaderVariables() {
-		return  UnmodifiableList.decorate(headerVariables);
+		return  new UnmodifiableList<DJGroupVariable>(headerVariables);
 	}
 
 	public void setHeaderVariables(List<DJGroupVariable> headerVariables) {

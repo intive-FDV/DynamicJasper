@@ -67,11 +67,10 @@ public class OperationColumn extends AbstractColumn {
 	}
 
 	public String getTextForExpression() {
-		StringBuffer exp = new StringBuffer();
+		StringBuilder exp = new StringBuilder();
 		for (Iterator<SimpleColumn> iter = columns.iterator(); iter.hasNext();) {
 			SimpleColumn col = iter.next();
-			exp.append(" ((java.lang.Number)$F{" + col.getColumnProperty().getProperty()
-					+ "}).doubleValue() ");
+			exp.append(" ((java.lang.Number)$F{").append(col.getColumnProperty().getProperty()).append("}).doubleValue() ");
 			if (iter.hasNext())
 				exp.append(columnOperation.getValue());
 		}

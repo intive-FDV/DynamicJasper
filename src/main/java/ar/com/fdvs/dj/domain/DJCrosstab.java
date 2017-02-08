@@ -140,7 +140,7 @@ public class DJCrosstab extends DJBaseElement {
 	}
 
 	public DJCrosstabMeasure getMeasure(int index) {
-		return (DJCrosstabMeasure) measures.get(index);
+		return measures.get(index);
 	}
 	public boolean isUseFullWidth() {
 		return useFullWidth;

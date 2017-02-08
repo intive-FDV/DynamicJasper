@@ -6,7 +6,7 @@ public abstract class CrossTabColorShemaGenerator extends CrossTabColorShema {
 
 	public static Color[][] createSchema(int schema, int numCols, int numRows){
 
-		CrossTabColorShema generator = null;
+		CrossTabColorShema generator;
 
 		if (schema == 0)
 			generator = new Schema0();

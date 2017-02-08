@@ -104,7 +104,7 @@ public class DJChartOptions extends DJBaseElement {
 	private String customizerClass = null;
 		
 	public DJChartOptions() {
-		this.showLegend = new Boolean(true);
+		this.showLegend = Boolean.TRUE;
 		this.backColor = Color.WHITE;
 		this.height = 200;
 		this.width = 200;
@@ -112,7 +112,7 @@ public class DJChartOptions extends DJBaseElement {
 		this.position = POSITION_FOOTER;
 		this.x = 0;
 		this.y = 0;		
-		this.padding = new Integer(10);
+		this.padding = 10;
 	}
 		
 	/**
@@ -420,7 +420,7 @@ public class DJChartOptions extends DJBaseElement {
 	 * @param legendPosition the legend position
 	 **/
 	public void setLegendPosition(byte legendPosition) {
-		this.legendPosition = new Byte(legendPosition);
+		this.legendPosition = legendPosition;
 	}
 
 	/**
@@ -438,7 +438,7 @@ public class DJChartOptions extends DJBaseElement {
 	 * @param titlePosition the title position
 	 **/
 	public void setTitlePosition(byte titlePosition) {
-		this.titlePosition = new Byte(titlePosition);
+		this.titlePosition = titlePosition;
 	}
 
 	/**
@@ -492,7 +492,7 @@ public class DJChartOptions extends DJBaseElement {
 	 * @param lineStyle one of the line style constants in this class
 	 */
 	public void setLineStyle(byte lineStyle) {
-		this.lineStyle = new Byte(lineStyle);
+		this.lineStyle = lineStyle;
 	}
 
 	/**

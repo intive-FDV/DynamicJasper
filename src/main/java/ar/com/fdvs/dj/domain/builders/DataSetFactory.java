@@ -95,7 +95,7 @@ public class DataSetFactory {
 	
 			JRDesignExpression exp3 = new JRDesignExpression();
 			int index = vars.indexOf(var);
-			AbstractColumn col = (AbstractColumn) djchart.getColumns().get(index);
+			AbstractColumn col = djchart.getColumns().get(index);
 			exp3.setText("\"" + col.getTitle() + "\"");
 			exp3.setValueClass(String.class);
 	
@@ -128,7 +128,7 @@ public class DataSetFactory {
 
 			JRDesignExpression exp3 = new JRDesignExpression();
 			int index = vars.indexOf(var1);
-			AbstractColumn col = (AbstractColumn) djchart.getColumns().get(index);
+			AbstractColumn col = djchart.getColumns().get(index);
 			exp3.setText("\"" + col.getTitle() + "\"");
 			exp3.setValueClass(String.class);
 

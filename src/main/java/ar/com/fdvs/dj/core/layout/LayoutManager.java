@@ -27,8 +27,8 @@
  *
  */
 
-/**
- *
+/*
+
  */
 package ar.com.fdvs.dj.core.layout;
 
@@ -57,6 +57,6 @@ public interface LayoutManager {
 	 * a DJGroup and a JRDesignGroup 
 	 * @return
 	 */
-	Map getReferencesMap();
+	Map<String, Object> getReferencesMap();
 
 }

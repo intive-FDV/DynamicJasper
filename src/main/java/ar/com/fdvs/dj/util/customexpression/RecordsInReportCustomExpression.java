@@ -14,8 +14,7 @@ public class RecordsInReportCustomExpression implements CustomExpression {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	public Object evaluate(Map fields, Map variables, Map parameters) {
-		Integer count = (Integer) variables.get("REPORT_COUNT");
-		return count;
+        return variables.get("REPORT_COUNT");
 	}
 
 	public String getClassName() {

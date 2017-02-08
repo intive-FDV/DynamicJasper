@@ -41,10 +41,10 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
 import org.jfree.chart.plot.PlotOrientation;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.List;
 
-public class DJBar3DChartBuilder extends AbstractChartBuilder {
+public class DJBar3DChartBuilder extends AbstractChartBuilder<DJBar3DChartBuilder> {
 	//chart
 	/**
 	 * Sets the chart data operation (DJChart.CALCULATION_COUNT or DJChart.CALCULATION_SUM).
@@ -130,7 +130,6 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	/**
 	 * Sets the x position.
 	 *
-	 * @param y the x position
 	 **/
 	public DJBar3DChartBuilder setX(int x) {
 		this.chart.getOptions().setX(x);
@@ -143,7 +142,7 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	 * @param showLegend the legend visibility
 	 **/
 	public DJBar3DChartBuilder setShowLegend(boolean showLegend) {
-		this.chart.getOptions().setShowLegend(new Boolean(showLegend));
+		this.chart.getOptions().setShowLegend(showLegend);
 		return this;
 	}
 
@@ -304,7 +303,7 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	 * @param lineWidth the line width
 	 **/
 	public DJBar3DChartBuilder setLineWidth(float lineWidth) {
-		this.chart.getOptions().setLineWidth(new Float(lineWidth));
+		this.chart.getOptions().setLineWidth(lineWidth);
 		return this;
 	}
 
@@ -324,7 +323,7 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	 * @param padding the padding
 	 **/
 	public DJBar3DChartBuilder setPadding(int padding) {
-		this.chart.getOptions().setPadding(new Integer(padding));
+		this.chart.getOptions().setPadding(padding);
 		return this;
 	}
 
@@ -373,7 +372,6 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	 * Adds the specified serie column to the dataset with custom label.
 	 * 
 	 * @param column the serie column
-	 * @param label column the custom label
 	 **/
 	public DJBar3DChartBuilder addSerie(AbstractColumn column, StringExpression labelExpression) {
 		getDataset().addSerie(column, labelExpression);
@@ -394,7 +392,7 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	 * @param labelRotation the label rotation
 	 **/
 	public DJBar3DChartBuilder setLabelRotation(double labelRotation) {
-		this.getPlot().setLabelRotation(new Double(labelRotation));
+		this.getPlot().setLabelRotation(labelRotation);
 		return this;
 	}
 
@@ -423,7 +421,7 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	 * 
 	 * @param seriesColors the series colors
 	 **/
-	public DJBar3DChartBuilder setSeriesColors(List seriesColors) {
+	public DJBar3DChartBuilder setSeriesColors(List<Color> seriesColors) {
 		getPlot().setSeriesColors(seriesColors);
 		return this;
 	}
@@ -456,7 +454,7 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	 * @param xOffset the x offset
 	 **/
 	public DJBar3DChartBuilder setXOffset(double xOffset) {
-		getPlot().setXOffset(new Double(xOffset));
+		getPlot().setXOffset(xOffset);
 		return this;
 	}
 
@@ -466,7 +464,7 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	 * @param yOffset the y offset
 	 **/
 	public DJBar3DChartBuilder setyOffset(double yOffset) {
-		getPlot().setYOffset(new Double(yOffset));
+		getPlot().setYOffset(yOffset);
 		return this;
 	}
 	
@@ -476,7 +474,7 @@ public class DJBar3DChartBuilder extends AbstractChartBuilder {
 	 * @param showLabels the labels visibility
 	 **/
 	public DJBar3DChartBuilder setShowLabels(boolean showLabels) {
-		getPlot().setShowLabels(new Boolean(showLabels));
+		getPlot().setShowLabels(showLabels);
 		return this;
 	}
 	

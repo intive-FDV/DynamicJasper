@@ -9,15 +9,15 @@ import java.util.Set;
 
 public class VariableMapWrapper implements Map {
 	
-	private Map map;
+	private Map<String,JRFillVariable> map;
     private String reportName;
 
-    public VariableMapWrapper(Map map){
+    public VariableMapWrapper(Map<String,JRFillVariable> map){
 		this.map = map;
 	}
 
 	public VariableMapWrapper() {
-		this.map = Collections.EMPTY_MAP;
+		this.map = Collections.emptyMap();
 	}
 
 	public void clear() {
@@ -25,10 +25,8 @@ public class VariableMapWrapper implements Map {
 	}
 
 	public boolean containsKey(Object key) {
-        boolean contains = map.containsKey(key);
-        if (!contains)
-            return map.containsKey(reportName + "_" + key);
-        return contains;
+		boolean contains = map.containsKey(key);
+		return contains || map.containsKey(reportName + "_" + key);
 	}
 
 	public boolean containsValue(Object value) {
@@ -68,7 +66,7 @@ public class VariableMapWrapper implements Map {
 	}
 
 	public Object put(Object arg0, Object arg1) {
-		return map.put(arg0, arg1);
+		return map.put((String)arg0,(JRFillVariable) arg1);
 	}
 
 	public void putAll(Map arg0) {
@@ -87,7 +85,7 @@ public class VariableMapWrapper implements Map {
 		throw new DJException("Method not implemented");
 	}
 
-	public void setMap(Map varsm) {
+	public void setMap(Map<String,JRFillVariable> varsm) {
 		this.map = varsm;
 		
 	}

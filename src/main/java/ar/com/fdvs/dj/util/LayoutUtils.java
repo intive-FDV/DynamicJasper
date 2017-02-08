@@ -9,6 +9,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import net.sf.jasperreports.engine.JRBand;
+import net.sf.jasperreports.engine.JRChild;
 import net.sf.jasperreports.engine.JRDefaultStyleProvider;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRPen;
@@ -20,7 +21,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.lang.reflect.Constructor;
-import java.util.Iterator;
 import java.util.Map;
 
 public class LayoutUtils {
@@ -35,8 +35,8 @@ public class LayoutUtils {
 	public static int findVerticalOffset(JRDesignBand band) {
 		int finalHeight = 0;
 		if (band != null) {
-			for (Iterator iter = band.getChildren().iterator(); iter.hasNext();) {
-				JRDesignElement element = (JRDesignElement) iter.next();
+			for (JRChild jrChild : band.getChildren()) {
+				JRDesignElement element = (JRDesignElement) jrChild;
 				int currentHeight = element.getY() + element.getHeight();
 				if (currentHeight > finalHeight) finalHeight = currentHeight;
 			}
@@ -59,25 +59,25 @@ public class LayoutUtils {
 		
 		if (sourceBand == null)
 			return;
-		
-		for (Iterator iterator = sourceBand.getChildren().iterator(); iterator.hasNext();) {
-			JRDesignElement element = (JRDesignElement) iterator.next();
+
+		for (JRChild jrChild : sourceBand.getChildren()) {
+			JRDesignElement element = (JRDesignElement) jrChild;
 			JRDesignElement dest = null;
 			try {
-				if (element instanceof JRDesignGraphicElement){
+				if (element instanceof JRDesignGraphicElement) {
 					Constructor<? extends JRDesignElement> constructor = element.getClass().getConstructor(JRDefaultStyleProvider.class);
 					JRDesignStyle style = new JRDesignStyle();
-					dest = constructor.newInstance(new Object[]{style.getDefaultStyleProvider()});
+					dest = constructor.newInstance(style.getDefaultStyleProvider());
 				} else {
-					dest = (JRDesignElement) element.getClass().newInstance();
+					dest = element.getClass().newInstance();
 				}
-				
+
 				BeanUtils.copyProperties(dest, element);
 				dest.setY(dest.getY() + offset);
 			} catch (Exception e) {
-				log.error("Exception copying elements from band to band: " + e.getMessage(),e);
+				log.error("Exception copying elements from band to band: " + e.getMessage(), e);
 			}
-			destBand.addElement((JRDesignElement) dest);
+			destBand.addElement(dest);
 		}
 	}
 	
@@ -90,9 +90,9 @@ public class LayoutUtils {
 		if (band == null)
 			return;
 
-		for (Iterator iterator = band.getChildren().iterator(); iterator.hasNext();) {
-			JRDesignElement elem = (JRDesignElement) iterator.next();
-			elem.setY(elem.getY()+yOffset);
+		for (JRChild jrChild : band.getChildren()) {
+			JRDesignElement elem = (JRDesignElement) jrChild;
+			elem.setY(elem.getY() + yOffset);
 		}
 	}	
 	
@@ -121,8 +121,8 @@ public class LayoutUtils {
 	 */
 	public static JRDesignGroup getJRDesignGroup(DynamicJasperDesign jd, LayoutManager layoutManager, DJGroup group) {
 		Map references = layoutManager.getReferencesMap();
-		for (Iterator iterator = references.keySet().iterator(); iterator.hasNext();) {
-			String groupName = (String) iterator.next();
+		for (Object o : references.keySet()) {
+			String groupName = (String) o;
 			DJGroup djGroup = (DJGroup) references.get(groupName);
 			if (group == djGroup) {
 				return (JRDesignGroup) jd.getGroupsMap().get(groupName);
@@ -137,8 +137,7 @@ public class LayoutUtils {
 		if (gidx > 0) {
 			gidx--;
 			DJGroup djParentGroup = dr.getColumnsGroups().get(gidx);
-			JRDesignGroup jrParentGroup = LayoutUtils.getJRDesignGroup(djd, layoutManager, djParentGroup);
-			registeredGroup = jrParentGroup;
+            registeredGroup = LayoutUtils.getJRDesignGroup(djd, layoutManager, djParentGroup);
 		} else
 			registeredGroup = null;
 		return registeredGroup;

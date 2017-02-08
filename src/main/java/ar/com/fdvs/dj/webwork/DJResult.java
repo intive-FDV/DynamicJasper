@@ -127,7 +127,7 @@ public class DJResult extends JasperReportsResult {
             parameters.put(JRParameter.REPORT_LOCALE, _invocation.getInvocationContext().getLocale());
             LayoutManager layoutManagerObj = getLayOutManagerObj(_invocation);
 
-            JasperPrint jasperPrint = null;
+            JasperPrint jasperPrint;
             if (ds!=null)
             	jasperPrint = DynamicJasperHelper.generateJasperPrint(getDynamicReport(_invocation), layoutManagerObj, ds, parameters);
             else
@@ -239,7 +239,7 @@ public class DJResult extends JasperReportsResult {
 
     protected void setResponseHeaders(final HttpServletResponse _response, final ActionInvocation _invocation) {
         if (contentDisposition != null || documentName != null) {
-            final StringBuffer buffer = new StringBuffer();
+            final StringBuilder buffer = new StringBuilder();
             buffer.append(getContentDisposition(_invocation));
             if (documentName != null) {
                 buffer.append("; filename=");

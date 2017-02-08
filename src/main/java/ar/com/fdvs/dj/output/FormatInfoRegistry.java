@@ -55,7 +55,7 @@ public class FormatInfoRegistry {
 	public static final String EXPORTER_CLASS_RTF = "net.sf.jasperreports.engine.export.JRRtfExporter";
 
 	
-    private static final Map FORMAT_INFO = new HashMap();
+    private static final Map<String, FormatInfo> FORMAT_INFO = new HashMap<String, FormatInfo>();
     static {
         FORMAT_INFO.put(DJConstants.FORMAT_CSV, new FormatInfo("text/plain", EXPORTER_CLASS_CSV, ClassicLayoutManager.class.getName()));
         FORMAT_INFO.put(DJConstants.FORMAT_HTML, new FormatInfo("text/html", EXPORTER_CLASS_HTML, ClassicLayoutManager.class.getName()));
@@ -69,12 +69,12 @@ public class FormatInfoRegistry {
 
     public String getContentType(final String _format) {
         checkFormat(_format);
-        return ((FormatInfo)FORMAT_INFO.get(_format)).getContentType();
+        return FORMAT_INFO.get(_format).getContentType();
     }
 
     public JRExporter getExporter(final String _format) {
         checkFormat(_format);
-        final JRExporter exporter = ((FormatInfo)FORMAT_INFO.get(_format)).getExporterInstance();
+        final JRExporter exporter = FORMAT_INFO.get(_format).getExporterInstance();
         exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
        
         exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
@@ -87,7 +87,7 @@ public class FormatInfoRegistry {
 
     public LayoutManager getLayoutManager(final String _format) {
         checkFormat(_format);
-        return ((FormatInfo)FORMAT_INFO.get(_format)).getLayoutManagerInstance();
+        return FORMAT_INFO.get(_format).getLayoutManagerInstance();
     }
 
     private static void checkFormat(final String _format) {

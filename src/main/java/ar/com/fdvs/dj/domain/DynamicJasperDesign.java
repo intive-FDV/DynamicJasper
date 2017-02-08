@@ -32,7 +32,6 @@ package ar.com.fdvs.dj.domain;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.engine.design.JasperDesign;
 
-import java.io.Serializable;
 import java.util.TreeMap;
 
 /**

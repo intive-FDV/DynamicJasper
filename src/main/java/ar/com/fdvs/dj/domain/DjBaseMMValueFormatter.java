@@ -4,10 +4,10 @@ import ar.com.fdvs.dj.core.DJException;
 
 import java.util.Map;
 
-/**
- * FDV Solutions
- * User: Juan Lagostena
- * Date: 12/20/11
+/*
+  FDV Solutions
+  User: Juan Lagostena
+  Date: 12/20/11
  */
 
 /**
@@ -40,6 +40,7 @@ public abstract class DjBaseMMValueFormatter implements DJValueFormatter {
         if (!propertyMeasure.equals(measureName)) {
             throw new DJException("The measure " + propertyMeasure + " does not exist");
         }
+        //noinspection unchecked
         return (T) values[--idx];
     }
 

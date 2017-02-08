@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.output;
 
 import net.sf.jasperreports.engine.JRExporter;
+import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
 
 import java.util.Map;
@@ -60,7 +61,7 @@ public class ReportWriterFactory {
      * @param _parameters
      * @return
      */
-    public ReportWriter getReportWriter(final JasperPrint _jasperPrint, final String _format, final Map _parameters) {
+    public ReportWriter getReportWriter(final JasperPrint _jasperPrint, final String _format, final Map<JRExporterParameter,Object> _parameters) {
         final JRExporter exporter = FormatInfoRegistry.getInstance().getExporter(_format);
         exporter.setParameters(_parameters);
 

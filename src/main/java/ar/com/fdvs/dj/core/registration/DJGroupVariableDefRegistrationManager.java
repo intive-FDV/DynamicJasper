@@ -50,8 +50,6 @@ import net.sf.jasperreports.engine.type.ResetTypeEnum;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.util.Iterator;
-
 /**
  * Manager invoked to register temporal variables for groups of columns. </br>
  * A ColumnsGroupVariable is read and transformed into a JRDesignVariable. </br>
@@ -92,8 +90,8 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 
 		JRDesignExpression expression = new JRDesignExpression();
 		
-		String valueClassName = null;
-		String initialExpression = null;
+		String valueClassName;
+		String initialExpression;
 
 		if (columnsGroupVariable.getColumnProperty() != null) { //A variable that operates over a FIELD
 			ColumnProperty prop = columnsGroupVariable.getColumnProperty();
@@ -152,9 +150,7 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 		
 		log.debug("transforming column property for group variable: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +")");
 
-		Iterator<String> iter = columnProperty.getFieldProperties().keySet().iterator();
-		while (iter.hasNext()) {
-			String key = iter.next();
+		for (String key : columnProperty.getFieldProperties().keySet()) {
 			field.getPropertiesMap().setProperty(key, columnProperty.getFieldProperties().get(key));
 		}
 		try {

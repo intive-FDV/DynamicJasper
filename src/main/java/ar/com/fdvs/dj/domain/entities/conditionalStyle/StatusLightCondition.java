@@ -66,11 +66,11 @@ public class StatusLightCondition extends ConditionStyleExpression implements Cu
 		Number number = (Number)value;
 
 		if (mode == 0){
-			return Boolean.valueOf((min.doubleValue() > number.doubleValue()));
+			return (min > number.doubleValue());
 		} else if (mode == 1) {
-			return Boolean.valueOf(min.doubleValue() <= number.doubleValue() && max.doubleValue() > number.doubleValue());
+			return min <= number.doubleValue() && max > number.doubleValue();
 		} else {
-			return Boolean.valueOf(max.doubleValue() <= number.doubleValue());
+			return max <= number.doubleValue();
 		}
 	}
 

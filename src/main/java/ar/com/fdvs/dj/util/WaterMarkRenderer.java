@@ -101,11 +101,10 @@ public class WaterMarkRenderer extends JRAbstractRenderer {
                 RenderingHints.VALUE_ANTIALIAS_ON));
         g.setFont(font);
         FontMetrics fm = g.getFontMetrics();
-        double maxLineWidth = width/* * 2.0/3.0*/;
         double completeWidth = fm.stringWidth(text);
 
-        double caLinesCountD = completeWidth / maxLineWidth;
-        int caLinesCount = -1;
+        double caLinesCountD = completeWidth / (double) width;
+        int caLinesCount;
         if(caLinesCountD%1.0>0){
             caLinesCount = (int)caLinesCountD+1;
         }else
@@ -125,7 +124,6 @@ public class WaterMarkRenderer extends JRAbstractRenderer {
                     int sepIdx = text.substring(i,nextCaSep+1).lastIndexOf(' ');
                     if(sepIdx==0){
                         i++;
-                        continue;
 
                     }else if(sepIdx==-1){
                         lines.add(text.substring(i,nextCaSep));
@@ -152,13 +150,12 @@ public class WaterMarkRenderer extends JRAbstractRenderer {
         lineY-=textHeight*shiftLines;
 
 
-        for(int lineIdx=0;lineIdx<lines.size();lineIdx++){
-            String line = lines.get(lineIdx);
+        for (String line : lines) {
             int lineWidth = fm.stringWidth(line);
             int lineX = (width / 2) - (lineWidth / 2);
             g.setColor(textColor);
             g.drawChars(line.toCharArray(), 0, line.length(), lineX, lineY);
-            lineY+=textHeight;
+            lineY += textHeight;
         }
 
         return image;

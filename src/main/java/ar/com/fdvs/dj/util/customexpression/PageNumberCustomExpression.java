@@ -14,8 +14,7 @@ public class PageNumberCustomExpression implements CustomExpression {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	public Object evaluate(Map fields, Map variables, Map parameters) {
-		Integer count = (Integer) variables.get("PAGE_NUMBER");
-		return count;
+        return variables.get("PAGE_NUMBER");
 	}
 
 	public String getClassName() {

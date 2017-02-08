@@ -48,9 +48,9 @@ public class ListLayoutManager extends AbstractLayoutManager {
 
 	private static final Log log = LogFactory.getLog(ListLayoutManager.class);
 	
-	protected Map referencesMap = new HashMap();
+	protected Map<String, Object> referencesMap = new HashMap<String, Object>();
 
-	public Map getReferencesMap() {
+	public Map<String, Object> getReferencesMap() {
 		return referencesMap;
 	}	
 

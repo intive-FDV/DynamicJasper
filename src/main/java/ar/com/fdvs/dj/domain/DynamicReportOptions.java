@@ -102,25 +102,25 @@ public class DynamicReportOptions extends DJBaseElement {
 	 * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
 	 * value: ImageBanner
 	 */
-	private Map<ImageBanner.Alignment, ImageBanner> imageBanners = new HashMap();
+	private final Map<ImageBanner.Alignment, ImageBanner> imageBanners = new HashMap<ImageBanner.Alignment, ImageBanner>();
 
     /**
      * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
      * value: ImageBanner
      */
-    private Map<ImageBanner.Alignment, ImageBanner> footerImageBanners = new HashMap();
+    private final Map<ImageBanner.Alignment, ImageBanner> footerImageBanners = new HashMap<ImageBanner.Alignment, ImageBanner>();
 
 	/**
 	 * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
 	 * value: ImageBanner
 	 */
-	private Map<ImageBanner.Alignment, ImageBanner> firstPageImageBanners = new HashMap();
+	private final Map<ImageBanner.Alignment, ImageBanner> firstPageImageBanners = new HashMap<ImageBanner.Alignment, ImageBanner>();
 
     /**
      * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
      * value: ImageBanner
      */
-	private Map<ImageBanner.Alignment, ImageBanner> firstPageFooterImageBanners = new HashMap();
+	private final Map<ImageBanner.Alignment, ImageBanner> firstPageFooterImageBanners = new HashMap<ImageBanner.Alignment, ImageBanner>();
 
     public Map<ImageBanner.Alignment, ImageBanner> getFirstPageFooterImageBanners() {
         return firstPageFooterImageBanners;

@@ -42,7 +42,7 @@ import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
 import java.awt.*;
 import java.util.List;
 
-public class DJPie3DChartBuilder extends AbstractChartBuilder {
+public class DJPie3DChartBuilder extends AbstractChartBuilder<DJPie3DChartBuilder> {
 	//chart
 	/**
 	 * Sets the chart data operation (DJChart.CALCULATION_COUNT or DJChart.CALCULATION_SUM).
@@ -128,7 +128,6 @@ public class DJPie3DChartBuilder extends AbstractChartBuilder {
 	/**
 	 * Sets the x position.
 	 *
-	 * @param y the x position
 	 **/
 	public DJPie3DChartBuilder setX(int x) {
 		this.chart.getOptions().setX(x);
@@ -141,7 +140,7 @@ public class DJPie3DChartBuilder extends AbstractChartBuilder {
 	 * @param showLegend the legend visibility
 	 **/
 	public DJPie3DChartBuilder setShowLegend(boolean showLegend) {
-		this.chart.getOptions().setShowLegend(new Boolean(showLegend));
+		this.chart.getOptions().setShowLegend(showLegend);
 		return this;
 	}
 
@@ -302,7 +301,7 @@ public class DJPie3DChartBuilder extends AbstractChartBuilder {
 	 * @param lineWidth the line width
 	 **/
 	public DJPie3DChartBuilder setLineWidth(float lineWidth) {
-		this.chart.getOptions().setLineWidth(new Float(lineWidth));
+		this.chart.getOptions().setLineWidth(lineWidth);
 		return this;
 	}
 
@@ -322,7 +321,7 @@ public class DJPie3DChartBuilder extends AbstractChartBuilder {
 	 * @param padding the padding
 	 **/
 	public DJPie3DChartBuilder setPadding(int padding) {
-		this.chart.getOptions().setPadding(new Integer(padding));
+		this.chart.getOptions().setPadding(padding);
 		return this;
 	}
 
@@ -380,7 +379,7 @@ public class DJPie3DChartBuilder extends AbstractChartBuilder {
 	 * 
 	 * @param seriesColors the series colors
 	 **/
-	public DJPie3DChartBuilder setSeriesColors(List seriesColors) {
+	public DJPie3DChartBuilder setSeriesColors(List<Color> seriesColors) {
 		getPlot().setSeriesColors(seriesColors);
 		return this;
 	}
@@ -392,7 +391,7 @@ public class DJPie3DChartBuilder extends AbstractChartBuilder {
 	 * @param circular the circular
 	 **/
 	public DJPie3DChartBuilder setCircular(boolean circular) {
-		getPlot().setCircular(new Boolean(circular));
+		getPlot().setCircular(circular);
 		return this;
 	}
 
@@ -422,7 +421,7 @@ public class DJPie3DChartBuilder extends AbstractChartBuilder {
 	 * @param depthFactor the depth factor
 	 **/
 	public DJPie3DChartBuilder setDepthFactor(double depthFactor) {
-		getPlot().setDepthFactor(new Double(depthFactor));
+		getPlot().setDepthFactor(depthFactor);
 		return this;
 	}
 	

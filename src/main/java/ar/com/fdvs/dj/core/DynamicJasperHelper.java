@@ -117,9 +117,9 @@ public class DynamicJasperHelper {
 
     private static void registerPercentageColumnsVariables(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
         for (AbstractColumn column : dr.getColumns()) {
-            /**
-             * Group should not be needed in the percentage column. There should be a variable for each group, using
-             * parent group as "rest group"
+            /*
+              Group should not be needed in the percentage column. There should be a variable for each group, using
+              parent group as "rest group"
              */
             if (column instanceof PercentageColumn) {
                 PercentageColumn percentageColumn = ((PercentageColumn) column);
@@ -127,7 +127,7 @@ public class DynamicJasperHelper {
                     JRDesignGroup jrGroup = LayoutUtils.getJRDesignGroup(jd, layoutManager, djGroup);
                     DJGroupVariableDefRegistrationManager variablesRM = new DJGroupVariableDefRegistrationManager(jd, dr, layoutManager, jrGroup);
                     DJGroupVariableDef variable = new DJGroupVariableDef(percentageColumn.getGroupVariableName(djGroup), percentageColumn.getPercentageColumn(), DJCalculation.SUM);
-                    Collection entities = new ArrayList();
+                    Collection<DJGroupVariableDef> entities = new ArrayList<DJGroupVariableDef>();
                     entities.add(variable);
                     variablesRM.registerEntities(entities);
                 }
@@ -210,17 +210,17 @@ public class DynamicJasperHelper {
     }
 
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, JRDataSource ds) throws JRException {
-        return generateJasperPrint(dr, layoutManager, ds, new HashMap());
+        return generateJasperPrint(dr, layoutManager, ds, new HashMap<String, Object>());
     }
 
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Collection collection) throws JRException {
         JRDataSource ds = new JRBeanCollectionDataSource(collection);
-        return generateJasperPrint(dr, layoutManager, ds, new HashMap());
+        return generateJasperPrint(dr, layoutManager, ds, new HashMap<String, Object>());
     }
 
     public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, ResultSet resultSet) throws JRException {
         JRDataSource ds = new JRResultSetDataSource(resultSet);
-        return generateJasperPrint(dr, layoutManager, ds, new HashMap());
+        return generateJasperPrint(dr, layoutManager, ds, new HashMap<String, Object>());
     }
 
     /**
@@ -233,7 +233,7 @@ public class DynamicJasperHelper {
      * @return
      * @throws JRException
      */
-    public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, JRDataSource ds, Map _parameters) throws JRException {
+    public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, JRDataSource ds, Map<String, Object> _parameters) throws JRException {
         log.info("generating JasperPrint");
         JasperPrint jp;
 
@@ -254,18 +254,18 @@ public class DynamicJasperHelper {
      * @return
      * @throws JRException
      */
-    public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Connection con, Map _parameters) throws JRException {
+    public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Connection con, Map<String, Object> _parameters) throws JRException {
         log.info("generating JasperPrint");
         JasperPrint jp;
 
         if (_parameters == null)
-            _parameters = new HashMap();
+            _parameters = new HashMap<String, Object>();
 
         visitSubreports(dr, _parameters);
         compileOrLoadSubreports(dr, _parameters, "r");
 
         DynamicJasperDesign jd = generateJasperDesign(dr);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         if (!_parameters.isEmpty()) {
             registerParams(jd, _parameters);
             params.putAll(_parameters);
@@ -291,18 +291,18 @@ public class DynamicJasperHelper {
      * @return
      * @throws JRException
      */
-    public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Map _parameters) throws JRException {
+    public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Map<String, Object> _parameters) throws JRException {
         log.info("generating JasperPrint");
         JasperPrint jp;
 
         if (_parameters == null)
-            _parameters = new HashMap();
+            _parameters = new HashMap<String, Object>();
 
         visitSubreports(dr, _parameters);
         compileOrLoadSubreports(dr, _parameters, "r");
 
         DynamicJasperDesign jd = generateJasperDesign(dr);
-        Map params = new HashMap();
+        Map<String, Object> params = new HashMap<String, Object>();
         if (!_parameters.isEmpty()) {
             registerParams(jd, _parameters);
             params.putAll(_parameters);
@@ -389,7 +389,7 @@ public class DynamicJasperHelper {
             parentFile.mkdirs();
     }
 
-    protected static void compileOrLoadSubreports(DynamicReport dr, Map _parameters, String namePrefix) throws JRException {
+    protected static void compileOrLoadSubreports(DynamicReport dr, Map<String, Object> _parameters, String namePrefix) throws JRException {
         log.debug("Visiting subreports for " + namePrefix);
         int groupnum = 0;
 
@@ -403,9 +403,10 @@ public class DynamicJasperHelper {
                 subreport.setName(name);
 
                 if (subreport.getDynamicReport() != null) {
-                    Map originalParameters = _parameters;
+                    Map<String, Object> originalParameters = _parameters;
                     if (subreport.getParametersExpression() != null) {
-                        _parameters = (Map) originalParameters.get(subreport.getParametersExpression());
+                        //noinspection unchecked
+                        _parameters = (Map<String, Object>) originalParameters.get(subreport.getParametersExpression());
                     }
 
                     JasperReport jp = generateJasperReport(subreport.getDynamicReport(), subreport.getLayoutManager(), _parameters, name);
@@ -425,11 +426,12 @@ public class DynamicJasperHelper {
                 subreport.setName(name);
 
                 if (subreport.getDynamicReport() != null) {
-                    Map originalParameters = _parameters;
+                    Map<String, Object> originalParameters = _parameters;
                     if (subreport.getParametersExpression() != null) {
-                        _parameters = (Map) originalParameters.get(subreport.getParametersExpression());
+                        //noinspection unchecked
+                        _parameters = (Map<String, Object>) originalParameters.get(subreport.getParametersExpression());
                         if (_parameters == null) {
-                            _parameters = new HashMap();
+                            _parameters = new HashMap<String, Object>();
                             originalParameters.put(subreport.getParametersExpression(), _parameters);
                         }
                     }
