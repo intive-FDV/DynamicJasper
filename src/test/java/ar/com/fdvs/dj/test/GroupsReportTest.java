@@ -89,13 +89,13 @@ public class GroupsReportTest extends BaseDjReportTest {
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitleStyle(titleStyle)
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+			.setDetailHeight(15).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
 			.setGrandTotalLegend("Grand Total")
@@ -143,8 +143,8 @@ public class GroupsReportTest extends BaseDjReportTest {
 		drb.addGlobalHeaderVariable(columnaQuantity, DJCalculation.SUM,headerVariables);
 		drb.addGlobalFooterVariable(columnAmount, DJCalculation.SUM,headerVariables);
 		drb.addGlobalFooterVariable(columnaQuantity, DJCalculation.SUM,headerVariables);
-		drb.setGlobalHeaderVariableHeight(new Integer(25));
-		drb.setGlobalFooterVariableHeight(new Integer(25));
+		drb.setGlobalHeaderVariableHeight(25);
+		drb.setGlobalFooterVariableHeight(25);
 
 		GroupBuilder gb1 = new GroupBuilder();
 
@@ -155,9 +155,9 @@ public class GroupsReportTest extends BaseDjReportTest {
 				.addHeaderVariable(columnaQuantity,DJCalculation.SUM,groupVariables) // idem for the columnaQuantity column
 				.addHeaderVariable(columnAmount,DJCalculation.SUM,groupVariables) // tell the group place a variable footer of the column "columnAmount" with the SUM of allvalues of the columnAmount in this group.
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
-				.setFooterVariablesHeight(new Integer(20))
-				.setFooterHeight(new Integer(50),true)
-				.setHeaderVariablesHeight(new Integer(35))
+				.setFooterVariablesHeight(20)
+				.setFooterHeight(50,true)
+				.setHeaderVariablesHeight(35)
 				.build();
 
 		GroupBuilder gb2 = new GroupBuilder(); // Create another group (using another column as criteria)

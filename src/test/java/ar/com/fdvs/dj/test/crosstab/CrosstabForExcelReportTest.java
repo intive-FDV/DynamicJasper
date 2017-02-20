@@ -66,8 +66,8 @@ public class CrosstabForExcelReportTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 		initStyles(); //init some styles to be used
 
-		/**
-		 * Create an empty report (no columns)!
+		/*
+		  Create an empty report (no columns)!
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 			drb

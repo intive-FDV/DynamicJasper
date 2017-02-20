@@ -56,7 +56,7 @@ public class BarcodeHelper implements BarcodeTypes {
     public static BufferedImage getBarcodeImage(int type, Object aText, boolean showText, boolean checkSum, Object applicationIdentifier, int width, int height)
     {
 
-        String text = null;
+        String text;
         if (aText instanceof String)
         	text = ((String) (aText));
         else text = aText.toString();

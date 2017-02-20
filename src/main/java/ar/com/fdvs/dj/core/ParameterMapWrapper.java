@@ -9,15 +9,15 @@ import java.util.Set;
 
 public class ParameterMapWrapper implements Map {
 	
-	private Map map;
+	private Map<String,JRFillParameter> map;
     private String reportName;
 
-    public ParameterMapWrapper(Map map){
+    public ParameterMapWrapper(Map<String,JRFillParameter> map){
 		this.map = map;
 	}
 
 	public ParameterMapWrapper() {
-		this.map = Collections.EMPTY_MAP;
+		this.map = Collections.emptyMap();
 	}
 
 	public void clear() {
@@ -25,11 +25,9 @@ public class ParameterMapWrapper implements Map {
 	}
 
     public boolean containsKey(Object key) {
-        boolean contains = map.containsKey(key);
-        if (!contains)
-            return map.containsKey(reportName + "_" + key);
-        return contains;
-    }
+		boolean contains = map.containsKey(key);
+		return contains || map.containsKey(reportName + "_" + key);
+	}
 
 	public boolean containsValue(Object value) {
 		throw new DJException("Method not implemented");
@@ -68,7 +66,7 @@ public class ParameterMapWrapper implements Map {
 	}
 
 	public Object put(Object arg0, Object arg1) {
-		return map.put(arg0, arg1);
+		return map.put((String) arg0, (JRFillParameter) arg1);
 	}
 
 	public void putAll(Map arg0) {
@@ -87,7 +85,7 @@ public class ParameterMapWrapper implements Map {
 		throw new DJException("Method not implemented");
 	}
 
-	public void setMap(Map parsm) {
+	public void setMap(Map<String,JRFillParameter> parsm) {
 		this.map = parsm;
 		
 	}

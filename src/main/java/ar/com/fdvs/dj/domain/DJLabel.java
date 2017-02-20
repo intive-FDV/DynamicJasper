@@ -14,9 +14,9 @@ public class DJLabel extends DJBaseElement {
 	protected Style style;	
 	protected int height = 15;
 	
-	public DJLabel(){};
+	public DJLabel(){}
 
-	public DJLabel(String text, Style labelStyle) {
+    public DJLabel(String text, Style labelStyle) {
 		super();
 		this.text = text;
 		this.style = labelStyle;

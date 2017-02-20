@@ -39,7 +39,6 @@ import net.sf.jasperreports.engine.JRFont;
 import net.sf.jasperreports.engine.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
-import net.sf.jasperreports.engine.type.LineSpacingEnum;
 import net.sf.jasperreports.engine.type.LineStyleEnum;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DJCalculation;
@@ -71,6 +70,7 @@ public class Pie3DChartBuilderTest extends BaseDjReportTest {
 	private JRDesignChart chart;
 	
 	protected void setUp() throws Exception {
+		super.setUp();
 		drb = new DynamicReportBuilder();
 		
 		Style headerStyle = new Style();
@@ -161,7 +161,7 @@ public class Pie3DChartBuilderTest extends BaseDjReportTest {
 		djlink.setTooltip(new LiteralExpression("I'm a literal tootltip"));		
 		djChart.setLink(djlink);
 		
-		HashMap vars = new HashMap();
+		Map<AbstractColumn, JRDesignVariable> vars = new HashMap<AbstractColumn, JRDesignVariable>();
 		vars.put(columnaQuantity, new JRDesignVariable());
 		vars.put(columnAmount, new JRDesignVariable());
 		JRDesignGroup group = new JRDesignGroup();
@@ -187,7 +187,7 @@ public class Pie3DChartBuilderTest extends BaseDjReportTest {
 		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
 		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
         assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
-		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
+		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());
 	}
@@ -199,7 +199,7 @@ public class Pie3DChartBuilderTest extends BaseDjReportTest {
 	
 	public void testPlot() {
 		JRDesignPie3DPlot plot = (JRDesignPie3DPlot) chart.getPlot();
-		assertEquals(new Double(0.1), plot.getDepthFactorDouble());
+		assertEquals(0.1, plot.getDepthFactorDouble());
 		assertEquals(Boolean.TRUE, plot.getCircular());
 	}
 	
@@ -209,7 +209,7 @@ public class Pie3DChartBuilderTest extends BaseDjReportTest {
 
 	private void testFont(Font djFont, JRFont jrFont) {
 		assertEquals(djFont.getFontName(), jrFont.getFontName());
-		assertEquals(djFont.getFontSize(), jrFont.getFontSize());
+		assertEquals(djFont.getFontSize(), jrFont.getFontsize());
 		assertEquals(djFont.isBold(), jrFont.isBold());
 		assertEquals(djFont.isItalic(), jrFont.isItalic());
 	}

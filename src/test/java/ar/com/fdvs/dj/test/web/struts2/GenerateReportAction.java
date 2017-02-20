@@ -21,12 +21,9 @@ public class GenerateReportAction extends ActionSupport {
 
 	private Collection dataSource;
 
-	private String leftHeader = "DJ MAMANA 2008";
-
-	private String lmanager = "list";
-
-	public String getLmanager() {
-		return lmanager;
+    public String getLmanager() {
+        String lmanager = "list";
+        return lmanager;
 	}
 
 	private Map params = new HashMap();
@@ -36,7 +33,8 @@ public class GenerateReportAction extends ActionSupport {
 	}
 
 	public String getLeftHeader() {
-		return leftHeader;
+        String leftHeader = "DJ MAMANA 2008";
+        return leftHeader;
 	}
 
 	public DynamicReport getDynamicReport() {

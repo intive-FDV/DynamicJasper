@@ -30,10 +30,6 @@
 package ar.com.fdvs.dj.test;
 
 
-import java.util.Date;
-
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
@@ -44,19 +40,23 @@ import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
+import net.sf.jasperreports.view.JasperDesignViewer;
+import net.sf.jasperreports.view.JasperViewer;
+
+import java.util.Date;
 
 public class TotalingReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 				
-		Style headerStyle1 = new StyleBuilder(false).setFont(Font.ARIAL_BIG).setBorderBottom(Border.THIN()).setPaddingTop(new Integer(15)) .build();
-		Style headerStyle2 = new StyleBuilder(false).setFont(Font.ARIAL_SMALL).setPaddingLeft(new Integer(20)).build();
+		Style headerStyle1 = new StyleBuilder(false).setFont(Font.ARIAL_BIG).setBorderBottom(Border.THIN()).setPaddingTop(15) .build();
+		Style headerStyle2 = new StyleBuilder(false).setFont(Font.ARIAL_SMALL).setPaddingLeft(20).build();
 		
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("State", "state", String.class.getName(),70, headerStyle1, headerStyle1)
@@ -78,8 +78,8 @@ public class TotalingReportTest extends BaseDjReportTest {
 			
 			drb.getGroup(0).setLayout(GroupLayout.VALUE_IN_HEADER);
 
-			drb.getGroup(0).setHeaderVariablesHeight(new Integer(20));
-			drb.getGroup(1).setHeaderVariablesHeight(new Integer(15));
+		drb.getGroup(0).setHeaderVariablesHeight(20);
+		drb.getGroup(1).setHeaderVariablesHeight(15);
 			
 		DynamicReport dr = drb.build();
 

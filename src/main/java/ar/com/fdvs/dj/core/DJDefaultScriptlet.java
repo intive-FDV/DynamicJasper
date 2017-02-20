@@ -4,7 +4,10 @@ import net.sf.jasperreports.engine.JRDefaultScriptlet;
 import net.sf.jasperreports.engine.JRParameter;
 import net.sf.jasperreports.engine.JRScriptletException;
 import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.fill.JRFillField;
 import net.sf.jasperreports.engine.fill.JRFillGroup;
+import net.sf.jasperreports.engine.fill.JRFillParameter;
+import net.sf.jasperreports.engine.fill.JRFillVariable;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,7 +31,7 @@ public class DJDefaultScriptlet extends JRDefaultScriptlet {
     protected ParameterMapWrapper parameterMapWrapper = new ParameterMapWrapper();
     protected VariableMapWrapper variableMapWrapper = new VariableMapWrapper();
 
-    public void setData(Map parsm, Map fldsm, Map varsm, JRFillGroup[] grps) {
+    public void setData(Map<String, JRFillParameter> parsm, Map<String,JRFillField> fldsm, Map<String,JRFillVariable> varsm, JRFillGroup[] grps) {
         super.setData(parsm, fldsm, varsm, grps);
         putValuesInMap();
     }

@@ -86,13 +86,13 @@ public class GroupLabelTest3 extends BaseDjReportTest {
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitleStyle(titleStyle)
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15))
+			.setDetailHeight(15)
 			.setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(false)
@@ -100,7 +100,7 @@ public class GroupLabelTest3 extends BaseDjReportTest {
 			.setGrandTotalLegendStyle(headerVariables)
 			.setDefaultStyles(titleStyle, null, headerStyle, detailStyle)
 			.setPrintColumnNames(false)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_RIGHT)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 30, ImageBanner.Alignment.Right)
 			.setOddRowBackgroundStyle(oddRowStyle);
 
 
@@ -152,7 +152,7 @@ public class GroupLabelTest3 extends BaseDjReportTest {
 		Style glabelStyle2 = new StyleBuilder(false).setFont(Font.ARIAL_SMALL)
 		.setHorizontalAlign(HorizontalAlign.RIGHT)
 		.setVerticalAlign(VerticalAlign.MIDDLE)
-		.setPadding(new Integer(0))
+		.setPadding(0)
 		.setStretchWithOverflow(false)
 		.build();
 		

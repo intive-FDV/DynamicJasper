@@ -29,7 +29,13 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
-import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJGroupLabel;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
@@ -37,8 +43,6 @@ import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-
-import java.util.Iterator;
 
 /**
  * Builder created to give users a friendly way of adding groups to a report.</br>
@@ -70,14 +74,12 @@ public class GroupBuilder {
 	
 	public DJGroup build(){
 		//Apply Styles if any (for variables)
-		for (Iterator iterator = group.getHeaderVariables().iterator(); iterator.hasNext();) {
-			DJGroupVariable var = (DJGroupVariable) iterator.next();
+		for (DJGroupVariable var : group.getHeaderVariables()) {
 			if (defaultHeaderVariableStyle != null)
 				var.setStyle(defaultHeaderVariableStyle);
 		}
 
-		for (Iterator iterator = group.getFooterVariables().iterator(); iterator.hasNext();) {
-			DJGroupVariable var = (DJGroupVariable) iterator.next();
+		for (DJGroupVariable var : group.getFooterVariables()) {
 			if (defaultFooterVariableStyle != null)
 				var.setStyle(defaultFooterVariableStyle);
 		}
@@ -192,7 +194,7 @@ public class GroupBuilder {
 	 * @param height
 	 * @return
 	 */
-	public GroupBuilder setHeaderHeight(Integer height) {
+	public GroupBuilder setHeaderHeight(int height) {
 		group.setHeaderHeight(height);
 		return this;
 	}
@@ -203,7 +205,7 @@ public class GroupBuilder {
 	 * @param fitHeightToContent is false, an empty space will be left
 	 * @return
 	 */
-	public GroupBuilder setHeaderHeight(Integer height, boolean fitHeightToContent) {
+	public GroupBuilder setHeaderHeight(int height, boolean fitHeightToContent) {
 		group.setHeaderHeight(height);
 		group.setFitHeaderHeightToContent(fitHeightToContent);
 		return this;
@@ -214,7 +216,7 @@ public class GroupBuilder {
 	 * @param height
 	 * @return
 	 */
-	public GroupBuilder setFooterHeight(Integer height) {
+	public GroupBuilder setFooterHeight(int height) {
 		group.setFooterHeight(height);
 		return this;
 	}
@@ -225,7 +227,7 @@ public class GroupBuilder {
 	 * @param fitHeightToConent if false, an empty space will be left
 	 * @return
 	 */
-	public GroupBuilder setFooterHeight(Integer height,boolean fitHeightToConent) {
+	public GroupBuilder setFooterHeight(int height,boolean fitHeightToConent) {
 		group.setFooterHeight(height);
 		group.setFitFooterHeightToContent(fitHeightToConent);
 		return this;
@@ -236,7 +238,7 @@ public class GroupBuilder {
 	 * @param height
 	 * @return
 	 */
-	public GroupBuilder setHeaderVariablesHeight(Integer height) {
+	public GroupBuilder setHeaderVariablesHeight(int height) {
 		group.setHeaderVariablesHeight(height);
 		return this;
 	}
@@ -246,7 +248,7 @@ public class GroupBuilder {
 	 * @param height
 	 * @return
 	 */
-	public GroupBuilder setFooterVariablesHeight(Integer height) {
+	public GroupBuilder setFooterVariablesHeight(int height) {
 		group.setFooterVariablesHeight(height);
 		return this;
 	}
@@ -276,23 +278,13 @@ public class GroupBuilder {
 		return this;
 	}
 
-	public GroupBuilder setStartInNewPage(Boolean bool) {
+	public GroupBuilder setStartInNewPage(boolean bool) {
 		group.setStartInNewPage(bool);
 		return this;
 	}
 
-	public GroupBuilder setStartInNewPage(boolean bool) {
-		group.setStartInNewPage(Boolean.valueOf(bool));
-		return this;
-	}
-
-	public GroupBuilder setStartInNewColumn(Boolean bool) {
-		group.setStartInNewColumn(bool);
-		return this;
-	}
-
 	public GroupBuilder setStartInNewColumn(boolean bool) {
-		group.setStartInNewColumn(Boolean.valueOf(bool));
+		group.setStartInNewColumn(bool);
 		return this;
 	}
 
@@ -365,7 +357,7 @@ public class GroupBuilder {
 	 * @return
 	 */
 	public GroupBuilder setReprintHeaderOnEachPage(boolean bool) {
-		group.setReprintHeaderOnEachPage(Boolean.valueOf(bool));
+		group.setReprintHeaderOnEachPage(bool);
 		return this;
 	}
 

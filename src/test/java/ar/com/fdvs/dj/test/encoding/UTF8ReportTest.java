@@ -75,9 +75,9 @@ public class UTF8ReportTest extends BaseDjReportTest {
         subtitleStyle.setFont(new Font(14, "Arial", "Arial", encoding, false));
         detailStyle.setFont(new Font(10, "Arial", "Arial", encoding, false));
 
-        /**
-         * Creates the DynamicReportBuilder and sets the basic options for
-         * the report
+        /*
+          Creates the DynamicReportBuilder and sets the basic options for
+          the report
          */
         FastReportBuilder drb = new FastReportBuilder();
         drb.addColumn("State", "state", String.class.getName(), 30)
@@ -120,8 +120,8 @@ public class UTF8ReportTest extends BaseDjReportTest {
         List col = new ArrayList();
 
         //The collection is ordered by State, Branch and Product Line
-        col.add(new Product(1l, "book", "ąćęłńóśźż", "abcdefghaijkslmnopqĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁ", "Main Street", new Long("2500"), new Float("5")));
-        col.add(new Product(1l, "book", "áñö", "ĄĆĘŁŃÓŚŹŻ", "Main Street", new Long("2500"), new Float("5")));
+        col.add(new Product(1L, "book", "ąćęłńóśźż", "abcdefghaijkslmnopqĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁ", "Main Street", new Long("2500"), new Float("5")));
+        col.add(new Product(1L, "book", "áñö", "ĄĆĘŁŃÓŚŹŻ", "Main Street", new Long("2500"), new Float("5")));
         return col;
     }
 

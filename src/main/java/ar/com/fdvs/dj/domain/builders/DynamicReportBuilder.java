@@ -29,24 +29,47 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.core.JasperDesignDecorator;
 import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
-import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.AutoText;
+import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJQuery;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
+import ar.com.fdvs.dj.domain.DJWaterMark;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.DynamicReportOptions;
+import ar.com.fdvs.dj.domain.ImageBanner;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Page;
-import ar.com.fdvs.dj.domain.entities.*;
+import ar.com.fdvs.dj.domain.entities.DJColSpan;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
+import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
+import ar.com.fdvs.dj.domain.entities.DJVariable;
+import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.GlobalGroupColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import net.sf.jasperreports.engine.JasperReport;
 
-import java.awt.*;
-import java.util.*;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * Builder created to give users a friendly way of creating a
@@ -66,6 +89,7 @@ import java.util.List;
  * mehtod.
  * </br>
  */
+@SuppressWarnings("WeakerAccess")
 public class DynamicReportBuilder {
 
     /**
@@ -74,17 +98,17 @@ public class DynamicReportBuilder {
      */
     protected boolean built = false;
 
-    protected DynamicReport report = new DynamicReport();
-    protected DynamicReportOptions options = new DynamicReportOptions();
-    protected ArrayList globalFooterCrosstabs;
-    protected ArrayList globalHeaderCrosstabs;
-    protected ArrayList autoTexts;
-    protected Map groupFooterSubreports = new HashMap();
-    protected Map groupHeaderSubreports = new HashMap();
+    protected final DynamicReport report = new DynamicReport();
+    protected final DynamicReportOptions options = new DynamicReportOptions();
+    protected final List<DJCrosstab> globalFooterCrosstabs = new ArrayList<DJCrosstab>();
+    protected final List<DJCrosstab> globalHeaderCrosstabs = new ArrayList<DJCrosstab>();
+    protected final List<AutoText> autoTexts = new ArrayList<AutoText>();
+    protected final Map<Integer, List<Subreport>> groupFooterSubreports = new HashMap<Integer, List<Subreport>>();
+    protected final Map<Integer, List<Subreport>> groupHeaderSubreports = new HashMap<Integer, List<Subreport>>();
 
-    protected DJGroup globalVariablesGroup;
+    protected final DJGroup globalVariablesGroup;
 
-    protected ArrayList concatenatedReports = new ArrayList();
+    protected final List<Subreport> concatenatedReports = new ArrayList<Subreport>();
 
     public DynamicReportBuilder() {
         super();
@@ -92,14 +116,10 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addAutoText(AutoText text) {
-        if (this.autoTexts == null) {
-            this.autoTexts = new ArrayList();
-        }
-
-        if (AutoText.WIDTH_NOT_SET.equals(text.getWidth())) {
+        if (AutoText.WIDTH_NOT_SET == text.getWidth()) {
             text.setWidth(AutoText.DEFAULT_WIDTH);
         }
-        if (AutoText.WIDTH_NOT_SET.equals(text.getWidth2())) {
+        if (AutoText.WIDTH_NOT_SET == text.getWidth2()) {
             text.setWidth2(AutoText.DEFAULT_WIDTH);
         }
 
@@ -128,7 +148,6 @@ public class DynamicReportBuilder {
         HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
         AutoText text = new AutoText(type, position, alignment_, pattern);
         addAutoText(text);
-
         return this;
     }
 
@@ -202,14 +221,14 @@ public class DynamicReportBuilder {
      */
     public DynamicReportBuilder addAutoText(String message, byte position, byte alignment, int width) {
         HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
-        AutoText text = new AutoText(message, position, alignment_, new Integer(width));
+        AutoText text = new AutoText(message, position, alignment_, width);
         addAutoText(text);
         return this;
     }
 
     public DynamicReportBuilder addAutoText(String message, byte position, byte alignment, int width, Style style) {
         HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
-        AutoText text = new AutoText(message, position, alignment_, new Integer(width));
+        AutoText text = new AutoText(message, position, alignment_, width);
         text.setStyle(style);
         addAutoText(text);
         return this;
@@ -233,8 +252,8 @@ public class DynamicReportBuilder {
     public DynamicReportBuilder addAutoText(byte type, byte position, byte alignment, int width, int width2) {
         HorizontalBandAlignment alignment_ = HorizontalBandAlignment.buildAligment(alignment);
         AutoText text = new AutoText(type, position, alignment_);
-        text.setWidth(new Integer(width));
-        text.setWidth2(new Integer(width2));
+        text.setWidth(width);
+        text.setWidth2(width2);
         addAutoText(text);
         return this;
     }
@@ -252,8 +271,8 @@ public class DynamicReportBuilder {
         AutoText text = new AutoText(type, position, alignment_);
         text.setPageOffset(pageOffset);
         text.setUseI18n(useI18n);
-        text.setWidth(new Integer(width));
-        text.setWidth2(new Integer(width2));
+        text.setWidth(width);
+        text.setWidth2(width2);
         text.setStyle(style);
         addAutoText(text);
         return this;
@@ -315,8 +334,8 @@ public class DynamicReportBuilder {
     }
 
     private boolean hasPercentageColumn() {
-        for (Iterator iterator = report.getColumns().iterator(); iterator.hasNext(); ) {
-            if (iterator.next() instanceof PercentageColumn) {
+        for (AbstractColumn abstractColumn : report.getColumns()) {
+            if (abstractColumn instanceof PercentageColumn) {
                 return true;
             }
         }
@@ -325,25 +344,20 @@ public class DynamicReportBuilder {
 
     private void addGlobalCrosstabs() {
         //For header
-        if (globalHeaderCrosstabs != null) {
-            for (Iterator iterator = globalHeaderCrosstabs.iterator(); iterator.hasNext(); ) {
-                DJCrosstab djcross = (DJCrosstab) iterator.next();
-                DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabHeaderGroup-" + globalHeaderCrosstabs.indexOf(djcross));
-                globalGroup.getHeaderCrosstabs().add(djcross);
-                report.getColumnsGroups().add(0, globalGroup);
-            }
+        for (DJCrosstab djcross : globalHeaderCrosstabs) {
+            DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabHeaderGroup-" + globalHeaderCrosstabs.indexOf(djcross));
+            globalGroup.getHeaderCrosstabs().add(djcross);
+            report.getColumnsGroups().add(0, globalGroup);
+
         }
 
         //For footer
-        if (globalFooterCrosstabs != null) {
-            for (Iterator iterator = globalFooterCrosstabs.iterator(); iterator.hasNext(); ) {
-                DJCrosstab djcross = (DJCrosstab) iterator.next();
-                DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabFooterGroup-" + globalFooterCrosstabs.indexOf(djcross));
-                globalGroup.getFooterCrosstabs().add(djcross);
-                report.getColumnsGroups().add(0, globalGroup);
-            }
-        }
+        for (DJCrosstab djcross : globalFooterCrosstabs) {
+            DJGroup globalGroup = createDummyGroupForCrosstabs("crosstabFooterGroup-" + globalFooterCrosstabs.indexOf(djcross));
+            globalGroup.getFooterCrosstabs().add(djcross);
+            report.getColumnsGroups().add(0, globalGroup);
 
+        }
     }
 
     /**
@@ -351,19 +365,15 @@ public class DynamicReportBuilder {
      * all the subreports that must go inside a group are handled here.
      */
     protected void addSubreportsToGroups() {
-        for (Iterator iterator = groupFooterSubreports.keySet().iterator(); iterator.hasNext(); ) {
-            Integer groupNum = (Integer) iterator.next();
-            List list = (List) groupFooterSubreports.get(groupNum);
-
-            DJGroup group = (DJGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
+        for (Integer groupNum : groupFooterSubreports.keySet()) {
+            List<Subreport> list = groupFooterSubreports.get(groupNum);
+            DJGroup group = report.getColumnsGroups().get(groupNum - 1);
             group.getFooterSubreports().addAll(list);
         }
 
-        for (Iterator iterator = groupHeaderSubreports.keySet().iterator(); iterator.hasNext(); ) {
-            Integer groupNum = (Integer) iterator.next();
-            List list = (List) groupHeaderSubreports.get(groupNum);
-
-            DJGroup group = (DJGroup) report.getColumnsGroups().get(groupNum.intValue() - 1);
+        for (Integer groupNum : groupHeaderSubreports.keySet()) {
+            List<Subreport> list = groupHeaderSubreports.get(groupNum);
+            DJGroup group = report.getColumnsGroups().get(groupNum - 1);
             group.getHeaderSubreports().addAll(list);
         }
 
@@ -379,8 +389,8 @@ public class DynamicReportBuilder {
             DJGroup globalGroup = createDummyGroup();
             report.getColumnsGroups().add(0, globalGroup);
         }
-        for (Iterator iterator = concatenatedReports.iterator(); iterator.hasNext(); ) {
-            Subreport subreport = (Subreport) iterator.next();
+
+        for (Subreport subreport : concatenatedReports) {
             DJGroup globalGroup = createDummyGroup();
             globalGroup.getFooterSubreports().add(subreport);
             report.getColumnsGroups().add(0, globalGroup);
@@ -394,13 +404,7 @@ public class DynamicReportBuilder {
         DJGroup globalGroup = new DJGroup();
         globalGroup.setLayout(GroupLayout.EMPTY);
         GlobalGroupColumn globalCol = new GlobalGroupColumn("global");
-//		globalCol.setTitle(grandTotalLegend);
-//		globalCol.setHeaderStyle(grandTotalStyle);
-//		globalCol.setStyle(grandTotalStyle);
-
         globalGroup.setColumnToGroupBy(globalCol);
-//		globalGroup.setHeaderVariables(globalHeaderVariables);
-//		globalGroup.setFooterVariables(globalFooterVariables);
         return globalGroup;
     }
 
@@ -408,11 +412,7 @@ public class DynamicReportBuilder {
         DJGroup globalGroup = new DJGroup();
         globalGroup.setLayout(GroupLayout.EMPTY);
         GlobalGroupColumn globalCol = new GlobalGroupColumn(name);
-
         globalCol.setTitle("");
-//		globalCol.setHeaderStyle(grandTotalStyle);
-//		globalCol.setStyle(grandTotalStyle);
-
         globalGroup.setColumnToGroupBy(globalCol);
         return globalGroup;
     }
@@ -464,22 +464,8 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setHeaderHeight(Integer height) {
-        options.setHeaderHeight(height);
-        return this;
-    }
-
     public DynamicReportBuilder setHeaderHeight(int height) {
-        options.setHeaderHeight(new Integer(height));
-        return this;
-    }
-
-    /**
-     * @return
-     * @deprecated @param height
-     */
-    public DynamicReportBuilder setFooterHeight(Integer height) {
-        options.setFooterVariablesHeight(height);
+        options.setHeaderHeight(height);
         return this;
     }
 
@@ -488,104 +474,59 @@ public class DynamicReportBuilder {
      * @deprecated @param height
      */
     public DynamicReportBuilder setFooterHeight(int height) {
-        options.setFooterVariablesHeight(new Integer(height));
-        return this;
-    }
-
-    public DynamicReportBuilder setFooterVariablesHeight(Integer height) {
         options.setFooterVariablesHeight(height);
         return this;
     }
 
     public DynamicReportBuilder setFooterVariablesHeight(int height) {
-        options.setFooterVariablesHeight(new Integer(height));
+        options.setFooterVariablesHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setHeaderVariablesHeight(Integer height) {
+    public DynamicReportBuilder setHeaderVariablesHeight(int height) {
         options.setHeaderVariablesHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setDetailHeight(Integer height) {
+    public DynamicReportBuilder setDetailHeight(int height) {
         options.setDetailHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setDetailHeight(int height) {
-        options.setDetailHeight(new Integer(height));
-        return this;
-    }
-
-    public DynamicReportBuilder setLeftMargin(Integer margin) {
+    public DynamicReportBuilder setLeftMargin(int margin) {
         options.setLeftMargin(margin);
         return this;
     }
 
-    public DynamicReportBuilder setLeftMargin(int margin) {
-        options.setLeftMargin(new Integer(margin));
-        return this;
-    }
-
-    public DynamicReportBuilder setRightMargin(Integer margin) {
+    public DynamicReportBuilder setRightMargin(int margin) {
         options.setRightMargin(margin);
         return this;
     }
 
-    public DynamicReportBuilder setRightMargin(int margin) {
-        options.setRightMargin(new Integer(margin));
-        return this;
-    }
-
-    public DynamicReportBuilder setTopMargin(Integer margin) {
+    public DynamicReportBuilder setTopMargin(int margin) {
         options.setTopMargin(margin);
         return this;
     }
 
-    public DynamicReportBuilder setTopMargin(int margin) {
-        options.setTopMargin(new Integer(margin));
-        return this;
-    }
 
-    public DynamicReportBuilder setBottomMargin(Integer margin) {
+    public DynamicReportBuilder setBottomMargin(int margin) {
         options.setBottomMargin(margin);
         return this;
     }
 
-    public DynamicReportBuilder setBottomMargin(int margin) {
-        options.setBottomMargin(new Integer(margin));
-        return this;
-    }
-
-    public DynamicReportBuilder setColumnsPerPage(Integer numColumns) {
+    public DynamicReportBuilder setColumnsPerPage(int numColumns) {
         options.setColumnsPerPage(numColumns);
         return this;
     }
 
-    public DynamicReportBuilder setColumnsPerPage(int numColumns) {
-        options.setColumnsPerPage(new Integer(numColumns));
-        return this;
-    }
-
     public DynamicReportBuilder setColumnsPerPage(int numColumns, int columnSpace) {
-        options.setColumnsPerPage(new Integer(numColumns));
-        options.setColumnSpace(new Integer(columnSpace));
-        return this;
-    }
-
-    public DynamicReportBuilder setColumnsPerPage(Integer numColumns, Integer columnSpace) {
         options.setColumnsPerPage(numColumns);
         options.setColumnSpace(columnSpace);
         return this;
     }
 
-    public DynamicReportBuilder setColumnSpace(Integer columSpace) {
-        options.setColumnSpace(columSpace);
-        return this;
-    }
-
     public DynamicReportBuilder setColumnSpace(int columSpace) {
-        options.setColumnSpace(new Integer(columSpace));
+        options.setColumnSpace(columSpace);
         return this;
     }
 
@@ -616,11 +557,6 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setUseFullPageWidth(Boolean useFullwidth) {
-        options.setUseFullPageWidth(useFullwidth.booleanValue());
-        return this;
-    }
-
     public DynamicReportBuilder setTitleStyle(Style titleStyle) {
         this.report.setTitleStyle(titleStyle);
         return this;
@@ -636,11 +572,6 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setPrintBackgroundOnOddRows(Boolean printBackgroundOnOddRows) {
-        this.options.setPrintBackgroundOnOddRows(printBackgroundOnOddRows.booleanValue());
-        return this;
-    }
-
     public DynamicReportBuilder setOddRowBackgroundStyle(Style oddRowBackgroundStyle) {
         this.options.setOddRowBackgroundStyle(oddRowBackgroundStyle);
         return this;
@@ -651,12 +582,12 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setGlobalHeaderVariableHeight(Integer height) {
+    public DynamicReportBuilder setGlobalHeaderVariableHeight(int height) {
         globalVariablesGroup.setHeaderVariablesHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setGlobalFooterVariableHeight(Integer height) {
+    public DynamicReportBuilder setGlobalFooterVariableHeight(int height) {
         globalVariablesGroup.setFooterVariablesHeight(height);
         return this;
     }
@@ -833,12 +764,12 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder setTitleHeight(Integer height) {
+    public DynamicReportBuilder setTitleHeight(int height) {
         options.setTitleHeight(height);
         return this;
     }
 
-    public DynamicReportBuilder setSubtitleHeight(Integer height) {
+    public DynamicReportBuilder setSubtitleHeight(int height) {
         options.setSubtitleHeight(height);
         return this;
     }
@@ -856,44 +787,115 @@ public class DynamicReportBuilder {
         return this;
     }
 
-    public DynamicReportBuilder addImageBanner(String path, Integer width, Integer height, byte align) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
-        options.getImageBanners().put(new Byte(align), banner);
+    @Deprecated
+    public DynamicReportBuilder addImageBanner(String path, int width, int height, byte align) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getImageBanners().put(alignment, banner);
         return this;
     }
 
-    public DynamicReportBuilder addImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
+    public DynamicReportBuilder addImageBanner(String path, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    @Deprecated
+    public DynamicReportBuilder addImageBanner(String path, int width, int height, byte align, ImageScaleMode scaleMode) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
         banner.setScaleMode(scaleMode);
-        options.getImageBanners().put(new Byte(align), banner);
+        options.getImageBanners().put(alignment, banner);
         return this;
     }
 
-    public DynamicReportBuilder addFooterImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
+    public DynamicReportBuilder addImageBanner(String path, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
         banner.setScaleMode(scaleMode);
-        options.getFooterImageBanners().put(new Byte(align), banner);
+        options.getImageBanners().put(alignment, banner);
         return this;
     }
 
-    public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
-        options.getFirstPageImageBanners().put(new Byte(align), banner);
-        return this;
-    }
+    @Deprecated
+    public DynamicReportBuilder addFooterImageBanner(String path, int width, int height, byte align, ImageScaleMode scaleMode) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
 
-    public DynamicReportBuilder addFirstPageFooterImageBanner(String path, Integer width, Integer height, byte align) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
-        options.getFirstPageFooterImageBanners().put(new Byte(align), banner);
-        return this;
-    }
-
-    public DynamicReportBuilder addFirstPageImageBanner(String path, Integer width, Integer height, byte align, ImageScaleMode scaleMode) {
-        ImageBanner banner = new ImageBanner(path, width.intValue(), height.intValue(), align);
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
         banner.setScaleMode(scaleMode);
-        options.getFirstPageImageBanners().put(new Byte(align), banner);
+        options.getFooterImageBanners().put(alignment, banner);
         return this;
     }
+
+    public DynamicReportBuilder addFooterImageBanner(String path, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+
+    public DynamicReportBuilder addFirstPageImageBanner(String path, int width, int height, ImageBanner.Alignment align) {
+        ImageBanner banner = new ImageBanner(path, width, height, align);
+        options.getFirstPageImageBanners().put(align, banner);
+        return this;
+    }
+
+    @Deprecated
+    public DynamicReportBuilder addFirstPageImageBanner(String path, int width, int height, byte align) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    @Deprecated
+    public DynamicReportBuilder addFirstPageFooterImageBanner(String path, int width, int height, byte align) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getFirstPageFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    public DynamicReportBuilder addFirstPageFooterImageBanner(String path, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        options.getFirstPageFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    @Deprecated
+    public DynamicReportBuilder addFirstPageImageBanner(String path, int width, int height, byte align, ImageScaleMode scaleMode) {
+        ImageBanner.Alignment alignment = ImageBanner.Alignment.fromValue(align);
+        if (alignment == null)
+            throw new DJException("Invalid ImageBanner.Alignment");
+
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    public DynamicReportBuilder addFirstPageImageBanner(String path, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = new ImageBanner(path, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
 
     /**
      * Registers a field that is not necesary bound to a column, it can be used
@@ -928,7 +930,7 @@ public class DynamicReportBuilder {
      *
      * @return List<ColumnProperty>
      */
-    public List getFields() {
+    public List<ColumnProperty> getFields() {
         return report.getFields();
     }
 
@@ -957,8 +959,7 @@ public class DynamicReportBuilder {
     }
 
     private void createChartGroups() {
-        for (Iterator iterator = report.getNewCharts().iterator(); iterator.hasNext(); ) {
-            ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) iterator.next();
+        for (ar.com.fdvs.dj.domain.chart.DJChart djChart : report.getNewCharts()) {
             DJGroup djGroup = getChartColumnsGroup(djChart);
             if (djGroup == null) {
                 djGroup = new GroupBuilder().setCriteriaColumn(djChart.getDataset().getColumnsGroup())
@@ -971,8 +972,7 @@ public class DynamicReportBuilder {
 
     private DJGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
         PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
-        for (Iterator iterator = report.getColumnsGroups().iterator(); iterator.hasNext(); ) {
-            DJGroup djGroup = (DJGroup) iterator.next();
+        for (DJGroup djGroup : report.getColumnsGroups()) {
             if (djGroup.getColumnToGroupBy() == columnsGroup) {
                 return djGroup;
             }
@@ -1010,10 +1010,10 @@ public class DynamicReportBuilder {
 
     public DynamicReportBuilder setMargins(int top, int bottom, int left, int right) {
 
-        options.setTopMargin(new Integer(top));
-        options.setBottomMargin(new Integer(bottom));
-        options.setLeftMargin(new Integer(left));
-        options.setRightMargin(new Integer(right));
+        options.setTopMargin(top);
+        options.setBottomMargin(bottom);
+        options.setLeftMargin(left);
+        options.setRightMargin(right);
 
         return this;
     }
@@ -1111,11 +1111,15 @@ public class DynamicReportBuilder {
      * @return
      */
     public DynamicReportBuilder addSubreportInGroupFooter(int groupNumber, Subreport subreport) {
-        Integer groupNum = new Integer(groupNumber);
-        List list = (List) groupFooterSubreports.get(groupNum);
+        return addSubreportInContainer(groupNumber, subreport, groupFooterSubreports);
+    }
+
+    protected DynamicReportBuilder addSubreportInContainer(int groupNumber, Subreport subreport, Map<Integer, List<Subreport>> container) {
+        Integer groupNum = groupNumber;
+        List<Subreport> list = container.get(groupNum);
         if (list == null) {
-            list = new ArrayList();
-            groupFooterSubreports.put(groupNum, list);
+            list = new ArrayList<Subreport>();
+            container.put(groupNum, list);
         }
         list.add(subreport);
         return this;
@@ -1137,8 +1141,8 @@ public class DynamicReportBuilder {
                 .setDynamicReport(dynamicReport, layoutManager);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1175,8 +1179,8 @@ public class DynamicReportBuilder {
                 .setDynamicReport(dynamicReport, layoutManager);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1197,8 +1201,8 @@ public class DynamicReportBuilder {
                 dynamicReport, layoutManager);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1219,8 +1223,8 @@ public class DynamicReportBuilder {
                 dynamicReport, layoutManager);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1241,8 +1245,8 @@ public class DynamicReportBuilder {
                 dynamicReport, layoutManager).setFitToParentPrintableArea(fitParent);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1293,8 +1297,8 @@ public class DynamicReportBuilder {
                 dynamicReport, layoutManager).setFitToParentPrintableArea(fitParent);
 
         if (params != null) {
-            for (int i = 0; i < params.length; i++) {
-                srb.addParameter(params[i]);
+            for (SubreportParameter param : params) {
+                srb.addParameter(param);
             }
         }
 
@@ -1328,14 +1332,7 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, Subreport subreport) {
-        Integer groupNum = new Integer(groupNumber);
-        List list = (List) groupHeaderSubreports.get(groupNum);
-        if (list == null) {
-            list = new ArrayList();
-            groupHeaderSubreports.put(groupNum, list);
-        }
-        list.add(subreport);
-        return this;
+        return addSubreportInContainer(groupNumber, subreport, groupHeaderSubreports);
     }
 
     public DynamicReportBuilder addSubreportInGroupHeader(int groupNumber, DynamicReport dynamicReport, LayoutManager layoutManager, String dataSourcePath, int dataSourceOrigin, int dataSourceType) throws DJBuilderException {
@@ -1401,9 +1398,6 @@ public class DynamicReportBuilder {
      * @return
      */
     public DynamicReportBuilder addHeaderCrosstab(DJCrosstab cross) {
-        if (this.globalHeaderCrosstabs == null) {
-            this.globalHeaderCrosstabs = new ArrayList();
-        }
         this.globalHeaderCrosstabs.add(cross);
         return this;
     }
@@ -1415,9 +1409,6 @@ public class DynamicReportBuilder {
      * @return
      */
     public DynamicReportBuilder addFooterCrosstab(DJCrosstab cross) {
-        if (this.globalFooterCrosstabs == null) {
-            this.globalFooterCrosstabs = new ArrayList();
-        }
         this.globalFooterCrosstabs.add(cross);
         return this;
     }
@@ -1605,7 +1596,7 @@ public class DynamicReportBuilder {
      * @return
      */
     public AbstractColumn getColumn(int idx) {
-        return (AbstractColumn) this.report.getColumns().get(idx);
+        return this.report.getColumns().get(idx);
     }
 
     /**
@@ -1615,7 +1606,7 @@ public class DynamicReportBuilder {
      * @return
      */
     public DJGroup getGroup(int idx) {
-        return (DJGroup) this.report.getColumnsGroups().get(idx);
+        return this.report.getColumnsGroups().get(idx);
     }
 
     public DynamicReportBuilder setTitle(String title, boolean isExpression) {

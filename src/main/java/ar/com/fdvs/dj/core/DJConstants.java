@@ -80,15 +80,15 @@ public interface DJConstants {
 	String QUERY_LANGUAGE_XPATH = "xPath";
 	String QUERY_LANGUAGE_MONDRIAN = "mdx";
 
-	public static byte WHEN_NO_DATA_TYPE_NO_PAGES = WhenNoDataTypeEnum.NO_PAGES.getValue();
-	public static byte WHEN_NO_DATA_TYPE_BLANK_PAGE = WhenNoDataTypeEnum.BLANK_PAGE.getValue();
-	public static byte WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL = WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL.getValue();
-	public static byte WHEN_NO_DATA_TYPE_NO_DATA_SECTION = WhenNoDataTypeEnum.NO_DATA_SECTION.getValue();
+	byte WHEN_NO_DATA_TYPE_NO_PAGES = WhenNoDataTypeEnum.NO_PAGES.getValue();
+	byte WHEN_NO_DATA_TYPE_BLANK_PAGE = WhenNoDataTypeEnum.BLANK_PAGE.getValue();
+	byte WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL = WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL.getValue();
+	byte WHEN_NO_DATA_TYPE_NO_DATA_SECTION = WhenNoDataTypeEnum.NO_DATA_SECTION.getValue();
 
-	public static byte WHEN_RESOURCE_MISSING_TYPE_EMPTY = WhenResourceMissingTypeEnum.EMPTY.getValue();
-	public static byte WHEN_RESOURCE_MISSING_TYPE_ERROR = WhenResourceMissingTypeEnum.ERROR.getValue();
-	public static byte WHEN_RESOURCE_MISSING_TYPE_KEY = WhenResourceMissingTypeEnum.KEY.getValue();
-	public static byte WHEN_RESOURCE_MISSING_TYPE_NULL = WhenResourceMissingTypeEnum.NULL.getValue();
+	byte WHEN_RESOURCE_MISSING_TYPE_EMPTY = WhenResourceMissingTypeEnum.EMPTY.getValue();
+	byte WHEN_RESOURCE_MISSING_TYPE_ERROR = WhenResourceMissingTypeEnum.ERROR.getValue();
+	byte WHEN_RESOURCE_MISSING_TYPE_KEY = WhenResourceMissingTypeEnum.KEY.getValue();
+	byte WHEN_RESOURCE_MISSING_TYPE_NULL = WhenResourceMissingTypeEnum.NULL.getValue();
 
 	int SUBREPORT_PARAM_ORIGIN_FIELD = 1;
 	int SUBREPORT_PARAM_ORIGIN_PARAMETER = 2;
@@ -97,16 +97,16 @@ public interface DJConstants {
 
 	String CUSTOM_EXPRESSION__PARAMETERS_MAP = "REPORT_PARAMETERS_MAP";
 	
-	public static String FORMAT_CSV = "CSV";
-	public static String FORMAT_HTML = "HTML";
-	public static String FORMAT_PDF = "PDF";
-	public static String FORMAT_XLS = "XLS";
-	public static String FORMAT_XML = "XML";
-	public static String FORMAT_RTF = "RTF";
+	String FORMAT_CSV = "CSV";
+	String FORMAT_HTML = "HTML";
+	String FORMAT_PDF = "PDF";
+	String FORMAT_XLS = "XLS";
+	String FORMAT_XML = "XML";
+	String FORMAT_RTF = "RTF";
 
 
-    public static String REPORT_LANGUAGE_JAVA = "java";
-    public static String REPORT_LANGUAGE_GROOVY = "groovy";
-    public static String REPORT_LANGUAGE_JAVASCRIPT = "javascript";
+    String REPORT_LANGUAGE_JAVA = "java";
+    String REPORT_LANGUAGE_GROOVY = "groovy";
+    String REPORT_LANGUAGE_JAVASCRIPT = "javascript";
 
 }

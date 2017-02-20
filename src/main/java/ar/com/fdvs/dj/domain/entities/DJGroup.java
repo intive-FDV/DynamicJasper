@@ -29,11 +29,15 @@
 
 package ar.com.fdvs.dj.domain.entities;
 
-import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.DJBaseElement;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJGroupLabel;
+import ar.com.fdvs.dj.domain.DynamicReportOptions;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import org.apache.commons.collections.list.UnmodifiableList;
+import org.apache.commons.collections4.list.UnmodifiableList;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,15 +67,12 @@ public class DJGroup extends DJBaseElement {
 	/**
 	 * Map<Column, Style>
 	 */
-	private Map columnHeaderStyles = new HashMap();
+	private Map<AbstractColumn, Style> columnHeaderStyles = new HashMap<AbstractColumn, Style>();
 	private Style defaultColumnHeaederStyle;
 
-	//<DJGroupVariable>
-	private List headerVariables = new ArrayList();
-	//<DJGroupVariable>
-	private List footerVariables = new ArrayList();
-	//<DJGroupTemporalVariable>
-	private List variables = new ArrayList();
+	private List<DJGroupVariable> headerVariables = new ArrayList<DJGroupVariable>();
+	private List<DJGroupVariable> footerVariables = new ArrayList<DJGroupVariable>();
+	private List<DJGroupVariableDef> variables = new ArrayList<DJGroupVariableDef>();
 	
 	private boolean fitHeaderHeightToContent = true;
 	private boolean fitFooterHeightToContent = true;
@@ -101,21 +102,21 @@ public class DJGroup extends DJBaseElement {
 		this.fitFooterHeightToContent = fitFooterHeightToContent;
 	}
 
-	private Integer headerHeight = DynamicReportOptions.DEFAULT_HEADER_HEIGHT; //for headers
-	private Integer footerHeight = DynamicReportOptions.DEFAULT_FOOTER_VARIABLES_HEIGHT; //for headers
+	private int headerHeight = DynamicReportOptions.DEFAULT_HEADER_HEIGHT; //for headers
+	private int footerHeight = DynamicReportOptions.DEFAULT_FOOTER_VARIABLES_HEIGHT; //for headers
 	
-	private Integer headerVariablesHeight = null; //for values such as calculations, current value, etc.
-	private Integer footerVariablesHeight = null; //for values such as calculations, current value, etc.
+	private int headerVariablesHeight = DynamicReportOptions.UNSET_VALUE; //for values such as calculations, current value, etc.
+	private int footerVariablesHeight = DynamicReportOptions.UNSET_VALUE; //for values such as calculations, current value, etc.
 	
 	private GroupLayout layout = GroupLayout.DEFAULT;
-	private List footerSubreports = new ArrayList();
-	private List headerSubreports = new ArrayList();
+	private List<Subreport> footerSubreports = new ArrayList<Subreport>();
+	private List<Subreport> headerSubreports = new ArrayList<Subreport>();
 
-	private List headerCrosstabs = new ArrayList();
-	private List footerCrosstabs = new ArrayList();
+	private List<DJCrosstab> headerCrosstabs = new ArrayList<DJCrosstab>();
+	private List<DJCrosstab> footerCrosstabs = new ArrayList<DJCrosstab>();
 
-	private Boolean startInNewPage = Boolean.FALSE;
-	private Boolean startInNewColumn = Boolean.FALSE;
+	private boolean startInNewPage = false;
+	private boolean startInNewColumn = false;
 	
 	/**
 	 * If the group is configured to print column names, they will be printed on every page 
@@ -175,43 +176,43 @@ public class DJGroup extends DJBaseElement {
 		this.defaulHeaderVariableStyle = defaulHeaderStyle;
 	}
 
-	public List getFooterVariables() {
-		return UnmodifiableList.decorate(footerVariables);
+	public List<DJGroupVariable> getFooterVariables() {
+		return new UnmodifiableList<DJGroupVariable>(footerVariables);
 	}
 
-	public void setFooterVariables(ArrayList footerVariables) {
+	public void setFooterVariables(List<DJGroupVariable> footerVariables) {
 		this.footerVariables = footerVariables;
 	}
 
-	public List getHeaderVariables() {
-		return  UnmodifiableList.decorate(headerVariables);
+	public List<DJGroupVariable> getHeaderVariables() {
+		return  new UnmodifiableList<DJGroupVariable>(headerVariables);
 	}
 
-	public void setHeaderVariables(ArrayList headerVariables) {
+	public void setHeaderVariables(List<DJGroupVariable> headerVariables) {
 		this.headerVariables = headerVariables;
 	}
 
-	public List getVariables() {
+	public List<DJGroupVariableDef> getVariables() {
 		return variables;
 	}
 
-	public void setVariables(ArrayList variables) {
+	public void setVariables(List<DJGroupVariableDef> variables) {
 		this.variables = variables;
 	}
 	
-	public Integer getFooterHeight() {
+	public int getFooterHeight() {
 		return footerHeight;
 	}
 
-	public void setFooterHeight(Integer footerHeight) {
+	public void setFooterHeight(int footerHeight) {
 		this.footerHeight = footerHeight;
 	}
 
-	public Integer getHeaderHeight() {
+	public int getHeaderHeight() {
 		return headerHeight;
 	}
 
-	public void setHeaderHeight(Integer headerHeight) {
+	public void setHeaderHeight(int headerHeight) {
 		this.headerHeight = headerHeight;
 	}
 
@@ -223,51 +224,43 @@ public class DJGroup extends DJBaseElement {
 		this.layout = layout;
 	}
 
-	public List getFooterSubreports() {
+	public List<Subreport> getFooterSubreports() {
 		return footerSubreports;
 	}
 
-	public List getHeaderSubreports() {
+	public List<Subreport> getHeaderSubreports() {
 		return headerSubreports;
 	}
 
-	public Boolean getStartInNewPage() {
-		return startInNewPage;
-	}
-
-	public void setStartInNewPage(Boolean startInNewPage) {
+	public void setStartInNewPage(boolean startInNewPage) {
 		this.startInNewPage = startInNewPage;
 	}
 
-	public Boolean getStartInNewColumn() {
-		return startInNewColumn;
-	}
-
-	public void setStartInNewColumn(Boolean startInNewColumn) {
+	public void setStartInNewColumn(boolean startInNewColumn) {
 		this.startInNewColumn = startInNewColumn;
 	}
 
-	public List getHeaderCrosstabs() {
+	public List<DJCrosstab> getHeaderCrosstabs() {
 		return headerCrosstabs;
 	}
 
-	public void setHeaderCrosstabs(List headerCrosstabs) {
+	public void setHeaderCrosstabs(List<DJCrosstab> headerCrosstabs) {
 		this.headerCrosstabs = headerCrosstabs;
 	}
 
-	public List getFooterCrosstabs() {
+	public List<DJCrosstab> getFooterCrosstabs() {
 		return footerCrosstabs;
 	}
 
-	public void setFooterCrosstabs(List footerCrosstabs) {
+	public void setFooterCrosstabs(List<DJCrosstab> footerCrosstabs) {
 		this.footerCrosstabs = footerCrosstabs;
 	}
 
-	public Map getColumnHeaderStyles() {
+	public Map<AbstractColumn, Style> getColumnHeaderStyles() {
 		return columnHeaderStyles;
 	}
 
-	public void setColumnHeaderStyles(Map columnHeaderStyles) {
+	public void setColumnHeaderStyles(Map<AbstractColumn, Style> columnHeaderStyles) {
 		this.columnHeaderStyles = columnHeaderStyles;
 	}
 
@@ -279,7 +272,7 @@ public class DJGroup extends DJBaseElement {
 		if (this.columnHeaderStyles == null)
 			return null;
 
-		return (Style) this.columnHeaderStyles.get(col);
+		return this.columnHeaderStyles.get(col);
 	}
 
 	public Style getDefaultColumnHeaederStyle() {
@@ -306,19 +299,19 @@ public class DJGroup extends DJBaseElement {
 		this.allowFooterSplit = allowFooterSplit;
 	}
 
-	public Integer getHeaderVariablesHeight() {
+	public int getHeaderVariablesHeight() {
 		return headerVariablesHeight;
 	}
 
-	public void setHeaderVariablesHeight(Integer headerVariablesHeight) {
+	public void setHeaderVariablesHeight(int headerVariablesHeight) {
 		this.headerVariablesHeight = headerVariablesHeight;
 	}
 
-	public Integer getFooterVariablesHeight() {
+	public int getFooterVariablesHeight() {
 		return footerVariablesHeight;
 	}
 
-	public void setFooterVariablesHeight(Integer footerVariablesHeight) {
+	public void setFooterVariablesHeight(int footerVariablesHeight) {
 		this.footerVariablesHeight = footerVariablesHeight;
 	}
 	
@@ -376,4 +369,11 @@ public class DJGroup extends DJBaseElement {
 		this.resetPageNumber = resetPageNumber;
 	}
 
+	public boolean isStartInNewPage() {
+		return startInNewPage;
+	}
+
+	public boolean isStartInNewColumn() {
+		return startInNewColumn;
+	}
 }

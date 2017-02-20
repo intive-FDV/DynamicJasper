@@ -36,9 +36,8 @@ import net.sf.jasperreports.engine.JRChartPlot;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
 import org.jfree.chart.plot.PlotOrientation;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public abstract class AbstractPlot extends DJBaseElement {
@@ -47,7 +46,7 @@ public abstract class AbstractPlot extends DJBaseElement {
 	
 	private Double labelRotation;
 	private PlotOrientation orientation;
-	private List seriesColors = new ArrayList();
+	private final List<Color> seriesColors = new ArrayList<Color>();
 
 	/**
 	 * Sets the plot orientation (PlotOrientation.HORIZONTAL or PlotOrientation.VERTICAL).
@@ -88,7 +87,7 @@ public abstract class AbstractPlot extends DJBaseElement {
 	 * 
 	 * @param seriesColors the series colors
 	 **/
-	public void setSeriesColors(List seriesColors) {
+	public void setSeriesColors(List<Color> seriesColors) {
 		clearSeriesColors();
 		this.seriesColors.addAll(seriesColors);
 	}
@@ -129,14 +128,11 @@ public abstract class AbstractPlot extends DJBaseElement {
 			plot.setLabelRotation(getLabelRotation());
 		if (orientation != null)
 			plot.setOrientation(orientation);
-		if (seriesColors != null) {
-			List colors = new ArrayList();
-			int i = 1;
-			for (Iterator iterator = seriesColors.iterator(); iterator.hasNext();) {
-				Color color = (Color) iterator.next();
-				colors.add(new JRBaseChartPlot.JRBaseSeriesColor(i++, color));
-			}
-			plot.setSeriesColors(colors);
-		}
+		List<JRBaseChartPlot.JRSeriesColor> colors = new ArrayList<JRBaseChartPlot.JRSeriesColor>();
+		int i = 1;
+		for (Color color : seriesColors) {
+            colors.add(new JRBaseChartPlot.JRBaseSeriesColor(i++, color));
+        }
+		plot.setSeriesColors(colors);
 	}
 }

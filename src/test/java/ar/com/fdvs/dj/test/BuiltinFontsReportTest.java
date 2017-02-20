@@ -37,10 +37,8 @@ import ar.com.fdvs.dj.domain.constants.Font;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 
-import java.awt.*;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class BuiltinFontsReportTest extends BaseDjReportTest {
 

@@ -64,7 +64,6 @@ public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {
 	 * This overwrites every other option included in DJChartOptions
 	 * set trough the builder's setter methods.
 	 *
-	 * @param operation the chart data operation
 	 **/
 	public T setChartOptions(DJChartOptions chartOptions) {
 		chart.setOptions(chartOptions);
@@ -144,7 +143,6 @@ public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {
 	/**
 	 * Sets the x position.
 	 *
-	 * @param y the x position
 	 **/
 	public abstract T setX(int x);
 
@@ -315,7 +313,7 @@ public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {
 	 * 
 	 * @param seriesColors the series colors
 	 **/
-	public abstract T setSeriesColors(List seriesColors);
+	public abstract T setSeriesColors(List<Color> seriesColors);
 	
 	protected abstract AbstractDataset getDataset();
 	

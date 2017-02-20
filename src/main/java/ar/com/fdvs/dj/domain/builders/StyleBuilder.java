@@ -30,11 +30,15 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.domain.Style;
-import ar.com.fdvs.dj.domain.constants.*;
+import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.Rotation;
+import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class StyleBuilder {
 
@@ -134,7 +138,10 @@ public class StyleBuilder {
 	}
 
 	public StyleBuilder setBorderColor(Color borderColor) {
-		style.setBorderColor(borderColor);
+		if (style.getBorder() == null)
+			return this;
+
+		style.getBorder().setColor(borderColor);
 		return this;
 	}
 

@@ -43,9 +43,9 @@ import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 public class QueryReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb
@@ -87,8 +87,6 @@ public class QueryReportTest extends BaseDjReportTest {
 			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), con,params );
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager(),params);
-		} catch (Exception e) {
-			throw e;
 		} finally {
 			try {
 				con.close();

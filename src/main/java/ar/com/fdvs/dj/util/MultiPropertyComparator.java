@@ -42,11 +42,11 @@ import java.util.List;
 *         Date: Feb 26, 2007
 *         Time: 10:27:32 AM
 */
-public class MultiPropertyComparator implements Comparator {
+public class MultiPropertyComparator<T> implements Comparator<T> {
 
     private static final Log LOGGER = LogFactory.getLog(MultiPropertyComparator.class);
 
-    private List info;
+    private final List info;
 
     /**
      * 
@@ -56,14 +56,15 @@ public class MultiPropertyComparator implements Comparator {
         info = _info;
     }
 
-    public int compare(final Object _o1, final Object _o2) {
+    @Override
+    public int compare(T o1, T o2) {
         int result = 0;
         for (int i = 0; result == 0 && i < info.size(); i++) {
             final SortInfo sortInfo = (SortInfo)info.get(i);
             try {
                 final String propertyName = sortInfo.getPropertyName();
-                final Comparable value1 = getValue(_o1, propertyName);
-                final Comparable value2 = getValue(_o2, propertyName);
+                final Comparable value1 = getValue(o1, propertyName);
+                final Comparable value2 = getValue(o2, propertyName);
                 result = compare(value1, value2) * (sortInfo.isAscending() ? 1 : -1);
             } catch (IllegalAccessException ex) {
                 LOGGER.warn(ex);
@@ -87,7 +88,8 @@ public class MultiPropertyComparator implements Comparator {
 		return (Comparable) value;
     }
 
-	private static int compare(final Comparable _value1, final Comparable _value2) {
+	@SuppressWarnings("unchecked")
+    private static int compare(final Comparable _value1, final Comparable _value2) {
         if (_value1 == null) {
             if (_value2 == null) {
                 return 0;

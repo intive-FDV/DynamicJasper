@@ -26,8 +26,8 @@
  *
  *
  */
-/**
- *
+/*
+
  */
 package ar.com.fdvs.dj.domain;
 
@@ -43,9 +43,9 @@ public class AutoText extends DJBaseElement {
 
     private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
-    public static final Integer WIDTH_NOT_SET = new Integer(Integer.MIN_VALUE);
-    public static final Integer DEFAULT_WIDTH = new Integer(80);
-    public static final Integer DEFAULT_WIDTH2 = new Integer(30);
+    public static final int WIDTH_NOT_SET = Integer.MIN_VALUE;
+    public static final int DEFAULT_WIDTH = 80;
+    public static final int DEFAULT_WIDTH2 = 30;
     public static final byte POSITION_FOOTER = 0;
     public static final byte POSITION_HEADER = 1;
 
@@ -89,14 +89,14 @@ public class AutoText extends DJBaseElement {
     private boolean useI18n;
     private byte pattern; //Applies for CREATED_ON, its the pattern used for dates
 
-    private Integer height = new Integer(15);
+    private int height = 15;
 
     private Style style = null;
 
     /**
      *
      */
-    private Integer width = WIDTH_NOT_SET;
+    private int width = WIDTH_NOT_SET;
 
     /**
      * For autotexts that consists in two parts (like: "page x of y" and "x /
@@ -110,7 +110,7 @@ public class AutoText extends DJBaseElement {
      * small or big number, making this width wide enough should prevent the
      * text to override the space given
      */
-    private Integer width2 = WIDTH_NOT_SET;
+    private int width2 = WIDTH_NOT_SET;
 
     /**
      * tells if the API can modify the with if needed
@@ -140,27 +140,27 @@ public class AutoText extends DJBaseElement {
         return this;
     }
 
-    public Integer getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(Integer width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public Integer getWidth2() {
+    public int getWidth2() {
         return width2;
     }
 
-    public void setWidth2(Integer width2) {
+    public void setWidth2(int width2) {
         this.width2 = width2;
     }
 
-    public Integer getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(Integer height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -182,7 +182,7 @@ public class AutoText extends DJBaseElement {
         this.position = position;
         this.alignment = alignment;
         this.pattern = pattern;
-        this.width = new Integer(width);
+        this.width = width;
     }
 
     public AutoText(byte type, byte position, HorizontalBandAlignment alignment, byte pattern, int width, int width2) {
@@ -190,8 +190,8 @@ public class AutoText extends DJBaseElement {
         this.position = position;
         this.alignment = alignment;
         this.pattern = pattern;
-        this.width = new Integer(width);
-        this.width2 = new Integer(width2);
+        this.width = width;
+        this.width2 = width2;
     }
 
     public AutoText(String message, byte position, HorizontalBandAlignment alignment) {
@@ -202,7 +202,7 @@ public class AutoText extends DJBaseElement {
         this.fixedWith = false;
     }
 
-    public AutoText(String message, byte position, HorizontalBandAlignment alignment, Integer with) {
+    public AutoText(String message, byte position, HorizontalBandAlignment alignment, int with) {
         this.type = AUTOTEXT_CUSTOM_MESSAGE;
         this.position = position;
         this.alignment = alignment;
@@ -211,7 +211,7 @@ public class AutoText extends DJBaseElement {
         this.fixedWith = false;
     }
 
-    public AutoText(JRExpression expression, byte position, HorizontalBandAlignment alignment, Integer with) {
+    public AutoText(JRExpression expression, byte position, HorizontalBandAlignment alignment, int with) {
         this.type = AUTOTEXT_JREXPRESSION;
         this.position = position;
         this.alignment = alignment;

@@ -78,7 +78,7 @@ public class ChartReportTest4 extends BaseDjReportTest {
 				.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 				.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-				.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+				.setDetailHeight(15).setLeftMargin(margin)
 				.setMargins(margin, margin, margin, margin)
 //				.setPrintBackgroundOnOddRows(true)
 				.setPrintColumnNames(false)

@@ -43,7 +43,7 @@ import java.util.Map;
  */
 public interface DJValueFormatter {
 
-	public Object evaluate(Object value, Map fields, Map variables, Map parameters);
-	public String getClassName();
+	Object evaluate(Object value, Map fields, Map variables, Map parameters);
+	String getClassName();
 
 }

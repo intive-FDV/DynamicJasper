@@ -101,8 +101,7 @@ public class ReflectiveReportBuilder extends FastReportBuilder {
      * @throws ClassNotFoundException if an error occurs.
      */
     private void addProperties(final PropertyDescriptor[] _properties) throws ColumnBuilderException, ClassNotFoundException {
-        for (int i = 0; i < _properties.length; i++) {
-            final PropertyDescriptor property = _properties[i];
+        for (final PropertyDescriptor property : _properties) {
             if (isValidProperty(property)) {
                 addColumn(getColumnTitle(property), property.getName(), property.getPropertyType().getName(), getColumnWidth(property));
             }
@@ -116,7 +115,7 @@ public class ReflectiveReportBuilder extends FastReportBuilder {
      * @return the column title for the given property.
      */
     private static String getColumnTitle(final PropertyDescriptor _property) {
-        final StringBuffer buffer = new StringBuffer();
+        final StringBuilder buffer = new StringBuilder();
         final String name = _property.getName();
         buffer.append(Character.toUpperCase(name.charAt(0)));
         for (int i = 1; i < name.length(); i++) {

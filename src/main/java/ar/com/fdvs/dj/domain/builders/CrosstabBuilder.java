@@ -32,10 +32,17 @@ package ar.com.fdvs.dj.domain.builders;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.CrossTabColorShema;
 import ar.com.fdvs.dj.core.layout.LayoutException;
-import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.DJCRosstabMeasurePrecalculatedTotalProvider;
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJCrosstabColumn;
+import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
+import ar.com.fdvs.dj.domain.DJCrosstabRow;
+import ar.com.fdvs.dj.domain.DJDataSource;
+import ar.com.fdvs.dj.domain.DJLabel;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
-
-import java.util.Iterator;
 
 public class CrosstabBuilder {
 
@@ -68,25 +75,21 @@ public class CrosstabBuilder {
 		
 		
 		//Ensure default dimension values
-		for (Iterator iterator = crosstab.getColumns().iterator(); iterator.hasNext();) {
-			DJCrosstabColumn col = (DJCrosstabColumn) iterator.next();
-			
+		for (DJCrosstabColumn col : crosstab.getColumns()) {
 			if (col.getWidth() == -1 && cellWidth != -1)
 				col.setWidth(cellWidth);
 
 			if (col.getWidth() == -1 )
 				col.setWidth(DEFAULT_CELL_WIDTH);
-			
+
 			if (col.getHeaderHeight() == -1 && columnHeaderHeight != -1)
 				col.setHeaderHeight(columnHeaderHeight);
-			
+
 			if (col.getHeaderHeight() == -1)
 				col.setHeaderHeight(DEFAULT_COLUMN_HEADER_HEIGHT);
-		}			
-		
-		for (Iterator iterator = crosstab.getRows().iterator(); iterator.hasNext();) {
-			DJCrosstabRow row = (DJCrosstabRow) iterator.next();
-			
+		}
+
+		for (DJCrosstabRow row : crosstab.getRows()) {
 			if (row.getHeight() == -1 && cellHeight != -1)
 				row.setHeight(cellHeight);
 
@@ -95,11 +98,11 @@ public class CrosstabBuilder {
 
 			if (row.getHeaderWidth() == -1 && rowHeaderWidth != -1)
 				row.setHeaderWidth(rowHeaderWidth);
-			
+
 			if (row.getHeaderWidth() == -1)
-				row.setHeaderWidth(DEFAULT_ROW_HEADER_WIDTH);			
-		}		
-		
+				row.setHeaderWidth(DEFAULT_ROW_HEADER_WIDTH);
+
+		}
 		return crosstab;
 	}
 
@@ -182,7 +185,7 @@ public class CrosstabBuilder {
 	public CrosstabBuilder addMeasure(String property, String className, DJCalculation operation, String title, Style style, boolean isPercentage) {
 		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
 		measure.setStyle(style);
-		measure.setIsPercentage(Boolean.valueOf(isPercentage));
+		measure.setIsPercentage(isPercentage);
 		crosstab.getMeasures().add(measure);
 		return this;
 	}
@@ -437,7 +440,7 @@ public class CrosstabBuilder {
 		DJCrosstabMeasure measure = new DJCrosstabMeasure(property,className, operation , title);
 		measure.setStyle(style);
 		measure.setValueFormatter(valueFormatter);
-		measure.setIsPercentage(Boolean.valueOf(isPercentage));
+		measure.setIsPercentage(isPercentage);
 		crosstab.getMeasures().add(measure);
 		return this;	
 	}

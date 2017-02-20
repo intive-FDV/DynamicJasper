@@ -35,14 +35,14 @@ import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 
-import java.awt.*;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DJChartBuilder {
 	private Byte type;
 	private DJGroup columnsGroup;
-	private List columns = new ArrayList();
+	private List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
 	private Byte operation;
 	private DJChartOptions chartOptions;
 
@@ -53,13 +53,11 @@ public class DJChartBuilder {
 		if (operation == null) throw new ChartBuilderException("The operation for the chart must be specified");
 		if (chartOptions == null) chartOptions = createDefaultOptions();
 
-		DJChart chart = new DJChart(type.byteValue(),columnsGroup,columns,operation.byteValue(),chartOptions);
-		return chart;
+		return new DJChart(type,columnsGroup,columns, operation,chartOptions);
 	}
 
 	private DJChartOptions createDefaultOptions() {
-		DJChartOptions options = new DJChartOptions(true, Color.white, 300, 300, true, DJChartOptions.POSITION_HEADER, 0, 0, true, (byte) 1, DJChartColors.googleAnalytics());
-		return options;
+		return new DJChartOptions(true, Color.white, 300, 300, true, DJChartOptions.POSITION_HEADER, 0, 0, true, (byte) 1, DJChartColors.googleAnalytics());
 	}
 
 	public DJChartBuilder addColumn(AbstractColumn column) {
@@ -68,7 +66,7 @@ public class DJChartBuilder {
 	}
 
 	public byte getOperation() {
-		return operation.byteValue();
+		return operation;
 	}
 
 	/**
@@ -77,17 +75,17 @@ public class DJChartBuilder {
 	 * @return
 	 */
 	public DJChartBuilder addOperation(byte operation) {
-		this.operation = new Byte(operation);
+		this.operation = operation;
 		return this;
 	}
 	
 	public DJChartBuilder setOperation(byte operation) {
-		this.operation = new Byte(operation);
+		this.operation = operation;
 		return this;
 	}
 
 	public byte getType() {
-		return type.byteValue();
+		return type;
 	}
 
 	/***
@@ -96,12 +94,12 @@ public class DJChartBuilder {
 	 * @return
 	 */
 	public DJChartBuilder addType(byte type) {
-		this.type = new Byte(type);
+		this.type = type;
 		return this;
 	}
 	
 	public DJChartBuilder setType(byte type) {
-		this.type = new Byte(type);
+		this.type = type;
 		return this;
 	}
 

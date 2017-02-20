@@ -36,13 +36,21 @@ import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
-import ar.com.fdvs.dj.domain.entities.columns.*;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
+import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
+import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.PropertiesMap;
 
 import java.text.Format;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -65,8 +73,8 @@ public class ColumnBuilder {
 	public static final int COLUMN_TYPE_BARCODE = 2;
 
 	private String title;
-	private Integer width = new Integer(50);
-	private Boolean fixedWidth = Boolean.FALSE;
+	private int width = 50;
+	private boolean fixedWidth = Boolean.FALSE;
 	private Style style;
 	private Style headerStyle;
 	private ColumnProperty columnProperty;
@@ -75,14 +83,13 @@ public class ColumnBuilder {
 	private CustomExpression customExpressionToGroupBy;
 	private String pattern;
 	private boolean printRepeatedValues = true;
-	private ArrayList conditionalStyles = new ArrayList();
+	private List<ConditionalStyle> conditionalStyles = new ArrayList<ConditionalStyle>();
 	private ColumnOperation operation;
-	private List operationColumns = new ArrayList();
-	private PropertiesMap fieldProperties = new PropertiesMap();
+	private List<SimpleColumn> operationColumns = new ArrayList<SimpleColumn>();
+	private PropertiesMap<String, String> fieldProperties = new PropertiesMap<String, String>();
 	private ImageScaleMode imageScaleMode = ImageScaleMode.FILL_PROPORTIONALLY;
 	private String fieldDescription;
 	private String truncateSuffix;
-//	private String formatParameter;
 	private Format textFormatter;
 	private PropertyColumn percentageColumn;
 
@@ -125,7 +132,7 @@ public class ColumnBuilder {
 			throw new ColumnBuilderException("Either a ColumnProperty or a CustomExpression or a PercentageColumn must be present");
 		}
 
-		AbstractColumn col = null;
+		AbstractColumn col;
 		if (columnType == COLUMN_TYPE_IMAGE){
 			col = buildSimpleImageColumn();
 		}
@@ -248,7 +255,7 @@ public class ColumnBuilder {
 		column.setPattern(pattern);
 		column.setHeaderStyle(headerStyle);
 		column.setStyle(style);
-		column.setPrintRepeatedValues(Boolean.valueOf(printRepeatedValues));
+		column.setPrintRepeatedValues(printRepeatedValues);
 		column.getConditionalStyles().addAll(conditionalStyles);
 		column.setFixedWidth(fixedWidth);
 		column.setTruncateSuffix(truncateSuffix);
@@ -273,17 +280,12 @@ public class ColumnBuilder {
 	}
 
 	public ColumnBuilder setPrintRepeatedValues(Boolean bool) {
-		this.printRepeatedValues = bool.booleanValue();
-		return this;
-	}
-
-	public ColumnBuilder setWidth(Integer width) {
-		this.width = width;
+		this.printRepeatedValues = bool;
 		return this;
 	}
 
 	public ColumnBuilder setWidth(int width) {
-		this.width = new Integer(width);
+		this.width = width;
 		return this;
 	}
 
@@ -299,7 +301,7 @@ public class ColumnBuilder {
 
 	/**
 	 * Adds a property to the column being created.</br>
-	 * @param ColumnProperty columnProperty : BeanUtils like syntax allowed here
+	 * @param  columnProperty : BeanUtils like syntax allowed here
 	 * @return ColumnBuilder
 	 */
 	public ColumnBuilder setColumnProperty(ColumnProperty columnProperty ){
@@ -309,19 +311,15 @@ public class ColumnBuilder {
 
 	/**
 	 * Adds a property to the column being created.</br>
-	 * @param ColumnProperty columnProperty : BeanUtils like syntax allowed here
-	 * @param String valueClassName
 	 * @return ColumnBuilder
 	 */
 	public ColumnBuilder setColumnProperty(String propertyName, String valueClassName ){
-		ColumnProperty columnProperty = new ColumnProperty(propertyName,valueClassName);
-		this.columnProperty = columnProperty;
+		this.columnProperty = new ColumnProperty(propertyName,valueClassName);
 		return this;
 	}
 
 	public ColumnBuilder setColumnProperty(String propertyName, Class clazz ){
-		ColumnProperty columnProperty = new ColumnProperty(propertyName,clazz.getName());
-		this.columnProperty = columnProperty;
+		this.columnProperty = new ColumnProperty(propertyName,clazz.getName());
 		return this;
 	}
 
@@ -330,8 +328,7 @@ public class ColumnBuilder {
 		return this;
 	}
 	public ColumnBuilder setColumnProperty(String propertyName, String valueClassName, String fieldDescription ){
-		ColumnProperty columnProperty = new ColumnProperty(propertyName,valueClassName);
-		this.columnProperty = columnProperty;
+		this.columnProperty = new ColumnProperty(propertyName,valueClassName);
 		this.fieldDescription = fieldDescription;
 		return this;
 	}
@@ -375,26 +372,19 @@ public class ColumnBuilder {
 	 * @param conditionalStyles
 	 * @return
 	 */
-	public ColumnBuilder addConditionalStyles(Collection conditionalStyles) {
+	public ColumnBuilder addConditionalStyles(Collection<ConditionalStyle> conditionalStyles) {
 		this.conditionalStyles.addAll(conditionalStyles);
 		return this;
 	}
 
-	public ColumnBuilder addColumnOperation(ColumnOperation operation, AbstractColumn[] operationColumns) {
+	public ColumnBuilder addColumnOperation(ColumnOperation operation, SimpleColumn[] operationColumns) {
 		this.operation = operation;
-		this.operationColumns = new ArrayList();
-		for (int i = 0; i < operationColumns.length; i++) {
-			this.operationColumns.add(operationColumns[i]);
-		}
+		this.operationColumns = new ArrayList<SimpleColumn>();
+		Collections.addAll(this.operationColumns, operationColumns);
 		return this;
 	}
 
 	public ColumnBuilder setFixedWidth(boolean bool) {
-		this.fixedWidth = Boolean.valueOf(bool);
-		return this;
-	}
-
-	public ColumnBuilder setFixedWidth(Boolean bool) {
 		this.fixedWidth = bool;
 		return this;
 	}
@@ -416,18 +406,14 @@ public class ColumnBuilder {
 
 	public ColumnBuilder setCommonProperties(String title, String property, String className, int width, boolean fixedWidth) {
 		setColumnProperty(new ColumnProperty(property, className));
-		setWidth(new Integer(width));
+		setWidth(width);
 		setTitle(title);
-		setFixedWidth(Boolean.valueOf(fixedWidth));
+		setFixedWidth(fixedWidth);
 		return this;
 	}
 
 	public ColumnBuilder setCommonProperties(String title, String property, Class clazz, int width, boolean fixedWidth) {
-		setColumnProperty(new ColumnProperty(property, clazz));
-		setWidth(new Integer(width));
-		setTitle(title);
-		setFixedWidth(Boolean.valueOf(fixedWidth));
-		return this;
+		return setCommonProperties(title, property, clazz.getName(),width,fixedWidth);
 	}
 
 

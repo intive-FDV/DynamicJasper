@@ -64,7 +64,7 @@ public class DJChart extends DJBaseElement{
 	/**
 	 * List<AbstractColumn>
 	 */
-	private List columns = new ArrayList();
+	private List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
 	
 
 	private byte operation;
@@ -85,7 +85,7 @@ public class DJChart extends DJBaseElement{
 		this.chartOptions = chartOptions;
 	}
 	
-	public DJChart(byte type, DJGroup columnsGroup, List columns, byte operation, DJChartOptions chartOptions){
+	public DJChart(byte type, DJGroup columnsGroup, List<AbstractColumn> columns, byte operation, DJChartOptions chartOptions){
 		this.type = type;
 		this.columnsGroup = columnsGroup;
 		
@@ -136,11 +136,11 @@ public class DJChart extends DJBaseElement{
 		this.chartOptions = options;
 	}
 	
-	public List getColumns() {
+	public List<AbstractColumn> getColumns() {
 		return columns;
 	}
 
-	public void setColumns(List columns) {
+	public void setColumns(List<AbstractColumn> columns) {
 		this.columns = columns;
 	}
 	

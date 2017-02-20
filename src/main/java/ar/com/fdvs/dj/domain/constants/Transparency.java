@@ -47,13 +47,8 @@ public class Transparency  extends BaseDomainConstant {
 	}
 
 	public boolean equals(Object obj) {
-		if (obj == null)
-			return false;
+		return obj != null && obj instanceof Transparency && this.value == ((Transparency) obj).value;
 
-		if (!(obj instanceof Transparency))
-			return false;
-
-		return this.value == ((Transparency)obj).value;
 	}
 
 

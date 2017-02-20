@@ -30,8 +30,8 @@
 package ar.com.fdvs.dj.test;
 
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -62,9 +62,9 @@ public class BarcodeColumnReportTest2 extends BaseDjReportTest {
 			.setPaddingBottom(3)
 			.setPaddingTop(3)
 			.build();
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		Style title = null;
@@ -83,13 +83,11 @@ public class BarcodeColumnReportTest2 extends BaseDjReportTest {
 			.setDefaultStyles(title, subtitle, columnHeader, defStyle)
 			.setUseFullPageWidth(true);
 
-		DynamicReport dr = drb.build();
-
-		return dr;
+		return drb.build();
 	}
 	
 	protected JRDataSource getDataSource() {
-		Collection dummyCollection = TestRepositoryProducts.getDummyCollection();
+		List<Product> dummyCollection = TestRepositoryProducts.getDummyCollection();
 		dummyCollection.add(new Product( new Long("1"),
 				"book",
 				"Harry Potter 7",
@@ -100,9 +98,8 @@ public class BarcodeColumnReportTest2 extends BaseDjReportTest {
 				new Long("2500"), new Float("10000")));
 		dummyCollection = SortUtils.sortCollection(dummyCollection,dr.getColumns());
 
-		JRDataSource ds = new JRBeanCollectionDataSource(dummyCollection);		//Create a JRDataSource, the Collection used
-																										//here contains dummy hardcoded objects...
-		return ds;
+		//here contains dummy hardcoded objects...
+		return new JRBeanCollectionDataSource(dummyCollection);
 	}	
 
 	public static void main(String[] args) throws Exception {

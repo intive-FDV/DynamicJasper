@@ -33,6 +33,7 @@ import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.JasperDesignDecorator;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.Parameter;
@@ -40,7 +41,12 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
 import ar.com.fdvs.dj.domain.entities.columns.SimpleColumn;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 /**
  * One of the main classes of this product. It represents the report itself.
@@ -48,7 +54,7 @@ import java.util.*;
 public class DynamicReport extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
-	protected Map fontsMap = new HashMap(); //<String, java.awt.Font>
+	protected Map<String, java.awt.Font> fontsMap = new HashMap<String, java.awt.Font>(); //<String, java.awt.Font>
 	private String reportName;
     /**
      Sets the language of the expressions used in the report
@@ -75,14 +81,14 @@ public class DynamicReport extends DJBaseElement {
 	private String resourceBundle = null;
 	private List<AbstractColumn> columns = new ArrayList<AbstractColumn>();
 
-	//<ColumnsGroup>
-	private List columnsGroups = new ArrayList();
+	//<DJGroup>
+	private List<DJGroup> columnsGroups = new ArrayList<DJGroup>();
 
 	//<DJChart>
-	private List charts = new ArrayList();
+	private List<DJChart> charts = new ArrayList<DJChart>();
 
 	//<DJChart>
-	private List newCharts = new ArrayList();
+	private List<ar.com.fdvs.dj.domain.chart.DJChart> newCharts = new ArrayList<ar.com.fdvs.dj.domain.chart.DJChart>();
 	
 	private DynamicReportOptions options;
 
@@ -90,14 +96,14 @@ public class DynamicReport extends DJBaseElement {
 	 * List of ColumnProperty
 	 * Other fields to register, not necessary assigned to columns
 	 */
-	private List fields = new ArrayList();
+	private List<ColumnProperty> fields = new ArrayList<ColumnProperty>();
 
 	//Other parameters needed (E.g. Subreports)
-	private List parameters = new ArrayList();
+	private List<Parameter> parameters = new ArrayList<Parameter>();
 	
 	private List<DJVariable> variables = new ArrayList<DJVariable>();
 
-	private Map properties = new HashMap();
+	private Map<String, String> properties = new HashMap<String, String>();
 
 	private String templateFileName = null;
 	private boolean templateImportDatasets = false;
@@ -105,10 +111,9 @@ public class DynamicReport extends DJBaseElement {
 	private boolean templateImportVariables = false;
 	private boolean templateImportParameters = true;
 
-	private List autoTexts = new ArrayList();
+	private List<AutoText> autoTexts = new ArrayList<AutoText>();
 
-	private Map styles = new LinkedHashMap();
-
+	private Map<String, Style> styles = new LinkedHashMap<String, Style>();
 	private DJQuery query;
 
 	private String whenNoDataText;
@@ -148,23 +153,15 @@ public class DynamicReport extends DJBaseElement {
 
 	public DynamicReport() {}
 
-	public DynamicReport(String title, List columns, List columnsGroups, List charts, DynamicReportOptions options) {
-		this.title = title;
-		this.columns = columns;
-		this.columnsGroups = columnsGroups;
-		this.charts = charts;
-		this.options = options;
-	}
-
 	public void addStyle(Style style) {
 		styles.put(style.getName(), style);
 	}
 
-	public Map getStyles() {
+	public Map<String, Style> getStyles() {
 		return styles;
 	}
 
-	public void setStyles(Map styles) {
+	public void setStyles(Map<String, Style> styles) {
 		this.styles = styles;
 	}
 
@@ -188,11 +185,11 @@ public class DynamicReport extends DJBaseElement {
 		this.columns = columns;
 	}
 
-	public List getColumnsGroups() {
+	public List<DJGroup> getColumnsGroups() {
 		return columnsGroups;
 	}
 
-	public void setColumnsGroups(List columnsGroups) {
+	public void setColumnsGroups(List<DJGroup> columnsGroups) {
 		this.columnsGroups = columnsGroups;
 	}
 
@@ -241,35 +238,35 @@ public class DynamicReport extends DJBaseElement {
 		this.templateFileName = templateFileName;
 	}
 
-	public List getFields() {
+	public List<ColumnProperty> getFields() {
 		return fields;
 	}
 
-	public void setFields(List fields) {
+	public void setFields(List<ColumnProperty> fields) {
 		this.fields = fields;
 	}
 
-	public List getCharts() {
+	public List<DJChart> getCharts() {
 		return charts;
 	}
 
-	public void setCharts(List charts) {
+	public void setCharts(List<DJChart> charts) {
 		this.charts = charts;
 	}
 
-	public List getNewCharts() {
+	public List<ar.com.fdvs.dj.domain.chart.DJChart> getNewCharts() {
 		return newCharts;
 	}
 
-	public void setNewCharts(List charts) {
+	public void setNewCharts(List<ar.com.fdvs.dj.domain.chart.DJChart> charts) {
 		this.newCharts = charts;
 	}
 	
-	public List getAutoTexts() {
+	public List<AutoText> getAutoTexts() {
 		return autoTexts;
 	}
 
-	public void setAutoTexts(List autoTexts) {
+	public void setAutoTexts(List<AutoText> autoTexts) {
 		this.autoTexts = autoTexts;
 	}
 
@@ -297,11 +294,11 @@ public class DynamicReport extends DJBaseElement {
 		this.query = query;
 	}
 
-	public Map getFontsMap() {
+	public Map<String, java.awt.Font> getFontsMap() {
 		return fontsMap;
 	}
 
-	public void setFontsMap(Map fontsMap) {
+	public void setFontsMap(Map<String, java.awt.Font> fontsMap) {
 		this.fontsMap = fontsMap;
 	}
 
@@ -353,11 +350,11 @@ public class DynamicReport extends DJBaseElement {
 		this.whenNoDataShowColumnHeader = whenNoDataShowColumnHeader;
 	}
 
-	public List getParameters() {
+	public List<Parameter> getParameters() {
 		return parameters;
 	}
 	
-	public void setParameters(List parameters) {
+	public void setParameters(List<Parameter> parameters) {
 		this.parameters = parameters;
 	}
 
@@ -405,7 +402,7 @@ public class DynamicReport extends DJBaseElement {
 		this.templateImportParameters = templateImportParameters;
 	}
 
-	public Map getProperties() {
+	public Map<String, String> getProperties() {
 		return properties;
 	}
 
@@ -413,7 +410,7 @@ public class DynamicReport extends DJBaseElement {
 	 * Must be a Map<String, String>
 	 * @param properties
 	 */
-	public void setProperties(Map properties) {
+	public void setProperties(Map<String, String> properties) {
 		this.properties = properties;
 	}
 
@@ -426,22 +423,16 @@ public class DynamicReport extends DJBaseElement {
 	}
 	
 	/**
-	 * 
+	 * Collects all the fields from columns and also the fields not bounds to columns
 	 * @return List<ColumnProperty>
 	 */
-	public List getAllFields(){
-		ArrayList l = new ArrayList();
-		for (Iterator iter = this.columns.iterator(); iter.hasNext();) {
-			Object o = iter.next();
-			ColumnProperty columnProperty = null;
-
-			if (o instanceof SimpleColumn && !(o instanceof ExpressionColumn)) {
-				SimpleColumn propcol = (SimpleColumn)o;
-				columnProperty = propcol.getColumnProperty();
-				l.add(columnProperty);
+	public List<ColumnProperty> getAllFields(){
+		ArrayList<ColumnProperty> l = new ArrayList<ColumnProperty>();
+		for (AbstractColumn abstractColumn : this.getColumns()) {
+			if (abstractColumn instanceof SimpleColumn && !(abstractColumn instanceof ExpressionColumn)) {
+				l.add(((SimpleColumn)abstractColumn).getColumnProperty());
 			}
 		}
-		
 		l.addAll(this.getFields());
 
 		return l;

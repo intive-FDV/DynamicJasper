@@ -63,8 +63,7 @@ public class FontHelper {
 	private static FontMetrics getFontMetric(Font font) {
 		java.awt.Font awtFont = java.awt.Font.decode(font.getStandardFontname());
 
-		FontMetrics fm = graphics.getFontMetrics(awtFont);
-		return fm;
+        return graphics.getFontMetrics(awtFont);
 	}
 
 

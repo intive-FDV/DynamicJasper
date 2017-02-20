@@ -70,8 +70,8 @@ public class CrosstabReportTest2 extends BaseDjReportTest {
 		initStyles(); //init some styles to be used
 
 
-	/**
-	 * Create an empty report (no columns)!
+	/*
+	  Create an empty report (no columns)!
 	 */
 		FastReportBuilder drb = new FastReportBuilder();
 			drb

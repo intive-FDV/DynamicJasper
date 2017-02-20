@@ -40,13 +40,13 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
+import net.sf.jasperreports.engine.JRVariable;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.design.JRDesignParameter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 /**
  * Manager invoked to register columns. An AbstractColumn is read and </br>
@@ -70,7 +70,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 
 	protected void registerEntity(Entity entity) {
 //		log.debug("registering column...");
-		//A default name is setted if the user didn't specify one.
+		//A default name is set if the user didn't specify one.
 		AbstractColumn column = (AbstractColumn)entity;
 		if (column.getName() == null){
 			column.setName(this.getDjd().getName() + "_" + COLUMN_NAME_PREFIX + colCounter++ );
@@ -113,7 +113,7 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 					
 					//The Custom Expression parameter must be registered
 					expressionColumn.setColumns( getDynamicReport().getAllFields() );
-					expressionColumn.setVariables( new ArrayList(getDjd().getVariablesList()) );
+					expressionColumn.setVariables( new ArrayList<JRVariable>(getDjd().getVariablesList()) );
 //					String property_name = expressionColumn.getColumnProperty().getProperty();
 					
 					//override property column name to make it unique and determinable. Add report name as a prefix
@@ -143,10 +143,8 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 		log.debug("Transforming column: " + propertyColumn.getName() + ", property: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +") " );
 
 		field.setDescription(propertyColumn.getFieldDescription()); //hack for XML data source
-		Iterator iter = columnProperty.getFieldProperties().keySet().iterator();
-		while (iter.hasNext()) {
-			String key = (String) iter.next();
-			field.getPropertiesMap().setProperty(key, (String) columnProperty.getFieldProperties().get(key));
+		for (String key : columnProperty.getFieldProperties().keySet()) {
+			field.getPropertiesMap().setProperty(key, columnProperty.getFieldProperties().get(key));
 		}
 		return field;
 	}

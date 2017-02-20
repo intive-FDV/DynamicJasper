@@ -42,17 +42,16 @@ public class DynamicJasperDesign extends JasperDesign {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	//<String paramName, CustomExpression expression>
-	private TreeMap parametersWithValues; //There should not be "non serializable objects here"
+	private TreeMap<String, Object> parametersWithValues = new TreeMap<String, Object>(); //There should not be "non serializable objects here"
 
 	public DynamicJasperDesign() {
-		this.parametersWithValues = new TreeMap();
 	}
 
-	public TreeMap getParametersWithValues() {
+	public TreeMap<String, Object> getParametersWithValues() {
 		return parametersWithValues;
 	}
 
-	public void setParametersWithValues(TreeMap parametersWithValues) {
+	public void setParametersWithValues(TreeMap<String, Object> parametersWithValues) {
 		this.parametersWithValues = parametersWithValues;
 	}
 

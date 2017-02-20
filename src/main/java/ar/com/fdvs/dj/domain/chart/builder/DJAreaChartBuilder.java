@@ -130,8 +130,7 @@ public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder>
 	/**
 	 * Sets the x position.
 	 *
-	 * @param y the x position
-	 **/
+     **/
 	public DJAreaChartBuilder setX(int x) {
 		this.chart.getOptions().setX(x);
 		return this;
@@ -143,7 +142,7 @@ public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder>
 	 * @param showLegend the legend visibility
 	 **/
 	public DJAreaChartBuilder setShowLegend(boolean showLegend) {
-		this.chart.getOptions().setShowLegend(new Boolean(showLegend));
+		this.chart.getOptions().setShowLegend(showLegend);
 		return this;
 	}
 
@@ -304,7 +303,7 @@ public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder>
 	 * @param lineWidth the line width
 	 **/
 	public DJAreaChartBuilder setLineWidth(float lineWidth) {
-		this.chart.getOptions().setLineWidth(new Float(lineWidth));
+		this.chart.getOptions().setLineWidth(lineWidth);
 		return this;
 	}
 
@@ -324,7 +323,7 @@ public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder>
 	 * @param padding the padding
 	 **/
 	public DJAreaChartBuilder setPadding(int padding) {
-		this.chart.getOptions().setPadding(new Integer(padding));
+		this.chart.getOptions().setPadding(padding);
 		return this.getClass().cast(this);
 	}
 
@@ -373,8 +372,7 @@ public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder>
 	 * Adds the specified serie column to the dataset with custom label.
 	 * 
 	 * @param column the serie column
-	 * @param label column the custom label
-	 **/
+     **/
 	public DJAreaChartBuilder addSerie(AbstractColumn column, StringExpression labelExpression) {
 		getDataset().addSerie(column, labelExpression);
 		return this;
@@ -394,7 +392,7 @@ public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder>
 	 * @param labelRotation the label rotation
 	 **/
 	public DJAreaChartBuilder setLabelRotation(double labelRotation) {
-		this.getPlot().setLabelRotation(new Double(labelRotation));
+		this.getPlot().setLabelRotation(labelRotation);
 		return this;
 	}
 
@@ -423,7 +421,7 @@ public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder>
 	 * 
 	 * @param seriesColors the series colors
 	 **/
-	public DJAreaChartBuilder setSeriesColors(List seriesColors) {
+	public DJAreaChartBuilder setSeriesColors(List<Color> seriesColors) {
 		getPlot().setSeriesColors(seriesColors);
 		return this;
 	}

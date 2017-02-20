@@ -88,13 +88,13 @@ public class GroupsVariableTest1 extends BaseDjReportTest {
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitleStyle(titleStyle)
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+			.setDetailHeight(15).setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
 			.setGrandTotalLegend("Grand Total")
@@ -144,17 +144,17 @@ public class GroupsVariableTest1 extends BaseDjReportTest {
 		drb.addGlobalHeaderVariable(columnaQuantity, DJCalculation.SUM,headerVariables);
 		drb.addGlobalFooterVariable(columnAmount, DJCalculation.SUM,headerVariables);
 		drb.addGlobalFooterVariable(columnaQuantity, DJCalculation.SUM,headerVariables);
-		drb.setGlobalHeaderVariableHeight(new Integer(25));
-		drb.setGlobalFooterVariableHeight(new Integer(25));
+		drb.setGlobalHeaderVariableHeight(25);
+		drb.setGlobalFooterVariableHeight(25);
 
 		GroupBuilder gb1 = new GroupBuilder();
 
 //		 define the criteria column to group by (columnState)
 		DJGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER)
-				.setFooterVariablesHeight(new Integer(20))
-				.setFooterHeight(new Integer(50),true)
-				.setHeaderVariablesHeight(new Integer(35))
+				.setFooterVariablesHeight(20)
+				.setFooterHeight(50,true)
+				.setHeaderVariablesHeight(35)
                 .addVariable("myVar",columnAmount,DJCalculation.SUM)   //Here define the variable "myVar"
                 .addFooterVariable(columnAmount, new CustomExpression() {
                     public Object evaluate(Map fields, Map variables, Map parameters) {

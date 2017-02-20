@@ -73,8 +73,8 @@ public class CrosstabReportTest8 extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 		initStyles(); //init some styles to be used
 
-		/**
-		 * Create an empty report (no columns)!
+		/*
+		  Create an empty report (no columns)!
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 			drb
@@ -174,9 +174,9 @@ public class CrosstabReportTest8 extends BaseDjReportTest {
 		style2.setTextColor(new Color(0,128,0)); //dark green
 		style2.setFont(Font.ARIAL_SMALL_BOLD);
 
-		StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(3000)); //TODO ENHANCEMENT make it come from a parameter??? $P{...}
-		StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(6000));
-		StatusLightCondition status2 = new StatusLightCondition(new Double(6000),new Double(100000));
+		StatusLightCondition status0 = new StatusLightCondition(0d, 3000d); //TODO ENHANCEMENT make it come from a parameter??? $P{...}
+		StatusLightCondition status1 = new StatusLightCondition(5000d, 6000d);
+		StatusLightCondition status2 = new StatusLightCondition(6000d, 100000d);
 
 		ConditionalStyle condition0 = new ConditionalStyle(status0,style0);
 		ConditionalStyle condition1 = new ConditionalStyle(status1,style1);

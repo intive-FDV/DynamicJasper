@@ -73,27 +73,27 @@ public class DJJRJdk13Compiler extends JRJdk13Compiler {
             Object compiler = clazz.newInstance();
 
             try {
-                Method compileMethod = clazz.getMethod("compile", new Class[]{String[].class, PrintWriter.class});
+                Method compileMethod = clazz.getMethod("compile", String[].class, PrintWriter.class);
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                int result = ((Integer)compileMethod.invoke(compiler, new Object[]{source, new PrintWriter(baos)})).intValue();
+                int result = (Integer) compileMethod.invoke(compiler, source, new PrintWriter(baos));
 
                 if (result != MODERN_COMPILER_SUCCESS) {
                     errors = baos.toString();
                 }
             }
             catch (NoSuchMethodException ex) {
-                Method compileMethod = clazz.getMethod("compile", new Class[]{String[].class});
+                Method compileMethod = clazz.getMethod("compile", String[].class);
 
-                int result = ((Integer)compileMethod.invoke(compiler, new Object[]{source})).intValue();
+                int result = (Integer) compileMethod.invoke(compiler, new Object[]{source});
                 if (result != MODERN_COMPILER_SUCCESS) {
                     errors = "See error messages above.";
                 }
             }
         }
         catch (Exception e) {
-            StringBuffer files = new StringBuffer();
-            for (int i = 0; i < sourceFiles.length; ++i) {
-                files.append(sourceFiles[i].getPath());
+            StringBuilder files = new StringBuilder();
+            for (File sourceFile : sourceFiles) {
+                files.append(sourceFile.getPath());
                 files.append(' ');
             }
             throw new JRException("Error compiling report java source files : " + files, e);

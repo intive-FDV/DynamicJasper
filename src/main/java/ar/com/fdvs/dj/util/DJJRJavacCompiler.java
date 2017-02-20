@@ -70,7 +70,7 @@ public class DJJRJavacCompiler extends JRJavacCompiler {
             // Read the error messages (if any) into the ByteArrayOutputStream
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
-            int count = 0;
+            int count;
             do {
                 count = errFile.read(buffer);
                 if (count > 0) {
@@ -78,16 +78,16 @@ public class DJJRJavacCompiler extends JRJavacCompiler {
                 }
             } while (count >= 0);
 
-            if (baos.toString().indexOf("error") != -1) {
+            if (baos.toString().contains("error")) {
                 return baos.toString();
             }
 
             return null;
         }
         catch (Exception e) {
-            StringBuffer files = new StringBuffer();
-            for (int i = 0; i < sourceFiles.length; ++i) {
-                files.append(sourceFiles[i].getPath());
+            StringBuilder files = new StringBuilder();
+            for (File sourceFile : sourceFiles) {
+                files.append(sourceFile.getPath());
                 files.append(' ');
             }
             throw new JRException("Error compiling report java source files : " + files, e);

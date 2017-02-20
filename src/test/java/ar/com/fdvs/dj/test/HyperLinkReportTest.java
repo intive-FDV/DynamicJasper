@@ -55,9 +55,9 @@ public class HyperLinkReportTest extends BaseDjReportTest {
 		Style style = new StyleBuilder(false).setHorizontalAlign(HorizontalAlign.CENTER)
 		.setStretching(Stretching.RELATIVE_TO_TALLEST_OBJECT)
 		.setBorderColor(Color.BLACK).setBorder(Border.THIN()).build();
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("State", "state", String.class.getName(),30)

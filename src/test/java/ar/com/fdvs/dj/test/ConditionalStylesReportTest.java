@@ -74,21 +74,21 @@ public class ConditionalStylesReportTest extends BaseDjReportTest {
 		oddRowStyle.setBackgroundColor(veryLightGrey);oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb.setTitle("November " + getYear() +" sales report")
 			.setSubtitle("The items in this report correspond "
 				+"to the main products: DVDs, Books, Foods and Magazines")
-			.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
-			.setSubtitleHeight(new Integer(20))
-			.setDetailHeight(new Integer(15))
+			.setTitleStyle(titleStyle).setTitleHeight(30)
+			.setSubtitleHeight(20)
+			.setDetailHeight(15)
 			.setLeftMargin(margin)
 			.setRightMargin(margin)
 			.setTopMargin(margin)
 			.setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
 			.setOddRowBackgroundStyle(oddRowStyle)
-			.setColumnsPerPage(new Integer(1))
-			.setColumnSpace(new Integer(5));
+			.setColumnsPerPage(1)
+			.setColumnSpace(5);
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())
 			.setTitle("State").setWidth(new Integer(85))
@@ -158,9 +158,9 @@ public class ConditionalStylesReportTest extends BaseDjReportTest {
 		style2.setTextColor(new Color(0,128,0)); //dark green
 		style2.setFont(Font.ARIAL_SMALL_BOLD);
 
-		StatusLightCondition status0 = new StatusLightCondition(new Double(0), new Double(3000)); //TODO ENHANCEMENT make it come from a parameter??? $P{...}
-		StatusLightCondition status1 = new StatusLightCondition(new Double(5000), new Double(6000));
-		StatusLightCondition status2 = new StatusLightCondition(new Double(6000),new Double(100000));
+		StatusLightCondition status0 = new StatusLightCondition(0d, 3000d); //TODO ENHANCEMENT make it come from a parameter??? $P{...}
+		StatusLightCondition status1 = new StatusLightCondition(5000d, 6000d);
+		StatusLightCondition status2 = new StatusLightCondition(6000d, 100000d);
 
 		ConditionalStyle condition0 = new ConditionalStyle(status0,style0);
 		ConditionalStyle condition1 = new ConditionalStyle(status1,style1);

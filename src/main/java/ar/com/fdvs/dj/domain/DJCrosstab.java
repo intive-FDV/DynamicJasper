@@ -41,9 +41,9 @@ public class DJCrosstab extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
-	private List rows = new ArrayList();
-	private List columns = new ArrayList();
-	private List measures = new ArrayList();
+	private List<DJCrosstabRow> rows = new ArrayList<DJCrosstabRow>();
+	private List<DJCrosstabColumn> columns = new ArrayList<DJCrosstabColumn>();
+	private List<DJCrosstabMeasure> measures = new ArrayList<DJCrosstabMeasure>();
 
 	private DJLabel caption;
 	
@@ -107,16 +107,16 @@ public class DJCrosstab extends DJBaseElement {
 	public void setHeaderStyle(Style headerStyle) {
 		this.headerStyle = headerStyle;
 	}
-	public List getRows() {
+	public List<DJCrosstabRow> getRows() {
 		return rows;
 	}
-	public void setRows(List rows) {
+	public void setRows(List<DJCrosstabRow> rows) {
 		this.rows = rows;
 	}
-	public List getColumns() {
+	public List<DJCrosstabColumn> getColumns() {
 		return columns;
 	}
-	public void setColumns(List columns) {
+	public void setColumns(List<DJCrosstabColumn> columns) {
 		this.columns = columns;
 	}
 	public int getHeight() {
@@ -131,16 +131,16 @@ public class DJCrosstab extends DJBaseElement {
 	public void setWidth(int width) {
 		this.width = width;
 	}
-	public List getMeasures() {
+	public List<DJCrosstabMeasure> getMeasures() {
 		return measures;
 	}
 	
-	public void setMeasures(List measures) {
+	public void setMeasures(List<DJCrosstabMeasure> measures) {
 		this.measures = measures;
 	}
 
 	public DJCrosstabMeasure getMeasure(int index) {
-		return (DJCrosstabMeasure) measures.get(index);
+		return measures.get(index);
 	}
 	public boolean isUseFullWidth() {
 		return useFullWidth;

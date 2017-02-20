@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class DJServletHelper {
 
-    private static ThreadLocal<Integer> pageTreshold = new ThreadLocal<Integer>();
+    private static final ThreadLocal<Integer> pageTreshold = new ThreadLocal<Integer>();
 
     static {
         pageTreshold.set(5);
@@ -68,12 +68,12 @@ public class DJServletHelper {
                                     DynamicReport dynamicReport,
                                     LayoutManager layoutManager,
                                     JRDataSource ds,
-                                    Map parameters,
-                                    Map exporterParams) throws JRException, IOException {
+                                    Map<String, Object> parameters,
+                                    Map<JRExporterParameter,Object> exporterParams) throws JRException, IOException {
         if (parameters == null)
-            parameters = new HashMap();
+            parameters = new HashMap<String, Object>();
         if (exporterParams == null)
-            exporterParams = new HashMap();
+            exporterParams = new HashMap<JRExporterParameter,Object>();
 
         JasperPrint _jasperPrint = DynamicJasperHelper.generateJasperPrint(dynamicReport, layoutManager, ds, parameters);
         exportToHtml(request,response,imageServletUrl,_jasperPrint,exporterParams);
@@ -86,9 +86,9 @@ public class DJServletHelper {
                                     HttpServletResponse response,
                                     String imageServletUrl,
                                     JasperPrint jasperPrint,
-                                    Map exporterParams) throws JRException, IOException {
+                                    Map<JRExporterParameter,Object>  exporterParams) throws JRException, IOException {
         if (exporterParams == null)
-            exporterParams = new HashMap();
+            exporterParams = new HashMap<JRExporterParameter,Object> ();
 
         exporterParams.put(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
 
@@ -109,12 +109,12 @@ public class DJServletHelper {
                                            DynamicReport dynamicReport,
                                            LayoutManager layoutManager,
                                            JRDataSource ds,
-                                           Map parameters,
-                                           Map exporterParams) throws JRException, IOException {
+                                           Map<String, Object> parameters,
+                                           Map<JRExporterParameter,Object>  exporterParams) throws JRException, IOException {
         if (parameters == null)
-            parameters = new HashMap();
+            parameters = new HashMap<String, Object>();
         if (exporterParams == null)
-            exporterParams = new HashMap();
+            exporterParams = new HashMap<JRExporterParameter,Object> ();
 
         JasperPrint _jasperPrint = DynamicJasperHelper.generateJasperPrint(dynamicReport, layoutManager, ds, parameters);
 
@@ -125,9 +125,9 @@ public class DJServletHelper {
     public static InputStream exportToHtml(HttpServletRequest request,
                                     String imageServletUrl,
                                     JasperPrint jasperPrint,
-                                    Map exporterParams) throws JRException, IOException {
+                                    Map<JRExporterParameter,Object> exporterParams) throws JRException, IOException {
         if (exporterParams == null)
-            exporterParams = new HashMap();
+            exporterParams = new HashMap<JRExporterParameter,Object>();
 
         exporterParams.put(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
 

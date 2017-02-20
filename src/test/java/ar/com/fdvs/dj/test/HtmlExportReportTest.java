@@ -32,24 +32,15 @@ package ar.com.fdvs.dj.test;
 
 import ar.com.fdvs.dj.core.DJServletHelper;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.domain.DJCalculation;
-import ar.com.fdvs.dj.domain.DJValueFormatter;
-import ar.com.fdvs.dj.domain.DynamicReport;
-import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
 import ar.com.fdvs.dj.output.ReportWriter;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.view.JasperDesignViewer;
-import net.sf.jasperreports.view.JasperViewer;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
 
 public class HtmlExportReportTest extends FastReportTest {
 
@@ -57,22 +48,22 @@ public class HtmlExportReportTest extends FastReportTest {
     public void testReport() throws Exception {
         dr = buildReport();
 
-        /**
-         * Get a JRDataSource implementation
+        /*
+          Get a JRDataSource implementation
          */
         JRDataSource ds = getDataSource();
 
 
-        /**
-         * Creates the JasperReport object, we pass as a Parameter
-         * the DynamicReport, a new ClassicLayoutManager instance (this
-         * one does the magic) and the JRDataSource
+        /*
+          Creates the JasperReport object, we pass as a Parameter
+          the DynamicReport, a new ClassicLayoutManager instance (this
+          one does the magic) and the JRDataSource
          */
         jr = DynamicJasperHelper.generateJasperReport(dr, getLayoutManager(), params);
 
-        /**
-         * Creates the JasperPrint object, we pass as a Parameter
-         * the JasperReport object, and the JRDataSource
+        /*
+          Creates the JasperPrint object, we pass as a Parameter
+          the JasperReport object, and the JRDataSource
          */
         log.debug("Filling the report");
         if (ds != null)
@@ -97,8 +88,8 @@ public class HtmlExportReportTest extends FastReportTest {
 
         //Comparing both generated html. They should be the same
         assertNotNull(response.getContentAsString());
-        assertTrue("not empty", response.getContentAsString() != "");
-        assertTrue("not empty", new String(out.toByteArray()) != "");
+        assertTrue("not empty", !response.getContentAsString().equals(""));
+        assertTrue("not empty", !new String(out.toByteArray()).equals(""));
 
         log.debug("test finished");
 
@@ -107,10 +98,10 @@ public class HtmlExportReportTest extends FastReportTest {
     public void testReport2() throws Exception {
         dr = buildReport();
 
-        /**
-         * Creates the JasperReport object, we pass as a Parameter
-         * the DynamicReport, a new ClassicLayoutManager instance (this
-         * one does the magic) and the JRDataSource
+        /*
+          Creates the JasperReport object, we pass as a Parameter
+          the DynamicReport, a new ClassicLayoutManager instance (this
+          one does the magic) and the JRDataSource
          */
         jr = DynamicJasperHelper.generateJasperReport(dr, getLayoutManager(), params);
 
@@ -131,8 +122,8 @@ public class HtmlExportReportTest extends FastReportTest {
         //Comparing both generated html. They should be the same
         //assertEquals(response.getContentAsString(),new String(out.toByteArray()));
 
-        assertTrue("not empty", response.getContentAsString() != "");
-        assertTrue("not empty", new String(out.toByteArray()) != "");
+        assertTrue("not empty", !response.getContentAsString().equals(""));
+        assertTrue("not empty", !new String(out.toByteArray()).equals(""));
 
         log.debug("test finished");
 

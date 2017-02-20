@@ -67,9 +67,9 @@ public class SubReportBuilder2Test extends BaseDjReportTest {
 			.setSubtitle("This report was generated at " + new Date())
 			.setUseFullPageWidth(true);
 
-		/**
-		 * Create the subreport. Note that the "subreport" object is then passed
-		 * as parameter to the GroupBuilder
+		/*
+		  Create the subreport. Note that the "subreport" object is then passed
+		  as parameter to the GroupBuilder
 		 */
 		Subreport subreport = new SubReportBuilder()
 						.setDataSource(	DJConstants.DATA_SOURCE_ORIGIN_PARAMETER,
@@ -83,9 +83,9 @@ public class SubReportBuilder2Test extends BaseDjReportTest {
 
 		drb.addSubreportInGroupFooter(1, subreport);
 
-		/**
-		 * add in a map the paramter with the data source to use in the subreport.
-		 * The "params" map is later passed to the DynamicJasperHelper.generateJasperPrint(...)
+		/*
+		  add in a map the paramter with the data source to use in the subreport.
+		  The "params" map is later passed to the DynamicJasperHelper.generateJasperPrint(...)
 		 */
 		params.put("statistics", Product.statistics_  ); // the 2nd param is a static Collection
 
@@ -94,8 +94,8 @@ public class SubReportBuilder2Test extends BaseDjReportTest {
 
 		params.put("subreportParameterMap", subreportParameterMap  ); // the 2nd param is a static Collection
 
-		/**
-		 * Create the group and add the subreport (as a Fotter subreport)
+		/*
+		  Create the group and add the subreport (as a Fotter subreport)
 		 */
 		drb.setUseFullPageWidth(true);
 

@@ -41,13 +41,13 @@ public class Statistic {
 	private float average;
 	private float amount;
 
-	public static List dummy3 = new ArrayList();
+	public static List<DummyLevel3> dummy3 = new ArrayList<DummyLevel3>();
 
 	static {
-		dummy3.add(new DummyLevel3("name1",new Long(1)));
-		dummy3.add(new DummyLevel3("name2",new Long(2)));
-		dummy3.add(new DummyLevel3("name3",new Long(3)));
-		dummy3.add(new DummyLevel3("name3",new Long(4)));
+		dummy3.add(new DummyLevel3("name1", 1L));
+		dummy3.add(new DummyLevel3("name2", 2L));
+		dummy3.add(new DummyLevel3("name3", 3L));
+		dummy3.add(new DummyLevel3("name3", 4L));
 	}
 
 	public Statistic() {
@@ -91,7 +91,7 @@ public class Statistic {
 	public void setAmount(float amount) {
 		this.amount = amount;
 	}
-	public List getDummy3() {
+	public List<DummyLevel3> getDummy3() {
 		return dummy3;
 	}
 

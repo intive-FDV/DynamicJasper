@@ -65,7 +65,7 @@ public abstract class ReportWriter {
 
     public abstract InputStream write() throws IOException, JRException;
 
-    public static final void copyStreams(final InputStream _inputStream, final OutputStream _ouputStream) throws IOException {
+    public static void copyStreams(final InputStream _inputStream, final OutputStream _ouputStream) throws IOException {
         final byte[] buffer = new byte[BUFFER_SIZE];
         int c;
         try {

@@ -58,7 +58,6 @@ import ar.com.fdvs.dj.util.SortUtils;
 
 public class CrosstabReportTest extends BaseDjReportTest {
 
-	private DJCrosstab djcross;
 	private Style totalHeader;
 	private Style colAndRowHeaderStyle;
 	private Style mainHeaderStyle;
@@ -68,9 +67,9 @@ public class CrosstabReportTest extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 
 
-		/**
-		 * Creates the DynamicReportBuilder and sets the basic options for
-		 * the report
+		/*
+		  Creates the DynamicReportBuilder and sets the basic options for
+		  the report
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		drb.addColumn("State", "state", String.class.getName(),30)
@@ -165,13 +164,13 @@ public class CrosstabReportTest extends BaseDjReportTest {
 
 //		cb.addColumn(col);
 
-		djcross = cb.build();
+		DJCrosstab djcross = cb.build();
 
 		drb.addHeaderCrosstab(djcross);
 
 		DynamicReport dr = drb.build();
 
-		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(),djcross));
+		params.put("sr", SortUtils.sortCollection(TestRepositoryProducts.getDummyCollection(), djcross));
 		return dr;
 	}
 

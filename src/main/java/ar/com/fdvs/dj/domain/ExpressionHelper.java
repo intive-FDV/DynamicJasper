@@ -48,24 +48,24 @@ public class ExpressionHelper {
 			private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 			
 			public Object evaluate(Map fields, Map variables, Map parameters) {
-				return new Boolean(getGroupCount(groupName, variables) > 1);
+				return getGroupCount(groupName, variables) > 1;
 			}
 		};
 	}
 	
 	public static int getPageNumber(Map variables) {
-		return ((Integer) variables.get("PAGE_NUMBER")).intValue(); 
+		return (Integer) variables.get("PAGE_NUMBER");
 	}
 
 	public static int getGroupCount(String groupName, Map variables) {
-		return ((Integer) variables.get(groupName + "_COUNT")).intValue(); 
+		return (Integer) variables.get(groupName + "_COUNT");
 	}
 	
 	private static class PrintInFirstPage extends BooleanExpression {
 		private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 		
 		public Object evaluate(Map fields, Map variables, Map parameters) {
-			return new Boolean(getPageNumber(variables) == 1);
+			return getPageNumber(variables) == 1;
 		}
 	}
 	
@@ -73,7 +73,7 @@ public class ExpressionHelper {
 		private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 		
 		public Object evaluate(Map fields, Map variables, Map parameters) {
-			return new Boolean(getPageNumber(variables) > 1);
+			return getPageNumber(variables) > 1;
 		}
 	}
 }

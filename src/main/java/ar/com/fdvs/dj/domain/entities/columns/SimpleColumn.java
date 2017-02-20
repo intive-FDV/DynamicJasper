@@ -44,11 +44,11 @@ public class SimpleColumn extends PropertyColumn {
         if( this.getTextFormatter() == null ) {
             return "$F{" + getColumnProperty().getProperty() + "}";
         } else {
-            return new StringBuffer("((java.text.Format)$P{")
-                            .append( ExpressionUtils.createParameterName("formatter_for_" + getName(), getTextFormatter()))
-                            .append( "}).format($F{" )
-                            .append( getColumnProperty().getProperty() )
-                            .append( "})" ).toString();
+            return "((java.text.Format)$P{" +
+                    ExpressionUtils.createParameterName("formatter_for_" + getName(), getTextFormatter()) +
+                    "}).format($F{" +
+                    getColumnProperty().getProperty() +
+                    "})";
         }
 	}
 

@@ -60,7 +60,7 @@ public class TwoSeedCrossTabColorShema extends CrossTabColorShema {
 		float pr = (float) .90;
 		float[] comps = color.getColorComponents(null);
 		for (int i = 0; i < comps.length; i++) {
-			comps[i] = (float) ((comps[i]*pr));
+			comps[i] = (comps[i]*pr);
 		}
 		return new Color(comps[0],comps[1],comps[2]);
 	}

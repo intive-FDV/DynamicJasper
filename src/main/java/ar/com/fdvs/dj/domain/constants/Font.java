@@ -37,7 +37,7 @@ public class Font extends BaseDomainConstant implements Cloneable {
 
 	private static final long serialVersionUID = 1L;
 	
-	private int fontSize;
+	private float fontSize;
 	private String fontName;
 	private boolean bold = false;
 	private boolean italic = false;
@@ -165,7 +165,7 @@ public class Font extends BaseDomainConstant implements Cloneable {
 		return fontName;
 	}
 
-	public int getFontSize() {
+	public float getFontSize() {
 		return fontSize;
 	}
 
@@ -181,7 +181,7 @@ public class Font extends BaseDomainConstant implements Cloneable {
 		this.italic = intalic;
 	}
 
-	public void setFontSize(int fontSize) {
+	public void setFontSize(float fontSize) {
 		this.fontSize = fontSize;
 	}
 
@@ -276,9 +276,8 @@ public class Font extends BaseDomainConstant implements Cloneable {
 			style = 2;
 		else if (this.isBold())
 			style = 1;
-		java.awt.Font font = new java.awt.Font(this.getFontName(), style, this.getFontSize());
 
-		return font;
+        return new java.awt.Font(this.getFontName(), style, Math.round(this.getFontSize()) );
 	}
 
 }

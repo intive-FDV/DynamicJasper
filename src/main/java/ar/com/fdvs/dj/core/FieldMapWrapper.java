@@ -9,14 +9,14 @@ import java.util.Set;
 
 public class FieldMapWrapper implements Map {
 
-    protected Map map;
+    protected Map<String,JRFillField> map;
 
-    public FieldMapWrapper(Map map) {
+    public FieldMapWrapper(Map<String,JRFillField> map) {
         this.map = map;
     }
 
     public FieldMapWrapper() {
-        this.map = Collections.EMPTY_MAP;
+        this.map = Collections.emptyMap();
     }
 
     public void clear() {
@@ -60,7 +60,7 @@ public class FieldMapWrapper implements Map {
     }
 
     public Object put(Object arg0, Object arg1) {
-        return map.put(arg0, arg1);
+        return map.put((String)arg0, (JRFillField)arg1);
     }
 
     public void putAll(Map arg0) {
@@ -79,7 +79,7 @@ public class FieldMapWrapper implements Map {
         throw new DJException("Method not implemented");
     }
 
-    public void setMap(Map fldsm) {
+    public void setMap(Map<String,JRFillField> fldsm) {
         this.map = fldsm;
     }
 

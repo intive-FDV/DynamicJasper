@@ -30,34 +30,79 @@
 package ar.com.fdvs.dj.core.layout;
 
 import ar.com.fdvs.dj.core.DJException;
-import ar.com.fdvs.dj.domain.*;
+import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJChartOptions;
+import ar.com.fdvs.dj.domain.DJWaterMark;
+import ar.com.fdvs.dj.domain.DynamicJasperDesign;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.DataSetFactory;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.DJColSpan;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
-import ar.com.fdvs.dj.domain.entities.columns.*;
+import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
+import ar.com.fdvs.dj.domain.entities.columns.BarCodeColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ExpressionColumn;
+import ar.com.fdvs.dj.domain.entities.columns.ImageColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PercentageColumn;
+import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
-import ar.com.fdvs.dj.util.*;
+import ar.com.fdvs.dj.util.ExpressionUtils;
+import ar.com.fdvs.dj.util.HyperLinkUtil;
+import ar.com.fdvs.dj.util.LayoutUtils;
+import ar.com.fdvs.dj.util.Utils;
+import ar.com.fdvs.dj.util.WaterMarkRenderer;
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
-import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.JRBand;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRGroup;
+import net.sf.jasperreports.engine.JRStyle;
+import net.sf.jasperreports.engine.JRTextElement;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
-import net.sf.jasperreports.engine.design.*;
-import net.sf.jasperreports.engine.type.*;
+import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.engine.design.JRDesignChartDataset;
+import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
+import net.sf.jasperreports.engine.design.JRDesignElement;
+import net.sf.jasperreports.engine.design.JRDesignExpression;
+import net.sf.jasperreports.engine.design.JRDesignGraphicElement;
+import net.sf.jasperreports.engine.design.JRDesignGroup;
+import net.sf.jasperreports.engine.design.JRDesignImage;
+import net.sf.jasperreports.engine.design.JRDesignSection;
+import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.design.JRDesignTextElement;
+import net.sf.jasperreports.engine.design.JRDesignTextField;
+import net.sf.jasperreports.engine.design.JRDesignVariable;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.type.CalculationEnum;
+import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
+import net.sf.jasperreports.engine.type.ModeEnum;
+import net.sf.jasperreports.engine.type.OnErrorTypeEnum;
+import net.sf.jasperreports.engine.type.PositionTypeEnum;
+import net.sf.jasperreports.engine.type.ResetTypeEnum;
+import net.sf.jasperreports.engine.type.ScaleImageEnum;
+import net.sf.jasperreports.engine.type.StretchTypeEnum;
 import net.sf.jasperreports.engine.util.JRExpressionUtil;
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.MultiHashMap;
-import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.collections4.MultiValuedMap;
+import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Abstract Class used as base for the different Layout Managers.</br>
@@ -81,20 +126,20 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
     protected abstract void transformDetailBandTextField(AbstractColumn column, JRDesignTextField textField);
 
-    private HashMap reportStyles = new HashMap();
+    private Map<String, JRStyle> reportStyles = new HashMap<String, JRStyle>();
 
     /**
      * Holds the original groups binded to a column.
      * Needed for later reference
      * List<JRDesignGroup>
      */
-    protected final List realGroups = new ArrayList();
+    protected final List<JRGroup> realGroups = new ArrayList<JRGroup>();
 
-    public HashMap getReportStyles() {
+    public Map<String, JRStyle> getReportStyles() {
         return reportStyles;
     }
 
-    public void setReportStyles(HashMap reportStyles) {
+    public void setReportStyles(Map<String, JRStyle> reportStyles) {
         this.reportStyles = reportStyles;
     }
 
@@ -228,8 +273,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      */
     protected void ensureDJStyles() {
         //first of all, register all parent styles if any
-        for (Object o : getReport().getStyles().values()) {
-            Style style = (Style) o;
+        for (Style style : getReport().getStyles().values()) {
             addStyleToDesign(style);
         }
 
@@ -315,8 +359,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         for (AbstractColumn column : getVisibleColumns()) {
 
-            /**
-             * Barcode column
+            /*
+              Barcode column
              */
             if (column instanceof BarCodeColumn) {
                 BarCodeColumn barcodeColumn = (BarCodeColumn) column;
@@ -353,8 +397,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
                 detail.addElement(image);
             }
-            /**
-             * Image columns
+            /*
+              Image columns
              */
             else if (column instanceof ImageColumn) {
                 ImageColumn imageColumn = (ImageColumn) column;
@@ -378,8 +422,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
                 detail.addElement(image);
             }
-            /**
-             * Regular Column
+            /*
+              Regular Column
              */
             else {
                 if (getReport().getOptions().isShowDetailBand()) {
@@ -589,7 +633,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             for (Object visibleColum : visibleColums) {
                 AbstractColumn col = (AbstractColumn) visibleColum;
                 columnsWidth += col.getWidth();
-                if (col.getFixedWidth())
+                if (col.isFixedWidth())
                     notRezisableWidth += col.getWidth();
             }
 
@@ -608,7 +652,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             //Select the non-resizable columns
             Collection resizableColumns = CollectionUtils.select(visibleColums, new Predicate() {
                 public boolean evaluate(Object arg0) {
-                    return !((AbstractColumn) arg0).getFixedWidth();
+                    return !((AbstractColumn) arg0).isFixedWidth();
                 }
 
             });
@@ -740,12 +784,12 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             textField.getPropertiesMap().setProperty(JRTextElement.PROPERTY_TRUNCATE_SUFFIX, col.getTruncateSuffix());
         }
 
-        List columnsGroups = getReport().getColumnsGroups();
+        List<DJGroup> columnsGroups = getReport().getColumnsGroups();
         if (col instanceof PercentageColumn) {
             PercentageColumn pcol = (PercentageColumn) col;
 
             if (group == null) { //we are in the detail band
-                DJGroup innerMostGroup = (DJGroup) columnsGroups.get(columnsGroups.size() - 1);
+                DJGroup innerMostGroup = columnsGroups.get(columnsGroups.size() - 1);
                 exp.setText(pcol.getTextForExpression(innerMostGroup));
             } else {
                 exp.setText(pcol.getTextForExpression(group));
@@ -764,14 +808,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         textField.setY(col.getPosY());
         textField.setHeight(height);
 
-        textField.setBlankWhenNull(col.getBlankWhenNull());
+        textField.setBlankWhenNull(col.isBlankWhenNull());
 
         textField.setPattern(col.getPattern());
 
         if (col.getMarkup() != null)
             textField.setMarkup(col.getMarkup().toLowerCase());
 
-        textField.setPrintRepeatedValues(col.getPrintRepeatedValues());
+        textField.setPrintRepeatedValues(col.isPrintRepeatedValues());
 
         textField.setPrintWhenDetailOverflows(true);
 
@@ -788,11 +832,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             JRDesignGroup previousGroup = getJRGroupFromDJGroup(group);
             textField.setPrintWhenGroupChanges(previousGroup);
 
-            /**
-             * Since a group column can share the style with non group columns, if oddRow coloring is enabled,
-             * we modified this shared style to have a colored background on odd rows. We don't want that for group
-             * columns, that's why we create our own style from the existing one, and remove proper odd-row conditional
-             * style if present
+            /*
+              Since a group column can share the style with non group columns, if oddRow coloring is enabled,
+              we modified this shared style to have a colored background on odd rows. We don't want that for group
+              columns, that's why we create our own style from the existing one, and remove proper odd-row conditional
+              style if present
              */
             JRDesignStyle groupStyle = Utils.cloneStyle(jrstyle);
 
@@ -800,7 +844,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             textField.setStyle(groupStyle);
             try {
                 design.addStyle(groupStyle);
-            } catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
+            } catch (JRException e) { /*e.printStackTrace(); //Already there, nothing to do **/}
 
         } else {
 
@@ -811,7 +855,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             textField.setStyle(alternateStyle);
             try {
                 design.addStyle(alternateStyle);
-            } catch (JRException e) { /**e.printStackTrace(); //Already there, nothing to do **/}
+            } catch (JRException e) { /*e.printStackTrace(); //Already there, nothing to do **/}
 
 
             setUpConditionStyles(alternateStyle, col);
@@ -864,9 +908,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         if (Utils.isEmpty(column.getConditionalStyles()))
             return;
 
-        for (Object o : column.getConditionalStyles()) {
-            ConditionalStyle condition = (ConditionalStyle) o;
-
+        for (ConditionalStyle condition : column.getConditionalStyles()) {
             if (getReport().getOptions().isPrintBackgroundOnOddRows()
                     && Transparency.TRANSPARENT == condition.getStyle().getTransparency()) { //condition style + odd row (only if conditional style's background is transparent)
 
@@ -945,18 +987,17 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      */
     protected void layoutCharts() {
         //Pre-sort charts by group column
-        MultiMap mmap = new MultiHashMap();
-        for (Object o1 : getReport().getCharts()) {
-            DJChart djChart = (DJChart) o1;
+        MultiValuedMap<DJGroup, DJChart> mmap = new ArrayListValuedHashMap<DJGroup, DJChart>();
+        for (DJChart djChart : getReport().getCharts()) {
             mmap.put(djChart.getColumnsGroup(), djChart);
         }
 
-        for (Object key : mmap.keySet()) {
-            Collection charts = (Collection) mmap.get(key);
-            ArrayList l = new ArrayList(charts);
+        for (DJGroup key : mmap.keySet()) {
+            Collection<DJChart> charts = mmap.get(key);
+            List<DJChart> l = new ArrayList<DJChart>(charts);
             //Reverse iteration of the charts to meet insertion order
             for (int i = l.size(); i > 0; i--) {
-                DJChart djChart = (DJChart) l.get(i - 1);
+                DJChart djChart = l.get(i - 1);
                 JRDesignChart chart = createChart(djChart);
 
                 //Charts has their own band, so they are added in the band at Y=0
@@ -966,18 +1007,17 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         }
 
         //Pre-sort charts by group column
-        mmap = new MultiHashMap();
-        for (Object o : getReport().getNewCharts()) {
-            ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) o;
-            mmap.put(djChart.getDataset().getColumnsGroup(), djChart);
+        MultiValuedMap<PropertyColumn, ar.com.fdvs.dj.domain.chart.DJChart> mmap2 = new ArrayListValuedHashMap<PropertyColumn, ar.com.fdvs.dj.domain.chart.DJChart>();
+        for (ar.com.fdvs.dj.domain.chart.DJChart djChart : getReport().getNewCharts()) {
+            mmap2.put(djChart.getDataset().getColumnsGroup(), djChart);
         }
 
-        for (Object key : mmap.keySet()) {
-            Collection charts = (Collection) mmap.get(key);
-            ArrayList l = new ArrayList(charts);
+        for (PropertyColumn key : mmap2.keySet()) {
+            Collection<ar.com.fdvs.dj.domain.chart.DJChart> charts = mmap2.get(key);
+            ArrayList<ar.com.fdvs.dj.domain.chart.DJChart> l = new ArrayList<ar.com.fdvs.dj.domain.chart.DJChart>(charts);
             //Reverse iteration of the charts to meet insertion order
             for (int i = l.size(); i > 0; i--) {
-                ar.com.fdvs.dj.domain.chart.DJChart djChart = (ar.com.fdvs.dj.domain.chart.DJChart) l.get(i - 1);
+                ar.com.fdvs.dj.domain.chart.DJChart djChart = l.get(i - 1);
                 String name = "chart_" + (i - 1) + new Date().getTime();
                 JRDesignChart chart = createChart(djChart, name);
 
@@ -996,7 +1036,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         JRDesignGroup parentGroup = getParent(jrGroup);
         JRDesignGroup jrGroupChart;
         try {
-//			jrGroupChart = (JRDesignGroup) BeanUtils.cloneBean(parentGroup);
             jrGroupChart = new JRDesignGroup(); //FIXME nuevo 3.5.2
             jrGroupChart.setExpression(parentGroup.getExpression());
             ((JRDesignSection) jrGroupChart.getGroupFooterSection()).addBand(new JRDesignBand());
@@ -1040,7 +1079,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
         JRDesignGroup parentGroup = getParent(jrGroupChart);
-        List chartVariables = registerChartVariable(djChart);
+        List<JRDesignVariable> chartVariables = registerChartVariable(djChart);
         JRDesignChartDataset chartDataset = DataSetFactory.getDataset(djChart, jrGroupChart, parentGroup, chartVariables);
         chart.setDataset(chartDataset);
         interpeterOptions(djChart, chart);
@@ -1094,10 +1133,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      * @param chart Chart that needs a variable to be generated
      * @return the generated variables
      */
-    protected List registerChartVariable(DJChart chart) {
+    protected List<JRDesignVariable> registerChartVariable(DJChart chart) {
         //FIXME aca hay que iterar por cada columna. Cambiar DJChart para que tome muchas
         JRDesignGroup group = getJRGroupFromDJGroup(chart.getColumnsGroup());
-        List vars = new ArrayList();
+        List<JRDesignVariable> vars = new ArrayList<JRDesignVariable>();
 
         int serieNum = 0;
         for (Object o : chart.getColumns()) {
@@ -1126,8 +1165,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
                 expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty() + "}");
                 expression.setValueClass(clazz);
             }
-//			expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty()  + "}");
-//			expression.setValueClass(clazz);
 
             JRDesignVariable var = new JRDesignVariable();
             var.setValueClass(clazz);
@@ -1154,8 +1191,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
     protected JRDesignGroup getChartColumnsGroup(ar.com.fdvs.dj.domain.chart.DJChart djChart) {
         PropertyColumn columnsGroup = djChart.getDataset().getColumnsGroup();
-        for (Object o : getReport().getColumnsGroups()) {
-            DJGroup djGroup = (DJGroup) o;
+        for (DJGroup djGroup : getReport().getColumnsGroups()) {
             if (djGroup.getColumnToGroupBy() == columnsGroup)
                 return getJRGroupFromDJGroup(djGroup);
         }
@@ -1218,10 +1254,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      * @param chart Chart that needs a variable to be generated
      * @return the generated variables
      */
-    protected Map registerChartVariable(ar.com.fdvs.dj.domain.chart.DJChart chart) {
+    protected Map<AbstractColumn, JRDesignVariable> registerChartVariable(ar.com.fdvs.dj.domain.chart.DJChart chart) {
         //FIXME aca hay que iterar por cada columna. Cambiar DJChart para que tome muchas
         JRDesignGroup group = getChartColumnsGroup(chart);
-        Map vars = new HashMap();
+        Map<AbstractColumn, JRDesignVariable> vars = new HashMap<AbstractColumn, JRDesignVariable>();
 
         int serieNum = 0;
         for (Object o : chart.getDataset().getColumns()) {
@@ -1304,8 +1340,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 
     protected DJGroup getDJGroup(AbstractColumn col) {
-        for (Object o : getReport().getColumnsGroups()) {
-            DJGroup group = (DJGroup) o;
+        for (DJGroup group : getReport().getColumnsGroups()) {
             if (group.getColumnToGroupBy().equals(col))
                 return group;
         }

@@ -14,11 +14,9 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 public class PercentageColumn extends AbstractColumn {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	private PropertyColumn percentageColumn;
-//	private DJGroup group;
 
 	public String getTextForExpression() {
 		throw new CoreException("invalid operation on PercentageColumn");
-//		return "new Double((" + getPercentageColumn().getTextForExpression() + ").doubleValue() / $V{"	+ getGroupVariableName() + "}.doubleValue())";
 	}
 	
 	public String getTextForExpression(DJGroup group) {
@@ -60,11 +58,7 @@ public class PercentageColumn extends AbstractColumn {
 	 * @return
 	 */
 	public String getGroupVariableName(DJGroup group) {
-		String columnToGroupByProperty = null;
-		//if (group != null)
-			columnToGroupByProperty = group.getColumnToGroupBy().getColumnProperty().getProperty();
-		//else
-			//columnToGroupByProperty = "global";
+		String columnToGroupByProperty = group.getColumnToGroupBy().getColumnProperty().getProperty();
 		return "variable-" + columnToGroupByProperty + "_" + getPercentageColumn().getColumnProperty().getProperty() + "_percentage";
 	}
 	
@@ -76,11 +70,4 @@ public class PercentageColumn extends AbstractColumn {
 		return percentageColumn;
 	}
 
-//	public void setGroup(DJGroup group) {
-//		this.group = group;
-//	}
-//
-//	public DJGroup getGroup() {
-//		return group;
-//	}
 }

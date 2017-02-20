@@ -85,13 +85,13 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 		oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitleStyle(titleStyle)
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-			.setDetailHeight(new Integer(15))
+			.setDetailHeight(15)
 			.setLeftMargin(margin)
 			.setRightMargin(margin).setTopMargin(margin).setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(false)
@@ -99,7 +99,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 			.setGrandTotalLegendStyle(headerVariablesStyle)
 			.setDefaultStyles(titleStyle, null, headerStyle, detailStyle)
 			.setPrintColumnNames(true)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", new Integer(100), new Integer(30), ImageBanner.ALIGN_RIGHT)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 30, ImageBanner.Alignment.Right)
 			.setOddRowBackgroundStyle(oddRowStyle);
 
 
@@ -139,7 +139,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 		Style glabelStyle2 = new StyleBuilder(false).setFont(Font.ARIAL_SMALL)
 			.setHorizontalAlign(HorizontalAlign.RIGHT).setBorderBottom(Border.THIN())
 			.setVerticalAlign(VerticalAlign.MIDDLE)
-			.setPadding(new Integer(0))
+			.setPadding(0)
 			.setStretchWithOverflow(false)
 			.build();
 		
@@ -150,7 +150,7 @@ public class GroupLabelTest2 extends BaseDjReportTest {
 				.addFooterVariable(columnaQuantity,DJCalculation.SUM,headerVariablesStyle) // idem for the columnaQuantity column
 				.setGroupLayout(GroupLayout.VALUE_IN_HEADER) // tells the group how to be shown, there are manyposibilities, see the GroupLayout for more.
 				.setFooterLabel(glabel3)
-				.setFooterVariablesHeight(new Integer(30))
+				.setFooterVariablesHeight(30)
 				.build();
 
 

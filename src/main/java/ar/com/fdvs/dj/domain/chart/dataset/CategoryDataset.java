@@ -29,7 +29,6 @@
 
 package ar.com.fdvs.dj.domain.chart.dataset;
 
-import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.entities.Entity;
@@ -45,14 +44,17 @@ import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CategoryDataset extends AbstractDataset {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	private PropertyColumn category = null;
-	private List series = new ArrayList();
-	private Map seriesLabels = new HashMap();
+	private final List<AbstractColumn> series = new ArrayList<AbstractColumn>();
+	private final Map<AbstractColumn, StringExpression> seriesLabels = new HashMap<AbstractColumn, StringExpression>();
 	private boolean useSeriesAsCategory = false;
 		
 	/**
@@ -142,41 +144,39 @@ public class CategoryDataset extends AbstractDataset {
 	public JRDesignChartDataset transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars) {
 		JRDesignCategoryDataset data = new JRDesignCategoryDataset(null);
 
-		for (Iterator iterator = series.iterator(); iterator.hasNext();) {
+		for (AbstractColumn sery : series) {
 			JRDesignCategorySeries serie = new JRDesignCategorySeries();
-			AbstractColumn column = (AbstractColumn) iterator.next();
-			
+
 			//And use it as value for each bar
-			JRDesignExpression varExp = getExpressionFromVariable((JRDesignVariable) vars.get(column));
+			JRDesignExpression varExp = getExpressionFromVariable((JRDesignVariable) vars.get(sery));
 			serie.setValueExpression(varExp);
-	
+
 			//The key for each bar
 			JRExpression exp2 = group.getExpression();
-	
+
 			JRDesignExpression exp3;
-			if (seriesLabels.containsKey(column)) {
-				exp3 = ExpressionUtils.createAndRegisterExpression(design, "dataset_" + column.getName() + "_" + name, (CustomExpression) seriesLabels.get(column));
-			}
-			else {
+			if (seriesLabels.containsKey(sery)) {
+				exp3 = ExpressionUtils.createAndRegisterExpression(design, "dataset_" + sery.getName() + "_" + name, seriesLabels.get(sery));
+			} else {
 				exp3 = new JRDesignExpression();
-				exp3.setText("\"" + column.getTitle() + "\"");
+				exp3.setText("\"" + sery.getTitle() + "\"");
 			}
 			exp3.setValueClass(String.class);
-	
+
 			//Here you can set subgroups of bars
-			if (useSeriesAsCategory){
+			if (useSeriesAsCategory) {
 				serie.setCategoryExpression(exp3);
-				
+
 				serie.setLabelExpression(exp2);
 				serie.setSeriesExpression(exp2);
 			} else {
 				//FIXED: due to https://sourceforge.net/forum/message.php?msg_id=7396861
 				serie.setCategoryExpression(exp2);
-				
+
 				serie.setLabelExpression(exp3);
 				serie.setSeriesExpression(exp3);
 			}
-				
+
 			data.addCategorySeries(serie);
 		}
 

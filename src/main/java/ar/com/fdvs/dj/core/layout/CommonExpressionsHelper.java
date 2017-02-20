@@ -37,24 +37,22 @@ import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignTextField;
 import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
-import net.sf.jasperreports.engine.type.HorizontalAlignEnum;
+import net.sf.jasperreports.engine.type.HorizontalTextAlignEnum;
 import net.sf.jasperreports.engine.type.PositionTypeEnum;
 
 import java.util.Random;
 
 /**
  * @author msimone
- *
  */
 public class CommonExpressionsHelper {
 
-	private static String KEY_autotext_page = "autotext.page";
-	private static String KEY_autotext_of = "autotext.of";
-	private static String KEY_autotext_created_on = "autotext.created_on";
-	private static Random random = new Random();
+    private static final String KEY_autotext_page = "autotext.page";
+    private static final String KEY_autotext_of = "autotext.of";
+    private static final String KEY_autotext_created_on = "autotext.created_on";
+    private static final Random random = new Random();
 
     /**
-     * 
      * @param yOffset
      * @param design
      * @param report
@@ -62,113 +60,112 @@ public class CommonExpressionsHelper {
      * @param band
      * @param autoText
      */
-	public static void addPageXofY(int yOffset, final DynamicJasperDesign design, final DynamicReport report, AbstractLayoutManager lm, JRDesignBand band, AutoText autoText) {
+    public static void addPageXofY(int yOffset, final DynamicJasperDesign design, final DynamicReport report, AbstractLayoutManager lm, JRDesignBand band, AutoText autoText) {
 
-		int height = autoText.getHeight().intValue();
+        int height = autoText.getHeight();
 
-		JRDesignTextField pageNumber = new JRDesignTextField();
-		pageNumber.setHorizontalAlignment( HorizontalAlignEnum.RIGHT );
+        JRDesignTextField pageNumber = new JRDesignTextField();
+        pageNumber.setHorizontalTextAlign(HorizontalTextAlignEnum.RIGHT);
 
-		boolean hasStyle = autoText.getStyle() != null;
-		if (hasStyle) {
-			lm.applyStyleToElement(autoText.getStyle(), pageNumber);
-		}
+        boolean hasStyle = autoText.getStyle() != null;
+        if (hasStyle) {
+            lm.applyStyleToElement(autoText.getStyle(), pageNumber);
+        }
 
-                pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression(KEY_autotext_page, KEY_autotext_of,autoText.getPageOffset(), true));
-		pageNumber.setHeight(height);
-		pageNumber.setWidth(autoText.getWidth().intValue());
-		pageNumber.setY(yOffset);
-		pageNumber.setPositionType( PositionTypeEnum.FLOAT );
+        pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression(KEY_autotext_page, KEY_autotext_of, autoText.getPageOffset(), true));
+        pageNumber.setHeight(height);
+        pageNumber.setWidth(autoText.getWidth());
+        pageNumber.setY(yOffset);
+        pageNumber.setPositionType(PositionTypeEnum.FLOAT);
 
-		JRDesignTextField pageCounter = new JRDesignTextField();
-		
-		if (hasStyle) {
-			lm.applyStyleToElement(autoText.getStyle(), pageCounter);
-		}
-		
+        JRDesignTextField pageCounter = new JRDesignTextField();
 
-                pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression(" ", "",autoText.getPageOffset(), false));
-		pageCounter.setHeight(height);
-		pageCounter.setWidth(autoText.getWidth2().intValue());
-		pageCounter.setY(yOffset);
-		pageCounter.setEvaluationTime( EvaluationTimeEnum.REPORT );
-		pageCounter.setHorizontalAlignment( HorizontalAlignEnum.LEFT );
-		pageCounter.setPositionType( PositionTypeEnum.FLOAT );
-		band.addElement(pageCounter);
+        if (hasStyle) {
+            lm.applyStyleToElement(autoText.getStyle(), pageCounter);
+        }
 
-		int pageNumberOffset = 0;
-		HorizontalBandAlignment alignment = autoText.getAlignment();
-		if (alignment == HorizontalBandAlignment.RIGHT) pageNumberOffset = pageCounter.getWidth();
-		else if (alignment == HorizontalBandAlignment.CENTER) pageNumberOffset = -pageCounter.getWidth()/2;
 
-		int pageCounterOffset = 0;
-		if (alignment == HorizontalBandAlignment.LEFT) pageCounterOffset = pageNumber.getWidth();
-		else if (alignment == HorizontalBandAlignment.CENTER) pageCounterOffset = pageNumber.getWidth()/2;
+        pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression(" ", "", autoText.getPageOffset(), false));
+        pageCounter.setHeight(height);
+        pageCounter.setWidth(autoText.getWidth2());
+        pageCounter.setY(yOffset);
+        pageCounter.setEvaluationTime(EvaluationTimeEnum.REPORT);
+        pageCounter.setHorizontalTextAlign(HorizontalTextAlignEnum.LEFT);
+        pageCounter.setPositionType(PositionTypeEnum.FLOAT);
+        band.addElement(pageCounter);
 
-		alignment.align(report.getOptions().getPrintableWidth(), pageNumberOffset, band, pageNumber);
-		alignment.align(report.getOptions().getPrintableWidth(), pageCounterOffset, band, pageCounter);
+        int pageNumberOffset = 0;
+        HorizontalBandAlignment alignment = autoText.getAlignment();
+        if (alignment == HorizontalBandAlignment.RIGHT) pageNumberOffset = pageCounter.getWidth();
+        else if (alignment == HorizontalBandAlignment.CENTER) pageNumberOffset = -pageCounter.getWidth() / 2;
 
-		if (autoText.getPrintWhenExpression() != null) {
-			JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
-			pageNumber.setPrintWhenExpression(printWhenExpression);
-			pageCounter.setPrintWhenExpression(printWhenExpression);
-		}
-		
-		band.setHeight(band.getHeight() + height);
+        int pageCounterOffset = 0;
+        if (alignment == HorizontalBandAlignment.LEFT) pageCounterOffset = pageNumber.getWidth();
+        else if (alignment == HorizontalBandAlignment.CENTER) pageCounterOffset = pageNumber.getWidth() / 2;
 
-	}
+        alignment.align(report.getOptions().getPrintableWidth(), pageNumberOffset, band, pageNumber);
+        alignment.align(report.getOptions().getPrintableWidth(), pageCounterOffset, band, pageCounter);
 
-	public static void addPageXSlashY(int yOffset, final DynamicJasperDesign design, final DynamicReport report, AbstractLayoutManager lm, JRDesignBand band, AutoText autoText) {
+        if (autoText.getPrintWhenExpression() != null) {
+            JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
+            pageNumber.setPrintWhenExpression(printWhenExpression);
+            pageCounter.setPrintWhenExpression(printWhenExpression);
+        }
 
-		int height = autoText.getHeight().intValue();
+        band.setHeight(band.getHeight() + height);
 
-		JRDesignTextField pageNumber = new JRDesignTextField();
-		if (autoText.getStyle() != null) {
-			lm.applyStyleToElement(autoText.getStyle(), pageNumber);
-		}
+    }
 
-                pageNumber.setHorizontalAlignment(HorizontalAlignEnum.RIGHT);
-                pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",autoText.getPageOffset(), autoText.isUseI18n()));
-		pageNumber.setHeight(height);
-		pageNumber.setWidth(autoText.getWidth().intValue());
-		pageNumber.setY(yOffset);
+    public static void addPageXSlashY(int yOffset, final DynamicJasperDesign design, final DynamicReport report, AbstractLayoutManager lm, JRDesignBand band, AutoText autoText) {
 
-		JRDesignTextField pageCounter = new JRDesignTextField();
-		if (autoText.getStyle() != null) { //page counter shares font attrs, color, etc.
-			lm.applyStyleToElement(autoText.getStyle(), pageCounter);
-		}		
-        pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("/", "",autoText.getPageOffset(), false));
-		pageCounter.setHeight(height);
-		pageCounter.setWidth(autoText.getWidth().intValue());
-		pageCounter.setHorizontalAlignment( HorizontalAlignEnum.LEFT );
-		pageCounter.setEvaluationTime( EvaluationTimeEnum.REPORT );
-		pageCounter.setX(pageNumber.getX() + pageNumber.getWidth());
-		pageCounter.setY(yOffset);
+        int height = autoText.getHeight();
 
-		int pageNumberOffset = 0;
-		HorizontalBandAlignment alignment = autoText.getAlignment();
-		if (alignment  == HorizontalBandAlignment.RIGHT) pageNumberOffset = pageCounter.getWidth();
-		else if (alignment == HorizontalBandAlignment.CENTER) pageNumberOffset = -pageCounter.getWidth()/2;
+        JRDesignTextField pageNumber = new JRDesignTextField();
+        if (autoText.getStyle() != null) {
+            lm.applyStyleToElement(autoText.getStyle(), pageNumber);
+        }
 
-		int pageCounterOffset = 0;
-		if (alignment == HorizontalBandAlignment.LEFT) pageCounterOffset = pageNumber.getWidth();
-		else if (alignment == HorizontalBandAlignment.CENTER) pageCounterOffset = pageNumber.getWidth()/2;
+        pageNumber.setHorizontalTextAlign(HorizontalTextAlignEnum.RIGHT);
+        pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "", autoText.getPageOffset(), autoText.isUseI18n()));
+        pageNumber.setHeight(height);
+        pageNumber.setWidth(autoText.getWidth());
+        pageNumber.setY(yOffset);
 
-		alignment.align(report.getOptions().getPrintableWidth(), pageNumberOffset, band, pageNumber);
-		alignment.align(report.getOptions().getPrintableWidth(), pageCounterOffset, band, pageCounter);
+        JRDesignTextField pageCounter = new JRDesignTextField();
+        if (autoText.getStyle() != null) { //page counter shares font attrs, color, etc.
+            lm.applyStyleToElement(autoText.getStyle(), pageCounter);
+        }
+        pageCounter.setExpression(AutoTextExpressionUtils.getPageNumberExpression("/", "", autoText.getPageOffset(), false));
+        pageCounter.setHeight(height);
+        pageCounter.setWidth(autoText.getWidth());
+        pageCounter.setHorizontalTextAlign(HorizontalTextAlignEnum.LEFT);
+        pageCounter.setEvaluationTime(EvaluationTimeEnum.REPORT);
+        pageCounter.setX(pageNumber.getX() + pageNumber.getWidth());
+        pageCounter.setY(yOffset);
 
-		if (autoText.getPrintWhenExpression() != null) {
-			JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
-			pageNumber.setPrintWhenExpression(printWhenExpression);
-			pageCounter.setPrintWhenExpression(printWhenExpression);
-		}
-		
-		band.setHeight(band.getHeight() + height);
+        int pageNumberOffset = 0;
+        HorizontalBandAlignment alignment = autoText.getAlignment();
+        if (alignment == HorizontalBandAlignment.RIGHT) pageNumberOffset = pageCounter.getWidth();
+        else if (alignment == HorizontalBandAlignment.CENTER) pageNumberOffset = -pageCounter.getWidth() / 2;
 
-	}
+        int pageCounterOffset = 0;
+        if (alignment == HorizontalBandAlignment.LEFT) pageCounterOffset = pageNumber.getWidth();
+        else if (alignment == HorizontalBandAlignment.CENTER) pageCounterOffset = pageNumber.getWidth() / 2;
+
+        alignment.align(report.getOptions().getPrintableWidth(), pageNumberOffset, band, pageNumber);
+        alignment.align(report.getOptions().getPrintableWidth(), pageCounterOffset, band, pageCounter);
+
+        if (autoText.getPrintWhenExpression() != null) {
+            JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
+            pageNumber.setPrintWhenExpression(printWhenExpression);
+            pageCounter.setPrintWhenExpression(printWhenExpression);
+        }
+
+        band.setHeight(band.getHeight() + height);
+
+    }
 
     /**
-     *
      * @param yOffset
      * @param design
      * @param report
@@ -176,70 +173,76 @@ public class CommonExpressionsHelper {
      * @param band
      * @param autoText
      */
-	public static void addPageX(int yOffset, DynamicJasperDesign design, DynamicReport report, AbstractLayoutManager lm, JRDesignBand band,  AutoText autoText) {
-		int height = autoText.getHeight().intValue();
+    public static void addPageX(int yOffset, DynamicJasperDesign design, DynamicReport report, AbstractLayoutManager lm, JRDesignBand band, AutoText autoText) {
+        int height = autoText.getHeight();
 
-		JRDesignTextField pageNumber = new JRDesignTextField();
-		if (autoText.getStyle() != null)
-		{
-			lm.applyStyleToElement(autoText.getStyle(), pageNumber);
-		}
+        JRDesignTextField pageNumber = new JRDesignTextField();
+        if (autoText.getStyle() != null) {
+            lm.applyStyleToElement(autoText.getStyle(), pageNumber);
+        }
 
-		pageNumber.setHorizontalAlignment( HorizontalAlignEnum.RIGHT );
-		pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "",autoText.getPageOffset(), autoText.isUseI18n()));
-		pageNumber.setHeight(height);
-		if (AutoText.WIDTH_NOT_SET.equals(autoText.getWidth())){
-			pageNumber.setWidth(report.getOptions().getPrintableWidth());
-		} else {
-			pageNumber.setWidth(autoText.getWidth().intValue());
-		}		
-		pageNumber.setY(yOffset);
+        pageNumber.setHorizontalTextAlign(HorizontalTextAlignEnum.RIGHT);
+        pageNumber.setExpression(AutoTextExpressionUtils.getPageNumberExpression("", "", autoText.getPageOffset(), autoText.isUseI18n()));
+        pageNumber.setHeight(height);
+        if (AutoText.WIDTH_NOT_SET == autoText.getWidth()) {
+            pageNumber.setWidth(report.getOptions().getPrintableWidth());
+        } else {
+            pageNumber.setWidth(autoText.getWidth());
+        }
+        pageNumber.setY(yOffset);
 
-		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, pageNumber);
+        autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, pageNumber);
 
-		if (autoText.getPrintWhenExpression() != null) {
-			JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
-			pageNumber.setPrintWhenExpression(printWhenExpression);
-		}
-		
-		band.setHeight(band.getHeight() + height);
+        if (autoText.getPrintWhenExpression() != null) {
+            JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
+            pageNumber.setPrintWhenExpression(printWhenExpression);
+        }
 
-	}
+        band.setHeight(band.getHeight() + height);
 
-	public static void addCreationDate(int yOffset, final DynamicJasperDesign design, final DynamicReport report, AbstractLayoutManager lm, JRDesignBand band,  AutoText autoText) {
-		int height = autoText.getHeight().intValue();
+    }
 
-		JRDesignTextField dateTf = new JRDesignTextField();
-		if (autoText.getStyle() != null)
-		{
-			lm.applyStyleToElement(autoText.getStyle(), dateTf);
-		}
+    public static void addCreationDate(int yOffset, final DynamicJasperDesign design, final DynamicReport report, AbstractLayoutManager lm, JRDesignBand band, AutoText autoText) {
+        int height = autoText.getHeight();
+
+        JRDesignTextField dateTf = new JRDesignTextField();
+        if (autoText.getStyle() != null) {
+            lm.applyStyleToElement(autoText.getStyle(), dateTf);
+        }
 
 
-		dateTf.setExpression(AutoTextExpressionUtils.getDateExpression(KEY_autotext_created_on, "", report.getReportLocale(),autoText.getPattern()));
-		dateTf.setHeight(height);
-		if (AutoText.WIDTH_NOT_SET.equals(autoText.getWidth())){
-			dateTf.setWidth(report.getOptions().getPrintableWidth());
-		} else {
-			dateTf.setWidth(autoText.getWidth().intValue());
-		}		
-		dateTf.setHorizontalAlignment( HorizontalAlignEnum.getByValue(autoText.getAlignment().getAlignment()));
-		dateTf.setY(yOffset);
-		dateTf.setPositionType( PositionTypeEnum.FLOAT );
+        dateTf.setExpression(AutoTextExpressionUtils.getDateExpression(KEY_autotext_created_on, "", report.getReportLocale(), autoText.getPattern()));
+        dateTf.setHeight(height);
+        if (AutoText.WIDTH_NOT_SET == autoText.getWidth()) {
+            dateTf.setWidth(report.getOptions().getPrintableWidth());
+        } else {
+            dateTf.setWidth(autoText.getWidth());
+        }
+        dateTf.setHorizontalTextAlign(fromHorizontalBandAlignment(autoText.getAlignment()));
+        dateTf.setY(yOffset);
+        dateTf.setPositionType(PositionTypeEnum.FLOAT);
 
-		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, dateTf);
-		
-		if (autoText.getPrintWhenExpression() != null) {
-			JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
-			dateTf.setPrintWhenExpression(printWhenExpression);
-		}
-		
-		band.setHeight(band.getHeight() + height);
+        autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, dateTf);
 
-	}
+        if (autoText.getPrintWhenExpression() != null) {
+            JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
+            dateTf.setPrintWhenExpression(printWhenExpression);
+        }
+
+        band.setHeight(band.getHeight() + height);
+
+    }
+
+    public static HorizontalTextAlignEnum fromHorizontalBandAlignment(HorizontalBandAlignment alignment){
+        if (HorizontalBandAlignment.RIGHT.equals(alignment))
+            return HorizontalTextAlignEnum.RIGHT;
+        if (HorizontalBandAlignment.LEFT.equals(alignment))
+            return HorizontalTextAlignEnum.LEFT;
+
+        return HorizontalTextAlignEnum.CENTER;
+    }
 
     /**
-     *
      * @param yOffset
      * @param design
      * @param report
@@ -247,66 +250,74 @@ public class CommonExpressionsHelper {
      * @param band
      * @param autoText
      */
-	public static void addMessage(int yOffset, DynamicJasperDesign design, DynamicReport report, AbstractLayoutManager lm, JRDesignBand band, AutoText autoText) {
-		int height = autoText.getHeight().intValue();
+    public static void addMessage(int yOffset, DynamicJasperDesign design, DynamicReport report, AbstractLayoutManager lm, JRDesignBand band, AutoText autoText) {
+        int height = autoText.getHeight();
 
-		JRDesignTextField textfield = new JRDesignTextField();
-		if (autoText.getStyle() != null)
-		{
-			lm.applyStyleToElement(autoText.getStyle(), textfield);
-		}
-		JRDesignExpression expression = new JRDesignExpression();
-		expression.setValueClass(String.class);
-		expression.setText( "\"" + autoText.getMessageKey() + "\"");
-		textfield.setExpression(expression);
-		textfield.setHeight(autoText.getHeight().intValue());
-		textfield.setMarkup("styled"); //FIXME there are some other markups: see http://stackoverflow.com/questions/8135215/style-a-text-field-in-jasperreports
-		if (AutoText.WIDTH_NOT_SET.equals(autoText.getWidth())){
-			textfield.setWidth(report.getOptions().getPrintableWidth());
-		} else {
-			textfield.setWidth(autoText.getWidth().intValue());
-		}
-		textfield.setY(yOffset);
-		autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, textfield);
+        JRDesignTextField textfield = new JRDesignTextField();
+        if (autoText.getStyle() != null) {
+            lm.applyStyleToElement(autoText.getStyle(), textfield);
+        }
+        JRDesignExpression expression = new JRDesignExpression();
+        expression.setValueClass(String.class);
+        expression.setText("\"" + autoText.getMessageKey() + "\"");
+        textfield.setExpression(expression);
+        textfield.setHeight(autoText.getHeight());
+        textfield.setMarkup("styled"); //FIXME there are some other markups: see http://stackoverflow.com/questions/8135215/style-a-text-field-in-jasperreports
+        if (AutoText.WIDTH_NOT_SET == autoText.getWidth()) {
+            textfield.setWidth(report.getOptions().getPrintableWidth());
+        } else {
+            textfield.setWidth(autoText.getWidth());
+        }
+        textfield.setY(yOffset);
+        autoText.getAlignment().align(report.getOptions().getPrintableWidth(), 0, band, textfield);
 
-		textfield.setHorizontalAlignment( HorizontalAlignEnum.getByValue( autoText.getAlignment().getAlignment() ));
+        textfield.setHorizontalTextAlign(fromHorizontalBandAlignment(autoText.getAlignment()));
 
-		if (autoText.getPrintWhenExpression() != null) {
-			JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
-			textfield.setPrintWhenExpression(printWhenExpression);
-		}
-		
-		band.setHeight(band.getHeight() + height);
+        if (autoText.getPrintWhenExpression() != null) {
+            JRDesignExpression printWhenExpression = getPrintWhenExpression(design, autoText);
+            textfield.setPrintWhenExpression(printWhenExpression);
+        }
 
-	}
+        band.setHeight(band.getHeight() + height);
 
-	/**
-	 * @param design
-	 * @param autoText
-	 */
-	private static JRDesignExpression getPrintWhenExpression(DynamicJasperDesign design, AutoText autoText) {
-		long random_ = Math.abs(random.nextLong());
-		String name = "autotext_" + random_ + "_printWhenExpression";
-		return ExpressionUtils.createAndRegisterExpression(design, name , autoText.getPrintWhenExpression());
-	}
+    }
 
     /**
-     *
+     * @param design
+     * @param autoText
+     */
+    private static JRDesignExpression getPrintWhenExpression(DynamicJasperDesign design, AutoText autoText) {
+        long random_ = Math.abs(random.nextLong());
+        String name = "autotext_" + random_ + "_printWhenExpression";
+        return ExpressionUtils.createAndRegisterExpression(design, name, autoText.getPrintWhenExpression());
+    }
+
+    /**
      * @param yOffset
      * @param design
      * @param lm
      * @param band
      * @param text
      */
-	public static void add(int yOffset, DynamicJasperDesign design, AbstractLayoutManager lm, JRDesignBand band , AutoText text) {
-		DynamicReport report = lm.getReport();
-		switch (text.getType()) {
-		case AutoText.AUTOTEXT_PAGE_X_OF_Y: CommonExpressionsHelper.addPageXofY(yOffset,design, report, lm, band, text); break;
-		case AutoText.AUTOTEXT_PAGE_X_SLASH_Y: CommonExpressionsHelper.addPageXSlashY(yOffset,design, report, lm, band, text); break;
-		case AutoText.AUTOTEXT_PAGE_X: CommonExpressionsHelper.addPageX(yOffset,design, report, lm, band, text); break;
-		case AutoText.AUTOTEXT_CREATED_ON: CommonExpressionsHelper.addCreationDate(yOffset,design, report, lm, band,text); break;
-		case AutoText.AUTOTEXT_CUSTOM_MESSAGE: CommonExpressionsHelper.addMessage(yOffset,design, report, lm, band, text); break;
-		}
-	}
+    public static void add(int yOffset, DynamicJasperDesign design, AbstractLayoutManager lm, JRDesignBand band, AutoText text) {
+        DynamicReport report = lm.getReport();
+        switch (text.getType()) {
+            case AutoText.AUTOTEXT_PAGE_X_OF_Y:
+                CommonExpressionsHelper.addPageXofY(yOffset, design, report, lm, band, text);
+                break;
+            case AutoText.AUTOTEXT_PAGE_X_SLASH_Y:
+                CommonExpressionsHelper.addPageXSlashY(yOffset, design, report, lm, band, text);
+                break;
+            case AutoText.AUTOTEXT_PAGE_X:
+                CommonExpressionsHelper.addPageX(yOffset, design, report, lm, band, text);
+                break;
+            case AutoText.AUTOTEXT_CREATED_ON:
+                CommonExpressionsHelper.addCreationDate(yOffset, design, report, lm, band, text);
+                break;
+            case AutoText.AUTOTEXT_CUSTOM_MESSAGE:
+                CommonExpressionsHelper.addMessage(yOffset, design, report, lm, band, text);
+                break;
+        }
+    }
 
 }

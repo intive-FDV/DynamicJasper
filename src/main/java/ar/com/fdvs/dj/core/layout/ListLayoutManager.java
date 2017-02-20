@@ -48,15 +48,15 @@ public class ListLayoutManager extends AbstractLayoutManager {
 
 	private static final Log log = LogFactory.getLog(ListLayoutManager.class);
 	
-	protected Map referencesMap = new HashMap();
+	protected Map<String, Object> referencesMap = new HashMap<String, Object>();
 
-	public Map getReferencesMap() {
+	public Map<String, Object> getReferencesMap() {
 		return referencesMap;
 	}	
 
 	protected void startLayout() {
-		getReport().getOptions().setColumnsPerPage(new Integer(1));
-		getReport().getOptions().setColumnSpace(new Integer(0));
+		getReport().getOptions().setColumnsPerPage(1);
+		getReport().getOptions().setColumnSpace(0);
 		getDesign().setColumnCount(1);
 		getDesign().setColumnWidth(getReport().getOptions().getColumnWidth());
 		super.startLayout();

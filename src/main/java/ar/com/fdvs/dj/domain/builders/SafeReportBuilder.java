@@ -2,6 +2,7 @@ package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.domain.DynamicReport;
 
+@Deprecated
 public class SafeReportBuilder extends DynamicReportBuilder {
 	private boolean built = false;
 

@@ -42,7 +42,6 @@ import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +49,7 @@ public class PieDataset extends AbstractDataset {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	private PropertyColumn key = null;
-	private List series = new ArrayList();
+	private List<AbstractColumn> series = new ArrayList<AbstractColumn>();
 		
 	/**
 	 * Sets the key column.
@@ -108,18 +107,17 @@ public class PieDataset extends AbstractDataset {
 	public JRDesignChartDataset transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars) {
 		JRDesignPieDataset data = new JRDesignPieDataset(null);
 
-		for (Iterator iterator = series.iterator(); iterator.hasNext();) {
+		for (AbstractColumn sery : series) {
 			JRDesignPieSeries serie = new JRDesignPieSeries();
-			AbstractColumn column = (AbstractColumn) iterator.next();
-			
+
 			//And use it as value for each bar
-			JRDesignExpression varExp = getExpressionFromVariable((JRDesignVariable) vars.get(column));
+			JRDesignExpression varExp = getExpressionFromVariable((JRDesignVariable) vars.get(sery));
 			serie.setValueExpression(varExp);
-	
+
 			//The key for each bar
-			JRExpression exp2 = group.getExpression();			
+			JRExpression exp2 = group.getExpression();
 			serie.setKeyExpression(exp2);
-				
+
 			data.addPieSeries(serie);
 		}
 		

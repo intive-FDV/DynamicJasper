@@ -93,7 +93,7 @@ public class ChartReportTest2 extends BaseDjReportTest {
 				.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 				.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-				.setDetailHeight(new Integer(15)).setLeftMargin(margin)
+				.setDetailHeight(15).setLeftMargin(margin)
 				.setMargins(margin, margin, margin, margin)
 //				.setPrintBackgroundOnOddRows(true)
 				.setPrintColumnNames(false)
@@ -169,7 +169,7 @@ public class ChartReportTest2 extends BaseDjReportTest {
 
 		DJChartBuilder cb = new DJChartBuilder();
 		int chartHeight = 200;
-		DJChart chart = null;
+		DJChart chart;
 		chart =  cb.addType(DJChart.BAR_CHART)
 						.addOperation(DJChart.CALCULATION_SUM)
 						.addColumnsGroup(g1)

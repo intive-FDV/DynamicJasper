@@ -64,22 +64,22 @@ public class CustomExpressionReportTest extends BaseDjReportTest {
 		oddRowStyle.setBackgroundColor(veryLightGrey);oddRowStyle.setTransparency(Transparency.OPAQUE);
 
 		DynamicReportBuilder drb = new DynamicReportBuilder();
-		Integer margin = new Integer(20);
+		Integer margin = 20;
 		drb
 			.setTitle("November " + getYear() +" sales report")					//defines the title of the report
 			.setSubtitle("The items in this report correspond "
 					+"to the main products: DVDs, Books, Foods and Magazines")
-					.setTitleStyle(titleStyle).setTitleHeight(new Integer(30))
-			.setSubtitleHeight(new Integer(20))
-			.setDetailHeight(new Integer(15))
+					.setTitleStyle(titleStyle).setTitleHeight(30)
+			.setSubtitleHeight(20)
+			.setDetailHeight(15)
 			.setLeftMargin(margin)
 			.setRightMargin(margin)
 			.setTopMargin(margin)
 			.setBottomMargin(margin)
 			.setPrintBackgroundOnOddRows(true)
 			.setOddRowBackgroundStyle(oddRowStyle)
-			.setColumnsPerPage(new Integer(1))
-			.setColumnSpace(new Integer(5));
+			.setColumnsPerPage(1)
+			.setColumnSpace(5);
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())
 			.setTitle("State").setWidth(new Integer(85))

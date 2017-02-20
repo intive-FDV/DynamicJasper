@@ -17,9 +17,9 @@ public class DJGroupLabel extends DJLabel {
 	
 	protected LabelPosition labelPosition = LabelPosition.TOP;
 	
-	public DJGroupLabel(){};
+	public DJGroupLabel(){}
 
-	public DJGroupLabel(String text, Style labelStyle) {
+    public DJGroupLabel(String text, Style labelStyle) {
 		super(text,labelStyle);
 	}
 	

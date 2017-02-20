@@ -70,8 +70,7 @@ public class CrosstabReportWithPercentageMeasure extends BaseDjReportTest {
 	private Style colHeaderStyle;
 	private Style mainHeaderStyle;
 	private Style totalStyle;
-	private Style measureStyle;
-	private Style measureStyle2;
+    private Style measureStyle2;
 	private Style titleStyle;
 	
 	Color pastelYellow = new Color(240,248,200);
@@ -81,8 +80,8 @@ public class CrosstabReportWithPercentageMeasure extends BaseDjReportTest {
 	public DynamicReport buildReport() throws Exception {
 		initStyles(); //init some styles to be used
 
-		/**
-		 * Create an empty report (no columns)!
+		/*
+		  Create an empty report (no columns)!
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 			drb
@@ -193,11 +192,11 @@ public class CrosstabReportWithPercentageMeasure extends BaseDjReportTest {
 			.setHorizontalAlign(HorizontalAlign.RIGHT)
 			.setFont(Font.ARIAL_MEDIUM_BOLD)
 			.build();
-		measureStyle = new StyleBuilder(false).setPattern("#,###.##")
-			.setHorizontalAlign(HorizontalAlign.RIGHT)
-			.setFont(Font.ARIAL_MEDIUM)
-			.setBackgroundColor(Color.WHITE)
-			.build();
+        Style measureStyle = new StyleBuilder(false).setPattern("#,###.##")
+                .setHorizontalAlign(HorizontalAlign.RIGHT)
+                .setFont(Font.ARIAL_MEDIUM)
+                .setBackgroundColor(Color.WHITE)
+                .build();
 
 		measureStyle2 = new StyleBuilder(false).setPattern("#,###.##")
 		.setHorizontalAlign(HorizontalAlign.RIGHT)

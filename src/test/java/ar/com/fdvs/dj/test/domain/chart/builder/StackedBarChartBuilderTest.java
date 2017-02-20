@@ -63,7 +63,8 @@ public class StackedBarChartBuilderTest extends BaseDjReportTest {
 	private JRDesignChart chart;
 	
 	protected void setUp() throws Exception {
-		drb = new DynamicReportBuilder();
+        super.setUp();
+        drb = new DynamicReportBuilder();
 
 		Style headerStyle = new Style();
 		headerStyle.setFont(Font.VERDANA_MEDIUM_BOLD);
@@ -177,7 +178,7 @@ public class StackedBarChartBuilderTest extends BaseDjReportTest {
 		djlink.setTooltip(new LiteralExpression("I'm a literal tootltip"));		
 		djChart.setLink(djlink);
 		
-		HashMap vars = new HashMap();
+		Map<AbstractColumn, JRDesignVariable> vars = new HashMap<AbstractColumn, JRDesignVariable>();
 		vars.put(columnaQuantity, new JRDesignVariable());
 		vars.put(columnAmount, new JRDesignVariable());
 		JRDesignGroup group = new JRDesignGroup();
@@ -203,7 +204,7 @@ public class StackedBarChartBuilderTest extends BaseDjReportTest {
 		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
 		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
         assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
-		assertEquals(new Float(1), chart.getLineBox().getPen().getLineWidth());
+		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());
 	}
@@ -244,7 +245,7 @@ public class StackedBarChartBuilderTest extends BaseDjReportTest {
 
 	private void testFont(Font djFont, JRFont jrFont) {
 		assertEquals(djFont.getFontName(), jrFont.getFontName());
-		assertEquals(djFont.getFontSize(), jrFont.getFontSize());
+		assertEquals(djFont.getFontSize(), jrFont.getFontsize());
 		assertEquals(djFont.isBold(), jrFont.isBold());
 		assertEquals(djFont.isItalic(), jrFont.isItalic());
 	}

@@ -32,22 +32,17 @@ package ar.com.fdvs.dj.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PropertiesMap extends HashMap {
+public class PropertiesMap<K, V> extends HashMap<K, V> {
 
 	private static final long serialVersionUID = -8443176521038066760L;
 
-	public PropertiesMap with(String key, Object value) {
+	public PropertiesMap with(K key, V value) {
 		put(key,value);
 		return this;
 	}
 
-	public Object put(String key, String value) {
+	public V put(K key, V value) {
 		return super.put(key, value);
-	}
-
-	public static void main(String[] args) {
-		String a = new PropertiesMap().with("a","a").with("b", "b").toString();
-		System.out.println(a);
 	}
 
 	public PropertiesMap() {
@@ -62,7 +57,7 @@ public class PropertiesMap extends HashMap {
 		super(initialCapacity);
 	}
 
-	public PropertiesMap(Map arg0) {
+	public PropertiesMap(Map<K, V> arg0) {
 		super(arg0);
 	}
 }

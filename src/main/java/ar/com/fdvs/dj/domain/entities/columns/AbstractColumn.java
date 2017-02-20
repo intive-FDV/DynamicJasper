@@ -35,6 +35,7 @@ import ar.com.fdvs.dj.domain.DJHyperLink;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.entities.DJColSpan;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 
 import java.text.Format;
 import java.util.ArrayList;
@@ -61,15 +62,15 @@ public abstract class AbstractColumn extends DJBaseElement {
     private String reportName;
 
 	private String title;
-	private Integer posX = new Integer(0);
-	private Integer posY = new Integer(0);
-	private Integer width = new Integer(100);
-	private Boolean fixedWidth = Boolean.FALSE;
+	private int posX = 0;
+	private int posY = 0;
+	private int width = 100;
+	private boolean fixedWidth = Boolean.FALSE;
 	private Style style = new Style();
 	private Style headerStyle = null;
 	private String pattern;
-	private Boolean printRepeatedValues = Boolean.TRUE;
-	private Boolean blankWhenNull = Boolean.TRUE;
+	private boolean printRepeatedValues = Boolean.TRUE;
+	private boolean blankWhenNull = Boolean.TRUE;
 	private String truncateSuffix = null;
 	private Format textFormatter;
 
@@ -85,15 +86,15 @@ public abstract class AbstractColumn extends DJBaseElement {
 
     private DJHyperLink link;
 	
-	private List conditionalStyles = new ArrayList();
+	private List<ConditionalStyle> conditionalStyles = new ArrayList<ConditionalStyle>();
 
     private DJColSpan colSpan;
 
-	public List getConditionalStyles() {
+	public List<ConditionalStyle> getConditionalStyles() {
 		return conditionalStyles;
 	}
 
-	public void setConditionalStyles(List conditionalStyles) {
+	public void setConditionalStyles(List<ConditionalStyle> conditionalStyles) {
 		this.conditionalStyles = conditionalStyles;
 	}
 
@@ -105,19 +106,19 @@ public abstract class AbstractColumn extends DJBaseElement {
 		this.title = label;
 	}
 
-	public Integer getPosX() {
+	public int getPosX() {
 		return posX;
 	}
 
-	public void setPosX(Integer posX) {
+	public void setPosX(int posX) {
 		this.posX = posX;
 	}
 
-	public Integer getPosY() {
+	public int getPosY() {
 		return posY;
 	}
 
-	public void setPosY(Integer posY) {
+	public void setPosY(int posY) {
 		this.posY = posY;
 	}
 
@@ -137,11 +138,11 @@ public abstract class AbstractColumn extends DJBaseElement {
 		this.style = style;
 	}
 
-	public Integer getWidth() {
+	public int getWidth() {
 		return width;
 	}
 
-	public void setWidth(Integer width) {
+	public void setWidth(int width) {
 		this.width = width;
 	}
 
@@ -153,11 +154,11 @@ public abstract class AbstractColumn extends DJBaseElement {
 		this.pattern = pattern;
 	}
 
-	public Boolean getPrintRepeatedValues() {
+	public boolean isPrintRepeatedValues() {
 		return printRepeatedValues;
 	}
 
-	public void setPrintRepeatedValues(Boolean printRepeatedValues) {
+	public void setPrintRepeatedValues(boolean printRepeatedValues) {
 		this.printRepeatedValues = printRepeatedValues;
 	}
 
@@ -185,19 +186,19 @@ public abstract class AbstractColumn extends DJBaseElement {
 		this.name = name;
 	}
 
-	public Boolean getBlankWhenNull() {
+	public boolean isBlankWhenNull() {
 		return blankWhenNull;
 	}
 
-	public void setBlankWhenNull(Boolean blankWhenNull) {
+	public void setBlankWhenNull(boolean blankWhenNull) {
 		this.blankWhenNull = blankWhenNull;
 	}
 
-	public Boolean getFixedWidth() {
+	public boolean isFixedWidth() {
 		return fixedWidth;
 	}
 
-	public void setFixedWidth(Boolean fixedWidth) {
+	public void setFixedWidth(boolean fixedWidth) {
 		this.fixedWidth = fixedWidth;
 	}
 

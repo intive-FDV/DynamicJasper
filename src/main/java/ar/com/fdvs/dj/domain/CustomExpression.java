@@ -44,9 +44,9 @@ import java.util.Map;
  */
 public interface CustomExpression extends Serializable {
 
-	public static final String EVAL_METHOD_NAME = "evaluate";
+	String EVAL_METHOD_NAME = "evaluate";
 
-	public Object evaluate(Map fields, Map variables, Map parameters);
-	public String getClassName();
+	Object evaluate(Map fields, Map variables, Map parameters);
+	String getClassName();
 
 }

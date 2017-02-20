@@ -31,17 +31,28 @@ package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.core.BarcodeTypes;
 import ar.com.fdvs.dj.core.DJConstants;
-import ar.com.fdvs.dj.domain.*;
-import ar.com.fdvs.dj.domain.constants.*;
+import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.CustomExpression;
+import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
+import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.constants.Border;
+import ar.com.fdvs.dj.domain.constants.DJVariableResetType;
 import ar.com.fdvs.dj.domain.constants.Font;
+import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.DJVariable;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
-import java.awt.*;
+import java.awt.Color;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -65,16 +76,13 @@ import java.util.Date;
  * Like with all DJ's builders, it's usage must end with a call to build() mehtod.
  * </br>
  */
+@SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class FastReportBuilder extends DynamicReportBuilder {
 
 	Style currencyStyle;
 	Style numberStyle;
-	Style subtitleStyle;
 
 	protected int groupCount = 0;
-
-//	protected Map headerGroupVariables = new TreeMap();
-//	protected Map footerGroupVariables = new TreeMap();
 
 	public FastReportBuilder(){
 		currencyStyle = new Style("currencyStyle");
@@ -102,10 +110,10 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return super.build();
 	}
 
-    public FastReportBuilder addColumn(String title, String property, String className, int width, Style style) throws ColumnBuilderException, ClassNotFoundException {
+    public FastReportBuilder addColumn(String title, String property, String className, int width, Style style) throws ColumnBuilderException {
 		AbstractColumn column = ColumnBuilder.getNew()
 			.setColumnProperty(new ColumnProperty(property, className))
-			.setWidth(new Integer(width))
+			.setWidth(width)
 			.setTitle(title)
 			.build();
 
@@ -116,15 +124,15 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
     
-    public FastReportBuilder addColumn(String title, String property, Class clazz, int width, Style style) throws ColumnBuilderException, ClassNotFoundException {
+    public FastReportBuilder addColumn(String title, String property, Class clazz, int width, Style style) throws ColumnBuilderException {
     	addColumn(title, property, clazz.getName(), width, style);
     	return this;
     }
     
-    public FastReportBuilder addColumn(String title, String property, String className, int width, Style style, Style headerStyle) throws ColumnBuilderException, ClassNotFoundException {
+    public FastReportBuilder addColumn(String title, String property, String className, int width, Style style, Style headerStyle) throws ColumnBuilderException {
     	AbstractColumn column = ColumnBuilder.getNew()
     	.setColumnProperty(new ColumnProperty(property, className))
-    	.setWidth(new Integer(width))
+    	.setWidth(width)
     	.setTitle(title)
     	.build();
     	
@@ -138,14 +146,14 @@ public class FastReportBuilder extends DynamicReportBuilder {
     	return this;
     }
     
-    public FastReportBuilder addColumn(String title, String property, Class clazz, int width, Style style, Style headerStyle) throws ColumnBuilderException, ClassNotFoundException {
+    public FastReportBuilder addColumn(String title, String property, Class clazz, int width, Style style, Style headerStyle) throws ColumnBuilderException {
     	return addColumn(title, property, clazz.getName(), width, style, headerStyle);
     }
 
     public FastReportBuilder addColumn(String title, String property, String className, int width) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 			.setColumnProperty(new ColumnProperty(property, className))
-			.setWidth(new Integer(width))
+			.setWidth(width)
 			.setTitle(title)
 			.build();
 
@@ -163,9 +171,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 			.setColumnProperty(property, className)
-			.setWidth(new Integer(width))
+			.setWidth(width)
 			.setTitle(title)
-			.setFixedWidth(Boolean.valueOf(fixedWidth))
+			.setFixedWidth(fixedWidth)
 			.build();
 
 		guessStyle(className, column);
@@ -178,9 +186,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addColumn(String title, String property, String className, int width, Style style, Style headerStyle, boolean fixedWidth) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setColumnProperty(property, className)
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setStyle(style)
 		.build();
 		
@@ -206,9 +214,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		String className = InputStream.class.getName();
 		AbstractColumn column = ColumnBuilder.getNew()
 			.setColumnProperty(property, className)
-			.setWidth(new Integer(width))
+			.setWidth(width)
 			.setTitle(title)
-			.setFixedWidth(Boolean.valueOf(fixedWidth))
+			.setFixedWidth(fixedWidth)
 			.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
 			.setImageScaleMode(imageScaleMode)
 			.build();
@@ -236,9 +244,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		String className = InputStream.class.getName();
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setColumnProperty(property, className)
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
 		.setImageScaleMode(imageScaleMode)
 		.setStyle(style)
@@ -255,9 +263,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		String className = InputStream.class.getName();
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setCustomExpression(expression)
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
 		.setImageScaleMode(imageScaleMode)
 		.setStyle(style)
@@ -286,9 +294,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addImageColumn(String title, String property, String className, int width, boolean fixedWidth,ImageScaleMode imageScaleMode, Style style) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setColumnProperty(property, className)
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_IMAGE)
 		.setStyle(style)
 		.build();
@@ -301,12 +309,12 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		return this;
 	}
 
-	public FastReportBuilder addBarcodeColumn(String title, String property, String className, int barcodeType, boolean showText, int width, boolean fixedWidth, ImageScaleMode imageScaleMode) throws ColumnBuilderException, ClassNotFoundException {
+	public FastReportBuilder addBarcodeColumn(String title, String property, String className, int barcodeType, boolean showText, int width, boolean fixedWidth, ImageScaleMode imageScaleMode) throws ColumnBuilderException {
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setColumnProperty(property, className)
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_BARCODE)
 		.setImageScaleMode(imageScaleMode)
 		.setBarcodeType(barcodeType)
@@ -335,9 +343,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addBarcodeColumn(String title, String property,String className, int  barcodeType,boolean showText, int width, boolean fixedWidth,ImageScaleMode imageScaleMode, Style style) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setColumnProperty(property, className)
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_BARCODE)
 		.setStyle(style)
 		.setBarcodeType(barcodeType)
@@ -372,9 +380,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addBarcodeColumn(String title, String property, String className, int barcodeType, boolean showText, boolean checkSum, String applicationIdentifier, int width, boolean fixedWidth, ImageScaleMode imageScaleMode, Style style) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setColumnProperty(property, className)
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setColumnType(ColumnBuilder.COLUMN_TYPE_BARCODE)
 		.setBarcodeType(barcodeType)
 		.setApplicationIdentifier(applicationIdentifier)
@@ -398,9 +406,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth, String pattern) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setColumnProperty(new ColumnProperty(property, className))
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setPattern(pattern)
 		.build();
 
@@ -417,9 +425,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth, String pattern, Style style) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setColumnProperty(new ColumnProperty(property, className))
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setPattern(pattern)
 		.setStyle(style)
 		.build();
@@ -438,9 +446,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addColumn(String title, String property, String className, int width, boolean fixedWidth, String pattern, Style style, String fieldDescription) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setColumnProperty(new ColumnProperty(property, className))
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setPattern(pattern)
 		.setStyle(style)
 		.setFieldDescription(fieldDescription)
@@ -460,9 +468,9 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	public FastReportBuilder addColumn(String title, CustomExpression expression, int width, boolean fixedWidth, String pattern, Style style) throws ColumnBuilderException, ClassNotFoundException {
 		AbstractColumn column = ColumnBuilder.getNew()
 		.setCustomExpression(expression)
-		.setWidth(new Integer(width))
+		.setWidth(width)
 		.setTitle(title)
-		.setFixedWidth(Boolean.valueOf(fixedWidth))
+		.setFixedWidth(fixedWidth)
 		.setPattern(pattern)
 		.setStyle(style)
 		.build();
@@ -579,7 +587,7 @@ public class FastReportBuilder extends DynamicReportBuilder {
 	private DJGroup getGroupByNumber(int groupNum) throws BuilderException {
 		DJGroup group;
 		try {
-			group = (DJGroup) report.getColumnsGroups().get(groupNum-1);
+			group = report.getColumnsGroups().get(groupNum-1);
 		} catch (IndexOutOfBoundsException e) {
 			throw new BuilderException("No such group, use addGroups(int) first");
 		}
