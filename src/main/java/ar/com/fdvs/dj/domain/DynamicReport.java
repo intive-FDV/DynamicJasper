@@ -362,6 +362,10 @@ public class DynamicReport extends DJBaseElement {
 		this.parameters.add(new Parameter(name, className));
 	}
 
+	public void addParameter(Parameter parameter){
+		this.parameters.add(parameter);
+	}
+
 	public boolean isAllowDetailSplit() {
 		return allowDetailSplit;
 	}
