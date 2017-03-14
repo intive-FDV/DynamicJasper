@@ -55,6 +55,7 @@ import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariable;
 import ar.com.fdvs.dj.domain.entities.DJGroupVariableDef;
 import ar.com.fdvs.dj.domain.entities.DJVariable;
+import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.domain.entities.SubreportParameter;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
@@ -1549,6 +1550,11 @@ public class DynamicReportBuilder {
 
     public DynamicReportBuilder addParameter(String name, String className) {
         this.report.addParameter(name, className);
+        return this;
+    }
+    
+    public DynamicReportBuilder addParameter(Parameter parameter) {
+        this.report.addParameter(parameter);
         return this;
     }
 

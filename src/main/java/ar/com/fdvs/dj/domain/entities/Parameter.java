@@ -8,6 +8,7 @@ public class Parameter extends DJBaseElement {
 	
 	private String name;
 	private String className;
+	private String defaultValueExpression;
 	
 	public Parameter() {
 		super();
@@ -30,5 +31,10 @@ public class Parameter extends DJBaseElement {
 	public void setClassName(String className) {
 		this.className = className;
 	}
-
+	public String getDefaultValueExpression() {
+		return defaultValueExpression;
+	}
+	public void setDefaultValueExpression(String defaultValueExpression) {
+		this.defaultValueExpression = defaultValueExpression;
+	}
 }
