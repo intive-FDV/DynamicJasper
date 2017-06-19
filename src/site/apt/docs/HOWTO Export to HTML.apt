@@ -79,7 +79,7 @@ HOW-TO Export to HTML
 			.addColumn("Quantity", "quantity", Long.class.getName(),60,true)
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
-			.addFirstPageImageBanner(realPath + "/images/logo_fdv_solutions_60.jpg", new Integer(197), new Integer(60), ImageBanner.Alignment.Left)
+			.addFirstPageImageBanner(realPath + "/images/logo_fdv_solutions_60.png", new Integer(197), new Integer(60), ImageBanner.Alignment.Left)
 			.setTitle("November 2008 sales report")
 			.setSubtitle("This report was generated at " + new Date())
 			.setPrintBackgroundOnOddRows(true)	

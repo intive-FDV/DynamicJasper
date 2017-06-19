@@ -111,7 +111,7 @@ public class GroupsReportTestG2T1 extends BaseDjReportTest {
 			.setGrandTotalLegendStyle(g2VariablesStyle)
 			.setDefaultStyles(titleStyle, null, headerStyle, detailStyle)
 			.setPrintColumnNames(false)
-			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.jpg", 100, 30, ImageBanner.Alignment.Right)
+			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/logo_fdv_solutions_60.png", 100, 30, ImageBanner.Alignment.Right)
 			.setOddRowBackgroundStyle(oddRowStyle);
 
 
