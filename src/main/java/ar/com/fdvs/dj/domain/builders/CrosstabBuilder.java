@@ -155,6 +155,10 @@ public class CrosstabBuilder {
 		crosstab.setUseFullWidth(useFullWidth);
 		return this;
 	}
+	public CrosstabBuilder setIgnoreWidth(boolean ignoreWidth) {
+		crosstab.setIgnoreWidth(ignoreWidth);
+		return this;
+	}
 	public CrosstabBuilder setCellBorder(Border cellBorder) {
 		crosstab.setCellBorder(cellBorder);
 		return this;

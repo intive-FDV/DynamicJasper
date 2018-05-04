@@ -63,7 +63,8 @@ public class DJCrosstab extends DJBaseElement {
 	private String mainHeaderTitle = "";
 
 	private boolean automaticTitle = false;
-
+	
+	private boolean ignoreWidth;
 
 	/**
 	 * Default styles, can be overwritten by the column and row objects
@@ -263,6 +264,14 @@ public class DJCrosstab extends DJBaseElement {
 	}
 	public void setCaption(DJLabel caption) {
 		this.caption = caption;
+	}
+	
+	public boolean isIgnoreWidth() {
+		return ignoreWidth;
+	}
+
+	public void setIgnoreWidth(boolean ignoreWidth) {
+		this.ignoreWidth = ignoreWidth;
 	}
 
     public List<DJCrosstabMeasure> getVisibleMeasures() {

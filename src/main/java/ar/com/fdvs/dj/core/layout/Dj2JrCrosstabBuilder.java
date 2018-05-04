@@ -181,6 +181,7 @@ public class Dj2JrCrosstabBuilder {
 
 		jrcross.setColumnBreakOffset(djcross.getColumnBreakOffset());
 
+        jrcross.setIgnoreWidth(djcross.isIgnoreWidth());
 	}
 
 	private void createMainHeaderCell() {
