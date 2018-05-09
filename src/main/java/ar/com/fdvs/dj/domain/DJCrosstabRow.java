@@ -52,6 +52,10 @@ public class DJCrosstabRow extends DJBaseElement{
 	
 	private DJHyperLink link;
 
+    private DJCrosstabBucketOrder order = DJCrosstabBucketOrder.ASCENDING;
+
+    private ColumnProperty orderByProperty;
+
 	public Style getTotalStyle() {
 		return totalStyle;
 	}
@@ -119,4 +123,19 @@ public class DJCrosstabRow extends DJBaseElement{
 		this.totalLegend = totalLegend;
 	}
 
+    public DJCrosstabBucketOrder getOrder() {
+        return order;
+    }
+
+    public void setOrder(DJCrosstabBucketOrder order) {
+        this.order = order;
+    }
+
+    public ColumnProperty getOrderByProperty() {
+        return orderByProperty;
+    }
+
+    public void setOrderByProperty(ColumnProperty orderByProperty) {
+        this.orderByProperty = orderByProperty;
+    }
 }

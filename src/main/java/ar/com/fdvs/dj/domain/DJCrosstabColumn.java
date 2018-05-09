@@ -51,6 +51,10 @@ public class DJCrosstabColumn extends DJBaseElement {
 
 	private String totalLegend;
 
+    private DJCrosstabBucketOrder order = DJCrosstabBucketOrder.ASCENDING;
+
+    private ColumnProperty orderByProperty;
+
 	public Style getHeaderStyle() {
 		return headerStyle;
 	}
@@ -112,4 +116,19 @@ public class DJCrosstabColumn extends DJBaseElement {
 		return totalLegend;
 	}
 
+    public DJCrosstabBucketOrder getOrder() {
+        return order;
+    }
+
+    public void setOrder(DJCrosstabBucketOrder order) {
+        this.order = order;
+    }
+
+    public ColumnProperty getOrderByProperty() {
+        return orderByProperty;
+    }
+
+    public void setOrderByProperty(ColumnProperty orderByProperty) {
+        this.orderByProperty = orderByProperty;
+    }
 }
