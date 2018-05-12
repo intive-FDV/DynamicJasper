@@ -75,6 +75,7 @@ public class FormatInfoRegistry {
     public JRExporter getExporter(final String _format) {
         checkFormat(_format);
         final JRExporter exporter = FORMAT_INFO.get(_format).getExporterInstance();
+        //FIXME migrate to Exporter
         exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
        
         exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);

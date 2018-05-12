@@ -34,6 +34,29 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.1.1" date="2018-05-12" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Supports JasperReport 6.4.1]]>
+            </action>
+            <action dev="Geoff Gibbs" type="Fix">
+                <![CDATA[Fix for https://github.com/intive-FDV/DynamicJasper/issues/59 Crosstab: useMainReportDatasource
+                only works when datasource is passed as a parameter]]>
+            </action>
+           <action dev="Sam Hough" type="Add">
+                <![CDATA[Simple support for parameter defaults.]]>
+            </action>
+           <action dev="Geoff Gibbs" type="Add">
+                <![CDATA[Allow for ignoreWidth to be specified for crosstabs.]]>
+            </action>
+        </release>
+        <release version="5.1.0" date="2017-02-20" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Supports JasperReport 6.3.0]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Code Cleanup (adding generics, lint inspections)]]>
+            </action>
+        </release>
         <release version="5.0.11" date="2016-09-28" desc="">
             <action dev="Juan Manuel Alvarez" type="Add" >
                 <![CDATA[Introducing JasperDesignDecorator. This enables you to tweak the JasperDesign object
