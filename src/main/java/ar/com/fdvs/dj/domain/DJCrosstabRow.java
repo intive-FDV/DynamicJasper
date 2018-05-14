@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain;
 
 import ar.com.fdvs.dj.domain.entities.Entity;
+import net.sf.jasperreports.engine.analytics.dataset.BucketOrder;
 
 public class DJCrosstabRow extends DJBaseElement{
 
@@ -51,6 +52,10 @@ public class DJCrosstabRow extends DJBaseElement{
 	private String totalLegend;
 	
 	private DJHyperLink link;
+
+    private DJCrosstabBucketOrder order = DJCrosstabBucketOrder.ASCENDING;
+
+    private ColumnProperty orderByProperty;
 
 	public Style getTotalStyle() {
 		return totalStyle;
@@ -119,4 +124,19 @@ public class DJCrosstabRow extends DJBaseElement{
 		this.totalLegend = totalLegend;
 	}
 
+    public DJCrosstabBucketOrder getOrder() {
+        return order;
+    }
+
+    public void setOrder(DJCrosstabBucketOrder order) {
+        this.order = order;
+    }
+
+    public ColumnProperty getOrderByProperty() {
+        return orderByProperty;
+    }
+
+    public void setOrderByProperty(ColumnProperty orderByProperty) {
+        this.orderByProperty = orderByProperty;
+    }
 }

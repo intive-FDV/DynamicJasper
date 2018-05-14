@@ -59,6 +59,7 @@ import net.sf.jasperreports.crosstabs.type.CrosstabPercentageEnum;
 import net.sf.jasperreports.crosstabs.type.CrosstabTotalPositionEnum;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRParameter;
+import net.sf.jasperreports.engine.analytics.dataset.BucketOrder;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignDataset;
 import net.sf.jasperreports.engine.design.JRDesignDatasetRun;
@@ -287,6 +288,17 @@ public class Dj2JrCrosstabBuilder {
 			} catch (JRException e) {
 				log.error(e.getMessage(),e);
 			}
+
+            if (crosstabRow.getOrderByProperty() != null) {
+                JRDesignField orderField = new JRDesignField();
+                orderField.setName(crosstabRow.getOrderByProperty().getProperty());
+                orderField.setValueClassName(crosstabRow.getOrderByProperty().getValueClassName());
+                try {
+                    jrDataset.addField(orderField);
+                } catch (JRException e) {
+                    log.error(e.getMessage(), e);
+                }
+            }
 		}
 		for (int i = cols.length-1; i >= 0; i--) {
 			DJCrosstabColumn crosstabColumn = cols[i];
@@ -298,6 +310,17 @@ public class Dj2JrCrosstabBuilder {
 			} catch (JRException e) {
 				log.error(e.getMessage(),e);
 			}
+
+            if (crosstabColumn.getOrderByProperty() != null) {
+                JRDesignField orderField = new JRDesignField();
+                orderField.setName(crosstabColumn.getOrderByProperty().getProperty());
+                orderField.setValueClassName(crosstabColumn.getOrderByProperty().getValueClassName());
+                try {
+                    jrDataset.addField(orderField);
+                } catch (JRException e) {
+                    log.error(e.getMessage(), e);
+                }
+            }
 		}
 
 		for (DJCrosstabMeasure djmeasure : djcrosstab.getMeasures()) {
@@ -765,6 +788,41 @@ public class Dj2JrCrosstabBuilder {
 				log.error(e.getMessage(),e);
 			}
 		}
+
+        // measures for bucket ordering
+        for (DJCrosstabRow row : rows) {
+            if (row.getOrderByProperty() != null) {
+                JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
+                measure.setName(row.getOrderByProperty().getProperty());
+                measure.setValueClassName(row.getOrderByProperty().getValueClassName());
+                JRDesignExpression valueExp = new JRDesignExpression();
+                valueExp.setText("$F{" + row.getOrderByProperty().getProperty() + "}");
+                measure.setValueExpression(valueExp);
+                measure.setCalculation(CalculationEnum.NOTHING);
+                try {
+                    jrcross.addMeasure(measure);
+                } catch (JRException e) {
+                    log.error(e.getMessage(), e);
+                }
+            }
+        }
+
+        for (DJCrosstabColumn col : cols) {
+            if (col.getOrderByProperty() != null) {
+                JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
+                measure.setName(col.getOrderByProperty().getProperty());
+                measure.setValueClassName(col.getOrderByProperty().getValueClassName());
+                JRDesignExpression valueExp = new JRDesignExpression();
+                valueExp.setText("$F{" + col.getOrderByProperty().getProperty() + "}");
+                measure.setValueExpression(valueExp);
+                measure.setCalculation(CalculationEnum.NOTHING);
+                try {
+                    jrcross.addMeasure(measure);
+                } catch (JRException e) {
+                    log.error(e.getMessage(), e);
+                }
+            }
+        }
 	}
 
 	/**
@@ -790,6 +848,24 @@ public class Dj2JrCrosstabBuilder {
 			JRDesignExpression bucketExp = ExpressionUtils.createExpression("$F{"+crosstabRow.getProperty().getProperty()+"}", crosstabRow.getProperty().getValueClassName());
 			rowBucket.setExpression(bucketExp);
 
+			switch (crosstabRow.getOrder()) {
+			case NONE:
+				rowBucket.setOrder(BucketOrder.NONE);
+				break;
+			case DESCENDING:
+				rowBucket.setOrder(BucketOrder.DESCENDING);
+				break;
+			case ASCENDING:
+			default:
+				rowBucket.setOrder(BucketOrder.ASCENDING);
+			}
+
+            if (crosstabRow.getOrderByProperty() != null) {
+                JRDesignExpression orderByExp =
+                        ExpressionUtils.createExpression("$V{" + crosstabRow.getOrderByProperty().getProperty() + "}",
+                                crosstabRow.getOrderByProperty().getValueClassName());
+                rowBucket.setOrderByExpression(orderByExp);
+            }
 
 			JRDesignCellContents rowHeaderContents = new JRDesignCellContents();
 			JRDesignTextField rowTitle = new JRDesignTextField();
@@ -877,6 +953,25 @@ public class Dj2JrCrosstabBuilder {
 			bucket.setExpression(bucketExp);
 
 			ctColGroup.setBucket(bucket);
+
+			switch (crosstabColumn.getOrder()) {
+			case NONE:
+				bucket.setOrder(BucketOrder.NONE);
+				break;
+			case DESCENDING:
+				bucket.setOrder(BucketOrder.DESCENDING);
+				break;
+			case ASCENDING:
+			default:
+				bucket.setOrder(BucketOrder.ASCENDING);
+			}
+
+            if (crosstabColumn.getOrderByProperty() != null) {
+                JRDesignExpression orderByExp =
+                        ExpressionUtils.createExpression("$V{" + crosstabColumn.getOrderByProperty().getProperty() + "}",
+                                crosstabColumn.getOrderByProperty().getValueClassName());
+                bucket.setOrderByExpression(orderByExp);
+            }
 
 			JRDesignCellContents colHeaerContent = new JRDesignCellContents();
 			JRDesignTextField colTitle = new JRDesignTextField();

@@ -30,8 +30,10 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.domain.ColumnProperty;
+import ar.com.fdvs.dj.domain.DJCrosstabBucketOrder;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.Style;
+import net.sf.jasperreports.engine.analytics.dataset.BucketOrder;
 
 public class CrosstabColumnBuilder {
 
@@ -78,4 +80,13 @@ public class CrosstabColumnBuilder {
 		return this;
 	}
 
+    public CrosstabColumnBuilder setOrderBy(String orderByField, Class<?> orderByType) {
+        column.setOrderByProperty(new ColumnProperty(orderByField, orderByType));
+        return this;
+    }
+
+    public CrosstabColumnBuilder setOrder(DJCrosstabBucketOrder order) {
+        column.setOrder(order);
+        return this;
+    }
 }
