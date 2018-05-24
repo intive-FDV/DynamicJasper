@@ -150,6 +150,7 @@ public class DynamicReport extends DJBaseElement {
 	private JasperDesignDecorator jasperDesignDecorator;
 
     private String defaultEncoding;
+	private List<DJCrosstab> summaryCrosstabs = new ArrayList<DJCrosstab>();
 
 	public DynamicReport() {}
 
@@ -494,4 +495,12 @@ public class DynamicReport extends DJBaseElement {
     public void setDefaultEncoding(String defaultEncoding) {
         this.defaultEncoding = defaultEncoding;
     }
+
+    public void addSummaryCrosstab(DJCrosstab summaryCrosstab) {
+		this.summaryCrosstabs.add(summaryCrosstab);
+    }
+    
+	public List<DJCrosstab> getSummaryCrosstabs() {
+		return summaryCrosstabs;
+	}
 }
