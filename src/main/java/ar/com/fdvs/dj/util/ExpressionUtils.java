@@ -112,6 +112,8 @@ public class ExpressionUtils {
             expText = dsType + REPORT_PARAMETERS_MAP + ".get( \"" + ds.getDataSourceExpression() + "\" ) )";
         } else if (ds.getDataSourceOrigin() == DJConstants.DATA_SOURCE_ORIGIN_REPORT_DATASOURCE) {
             expText = "((" + JRDataSource.class.getName() + ") $P{REPORT_DATA_SOURCE})";
+        } else if (ds.getDataSourceOrigin() == DJConstants.DATA_SOURCE_ORIGIN_INLINE) {
+        	expText = ds.getDataSourceExpression();
         }
 
         exp.setText(expText);
