@@ -49,9 +49,9 @@ import org.apache.commons.logging.LogFactory;
 import java.util.ArrayList;
 
 /**
- * Manager invoked to register columns. An AbstractColumn is read and </br>
- * transformed into a JRDesignField.</br>
- * </br>
+ * Manager invoked to register columns. An AbstractColumn is read and <br>
+ * transformed into a JRDesignField.<br>
+ * <br>
  * @see AbstractColumn
  */
 public class ColumnRegistrationManager extends AbstractEntityRegistrationManager {

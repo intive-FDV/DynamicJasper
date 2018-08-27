@@ -35,7 +35,7 @@ import ar.com.fdvs.dj.domain.DJCalculation;
 import ar.com.fdvs.dj.domain.entities.Entity;
 
 /**
- * Basic abstract column type representing a property from the obtained </br>
+ * Basic abstract column type representing a property from the obtained <br>
  * result set. Only subclasses of this class can be grouped.
  */
 public abstract class PropertyColumn extends AbstractColumn {

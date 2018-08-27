@@ -45,8 +45,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Entity created to handle groups of columns.</br>
- * Multiple groups can be created for a single report. In this case the result </br>
+ * Entity created to handle groups of columns.<br>
+ * Multiple groups can be created for a single report. In this case the result <br>
  * would be a nesting with the latest groups added to the report being the inner ones.
  */
 public class DJGroup extends DJBaseElement {

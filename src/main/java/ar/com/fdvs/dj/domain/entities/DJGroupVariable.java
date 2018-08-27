@@ -34,10 +34,10 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Entity used to handle global and group variables that represent the value of </br>
- * an operation applied to the corresponding rows.</br>
+ * Entity used to handle global and group variables that represent the value of <br>
+ * an operation applied to the corresponding rows.<br>
  * DJGroupVariable(s) are shown at the header or footer of the column they operate on.
- * </br>
+ * <br>
  * @see DJCalculation
  */
 public class DJGroupVariable extends DJBaseElement {

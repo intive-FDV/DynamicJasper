@@ -41,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
 import java.util.Collection;
 
 /**
- * Column created to handle Custom Expressions.</br>
+ * Column created to handle Custom Expressions.<br>
  * @see CustomExpression
  */
 public class ExpressionColumn extends SimpleColumn {

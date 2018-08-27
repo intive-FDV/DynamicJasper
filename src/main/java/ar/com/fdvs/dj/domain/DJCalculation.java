@@ -34,8 +34,8 @@ import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
 import net.sf.jasperreports.engine.type.CalculationEnum;
 
 /**
- * Operations that can be shown as a group variable.</br>
- * </br>
+ * Operations that can be shown as a group variable.<br>
+ * <br>
  * @see OperationColumn
  */
 public class DJCalculation extends DJBaseElement {

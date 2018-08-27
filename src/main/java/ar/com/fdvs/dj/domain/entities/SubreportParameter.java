@@ -13,9 +13,9 @@ public class SubreportParameter extends DJBaseElement {
 
 	/**
 	 * Subreport parameters are objects from the main report. In the main report
-	 * they can come from field values, parameters or variables.<br/>
-	 * Use {@link DJConstants}.SUBREPORT_PARAM_ORIGIN_FIELD,<br/>
-	 * {@link DJConstants}.SUBREPORT_PARAM_ORIGIN_PARAMETER or <br/>
+	 * they can come from field values, parameters or variables.<br>
+	 * Use {@link DJConstants}.SUBREPORT_PARAM_ORIGIN_FIELD,<br>
+	 * {@link DJConstants}.SUBREPORT_PARAM_ORIGIN_PARAMETER or <br>
 	 * {@link DJConstants}.SUBREPORT_PARAM_ORIGIN_VARIABLE  to specify it.
 	 */
 	private int parameterOrigin = DJConstants.SUBREPORT_PARAM_ORIGIN_FIELD;

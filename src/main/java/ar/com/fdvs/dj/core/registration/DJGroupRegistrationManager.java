@@ -46,9 +46,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Manager invoked to register groups of columns. A ColumnsGroup is read and </br>
- * transformed into a JRDesignGroup.</br>
- * </br>
+ * Manager invoked to register groups of columns. A ColumnsGroup is read and <br>
+ * transformed into a JRDesignGroup.<br>
+ * <br>
  * @see DJGroup
  */
 public class DJGroupRegistrationManager extends AbstractEntityRegistrationManager {

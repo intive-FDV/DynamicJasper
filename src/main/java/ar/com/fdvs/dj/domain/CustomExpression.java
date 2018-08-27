@@ -35,12 +35,12 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * Powerful interface. The idea behind this is that anybody could implement </br>
- * this interface and redefine the evaluate method in order to show different results in a cell. </br>
- * Example: date formatting, money formatting, string trimming, etc. </br>
- * </br>
+ * Powerful interface. The idea behind this is that anybody could implement <br>
+ * this interface and redefine the evaluate method in order to show different results in a cell. <br>
+ * Example: date formatting, money formatting, string trimming, etc. <br>
+ * <br>
  * @see StatusLightCondition
- * </br>
+ * <br>
  */
 public interface CustomExpression extends Serializable {
 

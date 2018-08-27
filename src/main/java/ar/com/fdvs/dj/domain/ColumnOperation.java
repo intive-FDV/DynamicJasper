@@ -33,8 +33,8 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.OperationColumn;
 
 /**
- * Numerical operations that can be applied by an OperationColumn.</br>
- * </br>
+ * Numerical operations that can be applied by an OperationColumn.<br>
+ * <br>
  * @see OperationColumn
  */
 public class ColumnOperation extends DJBaseElement {

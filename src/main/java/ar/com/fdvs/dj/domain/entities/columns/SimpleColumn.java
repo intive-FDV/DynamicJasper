@@ -33,7 +33,7 @@ import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 
 /**
- * The simplest concrete Column in DJ. It just maps directly to a property </br>
+ * The simplest concrete Column in DJ. It just maps directly to a property <br>
  * from the obtained result set.
  */
 public class SimpleColumn extends PropertyColumn {

@@ -35,8 +35,8 @@ import net.sf.jasperreports.engine.design.JasperDesign;
 import java.util.TreeMap;
 
 /**
- * Custom implementation of JasperDesign class. It adds the concept of registerd </br>
- * parameters and some useful methods.</br>
+ * Custom implementation of JasperDesign class. It adds the concept of registerd <br>
+ * parameters and some useful methods.<br>
  */
 public class DynamicJasperDesign extends JasperDesign {
 

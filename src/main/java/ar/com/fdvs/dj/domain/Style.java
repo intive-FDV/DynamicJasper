@@ -47,15 +47,15 @@ import java.awt.*;
 import java.io.Serializable;
 
 /**
- * Class that should be used to define the different styles in a friendly </br>
- * and strict way.</br>
- * </br>
- * Usage example:</br>
- * Style headerStyle = new Style();</br>
- * headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);</br>
- * headerStyle.setBorder(Border.PEN_2_POINT());</br>
- * headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);</br>
- * headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);</br>
+ * Class that should be used to define the different styles in a friendly <br>
+ * and strict way.<br>
+ * <br>
+ * Usage example:<br>
+ * Style headerStyle = new Style();<br>
+ * headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);<br>
+ * headerStyle.setBorder(Border.PEN_2_POINT());<br>
+ * headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);<br>
+ * headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);<br>
  */
 public class Style implements Serializable, Cloneable {
 

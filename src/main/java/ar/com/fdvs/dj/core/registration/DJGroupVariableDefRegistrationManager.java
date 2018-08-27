@@ -51,9 +51,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Manager invoked to register temporal variables for groups of columns. </br>
- * A ColumnsGroupVariable is read and transformed into a JRDesignVariable. </br>
- * </br>
+ * Manager invoked to register temporal variables for groups of columns. <br>
+ * A ColumnsGroupVariable is read and transformed into a JRDesignVariable. <br>
+ * <br>
  * @see DJGroup
  */
 public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistrationManager {

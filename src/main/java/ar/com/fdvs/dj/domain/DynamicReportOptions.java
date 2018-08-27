@@ -99,25 +99,25 @@ public class DynamicReportOptions extends DJBaseElement {
 	private Style defaultGroupFooterStyle = new Style("defaultGroupFooterStyle");
 
 	/**
-	 * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
+	 * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br>
 	 * value: ImageBanner
 	 */
 	private final Map<ImageBanner.Alignment, ImageBanner> imageBanners = new HashMap<ImageBanner.Alignment, ImageBanner>();
 
     /**
-     * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
+     * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br>
      * value: ImageBanner
      */
     private final Map<ImageBanner.Alignment, ImageBanner> footerImageBanners = new HashMap<ImageBanner.Alignment, ImageBanner>();
 
 	/**
-	 * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
+	 * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br>
 	 * value: ImageBanner
 	 */
 	private final Map<ImageBanner.Alignment, ImageBanner> firstPageImageBanners = new HashMap<ImageBanner.Alignment, ImageBanner>();
 
     /**
-     * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br/>
+     * Key: Byte (ImageBanner.Alignment.Right, ImageBanner.Alignment.Left, ImageBanner.ALIGN_CENTER)<br>
      * value: ImageBanner
      */
 	private final Map<ImageBanner.Alignment, ImageBanner> firstPageFooterImageBanners = new HashMap<ImageBanner.Alignment, ImageBanner>();
@@ -225,7 +225,7 @@ public class DynamicReportOptions extends DJBaseElement {
 	}
 
 	/**
-	 * Gives the printableWidth between the page margins. </br>
+	 * Gives the printableWidth between the page margins. <br>
 	 * pageTotalWidth - leftMargin - rightMargin
 	 * @return int
 	 */
@@ -234,8 +234,8 @@ public class DynamicReportOptions extends DJBaseElement {
 	}
 
 	/**
-	 * Gives the printableWidth between the page margins that also considers the </br>
-	 * number of columns per page and the space between them.</br>
+	 * Gives the printableWidth between the page margins that also considers the <br>
+	 * number of columns per page and the space between them.<br>
 	 * @return int
 	 */
 	public int getColumnWidth(){

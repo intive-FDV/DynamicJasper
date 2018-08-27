@@ -59,9 +59,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 
 /**
- * Builder created to give users a friendly way of creating a DynamicReport.</br>
- * </br>
- * Usage example: </br>
+ * Builder created to give users a friendly way of creating a DynamicReport.<br>
+ * <br>
+ * Usage example: <br>
  * DynamicReportBuilder drb = new DynamicReportBuilder();
  * Integer margin = new Integer(20);
  * drb.addTitle("Clients List").addTitleStyle(titleStyle)
@@ -72,9 +72,9 @@ import java.util.Date;
  * .addPrintBackgroundOnOddRows(true).addOddRowBackgroundStyle(oddRowStyle)
  * .addColumnsPerPage(new Integer(1)).addColumnSpace(new Integer(5))
  * .addColumn(column1).addColumn(column2).build();
- * </br>
+ * <br>
  * Like with all DJ's builders, it's usage must end with a call to build() mehtod.
- * </br>
+ * <br>
  */
 @SuppressWarnings({"WeakerAccess", "CanBeFinal"})
 public class FastReportBuilder extends DynamicReportBuilder {

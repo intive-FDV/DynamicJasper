@@ -37,9 +37,9 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * Column created to handle numerical operations between two or more </br>
- * PropertyColumns.</br>
- * </br>
+ * Column created to handle numerical operations between two or more <br>
+ * PropertyColumns.<br>
+ * <br>
  * @see ColumnOperation
  * @see PropertyColumn
  */

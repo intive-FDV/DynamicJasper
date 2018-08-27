@@ -105,11 +105,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Abstract Class used as base for the different Layout Managers.</br>
- * </br>
- * A Layout Manager is always invoked after the entities registration stage.</br>
- * A subclass should be created whenever we want to give the users the chance to </br>
- * easily apply global layout changes to their reports. Example: Ignore groups </br>
+ * Abstract Class used as base for the different Layout Managers.<br>
+ * <br>
+ * A Layout Manager is always invoked after the entities registration stage.<br>
+ * A subclass should be created whenever we want to give the users the chance to <br>
+ * easily apply global layout changes to their reports. Example: Ignore groups <br>
  * and styles for an Excel optimized report.
  */
 public abstract class AbstractLayoutManager implements LayoutManager {

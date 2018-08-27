@@ -39,9 +39,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Simple Layout Manager recommended when we want to get a ready to operate </br>
- * Excel plain list from the report.</br>
- * </br>
+ * Simple Layout Manager recommended when we want to get a ready to operate <br>
+ * Excel plain list from the report.<br>
+ * <br>
  * Groups and many style options will be ignored.
  */
 public class ListLayoutManager extends AbstractLayoutManager {

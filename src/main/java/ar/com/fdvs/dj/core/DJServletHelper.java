@@ -37,18 +37,18 @@ public class DJServletHelper {
     /**
      * Generates the report as HTML and setups everything for a clean response (serving images as well).
      * You have to declare JasperReport servlet in web.xml (net.sf.jasperreports.j2ee.servlets.ImageServlet)
-     * <br/><br/>
+     * <br><br>
      * Web XML must be configured somehow like this:
-     * <code><br/><br/>
-     * &lt;servlet&gt;<br/>
-     * &nbsp;	&lt;servlet-name&gt;image&lt;/servlet-name&gt;<br/>
-     * &nbsp; &lt;servlet-class&gt;net.sf.jasperreports.j2ee.servlets.ImageServlet&lt;/servlet-class&gt;<br/>
-     * &lt;/servlet&gt;<br/>
+     * <code><br><br>
+     * &lt;servlet&gt;<br>
+     * &nbsp;	&lt;servlet-name&gt;image&lt;/servlet-name&gt;<br>
+     * &nbsp; &lt;servlet-class&gt;net.sf.jasperreports.j2ee.servlets.ImageServlet&lt;/servlet-class&gt;<br>
+     * &lt;/servlet&gt;<br>
      * <p/>
-     * &lt;servlet-mapping&gt;<br/>
-     * &nbsp;	&lt;servlet-name&gt;image&lt;/servlet-name&gt;<br/>
-     * &nbsp;	&lt;url-pattern&gt;/reports/image&lt;/url-pattern&gt;<br/>
-     * &lt;/servlet-mapping&gt;<br/>
+     * &lt;servlet-mapping&gt;<br>
+     * &nbsp;	&lt;servlet-name&gt;image&lt;/servlet-name&gt;<br>
+     * &nbsp;	&lt;url-pattern&gt;/reports/image&lt;/url-pattern&gt;<br>
+     * &lt;/servlet-mapping&gt;<br>
      * </code>
      *
      * @param request

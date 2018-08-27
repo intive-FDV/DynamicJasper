@@ -55,16 +55,16 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Builder created to give users a friendly way of adding columns to a report.</br>
- * </br>
- * Usage example: </br>
- * AbstractColumn columnState = ColumnBuilder.getNew() </br>
- * .addColumnProperty("state", String.class.getName()) </br>
- * .addTitle("State").addWidth(new Integer(85)) </br>
- * .addStyle(detailStyle).addHeaderStyle(headerStyle).build(); </br>
- * </br>
+ * Builder created to give users a friendly way of adding columns to a report.<br>
+ * <br>
+ * Usage example: <br>
+ * AbstractColumn columnState = ColumnBuilder.getNew() <br>
+ * .addColumnProperty("state", String.class.getName()) <br>
+ * .addTitle("State").addWidth(new Integer(85)) <br>
+ * .addStyle(detailStyle).addHeaderStyle(headerStyle).build(); <br>
+ * <br>
  * Like with all DJ's builders, it's usage must end with a call to build() mehtod.
- * </br>
+ * <br>
  */
 public class ColumnBuilder {
 
@@ -300,7 +300,7 @@ public class ColumnBuilder {
 	}
 
 	/**
-	 * Adds a property to the column being created.</br>
+	 * Adds a property to the column being created.<br>
 	 * @param  columnProperty : BeanUtils like syntax allowed here
 	 * @return ColumnBuilder
 	 */
@@ -310,7 +310,7 @@ public class ColumnBuilder {
 	}
 
 	/**
-	 * Adds a property to the column being created.</br>
+	 * Adds a property to the column being created.<br>
 	 * @return ColumnBuilder
 	 */
 	public ColumnBuilder setColumnProperty(String propertyName, String valueClassName ){

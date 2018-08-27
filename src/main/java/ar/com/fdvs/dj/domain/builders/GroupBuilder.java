@@ -45,18 +45,18 @@ import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 
 /**
- * Builder created to give users a friendly way of adding groups to a report.</br>
- * </br>
- * Usage example: </br>
+ * Builder created to give users a friendly way of adding groups to a report.<br>
+ * <br>
+ * Usage example: <br>
  * GroupBuilder gb1 = new GroupBuilder();
- * ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState)</br>
- * .addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)</br>
- * .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)</br>
- * .addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS)</br>
- * .build();</br>
- * </br>
+ * ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState)<br>
+ * .addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)<br>
+ * .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)<br>
+ * .addGroupLayout(GroupLayout.VALUE_IN_HEADER_WITH_HEADERS)<br>
+ * .build();<br>
+ * <br>
  * Like with all DJ's builders, it's usage must end with a call to build() mehtod.
- * </br>
+ * <br>
  */
 public class GroupBuilder {
 

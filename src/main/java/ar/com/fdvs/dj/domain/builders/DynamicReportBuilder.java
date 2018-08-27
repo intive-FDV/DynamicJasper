@@ -74,9 +74,9 @@ import java.util.Map;
 
 /**
  * Builder created to give users a friendly way of creating a
- * DynamicReport.</br>
- * </br>
- * Usage example: </br>
+ * DynamicReport.<br>
+ * <br>
+ * Usage example: <br>
  * DynamicReportBuilder drb = new DynamicReportBuilder(); Integer margin = new
  * Integer(20); drb.addTitle("Clients List").addTitleStyle(titleStyle)
  * .addSubtitle("Clients without debt") .addDetailHeight(new Integer(15))
@@ -85,10 +85,10 @@ import java.util.Map;
  * .addPrintBackgroundOnOddRows(true).addOddRowBackgroundStyle(oddRowStyle)
  * .addColumnsPerPage(new Integer(1)).addColumnSpace(new Integer(5))
  * .addColumn(column1).addColumn(column2).build();
- * </br>
+ * <br>
  * Like with all DJ's builders, it's usage must end with a call to build()
  * mehtod.
- * </br>
+ * <br>
  */
 @SuppressWarnings("WeakerAccess")
 public class DynamicReportBuilder {
@@ -776,7 +776,7 @@ public class DynamicReportBuilder {
     }
 
     /**
-     * Defines the page size and orientation.<br/>
+     * Defines the page size and orientation.<br>
      * Common pages size and orientation are constants of
      * ar.com.fdvs.dj.domain.constants.Page
      *
@@ -1482,10 +1482,10 @@ public class DynamicReportBuilder {
      * Defines what to show if a missing resource is referenced Possible values
      * are:<br>
      * DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY: Leaves and empty
-     * field.<br/>
-     * DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR: Throwns and exception.<br/>
+     * field.<br>
+     * DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR: Throwns and exception.<br>
      * DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY: Shows the key of the missing
-     * resource.<br/> DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL: returns NULL
+     * resource.<br> DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL: returns NULL
      *
      * @param whenResourceMissing
      * @return

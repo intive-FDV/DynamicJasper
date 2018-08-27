@@ -39,9 +39,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Manager invoked to register conditional styles. </br>
- * A ConditionalStyle is read and it's expression is registered. </br>
- * </br>
+ * Manager invoked to register conditional styles. <br>
+ * A ConditionalStyle is read and it's expression is registered. <br>
+ * <br>
  * @see DJGroup
  */
 public class ConditionalStylesRegistrationManager extends AbstractEntityRegistrationManager {

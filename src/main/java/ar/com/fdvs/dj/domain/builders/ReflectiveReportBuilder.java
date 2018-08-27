@@ -38,15 +38,15 @@ import java.util.Collection;
 import java.util.Date;
 
 /**
- * Builder created to give users an easy way of creating a DynamicReport based on a collection.</br>
- * </br>
- * Usage example: </br>
+ * Builder created to give users an easy way of creating a DynamicReport based on a collection.<br>
+ * <br>
+ * Usage example: <br>
  * DynamicReport report =
  *      new ReflectiveReportBuilder(data, new String[]{"productLine", "item", "state", "id", "branch", "quantity", "amount"})
  *      .addGroups(3).build();
- * </br>
+ * <br>
  * Like with all DJ's builders, it's usage must end with a call to build() mehtod.
- * </br>
+ * <br>
  */
 public class ReflectiveReportBuilder extends FastReportBuilder {
 

@@ -55,9 +55,9 @@ import org.apache.commons.logging.LogFactory;
 import java.util.List;
 
 /**
- * Manager invoked to register variables for groups of columns. </br>
- * A ColumnsGroupVariable is read and transformed into a JRDesignVariable. </br>
- * </br>
+ * Manager invoked to register variables for groups of columns. <br>
+ * A ColumnsGroupVariable is read and transformed into a JRDesignVariable. <br>
+ * <br>
  * @see DJGroup
  */
 public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegistrationManager {

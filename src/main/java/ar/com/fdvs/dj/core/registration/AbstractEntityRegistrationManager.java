@@ -44,17 +44,17 @@ import org.apache.commons.logging.LogFactory;
 import java.util.Collection;
 
 /**
- * Abstract Class used as base for the different Entities Registration Managers.</br>
- * </br>
- * Every implementation of this class should know how to register a given Entity</br>
- * and tranform it into any JasperReport object in order to add it to the </br>
- * JasperDesign.</br>
- * </br>
- * A Registration Manager is the first step required to create a report.</br>
- * A subclass should be created only when we want to add new features to DJ.</br>
- * Probably a new class from this hierarchy will imply a change to one or many </br>
- * Layout Managers.</br>
- * </br>
+ * Abstract Class used as base for the different Entities Registration Managers.<br>
+ * <br>
+ * Every implementation of this class should know how to register a given Entity<br>
+ * and tranform it into any JasperReport object in order to add it to the <br>
+ * JasperDesign.<br>
+ * <br>
+ * A Registration Manager is the first step required to create a report.<br>
+ * A subclass should be created only when we want to add new features to DJ.<br>
+ * Probably a new class from this hierarchy will imply a change to one or many <br>
+ * Layout Managers.<br>
+ * <br>
  * @see Entity
  * @see AbstractLayoutManager
  */

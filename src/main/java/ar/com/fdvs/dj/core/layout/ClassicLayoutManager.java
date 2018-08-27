@@ -91,9 +91,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Main Layout Manager recommended for most cases.</br>
- * </br>
- * It provides DJ full features (styles, groups, conditional styles, </br>
+ * Main Layout Manager recommended for most cases.<br>
+ * <br>
+ * It provides DJ full features (styles, groups, conditional styles, <br>
  * expressions, group and total variables, etc)
  */
 @SuppressWarnings("WeakerAccess")
