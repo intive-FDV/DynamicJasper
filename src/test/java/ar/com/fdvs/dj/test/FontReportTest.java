@@ -46,7 +46,9 @@ public class FontReportTest extends BaseDjReportTest {
 
 		Font font = new Font(28,"Colonna MT","/fonts/COLONNA.TTF",Font.PDF_ENCODING_Identity_H_Unicode_with_horizontal_writing,true);
 		Style titleStyle = new StyleBuilder(false).setFont(font).build();
-		
+		Style subtitleStyle = new StyleBuilder(false).setFont(Font.COMIC_SANS_BIG_BOLD).build();
+		Style defaultStyle = new StyleBuilder(false).setFont(Font.GEORGIA_MEDIUM).build();
+
 		/*
 		  Creates the DynamicReportBuilder and sets the basic options for
 		  the report
@@ -61,7 +63,7 @@ public class FontReportTest extends BaseDjReportTest {
 			.addColumn("Amount", "amount", Float.class.getName(),70,true)
 			.addGroups(2)
 			.setTitle("November " + getYear() +" sales report")
-			.setTitleStyle(titleStyle)
+			.setDefaultStyles(titleStyle, subtitleStyle, defaultStyle, defaultStyle)
 			.setSubtitle("This report was generated at " + new Date())
 			
 			.setUseFullPageWidth(true);

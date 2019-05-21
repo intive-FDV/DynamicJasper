@@ -281,6 +281,10 @@ public class ExpressionUtils {
         return preffix + name;
     }
 
+    public static String createParameterName(String preffix, Object obj, String suffix) {
+        return createParameterName(preffix, obj) + suffix;
+    }
+
 
     /**
      * If you register a CustomExpression with the name "customExpName", then this will create the text needed

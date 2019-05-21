@@ -73,7 +73,7 @@
 						key="textField-6"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<textElement textAlignment="Left" verticalAlignment="Bottom">
-						<font fontName="Colonna MT" size="14"/>
+						<font fontName="Arial" size="14"/>
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$P{leftHeader}]]></textFieldExpression>
 				</textField>

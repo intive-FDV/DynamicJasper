@@ -31,14 +31,7 @@ package ar.com.fdvs.dj.core.layout;
 
 import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import ar.com.fdvs.dj.core.registration.EntitiesRegistrationException;
-import ar.com.fdvs.dj.domain.DJCRosstabMeasurePrecalculatedTotalProvider;
-import ar.com.fdvs.dj.domain.DJCrosstab;
-import ar.com.fdvs.dj.domain.DJCrosstabColumn;
-import ar.com.fdvs.dj.domain.DJCrosstabMeasure;
-import ar.com.fdvs.dj.domain.DJCrosstabRow;
-import ar.com.fdvs.dj.domain.DJValueFormatter;
-import ar.com.fdvs.dj.domain.DynamicJasperDesign;
-import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.domain.*;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.entities.conditionalStyle.ConditionalStyle;
 import ar.com.fdvs.dj.util.ExpressionUtils;
@@ -75,12 +68,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class Dj2JrCrosstabBuilder {
 
@@ -771,6 +759,7 @@ public class Dj2JrCrosstabBuilder {
 	 * Register the Rowgroup buckets and places the header cells for the rows
 	 */
 	private void registerRows() {
+		DynamicJasperDesign djdesign = (DynamicJasperDesign) this.design;
 		for (int i =  0; i < rows.length; i++) {
 			DJCrosstabRow crosstabRow = rows[i];
 
@@ -782,6 +771,14 @@ public class Dj2JrCrosstabBuilder {
 
 			JRDesignCrosstabBucket rowBucket = new JRDesignCrosstabBucket();
 
+			Comparator comparator = crosstabRow.getComparator();
+			if (comparator != null){
+				final String comparatorParamName = ExpressionUtils.createParameterName("crosstab_column_comparator", comparator, crosstabRow.getProperty().getProperty());
+				LayoutUtils.registerAndAddParameter(djdesign, comparatorParamName, Comparator.class.getName(), comparator);
+				JRDesignExpression comparatorExpression = ExpressionUtils.createExpression("$P{"+comparatorParamName+"}", Comparator.class.getName());
+				rowBucket.setComparatorExpression(comparatorExpression);
+			}
+
             //New in JR 4.1+
             rowBucket.setValueClassName(crosstabRow.getProperty().getValueClassName());
 
@@ -789,7 +786,6 @@ public class Dj2JrCrosstabBuilder {
 
 			JRDesignExpression bucketExp = ExpressionUtils.createExpression("$F{"+crosstabRow.getProperty().getProperty()+"}", crosstabRow.getProperty().getValueClassName());
 			rowBucket.setExpression(bucketExp);
-
 
 			JRDesignCellContents rowHeaderContents = new JRDesignCellContents();
 			JRDesignTextField rowTitle = new JRDesignTextField();
@@ -862,6 +858,7 @@ public class Dj2JrCrosstabBuilder {
 	 * Registers the Columngroup Buckets and creates the header cell for the columns
 	 */
 	private void registerColumns() {
+		DynamicJasperDesign djdesign = (DynamicJasperDesign) this.design;
 		for (int i = 0; i < cols.length; i++) {
 			DJCrosstabColumn crosstabColumn = cols[i];
 
@@ -870,6 +867,13 @@ public class Dj2JrCrosstabBuilder {
 			ctColGroup.setHeight(crosstabColumn.getHeaderHeight());
 
 			JRDesignCrosstabBucket bucket = new JRDesignCrosstabBucket();
+
+			if (crosstabColumn.getComparator() != null){
+				final String comparatorParamName = ExpressionUtils.createParameterName("crosstab_column_comparator", crosstabColumn.getComparator(), crosstabColumn.getProperty().getProperty());
+				LayoutUtils.registerAndAddParameter(djdesign, comparatorParamName, Comparator.class.getName(), crosstabColumn.getComparator());
+				JRDesignExpression comparatorExpression = ExpressionUtils.createExpression("$P{"+comparatorParamName+"}", Comparator.class.getName());
+				bucket.setComparatorExpression(comparatorExpression);
+			}
 
             bucket.setValueClassName(crosstabColumn.getProperty().getValueClassName());
 

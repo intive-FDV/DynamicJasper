@@ -33,6 +33,8 @@ import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.DJCrosstabColumn;
 import ar.com.fdvs.dj.domain.Style;
 
+import java.util.Comparator;
+
 public class CrosstabColumnBuilder {
 
 	DJCrosstabColumn column = new DJCrosstabColumn();
@@ -77,5 +79,10 @@ public class CrosstabColumnBuilder {
 		column.setHeaderStyle(style);
 		return this;
 	}
+	public CrosstabColumnBuilder setComparator(Comparator comparator){
+		column.setComparator(comparator);
+		return this;
+	}
+
 
 }

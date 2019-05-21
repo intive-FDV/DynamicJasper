@@ -31,6 +31,8 @@ package ar.com.fdvs.dj.domain;
 
 import ar.com.fdvs.dj.domain.entities.Entity;
 
+import java.util.Comparator;
+
 public class DJCrosstabRow extends DJBaseElement{
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
@@ -39,6 +41,7 @@ public class DJCrosstabRow extends DJBaseElement{
 	private int height = -1;
 	private int headerWidth = -1;
 	private int totalHeaderHeight = -1;
+	private Comparator comparator = null;
 
 	private String title;
 
@@ -119,4 +122,11 @@ public class DJCrosstabRow extends DJBaseElement{
 		this.totalLegend = totalLegend;
 	}
 
+	public Comparator getComparator() {
+		return comparator;
+	}
+
+	public void setComparator(Comparator comparator) {
+		this.comparator = comparator;
+	}
 }

@@ -44,6 +44,8 @@ import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 
+import java.util.Comparator;
+
 public class CrosstabBuilder {
 
 	private DJCrosstab crosstab = new DJCrosstab();
@@ -295,7 +297,19 @@ public class CrosstabBuilder {
 		addColumn(col);
 		return this;
 	}
-	
+
+	public CrosstabBuilder addColumn(String title, String property, String className, boolean showTotal, String totalLegend, Comparator comparator) {
+		DJCrosstabColumn col = new CrosstabColumnBuilder()
+				.setProperty(property, className)
+				.setShowTotals(showTotal)
+				.setTotalLegend(totalLegend)
+				.setTitle(title)
+				.setComparator(comparator)
+				.build();
+		addColumn(col);
+		return this;
+	}
+
 	/**
 	 * {@linkplain CrosstabBuilder#addColumn(DJCrosstabColumn)}
 	 * @param title
@@ -317,6 +331,21 @@ public class CrosstabBuilder {
 		.setTotalHeaderStyle(totalHeaderStyle)
 		.setTotalStyle(totalStyle)
 		.build();
+		addColumn(col);
+		return this;
+	}
+
+	public CrosstabBuilder addColumn(String title, String property, String className, boolean showTotal,
+									 Style headerStyle, Style totalStyle, Style totalHeaderStyle, Comparator comparator) {
+		DJCrosstabColumn col = new CrosstabColumnBuilder()
+				.setProperty(property, className)
+				.setShowTotals(showTotal)
+				.setTitle(title)
+				.setHeaderStyle(headerStyle)
+				.setTotalHeaderStyle(totalHeaderStyle)
+				.setTotalStyle(totalStyle)
+				.setComparator(comparator)
+				.build();
 		addColumn(col);
 		return this;
 	}
@@ -349,6 +378,18 @@ public class CrosstabBuilder {
 		addRow(row);
 		return this;
 	}
+
+	public CrosstabBuilder addRow(String title, String property, String className, boolean showTotal, String totalLegend, Comparator comparator) {
+		DJCrosstabRow row = new CrosstabRowBuilder()
+				.setProperty(property, className)
+				.setTotalLegend(totalLegend)
+				.setShowTotals(showTotal)
+				.setTitle(title)
+				.setComparator(comparator)
+				.build();
+		addRow(row);
+		return this;
+	}
 	
 /**
  * {@linkplain CrosstabBuilder#addRow(DJCrosstabRow)}
@@ -371,6 +412,21 @@ public class CrosstabBuilder {
 		.setTotalHeaderStyle(totalHeaderStyle)
 		.setTotalStyle(totalStyle)
 		.build();
+		addRow(row);
+		return this;
+	}
+
+	public CrosstabBuilder addRow(String title, String property, String className, boolean showTotal,
+								  Style headerStyle, Style totalStyle, Style totalHeaderStyle, Comparator comparator) {
+		DJCrosstabRow row = new CrosstabRowBuilder()
+				.setProperty(property, className)
+				.setShowTotals(showTotal)
+				.setTitle(title)
+				.setHeaderStyle(headerStyle)
+				.setTotalHeaderStyle(totalHeaderStyle)
+				.setTotalStyle(totalStyle)
+				.setComparator(comparator)
+				.build();
 		addRow(row);
 		return this;
 	}

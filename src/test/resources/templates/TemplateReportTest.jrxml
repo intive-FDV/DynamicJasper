@@ -45,7 +45,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Left" verticalAlignment="Bottom">
-					<font fontName="Colonna MT" size="14"/>
+					<font fontName="Arial" size="14"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$P{leftHeader}]]></textFieldExpression>
 			</textField>

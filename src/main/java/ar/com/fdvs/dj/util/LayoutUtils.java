@@ -100,17 +100,21 @@ public class LayoutUtils {
 		if (customExpression == null){
 			return;
 		}
+		registerAndAddParameter(design, name, customExpression.getClass().getName(), customExpression);
+	}
+
+	public static void registerAndAddParameter(DynamicJasperDesign design,String name, String classname, Object value) {
 		JRDesignParameter dparam = new JRDesignParameter();
 		dparam.setName(name);
-		dparam.setValueClassName(CustomExpression.class.getName());
-		log.debug("Registering customExpression parameter with name " + name );
+		dparam.setValueClassName(classname);
+		log.debug("Registering parameter parameter with name: " + name +", classname: " + classname);
 		try {
 			design.addParameter(dparam);
 		} catch (JRException e) {
 			throw new EntitiesRegistrationException(e.getMessage(),e);
 		}
-		design.getParametersWithValues().put(name, customExpression);
-	}		
+		design.getParametersWithValues().put(name, value);
+	}
 
 	/**
 	 * Returns the JRDesignGroup for the DJGroup passed
