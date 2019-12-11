@@ -141,6 +141,15 @@ public class DynamicJasperHelper {
             JRDesignField field = new JRDesignField();
             field.setValueClassName(element.getValueClassName());
             field.setName(element.getProperty());
+			// Fix for https://github.com/intive-FDV/DynamicJasper/issues/86
+			// passing in the field properties so they can be used later on
+			if (element.getFieldProperties() != null) {
+				for (Entry<String, String> fieldProperty : element.getFieldProperties().entrySet()) {
+					field.getPropertiesMap().setProperty(fieldProperty.getKey(), fieldProperty.getValue());
+				}
+			}
+            
+            
             try {
                 jd.addField(field);
             } catch (JRException e) {
