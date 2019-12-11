@@ -17,7 +17,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ar.com.fdvs</groupId>
 	<artifactId>DynamicJasper</artifactId>
-	<version>5.1.2.1-SNAPSHOT</version>
+	<version>5.1.2.1</version>
 	<name>DynamicJasper</name>
 	<packaging>jar</packaging>
 	<description>
@@ -536,6 +536,7 @@
 		<connection>scm:git:git@github.com:fireplace009/DynamicJasper.git</connection>
 		<developerConnection>scm:git:git@github.com:fireplace009/DynamicJasper.git</developerConnection>
 		<url>git@github.com:fireplace009/DynamicJasper.git</url>	  
+    <tag>DynamicJasper-5.1.2.1</tag>
   </scm>
 
 	<!-- =============================== -->
