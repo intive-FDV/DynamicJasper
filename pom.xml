@@ -533,9 +533,9 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</connection>
-		<developerConnection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</developerConnection>
-		<url>git@github.com:FDVSolutions/DynamicJasper.git</url>
+		<connection>scm:git:git@github.com:fireplace009/DynamicJasper.git</connection>
+		<developerConnection>scm:git:git@github.com:fireplace009/DynamicJasper.git</developerConnection>
+		<url>git@github.com:fireplace009/DynamicJasper.git</url>
 	</scm>
 
 	<!-- =============================== -->
