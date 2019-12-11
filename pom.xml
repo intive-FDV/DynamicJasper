@@ -1,40 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-	~ DynamicJasper: A library for creating reports dynamically by specifying
+<!-- ~ DynamicJasper: A library for creating reports dynamically by specifying
 	~ columns, groups, styles, etc. at runtime. It also saves a lot of development
-	~ time in many cases! (http://sourceforge.net/projects/dynamicjasper)
-	~
-	~ Copyright (C) 2007  FDV Solutions (http://www.fdvsolutions.com)
-	~
-	~ This library is free software; you can redistribute it and/or
-	~ modify it under the terms of the GNU Lesser General Public
-	~
-	~ License as published by the Free Software Foundation; either
-	~
-	~ version 2.1 of the License, or (at your option) any later version.
-	~
-	~ This library is distributed in the hope that it will be useful,
-	~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-	~
-	~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-	~
-	~ Lesser General Public License for more details.
-	~
-	~ You should have received a copy of the GNU Lesser General Public
-	~ License along with this library; if not, write to the Free Software
-	~
-	~ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-	~
-	~
--->
+	~ time in many cases! (http://sourceforge.net/projects/dynamicjasper) ~ ~
+	Copyright (C) 2007 FDV Solutions (http://www.fdvsolutions.com) ~ ~ This library
+	is free software; you can redistribute it and/or ~ modify it under the terms
+	of the GNU Lesser General Public ~ ~ License as published by the Free Software
+	Foundation; either ~ ~ version 2.1 of the License, or (at your option) any
+	later version. ~ ~ This library is distributed in the hope that it will be
+	useful, ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+	~ ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU ~ ~
+	Lesser General Public License for more details. ~ ~ You should have received
+	a copy of the GNU Lesser General Public ~ License along with this library;
+	if not, write to the Free Software ~ ~ Foundation, Inc., 51 Franklin Street,
+	Fifth Floor, Boston, MA 02110-1301 USA ~ ~ -->
 <project>
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>ar.com.fdvs</groupId>
-    <artifactId>DynamicJasper</artifactId>
-    <version>5.1.2</version>
-    <name>DynamicJasper</name>
-    <packaging>jar</packaging>
-    <description>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>ar.com.fdvs</groupId>
+	<artifactId>DynamicJasper</artifactId>
+	<version>5.1.2.1-SNAPSHOT</version>
+	<name>DynamicJasper</name>
+	<packaging>jar</packaging>
+	<description>
 
         DynamicJasper (DJ) is an API that hides the complexity of Jasper
         Reports, it helps developers to save time when designing
@@ -56,531 +42,569 @@
         http://dynamicjasper.com
 
     </description>
-    <url>https://github.com/FDVSolutions/DynamicJasper</url>
-    <issueManagement>
-        <system>GitHub Tracker</system>
-        <url>https://github.com/FDVSolutions/DynamicJasper/issues</url>
-    </issueManagement>
-    <inceptionYear>2006</inceptionYear>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.5.1</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <debug>true</debug>
-                    <fork>true</fork>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-		        <version>2.6</version>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.5</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>test-jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+	<url>https://github.com/FDVSolutions/DynamicJasper</url>
+	<issueManagement>
+		<system>GitHub Tracker</system>
+		<url>https://github.com/FDVSolutions/DynamicJasper/issues</url>
+	</issueManagement>
+	<inceptionYear>2006</inceptionYear>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.5.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<debug>true</debug>
+					<fork>true</fork>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.5</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.9.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                        <configuration>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+<!-- 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin> -->
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version> <executions> <execution> <id>sign-artifacts</id> <phase>verify</phase>
+				<goals> <goal>sign</goal> </goals> </execution> </executions> </plugin> -->
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
 				<version>2.10</version>
-                <configuration>
-                    <failOnError>false</failOnError>
-                    <finalName>DynamicJasper version ${project.version}</finalName>
-                </configuration>
-            </plugin>
+				<configuration>
+					<failOnError>false</failOnError>
+					<finalName>DynamicJasper version ${project.version}</finalName>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
-            </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.7.1</version>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
-        </plugins>
-    </build>
-    <profiles>
-        <profile>
-            <id>sources</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
-                        <executions>
-                            <execution>
-                                <id>attach-source</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                    <goal>test-jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <configuration>
-                            <source>1.6</source>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>javadoc</id>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>test</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-jar-plugin</artifactId>
-                        <version>2.5</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>test-jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>site</id>
-            <reporting>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <configuration>
-                            <source>1.6</source>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                        </configuration>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-changes-plugin</artifactId>
-                        <version>2.10</version>
-                        <reportSets>
-                            <reportSet>
-                                <reports>
-                                    <report>changes-report</report>
-                                </reports>
-                            </reportSet>
-                        </reportSets>
-                        <configuration>
-                            <!-- if set to true the build will fail if the changes file is invalid,
-                                 if set to false warnings will be logged. -->
-                            <failOnError>false</failOnError>
-                            <issueLinkTemplate>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>3.0.0</version>
+			</plugin>
+		</plugins>
+	</build>
+	<profiles>
+		<profile>
+			<id>sources</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<version>2.2.1</version>
+						<executions>
+							<execution>
+								<id>attach-source</id>
+								<goals>
+									<goal>jar</goal>
+									<goal>test-jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<!-- <plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<configuration>
+							<source>1.6</source>
+						</configuration>
+						<executions>
+							<execution>
+								<id>javadoc</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin> -->
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>test</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>2.5</version>
+						<executions>
+							<execution>
+								<goals>
+									<goal>test-jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>site</id>
+			<reporting>
+				<plugins>
+					<!-- <plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>2.9.1</version>
+						<configuration>
+							<source>1.6</source>
+							<additionalparam>-Xdoclint:none</additionalparam>
+						</configuration>
+					</plugin> -->
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-changes-plugin</artifactId>
+						<version>2.10</version>
+						<reportSets>
+							<reportSet>
+								<reports>
+									<report>changes-report</report>
+								</reports>
+							</reportSet>
+						</reportSets>
+						<configuration>
+							<!-- if set to true the build will fail if the changes file is invalid,
+								if set to false warnings will be logged. -->
+							<failOnError>false</failOnError>
+							<issueLinkTemplate>
                                 <![CDATA[https://sourceforge.net/tracker/?func=detail&group_id=188060&atid=923805&aid=%ISSUE%]]>
-                            </issueLinkTemplate>
-                        </configuration>
-                    </plugin>
+							</issueLinkTemplate>
+						</configuration>
+					</plugin>
 
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>cobertura-maven-plugin</artifactId>
-                        <version>2.7</version>
-                        <configuration>
-                            <formats>
-                                <format>html</format>
-                            </formats>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </reporting>
-        </profile>
-        <profile>
-            <id>internal</id>
-            <distributionManagement>
-                <repository>
-                    <id>archiva.default</id>
-                    <url>http://archiva.fdvs.com.ar/repository/internal</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>publicRepo</id>
-            <distributionManagement>
-                <repository>
-                    <id>archiva.default</id>
-                    <url>http://archiva.fdvs.com.ar/repository/public1</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-    </profiles>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>cobertura-maven-plugin</artifactId>
+						<version>2.7</version>
+						<configuration>
+							<formats>
+								<format>html</format>
+							</formats>
+						</configuration>
+					</plugin>
+				</plugins>
+			</reporting>
+		</profile>
+		<profile>
+			<id>internal</id>
+			<distributionManagement>
+				<repository>
+					<id>archiva.default</id>
+					<url>http://archiva.fdvs.com.ar/repository/internal</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+		<profile>
+			<id>publicRepo</id>
+			<distributionManagement>
+				<repository>
+					<id>archiva.default</id>
+					<url>http://archiva.fdvs.com.ar/repository/public1</url>
+				</repository>
+			</distributionManagement>
+		</profile>
+	</profiles>
 
+	<repositories>
+		<repository>
+			<id>repository.maven2.it.volvo.net.mvncentral</id>
+			<url>http://maven2.it.volvo.net/content/repositories/mvncentral/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
-    <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.1</version>
-            <scope>test</scope>
-        </dependency>
+	<distributionManagement>
+		<repository>
+			<id>maven2.it.volvo.net</id>
+			<name>copilot</name>
+			<url>http://maven2.it.volvo.net/content/repositories/co-pilot</url>
+		</repository>
+		<snapshotRepository>
+			<id>maven2.it.volvo.net</id>
+			<name>copilotSnapshots</name>
+			<url>http://maven2.it.volvo.net/content/repositories/co-pilotSnapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
 
-        <dependency>
-            <groupId>net.sf.jasperreports</groupId>
-            <artifactId>jasperreports</artifactId>
-            <version>[4.6.0, 6.4.1]</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-collections</groupId>
-                    <artifactId>commons-collections</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>bouncycastle</groupId>
-                    <artifactId>bcmail-jdk14</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>bouncycastle</groupId>
-                    <artifactId>bcprov-jdk14</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>3.2.2</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-collections4</artifactId>
-            <version>4.1</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-beanutils</groupId>
-            <artifactId>commons-beanutils</artifactId>
-            <version>1.7.0</version>
-        </dependency>
-        <dependency>
-            <groupId>opensymphony</groupId>
-            <artifactId>xwork</artifactId>
-            <version>1.2.1</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>opensymphony</groupId>
-            <artifactId>webwork</artifactId>
-            <version>2.2.4</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.3</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>net.sourceforge.barbecue</groupId>
-            <artifactId>barbecue</artifactId>
-            <version>1.5-beta1</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>batik-bridge</artifactId>
-            <version>1.8</version>
-            <scope>compile</scope>
-            <optional>true</optional>
-        </dependency>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>[4.6.0, 6.4.1]</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-collections</groupId>
+					<artifactId>commons-collections</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>bouncycastle</groupId>
+					<artifactId>bcmail-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>bouncycastle</groupId>
+					<artifactId>bcprov-jdk14</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>com.lowagie</groupId>
+					<artifactId>itext</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.olap4j</groupId>
+					<artifactId>olap4j</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.xmlgraphics</groupId>
-            <artifactId>xmlgraphics-commons</artifactId>
-            <version>1.5</version>
-        </dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7.js2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.olap4j</groupId>
+			<artifactId>olap4j</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpcore</artifactId>
+			<version>4.4.12</version>
+		</dependency>
 
-        <dependency>
-            <groupId>net.sourceforge.jexcelapi</groupId>
-            <artifactId>jxl</artifactId>
-            <version>2.6</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>xalan</groupId>
-            <artifactId>xalan</artifactId>
-            <version>2.7.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>3.1.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.14</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>1.8.0.7</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>3.2.5.ga</version>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>javax.transaction</groupId>
-            <artifactId>jta</artifactId>
-            <version>1.1</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>httpunit</groupId>
-            <artifactId>httpunit</artifactId>
-            <version>1.6.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>3.2.2.RELEASE</version>
-            <scope>test</scope>
-            <optional>true</optional>
-        </dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.7.0</version>
+		</dependency>
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>xwork</artifactId>
+			<version>1.2.1</version>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>opensymphony</groupId>
+			<artifactId>webwork</artifactId>
+			<version>2.2.4</version>
+			<scope>provided</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.3</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.barbecue</groupId>
+			<artifactId>barbecue</artifactId>
+			<version>1.5-beta1</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-bridge</artifactId>
+			<version>1.8</version>
+			<scope>compile</scope>
+			<optional>true</optional>
+		</dependency>
 
-        <dependency>
-            <groupId>ar.com.fdvs</groupId>
-            <artifactId>DynamicJasper-core-fonts</artifactId>
-            <version>2.0</version>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.17</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>xmlgraphics-commons</artifactId>
+			<version>1.5</version>
+		</dependency>
 
-        <dependency>
-            <groupId>ar.com.fdvs</groupId>
-            <artifactId>DynamicJasper-test-fonts</artifactId>
-            <version>2.0.0</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>3.2.2.RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>3.2.2.RELEASE</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
+		<dependency>
+			<groupId>net.sourceforge.jexcelapi</groupId>
+			<artifactId>jxl</artifactId>
+			<version>2.6</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>2.7.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>3.1.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.7</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.5.ga</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.transaction</groupId>
+					<artifactId>jta</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>javax.transaction</groupId>
+			<artifactId>jta</artifactId>
+			<version>1.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>httpunit</groupId>
+			<artifactId>httpunit</artifactId>
+			<version>1.6.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<version>3.2.2.RELEASE</version>
+			<scope>test</scope>
+			<optional>true</optional>
+		</dependency>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+		<dependency>
+			<groupId>ar.com.fdvs</groupId>
+			<artifactId>DynamicJasper-core-fonts</artifactId>
+			<version>2.0</version>
+			<scope>provided</scope>
+		</dependency>
 
-    <mailingLists>
-        <mailingList>
-            <name>DynamicJasper News List</name>
-            <post>dynamicjasper-news@lists.sourceforge.net</post>
-            <subscribe>
+		<dependency>
+			<groupId>ar.com.fdvs</groupId>
+			<artifactId>DynamicJasper-test-fonts</artifactId>
+			<version>2.0.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>3.2.2.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>3.2.2.RELEASE</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+<!-- 	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+	</distributionManagement>
+ -->
+	<mailingLists>
+		<mailingList>
+			<name>DynamicJasper News List</name>
+			<post>dynamicjasper-news@lists.sourceforge.net</post>
+			<subscribe>
                 dynamicjasper-news-subscribe@lists.sourceforge.net
             </subscribe>
-            <unsubscribe>
+			<unsubscribe>
                 dynamicjasper-news-unsubscribe@lists.sourceforge.net
             </unsubscribe>
-            <archive>
+			<archive>
                 http://sourceforge.net/mailarchive/forum.php?forum=dynamicjasper-news
             </archive>
-        </mailingList>
-    </mailingLists>
-    <licenses>
-        <license>
-            <name>
+		</mailingList>
+	</mailingLists>
+	<licenses>
+		<license>
+			<name>
                 GNU Library or Lesser General Public License (LGPL)
             </name>
-            <url>http://www.gnu.org/licenses/lgpl.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+			<url>http://www.gnu.org/licenses/lgpl.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
-    <scm>
-        <connection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</connection>
-        <developerConnection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</developerConnection>
-        <url>git@github.com:FDVSolutions/DynamicJasper.git</url>
-    </scm>
+	<scm>
+		<connection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</connection>
+		<developerConnection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</developerConnection>
+		<url>git@github.com:FDVSolutions/DynamicJasper.git</url>
+	</scm>
 
-    <!-- =============================== -->
-    <!--	PEOPLE                      -->
-    <!-- =============================== -->
-    <developers>
-        <developer>
-            <name>Juan Manuel Alvarez</name>
-            <id>djmamana</id>
-            <email>juan.alvarez@fdvsolutions.com</email>
-            <organization>FDV Solutions</organization>
-            <roles>
-                <role>Project lead</role>
-                <role>Java Developer</role>
-            </roles>
-            <timezone>-3</timezone>
-        </developer>
-        <developer>
-            <name>Martin Gorostegui</name>
-            <id>martingoros</id>
-            <email>martin.gorostegui@fdvsolutions.com</email>
-            <organization>FDV Solutions</organization>
-            <roles>
-                <role>Project admin</role>
-                <role>Java Developer</role>
-            </roles>
-            <timezone>-3</timezone>
-        </developer>
-        <developer>
-            <name>Mariano Simone</name>
-            <id>marianosimone</id>
-            <email>mariano.simone@fdvsolutions.com</email>
-            <organization>FDV Solutions</organization>
-            <roles>
-                <role>Java Developer</role>
-                <role>Charting integration</role>
-            </roles>
-            <timezone>-3</timezone>
-        </developer>
-        <developer>
-            <name>Alejandro Gomez</name>
-            <email>alejandro.gomez@fdvsolutions.com</email>
-            <organization>FDV Solutions</organization>
-            <roles>
-                <role>Super Gurú</role>
-                <role>Doc supervisor</role>
-                <role>webwork Integration</role>
-            </roles>
-            <timezone>-3</timezone>
-        </developer>
-        <developer>
-            <name>Ricardo Mariaca</name>
-            <id>ricardomariaca</id>
-            <email>nospam@nospam.com</email>
-            <organization>Other</organization>
-            <roles>
-                <role>Java Developer</role>
-                <role>Charting integration (new charts)</role>
-            </roles>
-            <timezone>-3</timezone>
-        </developer>
-    </developers>
+	<!-- =============================== -->
+	<!-- PEOPLE -->
+	<!-- =============================== -->
+	<developers>
+		<developer>
+			<name>Juan Manuel Alvarez</name>
+			<id>djmamana</id>
+			<email>juan.alvarez@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Project lead</role>
+				<role>Java Developer</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		<developer>
+			<name>Martin Gorostegui</name>
+			<id>martingoros</id>
+			<email>martin.gorostegui@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Project admin</role>
+				<role>Java Developer</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		<developer>
+			<name>Mariano Simone</name>
+			<id>marianosimone</id>
+			<email>mariano.simone@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Java Developer</role>
+				<role>Charting integration</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		<developer>
+			<name>Alejandro Gomez</name>
+			<email>alejandro.gomez@fdvsolutions.com</email>
+			<organization>FDV Solutions</organization>
+			<roles>
+				<role>Super Gurú</role>
+				<role>Doc supervisor</role>
+				<role>webwork Integration</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+		<developer>
+			<name>Ricardo Mariaca</name>
+			<id>ricardomariaca</id>
+			<email>nospam@nospam.com</email>
+			<organization>Other</organization>
+			<roles>
+				<role>Java Developer</role>
+				<role>Charting integration (new charts)</role>
+			</roles>
+			<timezone>-3</timezone>
+		</developer>
+	</developers>
 
 
-    <organization>
-        <name>FDV Solutions</name>
-        <url>http://www.fdvsolutions.com/</url>
-    </organization>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+	<organization>
+		<name>FDV Solutions</name>
+		<url>http://www.fdvsolutions.com/</url>
+	</organization>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 </project>
