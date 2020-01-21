@@ -73,22 +73,23 @@ public abstract class AbstractColumn extends DJBaseElement {
 	private boolean blankWhenNull = Boolean.TRUE;
 	private String truncateSuffix = null;
 	private Format textFormatter;
+	private boolean printWhenDetailOverflows = Boolean.TRUE;
 
-    /**
-     * Markup to use in the column data (html, styled, etc)
-     */
-    private String markup;
+	/**
+	 * Markup to use in the column data (html, styled, etc)
+	 */
+	private String markup;
 
-    /**
-     * Markup to use in the column header (html, styled, etc)
-     */
-    private String headerMarkup;
+	/**
+	 * Markup to use in the column header (html, styled, etc)
+	 */
+	private String headerMarkup;
 
-    private DJHyperLink link;
-	
+	private DJHyperLink link;
+
 	private List<ConditionalStyle> conditionalStyles = new ArrayList<ConditionalStyle>();
 
-    private DJColSpan colSpan;
+	private DJColSpan colSpan;
 
 	public List<ConditionalStyle> getConditionalStyles() {
 		return conditionalStyles;
@@ -226,39 +227,47 @@ public abstract class AbstractColumn extends DJBaseElement {
 		this.link = link;
 	}
 
-    public DJColSpan getColSpan() {
-        return colSpan;
-    }
+	public DJColSpan getColSpan() {
+		return colSpan;
+	}
 
-    public void setColSpan(DJColSpan colSpan) {
-        this.colSpan = colSpan;
-    }
+	public void setColSpan(DJColSpan colSpan) {
+		this.colSpan = colSpan;
+	}
 
-    public boolean hasParentCol() {
-        return colSpan != null;
-    }
+	public boolean hasParentCol() {
+		return colSpan != null;
+	}
 
-    public String getReportName() {
-        return reportName;
-    }
+	public String getReportName() {
+		return reportName;
+	}
 
-    public void setReportName(String reportName) {
-        this.reportName = reportName;
-    }
+	public void setReportName(String reportName) {
+		this.reportName = reportName;
+	}
 
-    public String getMarkup() {
-        return markup;
-    }
+	public String getMarkup() {
+		return markup;
+	}
 
-    public void setMarkup(String markup) {
-        this.markup = markup;
-    }
+	public void setMarkup(String markup) {
+		this.markup = markup;
+	}
 
-    public String getHeaderMarkup() {
-        return headerMarkup;
-    }
+	public String getHeaderMarkup() {
+		return headerMarkup;
+	}
 
-    public void setHeaderMarkup(String headerMarkup) {
-        this.headerMarkup = headerMarkup;
-    }
+	public void setHeaderMarkup(String headerMarkup) {
+		this.headerMarkup = headerMarkup;
+	}
+
+	public boolean isPrintWhenDetailOverflows() {
+		return this.printWhenDetailOverflows;
+	}
+
+	public void setPrintWhenDetailOverflows(boolean printWhenDetailOverflows) {
+		this.printWhenDetailOverflows = printWhenDetailOverflows;
+	}
 }
