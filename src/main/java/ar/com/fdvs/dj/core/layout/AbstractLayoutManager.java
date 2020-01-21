@@ -816,8 +816,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             textField.setMarkup(col.getMarkup().toLowerCase());
 
         textField.setPrintRepeatedValues(col.isPrintRepeatedValues());
-
-        textField.setPrintWhenDetailOverflows(true);
+		textField.setPrintWhenDetailOverflows(col.isPrintWhenDetailOverflows());
 
         Style columnStyle = col.getStyle();
         if (columnStyle == null)
