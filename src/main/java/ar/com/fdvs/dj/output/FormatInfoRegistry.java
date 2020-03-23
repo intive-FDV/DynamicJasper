@@ -34,7 +34,6 @@ import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.layout.ListLayoutManager;
 import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
 import java.util.HashMap;
@@ -49,7 +48,7 @@ public class FormatInfoRegistry {
 
 	public static final String EXPORTER_CLASS_XLS = "net.sf.jasperreports.engine.export.JRXlsExporter";
 	public static final String EXPORTER_CLASS_CSV = "net.sf.jasperreports.engine.export.JRCsvExporter";
-	public static final String EXPORTER_CLASS_HTML = "net.sf.jasperreports.engine.export.JRHtmlExporter";
+	public static final String EXPORTER_CLASS_HTML ="net.sf.jasperreports.engine.export.HtmlExporter";
 	public static final String EXPORTER_CLASS_PDF = "net.sf.jasperreports.engine.export.JRPdfExporter";
 	public static final String EXPORTER_CLASS_XML = "net.sf.jasperreports.engine.export.JRXmlExporter";
 	public static final String EXPORTER_CLASS_RTF = "net.sf.jasperreports.engine.export.JRRtfExporter";
@@ -77,7 +76,7 @@ public class FormatInfoRegistry {
         final JRExporter exporter = FORMAT_INFO.get(_format).getExporterInstance();
         //FIXME migrate to Exporter
 //        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
-       
+
         exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
         exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
         exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);

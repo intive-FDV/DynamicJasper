@@ -34,6 +34,22 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.1.3" date="2020-03-23" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Compiled with Java 1.7]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Supports JasperReports 6.3.0 to 6.5.1]]>
+            </action>
+        </release>
+        <release version="5.1.2" date="2019-05-20" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Crosttabs supports a comparator in both column and row]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="Fix">
+                <![CDATA[Dependencies to core-fonts 2.0 which supports JasperReports 6.3.1+]]>
+            </action>
+        </release>
         <release version="5.1.1" date="2018-05-12" desc="">
             <action dev="Juan Manuel Alvarez" type="Add">
                 <![CDATA[Supports JasperReport 6.4.1]]>

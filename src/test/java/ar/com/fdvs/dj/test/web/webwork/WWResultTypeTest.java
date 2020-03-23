@@ -11,7 +11,9 @@ import org.apache.log4j.lf5.util.StreamUtils;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
+import org.junit.Ignore;
 
+@Ignore
 public class WWResultTypeTest extends TestCase {
 
 	public void testDynamicReport() throws Exception {
