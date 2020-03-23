@@ -29,19 +29,16 @@
 
 package ar.com.fdvs.dj.domain;
 
-import ar.com.fdvs.dj.domain.constants.*;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.Transparency;
+import ar.com.fdvs.dj.domain.constants.*;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.LayoutUtils;
 import net.sf.jasperreports.engine.base.JRBaseStyle;
 import net.sf.jasperreports.engine.base.JRBoxPen;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
-import net.sf.jasperreports.engine.type.HorizontalAlignEnum;
-import net.sf.jasperreports.engine.type.ModeEnum;
-import net.sf.jasperreports.engine.type.RotationEnum;
-import net.sf.jasperreports.engine.type.VerticalAlignEnum;
+import net.sf.jasperreports.engine.type.*;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -83,8 +80,16 @@ public class Style implements Serializable, Cloneable {
 
 	private Transparency transparency = Transparency.TRANSPARENT;
 
+	@Deprecated
     private VerticalAlign verticalAlign = VerticalAlign.BOTTOM;
-    private HorizontalAlign horizontalAlign = HorizontalAlign.LEFT;
+	private VerticalTextAlign verticalTextAlign = VerticalTextAlign.BOTTOM;
+	private VerticalImageAlign verticalImageAlign = VerticalImageAlign.BOTTOM;
+
+	@Deprecated
+    private HorizontalAlign horizontalAlign = null;
+    private HorizontalTextAlign horizontalTextAlign = HorizontalTextAlign.LEFT;
+    private HorizontalImageAlign horizontalImageAlign = HorizontalImageAlign.LEFT;
+
     private Rotation rotation = Rotation.NONE;
 
     private Stretching streching = Stretching.RELATIVE_TO_TALLEST_OBJECT;
@@ -99,6 +104,51 @@ public class Style implements Serializable, Cloneable {
      */
     private boolean overridesExistingStyle = false;
 
+	public Style(){}
+
+    public Style(String name){
+    	this.name = name;
+    }
+
+    public Style(String name, String parentName){
+    	this.name = name;
+    	this.parentStyleName = parentName;
+    }
+
+	/**
+	 * Creates a blank style (no default values).
+	 * Useful when we need a style with a parent style, not defined properties (null ones) will be inherited
+	 * from parent style
+	 *
+	 * @param name  style name
+	 * @return  Style
+	 */
+	public static Style createBlankStyle(String name){
+		Style style = new Style(name);
+
+		style.setBackgroundColor(null);
+		style.setBorderColor(null);
+		style.setTransparency(null);
+		style.setTextColor(null);
+		style.setBorder(null);
+		style.setFont(null);
+		style.setPadding(null);
+		style.setRadius(null);
+		style.setVerticalAlign(null);
+		style.setHorizontalAlign(null);
+		style.setRotation(null);
+		style.setStreching(null);
+
+		return style;
+
+	}
+
+	public static Style createBlankStyle(String name, String parent){
+		Style s = createBlankStyle(name);
+		s.setParentStyleName(parent);
+		return s;
+	}
+
     public boolean isOverridesExistingStyle() {
 		return overridesExistingStyle;
 	}
@@ -106,16 +156,6 @@ public class Style implements Serializable, Cloneable {
 	public void setOverridesExistingStyle(boolean overridesExistingStyle) {
 		this.overridesExistingStyle = overridesExistingStyle;
 	}
-
-	public Style(){}
-
-    public Style(String name){
-    	this.name = name;
-    }
-    public Style(String name, String parentName){
-    	this.name = name;
-    	this.parentStyleName = parentName;
-    }
 
 	public boolean isBlankWhenNull() {
 		return blankWhenNull;
@@ -199,15 +239,15 @@ public class Style implements Serializable, Cloneable {
 		this.transparency = transparency;
 	}
 
+	public boolean isTransparent(){
+		return this.transparency.equals(Transparency.TRANSPARENT);
+	}
+
 	public void setTransparent(boolean transparent) {
 		if (transparent)
 			this.setTransparency(Transparency.TRANSPARENT);
 		else
 			this.setTransparency(Transparency.OPAQUE);
-	}
-
-	public boolean isTransparent(){
-		return this.transparency.equals(Transparency.TRANSPARENT);
 	}
 
 	public VerticalAlign getVerticalAlign() {
@@ -222,7 +262,7 @@ public class Style implements Serializable, Cloneable {
 		JRDesignConditionalStyle ret = new JRDesignConditionalStyle();
 		setJRBaseStyleProperties(ret);
 		return ret;
-		
+
 	}
 
 	public JRDesignStyle transform() {
@@ -241,16 +281,12 @@ public class Style implements Serializable, Cloneable {
 
 		if (getBorderBottom()!= null)
             LayoutUtils.convertBorderToPen(getBorderBottom(),transformedStyle.getLineBox().getBottomPen());
-			//transformedStyle.setBottomBorder(getBorderBottom().getValue());
 		if (getBorderTop()!= null)
             LayoutUtils.convertBorderToPen(getBorderTop(),transformedStyle.getLineBox().getTopPen());
-			//transformedStyle.setTopBorder(getBorderTop().getValue());
 		if (getBorderLeft()!= null)
             LayoutUtils.convertBorderToPen(getBorderLeft(),transformedStyle.getLineBox().getLeftPen());
-			//transformedStyle.setLeftBorder(getBorderLeft().getValue());
 		if (getBorderRight()!= null)
             LayoutUtils.convertBorderToPen(getBorderRight(),transformedStyle.getLineBox().getRightPen());
-			//transformedStyle.setRightBorder(getBorderRight().getValue());
 
 		//Padding
 		transformedStyle.getLineBox().setPadding(getPadding());
@@ -264,24 +300,49 @@ public class Style implements Serializable, Cloneable {
 		if (paddingRight != null)
             transformedStyle.getLineBox().setRightPadding(paddingRight);
 
-		//Aligns
-		if (getHorizontalAlign() != null)
-			transformedStyle.setHorizontalAlignment(HorizontalAlignEnum.getByValue(getHorizontalAlign().getValue() ));
 
-		if (getVerticalAlign() != null)
-			transformedStyle.setVerticalAlignment(VerticalAlignEnum.getByValue(getVerticalAlign().getValue()));
+		//horizontal TEXT Aligns
+		if (getHorizontalAlign() == null && getHorizontalTextAlign() != null) {
+			transformedStyle.setHorizontalTextAlign(HorizontalTextAlignEnum.getByName(getHorizontalTextAlign().getName()));
+		} else if (getHorizontalAlign() != null) {
+			HorizontalTextAlign horizontalTextAlign = HorizontalTextAlign.fromLegacy(getHorizontalAlign().getValue());
+			transformedStyle.setHorizontalTextAlign(HorizontalTextAlignEnum.getByName(horizontalTextAlign.getName()));
+		}
 
-		transformedStyle.setBlankWhenNull(blankWhenNull);
+		//Vertical TEXT aligns
+		if (getVerticalAlign() == null && getVerticalTextAlign() != null){
+			transformedStyle.setVerticalTextAlign(VerticalTextAlignEnum.getByName(getVerticalTextAlign().getName()));
+		} else if (getVerticalAlign() != null) {
+			VerticalTextAlign verticalTextAlign = VerticalTextAlign.fromLegacy(getVerticalAlign().getValue());
+			transformedStyle.setVerticalTextAlign(VerticalTextAlignEnum.getByName(verticalTextAlign.getName()));
+		}
+
+		//Horizontal Image align
+		if (getHorizontalAlign() == null && getHorizontalImageAlign() != null) {
+			transformedStyle.setHorizontalImageAlign(HorizontalImageAlignEnum.getByName(getHorizontalImageAlign().getName()));
+		} else if (getHorizontalAlign() != null) {
+			HorizontalImageAlign horizontalTextAlign = HorizontalImageAlign.fromLegacy(getHorizontalAlign().getValue());
+			transformedStyle.setHorizontalImageAlign(HorizontalImageAlignEnum.getByName(horizontalTextAlign.getName()));
+		}
+		//Vertical Image align
+		if (getVerticalAlign() == null && getVerticalImageAlign() != null){
+			transformedStyle.setVerticalImageAlign(VerticalImageAlignEnum.getByName(getVerticalImageAlign().getName()));
+		} else if (getVerticalAlign() != null) {
+			VerticalImageAlign verticalImageAlign = VerticalImageAlign.fromLegacy(getVerticalAlign().getValue());
+			transformedStyle.setVerticalImageAlign(VerticalImageAlignEnum.getByName(verticalImageAlign.getName()));
+		}
+
+		transformedStyle.setBlankWhenNull(Boolean.valueOf(blankWhenNull));
 
 		//Font
 		if (font != null) {
 			transformedStyle.setFontName(font.getFontName());
 			transformedStyle.setFontSize(font.getFontSize());
-			transformedStyle.setBold(font.isBold());
-			transformedStyle.setItalic(font.isItalic());
-			transformedStyle.setUnderline(font.isUnderline());
+			transformedStyle.setBold(Boolean.valueOf(font.isBold()));
+			transformedStyle.setItalic(Boolean.valueOf(font.isItalic()));
+			transformedStyle.setUnderline(Boolean.valueOf(font.isUnderline()));
 			transformedStyle.setPdfFontName(font.getPdfFontName());
-			transformedStyle.setPdfEmbedded(font.isPdfFontEmbedded());
+			transformedStyle.setPdfEmbedded(Boolean.valueOf(font.isPdfFontEmbedded()));
 			transformedStyle.setPdfEncoding(font.getPdfFontEncoding());
 		}
 
@@ -295,7 +356,7 @@ public class Style implements Serializable, Cloneable {
 			transformedStyle.setRotation(RotationEnum.getByValue( getRotation().getValue() ));
 
 		if (getRadius() != null)
-			transformedStyle.setRadius(getRadius().intValue());
+			transformedStyle.setRadius(Integer.valueOf(getRadius().intValue()));
 
 		transformedStyle.setPattern(this.pattern);
 
@@ -306,7 +367,7 @@ public class Style implements Serializable, Cloneable {
         /*transformedStyle.setPen((byte)0);
 		transformedStyle.setFill((byte)1);
 		transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());*/
-	
+
 	}
 
 	public Border getBorderBottom() {
@@ -428,40 +489,6 @@ public class Style implements Serializable, Cloneable {
 		this.parentStyleName = parentStyleName;
 	}
 
-	/**
-	 * Creates a blank style (no default values).
-	 * Useful when we need a style with a parent style, not defined properties (null ones) will be inherited
-	 * from parent style
-	 *
-	 * @param name  style name
-	 * @return  Style
-	 */
-	public static Style createBlankStyle(String name){
-		Style style = new Style(name);
-
-		style.setBackgroundColor(null);
-		style.setBorderColor(null);
-		style.setTransparency(null);
-		style.setTextColor(null);
-		style.setBorder(null);
-		style.setFont(null);
-		style.setPadding(null);
-		style.setRadius(null);
-		style.setVerticalAlign(null);
-		style.setHorizontalAlign(null);
-		style.setRotation(null);
-		style.setStreching(null);
-
-		return style;
-
-	}
-
-	public static Style createBlankStyle(String name, String parent){
-		Style s = createBlankStyle(name);
-		s.setParentStyleName(parent);
-		return s;
-	}
-
 	public String getPattern() {
 		return pattern;
 	}
@@ -474,5 +501,21 @@ public class Style implements Serializable, Cloneable {
 		Style style = (Style) super.clone();
 		style.setFont(this.font);
 		return style;
+	}
+
+	public HorizontalTextAlign getHorizontalTextAlign() {
+		return horizontalTextAlign;
+	}
+
+	public VerticalTextAlign getVerticalTextAlign() {
+		return verticalTextAlign;
+	}
+
+	public HorizontalImageAlign getHorizontalImageAlign() {
+		return horizontalImageAlign;
+	}
+
+	public VerticalImageAlign getVerticalImageAlign() {
+		return verticalImageAlign;
 	}
 }

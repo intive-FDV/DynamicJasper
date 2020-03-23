@@ -302,8 +302,7 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>[6.6.0, 6.7.1]</version>
-<!--            <version>6.7.1</version>-->
+            <version>[6.8.0, 6.11.0]</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>
@@ -418,8 +417,8 @@
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate</artifactId>
-            <version>3.2.5.ga</version>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.3.15.Final</version>
             <scope>test</scope>
             <exclusions>
                 <exclusion>

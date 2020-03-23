@@ -30,6 +30,7 @@
 package ar.com.fdvs.dj.domain.constants;
 
 
+@Deprecated
 public class VerticalAlign  extends BaseDomainConstant {
 	
 	private static final long serialVersionUID = 1L;

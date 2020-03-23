@@ -29,24 +29,34 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
-@Deprecated
-public class HorizontalAlign  extends BaseDomainConstant {
+public class VerticalImageAlign extends BaseDomainConstant {
 
 	private static final long serialVersionUID = 1L;
-	
-	public static HorizontalAlign LEFT = new HorizontalAlign((byte)1);
-	public static HorizontalAlign RIGHT = new HorizontalAlign((byte)3);
-	public static HorizontalAlign CENTER = new HorizontalAlign((byte)2);
-	public static HorizontalAlign JUSTIFY = new HorizontalAlign((byte)4);
 
-	private final byte value;
+	public static VerticalImageAlign TOP = new VerticalImageAlign("Top");
+	public static VerticalImageAlign MIDDLE = new VerticalImageAlign("Middle");
+	public static VerticalImageAlign BOTTOM = new VerticalImageAlign("Bottom");
 
-	public byte getValue() {
-		return value;
+	private final String name;
+
+	public String getName() {
+		return name;
 	}
 
-	private HorizontalAlign(byte value){
-		this.value = value;
+	private VerticalImageAlign(String name){
+		this.name = name;
+	}
+
+	public static VerticalImageAlign fromLegacy(byte value) {
+		switch (value) {
+			case (byte)1: return TOP;
+			case (byte)4:
+			case (byte)2: return MIDDLE;
+			case (byte)3: return BOTTOM;
+			default:
+				throw new IllegalArgumentException("Value needs to be from 1 to 3");
+		}
+
 	}
 
 }
