@@ -34,6 +34,14 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.3.0" date="2020-03-23" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Compiled with Java 1.8]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Supports JasperReports 6.8.0 to 6.11.0]]>
+            </action>
+        </release>
         <release version="5.2.0" date="2020-03-23" desc="">
             <action dev="Juan Manuel Alvarez" type="Add">
                 <![CDATA[Compiled with Java 1.8]]>
