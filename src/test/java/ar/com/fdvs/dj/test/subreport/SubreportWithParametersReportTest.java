@@ -33,6 +33,7 @@ package ar.com.fdvs.dj.test.subreport;
 import java.sql.Connection;
 
 import net.sf.jasperreports.engine.xml.JRXmlWriter;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.DynamicJasperHelper;
@@ -127,7 +128,7 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 		SubreportWithParametersReportTest test = new SubreportWithParametersReportTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
-//			JasperDesignViewer.viewReportDesign(jr);
+			JasperDesignViewer.viewReportDesign(test.jr);
 
 		String jrxml = JRXmlWriter.writeReport(test.jr, "UTF-8");
 		System.out.println(jrxml);
@@ -142,6 +143,7 @@ public class SubreportWithParametersReportTest extends BaseDjReportTest {
 			jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), con,params );
 
 			ReportExporter.exportReport(jp, System.getProperty("user.dir")+ "/target/"+this.getClass().getName()+".pdf");
+
 			jr = DynamicJasperHelper.generateJasperReport(dr,  new ClassicLayoutManager(),params);
 		} finally {
 			if (con != null) {

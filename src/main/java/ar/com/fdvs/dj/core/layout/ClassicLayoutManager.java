@@ -1245,6 +1245,21 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		textField.setStretchType( StretchTypeEnum.NO_STRETCH ); //XXX this is a patch for subreports, ensure it works well.
 		textField.setY(textField.getY() + headerOffset);
 		headerBand.addElement(textField);
+
+		//Bookmark Level for PDF export
+		setUpAnchorNameForGroupValue(djgroup, textField);
+	}
+
+	private void setUpAnchorNameForGroupValue(DJGroup djgroup, JRDesignTextField textField) {
+		int groupIdx = getReport().getColumnsGroups().indexOf(djgroup);
+		textField.setBookmarkLevel(groupIdx);
+
+		JRDesignExpression jrGroupExpression = (JRDesignExpression) textField.getExpression();
+		//Anchors are hardcoded as String in JR, so we need to make sure the expression will be rendered as a string
+		String text = "\"\" +" + jrGroupExpression.getText();
+		JRDesignExpression expressionForAnchor = new JRDesignExpression(text);
+
+		textField.setAnchorNameExpression(expressionForAnchor);
 	}
 
 	protected int changeHeaderBandHeightForVariables(JRDesignBand headerBand, DJGroup columnsGroup) {

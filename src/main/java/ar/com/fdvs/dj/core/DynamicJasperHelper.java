@@ -163,7 +163,7 @@ public class DynamicJasperHelper {
                     JasperDesign jdesign = JRXmlLoader.load(file);
                     jd = DJJRDesignHelper.downCast(jdesign, dr);
                 } else {
-                    log.info("Not found: Attemping to find the file in the classpath...");
+                    log.info("Not found: Attempting to find the file in the classpath...");
                     URL url = DynamicJasperHelper.class.getClassLoader().getResource(dr.getTemplateFileName());
                     if (url == null)
                         throw new CoreException("could not open template file: " + dr.getTemplateFileName());
