@@ -18,7 +18,7 @@ http://dynamicjasper.com/
     <dependency>
       <groupId>ar.com.fdvs</groupId>
       <artifactId>DynamicJasper</artifactId>
-      <version>5.0.11</version>
+      <version>5.3.1</version>
     </dependency>
 
 ### Documentation and Examples
