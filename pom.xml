@@ -31,7 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ar.com.fdvs</groupId>
     <artifactId>DynamicJasper</artifactId>
-    <version>5.3.1</version>
+    <version>5.3.2</version>
     <name>DynamicJasper</name>
     <packaging>jar</packaging>
     <description>
@@ -302,7 +302,7 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>[6.8.0, 6.13.0]</version>
+            <version>[6.8.0, 6.17.0]</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>
@@ -473,7 +473,22 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
+    <repositories>
+        <repository>
+            <id>jaspersoft-third-party</id>
+            <url>https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/</url>
+        </repository>
+        <repository>
+            <id>jr-ce-snapshots</id>
+            <name>JasperReports CE Snapshots</name>
+            <url>https://jaspersoft.jfrog.io/jaspersoft/jr-ce-snapshots</url>
+        </repository>
+        <repository>
+            <id>jr-ce-releases</id>
+            <name>JasperReports CE Releases</name>
+            <url>https://jaspersoft.jfrog.io/jaspersoft/jr-ce-releases</url>
+        </repository>
+    </repositories>
     <distributionManagement>
         <snapshotRepository>
             <id>ossrh</id>
