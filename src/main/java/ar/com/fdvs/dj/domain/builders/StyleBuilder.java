@@ -33,10 +33,14 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.HorizontalImageAlign;
+import ar.com.fdvs.dj.domain.constants.HorizontalTextAlign;
 import ar.com.fdvs.dj.domain.constants.Rotation;
 import ar.com.fdvs.dj.domain.constants.Stretching;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.constants.VerticalImageAlign;
+import ar.com.fdvs.dj.domain.constants.VerticalTextAlign;
 
 import java.awt.Color;
 
@@ -97,13 +101,43 @@ public class StyleBuilder {
 		return this;
 	}
 
+	/**
+	 * @deprecated  Use #StyleBuilder.setHorizontalTextAlign(...) and #StyleBuilder.setHorizontalImageAlign(...) instead
+	 * @param horizontalAlign
+	 */
+	@Deprecated
 	public StyleBuilder setHorizontalAlign(HorizontalAlign horizontalAlign){
 		style.setHorizontalAlign(horizontalAlign);
 		return this;
 	}
 
+	public StyleBuilder setHorizontalTextAlign(HorizontalTextAlign horizontalTextAlign){
+		style.setHorizontalTextAlign(horizontalTextAlign);
+		return this;
+	}
+
+	public StyleBuilder setHorizontalImageAlign(HorizontalImageAlign horizontalImageAlign){
+		style.setHorizontalImageAlign(horizontalImageAlign);
+		return this;
+	}
+
+	/**
+     * @deprecated  Use #StyleBuilder.setVerticalTextAlign(...) and #StyleBuilder.setVerticalImageAlign(...) instead
+	 * @param verticalAlign
+	 */
+	@Deprecated
 	public StyleBuilder setVerticalAlign(VerticalAlign verticalAlign){
 		style.setVerticalAlign(verticalAlign);
+		return this;
+	}
+
+	public StyleBuilder setVerticalTextAlign(VerticalTextAlign verticalTextAlign){
+		style.setVerticalTextAlign(verticalTextAlign);
+		return this;
+	}
+
+	public StyleBuilder setVerticalImageAlign(VerticalImageAlign verticalImageAlign){
+		style.setVerticalImageAlign(verticalImageAlign);
 		return this;
 	}
 
@@ -175,6 +209,7 @@ public class StyleBuilder {
 	 * @param paddingBotton
 	 * @return
 	 */
+	@Deprecated
 	public StyleBuilder setPaddingBotton(Integer paddingBotton) {
 		return setPaddingBottom(paddingBotton);
 	}
