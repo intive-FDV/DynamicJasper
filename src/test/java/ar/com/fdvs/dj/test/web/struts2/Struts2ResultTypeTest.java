@@ -4,11 +4,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 
+import ar.com.fdvs.dj.util.StreamUtils;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-
-import org.apache.log4j.lf5.util.StreamUtils;
 
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;

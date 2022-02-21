@@ -1,15 +1,14 @@
 package ar.com.fdvs.dj.test.groups;
 
-import java.util.Map;
-
+import ar.com.fdvs.dj.core.DJDefaultScriptlet;
 import net.sf.jasperreports.engine.JRScriptletException;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.fill.JRFillParameter;
 import net.sf.jasperreports.engine.fill.JRFillVariable;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import org.apache.log4j.Logger;
-
-import ar.com.fdvs.dj.core.DJDefaultScriptlet;
+import java.util.Map;
 
 /**
  * It is very important to extend {@link DJDefaultScriptlet} because it is needed for the normal operation of the Report.
@@ -20,7 +19,7 @@ public class MyDjScriptlet extends DJDefaultScriptlet {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = Logger.getLogger(MyDjScriptlet.class);
+	private static final Log logger = LogFactory.getLog(MyDjScriptlet.class);
 	private Map precalculatedValues;
 
 	public void afterGroupInit(String groupName) throws JRScriptletException {		

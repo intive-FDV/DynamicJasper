@@ -1,17 +1,15 @@
 package ar.com.fdvs.dj.test.web.webwork;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-
-import junit.framework.TestCase;
-
-import org.apache.log4j.lf5.util.StreamUtils;
-
+import ar.com.fdvs.dj.util.StreamUtils;
 import com.meterware.httpunit.WebResponse;
 import com.meterware.servletunit.ServletRunner;
 import com.meterware.servletunit.ServletUnitClient;
+import junit.framework.TestCase;
 import org.junit.Ignore;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
 
 @Ignore
 public class WWResultTypeTest extends TestCase {
