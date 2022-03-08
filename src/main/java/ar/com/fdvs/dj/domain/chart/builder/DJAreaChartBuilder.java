@@ -39,7 +39,7 @@ import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import ar.com.fdvs.dj.domain.hyperlink.LiteralExpression;
-import org.jfree.chart.plot.PlotOrientation;
+import net.sf.jasperreports.charts.type.PlotOrientationEnum;
 
 import java.awt.*;
 import java.util.List;
@@ -397,11 +397,11 @@ public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder>
 	}
 
 	/**
-	 * Sets the plot orientation (PlotOrientation.HORIZONTAL or PlotOrientation.VERTICAL).
+	 * Sets the plot orientation (PlotOrientationEnum.HORIZONTAL or PlotOrientationEnum.VERTICAL).
 	 *
 	 * @param orientation the plot orientation
 	 **/
-	public DJAreaChartBuilder setOrientation(PlotOrientation orientation) {
+	public DJAreaChartBuilder setOrientation(PlotOrientationEnum orientation) {
 		getPlot().setOrientation(orientation);
 		return this;
 	}
