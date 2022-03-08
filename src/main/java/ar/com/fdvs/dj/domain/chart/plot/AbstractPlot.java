@@ -32,9 +32,9 @@ package ar.com.fdvs.dj.domain.chart.plot;
 import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.Entity;
+import net.sf.jasperreports.charts.type.PlotOrientationEnum;
 import net.sf.jasperreports.engine.JRChartPlot;
 import net.sf.jasperreports.engine.base.JRBaseChartPlot;
-import org.jfree.chart.plot.PlotOrientation;
 
 import java.awt.Color;
 import java.util.ArrayList;
@@ -46,24 +46,24 @@ public abstract class AbstractPlot extends DJBaseElement {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	private Double labelRotation;
-	private PlotOrientation orientation;
+	private PlotOrientationEnum orientation;
 	private final List<Color> seriesColors = new ArrayList<Color>();
 
 	/**
-	 * Sets the plot orientation (PlotOrientation.HORIZONTAL or PlotOrientation.VERTICAL).
+	 * Sets the plot orientation (PlotOrientationEnum.HORIZONTAL or PlotOrientationEnum.VERTICAL).
 	 *
 	 * @param orientation the plot orientation
 	 **/
-	public void setOrientation(PlotOrientation orientation) {
+	public void setOrientation(PlotOrientationEnum orientation) {
 		this.orientation = orientation;
 	}
 
 	/**
-	 * Returns the plot orientation (PlotOrientation.HORIZONTAL or PlotOrientation.VERTICAL).
+	 * Returns the plot orientation (PlotOrientationEnum.HORIZONTAL or PlotOrientationEnum.VERTICAL).
 	 *
 	 * @return	the plot orientation
 	 **/
-	public PlotOrientation getOrientation() {
+	public PlotOrientationEnum getOrientation() {
 		return orientation;
 	}
 
@@ -128,7 +128,7 @@ public abstract class AbstractPlot extends DJBaseElement {
 		if (getLabelRotation() != null)
 			plot.setLabelRotation(getLabelRotation());
 		if (orientation != null)
-			plot.setOrientation(PlotOrientationEnum.getByValue(orientation));
+			plot.setOrientation(orientation);
 		List<JRBaseChartPlot.JRSeriesColor> colors = new ArrayList<JRBaseChartPlot.JRSeriesColor>();
 		int i = 1;
 		for (Color color : seriesColors) {
