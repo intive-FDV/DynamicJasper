@@ -61,7 +61,7 @@ public abstract class AutoTextExpressionUtils {
 			if (!emptyString(after)){
 				after = "$R{" + after + "}";
 			} else {after = "\"" + after + "\"";}
-			 text = before + "+\" \" + (" + PAGE_NUMBER_VAR +"+"+pageOffset+ ")+\" \" + " + after;
+			 text = before + "+\" \" + ((" + PAGE_NUMBER_VAR +").intValue() + "+pageOffset+ ")+\" \" + " + after;
 		} else {
 			if (emptyString(before)){
 				before = "\"\"";
@@ -69,7 +69,7 @@ public abstract class AutoTextExpressionUtils {
 			if (emptyString(after)){
 				after = "\"\"";
 			} else {after = "\"" + after + "\"";}
-			text = before + "+\" \" + (" + PAGE_NUMBER_VAR +"+"+pageOffset+ ")+\" \" + " + after;
+			text = before + "+\" \" + ((" + PAGE_NUMBER_VAR +").intValue() +"+pageOffset+ ")+\" \" + " + after;
 
 		}
 		expression.setText( text );

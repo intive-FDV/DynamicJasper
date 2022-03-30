@@ -34,6 +34,19 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.3.4" date="2022-02-21" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Fix on autotext JR expression, not compiling in certain scenarios]]>
+            </action>
+        </release>
+        <release version="5.3.3" date="2022-02-21" desc="">
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Supports JasperReports 6.8.0 to 6.18.1]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="Add">
+                <![CDATA[Version bump on dependencies due to vulnerabilities]]>
+            </action>
+        </release>
         <release version="5.3.2" date="2021-05-31" desc="">
             <action dev="Juan Manuel Alvarez" type="Add">
                 <![CDATA[Supports JasperReports 6.8.0 to 6.17.0]]>
