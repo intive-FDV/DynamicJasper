@@ -37,9 +37,8 @@ import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
-import org.apache.commons.collections4.list.UnmodifiableList;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -177,7 +176,7 @@ public class DJGroup extends DJBaseElement {
 	}
 
 	public List<DJGroupVariable> getFooterVariables() {
-		return new UnmodifiableList<DJGroupVariable>(footerVariables);
+		return Collections.unmodifiableList(footerVariables);
 	}
 
 	public void setFooterVariables(List<DJGroupVariable> footerVariables) {
@@ -185,7 +184,7 @@ public class DJGroup extends DJBaseElement {
 	}
 
 	public List<DJGroupVariable> getHeaderVariables() {
-		return  new UnmodifiableList<DJGroupVariable>(headerVariables);
+		return Collections.unmodifiableList(headerVariables);
 	}
 
 	public void setHeaderVariables(List<DJGroupVariable> headerVariables) {
