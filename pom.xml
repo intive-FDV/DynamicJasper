@@ -302,7 +302,7 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>[6.8.0, 6.18.1]</version>
+            <version>[6.8.0, 6.19.1]</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>
@@ -376,7 +376,7 @@
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
+            <version>4.1.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
