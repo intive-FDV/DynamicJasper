@@ -39,6 +39,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import net.sf.jasperreports.charts.type.PlotOrientationEnum;
 
 public abstract class AbstractPlot extends DJBaseElement {
 	
@@ -127,7 +128,7 @@ public abstract class AbstractPlot extends DJBaseElement {
 		if (getLabelRotation() != null)
 			plot.setLabelRotation(getLabelRotation());
 		if (orientation != null)
-			plot.setOrientation(orientation);
+			plot.setOrientation(PlotOrientationEnum.getByValue(orientation));
 		List<JRBaseChartPlot.JRSeriesColor> colors = new ArrayList<JRBaseChartPlot.JRSeriesColor>();
 		int i = 1;
 		for (Color color : seriesColors) {
