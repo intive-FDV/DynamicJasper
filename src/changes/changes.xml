@@ -47,6 +47,9 @@
             <action dev="gschrader - Glen Schrader" type="Add" >
                 <![CDATA[allow the ability to specify incrementerFactoryClass on groupings: https://github.com/intive-FDV/DynamicJasper/pull/83]]>
             </action>
+            <action dev="gschrader - Glen Schrader" type="Add" >
+                <![CDATA[allow for crosstabs in summary band: https://github.com/intive-FDV/DynamicJasper/pull/70]]>
+            </action>
         </release>
         <release version="5.3.5" date="2022-08-01" desc="">
             <action dev="Juan Manuel Alvarez" type="Add">
