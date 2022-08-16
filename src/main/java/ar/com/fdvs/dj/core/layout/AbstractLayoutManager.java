@@ -83,13 +83,8 @@ import net.sf.jasperreports.engine.type.ResetTypeEnum;
 import net.sf.jasperreports.engine.type.ScaleImageEnum;
 import net.sf.jasperreports.engine.type.StretchTypeEnum;
 import net.sf.jasperreports.engine.util.JRExpressionUtil;
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.Predicate;
-import org.apache.commons.collections4.MultiValuedMap;
-import org.apache.commons.collections4.multimap.ArrayListValuedHashMap;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Image;
@@ -103,6 +98,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Abstract Class used as base for the different Layout Managers.<br>
@@ -650,12 +646,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             int colFinalWidth;
 
             //Select the non-resizable columns
-            Collection resizableColumns = CollectionUtils.select(visibleColums, new Predicate() {
-                public boolean evaluate(Object arg0) {
-                    return !((AbstractColumn) arg0).isFixedWidth();
-                }
-
-            });
+            Collection resizableColumns = (Collection)visibleColums.stream().filter(i-> !((AbstractColumn)i).isFixedWidth())
+              .collect(Collectors.toList());
 
             //Finally, set the new width to the resizable columns
             for (Iterator iter = resizableColumns.iterator(); iter.hasNext(); ) {
@@ -987,14 +979,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      */
     protected void layoutCharts() {
         //Pre-sort charts by group column
-        MultiValuedMap<DJGroup, DJChart> mmap = new ArrayListValuedHashMap<DJGroup, DJChart>();
+        Map<DJGroup, List<DJChart>> mmap = new HashMap<>();
         for (DJChart djChart : getReport().getCharts()) {
-            mmap.put(djChart.getColumnsGroup(), djChart);
+            mmap.computeIfAbsent(djChart.getColumnsGroup(), (key)-> new ArrayList<>()).add(djChart);
         }
 
         for (DJGroup key : mmap.keySet()) {
-            Collection<DJChart> charts = mmap.get(key);
-            List<DJChart> l = new ArrayList<DJChart>(charts);
+            List<DJChart> charts = mmap.get(key);
+            List<DJChart> l = new ArrayList<>(charts);
             //Reverse iteration of the charts to meet insertion order
             for (int i = l.size(); i > 0; i--) {
                 DJChart djChart = l.get(i - 1);
@@ -1007,14 +999,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         }
 
         //Pre-sort charts by group column
-        MultiValuedMap<PropertyColumn, ar.com.fdvs.dj.domain.chart.DJChart> mmap2 = new ArrayListValuedHashMap<PropertyColumn, ar.com.fdvs.dj.domain.chart.DJChart>();
+        Map<PropertyColumn, List<ar.com.fdvs.dj.domain.chart.DJChart>> mmap2 = new HashMap<>();
         for (ar.com.fdvs.dj.domain.chart.DJChart djChart : getReport().getNewCharts()) {
-            mmap2.put(djChart.getDataset().getColumnsGroup(), djChart);
+            mmap2.computeIfAbsent(djChart.getDataset().getColumnsGroup(), (key)->new ArrayList<>()).add(djChart);
         }
 
         for (PropertyColumn key : mmap2.keySet()) {
-            Collection<ar.com.fdvs.dj.domain.chart.DJChart> charts = mmap2.get(key);
-            ArrayList<ar.com.fdvs.dj.domain.chart.DJChart> l = new ArrayList<ar.com.fdvs.dj.domain.chart.DJChart>(charts);
+            List<ar.com.fdvs.dj.domain.chart.DJChart> charts = mmap2.get(key);
+            ArrayList<ar.com.fdvs.dj.domain.chart.DJChart> l = new ArrayList<>(charts);
             //Reverse iteration of the charts to meet insertion order
             for (int i = l.size(); i > 0; i--) {
                 ar.com.fdvs.dj.domain.chart.DJChart djChart = l.get(i - 1);
