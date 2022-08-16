@@ -50,6 +50,9 @@
             <action dev="gschrader - Glen Schrader" type="Add" >
                 <![CDATA[allow for crosstabs in summary band: https://github.com/intive-FDV/DynamicJasper/pull/70]]>
             </action>
+            <action dev="gschrader - Glen Schrader" type="Add" >
+                <![CDATA[Use main datasource directly for crosstabs that ask for it: https://github.com/intive-FDV/DynamicJasper/pull/69/]]>
+            </action>
         </release>
         <release version="5.3.5" date="2022-08-01" desc="">
             <action dev="Juan Manuel Alvarez" type="Add">
