@@ -702,6 +702,11 @@ public class FastReportBuilder extends DynamicReportBuilder {
 		group.getFooterCrosstabs().add(djcross);
 		return this;
 	}
+	
+	public FastReportBuilder addSummaryCrosstab(DJCrosstab djcross) {
+		report.addSummaryCrosstab(djcross);
+		return this;
+	}
 
 	public FastReportBuilder addVariable(String name, DJCalculation calculation,
 			CustomExpression expression) {
