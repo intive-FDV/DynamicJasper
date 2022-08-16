@@ -192,6 +192,11 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 			variable.setInitialValueExpression(initialExp);
 		}
 
+		Class incrementerFactoryClass = groupVariable.getIncrementerFactoryClass();
+		if (incrementerFactoryClass != null) {
+			variable.setIncrementerFactoryClass(incrementerFactoryClass);
+		}
+
 		return variable;
 	}
 

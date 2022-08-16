@@ -52,7 +52,8 @@ public class DJGroupVariable extends DJBaseElement {
 	private DJValueFormatter valueFormatter;
 	private BooleanExpression printWhenExpression;
 	private CustomExpression valueExpression;
-	
+	private Class incrementerFactoryClass;
+
 	private DJGroupLabel label;
 
     /**
@@ -179,6 +180,14 @@ public class DJGroupVariable extends DJBaseElement {
 
 	public CustomExpression getValueExpression() {
 		return valueExpression;
+	}
+
+	public void setIncrementerFactoryClass(Class incrementerFactoryClass) {
+		this.incrementerFactoryClass = incrementerFactoryClass;
+	}
+
+	public Class getIncrementerFactoryClass() {
+		return incrementerFactoryClass;
 	}
 
 	public void setGroup(DJGroup djGroup) {
