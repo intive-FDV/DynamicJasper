@@ -684,6 +684,10 @@ public class Dj2JrCrosstabBuilder {
 			valueExp.setValueClassName(djmeasure.getProperty().getValueClassName());
 			valueExp.setText("$F{"+djmeasure.getProperty().getProperty()+"}");
 			measure.setValueExpression(valueExp);
+			
+			if (djmeasure.getIncrementerFactoryClassName() != null) {
+				measure.setIncrementerFactoryClassName(djmeasure.getIncrementerFactoryClassName());
+			}
 
 			/*
 			  PRUEBA PORCENTAGE
