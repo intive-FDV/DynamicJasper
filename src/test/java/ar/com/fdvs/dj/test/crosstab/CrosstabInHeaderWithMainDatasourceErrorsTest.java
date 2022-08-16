@@ -216,8 +216,8 @@ public class CrosstabInHeaderWithMainDatasourceErrorsTest extends BaseDjReportTe
 		} catch (JRRuntimeException ex) {
 			// expected
 			if (ex.getCause() instanceof JRException) {
-				Assert.assertEquals("rror incrementing crosstab dataset.", ex.getMessage());
-				Assert.assertEquals("Crosstab data has already been processed", ex.getCause().getMessage());
+				Assert.assertEquals("Error incrementing crosstab dataset.", ex.getMessage());
+				Assert.assertEquals("Crosstab data has already been processed.", ex.getCause().getMessage());
 			} else {
 				Assert.fail("Unexpected Exception");
 			}
