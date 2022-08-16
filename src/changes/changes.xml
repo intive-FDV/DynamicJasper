@@ -34,6 +34,20 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.3.6" date="2022-08-16" desc="Pull request season">
+            <action dev="jherkel - Jakub Herkel" type="Add" >
+                <![CDATA[add OSGI headers to MANIFEST.MF https://github.com/intive-FDV/DynamicJasper/pull/132]]>
+            </action>
+            <action dev="jherkel - Jakub Herkel" type="Add" >
+                <![CDATA[remove apache common collections https://github.com/intive-FDV/DynamicJasper/pull/130]]>
+            </action>
+            <action dev="jherkel - Jakub Herkel" type="Add" >
+                <![CDATA[fix compatibility with jasperreport 6.19.1 https://github.com/intive-FDV/DynamicJasper/pull/129]]>
+            </action>
+            <action dev="gschrader - Glen Schrader" type="Add" >
+                <![CDATA[allow the ability to specify incrementerFactoryClass on groupings: https://github.com/intive-FDV/DynamicJasper/pull/83]]>
+            </action>
+        </release>
         <release version="5.3.5" date="2022-08-01" desc="">
             <action dev="Juan Manuel Alvarez" type="Add">
                 <![CDATA[Supports JasperReports 6.8.0 to 6.19.1]]>
