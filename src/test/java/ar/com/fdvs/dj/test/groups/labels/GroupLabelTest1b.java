@@ -31,6 +31,8 @@ package ar.com.fdvs.dj.test.groups.labels;
 
 import java.awt.Color;
 
+import net.sf.jasperreports.engine.type.StretchTypeEnum;
+import net.sf.jasperreports.engine.type.TextAdjustEnum;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -46,10 +48,11 @@ import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Border;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
-import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
-import ar.com.fdvs.dj.domain.constants.Stretching;
+import ar.com.fdvs.dj.domain.constants.HorizontalImageAlign;
+import ar.com.fdvs.dj.domain.constants.HorizontalTextAlign;
 import ar.com.fdvs.dj.domain.constants.Transparency;
-import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.constants.VerticalImageAlign;
+import ar.com.fdvs.dj.domain.constants.VerticalTextAlign;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
@@ -66,21 +69,27 @@ public class GroupLabelTest1b extends BaseDjReportTest {
 		headerStyle.setBorderBottom(Border.PEN_1_POINT());
 		headerStyle.setBackgroundColor(Color.gray);
 		headerStyle.setTextColor(Color.white);
-		headerStyle.setHorizontalAlign(HorizontalAlign.CENTER);
-		headerStyle.setVerticalAlign(VerticalAlign.MIDDLE);
+		headerStyle.setHorizontalTextAlign(HorizontalTextAlign.CENTER);
+		headerStyle.setHorizontalImageAlign(HorizontalImageAlign.CENTER);
+		headerStyle.setVerticalTextAlign(VerticalTextAlign.MIDDLE);
+		headerStyle.setVerticalImageAlign(VerticalImageAlign.MIDDLE);
+
 		headerStyle.setTransparency(Transparency.OPAQUE);
 
 		Style headerVariables = new Style();
 		headerVariables.setFont(Font.ARIAL_MEDIUM_BOLD);
 //		headerVariables.setBorder(Border.THIN());
-		headerVariables.setHorizontalAlign(HorizontalAlign.RIGHT);
-		headerVariables.setStreching(Stretching.NO_STRETCH);
-		headerVariables.setVerticalAlign(VerticalAlign.TOP);
+		headerVariables.setHorizontalTextAlign(HorizontalTextAlign.RIGHT);
+		headerVariables.setHorizontalImageAlign(HorizontalImageAlign.RIGHT);		
+		headerVariables.setStretchType(StretchTypeEnum.NO_STRETCH);
+		headerVariables.setVerticalTextAlign(VerticalTextAlign.TOP);
+		headerVariables.setVerticalImageAlign(VerticalImageAlign.TOP);
 
 		Style titleStyle = new Style();
 		titleStyle.setFont(new Font(18, Font._FONT_VERDANA, true));
 		Style importeStyle = new Style();
-		importeStyle.setHorizontalAlign(HorizontalAlign.RIGHT);
+		importeStyle.setHorizontalTextAlign(HorizontalTextAlign.RIGHT);
+		importeStyle.setHorizontalImageAlign(HorizontalImageAlign.RIGHT);
 		Style oddRowStyle = new Style();
 		oddRowStyle.setBorder(Border.NO_BORDER());
 		oddRowStyle.setBackgroundColor(Color.LIGHT_GRAY);
@@ -138,8 +147,10 @@ public class GroupLabelTest1b extends BaseDjReportTest {
 		GroupBuilder gb1 = new GroupBuilder();
 
 		Style glabelStyle = new StyleBuilder(false).setFont(Font.ARIAL_SMALL)
-			.setHorizontalAlign(HorizontalAlign.RIGHT).setBorderTop(Border.THIN())
-			.setStretchWithOverflow(false)
+			.setHorizontalTextAlign(HorizontalTextAlign.RIGHT)
+			.setHorizontalImageAlign(HorizontalImageAlign.RIGHT)
+			.setBorderTop(Border.THIN())
+			.setTextAdjust(TextAdjustEnum.CUT_TEXT)
 			.build();
 		
 		DJGroupLabel glabel1 = new DJGroupLabel("Total amount",glabelStyle);

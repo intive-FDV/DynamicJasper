@@ -29,6 +29,7 @@
 
 package ar.com.fdvs.dj.domain.constants;
 
+@Deprecated
 public class Stretching  extends BaseDomainConstant {
 
 	private static final long serialVersionUID = 1L;

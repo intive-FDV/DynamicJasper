@@ -88,9 +88,10 @@ public class Style implements Serializable, Cloneable {
 
     private Rotation rotation = Rotation.NONE;
 
-    private Stretching streching = Stretching.RELATIVE_TO_TALLEST_OBJECT;
+    private StretchTypeEnum stretchType = StretchTypeEnum.ELEMENT_GROUP_BOTTOM;
 
-    private boolean stretchWithOverflow = true;
+	private TextAdjustEnum textAdjust = TextAdjustEnum.STRETCH_HEIGHT;
+
     private boolean blankWhenNull = true;
 
     private String pattern;
@@ -133,8 +134,9 @@ public class Style implements Serializable, Cloneable {
 		style.setVerticalAlign(null);
 		style.setHorizontalAlign(null);
 		style.setRotation(null);
-		style.setStreching(null);
-
+		style.setStretchType(null);
+		style.SetTextAdjust(null);
+		
 		return style;
 
 	}
@@ -227,20 +229,75 @@ public class Style implements Serializable, Cloneable {
 		this.padding = padding;
 	}
 
+	/**
+	 * @deprecated Use {@link #getStretchType(StretchTypeEnum)}
+	 * @return
+	 */
+	@Deprecated
 	public Stretching getStreching() {
-		return streching;
+		if (StretchTypeEnum.NO_STRETCH.equals(stretchType)) {
+			return Stretching.NO_STRETCH;
+		}
+		else if (StretchTypeEnum.RELATIVE_TO_TALLEST_OBJECT.equals(stretchType)) {
+			return Stretching.RELATIVE_TO_TALLEST_OBJECT;
+		}
+		else if (StretchTypeEnum.RELATIVE_TO_BAND_HEIGHT.equals(stretchType)) {
+			return Stretching.RELATIVE_TO_BAND_HEIGHT;
+		}
+		return null;
 	}
 
+	/**
+	 * @deprecated Use {@link #setStretchType(StretchTypeEnum)}
+	 * @param streching
+	 */
+	@Deprecated
 	public void setStreching(Stretching streching) {
-		this.streching = streching;
+		if (Stretching.NO_STRETCH.equals(streching)) {
+			stretchType = StretchTypeEnum.NO_STRETCH;
+		}
+		else if (Stretching.RELATIVE_TO_TALLEST_OBJECT.equals(streching)) {
+			stretchType = StretchTypeEnum.RELATIVE_TO_TALLEST_OBJECT;
+		}
+		else if (Stretching.RELATIVE_TO_BAND_HEIGHT.equals(streching)) {
+			stretchType = StretchTypeEnum.RELATIVE_TO_BAND_HEIGHT;
+		}
 	}
 
+	public StretchTypeEnum getStretchType() {
+		return stretchType;
+	}
+
+	public void setStretchType(StretchTypeEnum stretchType) {
+		this.stretchType = stretchType;
+	}
+
+	/**
+	 * @deprecated Use {@link #getTextAdjust()}
+	 * @return
+	 */
+	@Deprecated
 	public boolean isStretchWithOverflow() {
-		return stretchWithOverflow;
+		return TextAdjustEnum.STRETCH_HEIGHT.equals(textAdjust);
 	}
 
+	/**
+	 * @deprecated Use {@link #SetTextAdjust(TextAdjustEnum)}
+	 * @param stretchWithOverflow
+	 */
+    @Deprecated
 	public void setStretchWithOverflow(boolean stretchWithOverflow) {
-		this.stretchWithOverflow = stretchWithOverflow;
+		if (stretchWithOverflow) {
+			this.textAdjust = TextAdjustEnum.STRETCH_HEIGHT;
+		}		
+	}
+
+	public TextAdjustEnum getTextAdjust() {
+		return textAdjust;
+	}
+
+	public void SetTextAdjust(TextAdjustEnum textAdjust) {
+		this.textAdjust = textAdjust;
 	}
 
 	public Color getTextColor() {

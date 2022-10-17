@@ -32,13 +32,15 @@ package ar.com.fdvs.dj.test;
 
 import java.util.Date;
 
+import net.sf.jasperreports.engine.type.StretchTypeEnum;
+import net.sf.jasperreports.engine.type.TextAdjustEnum;
 import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
-import ar.com.fdvs.dj.domain.constants.Stretching;
-import ar.com.fdvs.dj.domain.constants.VerticalAlign;
+import ar.com.fdvs.dj.domain.constants.VerticalImageAlign;
+import ar.com.fdvs.dj.domain.constants.VerticalTextAlign;
 
 /**
  * This test intends to show how to create multi line title and sub title
@@ -56,9 +58,10 @@ public class MultiLineTitleReportTest extends BaseDjReportTest {
 		 */
 		FastReportBuilder drb = new FastReportBuilder();
 		Style subtitleStyle = new Style("subtitle_style");
-		subtitleStyle.setStretchWithOverflow(true);
-		subtitleStyle.setStreching(Stretching.NO_STRETCH);
-		subtitleStyle.setVerticalAlign(VerticalAlign.TOP);
+		subtitleStyle.SetTextAdjust(TextAdjustEnum.STRETCH_HEIGHT);
+		subtitleStyle.setStretchType(StretchTypeEnum.NO_STRETCH);
+		subtitleStyle.setVerticalTextAlign(VerticalTextAlign.TOP);
+		subtitleStyle.setVerticalImageAlign(VerticalImageAlign.TOP);
 		
 		drb.addColumn("State", "state", String.class.getName(),30)
 			.addColumn("Branch", "branch", String.class.getName(),30)
