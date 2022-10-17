@@ -41,6 +41,8 @@ import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.constants.VerticalImageAlign;
 import ar.com.fdvs.dj.domain.constants.VerticalTextAlign;
+import net.sf.jasperreports.engine.type.StretchTypeEnum;
+import net.sf.jasperreports.engine.type.TextAdjustEnum;
 
 import java.awt.Color;
 
@@ -141,8 +143,19 @@ public class StyleBuilder {
 		return this;
 	}
 
+	/**
+	 * @deprecated Use {@link #setStretchType(StretchTypeEnum)}
+	 * @param streching
+	 * @return
+	 */
+	@Deprecated
 	public StyleBuilder setStretching(Stretching streching){
 		style.setStreching(streching);
+		return this;
+	}
+
+	public StyleBuilder setStretchType(StretchTypeEnum stretchType) {
+		style.setStretchType(stretchType);
 		return this;
 	}
 
@@ -245,11 +258,20 @@ public class StyleBuilder {
 		return this;
 	}
 	
+	/**
+	 * @deprecated Use {@link #setTextAdjust(TextAdjustEnum)}
+	 * @param stretchWithOverflow
+	 * @return
+	 */
+	@Deprecated
 	public StyleBuilder setStretchWithOverflow(boolean stretchWithOverflow) {
 		style.setStretchWithOverflow(stretchWithOverflow);
 		return this;
 	}
 	
-
+	public StyleBuilder setTextAdjust(TextAdjustEnum textAdjust) {
+		style.SetTextAdjust(textAdjust);
+		return this;
+	}
 
 }

@@ -632,14 +632,14 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         designElemen.setStyle(jrstyle);
         if (designElemen instanceof JRDesignTextElement) {
             JRDesignTextElement textField = (JRDesignTextElement) designElemen;
-            if (style.getStreching() != null)
-                textField.setStretchType(StretchTypeEnum.getByValue(style.getStreching().getValue()));
+            if (style.getStretchType() != null)
+                textField.setStretchType(style.getStretchType());
             textField.setPositionType(PositionTypeEnum.FLOAT);
 
         }
         if (designElemen instanceof JRDesignTextField) {
             JRDesignTextField textField = (JRDesignTextField) designElemen;
-            textField.setStretchWithOverflow(style.isStretchWithOverflow());
+            textField.setTextAdjust(style.getTextAdjust());
 
             if (!textField.isBlankWhenNull() && style.isBlankWhenNull()) //TODO Re check if this condition is ok
                 textField.setBlankWhenNull(true);
@@ -647,7 +647,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         if (designElemen instanceof JRDesignGraphicElement) {
             JRDesignGraphicElement graphicElement = (JRDesignGraphicElement) designElemen;
-            graphicElement.setStretchType(StretchTypeEnum.getByValue(style.getStreching().getValue()));
+            graphicElement.setStretchType(style.getStretchType());
             graphicElement.setPositionType(PositionTypeEnum.FLOAT);
         }
     }
