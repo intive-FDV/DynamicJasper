@@ -31,7 +31,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ar.com.fdvs</groupId>
     <artifactId>DynamicJasper</artifactId>
-    <version>5.3.6</version>
+    <version>5.3.7-SNAPSHOT</version>
     <name>DynamicJasper</name>
     <packaging>jar</packaging>
     <description>
@@ -328,7 +328,7 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>[6.8.0, 6.19.1]</version>
+            <version>[6.11.0, 6.20.0]</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-collections</groupId>
