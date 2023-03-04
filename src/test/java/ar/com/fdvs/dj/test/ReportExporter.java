@@ -34,12 +34,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
-import net.sf.jasperreports.export.OutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleHtmlExporterConfiguration;
-import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimpleXlsReportConfiguration;
+import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
+import net.sf.jasperreports.export.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -112,6 +108,36 @@ public class ReportExporter {
         configuration.setIgnorePageMargins(true);
 
         exportReportXls(jp, path, configuration);
+    }
+
+    public static void exportToDocx(JasperPrint jp, String path, SimpleDocxReportConfiguration configuration) throws FileNotFoundException, JRException {
+        JRDocxExporter exporter = new JRDocxExporter();
+        File outputFile = new File(path);
+        File parentFile = outputFile.getParentFile();
+        if (parentFile != null)
+            parentFile.mkdirs();
+        FileOutputStream fos = new FileOutputStream(outputFile);
+
+        exporter.setConfiguration(configuration);
+
+        SimpleExporterInput simpleExporterInput = new SimpleExporterInput(jp);
+        OutputStreamExporterOutput simpleOutputStreamExporterOutput = new SimpleOutputStreamExporterOutput(fos);
+
+        exporter.setExporterInput(simpleExporterInput);
+        exporter.setExporterOutput(simpleOutputStreamExporterOutput);
+
+        exporter.exportReport();
+
+        logger.debug("Xlsx Report exported: " + path);
+    }
+
+    public static void exportToDocx(JasperPrint jp, String path) throws JRException, FileNotFoundException {
+        SimpleDocxReportConfiguration configuration = new SimpleDocxReportConfiguration();
+
+        configuration.setFlexibleRowHeight(true);
+
+        exportToDocx(jp, path, configuration);
+
     }
 
     public static void exportReportHtml(JasperPrint jp, String path) throws JRException, FileNotFoundException {

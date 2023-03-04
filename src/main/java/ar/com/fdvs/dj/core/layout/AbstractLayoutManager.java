@@ -370,11 +370,9 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
     protected String createUniqueStyleName() {
         synchronized (this) {
-            int counter = getReportStyles().values().size() + 1;
-            String tryName = "dj_style_" + counter + "_"; //FIX for issue 3002761 @SF tracker
-            while (design.getStylesMap().get(tryName) != null) {
-                counter++;
-                tryName = "dj_style_" + counter;
+            String tryName = "dj_style_" + Math.random() + "_"; //FIX for issue 3002761 @SF tracker
+            if (design.getStylesMap().get(tryName) != null) {
+                return createUniqueStyleName();
             }
             return tryName;
         }

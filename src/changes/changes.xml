@@ -34,6 +34,12 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.3.8" date="2023-03-04" desc="More Pull request">
+            <action dev="Juan Manuel Alvarez" type="Add" >
+                <![CDATA[fix for https://github.com/intive-FDV/DynamicJasper/issues/118 Subreport styled
+                headers / not styled correctly (when exported to docx)]]>
+            </action>
+        </release>
         <release version="5.3.7" date="2023-03-04" desc="More Pull request">
             <action dev="oyarzun" type="Add" >
                 <![CDATA[Update deprecated code in latest JasperReports #135 https://github.com/intive-FDV/DynamicJasper/pull/135 ,
