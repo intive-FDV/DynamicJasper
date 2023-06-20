@@ -167,7 +167,7 @@ The **DynamicReportBuilder** builds **DynamicReport** objects, this object conta
 
 ## Adding groups
 
-Using the same code as before, we add this few lines. [see the code](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/ChartReportTest.java)
+Using the same code as before, we add this few lines. [see the code](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/GroupsReportTest.java)
 
 ```java
 GroupBuilder gb1 = new GroupBuilder();
