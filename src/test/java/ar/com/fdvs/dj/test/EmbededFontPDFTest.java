@@ -30,8 +30,6 @@
 package ar.com.fdvs.dj.test;
 
 
-import ar.com.fdvs.dj.core.DynamicJasperHelper;
-import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
@@ -39,28 +37,30 @@ import ar.com.fdvs.dj.domain.builders.StyleBuilder;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.Page;
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.export.ExporterInput;
-import net.sf.jasperreports.export.OutputStreamExporterOutput;
+import net.sf.jasperreports.view.JasperDesignViewer;
 import net.sf.jasperreports.view.JasperViewer;
 
 import java.util.*;
+
+import ar.com.fdvs.dj.domain.AutoText;
 
 public class EmbededFontPDFTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {
 
 		Style style = new StyleBuilder(false).
-				setFont(Font.ARIAL_SMALL).build();
+				setFont(Font.TIMES_NEW_ROMAN_MEDIUM).build();
 
+		String footerText = " dj هذا تذييل بحروف عربية";
+//		String footerText = " dj";
 		FastReportBuilder reportBuilder = new FastReportBuilder();
-		Page page = Page.Page_A4_Landscape();
+//		Page page = Page.Page();
 		reportBuilder.setTitle("table title")
-				.setPageSizeAndOrientation(page)
 				.setUseFullPageWidth(true)
 				.setDefaultStyles(style, style,style,style)
+				.addAutoText(footerText,  AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT, 200, style )
+				.addAutoText(footerText,  AutoText.POSITION_HEADER, AutoText.ALIGMENT_LEFT, 200, style )
 				.setReportName("report name ");
 		List<String> columns = Arrays.asList("description");
 		reportBuilder.addColumn( "description","description" , String.class.getName(), 30);
@@ -87,7 +87,7 @@ public class EmbededFontPDFTest extends BaseDjReportTest {
 		EmbededFontPDFTest test = new EmbededFontPDFTest();
 		test.testReport();
 		JasperViewer.viewReport(test.jp);	//finally display the report report
-//			JasperDesignViewer.viewReportDesign(jr);
+			JasperDesignViewer.viewReportDesign(test.jr);
 	}
 
 }
