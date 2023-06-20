@@ -8,7 +8,7 @@ You can use the classic `.jrxml` files as templates while the content and layout
 
 ![!](./images/dj-home.png "Actual DynamicJasper output")
 
-Checkout the [getting started guide!]()
+Checkout the [getting started guide!](./getting-started.md)
 
 # Maven Dependency
 ```
