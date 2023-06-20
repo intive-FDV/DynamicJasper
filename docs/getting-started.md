@@ -3,57 +3,43 @@
 The source code comes with examples ready to run (you need Maven 2 to build the source code). below a listing of some TestCases that are a good starting point.
 
 **[ar.com.fdvs.dj.test.FastReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/FastReportTest.java)**  
-A simple example that shows the basic setup of a report and its columns. [download pdf](./sample-reports/FastReportTest.pdf)
+A simple example that shows the basic setup of a report and its columns. [Download pdf](./sample-reports/FastReportTest.pdf)
 
-**[ar.com.fdvs.dj.test.PlainReportTest](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/PlainReportTest.html)**  
-A example that shows how to get more control on the basic setup of a report and its columns
+**[ar.com.fdvs.dj.test.PlainReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/PlainReportTest.java)**  
+A example that shows how to get more control on the basic setup of a report and its columns. [Download pdf](./sample-reports/PlainReportTest.pdf)
 
-[download](/web/20220331182701/http://dynamicjasper.com/docs/examples/PlainReportTest.pdf)
 
-**[ar.com.fdvs.dj.test.StylesReportTest](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/TemplateStyleReportTest.html)**  
-Based on the PlainReportTest test, shows how to add some styles to the different elements in the report
+**[ar.com.fdvs.dj.test.StylesReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/TemplateStyleReportTest.java)**  
+Based on the PlainReportTest test, shows how to add some styles to the different elements in the report. [Download pdf](./sample-reports/StylesReportTest.pdf)
 
-[download](/web/20220331182701/http://dynamicjasper.com/docs/examples/StylesReportTest.pdf)
+**[ar.com.fdvs.dj.test.GroupsReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/GroupsReportTest.java)**  
+Based on the StylesReportTest test, this test shows how to define groups and variables at the header and footer of each group. [Download pdf](./sample-reports/GroupsReportTest.pdf)
 
-**[ar.com.fdvs.dj.test.GroupsReportTest](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/GroupsReportTest.html)**  
-Based on the StylesReportTest test, this test shows how to define groups and variables at the header and footer of each group
+**[ar.com.fdvs.dj.test.ConditionalStylesReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/ConditionalStylesReportTest.java)**  
+This test shows how to create a simple conditional style. The style of the values from a column changes as a certain condition is met. [Download pdf](./sample-reports/ConditionalStylesReportTest.pdf)
 
-[download](/web/20220331182701/http://dynamicjasper.com/docs/examples/GroupsReportTest.pdf)
+**[ar.com.fdvs.dj.test.ImageBannerReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/ImageBannerReportTest.java)**  
+This test shows how to add images to the title of the report and the header. [Download pdf](./sample-reports/ImageBannerReportTest.pdf)
 
-**[ar.com.fdvs.dj.test.ConditionalStylesReportTest](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/ConditionalStylesReportTest.html)**  
-This test shows how to create a simple conditional style. The style of the values from a column changes as a certain condition is meat
+**[ar.com.fdvs.dj.test.ChartReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/ChartReportTest.java)**  
+Based on GroupsReportTest, shows how to add charts to a report, using a chart builder. [Download pdf](./sample-reports/ChartReportTest.pdf)
 
-[download](/web/20220331182701/http://dynamicjasper.com/docs/examples/ConditionalStylesReportTest.pdf)
+**[ar.com.fdvs.dj.test.AutotextReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/AutotextReportTest.java)**  
+Based on FastReportTest, shows how to add autotext out-of-the-box such as “page x/y”, etc. [Download pdf](./sample-reports/AutotextReportTest.pdf)
 
-**[ar.com.fdvs.dj.test.ImageBannerReportTest](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/ImageBannerReportTest.html)**  
-This test shows how to add images to the title of the report and the header
+**[ar.com.fdvs.dj.test.ReflectiveReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/ReflectiveReportTest.java)**  
+With almoust no code, you get an instant report! it uses the ReflectiveReportBuilder wich make some guesses upon the data type of the elements contained in the datasource and apply a style to them. [Download pdf](./sample-reports/ReflectiveReportTest.pdf)
 
-[download](/web/20220331182701/http://dynamicjasper.com/docs/examples/ImageBannerReportTest.pdf)
+[Here](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test) is the source code of the tests.
 
-**[ar.com.fdvs.dj.test.ChartReportTest](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/ChartReportTest.html)**  
-Based on GroupsReportTest, shows how to add charts to a report, using a chart builder
-
-[download](/web/20220331182701/http://dynamicjasper.com/docs/examples/ChartReportTest.pdf)
-
-**[ar.com.fdvs.dj.test.AutotextReportTest](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/AutotextReportTest.html)**  
-Based on FastReportTest, shows how to add autotext out-of-the-box such as “page x/y”, etc
-
-[download](/web/20220331182701/http://dynamicjasper.com/docs/examples/AutotextReportTest.pdf)
-
-**[ar.com.fdvs.dj.test.ReflectiveReportTest](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/ReflectiveReportTest.html)**  
-With almoust no code, you get an instant report! it uses the ReflectiveReportBuilder wich make some guesses upon the data type of the elements contained in the datasource and apply a style to them
-
-[download](/web/20220331182701/http://dynamicjasper.com/docs/examples/ReflectiveReportTest.pdf)
-
-[Here](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/package-summary.html) is the online source code off the tests
-
-**Note**: This tests extends junit.framework.TestCase, but they also contain a main(…) method, we recommend to execute the test through the main method because the JUnit framework closes the JasperViewer (a window that shows the report) inmeadiatly after exiting the program.
+> **Note**: These tests opens a window that shows the report output (in a component called JasperViewer), besides that, tests classes extends `junit.framework.TestCase`. If you run the tests using JUnit runner, the JasperViewer will be closed after the tests finished. If you want to keep the JasperViewer open, run the tests through the `main(...)` method provided
 
 Creating a simple Report
 ------------------------
 
-This fragment shows how to create a report in an easy and fast way. [see the code](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/FastReportTest.html)
+This fragment shows how to create a report in an easy and fast way. [see the code](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/FastReportTest.java)
 
+```java
 FastReportBuilder drb = new FastReportBuilder();
 DynamicReport dr = drb.addColumn("State", "state", String.class.getName(),30)
 .addColumn("Branch", "branch", String.class.getName(),30)
@@ -72,22 +58,24 @@ DynamicReport dr = drb.addColumn("State", "state", String.class.getName(),30)
 JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());
 JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);
 JasperViewer.viewReport(jp);    //finally display the report report
+```
 
 This code produces the report shown below The **FastReportBuilder** provides the methods to pass the basic parameters to the report:
 
-*   addColumn( **<title>**, **<field/property to show>**, **<class name of the property to show>**, **<width of the column>** )
-*   addGroups (**<number of columns to group by>**)
-*   setTitle(…) , setSubtitle( …) : guess!!!
-*   setUseFullPageWidth( **<boolean>** ) : if true, the columns width will be resized proportionally until meet the page width
+-   `addColumn( <title>, <field/property to show>, <class name of the property to show>, <width of the column> )`
+-   `addGroups( <number of columns to group by>)`
+- `setTitle(...)` , `setSubtitle(...)`: guess!!!
+- `setUseFullPageWidth( <boolean> )`: if true, the columns width will be resized proportionally until meet the page width
 
-In the previous report, the DynamicJasper API makes a lot of decisions setting default values to the styles in general (title, column header, report detail, etc). This defaults are defined in the_FastReportBuilder_ class. More control in all this aspects can be achieved using the _DynamicReportBuilder_ class, as shown in the next example.
+In the previous report, the DynamicJasper API makes a lot of decisions setting default values to the styles in general (title, column header, report detail, etc). This defaults are defined in the `FastReportBuilder` class. More control in all this aspects can be achieved using the `DynamicReportBuilder` class, as shown in the next example.
 
-Getting more control on the report options
-------------------------------------------
+## Getting more control on the report options
 
-This code shows how to create a simple report but taking more control on the report options, the code is self explained. [see the code](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/PlainReportTest.html)
+This code shows how to create a simple report but taking more control on the report options, the code is self explained. [see the code](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/TemplateStyleReportTest.java)
 
+```java
 DynamicReportBuilder drb = new DynamicReportBuilder();
+
 drb.setTitle("November 2006 sales report")		//defines the title of the report
 .setSubtitle("The items in this report correspond "
 +"to the main products: DVDs, Books, Foods and Magazines")
@@ -96,15 +84,15 @@ drb.setTitle("November 2006 sales report")		//defines the title of the report
 .setDefaultStyles(titleStyle, subtitleStyle, headerStyle, detailStyle)
 .setColumnsPerPage(1);		//defines columns per page (like in the telephone guide)
 
-/\*\*
-\* Note that we still didn't call the build() method
-\*/
+/**
+* Note that we still didn't call the build() method
+**/
 
-/\*\*
-\* Column definitions. We use a new ColumnBuilder instance for each
-\* column, the ColumnBuilder.getNew() method returns a new instance
-\* of the builder
-\*/
+/**
+* Column definitions. We use a new ColumnBuilder instance for each
+* column, the ColumnBuilder.getNew() method returns a new instance
+* of the builder
+*/
 AbstractColumn columnState = ColumnBuilder.getNew()		//creates a new instance of a ColumnBuilder
 .setColumnProperty("state", String.class.getName())		//defines the field of the data source that this column will show, also its type
 .setTitle("State")		//the title for the column
@@ -144,10 +132,10 @@ AbstractColumn columnAmount = ColumnBuilder.getNew()
 .setStyle(amountStyle)		//special style for this column (align right)
 .build();
 
-/\*\*
-\* We add the columns to the report (through the builder) in the order
-\* we want them to appear
-\*/
+/**
+* We add the columns to the report (through the builder) in the order
+* we want them to appear
+*/
 drb.addColumn(columnState);
 drb.addColumn(columnBranch);
 drb.addColumn(columnaProductLine);
@@ -156,9 +144,9 @@ drb.addColumn(columnCode);
 drb.addColumn(columnaCantidad);
 drb.addColumn(columnAmount);
 
-/\*\*
-\* add some more options to the report (through the builder)
-\*/
+/**
+* add some more options to the report (through the builder)
+*/
 drb.setUseFullPageWidth(true);  //we tell the report to use the full width of the page. this rezises
 //the columns width proportionally to meat the page width.
 
@@ -170,52 +158,55 @@ JRDataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummy
 JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dr, new ClassicLayoutManager(), ds);    //Creates the JasperPrint object, we pass as a Parameter
 //the DynamicReport, a new ClassicLayoutManager instance (this
 //one does the magic) and the JRDataSource
-JasperViewer.viewReport(jp);		//finally display the report report
+JasperViewer.viewReport(jp); //finally display the report report
+```
 
 The **DynamicReportBuilder** builds **DynamicReport** objects, this object contains the main options of the report (title, subtitle, styles, page size, orientation and a list of columns and groups) The **ColumnBuilder** builds **SimpleColumn** and **ExpressionColumn** objects depending the case (they both inherit from **AbstractColumn**). Each column holds basic data like the column title, the field from the datasource to show (it uses BeanUtils, so “a.b.c” can be passed as a property parameter), and how to show this data (style, pattern to apply, etc).
 
-**Note** that the property\_name passed to ColumnBuilder.setColumnProperty(“property\_name”, “property\_class\_name”) method must match the name of a field/property in the elements contained in the datasource
+> **Note** that the `property_name` passed to `ColumnBuilder.setColumnProperty("property_name", "property_class_name")` method must match the name of a field/property in the elements contained in the datasource
 
-Adding groups
--------------
+## Adding groups
 
-Using the same code as before, we add this few lines. [see the code](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/GroupsReportTest.html)
+Using the same code as before, we add this few lines. [see the code](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/ChartReportTest.java)
 
+```java
 GroupBuilder gb1 = new GroupBuilder();
 ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState).build();
 drb.addGroup(g1);              //add the group to the DynamicReportBuilder
+```
 
 Up to here, the DJ API will handle how to do the grouping stuff, but this isn’t enough for most of the users so lets see how to put some variables (totals) in the footer and header of the group.
 
+```java
 GroupBuilder gb1 = new GroupBuilder();
 ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState)        //define the criteria column to group by (columnState)
 .addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)        //tell the group place a variable in the footer
 //of the column "columnAmount" with the SUM of all
 //values of the columnAmount in this group.
 
-            .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)    //idem for the columnaQuantity column
-            .setGroupLayout(GroupLayout.DEFAULT\_WITH\_HEADER)                //tells the group how to be shown, there are many
-                                                                                    //posibilities, see the GroupLayout class for more.
-            .build();
+    .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)    //idem for the columnaQuantity column
+    .setGroupLayout(GroupLayout.DEFAULT\_WITH\_HEADER)                //tells the group how to be shown, there are many
+                                                                            //posibilities, see the GroupLayout class for more.
+    .build();
 
-        GroupBuilder gb2 = new GroupBuilder();                                        //Create another group (using another column as criteria)
-        ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch)        //and we add the same operations for the columnAmount and
-            .addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)        //columnaQuantity columns
-            .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
-            .build();
+GroupBuilder gb2 = new GroupBuilder();                                        //Create another group (using another column as criteria)
+ColumnsGroup g2 = gb2.setCriteriaColumn((PropertyColumn) columnBranch)        //and we add the same operations for the columnAmount and
+    .addFooterVariable(columnAmount,ColumnsGroupVariableOperation.SUM)        //columnaQuantity columns
+    .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)
+    .build();
 
 //then we add the groups to the report (through the builder)
 
         drb.addGroup(g1);    //add group g1
         drb.addGroup(g2);    //add group g2
+```
 
-Here the order of the group registration is important and should be consistent with the order of the registration of the columns. If we mess here, the resultant report wont have any meaning.
+Here the order of the group registration is important and should be consistent with the order of the registration of the columns. If we mess here, the resultant report won't have any meaning.
 
-**Note:** It’s important to remember that the data from the datasource must be ordered with the same criteria we want to group them.
+> **Note:** It’s important to remember that the data from the datasource must be ordered with the same criteria we want to group them.
 
 Many more examples on **groups**: [Grouping Styles](/web/20220331182701/http://dynamicjasper.com/2010/10/05/grouping-styles/)
 
-Adding charts
--------------
+## Adding charts
 
 See examples [here](/web/20220331182701/http://dynamicjasper.com/2010/10/06/how-to-add-a-chart-new-api/) for the different char types
