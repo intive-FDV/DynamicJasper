@@ -2,7 +2,7 @@
 
 The source code comes with examples ready to run (you need Maven 2 to build the source code). below a listing of some TestCases that are a good starting point.
 
-**[ar.com.fdvs.dj.test.FastReportTest](../src/test/java/ar/com/fdvs/dj/test/FastReportTest.java)**  
+**[ar.com.fdvs.dj.test.FastReportTest](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/FastReportTest.java)**  
 A simple example that shows the basic setup of a report and its columns. [download pdf](./sample-reports/FastReportTest.pdf)
 
 **[ar.com.fdvs.dj.test.PlainReportTest](/web/20220331182701/http://dynamicjasper.com/docs/current/xref-test/ar/com/fdvs/dj/test/PlainReportTest.html)**  
