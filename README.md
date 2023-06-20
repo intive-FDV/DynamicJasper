@@ -64,6 +64,3 @@ Styles: Each column can have its own style for its title and detail data (defini
 * __Export to most popular formats__: As DJ stands over Jasper Reports, it can export to PDF, XML, HTML, CSV, XLS, RTF, TXT.
 * __Clean Excel export__: One of the most valuable features that DJ provides is exporting plain reports to excel, with no data formatting, no page break, etc. This is very valuable for end users that use this report to create dynamic tables in Excel, creating these reports just with Jasper Reports can demand a lot of design time.
 
-## Professional support
-
-Alternative professional support available. http://dynamicjasper.com/support/professional-support-eng/
