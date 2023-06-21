@@ -205,7 +205,7 @@ Here the order of the group registration is important and should be consistent w
 
 > **Note:** It’s important to remember that the data from the datasource must be ordered with the same criteria we want to group them.
 
-Many more examples on **groups**: [Grouping Styles](/web/20220331182701/http://dynamicjasper.com/2010/10/05/grouping-styles/)
+Many more examples on **groups**: [Grouping Styles](./grouping-styles.md)
 
 ## Adding charts
 
