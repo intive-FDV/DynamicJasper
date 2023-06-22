@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: home
 title: Welcome to DynamicJasper
 # permalink: /about/
 ---
@@ -12,10 +12,14 @@ You can use the classic `.jrxml` files as templates while the content and layout
 
 ![!](./images/dj-home.png "Actual DynamicJasper output")
 
-Checkout the [getting started guide!](./getting-started.md)
+# Documentation
+
+- [Getting started](./getting-started.md): A guided walkthrough to your first report.
+- [How-To guide](./how-to.md): A comprehensive compilation of examples covering every feature. 
 
 # Maven Dependency
-```
+
+```xml
 <dependency>
     <groupId>ar.com.fdvs</groupId>
     <artifactId>DynamicJasper</artifactId>
@@ -24,7 +28,9 @@ Checkout the [getting started guide!](./getting-started.md)
 ```
 Check for the latest version in [Maven Central Repository](https://mvnrepository.com/artifact/ar.com.fdvs/DynamicJasper)
 
-## Report Concept
+# About DynamicJasper
+
+## The "Report" Concept
 
 This API is intended to solve the 99% of the classic reports that consist in a number of fields (that are going to be columns in the report), then the report may have some “repeating groups” defined using a field as a criteria. Some columns may have variables (with operations such as SUM or COUNT) for some of the fields. All this tasks can be done automatically by the DJ through a very easy-to-use API.
 
@@ -47,7 +53,7 @@ __Automatic report layout__: Just define a minimum set of options and DJ will ta
 
 __Dynamic Crosstabs__: Jasper Report’s popular crosstabs can now be created dynamically in an easy and convenient way.
 
-## Sub reports
+### Sub reports
 
 Sub reports are supported; they can also be dynamically created.
 Concatenating many reports in a single one (e.g.: a single PDF) can be a hard task. Using DynamicJasper it is really easy get reports of different nature in a single one.
@@ -64,7 +70,7 @@ Styles: Each column can have its own style for its title and detail data (defini
 * __Clean Excel export__: One of the most valuable features that DJ provides is exporting plain reports to excel, with no data formatting, no page break, etc. This is very valuable for end users that use this report to create dynamic tables in Excel, creating these reports just with Jasper Reports can demand a lot of design time.
 
 
-# Open Source and Free (as free beer!)
+## Open Source and Free (as free beer!)
 
 * GitHub [repository](https://github.com/intive-FDV/DynamicJasper)
 * License:  GNU LESSER GENERAL PUBLIC LICENSE V.3 ([details](./license.md))

@@ -27,13 +27,13 @@ description: >- # this means to ignore newlines until "baseurl:"
   (that can also be dynamic), page size and everything else that you can define at design time.
 baseurl: "/DynamicJasper" # the subpath of your site, e.g. /blog
 url: "http://intive-fdv.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+# twitter_username: jekyllrb
+# github_username:  jekyll
 
 # Build settings
 theme: minima
 plugins:
-  - jekyll-feed
+  # - jekyll-feed
 
 # Exclude from processing.
 # The following items will not be processed, by default.
