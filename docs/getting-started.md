@@ -185,7 +185,7 @@ ColumnsGroup g1 = gb1.addCriteriaColumn((PropertyColumn) columnState)        //d
 //values of the columnAmount in this group.
 
     .addFooterVariable(columnaQuantity,ColumnsGroupVariableOperation.SUM)    //idem for the columnaQuantity column
-    .setGroupLayout(GroupLayout.DEFAULT\_WITH\_HEADER)                //tells the group how to be shown, there are many
+    .setGroupLayout(GroupLayout.DEFAULT_WITH_HEADER)                //tells the group how to be shown, there are many
                                                                             //posibilities, see the GroupLayout class for more.
     .build();
 

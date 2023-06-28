@@ -18,8 +18,9 @@ DynamicJasper comes with predefined grouping layouts. Different combinations in 
 
 ## The simplest case: 1 group
 
+<a name="default_layout"></a>
 ### Default layout
-<a name="default_layout"></a>**Code** [GroupsReportTestG1T1](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T1.java)
+**Code** [GroupsReportTestG1T1](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T1.java)
 
 ```java
 ...
@@ -44,8 +45,9 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 ![!](./images/grouping-styles/1g-default.jpeg)
 
+<a name="default_with_headers_on_each_group_break_layout"></a>
 ### *Default With Headers* (on each group break) Layout
-<a name="default_with_headers_on_each_group_break_layout"></a>**Code** [GroupsReportTestG1T2](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T2.java)
+**Code** [GroupsReportTestG1T2](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T2.java)
 
 ```java
  ...
@@ -69,8 +71,9 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 ![1g-DEFAULT_WITH_HEADER!](./images/grouping-styles/1g-DEFAULT_WITH_HEADER.jpeg)
 
+<a name="empty_layout_grouped_column_gets_hidden"></a>
 ### *Empty* layout (grouped column gets hidden)
-<a name="empty_layout_grouped_column_gets_hidden"></a>**Code** [GroupsReportTestG1T3](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T3.java)
+**Code** [GroupsReportTestG1T3](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T3.java)
 
 ```java
 ...
@@ -94,8 +97,9 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 ![1g-EMPTY!](./images/grouping-styles/1g-EMPTY.jpeg)
 
+<a name="simple_value_for_each_layout"></a>
 ### Simple *Value For Each* layout
-<a name="simple_value_for_each_layout"></a>**Code** [GroupsReportTestG1T4](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T4.java)
+**Code** [GroupsReportTestG1T4](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T4.java)
 
 ```java
 ...
@@ -120,8 +124,9 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 ![1g-VALUE_FOR_EACH](./images/grouping-styles/1g-VALUE_FOR_EACH.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_FOR_EACH.jpg)
 
+<a name="simple_value_for_each_with_headers_layout"></a>
 ### [Simple *Value For Each With Headers* layout]
-<a name="simple_value_for_each_with_headers_layout"></a>**Code** [GroupsReportTestG1T5](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T5.java)
+**Code** [GroupsReportTestG1T5](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T5.java)
 
 ```java
 ...
@@ -146,8 +151,9 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 ![1g-VALUE_IN_HEADER_WITH_HEADERS](./images/grouping-styles/1g-VALUE_IN_HEADER_WITH_HEADERS.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_FOR_EACH_WITH_HEADERS.jpg)
 
+<a name="value_in_header_layout"></a>
 ### *Value In Header* layout
-<a name="value_in_header_layout"></a>**Code** [GroupsReportTestG1T6](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T6.java)
+**Code** [GroupsReportTestG1T6](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T6.java)
 
 ```java
 ...
@@ -176,8 +182,9 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 ![1g-VALUE_IN_HEADER](./images/grouping-styles/1g-VALUE_IN_HEADER.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_IN_HEADER.jpg)
 
+<a name="value_in_header_with_headers_layout"></a>
 ### *Value In Header With Headers* layout
-<a name="value_in_header_with_headers_layout"></a>**Code** [GroupsReportTestG1T7](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T7.java)
+**Code** [GroupsReportTestG1T7](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T7.java)
 
 ```java
 ...
@@ -206,8 +213,9 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 ![1g-VALUE_IN_HEADER_WITH_HEADERS](./images/grouping-styles/1g-VALUE_IN_HEADER_WITH_HEADERS.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_IN_HEADER_WITH_HEADERS.jpg)
 
+<a name="value_in_header_with_headers_and_column_name_layout"></a>
 ### *Value In Header With Headers And Column Name* layout
-<a name="value_in_header_with_headers_and_column_name_layout"></a>**Code** [GroupsReportTestG1T8](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T8.java)
+**Code** [GroupsReportTestG1T8](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG1T8.java)
 
 ```java
 ...
@@ -244,8 +252,9 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 ## Getting serious: 2 groups
 As the number of group grows, different combinations of grouping layouts can result in high-end designs.
 
+<a name="value_in_header_with_header_and_default_layouts"></a>
 ### *Value In Header With Header* and *Default* layouts
-<a name="value_in_header_with_header_and_default_layouts"></a>**Code** [GroupsReportTestG2T1](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG2T1.java)
+**Code** [GroupsReportTestG2T1](https://github.com/intive-FDV/DynamicJasper/tree/master/src/test/java/ar/com/fdvs/dj/test/groups/GroupsReportTestG2T1.java)
 
 **Key Points**
 
@@ -265,8 +274,9 @@ As the number of group grows, different combinations of grouping layouts can res
 
 In this case, first group is using VALUE_IN_HEADER_WITH_HEADERS layout and second group is using VALUE_IN_HEADER
 
+<a name="layouts_table"></a>
 ## Layouts Table
-<a name="layouts_table"></a>Combining of the different **GroupLayout** possibilities with nested groups can end in very interesting results
+Combining of the different **GroupLayout** possibilities with nested groups can end in very interesting results
 
 The following matrix shows the different aspects used in each template.
 

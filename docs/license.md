@@ -1,3 +1,9 @@
+---
+layout: Page
+title: License
+permalink: /license
+---
+
 # GNU LESSER GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
 
