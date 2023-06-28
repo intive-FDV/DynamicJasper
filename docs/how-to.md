@@ -6,9 +6,9 @@ permalink: /how-to/
 
 This section covers examples that answer most commons “how to” questions about how to get things done using DynamicJasper.
 
-## [**Grouping and Layout**](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/category/docs/howto/grouping-and-layout/)
+## Grouping and Layout
 
-- [Add labels in group header and footer](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/05/add-labels-in-group-header-and-footer/)
+- [Add labels in group header and footer](../how-to/add-labels-in-group-header-and-footer.md)
 - [Grouping Styles](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/05/grouping-styles/)
 - [HOW-TO Add header and/or footer to a report](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-add-header-andor-footer-to-a-report/)
 - [HOW-TO Avoid splitting of rows](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-avoid-splitting-of-rows/)
