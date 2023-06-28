@@ -20,11 +20,11 @@
 
 title: DynamicJasper
 #email: your-email@example.com
-description: >- # this means to ignore newlines until "baseurl:"
-  DynamicJasper (DJ) is an API that hides the complexity of JasperReports, it helps developers to save time when designing
-  simple/medium complexity reports generating the layout of the report elements automatically. It creates reports dynamically,
-  defining at runtime the columns, column width (auto width), groups, variables, fonts, charts, crosstabs, sub reports
-  (that can also be dynamic), page size and everything else that you can define at design time.
+#description: >- # this means to ignore newlines until "baseurl:"
+#  DynamicJasper (DJ) is an API that hides the complexity of JasperReports, it helps developers to save time when designing
+#  simple/medium complexity reports generating the layout of the report elements automatically. It creates reports dynamically,
+#  defining at runtime the columns, column width (auto width), groups, variables, fonts, charts, crosstabs, sub reports
+#  (that can also be dynamic), page size and everything else that you can define at design time.
 baseurl: "/DynamicJasper" # the subpath of your site, e.g. /blog
 url: "http://intive-fdv.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb

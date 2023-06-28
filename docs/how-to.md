@@ -8,7 +8,7 @@ This section covers examples that answer most commons “how to” questions abo
 
 ## Grouping and Layout
 
-- [Add labels in group header and footer](../how-to/add-labels-in-group-header-and-footer.md)
+- [Add labels in group header and footer](../how-to/add-labels-in-group-header-and-footer.html)
 - [Grouping Styles](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/05/grouping-styles/)
 - [HOW-TO Add header and/or footer to a report](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-add-header-andor-footer-to-a-report/)
 - [HOW-TO Avoid splitting of rows](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-avoid-splitting-of-rows/)
