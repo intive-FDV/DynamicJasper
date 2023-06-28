@@ -1,3 +1,9 @@
+---
+layout: page
+title: Grouping Styles
+# permalink: /about/
+---
+
 # Grouping Styles
 
 DynamicJasper comes with predefined grouping layouts. Different combinations in layouts among nested groups can give to your reports a high visual impact.
@@ -43,7 +49,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 **Sample snapshot**
 
-![!](./images/grouping-styles/1g-default.jpeg)
+![!](../images/grouping-styles/1g-default.jpeg)
 
 <a name="default_with_headers_on_each_group_break_layout"></a>
 ### *Default With Headers* (on each group break) Layout
@@ -69,7 +75,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 **Sample snapshot**
 
-![1g-DEFAULT_WITH_HEADER!](./images/grouping-styles/1g-DEFAULT_WITH_HEADER.jpeg)
+![1g-DEFAULT_WITH_HEADER!](../images/grouping-styles/1g-DEFAULT_WITH_HEADER.jpeg)
 
 <a name="empty_layout_grouped_column_gets_hidden"></a>
 ### *Empty* layout (grouped column gets hidden)
@@ -95,7 +101,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 **Sample snapshot**
 
-![1g-EMPTY!](./images/grouping-styles/1g-EMPTY.jpeg)
+![1g-EMPTY!](../images/grouping-styles/1g-EMPTY.jpeg)
 
 <a name="simple_value_for_each_layout"></a>
 ### Simple *Value For Each* layout
@@ -122,7 +128,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 **Sample snapshot**
 
-![1g-VALUE_FOR_EACH](./images/grouping-styles/1g-VALUE_FOR_EACH.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_FOR_EACH.jpg)
+![1g-VALUE_FOR_EACH](../images/grouping-styles/1g-VALUE_FOR_EACH.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_FOR_EACH.jpg)
 
 <a name="simple_value_for_each_with_headers_layout"></a>
 ### [Simple *Value For Each With Headers* layout]
@@ -149,7 +155,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 **Sample snapshot**
 
-![1g-VALUE_IN_HEADER_WITH_HEADERS](./images/grouping-styles/1g-VALUE_IN_HEADER_WITH_HEADERS.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_FOR_EACH_WITH_HEADERS.jpg)
+![1g-VALUE_IN_HEADER_WITH_HEADERS](../images/grouping-styles/1g-VALUE_IN_HEADER_WITH_HEADERS.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_FOR_EACH_WITH_HEADERS.jpg)
 
 <a name="value_in_header_layout"></a>
 ### *Value In Header* layout
@@ -180,7 +186,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 **Sample snapshot**
 
-![1g-VALUE_IN_HEADER](./images/grouping-styles/1g-VALUE_IN_HEADER.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_IN_HEADER.jpg)
+![1g-VALUE_IN_HEADER](../images/grouping-styles/1g-VALUE_IN_HEADER.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_IN_HEADER.jpg)
 
 <a name="value_in_header_with_headers_layout"></a>
 ### *Value In Header With Headers* layout
@@ -211,7 +217,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 **Sample snapshot**
 
-![1g-VALUE_IN_HEADER_WITH_HEADERS](./images/grouping-styles/1g-VALUE_IN_HEADER_WITH_HEADERS.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_IN_HEADER_WITH_HEADERS.jpg)
+![1g-VALUE_IN_HEADER_WITH_HEADERS](../images/grouping-styles/1g-VALUE_IN_HEADER_WITH_HEADERS.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_IN_HEADER_WITH_HEADERS.jpg)
 
 <a name="value_in_header_with_headers_and_column_name_layout"></a>
 ### *Value In Header With Headers And Column Name* layout
@@ -247,7 +253,7 @@ ColumnsGroup g1 = gb1.setCriteriaColumn((PropertyColumn) columnState)
 
 **Sample snapshot**
 
-![1g-VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME](./images/grouping-styles/1g-VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME.jpg)
+![1g-VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME](../images/grouping-styles/1g-VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/1g-VALUE_IN_HEADER_WITH_HEADERS_AND_COLUMN_NAME.jpg)
 
 ## Getting serious: 2 groups
 As the number of group grows, different combinations of grouping layouts can result in high-end designs.
@@ -270,7 +276,7 @@ As the number of group grows, different combinations of grouping layouts can res
 
 **Sample snapshot**
 
-![2g-V_IN_H_WITH_H_vs_V_IN_H](./images/grouping-styles/2g-V_IN_H_WITH_H_vs_V_IN_H.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/2g-V_IN_H_WITH_H_vs_V_IN_H.jpg)
+![2g-V_IN_H_WITH_H_vs_V_IN_H](../images/grouping-styles/2g-V_IN_H_WITH_H_vs_V_IN_H.jpeg)[](http://web.archive.org/web/20220121074137/http://dynamicjasper.sourceforge.net/images/examples/grouping/2g-V_IN_H_WITH_H_vs_V_IN_H.jpg)
 
 In this case, first group is using VALUE_IN_HEADER_WITH_HEADERS layout and second group is using VALUE_IN_HEADER
 

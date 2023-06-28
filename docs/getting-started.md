@@ -1,3 +1,9 @@
+---
+layout: page
+title: Getting Started!
+# permalink: /about/
+---
+
 # Try the examples first
 
 The source code comes with examples ready to run (you need Maven 2 to build the source code). below a listing of some TestCases that are a good starting point.
@@ -205,7 +211,7 @@ Here the order of the group registration is important and should be consistent w
 
 > **Note:** It’s important to remember that the data from the datasource must be ordered with the same criteria we want to group them.
 
-Many more examples on **groups**: [Grouping Styles](./grouping-styles.md)
+Many more examples on **groups**: [Grouping Styles](how-to/grouping-styles.html)
 
 ## Adding charts
 
