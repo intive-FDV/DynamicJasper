@@ -9,11 +9,11 @@ This section covers examples that answer most commons “how to” questions abo
 ## Grouping and Layout
 
 - [Add labels in group header and footer](../how-to/add-labels-in-group-header-and-footer.html)
-- [Grouping Styles](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/05/grouping-styles/)
-- [HOW-TO Add header and/or footer to a report](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-add-header-andor-footer-to-a-report/)
+- [Grouping Styles](../how-to/grouping-styles.html)
+- [HOW-TO Add header and/or footer to a report](../how-to/how-to-add-header-andor-footer-to-a-report.html)
 - [HOW-TO Avoid splitting of rows](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-avoid-splitting-of-rows/)
 - [HOW-TO Create a report with columns \[like the telephone guide\]](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/05/how-to-create-a-report-with-columns-like-the-telephone-guide/)
-- [HOW-TO Create Autotext \[ie: Page x/y\] out of the box](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-create-autotext-ie-page-xy-out-of-the-box/)
+- [HOW-TO Create Autotext \[ie: Page x/y\] out of the box](../how-to/how-to-create-autotext-ie-page-xy-out-of-the-box.html)
 - [HOW-TO Create colspan headers](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2011/12/27/how-to-create-colspan-headers/)
 - [HOW-TO Create variables and define specific behavior](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-create-variables-and-define-specific-behavior/)
 - [HOW-TO Hide a column](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/05/how-to-hide-a-column/)
