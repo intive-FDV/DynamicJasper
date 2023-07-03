@@ -3,10 +3,12 @@ layout: page
 title: Add labels in group header and footer
 # permalink: /how-to/
 ---
-Add labels in group header and footer
-=====================================
 
-This feature (added in v3.0.7) enables to have labels in group header and footer, specially for each variable (on top of it) or a general label for all variables at the left.
+# Add labels in group header and footer
+
+> Added in v3.0.7
+
+This feature enables to have labels in group header and footer, specially for each variable (on top of it) or a general label for all variables at the left.
 
 ![group_labels](./images/group_labels.png)
 

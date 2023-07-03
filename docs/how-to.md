@@ -16,7 +16,7 @@ This section covers examples that answer most commons “how to” questions abo
 - [HOW-TO Create Autotext \[ie: Page x/y\] out of the box](../how-to/how-to-create-autotext-ie-page-xy-out-of-the-box.html)
 - [HOW-TO Create colspan headers](../how-to/how-to-create-colspan-headers/)
 - [HOW-TO Create variables and define specific behavior](../how-to/how-to-create-variables-and-define-specific-behavior.html)
-- [HOW-TO Hide a column](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/05/how-to-hide-a-column/)
+- [HOW-TO Hide a column](../how-to/how-to-hide-a-column.html)
 
 ## [**Data Manipulation / Data sources**](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/category/docs/howto/data/)
 
