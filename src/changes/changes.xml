@@ -34,6 +34,14 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
+        <release version="5.3.9" date="2023-08-11" desc="More Pull request">
+            <action dev="Juan Manuel Alvarez" type="Add" >
+                <![CDATA[Support for JasperReports 6.20.1+ (to 6.20.5 as of time of writing)]]>
+            </action>
+            <action dev="Juan Manuel Alvarez" type="Change" >
+                <![CDATA[Removed support to WebWork as part of the main core. Maybe adding it as a separated artifact]]>
+            </action>
+        </release>
         <release version="5.3.8" date="2023-03-04" desc="More Pull request">
             <action dev="Juan Manuel Alvarez" type="Add" >
                 <![CDATA[fix for https://github.com/intive-FDV/DynamicJasper/issues/118 Subreport styled

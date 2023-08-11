@@ -18,7 +18,7 @@ This section covers examples that answer most commons “how to” questions abo
 - [HOW-TO Create variables and define specific behavior](../how-to/how-to-create-variables-and-define-specific-behavior.html)
 - [HOW-TO Hide a column](../how-to/how-to-hide-a-column.html)
 
-## [**Data Manipulation / Data sources**](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/category/docs/howto/data/)
+## Data Manipulation / Data sources
 
 - [HOW-TO Create a grand total (with no groups)](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-create-a-grand-total-with-no-groups/)
 - [HOW-TO Create a percentage column](http://web.archive.org/web/20220121072211/http://dynamicjasper.com/2010/10/06/how-to-create-a-percentage-column/)

@@ -40,7 +40,7 @@ import net.sf.jasperreports.engine.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
-import net.sf.jasperreports.engine.type.ResetTypeEnum;
+import net.sf.jasperreports.engine.type.DatasetResetTypeEnum;
 
 import java.util.List;
 
@@ -190,8 +190,8 @@ public class DataSetFactory {
 		//When to start a new chart? When the group's parent changes
 		dataset.setResetGroup(parentGroup);
 		if (dataset.getResetGroup().equals(group))
-			dataset.setResetType( ResetTypeEnum.REPORT );
+			dataset.setResetType( DatasetResetTypeEnum.REPORT );
 		else
-			dataset.setResetType( ResetTypeEnum.GROUP );
+			dataset.setResetType( DatasetResetTypeEnum.GROUP );
 	}
 }
