@@ -34,12 +34,15 @@
         <author email="juan.alvarez@fdvsolutions.com">Juan Manuel Alvarez</author>
     </properties>
     <body>
-        <release version="5.3.9" date="2023-08-11" desc="More Pull request">
+        <release version="5.3.9" date="2023-08-16" desc="More Pull request">
             <action dev="Juan Manuel Alvarez" type="Add" >
-                <![CDATA[Support for JasperReports 6.20.1+ (to 6.20.5 as of time of writing)]]>
+                <![CDATA[Support for JasperReports 6.20.1+ (to 6.20.4 as of time of writing).
+                At the time of writing, JR 6.20.5 is available, but it has this bug: https://community.jaspersoft.com/jasperreports-library/issues/3127-0 which affects
+                the layout of sub-reports heavily. If you dont use sub-reports, it is safe to use JR 6.20.5
+                ]]>
             </action>
             <action dev="Juan Manuel Alvarez" type="Change" >
-                <![CDATA[Removed support to WebWork as part of the main core. Maybe adding it as a separated artifact]]>
+                <![CDATA[Removed support to WebWork and Struts2 as part of the main core. Maybe adding it as a separated artifact]]>
             </action>
         </release>
         <release version="5.3.8" date="2023-03-04" desc="More Pull request">
