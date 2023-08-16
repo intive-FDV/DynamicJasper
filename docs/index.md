@@ -23,7 +23,7 @@ You can use the classic `.jrxml` files as templates while the content and layout
 <dependency>
     <groupId>ar.com.fdvs</groupId>
     <artifactId>DynamicJasper</artifactId>
-    <version>5.3.8</version>
+    <version>5.3.9</version>
 </dependency>
 ```
 Check for the latest version in [Maven Central Repository](https://mvnrepository.com/artifact/ar.com.fdvs/DynamicJasper)

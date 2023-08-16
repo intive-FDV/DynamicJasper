@@ -1,0 +1,13 @@
+---
+layout: post
+title:  "DynamicJasper version 5.3.9 released!"
+date:   2023-08-14 16:43:00 -0300
+categories: releases
+---
+
+New version released 5.3.9
+
+* Support for JasperReports 6.20.1+ (to 6.20.4 as of time of writing).
+At the time of writing, JR 6.20.5 is available, but it has [this bug](https://community.jaspersoft.com/jasperreports-library/issues/3127-0) (https://community.jaspersoft.com/jasperreports-library/issues/3127-0) which affects
+the layout of sub-reports heavily. If you don't use sub-reports, it is safe to use JR 6.20.5
+* Removed support to WebWork and Struts2 as part of the main core. Maybe adding it as a separated artifact
