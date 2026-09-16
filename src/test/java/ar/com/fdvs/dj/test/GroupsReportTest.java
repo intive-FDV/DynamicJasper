@@ -185,6 +185,29 @@ public class GroupsReportTest extends BaseDjReportTest {
 		return dr;
 	}
 
+	@Override
+	public void testReport() throws Exception {
+		super.testReport();
+
+		// Note: This test uses VALUE_IN_HEADER group layout, so traditional column headers
+		// may not appear. Validate content instead.
+
+		// Validate title
+		assertTextExists("November " + getYear() + " sales report");
+
+		// Validate grand total legend
+		assertTextExists("Grand Total");
+
+		// Validate group data appears (states)
+		assertTextExists("Florida");
+		assertTextExists("New York");
+		assertTextExists("Arizona");
+		assertTextExists("Washington");
+
+		// Validate currency formatted values (amount column has pattern "$ 0.00")
+		assertTextMatchesPatternCount("\\$ [0-9,]+\\.[0-9]{2}", 10);
+	}
+
 	public static void main(String[] args) throws Exception {
 		GroupsReportTest test = new GroupsReportTest();
 		test.testReport();

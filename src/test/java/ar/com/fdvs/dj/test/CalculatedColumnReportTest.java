@@ -63,6 +63,22 @@ public class CalculatedColumnReportTest extends BaseDjReportTest {
 		return dr;
 	}
 
+	@Override
+	public void testReport() throws Exception {
+		super.testReport();
+
+		// Validate column headers
+		assertColumnHeader("State");
+		assertColumnHeader("Quantity");
+		assertColumnHeader("Amount");
+
+		// Validate title
+		assertTextExists("November " + getYear() + " sales report");
+
+		// Validate numeric data appears
+		assertTextMatchesPatternCount("[0-9,]+", 10);  // At least 10 numeric values
+	}
+
 	public static void main(String[] args) throws Exception {
 		CalculatedColumnReportTest test = new CalculatedColumnReportTest();
 		test.testReport();

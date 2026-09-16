@@ -168,6 +168,25 @@ public class ChartReportTest extends BaseDjReportTest {
 		return dr;
 	}
 
+	@Override
+	public void testReport() throws Exception {
+		super.testReport();
+
+		// Validate report not empty (has at least 1 page)
+		assertPageCount(1);
+
+		// Validate title
+		assertTextExists("November " + getYear() + " sales report");
+
+		// Validate group data appears (states that chart groups by)
+		assertTextExists("Florida");
+		assertTextExists("New York");
+
+		// Validate chart rendered (page has reasonable element count: chart + data)
+		assertTrue("Expected elements on page (chart should render)",
+			jp.getPages().get(0).getElements().size() > 5);
+	}
+
 	public static void main(String[] args) throws Exception {
 		ChartReportTest test = new ChartReportTest();
 		test.testReport();

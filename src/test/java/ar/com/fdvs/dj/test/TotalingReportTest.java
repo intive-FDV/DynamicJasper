@@ -86,6 +86,28 @@ public class TotalingReportTest extends BaseDjReportTest {
 		return dr;
 	}
 
+	@Override
+	public void testReport() throws Exception {
+		super.testReport();
+
+		// Validate report not empty
+		assertReportNotEmpty();
+
+		// Validate title
+		assertTextExists("November " + getYear() + " sales report");
+
+		// Validate group values appear (state and branch names)
+		// Report has 4 states in test data
+		assertTextExists("Florida");
+		assertTextExists("New York");
+		assertTextExists("Arizona");
+		assertTextExists("Washington");
+
+		// Validate SUM calculations appear (currency formatted)
+		// Group headers have SUM variables, so currency values should appear
+		assertTextMatchesPatternCount("\\$ [0-9,]+\\.[0-9]{2}", 5);  // At least 5 currency values
+	}
+
 	public static void main(String[] args) throws Exception {
 		TotalingReportTest test = new TotalingReportTest();
 		test.testReport();

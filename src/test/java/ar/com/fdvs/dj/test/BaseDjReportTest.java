@@ -34,6 +34,8 @@ import ar.com.fdvs.dj.core.DynamicJasperHelper;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import ar.com.fdvs.dj.test.util.ReportAssertions;
+import ar.com.fdvs.dj.test.util.ReportContentExtractor;
 import ar.com.fdvs.dj.util.SortUtils;
 import junit.framework.TestCase;
 import net.sf.jasperreports.engine.JRDataSource;
@@ -157,5 +159,153 @@ public abstract class BaseDjReportTest extends TestCase {
 
     public int getYear() {
         return Calendar.getInstance().get(Calendar.YEAR);
+    }
+
+    // ========================================================================
+    // Assertion Helper Methods
+    // Added in 5.3.10 to enable content-based test validation
+    // ========================================================================
+
+    /**
+     * Extract all text content from the report.
+     * Useful for custom assertions and debugging test failures.
+     *
+     * @return List of all text content found in the report
+     * @since 5.3.10
+     */
+    protected List<String> extractAllText() {
+        return ReportContentExtractor.extractAllText(jp);
+    }
+
+    /**
+     * Assert that a specific text value appears exactly the expected number of times.
+     * This is a version-agnostic assertion that validates content presence rather
+     * than element positions.
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * assertTextOccurs("Total Amount", 4);  // Verify group footer appears 4 times
+     * assertTextOccurs("State", 1);         // Verify column header appears once
+     * </pre>
+     *
+     * @param text The text value to search for
+     * @param count The expected number of occurrences
+     * @since 5.3.10
+     */
+    protected void assertTextOccurs(String text, int count) {
+        ReportAssertions.assertTextOccurrences(jp, text, count);
+    }
+
+    /**
+     * Assert that a column header with the specified text exists in the report.
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * assertColumnHeader("State");
+     * assertColumnHeader("Amount");
+     * </pre>
+     *
+     * @param headerText The column header text to search for
+     * @since 5.3.10
+     */
+    protected void assertColumnHeader(String headerText) {
+        ReportAssertions.assertColumnHeaderExists(jp, headerText);
+    }
+
+    /**
+     * Assert that column headers appear in the specified order.
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * assertColumnHeadersInOrder("State", "Branch", "Amount");
+     * </pre>
+     *
+     * @param headers The expected column headers in order
+     * @since 5.3.10
+     */
+    protected void assertColumnHeadersInOrder(String... headers) {
+        ReportAssertions.assertColumnHeadersInOrder(jp, headers);
+    }
+
+    /**
+     * Assert that a specific text value appears at least once in the report.
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * assertTextExists("Florida");  // Verify data appears
+     * </pre>
+     *
+     * @param text The text value to search for
+     * @since 5.3.10
+     */
+    protected void assertTextExists(String text) {
+        ReportAssertions.assertTextExists(jp, text);
+    }
+
+    /**
+     * Assert that at least one text element matches the specified regex pattern.
+     * Useful for validating formatted values (numbers, dates, etc.).
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * // Verify currency formatted values exist
+     * assertTextMatchesPattern("\\$ [0-9,]+\\.[0-9]{2}");
+     *
+     * // Verify dates exist
+     * assertTextMatchesPattern("[0-9]{2}/[0-9]{2}/[0-9]{4}");
+     * </pre>
+     *
+     * @param pattern The regex pattern to match
+     * @since 5.3.10
+     */
+    protected void assertTextMatchesPattern(String pattern) {
+        ReportAssertions.assertTextMatchesPattern(jp, pattern);
+    }
+
+    /**
+     * Assert that at least the specified number of text elements match the pattern.
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * // Verify at least 10 currency values
+     * assertTextMatchesPatternCount("\\$ [0-9,]+\\.[0-9]{2}", 10);
+     * </pre>
+     *
+     * @param pattern The regex pattern to match
+     * @param minCount The minimum expected count
+     * @since 5.3.10
+     */
+    protected void assertTextMatchesPatternCount(String pattern, int minCount) {
+        ReportAssertions.assertTextMatchesPatternCount(jp, pattern, minCount);
+    }
+
+    /**
+     * Assert that the report has at least the specified number of pages.
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * assertPageCount(2);  // Verify report has at least 2 pages
+     * </pre>
+     *
+     * @param expectedPages The minimum expected number of pages
+     * @since 5.3.10
+     */
+    protected void assertPageCount(int expectedPages) {
+        ReportAssertions.assertPageCount(jp, expectedPages);
+    }
+
+    /**
+     * Assert that the report is not empty (has content).
+     * Validates that the report has at least one page with text content.
+     *
+     * <p>Example usage:</p>
+     * <pre>
+     * assertReportNotEmpty();  // Basic sanity check
+     * </pre>
+     *
+     * @since 5.3.10
+     */
+    protected void assertReportNotEmpty() {
+        ReportAssertions.assertNotEmpty(jp);
     }
 }

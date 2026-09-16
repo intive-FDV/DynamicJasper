@@ -173,6 +173,26 @@ public class ConditionalStylesReportTest extends BaseDjReportTest {
 		return conditionalStyles;
 	}
 
+	@Override
+	public void testReport() throws Exception {
+		super.testReport();
+
+		// Validate column headers
+		assertColumnHeader("State");
+		assertColumnHeader("Branch");
+		assertColumnHeader("Amount");
+
+		// Validate title
+		assertTextExists("November " + getYear() + " sales report");
+
+		// Validate data appears (conditional styles should not break rendering)
+		assertTextExists("Florida");
+		assertTextExists("New York");
+
+		// Validate numeric data appears (conditional styles applied to amounts)
+		assertTextMatchesPatternCount("\\$ [0-9,]+\\.[0-9]{2}", 5);
+	}
+
 	public static void main(String[] args) throws Exception {
 		ConditionalStylesReportTest test = new ConditionalStylesReportTest();
 		test.testReport();

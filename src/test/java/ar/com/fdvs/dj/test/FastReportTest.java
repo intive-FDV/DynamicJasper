@@ -81,6 +81,30 @@ public class FastReportTest extends BaseDjReportTest {
 		return dr;
 	}
 
+	@Override
+	public void testReport() throws Exception {
+		super.testReport();
+
+		// Validate column headers
+		assertColumnHeader("State");
+		assertColumnHeader("Branch");
+		assertColumnHeader("Product Line");
+		assertColumnHeader("Item");
+		assertColumnHeader("Item Code");
+		assertColumnHeader("Quantity");
+		assertColumnHeader("Amount");
+
+		// Validate title
+		assertTextExists("November " + getYear() + " sales report");
+
+		// Validate data appears (state names from test data)
+		assertTextExists("Florida");
+		assertTextExists("New York");
+
+		// Validate numeric data formatted correctly
+		assertTextMatchesPatternCount("[0-9,]+", 10);  // At least 10 numeric values
+	}
+
 	public static void main(String[] args) throws Exception {
 		FastReportTest test = new FastReportTest();
 		test.testReport();
