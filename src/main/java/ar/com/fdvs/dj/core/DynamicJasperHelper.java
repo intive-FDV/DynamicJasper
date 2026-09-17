@@ -73,6 +73,14 @@ public class DynamicJasperHelper {
 
     private static final Random random = new Random(System.currentTimeMillis());
 
+    static {
+        // Enable legacy text measuring to prevent cumulative vertical shift in JasperReports 6.21+
+        // JR 6.21 changed text height calculation from truncate to round-up, causing elements to
+        // accumulate extra pixels and shift down progressively within each page.
+        JRPropertiesUtil.getInstance(DefaultJasperReportsContext.getInstance())
+            .setProperty("net.sf.jasperreports.legacy.text.measuring", "true");
+    }
+
     private static void registerEntities(DynamicJasperDesign jd, DynamicReport dr, LayoutManager layoutManager) {
         ColumnRegistrationManager columnRegistrationManager = new ColumnRegistrationManager(jd, dr, layoutManager);
         columnRegistrationManager.registerEntities(dr.getColumns());
