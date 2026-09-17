@@ -701,6 +701,7 @@ public class Dj2JrCrosstabBuilder {
 			JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
 
 			measure.setName(meausrePrefix + djmeasure.getProperty().getProperty()); //makes the measure.name unique in this crosstab
+			measure.setValueClassName(djmeasure.getProperty().getValueClassName());
 			measure.setCalculation(CalculationEnum.values()[djmeasure.getOperation().getValue()]);
 			JRDesignExpression valueExp = new JRDesignExpression();
 			valueExp.setText("$F{"+djmeasure.getProperty().getProperty()+"}");
@@ -735,6 +736,7 @@ public class Dj2JrCrosstabBuilder {
 
 				JRDesignCrosstabParameter crosstabParameter = new JRDesignCrosstabParameter();
 				crosstabParameter.setName("crosstab-measure__" + measure.getName() + "_vf"); //value formater suffix
+				crosstabParameter.setValueClassName(DJValueFormatter.class.getName());
 
 				log.debug("Registering value formatter parameter for crosstab measure " + crosstabParameter.getName() );
 				try {
@@ -757,6 +759,7 @@ public class Dj2JrCrosstabBuilder {
 
 				JRDesignCrosstabParameter crosstabParameter = new JRDesignCrosstabParameter();
 				crosstabParameter.setName("crosstab-measure__" + measure.getName() + "_totalProvider"); //value formater suffix
+				crosstabParameter.setValueClassName(DJCRosstabMeasurePrecalculatedTotalProvider.class.getName());
 
 				log.debug("Registering crosstab total provider parameter for measure " + crosstabParameter.getName() );
 				try {
@@ -791,6 +794,7 @@ public class Dj2JrCrosstabBuilder {
 			ctRowGroup.setName(crosstabRow.getProperty().getProperty());
 
 			JRDesignCrosstabBucket rowBucket = new JRDesignCrosstabBucket();
+			rowBucket.setValueClassName(crosstabRow.getProperty().getValueClassName());
 
 			Comparator comparator = crosstabRow.getComparator();
 			if (comparator != null){
@@ -886,6 +890,7 @@ public class Dj2JrCrosstabBuilder {
 			ctColGroup.setHeight(crosstabColumn.getHeaderHeight());
 
 			JRDesignCrosstabBucket bucket = new JRDesignCrosstabBucket();
+			bucket.setValueClassName(crosstabColumn.getProperty().getValueClassName());
 
 			if (crosstabColumn.getComparator() != null){
 				final String comparatorParamName = ExpressionUtils.createParameterName("crosstab_column_comparator", crosstabColumn.getComparator(), crosstabColumn.getProperty().getProperty());

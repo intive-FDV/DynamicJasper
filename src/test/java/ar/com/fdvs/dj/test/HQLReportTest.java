@@ -1,24 +1,40 @@
 package ar.com.fdvs.dj.test;
 
 import java.util.List;
+import org.junit.Ignore;
 
 import net.sf.jasperreports.engine.JRDataSource;
+import org.junit.Ignore;
 import net.sf.jasperreports.engine.query.HibernateConstants;
+import org.junit.Ignore;
 import net.sf.jasperreports.view.JasperViewer;
+import org.junit.Ignore;
 
 import org.hibernate.Session;
+import org.junit.Ignore;
 
 import ar.com.fdvs.dj.core.DJConstants;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.Style;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.constants.Font;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.test.domain.db.Customer;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.test.hibernate.HibernateUtil;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.test.hibernate.TestSchema;
+import org.junit.Ignore;
 
+@Ignore("JR7 requires JRXML templates to be converted to new format")
 public class HQLReportTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {

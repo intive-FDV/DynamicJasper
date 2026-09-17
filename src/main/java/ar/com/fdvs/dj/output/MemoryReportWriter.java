@@ -31,7 +31,9 @@ package ar.com.fdvs.dj.output;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.export.Exporter;
+import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -58,7 +60,7 @@ public class MemoryReportWriter extends ReportWriter {
     public void writeTo(final HttpServletResponse _response) throws IOException, JRException {
         LOGGER.info("entering MemoryReportWriter.writeTo(HttpServletResponse)");
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(stream));
+        setExporterOutput(stream);
         exporter.exportReport();
         _response.setContentLength(stream.size());
         copyStreams(new ByteArrayInputStream(stream.toByteArray()), _response.getOutputStream());
@@ -68,9 +70,18 @@ public class MemoryReportWriter extends ReportWriter {
     public InputStream write() throws IOException, JRException {
         LOGGER.info("entering MemoryReportWriter.write()");
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(stream));
+        setExporterOutput(stream);
         exporter.exportReport();
 
         return new ByteArrayInputStream(stream.toByteArray());
+    }
+
+    private void setExporterOutput(final ByteArrayOutputStream stream) {
+        // HTML exporter requires HtmlExporterOutput, not generic OutputStreamExporterOutput
+        if (exporter instanceof HtmlExporter) {
+            exporter.setExporterOutput(new SimpleHtmlExporterOutput(stream));
+        } else {
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(stream));
+        }
     }
 }

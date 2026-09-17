@@ -123,7 +123,7 @@
 						</cellContents>
 					</crosstabHeaderCell>					<rowGroup name="PERIOD_ID" width="100">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{PERIOD_ID}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{PERIOD_ID}]]></bucketExpression>
 						</bucket>
 						<crosstabRowHeader>
 						<cellContents mode="Transparent">
@@ -146,7 +146,7 @@
 					</rowGroup>
 					<columnGroup name="ITEM_MEASURE_ID" height="25" headerPosition="Center">
 						<bucket>
-							<bucketExpression class="java.lang.Long"><![CDATA[$F{ITEM_MEASURE_ID}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{ITEM_MEASURE_ID}]]></bucketExpression>
 						</bucket>
 						<crosstabColumnHeader>
 						<cellContents mode="Transparent">

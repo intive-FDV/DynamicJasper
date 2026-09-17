@@ -128,7 +128,7 @@
 						</cellContents>
 					</crosstabHeaderCell>					<rowGroup name="productLine" width="100" totalPosition="End">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{productLine}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{productLine}]]></bucketExpression>
 						</bucket>
 						<crosstabRowHeader>
 						<cellContents mode="Transparent">
@@ -169,7 +169,7 @@
 					</rowGroup>
 					<rowGroup name="item" width="100" totalPosition="End">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{item}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{item}]]></bucketExpression>
 						</bucket>
 						<crosstabRowHeader>
 						<cellContents mode="Transparent">
@@ -210,7 +210,7 @@
 					</rowGroup>
 					<columnGroup name="state" height="26" totalPosition="End" headerPosition="Center">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{state}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{state}]]></bucketExpression>
 						</bucket>
 						<crosstabColumnHeader>
 						<cellContents backcolor="#CCFFCC" mode="Opaque">
@@ -253,7 +253,7 @@
 					</columnGroup>
 					<columnGroup name="branch" height="25" totalPosition="End" headerPosition="Center">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{branch}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{branch}]]></bucketExpression>
 						</bucket>
 						<crosstabColumnHeader>
 						<cellContents mode="Transparent">
@@ -933,7 +933,7 @@
 						key="barcode-1"/>
 					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
 					<graphicElement stretchType="NoStretch" pen="None" fill="Solid" />
-					<imageExpression class="java.awt.Image"><![CDATA[it.businesslogic.ireport.barcode.BcImage.getBarcodeImage(25,"081235",true,false,null,0,0)]]></imageExpression>
+					<imageExpression><![CDATA[it.businesslogic.ireport.barcode.BcImage.getBarcodeImage(25,"081235",true,false,null,0,0)]]></imageExpression>
 				</image>
 			</band>
 		</columnHeader>

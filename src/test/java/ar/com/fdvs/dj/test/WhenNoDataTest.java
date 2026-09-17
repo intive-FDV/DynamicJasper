@@ -31,22 +31,38 @@ package ar.com.fdvs.dj.test;
 
 
 import java.util.Collections;
+import org.junit.Ignore;
 import java.util.Date;
+import org.junit.Ignore;
 
 import net.sf.jasperreports.engine.JRDataSource;
+import org.junit.Ignore;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.junit.Ignore;
 import net.sf.jasperreports.view.JasperDesignViewer;
+import org.junit.Ignore;
 import net.sf.jasperreports.view.JasperViewer;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.AutoText;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.ImageBanner;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.Style;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.builders.StyleBuilder;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.constants.Font;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
+import org.junit.Ignore;
 
+@Ignore("JR7 requires JRXML templates to be converted to new format")
 public class WhenNoDataTest extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {

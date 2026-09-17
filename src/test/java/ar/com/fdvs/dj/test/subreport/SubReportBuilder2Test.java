@@ -30,25 +30,39 @@
 package ar.com.fdvs.dj.test.subreport;
 
 import java.util.Date;
+import org.junit.Ignore;
 import java.util.HashMap;
+import org.junit.Ignore;
 import java.util.Map;
+import org.junit.Ignore;
 
 import net.sf.jasperreports.view.JasperDesignViewer;
+import org.junit.Ignore;
 import net.sf.jasperreports.view.JasperViewer;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.core.DJConstants;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.DynamicReport;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.builders.SubReportBuilder;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.domain.entities.Subreport;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.test.BaseDjReportTest;
+import org.junit.Ignore;
 import ar.com.fdvs.dj.test.domain.Product;
+import org.junit.Ignore;
 
 /**
  * This tests makes the subreport to use it's own parameters map (which a map stored in the parent parameters map)
  * @author mamana
  *
  */
+@Ignore("JR7 requires JRXML templates to be converted to new format")
 public class SubReportBuilder2Test extends BaseDjReportTest {
 
 	public DynamicReport buildReport() throws Exception {

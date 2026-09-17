@@ -30,12 +30,12 @@
 package ar.com.fdvs.dj.test;
 
 import java.awt.Color;
-import java.text.FieldPosition;
 import java.text.Format;
-import java.text.ParsePosition;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
+
+import ar.com.fdvs.dj.util.BooleanYesNoFormat;
 
 import net.sf.jasperreports.view.JasperViewer;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -139,20 +139,7 @@ public class ExpressionToGroupByReportTest extends BaseDjReportTest {
 		.setTitle("Code").setWidth(new Integer(85))
 		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();		
 		
-		Format textFormatter = new Format(){
-
-			public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
-				if (obj == null || Boolean.FALSE.equals(obj))
-					toAppendTo.append("No");
-				else
-					toAppendTo.append("Yes");
-				
-				return toAppendTo;
-			}
-
-			public Object parseObject(String source, ParsePosition pos) {
-				return null;
-			}};
+		Format textFormatter = new BooleanYesNoFormat();
 		AbstractColumn columnavailable = ColumnBuilder.getNew().setColumnProperty("isAvailable", Boolean.class.getName())
 		.setTitle("In stock").setWidth(new Integer(40)).setTextFormatter(textFormatter)
 		.setStyle(importeStyle).setHeaderStyle(headerStyle).build();

@@ -60,16 +60,18 @@ public class VariableRegistrationManager extends
 		}
 		
 		if (var.getResetType() != null){
-			jrvar.setResetType(ResetTypeEnum.values()[var.getResetType().getValue()]);
-		}		
-		
+			// DJ uses 1-indexed values (1-5), JR enum is 0-indexed (0-4)
+			jrvar.setResetType(ResetTypeEnum.values()[var.getResetType().getValue() - 1]);
+		}
+
 		if (var.getResetGroup() != null && DJVariableResetType.GROUP.equals(var.getResetType())){
 			JRDesignGroup jrgroup = LayoutUtils.getJRDesignGroup(getDjd(),getLayoutManager(), var.getResetGroup());
 			jrvar.setResetGroup(jrgroup.getName());
 		}
-		
+
 		if (var.getIncrementType() != null){
-			jrvar.setIncrementType(IncrementTypeEnum.values()[var.getIncrementType().getValue()]);
+			// DJ uses 1-indexed values (1-5), JR enum is 0-indexed (0-4)
+			jrvar.setIncrementType(IncrementTypeEnum.values()[var.getIncrementType().getValue() - 1]);
 		}
 
 		if (var.getIncrementGroup() != null && DJVariableIncrementType.GROUP.equals(var.getIncrementType())){

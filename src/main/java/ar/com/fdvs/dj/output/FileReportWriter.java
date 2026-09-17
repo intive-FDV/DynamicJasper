@@ -31,7 +31,9 @@ package ar.com.fdvs.dj.output;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.HtmlExporter;
 import net.sf.jasperreports.export.Exporter;
+import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -59,7 +61,7 @@ public class FileReportWriter extends ReportWriter {
         LOGGER.info("entering FileReportWriter.writeTo()");
         final File file = File.createTempFile("djreport", ".tmp");
         try {
-            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(file));
+            setExporterOutput(file);
             exporter.exportReport();
             _response.setContentLength((int)file.length());
             copyStreams(new FileInputStream(file), _response.getOutputStream());
@@ -75,10 +77,19 @@ public class FileReportWriter extends ReportWriter {
         final File file = File.createTempFile("djreport", ".tmp");
 
         file.deleteOnExit();
-        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(file));
+        setExporterOutput(file);
         exporter.exportReport();
 
         return new FileInputStream(file);
+    }
+
+    private void setExporterOutput(final File file) {
+        // HTML exporter requires HtmlExporterOutput, not generic OutputStreamExporterOutput
+        if (exporter instanceof HtmlExporter) {
+            exporter.setExporterOutput(new SimpleHtmlExporterOutput(file));
+        } else {
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(file));
+        }
     }
 
 

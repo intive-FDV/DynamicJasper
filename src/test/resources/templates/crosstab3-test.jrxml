@@ -129,7 +129,7 @@
 						</cellContents>
 					</crosstabHeaderCell>					<rowGroup name="productLine" width="100" totalPosition="End">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{productLine}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{productLine}]]></bucketExpression>
 						</bucket>
 						<crosstabRowHeader>
 						<cellContents mode="Transparent">
@@ -170,7 +170,7 @@
 					</rowGroup>
 					<columnGroup name="state" height="26" totalPosition="End" headerPosition="Center">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{state}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{state}]]></bucketExpression>
 						</bucket>
 						<crosstabColumnHeader>
 						<cellContents mode="Transparent">
@@ -198,7 +198,7 @@
 					</columnGroup>
 					<columnGroup name="branch" height="27" totalPosition="End" headerPosition="Center">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{branch}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{branch}]]></bucketExpression>
 						</bucket>
 						<crosstabColumnHeader>
 						<cellContents mode="Transparent">
@@ -241,7 +241,7 @@
 					</columnGroup>
 					<columnGroup name="id" height="30">
 						<bucket>
-							<bucketExpression class="java.lang.Long"><![CDATA[$F{id}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{id}]]></bucketExpression>
 						</bucket>
 						<crosstabColumnHeader>
 						<cellContents mode="Transparent">
@@ -615,7 +615,7 @@
 						</cellContents>
 					</crosstabHeaderCell>					<rowGroup name="state" width="100">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{state}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{state}]]></bucketExpression>
 						</bucket>
 						<crosstabRowHeader>
 						<cellContents mode="Transparent">
@@ -643,7 +643,7 @@
 					</rowGroup>
 					<columnGroup name="item" height="25" headerPosition="Center">
 						<bucket>
-							<bucketExpression class="java.lang.String"><![CDATA[$F{item}]]></bucketExpression>
+							<bucketExpression><![CDATA[$F{item}]]></bucketExpression>
 						</bucket>
 						<crosstabColumnHeader>
 						<cellContents mode="Transparent">
