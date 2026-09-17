@@ -72,7 +72,7 @@ public class OperationColumn extends AbstractColumn {
 			SimpleColumn col = iter.next();
 			exp.append(" ((java.lang.Number)$F{").append(col.getColumnProperty().getProperty()).append("}).doubleValue() ");
 			if (iter.hasNext())
-				exp.append(columnOperation.getValue());
+				exp.append(columnOperation.ordinal());
 		}
 		return "new java.lang.Double(" + exp.toString() + ")";
 	}
@@ -82,7 +82,7 @@ public class OperationColumn extends AbstractColumn {
 	}
 
 	public String getGroupVariableName(String type, String columnToGroupByProperty) {
-		return "variable-"+type+"_"+columnToGroupByProperty+"_"+columnOperation.getValue();
+		return "variable-"+type+"_"+columnToGroupByProperty+"_"+columnOperation.ordinal();
 	}
 
 	public String getVariableClassName(DJCalculation op) {

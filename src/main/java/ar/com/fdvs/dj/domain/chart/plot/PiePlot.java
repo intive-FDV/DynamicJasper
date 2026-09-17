@@ -32,7 +32,7 @@ package ar.com.fdvs.dj.domain.chart.plot;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.charts.design.JRDesignPiePlot;
-import net.sf.jasperreports.engine.JRChartPlot;
+import net.sf.jasperreports.charts.JRChartPlot;
 
 public class PiePlot extends AbstractPiePlot {
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;

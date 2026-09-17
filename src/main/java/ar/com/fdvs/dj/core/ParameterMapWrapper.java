@@ -50,7 +50,7 @@ public class ParameterMapWrapper implements Map {
             return null;
         }
 
-        return ((JRFillParameter)value).getValue();
+        return ((JRFillParameter)value).ordinal();
     }
 
 	public int hashCode() {

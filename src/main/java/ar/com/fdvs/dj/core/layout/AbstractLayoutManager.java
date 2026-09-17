@@ -61,10 +61,10 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRGroup;
 import net.sf.jasperreports.engine.JRStyle;
 import net.sf.jasperreports.engine.JRTextElement;
-import net.sf.jasperreports.engine.base.JRBaseChartPlot;
+import net.sf.jasperreports.charts.base.JRBaseChartPlot;
 import net.sf.jasperreports.engine.design.JRDesignBand;
-import net.sf.jasperreports.engine.design.JRDesignChart;
-import net.sf.jasperreports.engine.design.JRDesignChartDataset;
+import net.sf.jasperreports.charts.design.JRDesignChart;
+import net.sf.jasperreports.charts.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
@@ -246,8 +246,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         LayoutUtils.convertBorderToPen(Border.NO_BORDER(), rect.getLinePen());
 
-		rect.setMode(ModeEnum.getByValue( Transparency.TRANSPARENT.getValue()) );
-//		rect.setMode(Transparency.OPAQUE.getValue());
+		rect.setMode(ModeEnum.getByValue( Transparency.TRANSPARENT.ordinal()) );
+//		rect.setMode(Transparency.OPAQUE.ordinal());
 //		rect.setBackcolor(Color.RED);
 		rect.setWidth(getReport().getOptions().getPrintableWidth());
 		rect.setHeight(amount);
@@ -424,7 +424,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
                 image.setHeight(getReport().getOptions().getDetailHeight());
                 image.setWidth(column.getWidth());
                 image.setX(column.getPosX());
-                image.setScaleImage(ScaleImageEnum.getByValue(barcodeColumn.getScaleMode().getValue()));
+                image.setScaleImage(ScaleImageEnum.getByValue(barcodeColumn.getScaleMode().ordinal()));
 
                 image.setOnErrorType(OnErrorTypeEnum.ICON); //FIXME should we provide control of this to the user?
 
@@ -451,7 +451,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
                 image.setHeight(getReport().getOptions().getDetailHeight());
                 image.setWidth(column.getWidth());
                 image.setX(column.getPosX());
-                image.setScaleImage(ScaleImageEnum.getByValue(imageColumn.getScaleMode().getValue()));
+                image.setScaleImage(ScaleImageEnum.getByValue(imageColumn.getScaleMode().ordinal()));
 
                 applyStyleToElement(column.getStyle(), image);
 

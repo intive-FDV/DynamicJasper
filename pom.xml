@@ -359,31 +359,36 @@
         <dependency>
             <groupId>net.sf.jasperreports</groupId>
             <artifactId>jasperreports</artifactId>
-            <version>6.21.5</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-collections</groupId>
-                    <artifactId>commons-collections</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>bouncycastle</groupId>
-                    <artifactId>bcmail-jdk14</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>bouncycastle</groupId>
-                    <artifactId>bcprov-jdk14</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>7.0.8</version>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>commons-collections</groupId>-->
+<!--                    <artifactId>commons-collections</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>commons-logging</groupId>-->
+<!--                    <artifactId>commons-logging</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>bouncycastle</groupId>-->
+<!--                    <artifactId>bcmail-jdk14</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>bouncycastle</groupId>-->
+<!--                    <artifactId>bcprov-jdk14</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
-
+        <dependency>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports-charts</artifactId>
+            <version>7.0.8</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
-            <version>1.9.4</version>
+            <version>1.11.0</version>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>opensymphony</groupId>-->

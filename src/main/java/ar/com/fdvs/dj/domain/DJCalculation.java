@@ -42,17 +42,17 @@ public class DJCalculation extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
-	public static DJCalculation AVERAGE = new DJCalculation(CalculationEnum.AVERAGE.getValue() );
-	public static DJCalculation COUNT = new DJCalculation( CalculationEnum.COUNT.getValue() );
-	public static DJCalculation FIRST = new DJCalculation( CalculationEnum.FIRST.getValue() );
-	public static DJCalculation HIGHEST = new DJCalculation(CalculationEnum.HIGHEST.getValue() );
-	public static DJCalculation LOWEST = new DJCalculation( CalculationEnum.LOWEST.getValue() );
-	public static DJCalculation NOTHING = new DJCalculation( CalculationEnum.NOTHING.getValue() );
-	public static DJCalculation STANDARD_DEVIATION = new DJCalculation( CalculationEnum.STANDARD_DEVIATION.getValue() );
-	public static DJCalculation SUM = new DJCalculation( CalculationEnum.SUM.getValue() );
-	public static DJCalculation SYSTEM = new DJCalculation( CalculationEnum.SYSTEM.getValue() );
-	public static DJCalculation VARIANCE = new DJCalculation( CalculationEnum.VARIANCE.getValue() );
-	public static DJCalculation DISTINCT_COUNT = new DJCalculation( CalculationEnum.DISTINCT_COUNT.getValue() );
+	public static DJCalculation AVERAGE = new DJCalculation(CalculationEnum.AVERAGE.ordinal() );
+	public static DJCalculation COUNT = new DJCalculation( CalculationEnum.COUNT.ordinal() );
+	public static DJCalculation FIRST = new DJCalculation( CalculationEnum.FIRST.ordinal() );
+	public static DJCalculation HIGHEST = new DJCalculation(CalculationEnum.HIGHEST.ordinal() );
+	public static DJCalculation LOWEST = new DJCalculation( CalculationEnum.LOWEST.ordinal() );
+	public static DJCalculation NOTHING = new DJCalculation( CalculationEnum.NOTHING.ordinal() );
+	public static DJCalculation STANDARD_DEVIATION = new DJCalculation( CalculationEnum.STANDARD_DEVIATION.ordinal() );
+	public static DJCalculation SUM = new DJCalculation( CalculationEnum.SUM.ordinal() );
+	public static DJCalculation SYSTEM = new DJCalculation( CalculationEnum.SYSTEM.ordinal() );
+	public static DJCalculation VARIANCE = new DJCalculation( CalculationEnum.VARIANCE.ordinal() );
+	public static DJCalculation DISTINCT_COUNT = new DJCalculation( CalculationEnum.DISTINCT_COUNT.ordinal() );
 
 	private byte value;
 

@@ -35,13 +35,13 @@ public class ImageScaleMode  extends BaseDomainConstant{
 
 	private static final long serialVersionUID = 1L;
 
-	private byte value = ScaleImageEnum.RETAIN_SHAPE.getValue();
+	private byte value = ScaleImageEnum.RETAIN_SHAPE.ordinal();
 
-	public static ImageScaleMode NO_RESIZE = new ImageScaleMode( ScaleImageEnum.CLIP.getValue() );
-	public static ImageScaleMode FILL = new ImageScaleMode( ScaleImageEnum.FILL_FRAME.getValue() );
-	public static ImageScaleMode FILL_PROPORTIONALLY = new ImageScaleMode( ScaleImageEnum.RETAIN_SHAPE.getValue() );
-	public static ImageScaleMode REAL_HEIGHT = new ImageScaleMode( ScaleImageEnum.REAL_HEIGHT.getValue() );
-	public static ImageScaleMode REAL_SIZE = new ImageScaleMode( ScaleImageEnum.REAL_SIZE.getValue() );
+	public static ImageScaleMode NO_RESIZE = new ImageScaleMode( ScaleImageEnum.CLIP.ordinal() );
+	public static ImageScaleMode FILL = new ImageScaleMode( ScaleImageEnum.FILL_FRAME.ordinal() );
+	public static ImageScaleMode FILL_PROPORTIONALLY = new ImageScaleMode( ScaleImageEnum.RETAIN_SHAPE.ordinal() );
+	public static ImageScaleMode REAL_HEIGHT = new ImageScaleMode( ScaleImageEnum.REAL_HEIGHT.ordinal() );
+	public static ImageScaleMode REAL_SIZE = new ImageScaleMode( ScaleImageEnum.REAL_SIZE.ordinal() );
 
 	public byte getValue() {
 		return value;

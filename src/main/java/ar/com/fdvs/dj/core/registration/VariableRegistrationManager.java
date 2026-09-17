@@ -44,7 +44,7 @@ public class VariableRegistrationManager extends
 		jrvar.setValueClassName(var.getClassName());
 		
 		if (var.getCalculation() != null){
-			jrvar.setCalculation(CalculationEnum.getByValue(var.getCalculation().getValue()));
+			jrvar.setCalculation(CalculationEnum.getByValue(var.getCalculation().ordinal()));
 		}
 		
 		String expressionParamName = var.getName() + "_expression";
@@ -58,7 +58,7 @@ public class VariableRegistrationManager extends
 		}
 		
 		if (var.getResetType() != null){
-			jrvar.setResetType(ResetTypeEnum.getByValue( var.getResetType().getValue() ));
+			jrvar.setResetType(ResetTypeEnum.getByValue( var.getResetType().ordinal() ));
 		}		
 		
 		if (var.getResetGroup() != null && DJVariableResetType.GROUP.equals(var.getResetType())){
@@ -67,7 +67,7 @@ public class VariableRegistrationManager extends
 		}
 		
 		if (var.getIncrementType() != null){
-			jrvar.setIncrementType(IncrementTypeEnum.getByValue( var.getIncrementType().getValue()) );
+			jrvar.setIncrementType(IncrementTypeEnum.getByValue( var.getIncrementType().ordinal()) );
 		}
 		
 		if (var.getIncrementGroup() != null && DJVariableIncrementType.GROUP.equals(var.getIncrementType())){

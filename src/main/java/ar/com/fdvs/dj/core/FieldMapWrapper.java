@@ -44,7 +44,7 @@ public class FieldMapWrapper implements Map {
         if (value == null)
             return null;
 
-        return ((JRFillField) value).getValue();
+        return ((JRFillField) value).ordinal();
     }
 
     public int hashCode() {

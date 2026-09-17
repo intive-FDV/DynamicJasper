@@ -33,8 +33,8 @@ import ar.com.fdvs.dj.domain.DJBaseElement;
 import ar.com.fdvs.dj.domain.DynamicJasperDesign;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.charts.type.PlotOrientationEnum;
-import net.sf.jasperreports.engine.JRChartPlot;
-import net.sf.jasperreports.engine.base.JRBaseChartPlot;
+import net.sf.jasperreports.charts.JRChartPlot;
+import net.sf.jasperreports.charts.base.JRBaseChartPlot;
 
 import java.awt.Color;
 import java.util.ArrayList;

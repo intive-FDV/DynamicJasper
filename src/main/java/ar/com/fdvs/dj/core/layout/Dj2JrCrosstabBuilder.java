@@ -539,7 +539,7 @@ public class Dj2JrCrosstabBuilder {
 	    			setUpConditionStyles(alternateStyle, djmeasure, measureExp.getText());
 
 					if (djmeasure.getLink() != null){
-						String name = "cell_" + i + "_" +  j + "_ope" + djmeasure.getOperation().getValue();
+						String name = "cell_" + i + "_" +  j + "_ope" + djmeasure.getOperation().ordinal();
 						HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign)this.design, djmeasure.getLink(), element, name);
 					}
 
@@ -713,7 +713,7 @@ public class Dj2JrCrosstabBuilder {
 			JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
 
 			measure.setName(meausrePrefix + djmeasure.getProperty().getProperty()); //makes the measure.name unique in this crosstab
-			measure.setCalculation(CalculationEnum.getByValue( djmeasure.getOperation().getValue() ));
+			measure.setCalculation(CalculationEnum.getByValue( djmeasure.getOperation().ordinal() ));
 			measure.setValueClassName(djmeasure.getProperty().getValueClassName());
 			JRDesignExpression valueExp = new JRDesignExpression();
 			valueExp.setValueClassName(djmeasure.getProperty().getValueClassName());

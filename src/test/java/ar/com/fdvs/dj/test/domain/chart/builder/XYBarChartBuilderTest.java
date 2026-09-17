@@ -36,7 +36,7 @@ import java.util.Map;
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.charts.design.JRDesignXyDataset;
 import net.sf.jasperreports.engine.JRFont;
-import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.charts.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.type.LineStyleEnum;

@@ -39,7 +39,7 @@ import ar.com.fdvs.dj.util.ExpressionUtils;
 import net.sf.jasperreports.charts.design.JRDesignXyDataset;
 import net.sf.jasperreports.charts.design.JRDesignXySeries;
 import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.design.JRDesignChartDataset;
+import net.sf.jasperreports.charts.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;

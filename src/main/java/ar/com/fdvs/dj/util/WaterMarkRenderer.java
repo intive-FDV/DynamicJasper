@@ -29,14 +29,14 @@ public class WaterMarkRenderer extends JRAbstractRenderer {
     public byte getType()
     {
         // no idea what this does
-        return RenderableTypeEnum.SVG.getValue();
+        return RenderableTypeEnum.SVG.ordinal();
     }
 
     @Override
     public byte getImageType()
     {
         // no idea what this does
-        return ImageTypeEnum.UNKNOWN.getValue();
+        return ImageTypeEnum.UNKNOWN.ordinal();
     }
 
     @Override

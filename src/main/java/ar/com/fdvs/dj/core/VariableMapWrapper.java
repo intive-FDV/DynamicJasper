@@ -50,7 +50,7 @@ public class VariableMapWrapper implements Map {
 			return null;
         }
 
-		return ((JRFillVariable)value).getValue();
+		return ((JRFillVariable)value).ordinal();
 	}
 
 	public int hashCode() {

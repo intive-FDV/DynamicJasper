@@ -32,7 +32,7 @@ package ar.com.fdvs.dj.domain;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
-import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.charts.design.JRDesignChart;
 import net.sf.jasperreports.engine.type.CalculationEnum;
 
 import java.util.ArrayList;
@@ -48,13 +48,13 @@ public class DJChart extends DJBaseElement{
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
 	//The possible chart types
-	public static final byte PIE_CHART = JRDesignChart.CHART_TYPE_PIE;
-	public static final byte BAR_CHART = JRDesignChart.CHART_TYPE_BAR;
-//	public static final byte LINE_CHART = JRDesignChart.CHART_TYPE_LINE; //not yet... to much to think left
+	public static final byte PIE_CHART = 8;
+	public static final byte BAR_CHART = 2;
+//	public static final byte LINE_CHART = 6; //not yet... to much to think left
 
 	//The possible calculation types
-	public static final byte CALCULATION_COUNT = CalculationEnum.COUNT.getValue();
-	public static final byte CALCULATION_SUM = CalculationEnum.SUM.getValue();
+	public static final byte CALCULATION_COUNT = 1;
+	public static final byte CALCULATION_SUM = 2;
 
 	//How to build the chart?
 	private byte type;

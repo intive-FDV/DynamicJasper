@@ -36,7 +36,7 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import net.sf.jasperreports.charts.design.JRDesignPieDataset;
 import net.sf.jasperreports.charts.design.JRDesignPieSeries;
 import net.sf.jasperreports.engine.JRExpression;
-import net.sf.jasperreports.engine.design.JRDesignChartDataset;
+import net.sf.jasperreports.charts.design.JRDesignChartDataset;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;

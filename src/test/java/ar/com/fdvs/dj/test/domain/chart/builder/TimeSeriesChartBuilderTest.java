@@ -48,7 +48,7 @@ import net.sf.jasperreports.charts.design.JRDesignTimeSeriesPlot;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRFont;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.charts.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.type.LineStyleEnum;

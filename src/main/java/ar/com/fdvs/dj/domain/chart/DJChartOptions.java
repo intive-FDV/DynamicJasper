@@ -36,7 +36,7 @@ import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import net.sf.jasperreports.charts.type.EdgeEnum;
-import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.charts.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 import net.sf.jasperreports.engine.type.LineStyleEnum;
 
@@ -49,30 +49,30 @@ public class DJChartOptions extends DJBaseElement {
 	public static final byte POSITION_FOOTER = 1;
 	public static final byte POSITION_HEADER = 2;
 
-	public static final byte EDGE_TOP = EdgeEnum.TOP.getValue();
-	public static final byte EDGE_BOTTOM = EdgeEnum.BOTTOM.getValue();
-	public static final byte EDGE_LEFT = EdgeEnum.LEFT.getValue();
-	public static final byte EDGE_RIGHT = EdgeEnum.RIGHT.getValue();
+	public static final byte EDGE_TOP = EdgeEnum.TOP.ordinal();
+	public static final byte EDGE_BOTTOM = EdgeEnum.BOTTOM.ordinal();
+	public static final byte EDGE_LEFT = EdgeEnum.LEFT.ordinal();
+	public static final byte EDGE_RIGHT = EdgeEnum.RIGHT.ordinal();
 	
 	/**
 	 * Constant useful for specifying solid line style.
 	 */
-	public static final byte LINE_STYLE_SOLID =  LineStyleEnum.SOLID.getValue();
+	public static final byte LINE_STYLE_SOLID =  LineStyleEnum.SOLID.ordinal();
 
 	/**
 	 * Constant useful for specifying dashed line style.
 	 */
-	public static final byte LINE_STYLE_DASHED = LineStyleEnum.DASHED.getValue();
+	public static final byte LINE_STYLE_DASHED = LineStyleEnum.DASHED.ordinal();
 
 	/**
 	 * Constant useful for specifying dotted line style.
 	 */
-	public static final byte LINE_STYLE_DOTTED = LineStyleEnum.DOTTED.getValue();
+	public static final byte LINE_STYLE_DOTTED = LineStyleEnum.DOTTED.ordinal();
 
 	/**
 	 * Constant useful for specifying double line style.
 	 */
-	public static final byte LINE_STYLE_DOUBLE = LineStyleEnum.DOUBLE.getValue();
+	public static final byte LINE_STYLE_DOUBLE = LineStyleEnum.DOUBLE.ordinal();
 	
 	private Color backColor;
 	private int height;

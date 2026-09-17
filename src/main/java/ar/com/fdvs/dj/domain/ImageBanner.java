@@ -123,7 +123,7 @@ public class ImageBanner extends DJBaseElement {
 
 		public static Alignment fromValue(byte value) {
 			for (Alignment alignment : Alignment.values()) {
-				if (alignment.getValue() == value)
+				if (alignment.ordinal() == value)
 					return alignment;
 			}
 

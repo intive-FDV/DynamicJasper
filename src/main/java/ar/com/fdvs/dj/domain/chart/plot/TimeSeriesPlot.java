@@ -35,7 +35,7 @@ import ar.com.fdvs.dj.domain.StringExpression;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import ar.com.fdvs.dj.util.ExpressionUtils;
 import net.sf.jasperreports.charts.design.JRDesignTimeSeriesPlot;
-import net.sf.jasperreports.engine.JRChartPlot;
+import net.sf.jasperreports.charts.JRChartPlot;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
 
 public class TimeSeriesPlot extends AbstractPlot {

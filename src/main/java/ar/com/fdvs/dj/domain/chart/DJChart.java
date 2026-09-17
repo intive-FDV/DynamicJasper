@@ -36,8 +36,9 @@ import ar.com.fdvs.dj.domain.chart.dataset.*;
 import ar.com.fdvs.dj.domain.chart.plot.*;
 import ar.com.fdvs.dj.domain.entities.Entity;
 import net.sf.jasperreports.engine.JRRuntimeException;
-import net.sf.jasperreports.engine.design.JRDesignChart;
-import net.sf.jasperreports.engine.design.JRDesignChartDataset;
+import net.sf.jasperreports.charts.design.JRDesignChart;
+import net.sf.jasperreports.charts.design.JRDesignChartDataset;
+import net.sf.jasperreports.charts.type.ChartTypeEnum;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.type.CalculationEnum;
 import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
@@ -48,28 +49,28 @@ public class DJChart extends DJBaseElement {
 	
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 	
-	public static final byte CALCULATION_COUNT = CalculationEnum.COUNT.getValue();
-	public static final byte CALCULATION_SUM = CalculationEnum.SUM.getValue();
+	public static final byte CALCULATION_COUNT = 1;
+	public static final byte CALCULATION_SUM = 2;
 
-	public static final byte AREA_CHART = JRDesignChart.CHART_TYPE_AREA;
-	public static final byte STACKEDAREA_CHART = JRDesignChart.CHART_TYPE_STACKEDAREA;
-	public static final byte BAR_CHART = JRDesignChart.CHART_TYPE_BAR;
-	public static final byte BAR3D_CHART = JRDesignChart.CHART_TYPE_BAR3D;
-	public static final byte STACKEDBAR_CHART = JRDesignChart.CHART_TYPE_STACKEDBAR;
-	public static final byte STACKEDBAR3D_CHART = JRDesignChart.CHART_TYPE_STACKEDBAR3D;
-	public static final byte LINE_CHART = JRDesignChart.CHART_TYPE_LINE;
-	public static final byte PIE_CHART = JRDesignChart.CHART_TYPE_PIE;
-	public static final byte PIE3D_CHART = JRDesignChart.CHART_TYPE_PIE3D;
-	public static final byte TIMESERIES_CHART = JRDesignChart.CHART_TYPE_TIMESERIES;
-	public static final byte XYAREA_CHART = JRDesignChart.CHART_TYPE_XYAREA;
-	public static final byte XYBAR_CHART = JRDesignChart.CHART_TYPE_XYBAR;
-	public static final byte XYLINE_CHART = JRDesignChart.CHART_TYPE_XYLINE;
-	public static final byte SCATTER_CHART = JRDesignChart.CHART_TYPE_SCATTER;
+	public static final byte AREA_CHART = 0;
+	public static final byte STACKEDAREA_CHART = 19;
+	public static final byte BAR_CHART = 2;
+	public static final byte BAR3D_CHART = 1;
+	public static final byte STACKEDBAR_CHART = 11;
+	public static final byte STACKEDBAR3D_CHART = 10;
+	public static final byte LINE_CHART = 6;
+	public static final byte PIE_CHART = 8;
+	public static final byte PIE3D_CHART = 7;
+	public static final byte TIMESERIES_CHART = 15;
+	public static final byte XYAREA_CHART = 12;
+	public static final byte XYBAR_CHART = 13;
+	public static final byte XYLINE_CHART = 14;
+	public static final byte SCATTER_CHART = 9;
 	
 	private byte chartType;
 	private AbstractDataset dataset;
 	private AbstractPlot plot;
-	private byte operation = CalculationEnum.SUM.getValue();
+	private byte operation = CALCULATION_SUM;
 	private DJChartOptions chartOptions = new DJChartOptions();
 	private DJHyperLink link;
 	

@@ -170,7 +170,7 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 		
 		JRDesignVariable variable = new JRDesignVariable();
 		variable.setExpression(expression);
-		variable.setCalculation(CalculationEnum.getByValue(groupVariable.getOperation().getValue()));
+		variable.setCalculation(CalculationEnum.getByValue(groupVariable.getOperation().ordinal()));
 		variable.setName(variableName);		
 
 		variable.setResetType(ResetTypeEnum.GROUP );

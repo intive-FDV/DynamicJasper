@@ -44,7 +44,7 @@ import ar.com.fdvs.dj.test.BaseDjReportTest;
 import net.sf.jasperreports.charts.design.JRDesignScatterPlot;
 import net.sf.jasperreports.charts.design.JRDesignXyDataset;
 import net.sf.jasperreports.engine.JRFont;
-import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.charts.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.type.LineStyleEnum;

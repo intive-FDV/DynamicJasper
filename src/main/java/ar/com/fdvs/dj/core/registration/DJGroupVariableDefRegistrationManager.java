@@ -122,7 +122,7 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 
 		JRDesignVariable variable = new JRDesignVariable();
 		variable.setExpression(expression);
-		variable.setCalculation(CalculationEnum.getByValue( columnsGroupVariable.getOperation().getValue() ));
+		variable.setCalculation(CalculationEnum.getByValue( columnsGroupVariable.getOperation().ordinal() ));
 		variable.setName(columnsGroupVariable.getName());
 
         log.debug("Transforming group variable " + variable.getName());

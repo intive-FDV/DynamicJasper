@@ -341,7 +341,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				image.setWidth(imageBanner.getWidth());
 				image.setPrintWhenExpression(printWhenExpression);
 				image.setRemoveLineWhenBlank(true);
-				image.setScaleImage(ScaleImageEnum.getByValue(imageBanner.getScaleMode().getValue()));
+				image.setScaleImage(ScaleImageEnum.getByValue(imageBanner.getScaleMode().ordinal()));
 
 				if (imageBanner.getAlign() == ImageBanner.Alignment.Left)
 					image.setX(0);
@@ -690,8 +690,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
         LayoutUtils.convertBorderToPen(Border.NO_BORDER(), rect.getLinePen());
 
-		rect.setMode(ModeEnum.getByValue( Transparency.TRANSPARENT.getValue()) );
-//		rect.setMode(Transparency.OPAQUE.getValue());
+		rect.setMode(ModeEnum.getByValue( Transparency.TRANSPARENT.ordinal()) );
+//		rect.setMode(Transparency.OPAQUE.ordinal());
 //		rect.setBackcolor(Color.RED);
 		rect.setWidth(getReport().getOptions().getPrintableWidth());
 		rect.setHeight(amount);

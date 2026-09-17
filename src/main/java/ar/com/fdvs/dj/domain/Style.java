@@ -200,8 +200,8 @@ public class Style implements Serializable, Cloneable {
 			horizontalImageAlign = null;
 		}
 		else {
-			horizontalTextAlign = HorizontalTextAlign.fromLegacy(horizontalAlign.getValue());
-			horizontalImageAlign = HorizontalImageAlign.fromLegacy(horizontalAlign.getValue());
+			horizontalTextAlign = HorizontalTextAlign.fromLegacy(horizontalAlign.ordinal());
+			horizontalImageAlign = HorizontalImageAlign.fromLegacy(horizontalAlign.ordinal());
 		}
 	}
 
@@ -338,8 +338,8 @@ public class Style implements Serializable, Cloneable {
 			verticalImageAlign = null;
 		}
 		else {
-			verticalTextAlign = VerticalTextAlign.fromLegacy(verticalAlign.getValue());
-			verticalImageAlign = VerticalImageAlign.fromLegacy(verticalAlign.getValue());
+			verticalTextAlign = VerticalTextAlign.fromLegacy(verticalAlign.ordinal());
+			verticalImageAlign = VerticalImageAlign.fromLegacy(verticalAlign.ordinal());
 		}
 	}
 
@@ -439,10 +439,10 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setForecolor(getTextColor());
 
 		if (getTransparency() != null)
-			transformedStyle.setMode(ModeEnum.getByValue( getTransparency().getValue() ));
+			transformedStyle.setMode(ModeEnum.getByValue( getTransparency().ordinal() ));
 
 		if (getRotation() != null)
-			transformedStyle.setRotation(RotationEnum.getByValue( getRotation().getValue() ));
+			transformedStyle.setRotation(RotationEnum.getByValue( getRotation().ordinal() ));
 
 		if (getRadius() != null)
 			transformedStyle.setRadius(Integer.valueOf(getRadius().intValue()));
@@ -455,7 +455,7 @@ public class Style implements Serializable, Cloneable {
         //TODO Check if this is still necessary
         /*transformedStyle.setPen((byte)0);
 		transformedStyle.setFill((byte)1);
-		transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.getValue());*/
+		transformedStyle.setScaleImage(ImageScaleMode.NO_RESIZE.ordinal());*/
 
 	}
 

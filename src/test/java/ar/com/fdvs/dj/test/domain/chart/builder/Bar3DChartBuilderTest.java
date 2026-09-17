@@ -37,7 +37,7 @@ import net.sf.jasperreports.charts.design.JRDesignBar3DPlot;
 import net.sf.jasperreports.charts.design.JRDesignCategoryDataset;
 import net.sf.jasperreports.charts.type.EdgeEnum;
 import net.sf.jasperreports.engine.JRFont;
-import net.sf.jasperreports.engine.design.JRDesignChart;
+import net.sf.jasperreports.charts.design.JRDesignChart;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
 import net.sf.jasperreports.engine.design.JRDesignVariable;
 import net.sf.jasperreports.engine.type.LineStyleEnum;

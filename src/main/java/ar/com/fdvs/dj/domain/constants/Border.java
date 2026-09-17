@@ -46,7 +46,7 @@ public class Border  extends BaseDomainConstant {
 
 	private static final long serialVersionUID = 1L;
 	
-	public static Border NO_BORDER() {return  new Border(BORDER_WIDTH_NONE, LineStyleEnum.SOLID.getValue()); }
+	public static Border NO_BORDER() {return  new Border(BORDER_WIDTH_NONE, LineStyleEnum.SOLID.ordinal()); }
 
     public static Border THIN() {return new Border( BORDER_WIDTH_THIN );}
 
@@ -56,14 +56,14 @@ public class Border  extends BaseDomainConstant {
 
     public static Border PEN_4_POINT() {return  new Border( BORDER_WIDTH_4POINT );}
 
-    public static Border DOTTED() {return  new Border( BORDER_WIDTH_1POINT, LineStyleEnum.DOTTED.getValue() );}
+    public static Border DOTTED() {return  new Border( BORDER_WIDTH_1POINT, LineStyleEnum.DOTTED.ordinal() );}
 
-    public static Border DASHED() {return  new Border( BORDER_WIDTH_1POINT, LineStyleEnum.DASHED.getValue() );}
+    public static Border DASHED() {return  new Border( BORDER_WIDTH_1POINT, LineStyleEnum.DASHED.ordinal() );}
 
-    public static byte BORDER_STYLE_SOLID = LineStyleEnum.SOLID.getValue();
-    public static byte BORDER_STYLE_DASHED = LineStyleEnum.DASHED.getValue();
-    public static byte BORDER_STYLE_DOTTED = LineStyleEnum.DOTTED.getValue();
-    public static byte BORDER_STYLE_DOUBLE = LineStyleEnum.DOUBLE.getValue();
+    public static byte BORDER_STYLE_SOLID = LineStyleEnum.SOLID.ordinal();
+    public static byte BORDER_STYLE_DASHED = LineStyleEnum.DASHED.ordinal();
+    public static byte BORDER_STYLE_DOTTED = LineStyleEnum.DOTTED.ordinal();
+    public static byte BORDER_STYLE_DOUBLE = LineStyleEnum.DOUBLE.ordinal();
 
     public static float BORDER_WIDTH_NONE = 0f;
     public static float BORDER_WIDTH_THIN = 0.5f;
@@ -73,7 +73,7 @@ public class Border  extends BaseDomainConstant {
 
     private float width = BORDER_WIDTH_THIN;
     private Color color = Color.BLACK;
-    private byte lineStyle = LineStyleEnum.SOLID.getValue();
+    private byte lineStyle = LineStyleEnum.SOLID.ordinal();
 
 
     /**
