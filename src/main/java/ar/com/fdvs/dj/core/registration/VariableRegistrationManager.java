@@ -41,7 +41,10 @@ public class VariableRegistrationManager extends
 		DJVariable var = (DJVariable)entity;
 		JRDesignVariable jrvar = new JRDesignVariable();
 		jrvar.setName(var.getName());
-		
+		if (var.getClassName() != null) {
+			jrvar.setValueClassName(var.getClassName());
+		}
+
 		if (var.getCalculation() != null){
 			jrvar.setCalculation(CalculationEnum.values()[var.getCalculation().getValue()]);
 		}

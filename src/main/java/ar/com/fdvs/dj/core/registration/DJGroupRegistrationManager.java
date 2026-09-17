@@ -121,7 +121,9 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		
 		getLayoutManager().getReferencesMap().put(group.getName(), djgroup);
 
-		group.setCountVariable(new JRDesignVariable());
+		JRDesignVariable countVar = new JRDesignVariable();
+		countVar.setValueClassName(Integer.class.getName());
+		group.setCountVariable(countVar);
 
         JRDesignSection gfs = (JRDesignSection) group.getGroupFooterSection();
         gfs.getBandsList().add(new JRDesignBand());
@@ -180,7 +182,10 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		String varName = group.getName() + "_variable_for_group_expression";
 		gvar.setName(varName);
 		gvar.setCalculation( CalculationEnum.NOTHING );
-		
+		if (customExpression.getClassName() != null) {
+			gvar.setValueClassName(customExpression.getClassName());
+		}
+
 		String expText = ExpressionUtils.createCustomExpressionInvocationText(customExpression, expToGroupByName, false);
 		JRDesignExpression gvarExp = new JRDesignExpression();
 		gvarExp.setText(expText);

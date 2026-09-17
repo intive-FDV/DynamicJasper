@@ -155,6 +155,7 @@ public class Dj2JrCrosstabBuilder {
 			try {
 				JRDesignField field = new JRDesignField();
 				field.setName(rowGroup.getProperty().getProperty());
+				field.setValueClassName(rowGroup.getProperty().getValueClassName());
 				design.addField(field);
 			} catch (JRException e) {
 				log.error(e.getMessage(), e);
@@ -166,6 +167,7 @@ public class Dj2JrCrosstabBuilder {
 			try {
 				JRDesignField field = new JRDesignField();
 				field.setName(colGroup.getProperty().getProperty());
+				field.setValueClassName(colGroup.getProperty().getValueClassName());
 				design.addField(field);
 			} catch (JRException e) {
 				log.error(e.getMessage(), e);
@@ -177,6 +179,7 @@ public class Dj2JrCrosstabBuilder {
 			try {
 				JRDesignField field = new JRDesignField();
 				field.setName(measure.getProperty().getProperty());
+				field.setValueClassName(measure.getProperty().getValueClassName());
 				design.addField(field);
 			} catch (JRException e) {
 				log.error(e.getMessage(), e);
@@ -298,6 +301,7 @@ public class Dj2JrCrosstabBuilder {
 			DJCrosstabRow crosstabRow = rows[i];
 			JRDesignField field = new JRDesignField();
 			field.setName(crosstabRow.getProperty().getProperty());
+			field.setValueClassName(crosstabRow.getProperty().getValueClassName());
 			try {
 				jrDataset.addField(field);
 			} catch (JRException e) {
@@ -308,6 +312,7 @@ public class Dj2JrCrosstabBuilder {
 			DJCrosstabColumn crosstabColumn = cols[i];
 			JRDesignField field = new JRDesignField();
 			field.setName(crosstabColumn.getProperty().getProperty());
+			field.setValueClassName(crosstabColumn.getProperty().getValueClassName());
 			try {
 				jrDataset.addField(field);
 			} catch (JRException e) {
@@ -318,6 +323,7 @@ public class Dj2JrCrosstabBuilder {
 		for (DJCrosstabMeasure djmeasure : djcrosstab.getMeasures()) {
 			JRDesignField field = new JRDesignField();
 			field.setName(djmeasure.getProperty().getProperty());
+			field.setValueClassName(djmeasure.getProperty().getValueClassName());
 			try {
 				jrDataset.addField(field);
 			} catch (JRException e) {

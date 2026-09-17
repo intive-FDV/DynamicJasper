@@ -140,6 +140,7 @@ public class DynamicJasperHelper {
         for (ColumnProperty element : fields) {
             JRDesignField field = new JRDesignField();
             field.setName(element.getProperty());
+            field.setValueClassName(element.getValueClassName());
             try {
                 jd.addField(field);
             } catch (JRException e) {
@@ -197,6 +198,9 @@ public class DynamicJasperHelper {
         for (Parameter param  : dr.getParameters()) {
             JRDesignParameter jrparam = new JRDesignParameter();
             jrparam.setName(param.getName());
+            if (param.getClassName() != null) {
+                jrparam.setValueClassName(param.getClassName());
+            }
             if (param.getDefaultValueExpression() != null) {
                 jrparam.setDefaultValueExpression(new JRDesignExpression(param.getDefaultValueExpression()));
             }
@@ -477,6 +481,7 @@ public class DynamicJasperHelper {
                         clazz = value.getClass();
                     //when using an array as subreport-data-source, I must pass the parameter class name like this: value.getClass().getComponentType()
                     parameter.setName((String) key);
+                    parameter.setValueClassName(clazz.getName());
                     jd.addParameter(parameter);
                 } catch (JRException e) {
                     //nothing to do

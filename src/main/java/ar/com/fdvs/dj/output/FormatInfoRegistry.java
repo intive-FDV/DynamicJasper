@@ -46,10 +46,11 @@ import java.util.Map;
  */
 public class FormatInfoRegistry {
 
-	public static final String EXPORTER_CLASS_XLS = "net.sf.jasperreports.engine.export.JRXlsExporter";
+	// JR 7 moved exporters to separate packages
+	public static final String EXPORTER_CLASS_XLS = "net.sf.jasperreports.poi.export.JRXlsExporter";
 	public static final String EXPORTER_CLASS_CSV = "net.sf.jasperreports.engine.export.JRCsvExporter";
 	public static final String EXPORTER_CLASS_HTML ="net.sf.jasperreports.engine.export.HtmlExporter";
-	public static final String EXPORTER_CLASS_PDF = "net.sf.jasperreports.engine.export.JRPdfExporter";
+	public static final String EXPORTER_CLASS_PDF = "net.sf.jasperreports.pdf.JRPdfExporter";
 	public static final String EXPORTER_CLASS_XML = "net.sf.jasperreports.engine.export.JRXmlExporter";
 	public static final String EXPORTER_CLASS_RTF = "net.sf.jasperreports.engine.export.JRRtfExporter";
 

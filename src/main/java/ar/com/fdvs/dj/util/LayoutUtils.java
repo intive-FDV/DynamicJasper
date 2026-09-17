@@ -106,6 +106,7 @@ public class LayoutUtils {
 	public static void registerAndAddParameter(DynamicJasperDesign design,String name, String classname, Object value) {
 		JRDesignParameter dparam = new JRDesignParameter();
 		dparam.setName(name);
+		dparam.setValueClassName(classname);
 		log.debug("Registering parameter parameter with name: " + name +", classname: " + classname);
 		try {
 			design.addParameter(dparam);

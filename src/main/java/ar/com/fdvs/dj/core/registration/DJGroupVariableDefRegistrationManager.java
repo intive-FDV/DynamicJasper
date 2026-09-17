@@ -121,6 +121,9 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 		variable.setExpression(expression);
 		variable.setCalculation(CalculationEnum.values()[columnsGroupVariable.getOperation().getValue()]);
 		variable.setName(columnsGroupVariable.getName());
+		if (valueClassName != null) {
+			variable.setValueClassName(valueClassName);
+		}
 
         log.debug("Transforming group variable " + variable.getName());
 
@@ -128,8 +131,6 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 			variable.setResetType( ResetTypeEnum.GROUP );
 			variable.setResetGroup(group.getName());
 		}
-
-
 
 		JRDesignExpression initialExp = new JRDesignExpression();
 		initialExp.setText(initialExpression);
@@ -141,7 +142,8 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 	protected void registerField(ColumnProperty columnProperty) {
 		JRDesignField field = new JRDesignField();
 		field.setName(columnProperty.getProperty());
-		
+		field.setValueClassName(columnProperty.getValueClassName());
+
 		log.debug("transforming column property for group variable: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +")");
 
 		for (String key : columnProperty.getFieldProperties().keySet()) {

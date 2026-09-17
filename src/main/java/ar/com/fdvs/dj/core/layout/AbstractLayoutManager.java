@@ -1161,6 +1161,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             var.setCalculation(CalculationEnum.values()[chart.getOperation()]);
             var.setResetGroup(group.getName());
             var.setResetType(ResetTypeEnum.GROUP);
+            var.setValueClassName(clazz.getName());
 
             //use the index as part of the name just because I may want 2
             //different types of chart from the very same column (with the same operation also) making the variables name to be duplicated
@@ -1291,6 +1292,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             var.setCalculation(CalculationEnum.values()[chart.getOperation()]);
             var.setResetGroup(group.getName());
             var.setResetType(ResetTypeEnum.GROUP);
+            var.setValueClassName(clazz.getName());
 
             //use the index as part of the name just because I may want 2
             //different types of chart from the very same column (with the same operation also) making the variables name to be duplicated

@@ -118,6 +118,7 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 		
 		JRDesignParameter dparam = new JRDesignParameter();
 		dparam.setName(variableName + "_vf"); //value formater suffix
+		dparam.setValueClassName(DJValueFormatter.class.getName());
 		log.debug("Registering value formatter parameter for property " + dparam.getName() );
 		try {
 			getDjd().addParameter(dparam);
@@ -174,10 +175,10 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 		String valueClassName = col.getVariableClassName(op);
 		String initialExpression = col.getInitialExpression(op);
 
-//		if (DJCalculation.SYSTEM.equals(groupVariable.getOperation())){
-//		} else {
-//		}
-				
+		if (valueClassName != null) {
+			variable.setValueClassName(valueClassName);
+		}
+
 		if (initialExpression != null){
 			JRDesignExpression initialExp = new JRDesignExpression();
 			initialExp.setText(initialExpression);
