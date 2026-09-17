@@ -438,8 +438,13 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setBackcolor(getBackgroundColor());
 		transformedStyle.setForecolor(getTextColor());
 
-		if (getTransparency() != null)
-			transformedStyle.setMode(ModeEnum.values()[getTransparency().getValue()]);
+		if (getTransparency() != null) {
+			if (Transparency.OPAQUE.equals(getTransparency())) {
+				transformedStyle.setMode(ModeEnum.OPAQUE);
+			} else {
+				transformedStyle.setMode(ModeEnum.TRANSPARENT);
+			}
+		}
 
 		if (getRotation() != null)
 			transformedStyle.setRotation(RotationEnum.values()[getRotation().getValue()]);
