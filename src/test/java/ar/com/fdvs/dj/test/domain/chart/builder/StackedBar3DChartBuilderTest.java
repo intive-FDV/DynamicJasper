@@ -209,9 +209,9 @@ public class StackedBar3DChartBuilderTest extends BaseDjReportTest {
 		assertEquals(Color.DARK_GRAY, chart.getLegendColor());
 		testFont(Font.COURIER_NEW_MEDIUM_BOLD, chart.getLegendFont());
 		assertEquals(Color.WHITE, chart.getLegendBackgroundColor());
-		assertEquals(new Byte(DJChartOptions.EDGE_BOTTOM), chart.getLegendPositionValue().getValueByte() );
-		assertEquals(new Byte(DJChartOptions.EDGE_TOP), chart.getTitlePositionValue().getValueByte());
-		assertEquals(LineStyleEnum.getByValue(new Byte(DJChartOptions.LINE_STYLE_DOTTED)), chart.getLineBox().getPen().getLineStyleValue());
+		assertEquals((int)DJChartOptions.EDGE_BOTTOM, chart.getLegendPosition().ordinal() );
+		assertEquals((int)DJChartOptions.EDGE_TOP, chart.getTitlePosition().ordinal());
+		assertEquals(LineStyleEnum.values()[DJChartOptions.LINE_STYLE_DOTTED], chart.getLineBox().getPen().getLineStyle());
 		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
 		assertEquals(new Integer(5), chart.getLineBox().getPadding());
@@ -226,8 +226,8 @@ public class StackedBar3DChartBuilderTest extends BaseDjReportTest {
 	
 	public void testPlot() {
 		JRDesignBar3DPlot plot = (JRDesignBar3DPlot) chart.getPlot();
-		assertEquals(10d, plot.getXOffsetDouble());
-		assertEquals(10d, plot.getYOffsetDouble());
+		assertEquals(10d, (double) plot.getXOffset());
+		assertEquals(10d, (double) plot.getYOffset());
 		assertEquals(Boolean.FALSE, plot.getShowLabels());
 		
 		assertNotNull(plot.getCategoryAxisLabelExpression().getText());
@@ -253,7 +253,7 @@ public class StackedBar3DChartBuilderTest extends BaseDjReportTest {
 
 	private void testFont(Font djFont, JRFont jrFont) {
 		assertEquals(djFont.getFontName(), jrFont.getFontName());
-		assertEquals(djFont.getFontSize(), jrFont.getFontsize());
+		assertEquals(djFont.getFontSize(), jrFont.getFontSize());
 		assertEquals(djFont.isBold(), jrFont.isBold());
 		assertEquals(djFont.isItalic(), jrFont.isItalic());
 	}

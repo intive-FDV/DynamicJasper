@@ -111,7 +111,6 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 		}
 		JRDesignParameter dparam = new JRDesignParameter();
 		dparam.setName(name);
-		dparam.setValueClassName(CustomExpression.class.getName());
 		log.debug("Registering customExpression parameter for property " + name );
 		try {
 			getDjd().addParameter(dparam);

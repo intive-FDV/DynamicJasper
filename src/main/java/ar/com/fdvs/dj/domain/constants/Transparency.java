@@ -33,8 +33,8 @@ public class Transparency  extends BaseDomainConstant {
 
 	private static final long serialVersionUID = 1L;
 
-	public static Transparency TRANSPARENT = new Transparency((byte) 2);
-	public static Transparency OPAQUE = new Transparency((byte) 1);
+	public static Transparency TRANSPARENT = new Transparency((byte) 0); // ModeEnum.TRANSPARENT ordinal
+	public static Transparency OPAQUE = new Transparency((byte) 1); // ModeEnum.OPAQUE ordinal
 
 	private byte value;
 

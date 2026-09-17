@@ -86,7 +86,6 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 		if (column.getTextFormatter() != null) {
 			JRDesignParameter parameter = new JRDesignParameter();
 			parameter.setName(ExpressionUtils.createParameterName("formatter_for_" + column.getName(), column.getTextFormatter()));
-			parameter.setValueClassName(Object.class.getName());
 			log.debug("Registering text formatter: " + parameter.getName());
 			getDjd().getParametersWithValues().put(parameter.getName(), column.getTextFormatter());
 			try {
@@ -138,7 +137,6 @@ public class ColumnRegistrationManager extends AbstractEntityRegistrationManager
 		JRDesignField field = new JRDesignField();
 		ColumnProperty columnProperty = propertyColumn.getColumnProperty();
 		field.setName(columnProperty.getProperty());
-		field.setValueClassName(columnProperty.getValueClassName());
 		
 		log.debug("Transforming column: " + propertyColumn.getName() + ", property: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +") " );
 

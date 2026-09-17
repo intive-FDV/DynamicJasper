@@ -29,11 +29,11 @@
 
 package ar.com.fdvs.dj.test;
 
+import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.output.FormatInfoRegistry;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.HtmlExporter;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRDocxExporter;
 import net.sf.jasperreports.export.*;
 import org.apache.commons.logging.Log;
@@ -59,7 +59,7 @@ public class ReportExporter {
      */
     public static void exportReport(JasperPrint jp, String path) throws JRException, FileNotFoundException {
         logger.debug("Exporing report to: " + path);
-        JRPdfExporter exporter = new JRPdfExporter();
+        Exporter exporter = FormatInfoRegistry.getInstance().getExporter(DJConstants.FORMAT_PDF);
 
         File outputFile = new File(path);
         File parentFile = outputFile.getParentFile();
@@ -79,7 +79,7 @@ public class ReportExporter {
     }
 
     public static void exportReportXls(JasperPrint jp, String path, SimpleXlsReportConfiguration configuration) throws JRException, FileNotFoundException {
-        JRXlsExporter exporter = new JRXlsExporter();
+        Exporter exporter = FormatInfoRegistry.getInstance().getExporter(DJConstants.FORMAT_XLS);
 
         File outputFile = new File(path);
         File parentFile = outputFile.getParentFile();

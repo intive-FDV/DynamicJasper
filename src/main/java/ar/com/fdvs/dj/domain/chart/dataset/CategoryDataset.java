@@ -161,7 +161,6 @@ public class CategoryDataset extends AbstractDataset {
 				exp3 = new JRDesignExpression();
 				exp3.setText("\"" + sery.getTitle() + "\"");
 			}
-			exp3.setValueClass(String.class);
 
 			//Here you can set subgroups of bars
 			if (useSeriesAsCategory) {

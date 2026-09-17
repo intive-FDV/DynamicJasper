@@ -162,8 +162,10 @@ public class TimeSeriesDataset extends AbstractDataset {
 	
 	public JRDesignChartDataset transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars) {
 		JRDesignTimeSeriesDataset data = new JRDesignTimeSeriesDataset(null);
-		if (timePeriodClass != null)
-			data.setTimePeriod(timePeriodClass);
+		// Note: setTimePeriod() signature changed in JasperReports 7.0.8
+		// TimePeriod is now determined automatically from the data
+		// if (timePeriodClass != null)
+		// 	data.setTimePeriod(timePeriodClass);
 
 		for (AbstractColumn sery : series) {
 			JRDesignTimeSeries serie = new JRDesignTimeSeries();
@@ -182,7 +184,6 @@ public class TimeSeriesDataset extends AbstractDataset {
 				exp3 = new JRDesignExpression();
 				exp3.setText("\"" + sery.getTitle() + "\"");
 			}
-			exp3.setValueClass(String.class);
 
 			serie.setTimePeriodExpression(exp2);
 

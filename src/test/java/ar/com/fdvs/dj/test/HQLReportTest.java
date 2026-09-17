@@ -3,7 +3,7 @@ package ar.com.fdvs.dj.test;
 import java.util.List;
 
 import net.sf.jasperreports.engine.JRDataSource;
-import net.sf.jasperreports.engine.query.JRHibernateQueryExecuterFactory;
+import net.sf.jasperreports.engine.query.HibernateConstants;
 import net.sf.jasperreports.view.JasperViewer;
 
 import org.hibernate.Session;
@@ -44,7 +44,7 @@ public class HQLReportTest extends BaseDjReportTest {
 		DynamicReport dr = drb.build();
 
 		Session hsession = HibernateUtil.getSession();
-		params.put(JRHibernateQueryExecuterFactory.PARAMETER_HIBERNATE_SESSION, hsession);
+		params.put(HibernateConstants.PARAMETER_HIBERNATE_SESSION, hsession);
 
 
 		return dr;

@@ -272,7 +272,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		JRDesignExpression printWhenExpression = null;
 		if (!options.getFirstPageImageBanners().isEmpty()){
 			printWhenExpression = new JRDesignExpression();
-			printWhenExpression.setValueClass(Boolean.class);
 			printWhenExpression.setText(EXPRESSION_TRUE_WHEN_NOT_FIRST_PAGE);
 		}
 		applyImageBannersToBand(pageHeader, options.getImageBanners().values(),printWhenExpression, true);
@@ -335,13 +334,12 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				JRDesignExpression imageExp = new JRDesignExpression();
 				imageExp.setText(path);
 
-				imageExp.setValueClass(String.class);
 				image.setExpression(imageExp);
 				image.setHeight(imageBanner.getHeight());
 				image.setWidth(imageBanner.getWidth());
 				image.setPrintWhenExpression(printWhenExpression);
 				image.setRemoveLineWhenBlank(true);
-				image.setScaleImage(ScaleImageEnum.getByValue(imageBanner.getScaleMode().ordinal()));
+				image.setScaleImage(ScaleImageEnum.values()[imageBanner.getScaleMode().getValue()]);
 
 				if (imageBanner.getAlign() == ImageBanner.Alignment.Left)
 					image.setX(0);
@@ -389,7 +387,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		}
 
 		JRDesignExpression printWhenExpression = new JRDesignExpression();
-		printWhenExpression.setValueClass(Boolean.class);
 		printWhenExpression.setText(EXPRESSION_TRUE_WHEN_FIRST_PAGE);
 
 		JRDesignTextField title = new JRDesignTextField();
@@ -399,7 +396,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		}else {
 			exp.setText("\"" + Utils.escapeTextForExpression( getReport().getTitle()) + "\"");
 		}
-		exp.setValueClass(String.class);
 		title.setExpression(exp);
 		title.setWidth(getReport().getOptions().getPrintableWidth());
 		title.setHeight(getReport().getOptions().getTitleHeight());
@@ -414,7 +410,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		if (getReport().getSubtitle() != null) {
 			JRDesignExpression exp2 = new JRDesignExpression();
 			exp2.setText("\"" + getReport().getSubtitle() + "\"");
-			exp2.setValueClass(String.class);
 			subtitle.setExpression(exp2);
 			subtitle.setWidth(getReport().getOptions().getPrintableWidth());
 			subtitle.setHeight(getReport().getOptions().getSubtitleHeight());
@@ -690,7 +685,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
         LayoutUtils.convertBorderToPen(Border.NO_BORDER(), rect.getLinePen());
 
-		rect.setMode(ModeEnum.getByValue( Transparency.TRANSPARENT.ordinal()) );
+		rect.setMode(ModeEnum.values()[Transparency.TRANSPARENT.getValue()]);
 //		rect.setMode(Transparency.OPAQUE.ordinal());
 //		rect.setBackcolor(Color.RED);
 		rect.setWidth(getReport().getOptions().getPrintableWidth());
@@ -709,7 +704,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		JRDesignTextField designStaticText = new JRDesignTextField();
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setText("\"" + col.getTitle() + "\"");
-		exp.setValueClass(String.class);
 		designStaticText.setExpression(exp);
 		designStaticText.setHeight(columnsGroup.getHeaderHeight());
 		designStaticText.setWidth(col.getWidth());
@@ -1083,10 +1077,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			if (col instanceof PercentageColumn) {
 				PercentageColumn pcol = (PercentageColumn) col;
 				expression.setText(pcol.getTextForExpression(djGroup, djGroup ,type));
-				expression.setValueClassName(pcol.getValueClassNameForExpression());
 				textField.setEvaluationTime( EvaluationTimeEnum.AUTO );
 			} else {
-				textField.setEvaluationGroup(jgroup);
+				textField.setEvaluationGroup(jgroup.getName());
 			}
 
 			textField.setKey(variableName);
@@ -1155,7 +1148,6 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			JRDesignTextField globalTextField = new JRDesignTextField();
 			JRDesignExpression globalExp = new JRDesignExpression();
 			globalExp.setText(globalCol.getTextForExpression());
-			globalExp.setValueClassName(globalCol.getValueClassNameForExpression());
 			globalTextField.setExpression(globalExp);
 
 			globalTextField.setHeight(height); //XXX be carefull with the "2+ ..."
@@ -1195,16 +1187,13 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 		if (var.getValueFormatter() != null){
 			expression.setText(var.getTextForValueFormatterExpression(variableName));
-			expression.setValueClassName(var.getValueFormatter().getClassName());
 		}
 		else if (col.getTextFormatter() != null) {
 
 			expression.setText("$V{" + variableName + "}");
-			expression.setValueClassName(col.getVariableClassName(var.getOperation()));
 		}
 		else {
 			expression.setText("$V{" + variableName + "}");
-			expression.setValueClassName(col.getVariableClassName(var.getOperation()));
 		}
 	}
 

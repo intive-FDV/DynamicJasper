@@ -29,9 +29,8 @@
 
 package ar.com.fdvs.dj.output;
 
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.export.Exporter;
 
 import java.util.Map;
 
@@ -56,14 +55,16 @@ public class ReportWriterFactory {
 
     /**
      * Returns a ReportWriter that which will use memory or a file depending on the parameter PAGES_THRESHOLD
-     * @param _jasperPrint
-     * @param _format
-     * @param _parameters
-     * @return
+     * @param _jasperPrint the JasperPrint to export
+     * @param _format the export format
+     * @param _parameters deprecated - no longer used in JasperReports 7.x (use configuration objects instead)
+     * @return ReportWriter instance
+     * @deprecated _parameters parameter is ignored in JasperReports 7.x. Use format-specific configuration via FormatInfoRegistry instead.
      */
-    public ReportWriter getReportWriter(final JasperPrint _jasperPrint, final String _format, final Map<JRExporterParameter,Object> _parameters) {
-        final JRExporter exporter = FormatInfoRegistry.getInstance().getExporter(_format);
-        exporter.setParameters(_parameters);
+    @Deprecated
+    public ReportWriter getReportWriter(final JasperPrint _jasperPrint, final String _format, final Map<String,Object> _parameters) {
+        final Exporter exporter = FormatInfoRegistry.getInstance().getExporter(_format);
+        // Note: _parameters ignored - JR 7.x uses typed configuration objects instead of generic map
 
         if (_jasperPrint.getPages().size() > PAGES_THRESHHOLD) {
             return new FileReportWriter(_jasperPrint, exporter);

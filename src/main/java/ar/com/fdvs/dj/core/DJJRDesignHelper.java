@@ -104,8 +104,8 @@ public class DJJRDesignHelper {
     protected static void populateBehavioralOptions(DynamicReport dr, DynamicJasperDesign des) {
         DynamicReportOptions options = dr.getOptions();
         des.setColumnCount(options.getColumnsPerPage());
-        des.setWhenNoDataType(WhenNoDataTypeEnum.getByValue(dr.getWhenNoDataType()));
-        des.setWhenResourceMissingType(WhenResourceMissingTypeEnum.getByValue(dr.getWhenResourceMissing()));
+        des.setWhenNoDataType(WhenNoDataTypeEnum.values()[dr.getWhenNoDataType()]);
+        des.setWhenResourceMissingType(WhenResourceMissingTypeEnum.values()[dr.getWhenResourceMissing()]);
         des.setTitleNewPage(options.isTitleNewPage());
         des.setIgnorePagination(options.isIgnorePagination());
 
@@ -266,7 +266,7 @@ public class DJJRDesignHelper {
         options.setColumnsPerPage(jd.getColumnCount());
 
         boolean isPortrait = true;
-        if (jd.getOrientationValue() == OrientationEnum.LANDSCAPE) {
+        if (jd.getOrientation() == OrientationEnum.LANDSCAPE) {
             isPortrait = false;
         }
         options.setPage(new Page(jd.getPageHeight(), jd.getPageWidth(), isPortrait));

@@ -41,10 +41,9 @@ public class VariableRegistrationManager extends
 		DJVariable var = (DJVariable)entity;
 		JRDesignVariable jrvar = new JRDesignVariable();
 		jrvar.setName(var.getName());
-		jrvar.setValueClassName(var.getClassName());
 		
 		if (var.getCalculation() != null){
-			jrvar.setCalculation(CalculationEnum.getByValue(var.getCalculation().ordinal()));
+			jrvar.setCalculation(CalculationEnum.values()[var.getCalculation().getValue()]);
 		}
 		
 		String expressionParamName = var.getName() + "_expression";
@@ -58,21 +57,21 @@ public class VariableRegistrationManager extends
 		}
 		
 		if (var.getResetType() != null){
-			jrvar.setResetType(ResetTypeEnum.getByValue( var.getResetType().ordinal() ));
+			jrvar.setResetType(ResetTypeEnum.values()[var.getResetType().getValue()]);
 		}		
 		
 		if (var.getResetGroup() != null && DJVariableResetType.GROUP.equals(var.getResetType())){
 			JRDesignGroup jrgroup = LayoutUtils.getJRDesignGroup(getDjd(),getLayoutManager(), var.getResetGroup());
-			jrvar.setResetGroup(jrgroup);
+			jrvar.setResetGroup(jrgroup.getName());
 		}
 		
 		if (var.getIncrementType() != null){
-			jrvar.setIncrementType(IncrementTypeEnum.getByValue( var.getIncrementType().ordinal()) );
+			jrvar.setIncrementType(IncrementTypeEnum.values()[var.getIncrementType().getValue()]);
 		}
-		
+
 		if (var.getIncrementGroup() != null && DJVariableIncrementType.GROUP.equals(var.getIncrementType())){
 			JRDesignGroup jrgroup = LayoutUtils.getJRDesignGroup(getDjd(),getLayoutManager(), var.getResetGroup());
-			jrvar.setIncrementGroup(jrgroup);
+			jrvar.setIncrementGroup(jrgroup.getName());
 		}		
 		
 		return jrvar;

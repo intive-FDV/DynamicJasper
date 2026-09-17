@@ -200,8 +200,8 @@ public class Style implements Serializable, Cloneable {
 			horizontalImageAlign = null;
 		}
 		else {
-			horizontalTextAlign = HorizontalTextAlign.fromLegacy(horizontalAlign.ordinal());
-			horizontalImageAlign = HorizontalImageAlign.fromLegacy(horizontalAlign.ordinal());
+			horizontalTextAlign = HorizontalTextAlign.fromLegacy(horizontalAlign.getValue());
+			horizontalImageAlign = HorizontalImageAlign.fromLegacy(horizontalAlign.getValue());
 		}
 	}
 
@@ -238,10 +238,10 @@ public class Style implements Serializable, Cloneable {
 		if (StretchTypeEnum.NO_STRETCH.equals(stretchType)) {
 			return Stretching.NO_STRETCH;
 		}
-		else if (StretchTypeEnum.RELATIVE_TO_TALLEST_OBJECT.equals(stretchType)) {
+		else if (StretchTypeEnum.ELEMENT_GROUP_HEIGHT.equals(stretchType)) {
 			return Stretching.RELATIVE_TO_TALLEST_OBJECT;
 		}
-		else if (StretchTypeEnum.RELATIVE_TO_BAND_HEIGHT.equals(stretchType)) {
+		else if (StretchTypeEnum.CONTAINER_HEIGHT.equals(stretchType)) {
 			return Stretching.RELATIVE_TO_BAND_HEIGHT;
 		}
 		return null;
@@ -257,10 +257,10 @@ public class Style implements Serializable, Cloneable {
 			stretchType = StretchTypeEnum.NO_STRETCH;
 		}
 		else if (Stretching.RELATIVE_TO_TALLEST_OBJECT.equals(streching)) {
-			stretchType = StretchTypeEnum.RELATIVE_TO_TALLEST_OBJECT;
+			stretchType = StretchTypeEnum.ELEMENT_GROUP_HEIGHT;
 		}
 		else if (Stretching.RELATIVE_TO_BAND_HEIGHT.equals(streching)) {
-			stretchType = StretchTypeEnum.RELATIVE_TO_BAND_HEIGHT;
+			stretchType = StretchTypeEnum.CONTAINER_HEIGHT;
 		}
 	}
 
@@ -338,8 +338,8 @@ public class Style implements Serializable, Cloneable {
 			verticalImageAlign = null;
 		}
 		else {
-			verticalTextAlign = VerticalTextAlign.fromLegacy(verticalAlign.ordinal());
-			verticalImageAlign = VerticalImageAlign.fromLegacy(verticalAlign.ordinal());
+			verticalTextAlign = VerticalTextAlign.fromLegacy(verticalAlign.getValue());
+			verticalImageAlign = VerticalImageAlign.fromLegacy(verticalAlign.getValue());
 		}
 	}
 
@@ -439,10 +439,10 @@ public class Style implements Serializable, Cloneable {
 		transformedStyle.setForecolor(getTextColor());
 
 		if (getTransparency() != null)
-			transformedStyle.setMode(ModeEnum.getByValue( getTransparency().ordinal() ));
+			transformedStyle.setMode(ModeEnum.values()[getTransparency().getValue()]);
 
 		if (getRotation() != null)
-			transformedStyle.setRotation(RotationEnum.getByValue( getRotation().ordinal() ));
+			transformedStyle.setRotation(RotationEnum.values()[getRotation().getValue()]);
 
 		if (getRadius() != null)
 			transformedStyle.setRadius(Integer.valueOf(getRadius().intValue()));

@@ -39,14 +39,8 @@ import net.sf.jasperreports.engine.util.JRClassLoader;
 public class DJCompilerFactory {
 
     public static String getCompilerClassName() {
-        try {
-            if (JRClassLoader.loadClassForName("org.eclipse.jdt.internal.compiler.Compiler") != null)
-            	 return DJJRJdtCompiler.class.getName();
-        } catch (ClassNotFoundException ex) {
-        	//nothing to do
-        } catch (NoClassDefFoundError e) {
-        	//nothing to do
-		}
+        // Note: JRJdtCompiler was removed in JasperReports 7.0.8, so DJJRJdtCompiler is no longer available
+        // Fallback to JDK13 or Javac compiler instead
 
     	if (DJJRJdk13Compiler.isValid()) {
             return DJJRJdk13Compiler.class.getName();

@@ -5,8 +5,7 @@ import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.output.ReportWriter;
 import ar.com.fdvs.dj.output.ReportWriterFactory;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
-import net.sf.jasperreports.j2ee.servlets.ImageServlet;
+import net.sf.jasperreports.export.Exporter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +15,12 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @deprecated JasperReports 7.x removed the j2ee.servlets package and JRHtmlExporterParameter.
+ * This class no longer functions correctly for HTML export with image handling.
+ * Use the new JasperReports 7.x HTML export API with HtmlResourceHandler instead.
+ */
+@Deprecated
 public class DJServletHelper {
 
     private static final ThreadLocal<Integer> pageTreshold = new ThreadLocal<Integer>();
@@ -69,11 +74,11 @@ public class DJServletHelper {
                                     LayoutManager layoutManager,
                                     JRDataSource ds,
                                     Map<String, Object> parameters,
-                                    Map<JRExporterParameter,Object> exporterParams) throws JRException, IOException {
+                                    Map<String,Object> exporterParams) throws JRException, IOException {
         if (parameters == null)
             parameters = new HashMap<String, Object>();
         if (exporterParams == null)
-            exporterParams = new HashMap<JRExporterParameter,Object>();
+            exporterParams = new HashMap<String,Object>();
 
         JasperPrint _jasperPrint = DynamicJasperHelper.generateJasperPrint(dynamicReport, layoutManager, ds, parameters);
         exportToHtml(request,response,imageServletUrl,_jasperPrint,exporterParams);
@@ -86,17 +91,15 @@ public class DJServletHelper {
                                     HttpServletResponse response,
                                     String imageServletUrl,
                                     JasperPrint jasperPrint,
-                                    Map<JRExporterParameter,Object>  exporterParams) throws JRException, IOException {
+                                    Map<String,Object>  exporterParams) throws JRException, IOException {
         if (exporterParams == null)
-            exporterParams = new HashMap<JRExporterParameter,Object> ();
+            exporterParams = new HashMap<String,Object>();
 
-        exporterParams.put(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
-
+        // Note: HTML image handling changed in JR 7.x - this method may not work correctly
         final ReportWriter reportWriter = ReportWriterFactory.build(pageTreshold.get()).getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
 
         Map imagesMap = new HashMap();
-        JRExporter exporter = reportWriter.getExporter();
-        exporter.setParameters(exporterParams);
+        Exporter exporter = reportWriter.getExporter();
 
         setupParameters(request, imageServletUrl, jasperPrint, imagesMap, exporter);
 
@@ -110,11 +113,11 @@ public class DJServletHelper {
                                            LayoutManager layoutManager,
                                            JRDataSource ds,
                                            Map<String, Object> parameters,
-                                           Map<JRExporterParameter,Object>  exporterParams) throws JRException, IOException {
+                                           Map<String,Object>  exporterParams) throws JRException, IOException {
         if (parameters == null)
             parameters = new HashMap<String, Object>();
         if (exporterParams == null)
-            exporterParams = new HashMap<JRExporterParameter,Object> ();
+            exporterParams = new HashMap<String,Object>();
 
         JasperPrint _jasperPrint = DynamicJasperHelper.generateJasperPrint(dynamicReport, layoutManager, ds, parameters);
 
@@ -125,17 +128,15 @@ public class DJServletHelper {
     public static InputStream exportToHtml(HttpServletRequest request,
                                     String imageServletUrl,
                                     JasperPrint jasperPrint,
-                                    Map<JRExporterParameter,Object> exporterParams) throws JRException, IOException {
+                                    Map<String,Object> exporterParams) throws JRException, IOException {
         if (exporterParams == null)
-            exporterParams = new HashMap<JRExporterParameter,Object>();
+            exporterParams = new HashMap<String,Object>();
 
-        exporterParams.put(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + imageServletUrl);
-
+        // Note: HTML image handling changed in JR 7.x - this method may not work correctly
         final ReportWriter reportWriter = ReportWriterFactory.build(pageTreshold.get()).getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
 
         Map imagesMap = new HashMap();
-        JRExporter exporter = reportWriter.getExporter();
-        exporter.setParameters(exporterParams);
+        Exporter exporter = reportWriter.getExporter();
 
         setupParameters(request, imageServletUrl, jasperPrint, imagesMap, exporter);
 
@@ -144,13 +145,12 @@ public class DJServletHelper {
 
     }
 
-    private static void setupParameters(HttpServletRequest request, String imageServletUrl, JasperPrint jasperPrint, Map imagesMap, JRExporter exporter) {
-        exporter.setParameter(JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
-        exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + "/" + imageServletUrl + "?image=");
-        // Needed to support chart images:
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+    private static void setupParameters(HttpServletRequest request, String imageServletUrl, JasperPrint jasperPrint, Map imagesMap, Exporter exporter) {
+        // Note: JRHtmlExporterParameter and ImageServlet removed in JR 7.x
+        // This method no longer works - HTML image handling requires new JR 7 HtmlResourceHandler API
+
         HttpSession session = request.getSession();
-        session.setAttribute(ImageServlet.DEFAULT_JASPER_PRINT_SESSION_ATTRIBUTE, jasperPrint);
+        // Keep session attributes for backward compatibility (may not work in JR 7)
         session.setAttribute("net.sf.jasperreports.j2ee.jasper_print", jasperPrint);
     }
 

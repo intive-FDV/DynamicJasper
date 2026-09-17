@@ -31,8 +31,9 @@ public class DJDefaultScriptlet extends JRDefaultScriptlet {
     protected ParameterMapWrapper parameterMapWrapper = new ParameterMapWrapper();
     protected VariableMapWrapper variableMapWrapper = new VariableMapWrapper();
 
-    public void setData(Map<String, JRFillParameter> parsm, Map<String,JRFillField> fldsm, Map<String,JRFillVariable> varsm, JRFillGroup[] grps) {
-        super.setData(parsm, fldsm, varsm, grps);
+    @Override
+    public void setData(net.sf.jasperreports.engine.fill.JRFillDataset dataset) {
+        super.setData(dataset);
         putValuesInMap();
     }
 

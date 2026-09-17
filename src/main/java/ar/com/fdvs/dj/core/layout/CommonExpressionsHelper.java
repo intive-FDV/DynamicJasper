@@ -258,7 +258,6 @@ public class CommonExpressionsHelper {
             lm.applyStyleToElement(autoText.getStyle(), textfield);
         }
         JRDesignExpression expression = new JRDesignExpression();
-        expression.setValueClass(String.class);
         expression.setText("\"" + autoText.getMessageKey() + "\"");
         textfield.setExpression(expression);
         textfield.setHeight(autoText.getHeight());

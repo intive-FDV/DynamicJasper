@@ -42,17 +42,17 @@ public class DJCalculation extends DJBaseElement {
 
 	private static final long serialVersionUID = Entity.SERIAL_VERSION_UID;
 
-	public static DJCalculation AVERAGE = new DJCalculation(CalculationEnum.AVERAGE.ordinal() );
-	public static DJCalculation COUNT = new DJCalculation( CalculationEnum.COUNT.ordinal() );
-	public static DJCalculation FIRST = new DJCalculation( CalculationEnum.FIRST.ordinal() );
-	public static DJCalculation HIGHEST = new DJCalculation(CalculationEnum.HIGHEST.ordinal() );
-	public static DJCalculation LOWEST = new DJCalculation( CalculationEnum.LOWEST.ordinal() );
-	public static DJCalculation NOTHING = new DJCalculation( CalculationEnum.NOTHING.ordinal() );
-	public static DJCalculation STANDARD_DEVIATION = new DJCalculation( CalculationEnum.STANDARD_DEVIATION.ordinal() );
-	public static DJCalculation SUM = new DJCalculation( CalculationEnum.SUM.ordinal() );
-	public static DJCalculation SYSTEM = new DJCalculation( CalculationEnum.SYSTEM.ordinal() );
-	public static DJCalculation VARIANCE = new DJCalculation( CalculationEnum.VARIANCE.ordinal() );
-	public static DJCalculation DISTINCT_COUNT = new DJCalculation( CalculationEnum.DISTINCT_COUNT.ordinal() );
+	public static DJCalculation AVERAGE = new DJCalculation((byte) 3); // CalculationEnum.AVERAGE
+	public static DJCalculation COUNT = new DJCalculation((byte) 1); // CalculationEnum.COUNT
+	public static DJCalculation FIRST = new DJCalculation((byte) 9); // CalculationEnum.FIRST
+	public static DJCalculation HIGHEST = new DJCalculation((byte) 5); // CalculationEnum.HIGHEST
+	public static DJCalculation LOWEST = new DJCalculation((byte) 4); // CalculationEnum.LOWEST
+	public static DJCalculation NOTHING = new DJCalculation((byte) 0); // CalculationEnum.NOTHING
+	public static DJCalculation STANDARD_DEVIATION = new DJCalculation((byte) 6); // CalculationEnum.STANDARD_DEVIATION
+	public static DJCalculation SUM = new DJCalculation((byte) 2); // CalculationEnum.SUM
+	public static DJCalculation SYSTEM = new DJCalculation((byte) 8); // CalculationEnum.SYSTEM
+	public static DJCalculation VARIANCE = new DJCalculation((byte) 7); // CalculationEnum.VARIANCE
+	public static DJCalculation DISTINCT_COUNT = new DJCalculation((byte) 10); // CalculationEnum.DISTINCT_COUNT
 
 	private byte value;
 

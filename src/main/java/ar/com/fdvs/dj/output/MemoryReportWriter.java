@@ -30,9 +30,9 @@
 package ar.com.fdvs.dj.output;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.export.Exporter;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -51,14 +51,14 @@ public class MemoryReportWriter extends ReportWriter {
 
     private static final Log LOGGER = LogFactory.getLog(MemoryReportWriter.class);
 
-    public MemoryReportWriter(final JasperPrint _jasperPrint, final JRExporter _exporter) {
+    public MemoryReportWriter(final JasperPrint _jasperPrint, final Exporter _exporter) {
         super(_jasperPrint, _exporter);
     }
 
     public void writeTo(final HttpServletResponse _response) throws IOException, JRException {
         LOGGER.info("entering MemoryReportWriter.writeTo(HttpServletResponse)");
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(stream));
         exporter.exportReport();
         _response.setContentLength(stream.size());
         copyStreams(new ByteArrayInputStream(stream.toByteArray()), _response.getOutputStream());
@@ -68,7 +68,7 @@ public class MemoryReportWriter extends ReportWriter {
     public InputStream write() throws IOException, JRException {
         LOGGER.info("entering MemoryReportWriter.write()");
         final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, stream);
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(stream));
         exporter.exportReport();
 
         return new ByteArrayInputStream(stream.toByteArray());

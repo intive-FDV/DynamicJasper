@@ -97,7 +97,6 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 			ColumnProperty prop = columnsGroupVariable.getColumnProperty();
 			
 			expression.setText("$F{" + prop.getProperty() + "}");
-			expression.setValueClassName(prop.getValueClassName());
 			registerField(prop);
 			
 			valueClassName = ExpressionUtils.getValueClassNameForOperation(op, prop);
@@ -109,11 +108,9 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 			if (col instanceof ExpressionColumn && ((ExpressionColumn)col).getExpressionForCalculation() != null){
 				ExpressionColumn expcol = (ExpressionColumn)col;
 				expression.setText(expcol.getTextForExpressionForCalculartion());
-				expression.setValueClassName(expcol.getExpressionForCalculation().getClassName());
 			} 
 			else {
 				expression.setText(col.getTextForExpression());
-				expression.setValueClassName(col.getValueClassNameForExpression());
 			}
 
 			valueClassName = col.getVariableClassName(op);
@@ -122,22 +119,20 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 
 		JRDesignVariable variable = new JRDesignVariable();
 		variable.setExpression(expression);
-		variable.setCalculation(CalculationEnum.getByValue( columnsGroupVariable.getOperation().ordinal() ));
+		variable.setCalculation(CalculationEnum.values()[columnsGroupVariable.getOperation().getValue()]);
 		variable.setName(columnsGroupVariable.getName());
 
         log.debug("Transforming group variable " + variable.getName());
 
 		if (group != null) {
 			variable.setResetType( ResetTypeEnum.GROUP );
-			variable.setResetGroup(group);
+			variable.setResetGroup(group.getName());
 		}
 
 
-		variable.setValueClassName(valueClassName);
 
 		JRDesignExpression initialExp = new JRDesignExpression();
 		initialExp.setText(initialExpression);
-		initialExp.setValueClassName(valueClassName);
 		variable.setInitialValueExpression(initialExp);
 
 		return variable;
@@ -146,7 +141,6 @@ public class DJGroupVariableDefRegistrationManager extends AbstractEntityRegistr
 	protected void registerField(ColumnProperty columnProperty) {
 		JRDesignField field = new JRDesignField();
 		field.setName(columnProperty.getProperty());
-		field.setValueClassName(columnProperty.getValueClassName());
 		
 		log.debug("transforming column property for group variable: " + columnProperty.getProperty() + " (" + columnProperty.getValueClassName() +")");
 

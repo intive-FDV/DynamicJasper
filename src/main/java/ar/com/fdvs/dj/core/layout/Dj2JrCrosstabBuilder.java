@@ -84,15 +84,12 @@ public class Dj2JrCrosstabBuilder {
 
 		JRDesignExpression mapExp = new JRDesignExpression();
 		mapExp.setText("$P{REPORT_PARAMETERS_MAP}");
-		mapExp.setValueClass(Map.class);
 		jrcross.setParametersMapExpression(mapExp);
 
 		JRDesignCrosstabParameter crossParameter = new JRDesignCrosstabParameter();
 		crossParameter.setName("REPORT_SCRIPTLET");
-		crossParameter.setValueClassName(DJDefaultScriptlet.class.getName());
 		JRDesignExpression expression = new JRDesignExpression();
 		expression.setText("$P{"+JRParameter.REPORT_PARAMETERS_MAP+"}.get(\"REPORT_SCRIPTLET\")");
-		expression.setValueClassName(DJDefaultScriptlet.class.getName());
 		crossParameter.setExpression(expression);
 		try {
 			jrcross.addParameter(crossParameter);
@@ -158,7 +155,6 @@ public class Dj2JrCrosstabBuilder {
 			try {
 				JRDesignField field = new JRDesignField();
 				field.setName(rowGroup.getProperty().getProperty());
-				field.setValueClassName(rowGroup.getProperty().getValueClassName());
 				design.addField(field);
 			} catch (JRException e) {
 				log.error(e.getMessage(), e);
@@ -170,7 +166,6 @@ public class Dj2JrCrosstabBuilder {
 			try {
 				JRDesignField field = new JRDesignField();
 				field.setName(colGroup.getProperty().getProperty());
-				field.setValueClassName(colGroup.getProperty().getValueClassName());
 				design.addField(field);
 			} catch (JRException e) {
 				log.error(e.getMessage(), e);
@@ -182,7 +177,6 @@ public class Dj2JrCrosstabBuilder {
 			try {
 				JRDesignField field = new JRDesignField();
 				field.setName(measure.getProperty().getProperty());
-				field.setValueClassName(measure.getProperty().getValueClassName());
 				design.addField(field);
 			} catch (JRException e) {
 				log.error(e.getMessage(), e);
@@ -237,7 +231,7 @@ public class Dj2JrCrosstabBuilder {
 
 		element.setWidth(auxWidth);
 		element.setHeight(auxHeight);
-		element.setStretchWithOverflow(true);
+		element.setTextAdjust(net.sf.jasperreports.engine.type.TextAdjustEnum.STRETCH_HEIGHT);
 
 		if (djcross.getHeaderStyle() != null)
 			layoutManager.applyStyleToElement(djcross.getHeaderStyle(), element);
@@ -304,7 +298,6 @@ public class Dj2JrCrosstabBuilder {
 			DJCrosstabRow crosstabRow = rows[i];
 			JRDesignField field = new JRDesignField();
 			field.setName(crosstabRow.getProperty().getProperty());
-			field.setValueClassName(crosstabRow.getProperty().getValueClassName());
 			try {
 				jrDataset.addField(field);
 			} catch (JRException e) {
@@ -315,7 +308,6 @@ public class Dj2JrCrosstabBuilder {
 			DJCrosstabColumn crosstabColumn = cols[i];
 			JRDesignField field = new JRDesignField();
 			field.setName(crosstabColumn.getProperty().getProperty());
-			field.setValueClassName(crosstabColumn.getProperty().getValueClassName());
 			try {
 				jrDataset.addField(field);
 			} catch (JRException e) {
@@ -326,7 +318,6 @@ public class Dj2JrCrosstabBuilder {
 		for (DJCrosstabMeasure djmeasure : djcrosstab.getMeasures()) {
 			JRDesignField field = new JRDesignField();
 			field.setName(djmeasure.getProperty().getProperty());
-			field.setValueClassName(djmeasure.getProperty().getValueClassName());
 			try {
 				jrDataset.addField(field);
 			} catch (JRException e) {
@@ -335,7 +326,6 @@ public class Dj2JrCrosstabBuilder {
 		}
 
 //		field.setName(djcrosstab.getMeasure(0).getProperty().getProperty());
-//		field.setValueClassName(djcrosstab.getMeasure(0).getProperty().getValueClassName());
 //		try {
 //			jrDataset.addField(field);
 //		} catch (JRException e) {
@@ -456,16 +446,13 @@ public class Dj2JrCrosstabBuilder {
 
 					if (!isTotalCell){
 						if (djmeasure.getValueFormatter()== null){
-							measureExp.setValueClassName(measureValueClassName); //FIXME Shouldn't this be of a class "compatible" with measure's operation?
                             measureExp.setText("$V{"+ measureProperty +"}");
 						} else {
                             measureExp.setText(djmeasure.getTextForValueFormatterExpression(measureProperty, djcross.getMeasures()));
-							measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
 						}
 					} else { //is a total cell
 						if (djmeasure.getValueFormatter()== null){
 							if (djmeasure.getPrecalculatedTotalProvider() == null) {
-								measureExp.setValueClassName(measureValueClassName);
 								measureExp.setText("$V{"+measureProperty+"}");
 							} else {
 								//call the precalculated value.
@@ -475,7 +462,6 @@ public class Dj2JrCrosstabBuilder {
 							if (djmeasure.getPrecalculatedTotalProvider() == null) {
 								//has value formatter, no total provider
 								measureExp.setText(djmeasure.getTextForValueFormatterExpression(measureProperty, djcross.getMeasures()));
-								measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
 
 							} else {
 								//NO value formatter, call the precalculated value only
@@ -539,7 +525,7 @@ public class Dj2JrCrosstabBuilder {
 	    			setUpConditionStyles(alternateStyle, djmeasure, measureExp.getText());
 
 					if (djmeasure.getLink() != null){
-						String name = "cell_" + i + "_" +  j + "_ope" + djmeasure.getOperation().ordinal();
+						String name = "cell_" + i + "_" +  j + "_ope" + djmeasure.getOperation().getValue();
 						HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign)this.design, djmeasure.getLink(), element, name);
 					}
 
@@ -630,7 +616,6 @@ public class Dj2JrCrosstabBuilder {
 				+ "("+expText+"), " + fieldsMap +", " + variablesMap + ", " + parametersMap +" ))";
 
 			measureExp.setText(stringExpression);
-			measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
 		} else {
 
 //			String expText = "((("+DJCRosstabMeasurePrecalculatedTotalProvider.class.getName()+")$P{crosstab-measure__"+djmeasure.getProperty().getProperty()+"_totalProvider}).getValueFor( "
@@ -644,9 +629,7 @@ public class Dj2JrCrosstabBuilder {
 			log.debug("text for crosstab total provider is: " + expText);
 
 			measureExp.setText(expText);
-//			measureExp.setValueClassName(djmeasure.getValueFormatter().getClassName());
 			String valueClassNameForOperation = ExpressionUtils.getValueClassNameForOperation(djmeasure.getOperation(),djmeasure.getProperty());
-			measureExp.setValueClassName(valueClassNameForOperation);
 		}
 
 	}
@@ -675,7 +658,6 @@ public class Dj2JrCrosstabBuilder {
 
 		String text = "(("+ConditionStyleExpression.class.getName()+")$P{" + JRParameter.REPORT_PARAMETERS_MAP + "}.get(\""+condition.getName()+"\"))."+CustomExpression.EVAL_METHOD_NAME+"("+evalMethodParams+")";
 		JRDesignExpression expression = new JRDesignExpression();
-		expression.setValueClass(Boolean.class);
 		expression.setText(text);
 		return expression;
 	}
@@ -713,10 +695,8 @@ public class Dj2JrCrosstabBuilder {
 			JRDesignCrosstabMeasure measure = new JRDesignCrosstabMeasure();
 
 			measure.setName(meausrePrefix + djmeasure.getProperty().getProperty()); //makes the measure.name unique in this crosstab
-			measure.setCalculation(CalculationEnum.getByValue( djmeasure.getOperation().ordinal() ));
-			measure.setValueClassName(djmeasure.getProperty().getValueClassName());
+			measure.setCalculation(CalculationEnum.values()[djmeasure.getOperation().getValue()]);
 			JRDesignExpression valueExp = new JRDesignExpression();
-			valueExp.setValueClassName(djmeasure.getProperty().getValueClassName());
 			valueExp.setText("$F{"+djmeasure.getProperty().getProperty()+"}");
 			measure.setValueExpression(valueExp);
 
@@ -746,11 +726,9 @@ public class Dj2JrCrosstabBuilder {
 				 */
 //				JRDesignParameter dparam = new JRDesignParameter();
 //				dparam.setName("crosstab-measure__" + measure.getName() + "_vf"); //value formater suffix
-//				dparam.setValueClassName(DJValueFormatter.class.getName());
 
 				JRDesignCrosstabParameter crosstabParameter = new JRDesignCrosstabParameter();
 				crosstabParameter.setName("crosstab-measure__" + measure.getName() + "_vf"); //value formater suffix
-				crosstabParameter.setValueClassName(DJValueFormatter.class.getName());
 
 				log.debug("Registering value formatter parameter for crosstab measure " + crosstabParameter.getName() );
 				try {
@@ -770,11 +748,9 @@ public class Dj2JrCrosstabBuilder {
 
 //				JRDesignParameter dparam = new JRDesignParameter();
 //				dparam.setName("crosstab-measure__" + measure.getName() + "_totalProvider"); //value formater suffix
-//				dparam.setValueClassName(DJCRosstabMeasurePrecalculatedTotalProvider.class.getName());
 
 				JRDesignCrosstabParameter crosstabParameter = new JRDesignCrosstabParameter();
 				crosstabParameter.setName("crosstab-measure__" + measure.getName() + "_totalProvider"); //value formater suffix
-				crosstabParameter.setValueClassName(DJCRosstabMeasurePrecalculatedTotalProvider.class.getName());
 
 				log.debug("Registering crosstab total provider parameter for measure " + crosstabParameter.getName() );
 				try {
@@ -819,7 +795,6 @@ public class Dj2JrCrosstabBuilder {
 			}
 
             //New in JR 4.1+
-            rowBucket.setValueClassName(crosstabRow.getProperty().getValueClassName());
 
 			ctRowGroup.setBucket(rowBucket);
 
@@ -830,7 +805,6 @@ public class Dj2JrCrosstabBuilder {
 			JRDesignTextField rowTitle = new JRDesignTextField();
 
 			JRDesignExpression rowTitExp = new JRDesignExpression();
-			rowTitExp.setValueClassName(crosstabRow.getProperty().getValueClassName());
 			rowTitExp.setText("$V{"+crosstabRow.getProperty().getProperty()+"}");
 
 			rowTitle.setExpression(rowTitExp);
@@ -914,7 +888,6 @@ public class Dj2JrCrosstabBuilder {
 				bucket.setComparatorExpression(comparatorExpression);
 			}
 
-            bucket.setValueClassName(crosstabColumn.getProperty().getValueClassName());
 
 			JRDesignExpression bucketExp = ExpressionUtils.createExpression("$F{"+crosstabColumn.getProperty().getProperty()+"}", crosstabColumn.getProperty().getValueClassName());
 			bucket.setExpression(bucketExp);
@@ -925,7 +898,6 @@ public class Dj2JrCrosstabBuilder {
 			JRDesignTextField colTitle = new JRDesignTextField();
 
 			JRDesignExpression colTitleExp = new JRDesignExpression();
-			colTitleExp.setValueClassName(crosstabColumn.getProperty().getValueClassName());
 			colTitleExp.setText("$V{"+crosstabColumn.getProperty().getProperty()+"}");
 
 

@@ -54,16 +54,16 @@ public abstract class AbstractDataset extends DJBaseElement {
 	protected static JRDesignExpression getExpressionFromVariable(JRDesignVariable var){
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setText("$V{" + var.getName() + "}");
-		exp.setValueClass(var.getValueClass());
 		return exp;
 	}
 	
 	protected static void setResetStyle(JRDesignChartDataset dataset, JRDesignGroup group, JRDesignGroup parentGroup){
 		//When to start a new chart? When the group's parent changes
-		dataset.setResetGroup(parentGroup);
+		dataset.setResetGroup(parentGroup.getName());
 		dataset.setIncrementType( IncrementTypeEnum.GROUP );
-		dataset.setIncrementGroup(group);
-		if (dataset.getResetGroup().equals(group))
+		dataset.setIncrementGroup(group.getName());
+		String resetGroup = dataset.getResetGroup();
+		if (resetGroup != null && resetGroup.equals(group.getName()))
 			dataset.setResetType(DatasetResetTypeEnum.REPORT);
 		else
 			dataset.setResetType( DatasetResetTypeEnum.GROUP );

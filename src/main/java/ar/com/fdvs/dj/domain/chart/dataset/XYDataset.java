@@ -149,7 +149,6 @@ public class XYDataset extends AbstractDataset {
 				exp3 = new JRDesignExpression();
 				exp3.setText("\"" + sery.getTitle() + "\"");
 			}
-			exp3.setValueClass(String.class);
 
 			serie.setXValueExpression(exp2);
 

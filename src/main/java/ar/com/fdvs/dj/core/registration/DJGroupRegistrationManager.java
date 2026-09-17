@@ -144,7 +144,6 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 				useVariableForCustomExpression(group, jrExpression, customExpression);
 			} else {
 				jrExpression.setText(column.getTextForExpression());
-				jrExpression.setValueClassName(column.getValueClassNameForExpression());
 			}
 		}
 		
@@ -181,18 +180,15 @@ public class DJGroupRegistrationManager extends AbstractEntityRegistrationManage
 		String varName = group.getName() + "_variable_for_group_expression";
 		gvar.setName(varName);
 		gvar.setCalculation( CalculationEnum.NOTHING );
-		gvar.setValueClassName(customExpression.getClassName());
 		
 		String expText = ExpressionUtils.createCustomExpressionInvocationText(customExpression, expToGroupByName, false);
 		JRDesignExpression gvarExp = new JRDesignExpression();
-		gvarExp.setValueClassName(customExpression.getClassName());
 		gvarExp.setText(expText);
 		gvar.setExpression(gvarExp);
 		getDjd().addVariable(gvar);
 		
 		//3) Make the group expression point to the variable
 		jrExpression.setText("$V{"+varName+"}");
-		jrExpression.setValueClassName(customExpression.getClassName());
 		log.debug("Expression for CustomExpression usgin variable = \"" + varName + "\" which point to: " + expText);
 	}
 

@@ -40,7 +40,6 @@ import net.sf.jasperreports.charts.design.JRDesignChart;
 import net.sf.jasperreports.charts.design.JRDesignChartDataset;
 import net.sf.jasperreports.charts.type.ChartTypeEnum;
 import net.sf.jasperreports.engine.design.JRDesignGroup;
-import net.sf.jasperreports.engine.type.CalculationEnum;
 import net.sf.jasperreports.engine.type.EvaluationTimeEnum;
 
 import java.util.Map;
@@ -207,7 +206,7 @@ public class DJChart extends DJBaseElement {
 	}
 	
 	public JRDesignChart transform(DynamicJasperDesign design, String name, JRDesignGroup group, JRDesignGroup parentGroup, Map vars, int width) {
-		JRDesignChart chart = new JRDesignChart(design, chartType);
+		JRDesignChart chart = new JRDesignChart(design, ChartTypeEnum.values()[chartType]);
 		JRDesignChartDataset chartDataset = dataset.transform(design, name, group, parentGroup, vars);
 		chart.setDataset(chartDataset);
 		plot.transform(design, chart.getPlot(), name);
@@ -217,8 +216,8 @@ public class DJChart extends DJBaseElement {
 			chart.setEvaluationTime( EvaluationTimeEnum.REPORT );
 		else {
 			chart.setEvaluationTime( EvaluationTimeEnum.GROUP );
-			chart.setEvaluationGroup(parentGroup);
+			chart.setEvaluationGroup(parentGroup.getName());
 		}
-		return chart;	
+		return chart;
 	}
 }

@@ -30,9 +30,9 @@
 package ar.com.fdvs.dj.output;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.export.Exporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -46,19 +46,23 @@ import java.io.OutputStream;
  */
 public abstract class ReportWriter {
 
-    public JRExporter getExporter() {
+    public Exporter getExporter() {
 		return exporter;
 	}
 
 	private static final int BUFFER_SIZE = 10 * 1024;
 
     protected JasperPrint jasperPrint;
-    protected JRExporter exporter;
+    protected Exporter exporter;
 
-    protected ReportWriter(final JasperPrint _jasperPrint, final JRExporter _exporter) {
+    protected ReportWriter(final JasperPrint _jasperPrint, final Exporter _exporter) {
         jasperPrint = _jasperPrint;
         exporter = _exporter;
-        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+        setInput(_jasperPrint);
+    }
+
+    protected void setInput(JasperPrint jasperPrint) {
+        exporter.setExporterInput(new SimpleExporterInput(jasperPrint));
     }
 
     public abstract void writeTo(HttpServletResponse _response) throws IOException, JRException;

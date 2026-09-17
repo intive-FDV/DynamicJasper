@@ -53,7 +53,6 @@ import ar.com.fdvs.dj.util.ExpressionUtils;
 import ar.com.fdvs.dj.util.HyperLinkUtil;
 import ar.com.fdvs.dj.util.LayoutUtils;
 import ar.com.fdvs.dj.util.Utils;
-import ar.com.fdvs.dj.util.WaterMarkRenderer;
 import net.sf.jasperreports.charts.design.JRDesignBarPlot;
 import net.sf.jasperreports.crosstabs.design.JRDesignCrosstab;
 import net.sf.jasperreports.engine.JRBand;
@@ -65,6 +64,7 @@ import net.sf.jasperreports.charts.base.JRBaseChartPlot;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.charts.design.JRDesignChart;
 import net.sf.jasperreports.charts.design.JRDesignChartDataset;
+import net.sf.jasperreports.charts.type.ChartTypeEnum;
 import net.sf.jasperreports.engine.design.JRDesignConditionalStyle;
 import net.sf.jasperreports.engine.design.JRDesignElement;
 import net.sf.jasperreports.engine.design.JRDesignExpression;
@@ -171,47 +171,10 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         if (djWaterMark == null || Utils.isEmpty(djWaterMark.getText()))
             return;
 
-        JRDesignBand backgroundBand = (JRDesignBand) jd.getBackground();
-
-        if (backgroundBand == null) {
-            backgroundBand = new JRDesignBand();
-            jd.setBackground(backgroundBand);
-        }
-        int printableHeight = jd.getPageHeight() - jd.getTopMargin() - jd.getBottomMargin();
-        int printableWidth = jd.getPageWidth() - jd.getLeftMargin() - jd.getRightMargin();
-        backgroundBand.setHeight(printableHeight);
-
-        JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
-        JRDesignExpression imageExp = null;
-
-        int multiplier = 2;
-
-        ar.com.fdvs.dj.domain.constants.Font font2 = (ar.com.fdvs.dj.domain.constants.Font) djWaterMark.getFont().clone();
-        font2.setFontSize(font2.getFontSize() * multiplier);
-
-        BufferedImage watermark = WaterMarkRenderer.rotateText(djWaterMark.getText(),
-                font2.toAwtFont(),
-                printableWidth * multiplier,
-                printableHeight * multiplier,
-                djWaterMark.getAngle(), djWaterMark.getTextColor());
-        try {
-            File outputFile = File.createTempFile("dynamicJasper", "watermark.png");
-            outputFile.deleteOnExit();
-            ImageIO.write(watermark, "png", outputFile);
-            String absolutePath = outputFile.getAbsolutePath();
-            log.debug("Watermark Image: " + absolutePath);
-            String escapeTextForExpression = Utils.escapeTextForExpression(absolutePath);
-            imageExp = ExpressionUtils.createStringExpression("\"" + escapeTextForExpression + "\"");
-        } catch (IOException e) {
-            log.error("Could not create watermark image: " + e.getMessage(),e);
-        }
-
-        image.setExpression(imageExp);
-        image.setHeight(printableHeight);
-        image.setWidth(printableWidth);
-        image.setScaleImage(ScaleImageEnum.RETAIN_SHAPE);
-        image.setOnErrorType(OnErrorTypeEnum.BLANK);
-        backgroundBand.addElement(image);
+        // WaterMarkRenderer was removed in JasperReports 7.0.8
+        // Watermark functionality is not supported with this version of JasperReports
+        log.warn("Watermark functionality is not supported with JasperReports 7.0.8. Skipping watermark: " + djWaterMark.getText());
+        return;
     }
 
     protected void setSummaryBand() {
@@ -246,7 +209,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         LayoutUtils.convertBorderToPen(Border.NO_BORDER(), rect.getLinePen());
 
-		rect.setMode(ModeEnum.getByValue( Transparency.TRANSPARENT.ordinal()) );
+		rect.setMode(ModeEnum.values()[Transparency.TRANSPARENT.getValue()]);
 //		rect.setMode(Transparency.OPAQUE.ordinal());
 //		rect.setBackcolor(Color.RED);
 		rect.setWidth(getReport().getOptions().getPrintableWidth());
@@ -419,12 +382,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
                 imageExp.setText("ar.com.fdvs.dj.core.BarcodeHelper.getBarcodeImage(" + barcodeColumn.getBarcodeType() + ", " + column.getTextForExpression() + ", " + barcodeColumn.isShowText() + ", " + barcodeColumn.isCheckSum() + ", " + applicationIdentifier + ",0,0 )");
 
 
-                imageExp.setValueClass(Image.class);
                 image.setExpression(imageExp);
                 image.setHeight(getReport().getOptions().getDetailHeight());
                 image.setWidth(column.getWidth());
                 image.setX(column.getPosX());
-                image.setScaleImage(ScaleImageEnum.getByValue(barcodeColumn.getScaleMode().ordinal()));
+                image.setScaleImage(ScaleImageEnum.values()[barcodeColumn.getScaleMode().getValue()]);
 
                 image.setOnErrorType(OnErrorTypeEnum.ICON); //FIXME should we provide control of this to the user?
 
@@ -446,12 +408,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
                 JRDesignExpression imageExp = new JRDesignExpression();
                 imageExp.setText(column.getTextForExpression());
 
-                imageExp.setValueClassName(imageColumn.getValueClassNameForExpression());
                 image.setExpression(imageExp);
                 image.setHeight(getReport().getOptions().getDetailHeight());
                 image.setWidth(column.getWidth());
                 image.setX(column.getPosX());
-                image.setScaleImage(ScaleImageEnum.getByValue(imageColumn.getScaleMode().ordinal()));
+                image.setScaleImage(ScaleImageEnum.values()[imageColumn.getScaleMode().getValue()]);
 
                 applyStyleToElement(column.getStyle(), image);
 
@@ -509,7 +470,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
 		String text = "(("+ConditionStyleExpression.class.getName()+")$P{"+condition.getName()+"})."+CustomExpression.EVAL_METHOD_NAME+"("+evalMethodParams+")";
 		JRDesignExpression expression = new JRDesignExpression();
-		expression.setValueClass(Boolean.class);
 		expression.setText(text);
 		return expression;
 	}
@@ -538,7 +498,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             if (col.getHeaderMarkup() != null)
                 textField.setMarkup(col.getHeaderMarkup().toLowerCase());
 
-            expression.setValueClass(String.class);
 
             textField.setKey("header_" + col.getTitle());
             textField.setExpression(expression);
@@ -570,7 +529,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             //Set colspan
             JRDesignTextField spanTitle = new JRDesignTextField();
             JRDesignExpression colspanExpression = new JRDesignExpression();
-            colspanExpression.setValueClassName(String.class.getName());
             colspanExpression.setText("\"" + col.getColSpan().getTitle() + "\"");
 
             spanTitle.setExpression(colspanExpression);
@@ -837,7 +795,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         }
 
-        exp.setValueClassName(col.getValueClassNameForExpression());
         textField.setExpression(exp);
         textField.setWidth(col.getWidth());
         textField.setX(col.getPosX());
@@ -865,7 +822,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             int index = columnsGroups.indexOf(group);
 //            JRDesignGroup previousGroup = (JRDesignGroup) getDesign().getGroupsList().get(index);
             JRDesignGroup previousGroup = getJRGroupFromDJGroup(group);
-            textField.setPrintWhenGroupChanges(previousGroup);
+            textField.setPrintWhenGroupChanges(previousGroup.getName());
 
             /*
               Since a group column can share the style with non group columns, if oddRow coloring is enabled,
@@ -899,7 +856,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         			(jrstyle.getConditionalStyles() == null || jrstyle.getConditionalStyles().length == 0)) {
 	        	// No group column so this is a detail text field
 	    		JRDesignExpression expression = new JRDesignExpression();
-	    		expression.setValueClass(Boolean.class);
 	    		expression.setText(EXPRESSION_TRUE_WHEN_ODD);
 
 	    		Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
@@ -925,7 +881,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         if (getReport().getOptions().isPrintBackgroundOnOddRows() && Utils.isEmpty(column.getConditionalStyles())) {
             JRDesignExpression expression = new JRDesignExpression();
-            expression.setValueClass(Boolean.class);
             expression.setText(EXPRESSION_TRUE_WHEN_ODD);
 
             Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
@@ -952,7 +907,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
                 //ODD
                 JRDesignExpression expressionOdd = new JRDesignExpression();
-                expressionOdd.setValueClass(Boolean.class);
                 expressionOdd.setText("new java.lang.Boolean(" + EXPRESSION_TRUE_WHEN_ODD + ".booleanValue() && ((java.lang.Boolean)" + expStr + ").booleanValue() )");
 
                 Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
@@ -966,7 +920,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
                 //EVEN
                 JRDesignExpression expressionEven = new JRDesignExpression();
-                expressionEven.setValueClass(Boolean.class);
                 expressionEven.setText("new java.lang.Boolean(" + EXPRESSION_TRUE_WHEN_EVEN + ".booleanValue() && ((java.lang.Boolean)" + expStr + ").booleanValue() )");
 
                 JRDesignConditionalStyle condStyleEven = makeConditionalStyle(condition.getStyle());
@@ -986,7 +939,6 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         if (getReport().getOptions().isPrintBackgroundOnOddRows()) {
 
             JRDesignExpression expressionOdd = new JRDesignExpression();
-            expressionOdd.setValueClass(Boolean.class);
             expressionOdd.setText(EXPRESSION_TRUE_WHEN_ODD);
 
             Style oddRowBackgroundStyle = getReport().getOptions().getOddRowBackgroundStyle();
@@ -1000,12 +952,11 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
             //EVEN
             JRDesignExpression expressionEven = new JRDesignExpression();
-            expressionEven.setValueClass(Boolean.class);
             expressionEven.setText(EXPRESSION_TRUE_WHEN_EVEN);
 
             JRDesignConditionalStyle condStyleEven = new JRDesignConditionalStyle();
             condStyleEven.setBackcolor(jrstyle.getBackcolor());
-            condStyleEven.setMode(jrstyle.getModeValue());
+            condStyleEven.setMode(jrstyle.getMode());
             condStyleEven.setConditionExpression(expressionEven);
 
             jrstyle.addConditionalStyle(condStyleEven);
@@ -1112,7 +1063,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
     protected JRDesignChart createChart(DJChart djChart) {
         JRDesignGroup jrGroupChart = getJRGroupFromDJGroup(djChart.getColumnsGroup());
 
-        JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), djChart.getType());
+        JRDesignChart chart = new JRDesignChart(new JRDesignStyle().getDefaultStyleProvider(), ChartTypeEnum.values()[djChart.getType()]);
         JRDesignGroup parentGroup = getParent(jrGroupChart);
         List<JRDesignVariable> chartVariables = registerChartVariable(djChart);
         JRDesignChartDataset chartDataset = DataSetFactory.getDataset(djChart, jrGroupChart, parentGroup, chartVariables);
@@ -1120,7 +1071,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         interpeterOptions(djChart, chart);
 
         chart.setEvaluationTime(EvaluationTimeEnum.GROUP);
-        chart.setEvaluationGroup(jrGroupChart);
+        chart.setEvaluationGroup(jrGroupChart.getName());
         return chart;
     }
 
@@ -1189,23 +1140,26 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
                 ExpressionColumn expCol = (ExpressionColumn) col;
                 expression.setText(expCol.getTextForExpression());
-                expression.setValueClassName(expCol.getExpression().getClassName());
             } else {
+                PropertyColumn propCol = (PropertyColumn) col;
+                String valueClassName = propCol.getColumnProperty() != null ?
+                    propCol.getColumnProperty().getValueClassName() : null;
+                if (valueClassName == null) {
+                    throw new DJException("Column '" + col.getTitle() + "' has no valueClassName set for chart.");
+                }
                 try {
-                    clazz = Class.forName(((PropertyColumn) col).getColumnProperty().getValueClassName());
+                    clazz = Class.forName(valueClassName);
                 } catch (ClassNotFoundException e) {
                     throw new DJException("Exeption creating chart variable: " + e.getMessage(), e);
                 }
 
-                expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty() + "}");
-                expression.setValueClass(clazz);
+                expression.setText("$F{" + propCol.getColumnProperty().getProperty() + "}");
             }
 
             JRDesignVariable var = new JRDesignVariable();
-            var.setValueClass(clazz);
             var.setExpression(expression);
-            var.setCalculation(CalculationEnum.getByValue(chart.getOperation()));
-            var.setResetGroup(group);
+            var.setCalculation(CalculationEnum.values()[chart.getOperation()]);
+            var.setResetGroup(group.getName());
             var.setResetType(ResetTypeEnum.GROUP);
 
             //use the index as part of the name just because I may want 2
@@ -1316,23 +1270,26 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
                 ExpressionColumn expCol = (ExpressionColumn) col;
                 expression.setText(expCol.getTextForExpression());
-                expression.setValueClassName(expCol.getExpression().getClassName());
             } else {
+                PropertyColumn propCol = (PropertyColumn) col;
+                String valueClassName = propCol.getColumnProperty() != null ?
+                    propCol.getColumnProperty().getValueClassName() : null;
+                if (valueClassName == null) {
+                    throw new DJException("Column '" + col.getTitle() + "' has no valueClassName set for chart.");
+                }
                 try {
-                    clazz = Class.forName(((PropertyColumn) col).getColumnProperty().getValueClassName());
+                    clazz = Class.forName(valueClassName);
                 } catch (ClassNotFoundException e) {
                     throw new DJException("Exeption creating chart variable: " + e.getMessage(), e);
                 }
 
-                expression.setText("$F{" + ((PropertyColumn) col).getColumnProperty().getProperty() + "}");
-                expression.setValueClass(clazz);
+                expression.setText("$F{" + propCol.getColumnProperty().getProperty() + "}");
             }
 
             JRDesignVariable var = new JRDesignVariable();
-            var.setValueClass(clazz);
             var.setExpression(expression);
-            var.setCalculation(CalculationEnum.getByValue(chart.getOperation()));
-            var.setResetGroup(group);
+            var.setCalculation(CalculationEnum.values()[chart.getOperation()]);
+            var.setResetGroup(group.getName());
             var.setResetType(ResetTypeEnum.GROUP);
 
             //use the index as part of the name just because I may want 2

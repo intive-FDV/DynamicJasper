@@ -139,7 +139,6 @@ public class DynamicJasperHelper {
     private static void registerOtherFields(DynamicJasperDesign jd, List<ColumnProperty> fields) {
         for (ColumnProperty element : fields) {
             JRDesignField field = new JRDesignField();
-            field.setValueClassName(element.getValueClassName());
             field.setName(element.getProperty());
             try {
                 jd.addField(field);
@@ -198,7 +197,6 @@ public class DynamicJasperHelper {
         for (Parameter param  : dr.getParameters()) {
             JRDesignParameter jrparam = new JRDesignParameter();
             jrparam.setName(param.getName());
-            jrparam.setValueClassName(param.getClassName());
             if (param.getDefaultValueExpression() != null) {
                 jrparam.setDefaultValueExpression(new JRDesignExpression(param.getDefaultValueExpression()));
             }
@@ -474,11 +472,9 @@ public class DynamicJasperHelper {
                     if (value == null) //There are some Map implementations that allows nulls values, just go on
                         continue;
 
-//					parameter.setValueClassName(value.getClass().getCanonicalName());
                     Class clazz = value.getClass().getComponentType();
                     if (clazz == null)
                         clazz = value.getClass();
-                    parameter.setValueClass(clazz); //NOTE this is very strange
                     //when using an array as subreport-data-source, I must pass the parameter class name like this: value.getClass().getComponentType()
                     parameter.setName((String) key);
                     jd.addParameter(parameter);

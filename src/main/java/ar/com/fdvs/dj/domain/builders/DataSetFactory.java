@@ -97,7 +97,6 @@ public class DataSetFactory {
 			int index = vars.indexOf(var);
 			AbstractColumn col = djchart.getColumns().get(index);
 			exp3.setText("\"" + col.getTitle() + "\"");
-			exp3.setValueClass(String.class);
 	
 			//Here you can set subgroups of bars
 			serie.setCategoryExpression(exp2);
@@ -130,7 +129,6 @@ public class DataSetFactory {
 			int index = vars.indexOf(var1);
 			AbstractColumn col = djchart.getColumns().get(index);
 			exp3.setText("\"" + col.getTitle() + "\"");
-			exp3.setValueClass(String.class);
 
 			//Here you can set subgroups of bars
 			if (!djchart.getOptions().isUseColumnsAsCategorie()) {
@@ -182,14 +180,14 @@ public class DataSetFactory {
 	private static JRDesignExpression getExpressionFromVariable(JRDesignVariable var){
 		JRDesignExpression exp = new JRDesignExpression();
 		exp.setText("$V{" + var.getName() + "}");
-		exp.setValueClass(var.getValueClass());
 		return exp;
 	}
 
 	private static void setResetStyle(JRDesignChartDataset dataset, JRDesignGroup group, JRDesignGroup parentGroup){
 		//When to start a new chart? When the group's parent changes
-		dataset.setResetGroup(parentGroup);
-		if (dataset.getResetGroup().equals(group))
+		dataset.setResetGroup(parentGroup.getName());
+		String resetGroup = dataset.getResetGroup();
+		if (resetGroup != null && resetGroup.equals(group.getName()))
 			dataset.setResetType( DatasetResetTypeEnum.REPORT );
 		else
 			dataset.setResetType( DatasetResetTypeEnum.GROUP );

@@ -33,8 +33,8 @@ import ar.com.fdvs.dj.core.DJConstants;
 import ar.com.fdvs.dj.core.layout.ClassicLayoutManager;
 import ar.com.fdvs.dj.core.layout.LayoutManager;
 import ar.com.fdvs.dj.core.layout.ListLayoutManager;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import net.sf.jasperreports.export.Exporter;
+import net.sf.jasperreports.export.SimpleXlsReportConfiguration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,18 +71,16 @@ public class FormatInfoRegistry {
         return FORMAT_INFO.get(_format).getContentType();
     }
 
-    public JRExporter getExporter(final String _format) {
+    public Exporter getExporter(final String _format) {
         checkFormat(_format);
-        final JRExporter exporter = FORMAT_INFO.get(_format).getExporterInstance();
-        //FIXME migrate to Exporter
-//        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
+        return FORMAT_INFO.get(_format).getExporterInstance();
+    }
 
-        exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
-        exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
-        exporter.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
-        exporter.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
-       
-        return exporter;
+    public SimpleXlsReportConfiguration getXlsConfiguration() {
+        SimpleXlsReportConfiguration config = new SimpleXlsReportConfiguration();
+        config.setWhitePageBackground(false);
+        config.setRemoveEmptySpaceBetweenRows(true);
+        return config;
     }
 
     public LayoutManager getLayoutManager(final String _format) {
@@ -116,9 +114,9 @@ public class FormatInfoRegistry {
             return contentType;
         }
 
-        public JRExporter getExporterInstance() {
+        public Exporter getExporterInstance() {
             try {
-                return (JRExporter)Class.forName(exporterClass).newInstance();
+                return (Exporter)Class.forName(exporterClass).newInstance();
             } catch (Exception ex) {
                 return null;
             }

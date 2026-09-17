@@ -49,30 +49,30 @@ public class DJChartOptions extends DJBaseElement {
 	public static final byte POSITION_FOOTER = 1;
 	public static final byte POSITION_HEADER = 2;
 
-	public static final byte EDGE_TOP = EdgeEnum.TOP.ordinal();
-	public static final byte EDGE_BOTTOM = EdgeEnum.BOTTOM.ordinal();
-	public static final byte EDGE_LEFT = EdgeEnum.LEFT.ordinal();
-	public static final byte EDGE_RIGHT = EdgeEnum.RIGHT.ordinal();
+	public static final byte EDGE_TOP = (byte) 0; // EdgeEnum.TOP
+	public static final byte EDGE_BOTTOM = (byte) 1; // EdgeEnum.BOTTOM
+	public static final byte EDGE_LEFT = (byte) 2; // EdgeEnum.LEFT
+	public static final byte EDGE_RIGHT = (byte) 3; // EdgeEnum.RIGHT
 	
 	/**
 	 * Constant useful for specifying solid line style.
 	 */
-	public static final byte LINE_STYLE_SOLID =  LineStyleEnum.SOLID.ordinal();
+	public static final byte LINE_STYLE_SOLID = (byte) 0; // LineStyleEnum.SOLID
 
 	/**
 	 * Constant useful for specifying dashed line style.
 	 */
-	public static final byte LINE_STYLE_DASHED = LineStyleEnum.DASHED.ordinal();
+	public static final byte LINE_STYLE_DASHED = (byte) 1; // LineStyleEnum.DASHED
 
 	/**
 	 * Constant useful for specifying dotted line style.
 	 */
-	public static final byte LINE_STYLE_DOTTED = LineStyleEnum.DOTTED.ordinal();
+	public static final byte LINE_STYLE_DOTTED = (byte) 2; // LineStyleEnum.DOTTED
 
 	/**
 	 * Constant useful for specifying double line style.
 	 */
-	public static final byte LINE_STYLE_DOUBLE = LineStyleEnum.DOUBLE.ordinal();
+	public static final byte LINE_STYLE_DOUBLE = (byte) 3; // LineStyleEnum.DOUBLE
 	
 	private Color backColor;
 	private int height;
@@ -603,15 +603,15 @@ public class DJChartOptions extends DJBaseElement {
 		if (legendFont != null)
 			chart.setLegendFont(legendFont.transform());
 		if (legendPosition != null)
-			chart.setLegendPosition( EdgeEnum.getByValue(legendPosition) );
+			chart.setLegendPosition( EdgeEnum.values()[legendPosition] );
 		if (titlePosition != null)
-			chart.setTitlePosition( EdgeEnum.getByValue(titlePosition) );
+			chart.setTitlePosition( EdgeEnum.values()[titlePosition] );
 		
 		if (padding != null)
 			chart.getLineBox().setPadding(padding);
 		
 		if (lineStyle != null)
-			chart.getLineBox().getPen().setLineStyle( LineStyleEnum.getByValue(lineStyle) );
+			chart.getLineBox().getPen().setLineStyle( LineStyleEnum.values()[lineStyle] );
 		if (lineWidth != null)
 			chart.getLineBox().getPen().setLineWidth(lineWidth);
 		if (lineColor != null)

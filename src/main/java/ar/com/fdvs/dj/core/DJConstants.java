@@ -81,15 +81,15 @@ public interface DJConstants {
 	String QUERY_LANGUAGE_XPATH = "xPath";
 	String QUERY_LANGUAGE_MONDRIAN = "mdx";
 
-	byte WHEN_NO_DATA_TYPE_NO_PAGES = WhenNoDataTypeEnum.NO_PAGES.ordinal();
-	byte WHEN_NO_DATA_TYPE_BLANK_PAGE = WhenNoDataTypeEnum.BLANK_PAGE.ordinal();
-	byte WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL = WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL.ordinal();
-	byte WHEN_NO_DATA_TYPE_NO_DATA_SECTION = WhenNoDataTypeEnum.NO_DATA_SECTION.ordinal();
+	byte WHEN_NO_DATA_TYPE_NO_PAGES = (byte) 0; // WhenNoDataTypeEnum.NO_PAGES
+	byte WHEN_NO_DATA_TYPE_BLANK_PAGE = (byte) 1; // WhenNoDataTypeEnum.BLANK_PAGE
+	byte WHEN_NO_DATA_TYPE_ALL_SECTIONS_NO_DETAIL = (byte) 2; // WhenNoDataTypeEnum.ALL_SECTIONS_NO_DETAIL
+	byte WHEN_NO_DATA_TYPE_NO_DATA_SECTION = (byte) 3; // WhenNoDataTypeEnum.NO_DATA_SECTION
 
-	byte WHEN_RESOURCE_MISSING_TYPE_EMPTY = WhenResourceMissingTypeEnum.EMPTY.ordinal();
-	byte WHEN_RESOURCE_MISSING_TYPE_ERROR = WhenResourceMissingTypeEnum.ERROR.ordinal();
-	byte WHEN_RESOURCE_MISSING_TYPE_KEY = WhenResourceMissingTypeEnum.KEY.ordinal();
-	byte WHEN_RESOURCE_MISSING_TYPE_NULL = WhenResourceMissingTypeEnum.NULL.ordinal();
+	byte WHEN_RESOURCE_MISSING_TYPE_EMPTY = (byte) 2; // WhenResourceMissingTypeEnum.EMPTY
+	byte WHEN_RESOURCE_MISSING_TYPE_ERROR = (byte) 0; // WhenResourceMissingTypeEnum.ERROR
+	byte WHEN_RESOURCE_MISSING_TYPE_KEY = (byte) 3; // WhenResourceMissingTypeEnum.KEY
+	byte WHEN_RESOURCE_MISSING_TYPE_NULL = (byte) 1; // WhenResourceMissingTypeEnum.NULL
 
 	int SUBREPORT_PARAM_ORIGIN_FIELD = 1;
 	int SUBREPORT_PARAM_ORIGIN_PARAMETER = 2;

@@ -28,7 +28,6 @@ public class HyperLinkUtil {
 		String text = ExpressionUtils.createCustomExpressionInvocationText(djlink.getExpression(), name, false);
 		LayoutUtils.registerCustomExpressionParameter(design, name,hce);
 		JRDesignExpression hlpe = new JRDesignExpression();
-		hlpe.setValueClassName(hce.getClassName());
 		
 		hlpe.setText(text);
 		image.setHyperlinkReferenceExpression(hlpe);
@@ -40,7 +39,6 @@ public class HyperLinkUtil {
 			String tooltipText = ExpressionUtils.createCustomExpressionInvocationText(djlink.getExpression(), tooltipParameterName, false);
 			LayoutUtils.registerCustomExpressionParameter(design, tooltipParameterName,sExp);
 			JRDesignExpression tooltipExp = new JRDesignExpression();
-			tooltipExp.setValueClassName(sExp.getClassName());
 			tooltipExp.setText(tooltipText);
 			
 			image.setHyperlinkTooltipExpression(tooltipExp);
@@ -63,7 +61,6 @@ public class HyperLinkUtil {
 		String text = ExpressionUtils.createCustomExpressionInvocationText2(name);
 		LayoutUtils.registerCustomExpressionParameter(design,name,hce);
 		JRDesignExpression hlpe = new JRDesignExpression();
-		hlpe.setValueClassName(hce.getClassName());
 		
 		hlpe.setText(text);
 		textField.setHyperlinkReferenceExpression(hlpe);
@@ -77,7 +74,6 @@ public class HyperLinkUtil {
 			String tooltipText = ExpressionUtils.createCustomExpressionInvocationText2(tooltipParameterName);
 			LayoutUtils.registerCustomExpressionParameter(design,tooltipParameterName,sExp);
 			JRDesignExpression tooltipExp = new JRDesignExpression();
-			tooltipExp.setValueClassName(sExp.getClassName());
 			tooltipExp.setText(tooltipText);
 			
 			textField.setHyperlinkTooltipExpression(tooltipExp);

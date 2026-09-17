@@ -30,9 +30,9 @@
 package ar.com.fdvs.dj.output;
 
 import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRExporter;
-import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.export.Exporter;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -51,7 +51,7 @@ public class FileReportWriter extends ReportWriter {
 
     private static final Log LOGGER = LogFactory.getLog(FileReportWriter.class);
 
-    public FileReportWriter(final JasperPrint _jasperPrint, final JRExporter _exporter) {
+    public FileReportWriter(final JasperPrint _jasperPrint, final Exporter _exporter) {
         super(_jasperPrint, _exporter);
     }
 
@@ -59,7 +59,7 @@ public class FileReportWriter extends ReportWriter {
         LOGGER.info("entering FileReportWriter.writeTo()");
         final File file = File.createTempFile("djreport", ".tmp");
         try {
-            exporter.setParameter(JRExporterParameter.OUTPUT_FILE, file);
+            exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(file));
             exporter.exportReport();
             _response.setContentLength((int)file.length());
             copyStreams(new FileInputStream(file), _response.getOutputStream());
@@ -75,7 +75,7 @@ public class FileReportWriter extends ReportWriter {
         final File file = File.createTempFile("djreport", ".tmp");
 
         file.deleteOnExit();
-        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, file);
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(file));
         exporter.exportReport();
 
         return new FileInputStream(file);

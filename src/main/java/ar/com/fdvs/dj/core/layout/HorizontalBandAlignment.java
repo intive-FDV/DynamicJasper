@@ -63,7 +63,7 @@ public abstract class HorizontalBandAlignment {
 		}
 
 		public byte getAlignment() {
-			return HorizontalTextAlignEnum.RIGHT.ordinal();
+			return (byte) 2; // HorizontalTextAlignEnum.RIGHT
 		}
 	};
 
@@ -74,7 +74,7 @@ public abstract class HorizontalBandAlignment {
 		}
 
 		public byte getAlignment() {
-			return HorizontalTextAlignEnum.LEFT.ordinal();
+			return (byte) 0; // HorizontalTextAlignEnum.LEFT
 		}
 	};
 
@@ -85,7 +85,7 @@ public abstract class HorizontalBandAlignment {
 		}
 
 		public byte getAlignment() {
-			return HorizontalTextAlignEnum.CENTER.ordinal();
+			return (byte) 1; // HorizontalTextAlignEnum.CENTER
 		}
 	};
 

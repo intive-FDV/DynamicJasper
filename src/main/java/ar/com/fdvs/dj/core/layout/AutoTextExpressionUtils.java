@@ -73,7 +73,6 @@ public abstract class AutoTextExpressionUtils {
 
 		}
 		expression.setText( text );
-		expression.setValueClass(String.class);
 		return expression;
 	}
 
@@ -100,7 +99,6 @@ public abstract class AutoTextExpressionUtils {
 		String text = before + "+\" \" + \"" + dateFormatter.format(new Date()) + "\" +\" \" + " + after;
 //		expression.setText( "\"" + before + "\" + " + "\"" + new Date() + "\" + \"" + after + "\"");
 		expression.setText( text );
-		expression.setValueClass(String.class);
 		return expression;
 	}
 
