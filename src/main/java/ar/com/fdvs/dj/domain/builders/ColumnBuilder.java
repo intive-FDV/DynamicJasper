@@ -106,6 +106,102 @@ public class ColumnBuilder {
     private int columnType = COLUMN_TYPE_DEFAULT;
 	private static Random random = new Random();
 
+	// ============================================================
+	// Strategy Pattern - Internal implementation for OCP compliance
+	// ============================================================
+
+	/**
+	 * Internal strategy interface for column type construction.
+	 * Each strategy encapsulates the logic for building a specific column type.
+	 */
+	private interface ColumnTypeStrategy {
+		AbstractColumn build(ColumnBuilder builder);
+	}
+
+	/** Strategy for building image columns */
+	private static class ImageColumnStrategy implements ColumnTypeStrategy {
+		@Override
+		public AbstractColumn build(ColumnBuilder builder) {
+			return builder.buildSimpleImageColumn();
+		}
+	}
+
+	/** Strategy for building barcode columns */
+	private static class BarcodeColumnStrategy implements ColumnTypeStrategy {
+		@Override
+		public AbstractColumn build(ColumnBuilder builder) {
+			return builder.buildSimpleBarcodeColumn();
+		}
+	}
+
+	/** Strategy for building percentage columns */
+	private static class PercentageColumnStrategy implements ColumnTypeStrategy {
+		@Override
+		public AbstractColumn build(ColumnBuilder builder) {
+			return builder.buildPercentageColumn();
+		}
+	}
+
+	/** Strategy for building simple property columns */
+	private static class SimpleColumnStrategy implements ColumnTypeStrategy {
+		@Override
+		public AbstractColumn build(ColumnBuilder builder) {
+			return builder.buildSimpleColumn();
+		}
+	}
+
+	/** Strategy for building operation columns (math operations between columns) */
+	private static class OperationColumnStrategy implements ColumnTypeStrategy {
+		@Override
+		public AbstractColumn build(ColumnBuilder builder) {
+			return builder.buildOperationColumn();
+		}
+	}
+
+	/** Strategy for building expression columns (custom expressions) */
+	private static class ExpressionColumnStrategy implements ColumnTypeStrategy {
+		@Override
+		public AbstractColumn build(ColumnBuilder builder) {
+			return builder.buildExpressionColumn();
+		}
+	}
+
+	/**
+	 * Selects the appropriate strategy based on current builder state.
+	 * Order of conditions matches original if-else chain semantics.
+	 */
+	private ColumnTypeStrategy selectStrategy() {
+		if (columnType == COLUMN_TYPE_IMAGE) {
+			return new ImageColumnStrategy();
+		}
+		if (columnType == COLUMN_TYPE_BARCODE) {
+			return new BarcodeColumnStrategy();
+		}
+		if (percentageColumn != null) {
+			return new PercentageColumnStrategy();
+		}
+		if (columnProperty != null && customExpression == null) {
+			return new SimpleColumnStrategy();
+		}
+		if (!operationColumns.isEmpty()) {
+			return new OperationColumnStrategy();
+		}
+		// Default: expression column (customExpression should NOT be null at this point)
+		return new ExpressionColumnStrategy();
+	}
+
+	/**
+	 * Validates that required fields are present before building.
+	 */
+	private void validateRequiredFields() throws ColumnBuilderException {
+		if (customExpression == null && columnProperty == null
+				&& operationColumns.isEmpty() && percentageColumn == null) {
+			throw new ColumnBuilderException(
+				"Either a ColumnProperty or a CustomExpression or a PercentageColumn must be present");
+		}
+	}
+
+	// ============================================================
 
 	/**
 	 * For BARCODE columns
@@ -127,31 +223,16 @@ public class ColumnBuilder {
 		return new ColumnBuilder();
 	}
 
-	public AbstractColumn build() throws ColumnBuilderException{
-		if (customExpression == null && columnProperty == null && operationColumns.isEmpty() && percentageColumn == null){
-			throw new ColumnBuilderException("Either a ColumnProperty or a CustomExpression or a PercentageColumn must be present");
-		}
-
-		AbstractColumn col;
-		if (columnType == COLUMN_TYPE_IMAGE){
-			col = buildSimpleImageColumn();
-		}
-		else if (columnType == COLUMN_TYPE_BARCODE){
-			col = buildSimpleBarcodeColumn();
-		}
-		else if (percentageColumn != null) {
-			col = buildPercentageColumn();
-		}
-		else if (columnProperty != null && customExpression == null) { //FIXME Horrible!!! Can't I create an expression column with a propery also?
-			col = buildSimpleColumn();
-		} 
-		else if (!operationColumns.isEmpty()) {
-			col = buildOperationColumn();
-		} 
-		else { //customExpression should NOT be null
-			col = buildExpressionColumn();
-		}
-		return col;
+	/**
+	 * Builds the appropriate column type based on the builder's configuration.
+	 * Uses the Strategy pattern internally to delegate to type-specific builders.
+	 *
+	 * @return The constructed column
+	 * @throws ColumnBuilderException if required fields are missing
+	 */
+	public AbstractColumn build() throws ColumnBuilderException {
+		validateRequiredFields();
+		return selectStrategy().build(this);
 	}
 
 	/**
