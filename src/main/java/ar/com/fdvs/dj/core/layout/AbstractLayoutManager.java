@@ -135,6 +135,13 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      */
     protected final List<JRGroup> realGroups = new ArrayList<JRGroup>();
 
+    // Index caches for O(1) lookups - initialized in startLayout()
+    private Map<AbstractColumn, Integer> columnIndexCache;
+    private Map<JRGroup, Integer> realGroupIndexCache;
+    private Map<DJChart, Integer> chartIndexCache;
+    private Map<ar.com.fdvs.dj.domain.chart.DJChart, Integer> newChartIndexCache;
+    private Map<DJGroup, Integer> djGroupIndexCache;
+
     public Map<String, JRStyle> getReportStyles() {
         return reportStyles;
     }
@@ -259,6 +266,86 @@ public abstract class AbstractLayoutManager implements LayoutManager {
     protected void startLayout() {
         setColumnsFinalWidth();
         realGroups.addAll(getDesign().getGroupsList()); //Hold the original groups
+        initializeIndexCaches();
+    }
+
+    /**
+     * Initialize index caches for O(1) lookups instead of O(n) indexOf() calls.
+     * This significantly improves performance for reports with many columns/groups/charts.
+     */
+    private void initializeIndexCaches() {
+        // Cache column indices
+        List<AbstractColumn> columns = getReport().getColumns();
+        columnIndexCache = new HashMap<>(columns.size());
+        for (int i = 0; i < columns.size(); i++) {
+            columnIndexCache.put(columns.get(i), i);
+        }
+
+        // Cache realGroups indices
+        realGroupIndexCache = new HashMap<>(realGroups.size());
+        for (int i = 0; i < realGroups.size(); i++) {
+            realGroupIndexCache.put(realGroups.get(i), i);
+        }
+
+        // Cache DJGroup indices
+        List<DJGroup> djGroups = getReport().getColumnsGroups();
+        djGroupIndexCache = new HashMap<>(djGroups.size());
+        for (int i = 0; i < djGroups.size(); i++) {
+            djGroupIndexCache.put(djGroups.get(i), i);
+        }
+
+        // Cache chart indices (both old and new chart types)
+        List<DJChart> charts = getReport().getCharts();
+        chartIndexCache = new HashMap<>(charts.size());
+        for (int i = 0; i < charts.size(); i++) {
+            chartIndexCache.put(charts.get(i), i);
+        }
+
+        List<ar.com.fdvs.dj.domain.chart.DJChart> newCharts = getReport().getNewCharts();
+        newChartIndexCache = new HashMap<>(newCharts.size());
+        for (int i = 0; i < newCharts.size(); i++) {
+            newChartIndexCache.put(newCharts.get(i), i);
+        }
+    }
+
+    /**
+     * Get cached column index. Returns -1 if not found.
+     */
+    protected int getColumnIndex(AbstractColumn column) {
+        Integer index = columnIndexCache.get(column);
+        return index != null ? index : -1;
+    }
+
+    /**
+     * Get cached realGroup index. Returns -1 if not found.
+     */
+    protected int getRealGroupIndex(JRGroup group) {
+        Integer index = realGroupIndexCache.get(group);
+        return index != null ? index : -1;
+    }
+
+    /**
+     * Get cached DJGroup index. Returns -1 if not found.
+     */
+    protected int getDJGroupIndex(DJGroup group) {
+        Integer index = djGroupIndexCache.get(group);
+        return index != null ? index : -1;
+    }
+
+    /**
+     * Get cached chart index. Returns -1 if not found.
+     */
+    protected int getChartIndex(DJChart chart) {
+        Integer index = chartIndexCache.get(chart);
+        return index != null ? index : -1;
+    }
+
+    /**
+     * Get cached new chart index. Returns -1 if not found.
+     */
+    protected int getNewChartIndex(ar.com.fdvs.dj.domain.chart.DJChart chart) {
+        Integer index = newChartIndexCache.get(chart);
+        return index != null ? index : -1;
     }
 
     protected void endLayout() {
@@ -391,7 +478,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
                 image.setOnErrorType(OnErrorTypeEnum.ICON); //FIXME should we provide control of this to the user?
 
                 if (column.getLink() != null) {
-                    String name = "column_" + getReport().getColumns().indexOf(column);
+                    String name = "column_" + getColumnIndex(column);
                     HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(), column.getLink(), image, name);
                 }
 
@@ -417,7 +504,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
                 applyStyleToElement(column.getStyle(), image);
 
                 if (column.getLink() != null) {
-                    String name = "column_" + getReport().getColumns().indexOf(column);
+                    String name = "column_" + getColumnIndex(column);
                     HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(), column.getLink(), image, name);
                 }
 
@@ -431,7 +518,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
                     JRDesignTextField textField = generateTextFieldFromColumn(column, getReport().getOptions().getDetailHeight(), null);
 
                     if (column.getLink() != null) {
-                        String name = getDesign().getName() + "_column_" + getReport().getColumns().indexOf(column);
+                        String name = getDesign().getName() + "_column_" + getColumnIndex(column);
                         HyperLinkUtil.applyHyperLinkToElement((DynamicJasperDesign) getDesign(), column.getLink(), textField, name);
                     }
 
@@ -819,7 +906,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         JRDesignStyle jrstyle = (JRDesignStyle) textField.getStyle();
 
         if (group != null) {
-            int index = columnsGroups.indexOf(group);
+            int index = getDJGroupIndex(group);
 //            JRDesignGroup previousGroup = (JRDesignGroup) getDesign().getGroupsList().get(index);
             JRDesignGroup previousGroup = getJRGroupFromDJGroup(group);
             textField.setPrintWhenGroupChanges(previousGroup.getName());
@@ -1026,7 +1113,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             jrGroupChart.setExpression(parentGroup.getExpression());
             ((JRDesignSection) jrGroupChart.getGroupFooterSection()).addBand(new JRDesignBand());
             ((JRDesignSection) jrGroupChart.getGroupHeaderSection()).addBand(new JRDesignBand());
-            jrGroupChart.setName(jrGroupChart.getName() + "_Chart" + getReport().getCharts().indexOf(djChart));
+            jrGroupChart.setName(jrGroupChart.getName() + "_Chart" + getChartIndex(djChart));
         } catch (Exception e) {
             throw new DJException("Problem creating band for chart: " + e.getMessage(), e);
         }
@@ -1165,7 +1252,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
             //use the index as part of the name just because I may want 2
             //different types of chart from the very same column (with the same operation also) making the variables name to be duplicated
-            int chartIndex = getReport().getCharts().indexOf(chart);
+            int chartIndex = getChartIndex(chart);
             var.setName("CHART_[" + chartIndex + "_s" + serieNum + "+]_" + group.getName() + "_" + col.getTitle() + "_" + chart.getOperation());
 
             try {
@@ -1197,7 +1284,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             jrGroupChart.setExpression(parentGroup.getExpression());
             ((JRDesignSection) jrGroupChart.getGroupFooterSection()).addBand(new JRDesignBand());
             ((JRDesignSection) jrGroupChart.getGroupHeaderSection()).addBand(new JRDesignBand());
-            jrGroupChart.setName(jrGroupChart.getName() + "_Chart" + getReport().getCharts().indexOf(djChart));
+            jrGroupChart.setName(jrGroupChart.getName() + "_Chart" + getNewChartIndex(djChart));
         } catch (Exception e) {
             throw new DJException("Problem creating band for chart: " + e.getMessage(), e);
         }
@@ -1296,7 +1383,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
             //use the index as part of the name just because I may want 2
             //different types of chart from the very same column (with the same operation also) making the variables name to be duplicated
-            int chartIndex = getReport().getNewCharts().indexOf(chart);
+            int chartIndex = getNewChartIndex(chart);
             var.setName("CHART_[" + chartIndex + "_s" + serieNum + "+]_" + group.getName() + "_" + col.getTitle() + "_" + chart.getOperation());
 
             try {
@@ -1317,7 +1404,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      * @return The parent group of the given one. If the given one is the first one, it returns the same group
      */
     protected JRDesignGroup getParent(JRDesignGroup group) {
-        int index = realGroups.indexOf(group);
+        int index = getRealGroupIndex(group);
         return (index > 0) ? (JRDesignGroup) realGroups.get(index - 1) : group;
     }
 
@@ -1328,7 +1415,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
      * @return
      */
     protected JRDesignGroup getJRGroupFromDJGroup(DJGroup group) {
-        int index = getReport().getColumnsGroups().indexOf(group);
+        int index = getDJGroupIndex(group);
         return (JRDesignGroup) realGroups.get(index);
     }
 

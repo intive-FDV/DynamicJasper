@@ -86,9 +86,11 @@ import org.apache.commons.logging.LogFactory;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Main Layout Manager recommended for most cases.<br>
@@ -110,11 +112,15 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 	protected final Map<String, Object> referencesMap = new HashMap<String, Object>();
 
+	// Cache for visible columns - computed once per layout
+	private List<AbstractColumn> visibleColumnsCache;
+
 	public Map<String, Object> getReferencesMap() {
 		return referencesMap;
 	}
 
 	protected void startLayout() {
+		initializeVisibleColumnsCache(); // Must be before super.startLayout() which uses getVisibleColumns()
 		super.startLayout();
 		generateTitleBand();
 		generateHeaderBand();
@@ -224,18 +230,33 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	}
 
 	/**
-	 * Returns a list with the columns that are visible.
-	 * Invisible column are the one whose group is configured with hideColumn = true (in the GroupLayout)
-	 * @return
+	 * Initialize the visible columns cache. Called once during startLayout().
+	 * Uses a Set for O(1) removal instead of O(n) ArrayList.remove().
 	 */
-	protected List<AbstractColumn> getVisibleColumns() {
-		List<AbstractColumn> visibleColums = new ArrayList<AbstractColumn>(getReport().getColumns());
+	private void initializeVisibleColumnsCache() {
+		Set<AbstractColumn> hiddenColumns = new HashSet<>();
 		for (DJGroup group : getReport().getColumnsGroups()) {
 			if (group.getLayout().isHideColumn()) {
-				visibleColums.remove(group.getColumnToGroupBy());
+				hiddenColumns.add(group.getColumnToGroupBy());
 			}
 		}
-		return visibleColums;
+
+		visibleColumnsCache = new ArrayList<>();
+		for (AbstractColumn column : getReport().getColumns()) {
+			if (!hiddenColumns.contains(column)) {
+				visibleColumnsCache.add(column);
+			}
+		}
+	}
+
+	/**
+	 * Returns a list with the columns that are visible.
+	 * Invisible column are the one whose group is configured with hideColumn = true (in the GroupLayout)
+	 * @return cached list of visible columns (computed once in startLayout)
+	 */
+	@Override
+	protected List<AbstractColumn> getVisibleColumns() {
+		return visibleColumnsCache;
 	}
 
 	/**
