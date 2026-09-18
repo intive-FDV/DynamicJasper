@@ -61,6 +61,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Helper class for running a report and some other DJ related stuff
@@ -70,8 +71,6 @@ public class DynamicJasperHelper {
     private static final Log log = LogFactory.getLog(DynamicJasperHelper.class);
     public static final String DEFAULT_XML_ENCODING = "UTF-8";
     private static final String DJ_RESOURCE_BUNDLE = "dj-messages";
-
-    private static final Random random = new Random(System.currentTimeMillis());
 
     static {
         // Enable legacy text measuring to prevent cumulative vertical shift in JasperReports 6.21+
@@ -187,7 +186,7 @@ public class DynamicJasperHelper {
             }
 
             //Force a unique name to the report
-            jd.setName("" + jd.getName() + "_" + random.nextInt(10000));
+            jd.setName("" + jd.getName() + "_" + ThreadLocalRandom.current().nextInt(10000));
 
             log.debug("The name for this report will be: " + jd.getName());
 
