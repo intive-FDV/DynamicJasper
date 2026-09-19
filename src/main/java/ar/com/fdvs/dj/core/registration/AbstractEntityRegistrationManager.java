@@ -76,12 +76,11 @@ public abstract class AbstractEntityRegistrationManager implements DJConstants {
 		this.layoutManager = layoutManager;
 	}
 
-	public final void registerEntities(Collection entities) throws EntitiesRegistrationException {
+	public final void registerEntities(Collection<? extends Entity> entities) throws EntitiesRegistrationException {
 //		log.debug("Registering entities: " + this.getClass().getName());
 		try {
-			if (entities!=null) {
-				for (Object entity1 : entities) {
-					Entity entity = (Entity) entity1;
+			if (entities != null) {
+				for (Entity entity : entities) {
 					registerEntity(entity);
 				}
 			}

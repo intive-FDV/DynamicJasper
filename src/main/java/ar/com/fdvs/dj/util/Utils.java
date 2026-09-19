@@ -23,12 +23,12 @@ public class Utils {
 	 * @param col
 	 * @return
 	 */
-	public static boolean isEmpty(Collection col) {
+	public static boolean isEmpty(Collection<?> col) {
 		return col == null || col.isEmpty();
 
 	}
 
-	public static void addNotNull(Collection col, Object obj){
+	public static <T> void addNotNull(Collection<T> col, T obj){
 		if (col == null || obj == null)
 			return;
 
@@ -48,7 +48,7 @@ public class Utils {
 				BeanUtils.copyProperties(dest, orig);
 
 				PropertyUtils putils = new PropertyUtils();
-	            PropertyDescriptor origDescriptors[] = putils.getPropertyDescriptors(orig);
+	            PropertyDescriptor[] origDescriptors = putils.getPropertyDescriptors(orig);
 
 				for (PropertyDescriptor origDescriptor : origDescriptors) {
 					String name = origDescriptor.getName();
@@ -56,8 +56,8 @@ public class Utils {
 						continue; // No point in trying to set an object's class
 					}
 
-					Class propertyType = origDescriptor.getPropertyType();
-					if (!Boolean.class.equals(propertyType) && !(Boolean.class.equals(propertyType)))
+					Class<?> propertyType = origDescriptor.getPropertyType();
+					if (!Boolean.class.equals(propertyType))
 						continue;
 
 					if (!putils.isReadable(orig, name)) { //because of bad convention

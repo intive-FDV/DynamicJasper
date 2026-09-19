@@ -55,7 +55,7 @@ public class DJChartOptions extends DJBaseElement {
 	private boolean showLegend;
 	private boolean showLabels;
 	private byte border;
-	private List colors;
+	private List<Color> colors;
 	private boolean useColumnsAsCategorie = false;
 
 	public DJChartOptions() {
@@ -75,7 +75,7 @@ public class DJChartOptions extends DJBaseElement {
 
 	public DJChartOptions(boolean showLegend, Color backColor, int height,
 			int width, boolean centered, byte position, int y, int x,
-			boolean showLabels, byte border, List colors) {
+			boolean showLabels, byte border, List<Color> colors) {
 		this.showLegend = showLegend;
 		this.backColor = backColor;
 		this.height = height;
@@ -169,11 +169,11 @@ public class DJChartOptions extends DJBaseElement {
 		this.border = border;
 	}
 
-	public List getColors() {
+	public List<Color> getColors() {
 		return colors;
 	}
 
-	public void setColors(List colors) {
+	public void setColors(List<Color> colors) {
 		this.colors = colors;
 	}
 

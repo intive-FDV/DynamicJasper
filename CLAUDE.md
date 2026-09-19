@@ -6,8 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 DynamicJasper (DJ) is a Java library that provides a fluent API for creating JasperReports dynamically at runtime without using graphical design tools. It abstracts JasperReports complexity, automatically handling layout, column positioning, and report element generation.
 
-**Version:** 5.3.9
-**Java:** 8+
+**Version:** 7.0.0
+**Java:** Bytecode 8 (runtime JDK 8+). Build and tests with JDK 21.
 **Build Tool:** Maven 3.x
 **Core Dependency:** JasperReports 7.0.0-7.0.8
 **License:** LGPL v2.1

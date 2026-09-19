@@ -707,7 +707,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         int printableArea = report.getOptions().getColumnWidth();
 
         //Create a list with only the visible columns.
-        List visibleColums = getVisibleColumns();
+        List<AbstractColumn> visibleColums = getVisibleColumns();
 
 
         if (report.getOptions().isUseFullPageWidth()) {
@@ -715,8 +715,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             int notRezisableWidth = 0;
 
             //Store in a variable the total with of all visible columns
-            for (Object visibleColum : visibleColums) {
-                AbstractColumn col = (AbstractColumn) visibleColum;
+            for (AbstractColumn col : visibleColums) {
                 columnsWidth += col.getWidth();
                 if (col.isFixedWidth())
                     notRezisableWidth += col.getWidth();
@@ -735,17 +734,18 @@ public abstract class AbstractLayoutManager implements LayoutManager {
             int colFinalWidth;
 
             //Select the non-resizable columns
-            Collection resizableColumns = (Collection)visibleColums.stream().filter(i-> !((AbstractColumn)i).isFixedWidth())
-              .collect(Collectors.toList());
+            List<AbstractColumn> resizableColumns = visibleColums.stream()
+                    .filter(col -> !col.isFixedWidth())
+                    .collect(Collectors.toList());
 
             //Finally, set the new width to the resizable columns
-            for (Iterator iter = resizableColumns.iterator(); iter.hasNext(); ) {
-                AbstractColumn col = (AbstractColumn) iter.next();
+            for (int i = 0; i < resizableColumns.size(); i++) {
+                AbstractColumn col = resizableColumns.get(i);
 
-                if (!iter.hasNext()) {
+                if (i == resizableColumns.size() - 1) {
                     col.setWidth(printableArea - notRezisableWidth - acumulated);
                 } else {
-                    colFinalWidth = (new Float(col.getWidth() * factor)).intValue();
+                    colFinalWidth = (int) (col.getWidth() * factor);
                     acumulated += colFinalWidth;
                     col.setWidth(colFinalWidth);
                 }
@@ -754,8 +754,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
 
         // If the columns width changed, the X position must be setted again.
         int posx = 0;
-        for (Object visibleColum : visibleColums) {
-            AbstractColumn col = (AbstractColumn) visibleColum;
+        for (AbstractColumn col : visibleColums) {
             col.setPosX(posx);
             posx += col.getWidth();
         }
@@ -1189,9 +1188,8 @@ public abstract class AbstractLayoutManager implements LayoutManager {
         //colors
         if (options.getColors() != null) {
             int i = 1;
-            for (Iterator iter = options.getColors().iterator(); iter.hasNext(); i++) {
-                Color color = (Color) iter.next();
-                chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(i, color));
+            for (Color color : options.getColors()) {
+                chart.getPlot().getSeriesColors().add(new JRBaseChartPlot.JRBaseSeriesColor(i++, color));
             }
         }
         //Chart-dependent options
@@ -1209,7 +1207,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
     protected List<JRDesignVariable> registerChartVariable(DJChart chart) {
         //FIXME aca hay que iterar por cada columna. Cambiar DJChart para que tome muchas
         JRDesignGroup group = getJRGroupFromDJGroup(chart.getColumnsGroup());
-        List<JRDesignVariable> vars = new ArrayList<JRDesignVariable>();
+        List<JRDesignVariable> vars = new ArrayList<>();
 
         int serieNum = 0;
         for (Object o : chart.getColumns()) {
@@ -1321,7 +1319,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
     protected JRDesignChart createChart(ar.com.fdvs.dj.domain.chart.DJChart djChart, String name) {
         JRDesignGroup jrGroupChart = getChartColumnsGroup(djChart);
         JRDesignGroup parentGroup = getParent(jrGroupChart);
-        Map chartVariables = registerChartVariable(djChart);
+        Map<AbstractColumn, JRDesignVariable> chartVariables = registerChartVariable(djChart);
         return djChart.transform((DynamicJasperDesign) getDesign(), name, jrGroupChart, parentGroup, chartVariables, getReport().getOptions().getPrintableWidth());
     }
 
@@ -1334,7 +1332,7 @@ public abstract class AbstractLayoutManager implements LayoutManager {
     protected Map<AbstractColumn, JRDesignVariable> registerChartVariable(ar.com.fdvs.dj.domain.chart.DJChart chart) {
         //FIXME aca hay que iterar por cada columna. Cambiar DJChart para que tome muchas
         JRDesignGroup group = getChartColumnsGroup(chart);
-        Map<AbstractColumn, JRDesignVariable> vars = new HashMap<AbstractColumn, JRDesignVariable>();
+        Map<AbstractColumn, JRDesignVariable> vars = new HashMap<>();
 
         int serieNum = 0;
         for (Object o : chart.getDataset().getColumns()) {

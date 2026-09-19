@@ -55,7 +55,7 @@ public class FormatInfoRegistry {
 	public static final String EXPORTER_CLASS_RTF = "net.sf.jasperreports.engine.export.JRRtfExporter";
 
 	
-    private static final Map<String, FormatInfo> FORMAT_INFO = new HashMap<String, FormatInfo>();
+    private static final Map<String, FormatInfo> FORMAT_INFO = new HashMap<>();
     static {
         FORMAT_INFO.put(DJConstants.FORMAT_CSV, new FormatInfo("text/plain", EXPORTER_CLASS_CSV, ClassicLayoutManager.class.getName()));
         FORMAT_INFO.put(DJConstants.FORMAT_HTML, new FormatInfo("text/html", EXPORTER_CLASS_HTML, ClassicLayoutManager.class.getName()));
@@ -117,7 +117,7 @@ public class FormatInfoRegistry {
 
         public Exporter getExporterInstance() {
             try {
-                return (Exporter)Class.forName(exporterClass).newInstance();
+                return (Exporter) Class.forName(exporterClass).getDeclaredConstructor().newInstance();
             } catch (Exception ex) {
                 return null;
             }
@@ -125,7 +125,7 @@ public class FormatInfoRegistry {
 
         public LayoutManager getLayoutManagerInstance() {
             try {
-                return (LayoutManager)Class.forName(layoutManagerClass).newInstance();
+                return (LayoutManager) Class.forName(layoutManagerClass).getDeclaredConstructor().newInstance();
             } catch (Exception ex) {
                 return null;
             }

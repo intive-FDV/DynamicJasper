@@ -98,7 +98,7 @@ public class DJServletHelper {
         // Note: HTML image handling changed in JR 7.x - this method may not work correctly
         final ReportWriter reportWriter = ReportWriterFactory.build(pageTreshold.get()).getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
 
-        Map imagesMap = new HashMap();
+        Map<String, Object> imagesMap = new HashMap<>();
         Exporter exporter = reportWriter.getExporter();
 
         setupParameters(request, imageServletUrl, jasperPrint, imagesMap, exporter);
@@ -135,7 +135,7 @@ public class DJServletHelper {
         // Note: HTML image handling changed in JR 7.x - this method may not work correctly
         final ReportWriter reportWriter = ReportWriterFactory.build(pageTreshold.get()).getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
 
-        Map imagesMap = new HashMap();
+        Map<String, Object> imagesMap = new HashMap<>();
         Exporter exporter = reportWriter.getExporter();
 
         setupParameters(request, imageServletUrl, jasperPrint, imagesMap, exporter);
@@ -145,7 +145,7 @@ public class DJServletHelper {
 
     }
 
-    private static void setupParameters(HttpServletRequest request, String imageServletUrl, JasperPrint jasperPrint, Map imagesMap, Exporter exporter) {
+    private static void setupParameters(HttpServletRequest request, String imageServletUrl, JasperPrint jasperPrint, Map<String, Object> imagesMap, Exporter exporter) {
         // Note: JRHtmlExporterParameter and ImageServlet removed in JR 7.x
         // This method no longer works - HTML image handling requires new JR 7 HtmlResourceHandler API
 

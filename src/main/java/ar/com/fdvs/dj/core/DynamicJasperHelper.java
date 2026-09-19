@@ -224,7 +224,7 @@ public class DynamicJasperHelper {
         return generateJasperPrint(dr, layoutManager, ds, new HashMap<String, Object>());
     }
 
-    public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Collection collection) throws JRException {
+    public static JasperPrint generateJasperPrint(DynamicReport dr, LayoutManager layoutManager, Collection<?> collection) throws JRException {
         JRDataSource ds = new JRBeanCollectionDataSource(collection);
         return generateJasperPrint(dr, layoutManager, ds, new HashMap<String, Object>());
     }
@@ -509,18 +509,17 @@ public class DynamicJasperHelper {
      * @return
      * @throws JRException
      */
-    public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams) throws JRException {
+    public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map<String, Object> generatedParams) throws JRException {
         log.info("generating JasperReport (DynamicReport dr, LayoutManager layoutManager, Map generatedParams)");
         return generateJasperReport(dr, layoutManager, generatedParams, "r");
     }
 
-    @SuppressWarnings("unchecked")
-    public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map generatedParams, String nameprefix) throws JRException {
+    public static JasperReport generateJasperReport(DynamicReport dr, LayoutManager layoutManager, Map<String, Object> generatedParams, String nameprefix) throws JRException {
         log.info("generating JasperReport with prefix: " + nameprefix);
         JasperReport jr;
         if (generatedParams == null) {
             log.warn("null parameters map passed to DynamicJasperHelper, you wont be able to retrieve some generated values during the layout process.");
-            generatedParams = new HashMap();
+            generatedParams = new HashMap<>();
         }
 
         visitSubreports(dr, generatedParams);
