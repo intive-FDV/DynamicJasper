@@ -38,7 +38,26 @@ mvn clean install -Psources
 
 # Generate site documentation
 mvn site -Psite
+
+# Run tests with coverage report
+mvn clean verify -Pcoverage
+# View: target/site/jacoco/index.html
 ```
+
+## Code Coverage Requirements
+
+**Minimum coverage: 80% instruction coverage**
+
+When adding new code or modifying existing code:
+- Run `mvn clean verify -Pcoverage` to generate coverage report
+- Ensure overall instruction coverage stays >= 80%
+- New code should have appropriate unit tests
+
+Current low-coverage areas needing attention:
+- `ar.com.fdvs.dj.util` (65%)
+- `ar.com.fdvs.dj.domain.builders` (67%)
+- `ar.com.fdvs.dj.domain` (69%)
+- `ar.com.fdvs.dj.core` (69%)
 
 ## Core Architecture
 
