@@ -1699,7 +1699,7 @@ public class DynamicReportBuilder {
     }
 
     public DynamicReportBuilder addWatermark(String text, Font font, Color color, int angle) {
-        return addWatermark(new DJWaterMark(text, font, Color.cyan, angle));
+        return addWatermark(new DJWaterMark(text, font, color, angle));
     }
 
     public DynamicReportBuilder setJasperDesignDecorator(JasperDesignDecorator jasperDesignDecorator) {
