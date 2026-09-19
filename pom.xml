@@ -101,6 +101,9 @@
                 <configuration>
                   <archive>
                     <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+                    <manifestEntries>
+                        <Automatic-Module-Name>${java.module.name}</Automatic-Module-Name>
+                    </manifestEntries>
                   </archive>
                 </configuration>
                 <executions>
@@ -764,5 +767,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.build.version>21</java.build.version>
         <java.release.version>8</java.release.version>
+        <java.module.name>ar.com.fdvs.dynamicjasper</java.module.name>
     </properties>
 </project>
