@@ -53,13 +53,13 @@
         content and layout of the report elements are handled by the DJ
         API.
 
-        http://dynamicjasper.com
+        https://intive-fdv.github.io/DynamicJasper/
 
     </description>
-    <url>https://github.com/FDVSolutions/DynamicJasper</url>
+    <url>https://github.com/intive-FDV/DynamicJasper</url>
     <issueManagement>
         <system>GitHub Tracker</system>
-        <url>https://github.com/FDVSolutions/DynamicJasper/issues</url>
+        <url>https://github.com/intive-FDV/DynamicJasper/issues</url>
     </issueManagement>
     <inceptionYear>2006</inceptionYear>
     <build>
@@ -202,6 +202,12 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>0.8.12</version>
+                <configuration>
+                    <excludes>
+                        <exclude>**/DJJRJavacCompiler.class</exclude>
+                        <exclude>**/DJJRJdk13Compiler.class</exclude>
+                    </excludes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>

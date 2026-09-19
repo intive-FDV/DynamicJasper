@@ -29,18 +29,28 @@
 
 package ar.com.fdvs.dj.domain.builders;
 
+import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.Style;
+import ar.com.fdvs.dj.core.BarcodeTypes;
+import ar.com.fdvs.dj.domain.constants.DJVariableResetType;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.GroupLayout;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -415,6 +425,398 @@ class FastReportBuilderTest {
             DynamicReport report = builder.build();
 
             assertEquals(25, report.getOptions().getDetailHeight());
+        }
+    }
+
+    @Nested
+    @DisplayName("Image Columns")
+    class ImageColumns {
+
+        @Test
+        void addImageColumn() throws Exception {
+            builder.addImageColumn("Photo", "photo", 100, false, ImageScaleMode.FILL);
+            DynamicReport report = builder.build();
+            assertEquals(1, report.getColumns().size());
+        }
+
+        @Test
+        void addImageColumnWithStyle() throws Exception {
+            Style style = new Style();
+            builder.addImageColumn("Photo", "photo", 100, false, ImageScaleMode.FILL, style);
+            DynamicReport report = builder.build();
+            assertEquals(1, report.getColumns().size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Barcode Columns")
+    class BarcodeColumns {
+
+        @Test
+        void addBarcodeColumn() throws Exception {
+            builder.addBarcodeColumn("Barcode", "code", String.class.getName(),
+                    BarcodeTypes.EAN128, true, 150, false, ImageScaleMode.FILL);
+            DynamicReport report = builder.build();
+            assertEquals(1, report.getColumns().size());
+        }
+
+        @Test
+        void addBarcodeColumnWithStyle() throws Exception {
+            Style style = new Style();
+            builder.addBarcodeColumn("Barcode", "code", String.class.getName(),
+                    BarcodeTypes.CODE_128, true, 150, false, ImageScaleMode.FILL, style);
+            DynamicReport report = builder.build();
+            assertEquals(1, report.getColumns().size());
+        }
+
+        @Test
+        void addBarcodeColumnWithChecksum() throws Exception {
+            Style style = new Style();
+            builder.addBarcodeColumn("Barcode", "code", String.class.getName(),
+                    BarcodeTypes.CODE_39, true, true, "AI", 150, false, ImageScaleMode.FILL, style);
+            DynamicReport report = builder.build();
+            assertEquals(1, report.getColumns().size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Crosstab Integration")
+    class CrosstabIntegration {
+
+        @Test
+        void addSummaryCrosstab() throws Exception {
+            DJCrosstab crosstab = new CrosstabBuilder()
+                    .setHeight(100)
+                    .setWidth(500)
+                    .addRow("Product", "product", String.class.getName(), false)
+                    .addColumn("State", "state", String.class.getName(), false)
+                    .addMeasure("amount", Float.class.getName(), DJCalculation.SUM, "Amount", null)
+                    .build();
+
+            builder.addSummaryCrosstab(crosstab);
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+    }
+
+    @Nested
+    @DisplayName("Style Variations")
+    class StyleVariations {
+
+        @Test
+        void addColumnWithStyleAndHeaderStyle() throws Exception {
+            Style style = new Style();
+            Style headerStyle = new Style();
+            headerStyle.setFont(Font.ARIAL_MEDIUM_BOLD);
+
+            builder.addColumn("Name", "name", String.class.getName(), 100, style, headerStyle);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getColumns().size());
+        }
+
+        @Test
+        void addColumnWithFixedWidthAndPattern() throws Exception {
+            Style style = new Style();
+            builder.addColumn("Amount", "amount", Float.class.getName(), 90, true, "$ #,##0.00", style);
+            DynamicReport report = builder.build();
+            assertEquals(1, report.getColumns().size());
+        }
+
+        @Test
+        void addColumnWithFieldDescription() throws Exception {
+            Style style = new Style();
+            builder.addColumn("Name", "name", String.class.getName(), 100, false, null, style, "Field description");
+            DynamicReport report = builder.build();
+            assertEquals(1, report.getColumns().size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Group Variables Extended")
+    class GroupVariablesExtended {
+
+        @Test
+        void addGroupVariableInHeader() throws Exception {
+            builder.addColumn("State", "state", String.class.getName(), 100);
+            builder.addColumn("Amount", "amount", Float.class.getName(), 80);
+            builder.addGroups(1);
+
+            builder.addGroupVariable("header", 1, 2, DJCalculation.SUM, null);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report);
+        }
+
+        @Test
+        void addHeaderVariableWithFormatter() throws Exception {
+            builder.addColumn("State", "state", String.class.getName(), 100);
+            builder.addColumn("Amount", "amount", Float.class.getName(), 80);
+            builder.addGroups(1);
+
+            DJValueFormatter formatter = new DJValueFormatter() {
+                public Object evaluate(Object value, Map fields, Map variables, Map parameters) {
+                    return "Total: " + value;
+                }
+                public String getClassName() {
+                    return String.class.getName();
+                }
+            };
+
+            builder.addHeaderVariable(1, 2, DJCalculation.SUM, null, formatter);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report);
+        }
+
+        @Test
+        void addFooterVariableWithFormatter() throws Exception {
+            builder.addColumn("State", "state", String.class.getName(), 100);
+            builder.addColumn("Amount", "amount", Float.class.getName(), 80);
+            builder.addGroups(1);
+
+            DJValueFormatter formatter = new DJValueFormatter() {
+                public Object evaluate(Object value, Map fields, Map variables, Map parameters) {
+                    return value;
+                }
+                public String getClassName() {
+                    return String.class.getName();
+                }
+            };
+
+            builder.addFooterVariable(1, 2, DJCalculation.SUM, null, formatter);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getColumnsGroups().size());
+        }
+
+        @Test
+        void addGroupVariableWithFormatterInFooter() throws Exception {
+            builder.addColumn("State", "state", String.class.getName(), 100);
+            builder.addColumn("Amount", "amount", Float.class.getName(), 80);
+            builder.addGroups(1);
+
+            DJValueFormatter formatter = new DJValueFormatter() {
+                public Object evaluate(Object value, Map fields, Map variables, Map parameters) {
+                    return value;
+                }
+                public String getClassName() {
+                    return String.class.getName();
+                }
+            };
+
+            builder.addGroupVariable(DJConstants.FOOTER, 1, 2, DJCalculation.SUM, null, formatter);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getColumnsGroups().size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Groups with Layout")
+    class GroupsWithLayout {
+
+        @Test
+        void addGroupsWithLayout() throws Exception {
+            builder.addColumn("State", "state", String.class.getName(), 100)
+                   .addColumn("Amount", "amount", Float.class.getName(), 80)
+                   .addGroups(1, GroupLayout.VALUE_IN_HEADER);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getColumnsGroups().size());
+            assertEquals(GroupLayout.VALUE_IN_HEADER, report.getColumnsGroups().get(0).getLayout());
+        }
+    }
+
+    @Nested
+    @DisplayName("Custom Expression Columns")
+    class CustomExpressionColumns {
+
+        private final CustomExpression stringExpression = new CustomExpression() {
+            public Object evaluate(Map fields, Map variables, Map parameters) {
+                return "computed";
+            }
+            public String getClassName() {
+                return String.class.getName();
+            }
+        };
+
+        @Test
+        void addColumnWithCustomExpression() throws Exception {
+            builder.addColumn("Computed", stringExpression, 100, false, null, null);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getColumns().size());
+            assertEquals("Computed", report.getColumns().get(0).getTitle());
+        }
+
+        @Test
+        void addImageColumnWithCustomExpression() throws Exception {
+            CustomExpression imageExpression = new CustomExpression() {
+                public Object evaluate(Map fields, Map variables, Map parameters) {
+                    return null;
+                }
+                public String getClassName() {
+                    return InputStream.class.getName();
+                }
+            };
+
+            builder.addImageColumn("Image", imageExpression, 100, false, ImageScaleMode.FILL, null);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getColumns().size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Image Column Variations")
+    class ImageColumnVariations {
+
+        @Test
+        void addImageColumnWithClassName() throws Exception {
+            builder.addImageColumn("Logo", "logo", InputStream.class.getName(), 80, false, ImageScaleMode.FILL, null);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getColumns().size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Numeric Type Style Guessing")
+    class NumericTypeStyleGuessing {
+
+        @Test
+        void addLongColumnGetsNumberStyle() throws Exception {
+            builder.addColumn("Count", "count", Long.class.getName(), 80);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report.getColumns().get(0).getStyle());
+        }
+
+        @Test
+        void addDoubleColumnGetsCurrencyStyle() throws Exception {
+            builder.addColumn("Price", "price", Double.class.getName(), 80);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report.getColumns().get(0).getStyle());
+            assertEquals("$ #.00", report.getColumns().get(0).getPattern());
+        }
+
+        @Test
+        void addTimestampColumnGetsDatePattern() throws Exception {
+            builder.addColumn("Created", "created", Timestamp.class.getName(), 120);
+            DynamicReport report = builder.build();
+
+            // Timestamp extends Date, so guessStyle applies the Date pattern first
+            assertEquals("dd/MM/yy", report.getColumns().get(0).getPattern());
+        }
+    }
+
+    @Nested
+    @DisplayName("Variables")
+    class ReportVariables {
+
+        private final CustomExpression amountExpression = new CustomExpression() {
+            public Object evaluate(Map fields, Map variables, Map parameters) {
+                return fields.get("amount");
+            }
+            public String getClassName() {
+                return Float.class.getName();
+            }
+        };
+
+        @Test
+        void addVariable() throws Exception {
+            builder.addVariable("totalAmount", DJCalculation.SUM, amountExpression);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getVariables().size());
+            assertEquals("totalAmount", report.getVariables().get(0).getName());
+        }
+
+        @Test
+        void addVariableWithResetType() throws Exception {
+            builder.addColumn("State", "state", String.class.getName(), 100);
+            builder.addColumn("Amount", "amount", Float.class.getName(), 80);
+            builder.addGroups(1);
+
+            builder.addVariable("groupTotal", DJCalculation.SUM, amountExpression,
+                    amountExpression, DJVariableResetType.GROUP, 1);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getVariables().size());
+        }
+
+        @Test
+        void addVariableWithInvalidResetGroupThrows() throws Exception {
+            builder.addColumn("Amount", "amount", Float.class.getName(), 80);
+
+            assertThrows(BuilderException.class, () ->
+                    builder.addVariable("bad", DJCalculation.SUM, amountExpression,
+                            amountExpression, DJVariableResetType.GROUP, 1));
+        }
+    }
+
+    @Nested
+    @DisplayName("Group Crosstabs")
+    class GroupCrosstabs {
+
+        @Test
+        void addHeaderCrosstabInGroup() throws Exception {
+            builder.addColumn("State", "state", String.class.getName(), 100);
+            builder.addColumn("Amount", "amount", Float.class.getName(), 80);
+            builder.addGroups(1);
+
+            DJCrosstab crosstab = new CrosstabBuilder()
+                    .setHeight(100)
+                    .setWidth(500)
+                    .addRow("Product", "product", String.class.getName(), false)
+                    .addColumn("State", "state", String.class.getName(), false)
+                    .addMeasure("amount", Float.class.getName(), DJCalculation.SUM, "Amount", null)
+                    .build();
+
+            builder.addHeaderCrosstab(1, crosstab);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getColumnsGroups().get(0).getHeaderCrosstabs().size());
+        }
+
+        @Test
+        void addFooterCrosstabInGroup() throws Exception {
+            builder.addColumn("State", "state", String.class.getName(), 100);
+            builder.addColumn("Amount", "amount", Float.class.getName(), 80);
+            builder.addGroups(1);
+
+            DJCrosstab crosstab = new CrosstabBuilder()
+                    .setHeight(100)
+                    .setWidth(500)
+                    .addRow("Product", "product", String.class.getName(), false)
+                    .addColumn("State", "state", String.class.getName(), false)
+                    .addMeasure("amount", Float.class.getName(), DJCalculation.SUM, "Amount", null)
+                    .build();
+
+            builder.addFooterCrosstab(1, crosstab);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getColumnsGroups().get(0).getFooterCrosstabs().size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Error Handling")
+    class ErrorHandling {
+
+        @Test
+        void setGroupLayoutWithoutGroupsThrows() {
+            assertThrows(BuilderException.class, () -> builder.setGroupLayout(1, GroupLayout.VALUE_IN_HEADER));
+        }
+
+        @Test
+        void addHeaderVariableWithoutGroupsThrows() throws Exception {
+            builder.addColumn("Amount", "amount", Float.class.getName(), 80);
+
+            assertThrows(BuilderException.class, () ->
+                    builder.addHeaderVariable(1, 1, DJCalculation.SUM, null));
         }
     }
 }

@@ -30,17 +30,27 @@
 package ar.com.fdvs.dj.domain.builders;
 
 import ar.com.fdvs.dj.domain.AutoText;
+import ar.com.fdvs.dj.domain.CustomExpression;
 import ar.com.fdvs.dj.domain.DJCalculation;
+import ar.com.fdvs.dj.domain.DJChart;
+import ar.com.fdvs.dj.domain.DJChartOptions;
 import ar.com.fdvs.dj.domain.DJCrosstab;
+import ar.com.fdvs.dj.domain.DJValueFormatter;
+import ar.com.fdvs.dj.domain.DJWaterMark;
 import ar.com.fdvs.dj.domain.DynamicReport;
 import ar.com.fdvs.dj.domain.ImageBanner;
 import ar.com.fdvs.dj.domain.Style;
 import ar.com.fdvs.dj.domain.constants.Font;
 import ar.com.fdvs.dj.domain.constants.HorizontalAlign;
+import ar.com.fdvs.dj.domain.constants.ImageScaleMode;
 import ar.com.fdvs.dj.domain.constants.Page;
 import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.entities.DJGroup;
+import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
+import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
+import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,6 +59,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -658,6 +669,592 @@ class DynamicReportBuilderTest {
                     .build();
 
             builder.addFooterCrosstab(crosstab);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report);
+        }
+    }
+
+    @Nested
+    @DisplayName("Fields")
+    class Fields {
+
+        @Test
+        void addFieldByName() {
+            builder.addField("customField", String.class.getName());
+            DynamicReport report = builder.build();
+            assertNotNull(report.getFields());
+        }
+
+        @Test
+        void addFieldByClass() {
+            builder.addField("customField", String.class);
+            DynamicReport report = builder.build();
+            assertNotNull(report.getFields());
+        }
+
+        @Test
+        void addFieldWithColumnProperty() {
+            ColumnProperty prop = new ColumnProperty("myField", String.class.getName());
+            builder.addField(prop);
+            DynamicReport report = builder.build();
+            assertNotNull(report.getFields());
+        }
+    }
+
+    @Nested
+    @DisplayName("Global Variables")
+    class GlobalVariablesExtended {
+
+        @Test
+        void addGlobalVariableByColumnProperty() {
+            ColumnProperty prop = new ColumnProperty("amount", Float.class.getName());
+            builder.addGlobalVariable("totalAmount", prop, DJCalculation.SUM);
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+
+        @Test
+        void addGlobalVariableByPropertyString() {
+            builder.addGlobalVariable("totalAmount", "amount", Float.class.getName(), DJCalculation.SUM);
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+
+        @Test
+        void addGlobalColumnVariableHeader() {
+            AbstractColumn column = ColumnBuilder.getNew()
+                    .setColumnProperty("amount", Float.class.getName())
+                    .setTitle("Amount")
+                    .build();
+            builder.addColumn(column);
+
+            builder.addGlobalColumnVariable("header", column, DJCalculation.SUM);
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+
+        @Test
+        void addGlobalColumnVariableFooter() {
+            AbstractColumn column = ColumnBuilder.getNew()
+                    .setColumnProperty("amount", Float.class.getName())
+                    .setTitle("Amount")
+                    .build();
+            builder.addColumn(column);
+
+            builder.addGlobalColumnVariable("footer", column, DJCalculation.SUM);
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+
+        @Test
+        void addGlobalColumnVariableWithStyle() {
+            AbstractColumn column = ColumnBuilder.getNew()
+                    .setColumnProperty("amount", Float.class.getName())
+                    .setTitle("Amount")
+                    .build();
+            builder.addColumn(column);
+
+            Style style = new Style();
+            builder.addGlobalColumnVariable("footer", column, DJCalculation.SUM, style);
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+    }
+
+    @Nested
+    @DisplayName("Image Banner Variations")
+    class ImageBannerVariations {
+
+        @Test
+        void addImageBannerWithByte() {
+            builder.addImageBanner("images/header.png", 200, 30, (byte) 1);
+            DynamicReport report = builder.build();
+            assertNotNull(report.getOptions().getImageBanners());
+        }
+
+        @Test
+        void addFooterImageBanner() {
+            builder.addFooterImageBanner("images/footer.png", 200, 30, ImageBanner.Alignment.Center, null);
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+
+        @Test
+        void addFirstPageFooterImageBanner() {
+            builder.addFirstPageFooterImageBanner("images/footer.png", 200, 30, ImageBanner.Alignment.Center);
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+    }
+
+    @Nested
+    @DisplayName("When Resources Settings")
+    class WhenResourceSettings {
+
+        @Test
+        void setWhenResourceMissing() {
+            builder.setWhenResourceMissing(DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY);
+            DynamicReport report = builder.build();
+            assertEquals(DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY, report.getWhenResourceMissing());
+        }
+
+        @Test
+        void setWhenNoDataWithStyle() {
+            Style style = new Style();
+            style.setFont(Font.ARIAL_MEDIUM);
+            builder.setWhenNoData("No records found", style);
+            DynamicReport report = builder.build();
+            assertEquals("No records found", report.getWhenNoDataText());
+        }
+
+        @Test
+        void setWhenNoDataAllSectionNoDetail() {
+            builder.setWhenNoDataAllSectionNoDetail();
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+
+        @Test
+        void setWhenNoDataShowNoDataSection() {
+            builder.setWhenNoDataShowNoDataSection();
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+
+        @Test
+        void setWhenNoDataBlankPage() {
+            builder.setWhenNoDataBlankPage();
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+
+        @Test
+        void setWhenNoDataNoPages() {
+            builder.setWhenNoDataNoPages();
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+
+        @Test
+        void setWhenNoDataType() {
+            builder.setWhenNoDataType((byte) 0);
+            DynamicReport report = builder.build();
+            assertNotNull(report);
+        }
+    }
+
+    @Nested
+    @DisplayName("Report Settings")
+    class ReportSettings {
+
+        @Test
+        void setAllowDetailSplit() {
+            builder.setAllowDetailSplit(false);
+            DynamicReport report = builder.build();
+            assertFalse(report.isAllowDetailSplit());
+        }
+
+        @Test
+        void setAllowDetailSplitTrue() {
+            builder.setAllowDetailSplit(true);
+            DynamicReport report = builder.build();
+            assertTrue(report.isAllowDetailSplit());
+        }
+
+        @Test
+        void setShowDetailBand() {
+            builder.setShowDetailBand(false);
+            DynamicReport report = builder.build();
+            assertFalse(report.getOptions().isShowDetailBand());
+        }
+
+        @Test
+        void setProperty() {
+            builder.setProperty("net.sf.jasperreports.export.pdf.encrypted", "true");
+            DynamicReport report = builder.build();
+            assertEquals("true", report.getProperties().get("net.sf.jasperreports.export.pdf.encrypted"));
+        }
+
+        @Test
+        void setLanguage() {
+            builder.setLanguage(DJConstants.REPORT_LANGUAGE_GROOVY);
+            DynamicReport report = builder.build();
+            assertEquals(DJConstants.REPORT_LANGUAGE_GROOVY, report.getLanguage());
+        }
+
+        @Test
+        void setDefaultEncoding() {
+            builder.setDefaultEncoding("UTF-8");
+            DynamicReport report = builder.build();
+            assertEquals("UTF-8", report.getDefaultEncoding());
+        }
+
+        @Test
+        void setTitleWithExpressionFlag() {
+            builder.setTitle("$P{title}", true);
+            DynamicReport report = builder.build();
+            assertEquals("$P{title}", report.getTitle());
+            assertTrue(report.isTitleIsJrExpression());
+        }
+    }
+
+    @Nested
+    @DisplayName("Parameters")
+    class Parameters {
+
+        @Test
+        void addParameterByName() {
+            builder.addParameter("reportDate", java.util.Date.class.getName());
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getParameters().size());
+            assertEquals("reportDate", report.getParameters().get(0).getName());
+        }
+
+        @Test
+        void addParameterObject() {
+            builder.addParameter(new Parameter("userId", Integer.class.getName()));
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getParameters().size());
+            assertEquals(Integer.class.getName(), report.getParameters().get(0).getClassName());
+        }
+    }
+
+    @Nested
+    @DisplayName("Watermark")
+    class Watermark {
+
+        @Test
+        void addWatermarkWithText() {
+            builder.addWatermark("CONFIDENTIAL");
+            DynamicReport report = builder.build();
+
+            assertEquals("CONFIDENTIAL", report.getWaterMark().getText());
+        }
+
+        @Test
+        void addWatermarkObject() {
+            DJWaterMark watermark = new DJWaterMark("DRAFT");
+            builder.addWatermark(watermark);
+            DynamicReport report = builder.build();
+
+            assertSame(watermark, report.getWaterMark());
+        }
+
+        @Test
+        void addWatermarkWithFontAndColor() {
+            builder.addWatermark("DRAFT", Font.ARIAL_BIG, Color.RED, DJWaterMark.ANGLE_0);
+            DynamicReport report = builder.build();
+
+            assertEquals("DRAFT", report.getWaterMark().getText());
+            assertEquals(DJWaterMark.ANGLE_0, report.getWaterMark().getAngle());
+        }
+    }
+
+    @Nested
+    @DisplayName("Styles and Fonts")
+    class StylesAndFonts {
+
+        @Test
+        void addStyle() throws DJBuilderException {
+            Style style = new Style("customStyle");
+            style.setFont(Font.ARIAL_MEDIUM);
+
+            builder.addStyle(style);
+            DynamicReport report = builder.build();
+
+            assertTrue(report.getStyles().containsKey("customStyle"));
+        }
+
+        @Test
+        void addStyleWithoutNameThrows() {
+            Style style = new Style();
+            assertThrows(DJBuilderException.class, () -> builder.addStyle(style));
+        }
+
+        @Test
+        void addFont() {
+            java.awt.Font awtFont = new java.awt.Font("Arial", java.awt.Font.PLAIN, 12);
+            builder.addFont("Arial", awtFont);
+            DynamicReport report = builder.build();
+
+            assertTrue(report.getFontsMap().containsKey("Arial"));
+        }
+
+        @Test
+        void setGrandTotalLegendStyle() {
+            Style style = new Style("grandTotal");
+            builder.setGrandTotalLegendStyle(style);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report);
+        }
+    }
+
+    @Nested
+    @DisplayName("AutoText Extended")
+    class AutoTextExtended {
+
+        @Test
+        void addAutoTextWithPattern() {
+            builder.addAutoText(AutoText.AUTOTEXT_CREATED_ON, AutoText.POSITION_FOOTER,
+                    AutoText.ALIGNMENT_RIGHT, AutoText.PATTERN_DATE_DATE_ONLY);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getAutoTexts().size());
+        }
+
+        @Test
+        void addAutoTextWithWidthsAndStyle() {
+            Style style = new Style();
+            builder.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER,
+                    AutoText.ALIGNMENT_CENTER, 40, 60, style);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getAutoTexts().size());
+        }
+
+        @Test
+        void addAutoTextWithPageOffset() {
+            Style style = new Style();
+            builder.addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER,
+                    AutoText.ALIGNMENT_LEFT, 30, 30, 1, true, style);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getAutoTexts().size());
+        }
+
+        @Test
+        void addAutoTextObject() {
+            AutoText autoText = new AutoText("Custom footer", AutoText.POSITION_FOOTER,
+                    HorizontalBandAlignment.buildAligment(AutoText.ALIGNMENT_CENTER));
+
+            builder.addAutoText(autoText);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getAutoTexts().size());
+            assertEquals("Custom footer", report.getAutoTexts().get(0).getMessageKey());
+        }
+    }
+
+    @Nested
+    @DisplayName("Global Variables Extended")
+    class GlobalVariablesWithExpressions {
+
+        @Test
+        void addGlobalHeaderVariableWithCustomExpression() {
+            AbstractColumn column = ColumnBuilder.getNew()
+                    .setColumnProperty("amount", Float.class.getName())
+                    .setTitle("Amount")
+                    .build();
+            builder.addColumn(column);
+
+            CustomExpression expression = new CustomExpression() {
+                public Object evaluate(Map fields, Map variables, Map parameters) {
+                    return fields.get("amount");
+                }
+                public String getClassName() {
+                    return Float.class.getName();
+                }
+            };
+
+            builder.addGlobalHeaderVariable(column, expression);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report.getColumnsGroups());
+        }
+
+        @Test
+        void addGlobalFooterVariableWithCustomExpressionAndStyle() {
+            AbstractColumn column = ColumnBuilder.getNew()
+                    .setColumnProperty("amount", Float.class.getName())
+                    .setTitle("Amount")
+                    .build();
+            builder.addColumn(column);
+
+            CustomExpression expression = new CustomExpression() {
+                public Object evaluate(Map fields, Map variables, Map parameters) {
+                    return fields.get("amount");
+                }
+                public String getClassName() {
+                    return Float.class.getName();
+                }
+            };
+            Style style = new Style("footerVar");
+
+            builder.addGlobalFooterVariable(column, expression, style);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report.getColumnsGroups());
+        }
+
+        @Test
+        void addGlobalColumnVariableWithValueFormatter() {
+            AbstractColumn column = ColumnBuilder.getNew()
+                    .setColumnProperty("amount", Float.class.getName())
+                    .setTitle("Amount")
+                    .build();
+            builder.addColumn(column);
+
+            DJValueFormatter formatter = new DJValueFormatter() {
+                public Object evaluate(Object value, Map fields, Map variables, Map parameters) {
+                    return value;
+                }
+                public String getClassName() {
+                    return String.class.getName();
+                }
+            };
+
+            builder.addGlobalColumnVariable("footer", column, DJCalculation.SUM, null, formatter);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report.getColumnsGroups());
+        }
+    }
+
+    @Nested
+    @DisplayName("Colspan")
+    class Colspan {
+
+        @Test
+        void setColspanOnColumns() {
+            AbstractColumn col1 = ColumnBuilder.getNew()
+                    .setColumnProperty("q1", Float.class.getName())
+                    .setTitle("Q1")
+                    .build();
+            AbstractColumn col2 = ColumnBuilder.getNew()
+                    .setColumnProperty("q2", Float.class.getName())
+                    .setTitle("Q2")
+                    .build();
+            builder.addColumn(col1).addColumn(col2);
+
+            builder.setColspan(0, 2, "Quarterly");
+            DynamicReport report = builder.build();
+
+            assertNotNull(report.getColumns().get(0).getColSpan());
+            assertEquals("Quarterly", report.getColumns().get(0).getColSpan().getTitle());
+        }
+
+        @Test
+        void setColspanWithStyle() {
+            AbstractColumn col1 = ColumnBuilder.getNew()
+                    .setColumnProperty("q1", Float.class.getName())
+                    .setTitle("Q1")
+                    .build();
+            AbstractColumn col2 = ColumnBuilder.getNew()
+                    .setColumnProperty("q2", Float.class.getName())
+                    .setTitle("Q2")
+                    .build();
+            builder.addColumn(col1).addColumn(col2);
+
+            Style style = new Style("colspanHeader");
+            builder.setColspan(0, 2, "Quarterly", style);
+            DynamicReport report = builder.build();
+
+            assertEquals(style, report.getColumns().get(0).getColSpan().getColspanHeaderStyle());
+        }
+    }
+
+    @Nested
+    @DisplayName("Charts")
+    class Charts {
+
+        @Test
+        void addDeprecatedChart() {
+            AbstractColumn column = ColumnBuilder.getNew()
+                    .setColumnProperty("amount", Float.class.getName())
+                    .setTitle("Amount")
+                    .build();
+            builder.addColumn(column);
+
+            DJGroup group = new GroupBuilder()
+                    .setCriteriaColumn((PropertyColumn) column)
+                    .build();
+            builder.addGroup(group);
+
+            DJChart chart = new DJChart(DJChart.BAR_CHART, group, column,
+                    DJChart.CALCULATION_SUM, new DJChartOptions());
+            builder.addChart(chart);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getCharts().size());
+        }
+    }
+
+    @Nested
+    @DisplayName("Image Banner Extended")
+    class ImageBannerExtended {
+
+        @Test
+        void addImageBannerWithScaleMode() {
+            builder.addImageBanner("images/header.png", 200, 30, ImageBanner.Alignment.Center, ImageScaleMode.FILL);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getOptions().getImageBanners().size());
+        }
+
+        @Test
+        void addFooterImageBannerWithScaleMode() {
+            builder.addFooterImageBanner("images/footer.png", 200, 30, ImageBanner.Alignment.Left, ImageScaleMode.FILL);
+            DynamicReport report = builder.build();
+
+            assertNotNull(report);
+        }
+
+        @Test
+        void addFirstPageImageBannerWithScaleMode() {
+            builder.addFirstPageImageBanner("images/logo.png", 100, 50, ImageBanner.Alignment.Right, ImageScaleMode.FILL);
+            DynamicReport report = builder.build();
+
+            assertEquals(1, report.getOptions().getFirstPageImageBanners().size());
+        }
+    }
+
+    @Nested
+    @DisplayName("When Resource Missing")
+    class WhenResourceMissing {
+
+        @Test
+        void setWhenResourceMissingLeaveEmptySpace() {
+            builder.setWhenResourceMissingLeaveEmptySpace();
+            DynamicReport report = builder.build();
+            assertEquals(DJConstants.WHEN_RESOURCE_MISSING_TYPE_EMPTY, report.getWhenResourceMissing());
+        }
+
+        @Test
+        void setWhenResourceMissingThrowException() {
+            builder.setWhenResourceMissingThrowException();
+            DynamicReport report = builder.build();
+            assertEquals(DJConstants.WHEN_RESOURCE_MISSING_TYPE_ERROR, report.getWhenResourceMissing());
+        }
+
+        @Test
+        void setWhenResourceMissingShowKey() {
+            builder.setWhenResourceMissingShowKey();
+            DynamicReport report = builder.build();
+            assertEquals(DJConstants.WHEN_RESOURCE_MISSING_TYPE_KEY, report.getWhenResourceMissing());
+        }
+
+        @Test
+        void setWhenResourceMissingReturnNull() {
+            builder.setWhenResourceMissingReturnNull();
+            DynamicReport report = builder.build();
+            assertEquals(DJConstants.WHEN_RESOURCE_MISSING_TYPE_NULL, report.getWhenResourceMissing());
+        }
+    }
+
+    @Nested
+    @DisplayName("Concatenated Reports")
+    class ConcatenatedReports {
+
+        @Test
+        void addConcatenatedReportWithSubreport() {
+            Subreport subreport = new Subreport();
+            subreport.setPath("/reports/sub.jasper");
+
+            builder.addConcatenatedReport(subreport);
             DynamicReport report = builder.build();
 
             assertNotNull(report);
