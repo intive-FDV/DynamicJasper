@@ -50,6 +50,7 @@ import ar.com.fdvs.dj.core.layout.HorizontalBandAlignment;
 import ar.com.fdvs.dj.domain.entities.Parameter;
 import ar.com.fdvs.dj.domain.entities.Subreport;
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.domain.ColumnProperty;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
@@ -59,6 +60,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.awt.Color;
+import java.io.ByteArrayInputStream;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -771,6 +773,45 @@ class DynamicReportBuilderTest {
             builder.addImageBanner("images/header.png", 200, 30, (byte) 1);
             DynamicReport report = builder.build();
             assertNotNull(report.getOptions().getImageBanners());
+        }
+
+        @Test
+        void addImageBannerWithImageData() {
+            byte[] image = new byte[] {1, 2, 3, 4};
+            builder.addImageBanner(image, 200, 30, ImageBanner.Alignment.Left);
+            DynamicReport report = builder.build();
+            ImageBanner banner = report.getOptions().getImageBanners().get(ImageBanner.Alignment.Left);
+            assertArrayEquals(image, banner.getImageData());
+            assertNull(banner.getImagePath());
+        }
+
+        @Test
+        void addImageBannerWithInputStream() {
+            byte[] image = new byte[] {9, 8, 7};
+            builder.addImageBanner(new ByteArrayInputStream(image), 150, 25, ImageBanner.Alignment.Right, ImageScaleMode.FILL);
+            DynamicReport report = builder.build();
+            ImageBanner banner = report.getOptions().getImageBanners().get(ImageBanner.Alignment.Right);
+            assertArrayEquals(image, banner.getImageData());
+            assertEquals(ImageScaleMode.FILL, banner.getScaleMode());
+        }
+
+        @Test
+        void addFooterAndFirstPageBannersWithImageData() {
+            byte[] image = new byte[] {5, 6};
+            builder.addFooterImageBanner(image, 100, 20, ImageBanner.Alignment.Center, ImageScaleMode.FILL_PROPORTIONALLY)
+                    .addFirstPageImageBanner(image, 197, 60, ImageBanner.Alignment.Left)
+                    .addFirstPageFooterImageBanner(image, 80, 20, ImageBanner.Alignment.Right);
+            DynamicReport report = builder.build();
+            assertArrayEquals(image, report.getOptions().getFooterImageBanners().get(ImageBanner.Alignment.Center).getImageData());
+            assertArrayEquals(image, report.getOptions().getFirstPageImageBanners().get(ImageBanner.Alignment.Left).getImageData());
+            assertArrayEquals(image, report.getOptions().getFirstPageFooterImageBanners().get(ImageBanner.Alignment.Right).getImageData());
+        }
+
+        @Test
+        void addImageBannerRejectsEmptyData() {
+            assertThrows(DJException.class, () -> builder.addImageBanner(new byte[0], 10, 10, ImageBanner.Alignment.Left));
+            assertThrows(DJException.class, () -> builder.addImageBanner((byte[]) null, 10, 10, ImageBanner.Alignment.Left));
+            assertThrows(DJException.class, () -> builder.addImageBanner(new ByteArrayInputStream(new byte[0]), 10, 10, ImageBanner.Alignment.Left));
         }
 
         @Test
