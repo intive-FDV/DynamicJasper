@@ -31,6 +31,7 @@ package ar.com.fdvs.dj.core.layout;
 
 import ar.com.fdvs.dj.core.CoreException;
 import ar.com.fdvs.dj.core.DJConstants;
+import ar.com.fdvs.dj.core.DJException;
 import ar.com.fdvs.dj.core.FontHelper;
 import ar.com.fdvs.dj.core.registration.ColumnsGroupVariablesRegistrationManager;
 import ar.com.fdvs.dj.domain.AutoText;
@@ -83,6 +84,8 @@ import net.sf.jasperreports.engine.type.StretchTypeEnum;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -114,6 +117,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 
 	// Cache for visible columns - computed once per layout
 	private List<AbstractColumn> visibleColumnsCache;
+
+	private int imageBannerParameterCounter = 0;
 
 	public Map<String, Object> getReferencesMap() {
 		return referencesMap;
@@ -348,10 +353,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
                 yPosition = maxHeight+1;
 
 			for (ImageBanner imageBanner : imageBanners) {
-				String path = "\"" + imageBanner.getImagePath().replaceAll("\\\\", "/") + "\"";
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
 				JRDesignExpression imageExp = new JRDesignExpression();
-				imageExp.setText(path);
+				imageExp.setText(resolveImageBannerExpression(imageBanner));
 
 				imageExp.setValueClass(String.class);
 				image.setExpression(imageExp);
@@ -379,6 +383,20 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 			}
 			band.setHeight(band.getHeight() + maxHeight);
 		}
+	}
+
+	private String resolveImageBannerExpression(ImageBanner imageBanner) {
+		byte[] imageData = imageBanner.getImageData();
+		if (imageData != null && imageData.length > 0) {
+			String name = "DJ_IMAGE_BANNER_" + (++imageBannerParameterCounter);
+			LayoutUtils.registerAndAddParameter((DynamicJasperDesign) getDesign(), name,
+					InputStream.class.getName(), new ByteArrayInputStream(imageData));
+			return "$P{" + name + "}";
+		}
+		if (imageBanner.getImagePath() != null) {
+			return "\"" + imageBanner.getImagePath().replaceAll("\\\\", "/") + "\"";
+		}
+		throw new DJException("ImageBanner has neither imageData nor imagePath");
 	}
 
 	/**

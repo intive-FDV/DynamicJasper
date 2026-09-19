@@ -46,6 +46,7 @@ public class ImageBanner extends DJBaseElement {
 	public static final byte ALIGN_CENTER = 2;
 
 	private String imagePath;
+	private byte[] imageData;
 	private int width = 0;
 	private int height= 0;
 	private Alignment align = Alignment.Left;
@@ -65,6 +66,12 @@ public class ImageBanner extends DJBaseElement {
 	}
 	public void setImagePath(String imagePath) {
 		this.imagePath = imagePath;
+	}
+	public byte[] getImageData() {
+		return imageData;
+	}
+	public void setImageData(byte[] imageData) {
+		this.imageData = imageData;
 	}
 	public Alignment getAlign() {
 		return align;
@@ -103,6 +110,13 @@ public class ImageBanner extends DJBaseElement {
 
 	public ImageBanner(String imagePath, int width, int height, Alignment align) {
 		this.imagePath = imagePath;
+		this.width = width;
+		this.height = height;
+		this.align = align!=null?align:Alignment.Left;
+	}
+
+	public ImageBanner(byte[] imageData, int width, int height, Alignment align) {
+		this.imageData = imageData;
 		this.width = width;
 		this.height = height;
 		this.align = align!=null?align:Alignment.Left;

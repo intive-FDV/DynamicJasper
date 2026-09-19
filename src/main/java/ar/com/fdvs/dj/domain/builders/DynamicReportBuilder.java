@@ -65,6 +65,9 @@ import ar.com.fdvs.dj.domain.entities.columns.PropertyColumn;
 import net.sf.jasperreports.engine.JasperReport;
 
 import java.awt.Color;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -897,6 +900,153 @@ public class DynamicReportBuilder {
         return this;
     }
 
+    /**
+     * Adds a page-header image banner from in-memory image bytes (e.g. loaded from a database).
+     */
+    public DynamicReportBuilder addImageBanner(byte[] image, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        options.getImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a page-header image banner from in-memory image bytes (e.g. loaded from a database).
+     */
+    public DynamicReportBuilder addImageBanner(byte[] image, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a page-header image banner from an InputStream.
+     * The stream is fully read immediately; the caller is responsible for closing it.
+     */
+    public DynamicReportBuilder addImageBanner(InputStream image, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        options.getImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a page-header image banner from an InputStream.
+     * The stream is fully read immediately; the caller is responsible for closing it.
+     */
+    public DynamicReportBuilder addImageBanner(InputStream image, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a page-footer image banner from in-memory image bytes.
+     */
+    public DynamicReportBuilder addFooterImageBanner(byte[] image, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a page-footer image banner from an InputStream.
+     * The stream is fully read immediately; the caller is responsible for closing it.
+     */
+    public DynamicReportBuilder addFooterImageBanner(InputStream image, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a first-page-only image banner from in-memory image bytes.
+     */
+    public DynamicReportBuilder addFirstPageImageBanner(byte[] image, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a first-page-only image banner from in-memory image bytes.
+     */
+    public DynamicReportBuilder addFirstPageImageBanner(byte[] image, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a first-page-only image banner from an InputStream.
+     * The stream is fully read immediately; the caller is responsible for closing it.
+     */
+    public DynamicReportBuilder addFirstPageImageBanner(InputStream image, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a first-page-only image banner from an InputStream.
+     * The stream is fully read immediately; the caller is responsible for closing it.
+     */
+    public DynamicReportBuilder addFirstPageImageBanner(InputStream image, int width, int height, ImageBanner.Alignment alignment, ImageScaleMode scaleMode) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        banner.setScaleMode(scaleMode);
+        options.getFirstPageImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a first-page footer image banner from in-memory image bytes.
+     */
+    public DynamicReportBuilder addFirstPageFooterImageBanner(byte[] image, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        options.getFirstPageFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    /**
+     * Adds a first-page footer image banner from an InputStream.
+     * The stream is fully read immediately; the caller is responsible for closing it.
+     */
+    public DynamicReportBuilder addFirstPageFooterImageBanner(InputStream image, int width, int height, ImageBanner.Alignment alignment) {
+        ImageBanner banner = createImageBanner(image, width, height, alignment);
+        options.getFirstPageFooterImageBanners().put(alignment, banner);
+        return this;
+    }
+
+    private ImageBanner createImageBanner(byte[] image, int width, int height, ImageBanner.Alignment alignment) {
+        if (image == null || image.length == 0) {
+            throw new DJException("Image banner data cannot be null or empty");
+        }
+        return new ImageBanner(image, width, height, alignment);
+    }
+
+    private ImageBanner createImageBanner(InputStream image, int width, int height, ImageBanner.Alignment alignment) {
+        return createImageBanner(readImageData(image), width, height, alignment);
+    }
+
+    private static byte[] readImageData(InputStream image) {
+        if (image == null) {
+            throw new DJException("Image banner InputStream cannot be null");
+        }
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            byte[] buffer = new byte[4096];
+            int n;
+            while ((n = image.read(buffer)) != -1) {
+                out.write(buffer, 0, n);
+            }
+            return out.toByteArray();
+        } catch (IOException e) {
+            throw new DJException("Could not read image banner from InputStream", e);
+        }
+    }
 
     /**
      * Registers a field that is not necesary bound to a column, it can be used
