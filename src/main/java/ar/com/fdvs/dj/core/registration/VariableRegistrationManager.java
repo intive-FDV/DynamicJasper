@@ -54,7 +54,7 @@ public class VariableRegistrationManager extends
 		if (var.getInitialValueExpression() != null){
 			String initialValueExpressionParamName = var.getName() + "_initalValueExpression";
 			JRDesignExpression initialValueExpression = ExpressionUtils.createAndRegisterExpression(getDjd(), initialValueExpressionParamName, var.getInitialValueExpression());
-			jrvar.setExpression(initialValueExpression);
+			jrvar.setInitialValueExpression(initialValueExpression);
 		}
 		
 		if (var.getResetType() != null){
