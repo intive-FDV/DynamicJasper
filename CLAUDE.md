@@ -6,10 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 DynamicJasper (DJ) is a Java library that provides a fluent API for creating JasperReports dynamically at runtime without using graphical design tools. It abstracts JasperReports complexity, automatically handling layout, column positioning, and report element generation.
 
-**Version:** 5.3.9
-**Java:** 8+
+**Version:** 5.4.0
+**Java:** Bytecode 8 (runtime JDK 8+). Build and tests with JDK 21
 **Build Tool:** Maven 3.x
-**Core Dependency:** JasperReports 7.0.0-7.0.8
+**Core Dependency:** JasperReports 6.21.5
 **License:** LGPL v2.1
 
 ## Build & Test Commands
@@ -38,6 +38,9 @@ mvn clean install -Psources
 
 # Generate site documentation
 mvn site -Psite
+
+# Run tests with JaCoCo coverage report (target/site/jacoco/index.html)
+mvn clean verify -Pcoverage
 ```
 
 ## Core Architecture
@@ -282,7 +285,7 @@ assertTextMatchesPattern("[0-9,]+");
 ## Common Patterns & Gotchas
 
 ### JasperReports Version Compatibility
-DJ 5.3.9 supports JasperReports 7.0.0-7.0.8. Incompatible versions may cause compilation or runtime errors.
+DJ 5.4.0 supports JasperReports 6.21.5. Incompatible versions may cause compilation or runtime errors.
 
 ### Column Width Management
 If not using `setUseFullPageWidth(true)`, ensure total column widths fit within:
