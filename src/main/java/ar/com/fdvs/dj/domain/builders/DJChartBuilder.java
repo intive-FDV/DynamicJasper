@@ -208,7 +208,7 @@ public class DJChartBuilder {
 		return this;
 	}
 
-	public DJChartBuilder setColors(List colors) {
+	public DJChartBuilder setColors(List<Color> colors) {
 		if (chartOptions == null) chartOptions = createDefaultOptions();
 		this.chartOptions.setColors(colors);
 		return this;

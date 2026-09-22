@@ -74,7 +74,7 @@ public class DataSetFactory {
 	 * @param djchart
 	 * @return
 	 */
-	protected static JRDesignChartDataset createLineDataset(JRDesignGroup group, JRDesignGroup parentGroup, List vars, DJChart djchart) {
+	protected static JRDesignChartDataset createLineDataset(JRDesignGroup group, JRDesignGroup parentGroup, List<JRDesignVariable> vars, DJChart djchart) {
 		JRDesignCategoryDataset data = new JRDesignCategoryDataset(null);
 
 //		for (Iterator iterator = vars.iterator(); iterator.hasNext();) {
