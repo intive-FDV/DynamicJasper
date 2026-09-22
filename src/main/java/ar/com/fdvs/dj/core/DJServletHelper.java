@@ -94,7 +94,7 @@ public class DJServletHelper {
 
         final ReportWriter reportWriter = ReportWriterFactory.build(pageTreshold.get()).getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
 
-        Map imagesMap = new HashMap();
+        Map<String, Object> imagesMap = new HashMap<>();
         JRExporter exporter = reportWriter.getExporter();
         exporter.setParameters(exporterParams);
 
@@ -133,7 +133,7 @@ public class DJServletHelper {
 
         final ReportWriter reportWriter = ReportWriterFactory.build(pageTreshold.get()).getReportWriter(jasperPrint, DJConstants.FORMAT_HTML, exporterParams);
 
-        Map imagesMap = new HashMap();
+        Map<String, Object> imagesMap = new HashMap<>();
         JRExporter exporter = reportWriter.getExporter();
         exporter.setParameters(exporterParams);
 
@@ -144,7 +144,7 @@ public class DJServletHelper {
 
     }
 
-    private static void setupParameters(HttpServletRequest request, String imageServletUrl, JasperPrint jasperPrint, Map imagesMap, JRExporter exporter) {
+    private static void setupParameters(HttpServletRequest request, String imageServletUrl, JasperPrint jasperPrint, Map<String, Object> imagesMap, JRExporter exporter) {
         exporter.setParameter(JRHtmlExporterParameter.IMAGES_MAP, imagesMap);
         exporter.setParameter(JRHtmlExporterParameter.IMAGES_URI, request.getContextPath() + "/" + imageServletUrl + "?image=");
         // Needed to support chart images:

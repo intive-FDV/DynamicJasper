@@ -141,8 +141,8 @@ public class ColumnsGroupVariablesRegistrationManager extends AbstractEntityRegi
 		JRDesignExpression expression = new JRDesignExpression();
 
 		//only variables from the last registered group are important now
-		List groupsList = getDjd().getGroupsList();
-		JRDesignGroup registeredGroup = (JRDesignGroup)groupsList.get(groupsList.size()-1);
+		List<?> groupsList = getDjd().getGroupsList();
+		JRDesignGroup registeredGroup = (JRDesignGroup) groupsList.get(groupsList.size() - 1);
 
 		if (col instanceof ExpressionColumn && ((ExpressionColumn)col).getExpressionForCalculation() != null){
 			ExpressionColumn expcol = (ExpressionColumn)col;
