@@ -175,10 +175,9 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param aligments
 	 * @return
 	 */
-	protected int findTotalOffset(ArrayList aligments, byte position) {
+	protected int findTotalOffset(ArrayList<HorizontalBandAlignment> aligments, byte position) {
 		int total = 0;
-		for (Object aligment : aligments) {
-			HorizontalBandAlignment currentAlignment = (HorizontalBandAlignment) aligment;
+		for (HorizontalBandAlignment currentAlignment : aligments) {
 			int aux = 0;
 			for (AutoText autotext : getReport().getAutoTexts()) {
 				if (autotext.getPosition() == position && currentAlignment.equals(autotext.getAlignment())) {
@@ -325,11 +324,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param printWhenExpression
 	 *
 	 */
-	protected void applyImageBannersToBand(JRDesignBand band, Collection imageBanners, JRDesignExpression printWhenExpression, boolean placeOnTop ) {
+	protected void applyImageBannersToBand(JRDesignBand band, Collection<ImageBanner> imageBanners, JRDesignExpression printWhenExpression, boolean placeOnTop ) {
 		int maxHeight = 0;
         if (placeOnTop){
-			for (Object imageBanner1 : imageBanners) {
-				ImageBanner imageBanner = (ImageBanner) imageBanner1;
+			for (ImageBanner imageBanner : imageBanners) {
 				if (imageBanner.getHeight() > maxHeight)
 					maxHeight = imageBanner.getHeight();
 			}
@@ -349,8 +347,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
             if (!placeOnTop)
                 yPosition = maxHeight+1;
 
-			for (Object imageBanner1 : imageBanners) {
-				ImageBanner imageBanner = (ImageBanner) imageBanner1;
+			for (ImageBanner imageBanner : imageBanners) {
 				String path = "\"" + imageBanner.getImagePath().replaceAll("\\\\", "/") + "\"";
 				JRDesignImage image = new JRDesignImage(new JRDesignStyle().getDefaultStyleProvider());
 				JRDesignExpression imageExp = new JRDesignExpression();
@@ -495,8 +492,7 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 					if (!(prevG.getColumnToGroupBy() instanceof GlobalGroupColumn))
 						skipPreviousGroupHeaders = !prevG.getLayout().isShowValueForEachRow();
 				}
-				for (Object o : getVisibleColumns()) {
-					AbstractColumn col = (AbstractColumn) o;
+				for (AbstractColumn col : getVisibleColumns()) {
 
 					//If in a nested group, header for column prior to this groups column
 					//depends on configuration
@@ -1015,9 +1011,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 	 * @param groupVariables
 	 * @return
 	 */
-	protected boolean groupLabelsPresent(List groupVariables) {
-		for (Object groupVariable : groupVariables) {
-			DJGroupVariable var = (DJGroupVariable) groupVariable;
+	protected boolean groupLabelsPresent(List<DJGroupVariable> groupVariables) {
+		for (DJGroupVariable var : groupVariables) {
 			if (var.getLabel() != null)
 				return true;
 
@@ -1241,11 +1236,10 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 		return mostLeftColumn;
 	}
 
-	protected DJGroupVariable findRightMostColumn(List variables) {
+	protected DJGroupVariable findRightMostColumn(List<DJGroupVariable> variables) {
 		int mostRightX = Integer.MIN_VALUE;
 		DJGroupVariable mostRightColumn =  null;
-		for (Object variable : variables) {
-			DJGroupVariable currentCol = (DJGroupVariable) variable;
+		for (DJGroupVariable currentCol : variables) {
 			if (currentCol.getColumnToApplyOperation().getPosX() >= mostRightX) {
 				mostRightColumn = currentCol;
 				mostRightX = mostRightColumn.getColumnToApplyOperation().getPosX();
