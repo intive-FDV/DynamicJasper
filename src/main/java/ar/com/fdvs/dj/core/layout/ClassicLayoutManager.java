@@ -357,7 +357,8 @@ public class ClassicLayoutManager extends AbstractLayoutManager {
 				JRDesignExpression imageExp = new JRDesignExpression();
 				imageExp.setText(resolveImageBannerExpression(imageBanner));
 
-				imageExp.setValueClass(String.class);
+				boolean hasImageData = imageBanner.getImageData() != null && imageBanner.getImageData().length > 0;
+				imageExp.setValueClass(hasImageData ? InputStream.class : String.class);
 				image.setExpression(imageExp);
 				image.setHeight(imageBanner.getHeight());
 				image.setWidth(imageBanner.getWidth());
