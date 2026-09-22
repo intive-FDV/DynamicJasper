@@ -43,9 +43,9 @@ import java.util.List;
 
 public class SortUtils {
 
-	public static <T> List<T> sortCollection(Collection<T> dummyCollection, List columns) {
-        ArrayList<T> l = new ArrayList<T>(dummyCollection);
-        ArrayList<SortInfo> info = new ArrayList<SortInfo>();
+	public static <T> List<T> sortCollection(Collection<T> dummyCollection, List<?> columns) {
+        ArrayList<T> l = new ArrayList<>(dummyCollection);
+        ArrayList<SortInfo> info = new ArrayList<>();
         for (Object object : columns) {
             if (object instanceof String) {
                 info.add(new SortInfo((String) object, true));
@@ -61,8 +61,8 @@ public class SortUtils {
     }
 	
 	public static <T> List<T> sortCollection(Collection<T> dummyCollection, String[] properties) {
-		ArrayList<T> l = new ArrayList<T>(dummyCollection);
-		ArrayList<SortInfo> info = new ArrayList<SortInfo>();
+		ArrayList<T> l = new ArrayList<>(dummyCollection);
+		ArrayList<SortInfo> info = new ArrayList<>();
         for (String property : properties) {
             info.add(new SortInfo(property, true));
         }
@@ -72,8 +72,8 @@ public class SortUtils {
 	}
 	
 	public static <T> List<T> sortCollection(Collection<T> dummyCollection, DJCrosstab crosstab) {
-		ArrayList<T> l = new ArrayList<T>(dummyCollection);
-		ArrayList<SortInfo> info = new ArrayList<SortInfo>();
+		ArrayList<T> l = new ArrayList<>(dummyCollection);
+		ArrayList<SortInfo> info = new ArrayList<>();
 		for (DJCrosstabRow row : crosstab.getRows()) {
 			info.add(new SortInfo(row.getProperty().getProperty(), true));
 		}

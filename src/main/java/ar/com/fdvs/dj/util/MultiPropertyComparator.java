@@ -46,21 +46,17 @@ public class MultiPropertyComparator<T> implements Comparator<T> {
 
     private static final Log LOGGER = LogFactory.getLog(MultiPropertyComparator.class);
 
-    private final List info;
+    private final List<SortInfo> info;
 
-    /**
-     * 
-     * @param _info List<SortInfo>
-     */
-    public MultiPropertyComparator(final List _info) {
-        info = _info;
+    public MultiPropertyComparator(final List<SortInfo> info) {
+        this.info = info;
     }
 
     @Override
     public int compare(T o1, T o2) {
         int result = 0;
         for (int i = 0; result == 0 && i < info.size(); i++) {
-            final SortInfo sortInfo = (SortInfo)info.get(i);
+            final SortInfo sortInfo = info.get(i);
             try {
                 final String propertyName = sortInfo.getPropertyName();
                 final Comparable value1 = getValue(o1, propertyName);

@@ -1,6 +1,6 @@
 package ar.com.fdvs.dj.util;
 
-	import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -70,12 +70,11 @@ public abstract class StreamUtils {
    * specified InputStream.
    * @throws java.io.IOException
    */
-	  public static byte[] getBytes(InputStream input)
-	      throws IOException {
-	    ByteArrayOutputStream result = new ByteArrayOutputStream();
-	    copy(input, result);
-	    result.close();
-	    return result.toByteArray();
-	  }
+  public static byte[] getBytes(InputStream input) throws IOException {
+    try (ByteArrayOutputStream result = new ByteArrayOutputStream()) {
+      copy(input, result);
+      return result.toByteArray();
+    }
+  }
 
 }

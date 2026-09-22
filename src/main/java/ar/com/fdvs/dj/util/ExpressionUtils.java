@@ -242,7 +242,7 @@ public class ExpressionUtils {
     /**
      * @return
      */
-    public static String getFieldsMapExpression(Collection columnsAndFields) {
+    public static String getFieldsMapExpression(Collection<?> columnsAndFields) {
         StringBuilder fieldsMap = new StringBuilder("new  " + PropertiesMap.class.getName() + "()");
         for (Object columnsAndField : columnsAndFields) {
             ColumnProperty columnProperty = (ColumnProperty) columnsAndField;
@@ -262,7 +262,7 @@ public class ExpressionUtils {
      * @param variables
      * @return
      */
-    public static String getVariablesMapExpression(Collection variables) {
+    public static String getVariablesMapExpression(Collection<?> variables) {
         StringBuilder variablesMap = new StringBuilder("new  " + PropertiesMap.class.getName() + "()");
         for (Object variable : variables) {
             JRVariable jrvar = (JRVariable) variable;

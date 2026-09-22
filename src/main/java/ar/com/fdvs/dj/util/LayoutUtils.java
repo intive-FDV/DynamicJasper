@@ -124,10 +124,10 @@ public class LayoutUtils {
 	 * @return
 	 */
 	public static JRDesignGroup getJRDesignGroup(DynamicJasperDesign jd, LayoutManager layoutManager, DJGroup group) {
-		Map references = layoutManager.getReferencesMap();
-		for (Object o : references.keySet()) {
-			String groupName = (String) o;
-			DJGroup djGroup = (DJGroup) references.get(groupName);
+		Map<String, Object> references = layoutManager.getReferencesMap();
+		for (Map.Entry<String, Object> entry : references.entrySet()) {
+			String groupName = entry.getKey();
+			DJGroup djGroup = (DJGroup) entry.getValue();
 			if (group == djGroup) {
 				return (JRDesignGroup) jd.getGroupsMap().get(groupName);
 			}
