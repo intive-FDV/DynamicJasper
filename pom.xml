@@ -53,13 +53,13 @@
         content and layout of the report elements are handled by the DJ
         API.
 
-        http://dynamicjasper.com
+        https://intive-fdv.github.io/DynamicJasper/
 
     </description>
-    <url>https://github.com/FDVSolutions/DynamicJasper</url>
+    <url>https://github.com/intive-FDV/DynamicJasper</url>
     <issueManagement>
         <system>GitHub Tracker</system>
-        <url>https://github.com/FDVSolutions/DynamicJasper/issues</url>
+        <url>https://github.com/intive-FDV/DynamicJasper/issues</url>
     </issueManagement>
     <inceptionYear>2006</inceptionYear>
     <build>
@@ -148,7 +148,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.5</version>
+                <version>3.2.7</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
@@ -158,6 +158,17 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>0.6.0</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                </configuration>
             </plugin>
 
             <plugin>
@@ -616,16 +627,9 @@
             <url>https://jaspersoft.jfrog.io/jaspersoft/jr-ce-releases</url>
         </repository>
     </repositories>
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+    <!-- distributionManagement removed - now using central-publishing-maven-plugin -->
+    <!-- Deployment handled by org.sonatype.central:central-publishing-maven-plugin -->
+    <!-- Configure credentials in ~/.m2/settings.xml with server id "central" -->
 
     <mailingLists>
         <mailingList>

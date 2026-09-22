@@ -1,0 +1,74 @@
+# DynamicJasper Deployment Guide
+
+## Maven Central (New System - 2024+)
+
+### One-time Setup
+
+1. Register at https://central.sonatype.com
+   - Use GitHub/Google login
+   - Verify namespace: ar.com.fdvs
+
+2. Generate deployment token:
+   - Login → Account → Generate User Token
+   - Save username + password
+
+3. Configure ~/.m2/settings.xml:
+```xml
+<settings>
+  <servers>
+    <server>
+      <id>central</id>
+      <username>YOUR_TOKEN_USERNAME</username>
+      <password>YOUR_TOKEN_PASSWORD</password>
+    </server>
+  </servers>
+</settings>
+```
+
+### Deploy Command
+
+```bash
+# Set Java 21 (required for builds, target bytecode is Java 8)
+eval "$(jenv init -)"
+
+# Deploy to Maven Central
+mvn clean deploy
+
+# Or deploy without running tests again
+mvn deploy
+```
+
+### Manual Deployment (Alternative)
+
+If automatic deployment fails:
+
+1. Build bundle:
+```bash
+mvn clean package
+```
+
+2. Upload manually at: https://central.sonatype.com/publishing
+   - Upload the JAR, POM, sources, javadoc, and signatures
+   - Portal validates and publishes
+
+### Post-Deployment
+
+- Auto-publish enabled (autoPublish=true in pom.xml)
+- Artifacts appear in Maven Central within ~30 minutes
+- Check: https://repo1.maven.org/maven2/ar/com/fdvs/DynamicJasper/
+
+### Old OSSRH System (DEPRECATED)
+
+OSSRH legacy system shut down.
+Old URL: https://oss.sonatype.org/ (returns 402 Payment Required)
+
+---
+
+## Version Info
+
+This branch targets DynamicJasper 5.4.0 on JasperReports 6.21.5.
+
+## Hosting Info
+
+See internal team documentation / password manager for hosting credentials.
+(Intentionally not stored in this file.)
