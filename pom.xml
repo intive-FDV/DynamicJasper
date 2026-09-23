@@ -725,8 +725,8 @@
 
 
     <organization>
-        <name>FDV Solutions</name>
-        <url>http://www.fdvsolutions.com/</url>
+        <name>Intive (ex FDV Solutions)</name>
+        <url>https://www.intive.com</url>
     </organization>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
