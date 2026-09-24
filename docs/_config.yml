@@ -31,7 +31,7 @@ url: "http://intive-fdv.github.io/" # the base hostname & protocol for your site
 # github_username:  jekyll
 
 # Build settings
-theme: minima
+theme: jekyll-theme-primer
 plugins:
    - jekyll-feed
 
