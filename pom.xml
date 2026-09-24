@@ -383,24 +383,6 @@
             </reporting>
         </profile>
         <profile>
-            <id>internal</id>
-            <distributionManagement>
-                <repository>
-                    <id>archiva.default</id>
-                    <url>http://archiva.fdvs.com.ar/repository/internal</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
-            <id>publicRepo</id>
-            <distributionManagement>
-                <repository>
-                    <id>archiva.default</id>
-                    <url>http://archiva.fdvs.com.ar/repository/public1</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-        <profile>
             <!-- Run with: mvn clean verify -Pcoverage -->
             <!-- Report at: target/site/jacoco/index.html -->
             <id>coverage</id>
@@ -515,20 +497,6 @@
             <artifactId>commons-beanutils</artifactId>
             <version>1.11.0</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>opensymphony</groupId>-->
-<!--            <artifactId>xwork</artifactId>-->
-<!--            <version>1.2.1</version>-->
-<!--            <scope>provided</scope>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>opensymphony</groupId>-->
-<!--            <artifactId>webwork</artifactId>-->
-<!--            <version>2.2.4</version>-->
-<!--            <scope>provided</scope>-->
-<!--            <optional>true</optional>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
@@ -621,14 +589,6 @@
             <version>1.6.2</version>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-beans</artifactId>
-            <version>5.2.20.RELEASE</version>
-            <scope>test</scope>
-            <optional>true</optional>
-        </dependency>-->
-
         <dependency>
             <groupId>ar.com.fdvs</groupId>
             <artifactId>DynamicJasper-core-fonts</artifactId>
@@ -674,22 +634,6 @@
     <!-- distributionManagement removed - now using central-publishing-maven-plugin -->
     <!-- Deployment handled by org.sonatype.central:central-publishing-maven-plugin -->
     <!-- Configure credentials in ~/.m2/settings.xml with server id "central" -->
-
-    <mailingLists>
-        <mailingList>
-            <name>DynamicJasper News List</name>
-            <post>dynamicjasper-news@lists.sourceforge.net</post>
-            <subscribe>
-                dynamicjasper-news-subscribe@lists.sourceforge.net
-            </subscribe>
-            <unsubscribe>
-                dynamicjasper-news-unsubscribe@lists.sourceforge.net
-            </unsubscribe>
-            <archive>
-                http://sourceforge.net/mailarchive/forum.php?forum=dynamicjasper-news
-            </archive>
-        </mailingList>
-    </mailingLists>
     <licenses>
         <license>
             <name>
@@ -701,9 +645,9 @@
     </licenses>
 
     <scm>
-        <connection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</connection>
-        <developerConnection>scm:git:git@github.com:FDVSolutions/DynamicJasper.git</developerConnection>
-        <url>git@github.com:FDVSolutions/DynamicJasper.git</url>
+        <connection>scm:git:git@github.com:intive-FDV/DynamicJasper.git</connection>
+        <developerConnection>scm:git:git@github.com:intive-FDV/DynamicJasper.git</developerConnection>
+        <url>git@github.com:intive-FDV/DynamicJasper.git</url>
     </scm>
 
     <!-- =============================== -->
@@ -769,8 +713,8 @@
 
 
     <organization>
-        <name>FDV Solutions</name>
-        <url>http://www.fdvsolutions.com/</url>
+        <name>FDV Solutions (now Intive)</name>
+        <url>http://intive.com/</url>
     </organization>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

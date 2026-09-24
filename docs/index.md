@@ -25,10 +25,17 @@ You can use the classic `.jrxml` files as templates while the content and layout
 <dependency>
     <groupId>ar.com.fdvs</groupId>
     <artifactId>DynamicJasper</artifactId>
-    <version>5.3.9</version>
+    <version>{{ site.data.project.version }}</version>
 </dependency>
 ```
 Check for the latest version in [Maven Central Repository](https://mvnrepository.com/artifact/ar.com.fdvs/DynamicJasper)
+
+## JasperReports Compatibility
+
+| DJ version | JasperReports compatible |
+|---|---|
+{% for row in site.data.jr_compatibility %}| {{ row.dj }} | {{ row.jr }} |
+{% endfor %}
 
 # About DynamicJasper
 

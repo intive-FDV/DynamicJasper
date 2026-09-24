@@ -11,6 +11,7 @@ buildNumber.properties
 .mvn/timing.properties
 .idea
 .idea/*
+__pycache__/
 
 
 

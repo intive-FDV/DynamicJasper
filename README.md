@@ -11,19 +11,41 @@ a easy way (it only interferes with the creation of the report design doing the 
 You can use the classic .jrxml files as templates while the content and layout of the report elements are handled by the DJ
 API.
 
-http://dynamicjasper.com/
+![dj-home.png](docs/images/dj-home.png)
+
+### Documentation and Examples
+
+Find documentation and examples at http://intive-fdv.github.io/DynamicJasper/
 
 ### Maven dependency
 
     <dependency>
       <groupId>ar.com.fdvs</groupId>
       <artifactId>DynamicJasper</artifactId>
-      <version>5.0.11</version>
+      <version><!-- dj-version:start -->7.0.0<!-- dj-version:end --></version>
     </dependency>
 
-### Documentation and Examples
 
-Find documentation and examples at http://dynamicjasper.com/documentation-examples/
+### JasperReports Compatibility
+
+<!-- jr-compat:start -->
+| DJ version | JasperReports compatible |
+|---|---|
+| 5.0.9 | 4.6.0 – 6.3.0 |
+| 5.1.1 | 4.6.0 – 6.4.1 |
+| 5.1.3 | 6.3.0 – 6.5.1 |
+| 5.2.0 | 6.6.0 – 6.7.1 |
+| 5.3.0 | 6.8.0 – 6.11.0 |
+| 5.3.1 | 6.8.0 – 6.13.0 |
+| 5.3.2 | 6.8.0 – 6.17.0 |
+| 5.3.3 | 6.8.0 – 6.18.1 |
+| 5.3.6 | 6.8.0 – 6.19.1 |
+| 5.3.7 | 6.11.0 – 6.20.0 |
+| 5.3.9 | 6.20.1 – 6.20.4 |
+| 5.4.0 | 6.21.5 |
+| 5.4.1 | 6.20.1 – 6.21.5 |
+| 7.0.0 | 7.0.0 – 7.0.8 |
+<!-- jr-compat:end -->
 
 ## Report Concept
 
