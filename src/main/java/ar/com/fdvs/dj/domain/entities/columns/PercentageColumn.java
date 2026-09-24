@@ -20,7 +20,7 @@ public class PercentageColumn extends AbstractColumn {
 	}
 	
 	public String getTextForExpression(DJGroup group) {
-		return "new Double((" + getPercentageColumn().getTextForExpression() + ").doubleValue() / $V{" + getReportName() + "_" + getGroupVariableName(group) + "}.doubleValue())";
+		return "Double.valueOf((" + getPercentageColumn().getTextForExpression() + ").doubleValue() / $V{" + getReportName() + "_" + getGroupVariableName(group) + "}.doubleValue())";
 	}	
 
 	/**
@@ -30,7 +30,7 @@ public class PercentageColumn extends AbstractColumn {
 	 * @return
 	 */
 	public String getTextForExpression(DJGroup group, DJGroup childGroup, String type) {
-		return "new Double( $V{" + getReportName() + "_" +  getGroupVariableName(childGroup) + "}.doubleValue() / $V{" + getReportName() + "_" + getGroupVariableName(type,group.getColumnToGroupBy().getColumnProperty().getProperty()) + "}.doubleValue())";
+		return "Double.valueOf( $V{" + getReportName() + "_" +  getGroupVariableName(childGroup) + "}.doubleValue() / $V{" + getReportName() + "_" + getGroupVariableName(type,group.getColumnToGroupBy().getColumnProperty().getProperty()) + "}.doubleValue())";
 	}
 
 	public String getValueClassNameForExpression() {

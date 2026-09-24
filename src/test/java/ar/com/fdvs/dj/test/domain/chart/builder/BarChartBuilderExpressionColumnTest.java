@@ -78,13 +78,13 @@ public class BarChartBuilderExpressionColumnTest extends BaseDjReportTest {
 		
 		AbstractColumn columnState = ColumnBuilder.getNew()
 		.setColumnProperty("state", String.class.getName()).setTitle(
-				"State").setWidth(new Integer(85)).build();
+				"State").setWidth(85).build();
 		AbstractColumn columnBranch = ColumnBuilder.getNew()
 		.setColumnProperty("branch", String.class.getName()).setTitle(
-				"Branch").setWidth(new Integer(85)).build();
+				"Branch").setWidth(85).build();
 		AbstractColumn columnaQuantity = ColumnBuilder.getNew()
 		.setColumnProperty("quantity", Long.class.getName()).setTitle(
-				"Quantity").setWidth(new Integer(80)).build();
+				"Quantity").setWidth(80).build();
 		AbstractColumn columnAmount = ColumnBuilder.getNew().
                 setCustomExpression(new CustomExpression() {
                     public Object evaluate(Map fields, Map variables, Map parameters) {
@@ -95,7 +95,7 @@ public class BarChartBuilderExpressionColumnTest extends BaseDjReportTest {
                         return Float.class.getName();
                     }
                 })
-                .setTitle("Amount").setWidth(new Integer(90)).build();
+                .setTitle("Amount").setWidth(90).build();
 
 		drb.addColumn(columnState);
 		drb.addColumn(columnBranch);
@@ -217,7 +217,7 @@ public class BarChartBuilderExpressionColumnTest extends BaseDjReportTest {
 		assertEquals(LineStyleEnum.values()[DJChartOptions.LINE_STYLE_DOTTED], chart.getLineBox().getPen().getLineStyle());
 		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
-		assertEquals(new Integer(5), chart.getLineBox().getPadding());
+		assertEquals(5, chart.getLineBox().getPadding().intValue());
 	}
 	
 	public void testDataset() {

@@ -85,35 +85,35 @@ public class PercentageColumnReportTest extends BaseDjReportTest {
 			.setColumnSpace(5);
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())
-			.setTitle("State").setWidth(new Integer(85))
+			.setTitle("State").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getNew().setColumnProperty("branch", String.class.getName())
-			.setTitle("Branch").setWidth(new Integer(85))
+			.setTitle("Branch").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 //		AbstractColumn columnaProductLine = ColumnBuilder.getNew().setColumnProperty("productLine", String.class.getName())
-//			.setTitle("Product Line").setWidth(new Integer(85))
+//			.setTitle("Product Line").setWidth(85)
 //			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaItem = ColumnBuilder.getNew().setColumnProperty("item", String.class.getName())
-			.setTitle("item").setWidth(new Integer(85))
+			.setTitle("item").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnCode = ColumnBuilder.getNew().setColumnProperty("id", Long.class.getName())
-			.setTitle("ID").setWidth(new Integer(40))
+			.setTitle("ID").setWidth(40)
 			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaCantidad = ColumnBuilder.getNew().setColumnProperty("quantity", Long.class.getName())
-			.setTitle("Quantity").setWidth(new Integer(80))
+			.setTitle("Quantity").setWidth(80)
 			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnAmount = ColumnBuilder.getNew().setColumnProperty("amount", Float.class.getName())
-			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
+			.setTitle("Amount").setWidth(90).setPattern("$ 0.00")
 			.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 		
 		AbstractColumn columnPercentageAmount = ColumnBuilder.getNew().setPercentageColumn((PropertyColumn) columnAmount)
-		.setTitle("Amount [%]").setWidth(new Integer(90))
+		.setTitle("Amount [%]").setWidth(90)
 		.setStyle(amountStyle).setHeaderStyle(headerStyle).build();
 
 		drb.addColumn(columnState);

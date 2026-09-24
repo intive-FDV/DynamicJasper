@@ -279,7 +279,7 @@ public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {
 	 * @param padding the padding
 	 **/
 	public abstract T setPadding(int padding); /*{
-		this.chart.getOptions().setPadding(new Integer(padding));
+		this.chart.getOptions().setPadding(padding);
 		return (T) this;
 	}*/
 

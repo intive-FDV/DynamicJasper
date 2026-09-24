@@ -88,8 +88,8 @@ public class SortUtilsTest {
         List<TestBean> sorted = SortUtils.sortCollection(beans, new String[]{"name", "age"});
 
         assertEquals("First should be Alice", "Alice", sorted.get(0).getName());
-        assertEquals("First Alice should be younger", Integer.valueOf(25), sorted.get(0).getAge());
-        assertEquals("Second Alice should be older", Integer.valueOf(30), sorted.get(1).getAge());
+        assertEquals("First Alice should be younger", 25, sorted.get(0).getAge().intValue());
+        assertEquals("Second Alice should be older", 30, sorted.get(1).getAge().intValue());
         assertEquals("Third should be Bob", "Bob", sorted.get(2).getName());
     }
 
@@ -180,8 +180,8 @@ public class SortUtilsTest {
 
         List<TestBean> sorted = SortUtils.sortCollection(beans, new String[]{"age"});
 
-        assertEquals("First should be youngest", Integer.valueOf(25), sorted.get(0).getAge());
-        assertEquals("Second should be middle", Integer.valueOf(30), sorted.get(1).getAge());
-        assertEquals("Third should be oldest", Integer.valueOf(35), sorted.get(2).getAge());
+        assertEquals("First should be youngest", 25, sorted.get(0).getAge().intValue());
+        assertEquals("Second should be middle", 30, sorted.get(1).getAge().intValue());
+        assertEquals("Third should be oldest", 35, sorted.get(2).getAge().intValue());
     }
 }

@@ -248,7 +248,7 @@ public class StyleBuilderTest {
                 .setPadding(10)
                 .build();
 
-        assertEquals("Padding should match", Integer.valueOf(10), style.getPadding());
+        assertEquals("Padding should match", 10, style.getPadding().intValue());
     }
 
     @Test
@@ -257,7 +257,7 @@ public class StyleBuilderTest {
                 .setPaddingTop(5)
                 .build();
 
-        assertEquals("Padding top should match", Integer.valueOf(5), style.getPaddingTop());
+        assertEquals("Padding top should match", 5, style.getPaddingTop().intValue());
     }
 
     @Test
@@ -266,7 +266,7 @@ public class StyleBuilderTest {
                 .setPaddingBottom(5)
                 .build();
 
-        assertEquals("Padding bottom should match", Integer.valueOf(5), style.getPaddingBottom());
+        assertEquals("Padding bottom should match", 5, style.getPaddingBottom().intValue());
     }
 
     @Test
@@ -275,7 +275,7 @@ public class StyleBuilderTest {
                 .setPaddingLeft(5)
                 .build();
 
-        assertEquals("Padding left should match", Integer.valueOf(5), style.getPaddingLeft());
+        assertEquals("Padding left should match", 5, style.getPaddingLeft().intValue());
     }
 
     @Test
@@ -284,7 +284,7 @@ public class StyleBuilderTest {
                 .setPaddingRight(5)
                 .build();
 
-        assertEquals("Padding right should match", Integer.valueOf(5), style.getPaddingRight());
+        assertEquals("Padding right should match", 5, style.getPaddingRight().intValue());
     }
 
     @Test

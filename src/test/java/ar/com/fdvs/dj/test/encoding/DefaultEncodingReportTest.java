@@ -121,8 +121,8 @@ public class DefaultEncodingReportTest extends BaseDjReportTest {
         List col = new ArrayList();
 
         //The collection is ordered by State, Branch and Product Line
-        col.add(new Product(1L, "book", "ąćęłńóśźż", "abcdefghaijkslmnopqĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁ", "Main Street", new Long("2500"), new Float("5")));
-        col.add(new Product(1L, "book", "áñö", "ĄĆĘŁŃÓŚŹŻ", "Main Street", new Long("2500"), new Float("5")));
+        col.add(new Product(1L, "book", "ąćęłńóśźż", "abcdefghaijkslmnopqĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁŃÓŚŹŻĄĆĘŁ", "Main Street", 2500L, 5f));
+        col.add(new Product(1L, "book", "áñö", "ĄĆĘŁŃÓŚŹŻ", "Main Street", 2500L, 5f));
         return col;
     }
 

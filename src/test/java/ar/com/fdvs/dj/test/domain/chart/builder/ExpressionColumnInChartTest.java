@@ -77,10 +77,10 @@ public class ExpressionColumnInChartTest extends BaseDjReportTest {
 		
 		AbstractColumn columnCode = ColumnBuilder.getNew()
 		.setColumnProperty("id", Long.class.getName()).setTitle("ID")
-		.setWidth(new Integer(40)).build();
+		.setWidth(40).build();
 		AbstractColumn columnaQuantity = ColumnBuilder.getNew()
 		.setColumnProperty("quantity", Long.class.getName()).setTitle(
-				"Quantity").setWidth(new Integer(80)).build();
+				"Quantity").setWidth(80).build();
 
         AbstractColumn columnAmount = ColumnBuilder.getNew()
                 .setTitle("Amount")
@@ -93,7 +93,7 @@ public class ExpressionColumnInChartTest extends BaseDjReportTest {
                         return Float.class.getName();
                     }
                 })
-                .setWidth(new Integer(90)).build();
+                .setWidth(90).build();
 
         drb.addField("amount", Float.class.getName());
 
@@ -193,7 +193,7 @@ public class ExpressionColumnInChartTest extends BaseDjReportTest {
 		assertEquals(LineStyleEnum.values()[DJChartOptions.LINE_STYLE_DOTTED], chart.getLineBox().getPen().getLineStyle());
 		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
-		assertEquals(new Integer(5), chart.getLineBox().getPadding());
+		assertEquals(5, chart.getLineBox().getPadding().intValue());
 	}
 	
 	public void testDataset() {

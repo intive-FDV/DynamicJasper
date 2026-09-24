@@ -103,7 +103,7 @@ public class Product {
 
 	public Float getAmount() {
 		return amount;
-//		return new Float(quantity.floatValue());
+//		return Float.valueOf(quantity.floatValue());
 	}
 
 	public void setAmount(Float amount) {

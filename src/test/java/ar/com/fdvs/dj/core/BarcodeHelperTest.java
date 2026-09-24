@@ -320,14 +320,14 @@ class BarcodeHelperTest {
         @Test
         void integerInput() {
             BufferedImage image = BarcodeHelper.getBarcodeImage(
-                    BarcodeTypes.CODE_128, Integer.valueOf(12345), true, false);
+                    BarcodeTypes.CODE_128, 12345, true, false);
             assertNotNull(image);
         }
 
         @Test
         void longInput() {
             BufferedImage image = BarcodeHelper.getBarcodeImage(
-                    BarcodeTypes.CODE_128, Long.valueOf(123456789L), true, false);
+                    BarcodeTypes.CODE_128, 123456789L, true, false);
             assertNotNull(image);
         }
 

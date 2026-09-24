@@ -91,36 +91,36 @@ public class OperationColumnReportTest extends BaseDjReportTest {
 			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", 150, 30, ImageBanner.Alignment.Right);
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())
-			.setTitle("State").setWidth(new Integer(85))
+			.setTitle("State").setWidth(85)
 			.setStyle(titleStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getNew().setColumnProperty("branch", String.class.getName())
-			.setTitle("Branch").setWidth(new Integer(85))
+			.setTitle("Branch").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaProductLine = ColumnBuilder.getNew().setColumnProperty("productLine", String.class.getName())
-			.setTitle("Product Line").setWidth(new Integer(85))
+			.setTitle("Product Line").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaItem = ColumnBuilder.getNew().setColumnProperty("item", String.class.getName())
-			.setTitle("Item").setWidth(new Integer(85))
+			.setTitle("Item").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnCode = ColumnBuilder.getNew().setColumnProperty("id", Long.class.getName())
-			.setTitle("ID").setWidth(new Integer(40))
+			.setTitle("ID").setWidth(40)
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaQuantity = ColumnBuilder.getNew().setColumnProperty("quantity", Long.class.getName())
-			.setTitle("Quantity").setWidth(new Integer(80))
+			.setTitle("Quantity").setWidth(80)
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnAmount = ColumnBuilder.getNew().setColumnProperty("amount", Float.class.getName())
-			.setTitle("Price /u").setWidth(new Integer(90)).setPattern("$ 0.00")
+			.setTitle("Price /u").setWidth(90).setPattern("$ 0.00")
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn operation = ColumnBuilder.getNew()
 			.addColumnOperation(ColumnOperation.SUM, new SimpleColumn[]{(SimpleColumn) columnaQuantity, (SimpleColumn) columnAmount})
-			.setTitle("Price").setWidth(new Integer(90)).setPattern("$ 0.00")
+			.setTitle("Price").setWidth(90).setPattern("$ 0.00")
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 

@@ -421,17 +421,17 @@ public class Style implements Serializable, Cloneable {
 			transformedStyle.setVerticalImageAlign(VerticalImageAlignEnum.getByName(verticalImageAlign.getName()));
 		}
 
-		transformedStyle.setBlankWhenNull(Boolean.valueOf(blankWhenNull));
+		transformedStyle.setBlankWhenNull(blankWhenNull);
 
 		//Font
 		if (font != null) {
 			transformedStyle.setFontName(font.getFontName());
 			transformedStyle.setFontSize(font.getFontSize());
-			transformedStyle.setBold(Boolean.valueOf(font.isBold()));
-			transformedStyle.setItalic(Boolean.valueOf(font.isItalic()));
-			transformedStyle.setUnderline(Boolean.valueOf(font.isUnderline()));
+			transformedStyle.setBold(font.isBold());
+			transformedStyle.setItalic(font.isItalic());
+			transformedStyle.setUnderline(font.isUnderline());
 			transformedStyle.setPdfFontName(font.getPdfFontName());
-			transformedStyle.setPdfEmbedded(Boolean.valueOf(font.isPdfFontEmbedded()));
+			transformedStyle.setPdfEmbedded(font.isPdfFontEmbedded());
 			transformedStyle.setPdfEncoding(font.getPdfFontEncoding());
 		}
 
@@ -450,7 +450,7 @@ public class Style implements Serializable, Cloneable {
 			transformedStyle.setRotation(RotationEnum.values()[getRotation().getValue()]);
 
 		if (getRadius() != null)
-			transformedStyle.setRadius(Integer.valueOf(getRadius().intValue()));
+			transformedStyle.setRadius(getRadius());
 
 		transformedStyle.setPattern(this.pattern);
 

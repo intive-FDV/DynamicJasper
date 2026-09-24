@@ -82,11 +82,11 @@ public class StylesReportTest3 extends BaseDjReportTest {
 		drb.addStyle(style2);
 		
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())
-			.setTitle("State").setWidth(new Integer(85))
+			.setTitle("State").setWidth(85)
 			.setStyle(style1).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getNew().setColumnProperty("branch", String.class.getName())
-			.setTitle("Branch").setWidth(new Integer(85))
+			.setTitle("Branch").setWidth(85)
 			.setStyle(style2).build();
 
 		drb.addColumn(columnBranch);

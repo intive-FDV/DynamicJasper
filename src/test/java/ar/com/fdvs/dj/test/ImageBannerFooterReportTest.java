@@ -79,38 +79,38 @@ public class ImageBannerFooterReportTest extends BaseDjReportTest {
 			.setPrintBackgroundOnOddRows(true)
 			.setOddRowBackgroundStyle(oddRowStyle)
             .addAutoText(AutoText.AUTOTEXT_PAGE_X_OF_Y, AutoText.POSITION_FOOTER, AutoText.ALIGNMENT_RIGHT)
-//			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.png", new Integer(197), new Integer(60), ImageBanner.Alignment.Right)
-//			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", new Integer(300), new Integer(60), ImageBanner.Alignment.Right)
+//			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.png", 197, 60, ImageBanner.Alignment.Right)
+//			.addFirstPageFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", 300, 60, ImageBanner.Alignment.Right)
 			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/logo_fdv_solutions_60.png", 100, 25, ImageBanner.Alignment.Left, ImageScaleMode.FILL)
 			.addFooterImageBanner(System.getProperty("user.dir") + "/target/test-classes/images/dynamicJasper_60.jpg", 150, 45, ImageBanner.Alignment.Right, ImageScaleMode.FILL)
             ;
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())
-			.setTitle("State").setWidth(new Integer(85))
+			.setTitle("State").setWidth(85)
 			.setStyle(titleStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getNew().setColumnProperty("branch", String.class.getName())
-			.setTitle("Branch").setWidth(new Integer(85))
+			.setTitle("Branch").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaProductLine = ColumnBuilder.getNew().setColumnProperty("productLine", String.class.getName())
-			.setTitle("Product Line").setWidth(new Integer(85))
+			.setTitle("Product Line").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaItem = ColumnBuilder.getNew().setColumnProperty("item", String.class.getName())
-			.setTitle("Item").setWidth(new Integer(85))
+			.setTitle("Item").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnCode = ColumnBuilder.getNew().setColumnProperty("id", Long.class.getName())
-			.setTitle("ID").setWidth(new Integer(40))
+			.setTitle("ID").setWidth(40)
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaQuantity = ColumnBuilder.getNew().setColumnProperty("quantity", Long.class.getName())
-			.setTitle("Quantity").setWidth(new Integer(80))
+			.setTitle("Quantity").setWidth(80)
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnAmount = ColumnBuilder.getNew().setColumnProperty("amount", Float.class.getName())
-			.setTitle("Amount").setWidth(new Integer(90)).setPattern("$ 0.00")
+			.setTitle("Amount").setWidth(90).setPattern("$ 0.00")
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 

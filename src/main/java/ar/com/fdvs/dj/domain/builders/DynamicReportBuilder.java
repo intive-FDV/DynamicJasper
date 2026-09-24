@@ -82,11 +82,11 @@ import java.util.Map;
  * Usage example: <br>
  * DynamicReportBuilder drb = new DynamicReportBuilder(); Integer margin = new
  * Integer(20); drb.addTitle("Clients List").addTitleStyle(titleStyle)
- * .addSubtitle("Clients without debt") .addDetailHeight(new Integer(15))
+ * .addSubtitle("Clients without debt") .addDetailHeight(15)
  * .addLeftMargin(margin).addRightMargin(margin).addTopMargin(margin)
  * .addBottomMargin(margin)
  * .addPrintBackgroundOnOddRows(true).addOddRowBackgroundStyle(oddRowStyle)
- * .addColumnsPerPage(new Integer(1)).addColumnSpace(new Integer(5))
+ * .addColumnsPerPage(1).addColumnSpace(5)
  * .addColumn(column1).addColumn(column2).build();
  * <br>
  * Like with all DJ's builders, it's usage must end with a call to build()

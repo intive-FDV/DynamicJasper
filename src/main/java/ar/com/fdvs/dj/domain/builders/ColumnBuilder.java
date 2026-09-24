@@ -60,7 +60,7 @@ import java.util.Random;
  * Usage example: <br>
  * AbstractColumn columnState = ColumnBuilder.getNew() <br>
  * .addColumnProperty("state", String.class.getName()) <br>
- * .addTitle("State").addWidth(new Integer(85)) <br>
+ * .addTitle("State").addWidth(85) <br>
  * .addStyle(detailStyle).addHeaderStyle(headerStyle).build(); <br>
  * <br>
  * Like with all DJ's builders, it's usage must end with a call to build() mehtod.

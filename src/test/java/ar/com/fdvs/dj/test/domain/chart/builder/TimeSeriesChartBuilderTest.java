@@ -81,13 +81,13 @@ public class TimeSeriesChartBuilderTest extends BaseDjReportTest {
 		
 		AbstractColumn columnDate = ColumnBuilder.getNew()
 		.setColumnProperty("date", Date.class.getName()).setTitle(
-				"Date").setWidth(new Integer(85)).build();
+				"Date").setWidth(85).build();
 		AbstractColumn columnaQuantity = ColumnBuilder.getNew()
 		.setColumnProperty("quantity", Long.class.getName()).setTitle(
-				"Quantity").setWidth(new Integer(80)).build();
+				"Quantity").setWidth(80).build();
 		AbstractColumn columnAmount = ColumnBuilder.getNew()
 		.setColumnProperty("amount", Float.class.getName()).setTitle(
-				"Amount").setWidth(new Integer(90)).build();
+				"Amount").setWidth(90).build();
 
 		drb.addColumn(columnDate);
 		drb.addColumn(columnaQuantity);
@@ -194,7 +194,7 @@ public class TimeSeriesChartBuilderTest extends BaseDjReportTest {
         assertEquals(LineStyleEnum.values()[DJChartOptions.LINE_STYLE_DOTTED], chart.getLineBox().getPen().getLineStyle());
 		assertEquals(1f, chart.getLineBox().getPen().getLineWidth());
 		assertEquals(Color.DARK_GRAY, chart.getLineBox().getPen().getLineColor());
-		assertEquals(new Integer(5), chart.getLineBox().getPadding());
+		assertEquals(5, chart.getLineBox().getPadding().intValue());
 	}
 	
 	public void testDataset() {
@@ -249,18 +249,18 @@ public class TimeSeriesChartBuilderTest extends BaseDjReportTest {
 	protected JRDataSource getDataSource() {
 			List col =  new ArrayList();
 			try {
-				col.add(new Product("1.2008", "Harry Potter 7", new Long("2500"), new Float("10000")));
-				col.add(new Product("2.2008", "Harry Potter 7", new Long("1400"), new Float("2831.32")));
-				col.add(new Product("3.2008", "Harry Potter 7", new Long("4000"), new Float("38347")));
-				col.add(new Product("4.2008", "Harry Potter 7", new Long("3000"), new Float("9482.4")));
-				col.add(new Product("5.2008", "Harry Potter 7", new Long("2500"), new Float("27475.5")));
-				col.add(new Product("6.2008", "Harry Potter 7", new Long("1400"), new Float("3322")));
-				col.add(new Product("7.2008", "Harry Potter 7", new Long("4000"), new Float("78482")));
-				col.add(new Product("8.2008", "Harry Potter 7", new Long("3000"), new Float("5831.32")));
-				col.add(new Product("9.2008", "Harry Potter 7", new Long("1500"), new Float("8329.2")));
-				col.add(new Product("10.2008", "Harry Potter 7", new Long("2500"), new Float("27475.5")));
-				col.add(new Product("11.2008", "Harry Potter 7", new Long("2500"), new Float("38347")));
-				col.add(new Product("12.2008", "Harry Potter 7", new Long("1400"), new Float("9482.4")));
+				col.add(new Product("1.2008", "Harry Potter 7", 2500L, 10000f));
+				col.add(new Product("2.2008", "Harry Potter 7", 1400L, 2831.32f));
+				col.add(new Product("3.2008", "Harry Potter 7", 4000L, 38347f));
+				col.add(new Product("4.2008", "Harry Potter 7", 3000L, 9482.4f));
+				col.add(new Product("5.2008", "Harry Potter 7", 2500L, 27475.5f));
+				col.add(new Product("6.2008", "Harry Potter 7", 1400L, 3322f));
+				col.add(new Product("7.2008", "Harry Potter 7", 4000L, 78482f));
+				col.add(new Product("8.2008", "Harry Potter 7", 3000L, 5831.32f));
+				col.add(new Product("9.2008", "Harry Potter 7", 1500L, 8329.2f));
+				col.add(new Product("10.2008", "Harry Potter 7", 2500L, 27475.5f));
+				col.add(new Product("11.2008", "Harry Potter 7", 2500L, 38347f));
+				col.add(new Product("12.2008", "Harry Potter 7", 1400L, 9482.4f));
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 			} catch (ParseException e) {

@@ -202,8 +202,8 @@ public class CrosstabInFooterRecievesDataTest extends BaseDjReportTest {
 		// 1 entry
         List<Product> col = new ArrayList<Product>(2);
         
-        col.add(new Product(Long.valueOf(1),"book","Harry Potter 7","Florida","Main Street", Long.valueOf(2500), Float.valueOf(10000)));
-        col.add(new Product(Long.valueOf(1),"book","Harry Potter 7","Florida","Railway Station", Long.valueOf(1400), Float.valueOf(2831.32f)));
+        col.add(new Product(1L,"book","Harry Potter 7","Florida","Main Street", 2500L, 10000f));
+        col.add(new Product(1L,"book","Harry Potter 7","Florida","Railway Station", 1400L, 2831.32f));
 
         return new JRBeanCollectionDataSource(col);
     }

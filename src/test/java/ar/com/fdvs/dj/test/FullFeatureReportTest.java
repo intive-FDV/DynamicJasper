@@ -93,40 +93,40 @@ public class FullFeatureReportTest extends BaseDjReportTest {
 			.addImageBanner(System.getProperty("user.dir") +"/target/test-classes/images/dynamicJasper_60.jpg", 150, 30, ImageBanner.Alignment.Right);
 
 		AbstractColumn columnState = ColumnBuilder.getNew().setColumnProperty("state", String.class.getName())
-			.setTitle("State").setWidth(new Integer(85))
+			.setTitle("State").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnBranch = ColumnBuilder.getNew().setColumnProperty("branch", String.class.getName())
-			.setTitle("Branch").setWidth(new Integer(85))
+			.setTitle("Branch").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaProductLine = ColumnBuilder.getNew().setColumnProperty("productLine", String.class.getName())
-			.setTitle("Product Line").setWidth(new Integer(85))
+			.setTitle("Product Line").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaItem = ColumnBuilder.getNew().setColumnProperty("item", String.class.getName())
-			.setTitle("Item").setWidth(new Integer(85))
+			.setTitle("Item").setWidth(85)
 			.setStyle(detailStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnCode = ColumnBuilder.getNew().setColumnProperty("id", Long.class.getName())
-			.setTitle("ID").setWidth(new Integer(40))
+			.setTitle("ID").setWidth(40)
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaQuantity = ColumnBuilder.getNew().setColumnProperty("quantity", Long.class.getName())
-			.setTitle("Quantity").setWidth(new Integer(80))
+			.setTitle("Quantity").setWidth(80)
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnAmount = ColumnBuilder.getNew().setColumnProperty("amount", Float.class.getName())
-			.setTitle("Amount").setWidth(new Integer(90)).setTextFormatter(NumberFormat.getCurrencyInstance())
+			.setTitle("Amount").setWidth(90).setTextFormatter(NumberFormat.getCurrencyInstance())
 			.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 		AbstractColumn columnaCode = ColumnBuilder.getNew().setColumnProperty("code.code", String.class.getName())
-		.setTitle("Code").setWidth(new Integer(85))
+		.setTitle("Code").setWidth(85)
 		.setStyle(detailStyle).setHeaderStyle(headerStyle).build();		
 		
 		Format textFormatter = new BooleanYesNoFormat();
 		AbstractColumn columnavailable = ColumnBuilder.getNew().setColumnProperty("isAvailable", Boolean.class.getName())
-		.setTitle("In stock").setWidth(new Integer(40)).setTextFormatter(textFormatter)
+		.setTitle("In stock").setWidth(40).setTextFormatter(textFormatter)
 		.setStyle(importeStyle).setHeaderStyle(headerStyle).build();
 
 
