@@ -184,13 +184,22 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>4.0.0-M16</version>
+                <dependencies>
+                    <!-- Required by the Reflow skin: provides the Velocity tools
+                         (SkinConfigTool) that resolve $resourcePath / $config in the skin templates. -->
+                    <dependency>
+                        <groupId>io.github.devacfr.maven.skins</groupId>
+                        <artifactId>reflow-velocity-tools</artifactId>
+                        <version>2.4.1</version>
+                    </dependency>
+                </dependencies>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.4.1</version>
             </plugin>
             <plugin>
                 <groupId>org.apache.felix</groupId>
@@ -331,10 +340,10 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
+                        <version>3.10.1</version>
                         <configuration>
                             <source>${java.release.version}</source>
-                            <additionalparam>-Xdoclint:none</additionalparam>
+                            <doclint>none</doclint>
                         </configuration>
                     </plugin>
                     <plugin>
@@ -353,7 +362,7 @@
                                  if set to false warnings will be logged. -->
                             <failOnError>false</failOnError>
                             <issueLinkTemplate>
-                                <![CDATA[https://sourceforge.net/tracker/?func=detail&group_id=188060&atid=923805&aid=%ISSUE%]]>
+                                <![CDATA[https://github.com/FDVSolutions/DynamicJasper/issues/%ISSUE%]]>
                             </issueLinkTemplate>
                         </configuration>
                     </plugin>

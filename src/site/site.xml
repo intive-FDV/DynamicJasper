@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<project name="DynamicJasper" xmlns="http://maven.apache.org/DECORATION/1.1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
+
+    <skin>
+        <groupId>io.github.devacfr.maven.skins</groupId>
+        <artifactId>reflow-maven-skin</artifactId>
+        <version>2.4.1</version>
+    </skin>
+
+    <custom>
+        <reflowSkin>
+            <brand>
+                <name>DynamicJasper</name>
+                <href>https://github.com/FDVSolutions/DynamicJasper</href>
+            </brand>
+            <theme>default</theme>
+        </reflowSkin>
+    </custom>
+
+    <body>
+        <head>DynamicJasper: a 100% pure Java library to create JasperReports dynamically at runtime</head>
+
+        <menu name="Home">
+            <item name="Overview" href="index.html"/>
+        </menu>
+
+        <menu name="Documentation">
+            <item name="Getting Started" href="https://intive-fdv.github.io/DynamicJasper/getting-started.html"/>
+            <item name="How To Guide" href="https://intive-fdv.github.io/DynamicJasper/how-to/"/>
+            <item name="Blog &amp; News" href="https://intive-fdv.github.io/DynamicJasper/"/>
+            <item name="API (Javadoc)" href="apidocs/index.html"/>
+        </menu>
+
+        <menu name="In Spanish">
+            <item name="Home" href="es/index.html"/>
+            <item name="Docs" href="es/docs/index.html"/>
+            <item name="Features" href="es/docs/features.html"/>
+            <item name="Getting Started" href="es/docs/getting_started.html"/>
+            <item name="How To Guide" href="es/docs/howto.html"/>
+            <item name="Playground" href="es/docs/playground.html"/>
+            <item name="Requierements" href="es/requeriments.html"/>
+        </menu>
+
+        <menu name="Project">
+            <item name="Download" href="download.html"/>
+            <item name="Screenshots" href="screenshots.html"/>
+            <item name="Changes" href="changes-report.html"/>
+            <item name="Coverage" href="jacoco/index.html"/>
+            <item name="Professional Support" href="getPro.html"/>
+            <item name="GitHub" href="https://github.com/FDVSolutions/DynamicJasper"/>
+            <item name="Issues" href="https://github.com/FDVSolutions/DynamicJasper/issues"/>
+            <item name="Maven Central" href="https://central.sonatype.com/artifact/ar.com.fdvs/DynamicJasper"/>
+        </menu>
+    </body>
+</project>

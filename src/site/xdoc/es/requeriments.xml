@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<document>
+    <properties>
+        <title>Requerimientos</title>
+        <author email="fdvsolutions@gmail.com" name="FDV Solutions"/>
+    </properties>
+
+    <body>
+        <section name="Requerimientos">
+            <p>
+                Para utilizar DynamicJasper se requiere
+                <a href="https://jasperreports.org">JasperReports</a>.
+                Todas las dependencias (incluidas las de JasperReports) se
+                resuelven automáticamente desde
+                <a href="https://central.sonatype.com/">Maven Central</a>.
+            </p>
+
+            <p>Para Maven, agregue la siguiente dependencia:</p>
+
+            <source><![CDATA[<dependency>
+    <groupId>ar.com.fdvs</groupId>
+    <artifactId>DynamicJasper</artifactId>
+    <version>5.4.0</version>
+</dependency>]]></source>
+
+            <p>
+                Puede ver la lista completa de dependencias transitivas en
+                la <a href="../dependencies.html">página de dependencias</a> o en
+                <a href="https://central.sonatype.com/artifact/ar.com.fdvs/DynamicJasper/5.4.0/dependencies">Maven Central</a>.
+            </p>
+        </section>
+
+        <section name="Descargas">
+            <p>
+                Ver la página de <a href="../download.html">Descarga</a> para
+                instrucciones de descarga e integración.
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<document>
+    <properties>
+        <title>Screenshots</title>
+        <author email="fdvsolutions@gmail.com" name="FDV Solutions"/>
+    </properties>
+
+    <body>
+        <section name="Screenshots">
+            <p>
+                The screenshots below correspond to working JUnit tests that are available
+                in the <a href="https://github.com/FDVSolutions/DynamicJasper/tree/main/src/test/java/ar/com/fdvs/dj/test">test source code</a>.
+            </p>
+
+            <figure>
+                <image src="images/snapshots/group-report_s.png" alt="Report with repeating groups" width="400"/>
+                <caption>Report with repeating groups</caption>
+            </figure>
+
+            <figure>
+                <image src="images/snapshots/image-banner_s.png" alt="Report with image banner" width="400"/>
+                <caption>Report with image banner</caption>
+            </figure>
+
+            <figure>
+                <image src="images/snapshots/style-report_s.png" alt="Report with styles (inherited from template jrxml)" width="400"/>
+                <caption>Report with styles (inherited from template jrxml)</caption>
+            </figure>
+
+            <figure>
+                <image src="images/snapshots/subreport-report_s.png" alt="Report with subreport" width="400"/>
+                <caption>Report with subreport</caption>
+            </figure>
+
+            <figure>
+                <image src="images/snapshots/image-column_s.png" alt="Report with a column of images" width="400"/>
+                <caption>Report with a column of images</caption>
+            </figure>
+
+            <figure>
+                <image src="images/snapshots/crosstab-report_s.png" alt="A report with cross tabs" width="400"/>
+                <caption>A report with cross tabs</caption>
+            </figure>
+
+            <figure>
+                <image src="images/snapshots/chart-report_s.png" alt="Report with charts" width="400"/>
+                <caption>Report with charts</caption>
+            </figure>
+
+            <figure>
+                <image src="images/snapshots/barcode-report_s.png" alt="Report with bar code" width="400"/>
+                <caption>Report with bar code</caption>
+            </figure>
+
+            <section name="Sample Reports">
+                <p>
+                    You can download the PDF output of each test to inspect it in detail:
+                </p>
+                <ul>
+                    <li><a href="examples/FastReportTest.pdf">FastReportTest</a></li>
+                    <li><a href="examples/PlainReportTest.pdf">PlainReportTest</a></li>
+                    <li><a href="examples/GroupsReportTest.pdf">GroupsReportTest</a></li>
+                    <li><a href="examples/ConditionalStylesReportTest.pdf">ConditionalStylesReportTest</a></li>
+                    <li><a href="examples/ChartReportTest.pdf">ChartReportTest</a></li>
+                    <li><a href="examples/ConcatenatedReportTest.pdf">ConcatenatedReportTest</a></li>
+                    <li><a href="examples/CustomExpressionReportTest.pdf">CustomExpressionReportTest</a></li>
+                    <li><a href="examples/ImageBannerReportTest.pdf">ImageBannerReportTest</a></li>
+                    <li><a href="examples/ReflectiveReportTest.pdf">ReflectiveReportTest</a></li>
+                    <li><a href="examples/StylesReportTest.pdf">StylesReportTest</a></li>
+                    <li><a href="examples/SubReportTest.pdf">SubReportTest</a></li>
+                    <li><a href="examples/AutotextReportTest.pdf">AutotextReportTest</a></li>
+                    <li><a href="examples/FixedColumnWidhTest.pdf">FixedColumnWidhTest</a></li>
+                    <li><a href="examples/TemplateReportTest.pdf">TemplateReportTest</a></li>
+                </ul>
+            </section>
+        </section>
+    </body>
+</document>

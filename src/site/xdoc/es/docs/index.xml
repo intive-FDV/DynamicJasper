@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<document>
+    <properties>
+        <title>Documentación</title>
+        <author email="fdvsolutions@gmail.com" name="FDV Solutions"/>
+    </properties>
+
+    <body>
+        <section name="Documentación">
+            <p>
+                La documentación completa de DynamicJasper (en inglés, actualizada)
+                está disponible en línea en
+                <a href="https://intive-fdv.github.io/DynamicJasper/">intive-fdv.github.io/DynamicJasper</a>.
+                Esta sección contiene la documentación clásica en español.
+            </p>
+
+            <ul>
+                <li><a href="features.html">Features</a> — características de la librería</li>
+                <li><a href="getting_started.html">Getting Started</a> — primeros pasos y ejemplos</li>
+                <li><a href="howto.html">How To Guide</a> — guías paso a paso (estilos condicionales, gráficas, sub-reportes, etc.)</li>
+                <li><a href="playground.html">Playground</a> — demo online</li>
+                <li><a href="../../apidocs/index.html">API (Javadoc)</a></li>
+            </ul>
+        </section>
+    </body>
+</document>

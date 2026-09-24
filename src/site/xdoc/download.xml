@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<document>
+    <properties>
+        <title>Download</title>
+        <author email="fdvsolutions@gmail.com" name="FDV Solutions"/>
+    </properties>
+
+    <body>
+        <section name="Download">
+            <p>
+                DynamicJasper is available on
+                <a href="https://central.sonatype.com/artifact/ar.com.fdvs/DynamicJasper">Maven Central</a>.
+                The current version is <b>${project.version}</b> and it's built against
+                JasperReports 7.0.8.
+            </p>
+            <p>Maven dependency:</p>
+            <source><![CDATA[<dependency>
+    <groupId>ar.com.fdvs</groupId>
+    <artifactId>DynamicJasper</artifactId>
+    <version>${project.version}</version>
+</dependency>]]></source>
+            <p>
+                Browse the artifact on
+                <a href="https://mvnrepository.com/artifact/ar.com.fdvs/DynamicJasper">mvnrepository.com</a>
+                to see all available versions and usage statistics.
+            </p>
+        </section>
+
+        <section name="Requirements">
+            <p>
+                DynamicJasper requires:
+            </p>
+            <ul>
+                <li>Java 8 or later</li>
+                <li>JasperReports 7.0.8 (or a compatible 7.x version):</li>
+            </ul>
+            <source><![CDATA[<dependency>
+    <groupId>net.sf.jasperreports</groupId>
+    <artifactId>jasperreports</artifactId>
+    <version>7.0.8</version>
+</dependency>]]></source>
+        </section>
+
+        <section name="Source code">
+            <p>
+                The complete source code is available on
+                <a href="https://github.com/FDVSolutions/DynamicJasper">GitHub</a>,
+                including the test suite which doubles as a catalog of usage examples.
+            </p>
+        </section>
+    </body>
+</document>

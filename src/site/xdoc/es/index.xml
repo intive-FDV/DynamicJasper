@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<document>
+    <properties>
+        <title>DynamicJasper</title>
+        <author email="fdvsolutions@gmail.com" name="FDV Solutions"/>
+    </properties>
+
+    <body>
+        <section name="Dynamic Jasper">
+            <p>
+                DynamicJasper es una librería que permite generar reportes
+                <i>dynamicos</i>, sin necesidad de herramientas de diseño,
+                especificando columnas, grupos, estilos, etc. en tiempo de ejecución.
+                Se basa en la gran librería
+                <a href="https://jasperreports.org">JasperReports</a>, abstractizando
+                la mayor parte de su API, generando reportes JasperReports de forma transparente.
+            </p>
+
+            <p>
+                <b>Es completamente dinámico!!!</b> Las columnas, grupos, variables y
+                estilos son especificados en tiempo de ejecución mediante una API
+                fluida, sin necesidad de archivos de diseño.
+            </p>
+
+            <p>
+                La librería y sus tests se mantienen en
+                <a href="https://github.com/FDVSolutions/DynamicJasper">GitHub</a>.
+                Para más información, vea la
+                <a href="https://intive-fdv.github.io/DynamicJasper/">documentación en línea</a>.
+            </p>
+        </section>
+
+        <section name="Demo Online - DynamicJasper Playground">
+            <p>
+                Pruebe DynamicJasper directamente en el navegador con el
+                <a href="https://github.com/FDVSolutions/DynamicJasperPlayground">DynamicJasper Playground</a>,
+                una aplicación web de muestra que genera reportes dinámicamente.
+            </p>
+        </section>
+
+        <section name="Screenshots">
+            <p>
+                Los reportes generados a continuación corresponden a tests JUnit
+                disponibles en el
+                <a href="https://github.com/FDVSolutions/DynamicJasper/tree/main/src/test/java/ar/com/fdvs/dj/test">código fuente de los tests</a>.
+            </p>
+
+            <figure>
+                <image src="../images/snapshots/style-report_s.png" alt="Report with styles" width="400"/>
+                <caption>Reporte con estilos - <a href="../examples/StylesReportTest.pdf">StylesReportTest.pdf</a></caption>
+            </figure>
+
+            <figure>
+                <image src="../images/snapshots/group-report_s.png" alt="Report with groups" width="400"/>
+                <caption>Reporte con grupos repetibles - <a href="../examples/GroupsReportTest.pdf">GroupsReportTest.pdf</a></caption>
+            </figure>
+
+            <figure>
+                <image src="../images/snapshots/image-banner_s.png" alt="Report with image banner" width="400"/>
+                <caption>Reporte con banner de imagen - <a href="../examples/ImageBannerReportTest.pdf">ImageBannerReportTest.pdf</a></caption>
+            </figure>
+
+            <figure>
+                <image src="../images/snapshots/chart-report_s.png" alt="Report with chart" width="400"/>
+                <caption>Reporte con gráfica - <a href="../examples/ChartReportTest.pdf">ChartReportTest.pdf</a></caption>
+            </figure>
+
+            <figure>
+                <image src="../images/snapshots/crosstab-report_s.png" alt="Report with crosstab" width="400"/>
+                <caption>Reporte con tabla dinámica</caption>
+            </figure>
+
+            <figure>
+                <image src="../images/snapshots/barcode-report_s.png" alt="Report with barcode" width="400"/>
+                <caption>Reporte con código de barras</caption>
+            </figure>
+
+            <figure>
+                <image src="../images/snapshots/subreport-report_s.png" alt="Report with subreport" width="400"/>
+                <caption>Reporte con sub-reportes - <a href="../examples/SubReportTest.pdf">SubReportTest.pdf</a></caption>
+            </figure>
+
+            <figure>
+                <image src="../images/snapshots/image-column_s.png" alt="Report with image column" width="400"/>
+                <caption>Reporte con columna de imagen</caption>
+            </figure>
+        </section>
+
+        <section name="Requerimientos y Descarga">
+            <p>
+                Ver <a href="../download.html">Descarga</a> para las instrucciones de
+                descarga e integración, y <a href="requeriments.html">Requerimientos</a>
+                para la lista de dependencias.
+            </p>
+        </section>
+
+        <section name="Contacto">
+            <p>
+                Preguntas y problemas:
+                <a href="https://github.com/FDVSolutions/DynamicJasper/issues">Issues en GitHub</a>.
+            </p>
+        </section>
+    </body>
+</document>

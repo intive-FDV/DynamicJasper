@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<document>
+    <properties>
+        <title>Getting Started</title>
+        <author email="fdvsolutions@gmail.com" name="FDV Solutions"/>
+    </properties>
+
+    <body>
+        <section name="Getting Started">
+            <p>
+                This section of the DynamicJasper documentation provides information on
+                installing and using the library. It includes a brief introduction to the
+                library and how to use it in an application, and a set of code samples to
+                give the reader a basic understanding of the API. More in-depth
+                examples can be found on the
+                <a href="https://intive-fdv.github.io/DynamicJasper/">online documentation</a>.
+            </p>
+        </section>
+
+        <section name="Descarga e instalación">
+            <p>
+                DynamicJasper se publica en
+                <a href="https://central.sonatype.com/artifact/ar.com.fdvs/DynamicJasper">Maven Central</a>.
+                Para Maven, agregue la siguiente dependencia (las dependencias de
+                JasperReports se resuelven automáticamente):
+            </p>
+
+            <source><![CDATA[<dependency>
+    <groupId>ar.com.fdvs</groupId>
+    <artifactId>DynamicJasper</artifactId>
+    <version>5.4.0</version>
+</dependency>]]></source>
+        </section>
+
+        <section name="Uso básico">
+            <p>
+                The FastReportBuilder class makes the process of creating reports using
+                DynamicJasper simple and painless. It is a report builder with sensible
+                defaults and some convenience methods. The sample below creates a simple
+                report with a title and two columns.
+            </p>
+
+            <source><![CDATA[import ar.com.fdvs.dj.domain.builders.FastReportBuilder;
+import ar.com.fdvs.dj.test.TestRepositoryProducts;
+import ar.com.fdvs.dj.test.util.MyUtils;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+
+public class SimpleExample {
+
+    public static void main(String[] args) throws Exception {
+        // Create the report
+        FastReportBuilder drb = new FastReportBuilder();
+        drb.addColumn("State", "state", String.class.getName(), 30)
+            .addColumn("Amount", "amount", Float.class.getName(), 70)
+            .setTitle("November 2004 sales report")
+            .setSubtitle(MyUtils.getCurrentDate());
+        DynamicReport dr = drb.build();
+
+        // Generate the report
+        DataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());
+        JasperPrint print = JasperFillManager.fillReport(DynamicJasperHelper.generateJasperReport(dr),
+            new HashMap(), ds);
+        JRPdfExporter exporter = new JRPdfExporter();
+        exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new File("fast_report.pdf"));
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+        exporter.exportReport();
+    }
+}]]></source>
+
+            <p>
+                The sample below creates a simple report with one column, using a
+                DynamicReportBuilder (not a FastReportBuilder). It is similar to the
+                previous example.
+            </p>
+
+            <source><![CDATA[DynamicReportBuilder drb = new DynamicReportBuilder();
+drb.addTitle("November 2004 sales report", titleStyle);
+drb.addColumn(dcb.build());
+DynamicReport dr = drb.build();
+
+// Generate the report
+DataSource ds = new JRBeanCollectionDataSource(TestRepositoryProducts.getDummyCollection());
+JasperPrint print = JasperFillManager.fillReport(DynamicJasperHelper.generateJasperReport(dr),
+    new HashMap(), ds);
+JRPdfExporter exporter = new JRPdfExporter();
+exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new File("fast_report.pdf"));
+exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+exporter.exportReport();]]></source>
+
+            <p>
+                The last sample shows how to create the same simple report, but from a
+                JDBC datasource.
+            </p>
+
+            <source><![CDATA[DynamicReport drb = new DynamicReportBuilder();
+drb.addTitle("November 2004 sales report", titleStyle);
+drb.addColumn(dcb.build());
+DynamicReport dr = drb.build();
+
+// Create the datasource
+DataSource ds = new JdbcTemplateDataSource(new JdbcTemplate(dataSource),
+    "SELECT id, name, price FROM products", String.class.getName(),
+    "id", Long.class.getName(), "price", Float.class.getName());
+JasperPrint print = JasperFillManager.fillReport(DynamicJasperHelper.generateJasperReport(dr),
+    new HashMap(), ds);
+JRPdfExporter exporter = new JRPdfExporter();
+exporter.setParameter(JRExporterParameter.OUTPUT_FILE, new File("fast_report.pdf"));
+exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+exporter.exportReport();]]></source>
+
+            <p>
+                All these tests are included in the DynamicJasper test source code,
+                and the generated reports can be seen below.
+            </p>
+
+            <ul>
+                <li>
+                    <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/FastReportTest.java">FastReportTest.java</a>
+                    — <a href="../../examples/FastReportTest.pdf">FastReportTest.pdf</a>
+                </li>
+                <li>
+                    <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/GroupsReportTest.java">GroupsReportTest.java</a>
+                    — <a href="../../examples/GroupsReportTest.pdf">GroupsReportTest.pdf</a>
+                </li>
+                <li>
+                    <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/ConditionalStylesReportTest.java">ConditionalStylesReportTest.java</a>
+                    — <a href="../../examples/ConditionalStylesReportTest.pdf">ConditionalStylesReportTest.pdf</a>
+                </li>
+                <li>
+                    <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/ChartReportTest.java">ChartReportTest.java</a>
+                    — <a href="../../examples/ChartReportTest.pdf">ChartReportTest.pdf</a>
+                </li>
+                <li>
+                    <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/ImageBannerReportTest.java">ImageBannerReportTest.java</a>
+                    — <a href="../../examples/ImageBannerReportTest.pdf">ImageBannerReportTest.pdf</a>
+                </li>
+                <li>
+                    <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/SubReportTest.java">SubReportTest.java</a>
+                    — <a href="../../examples/SubReportTest.pdf">SubReportTest.pdf</a>
+                </li>
+                <li>
+                    <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/TemplateReportTest.java">TemplateReportTest.java</a>
+                    — <a href="../../examples/TemplateReportTest.pdf">TemplateReportTest.pdf</a>,
+                    <a href="../../examples/TemplateReportTest.jrxml">TemplateReportTest.jrxml</a>
+                </li>
+                <li>
+                    <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/ReflectiveReportTest.java">ReflectiveReportTest.java</a>
+                    — <a href="../../examples/ReflectiveReportTest.pdf">ReflectiveReportTest.pdf</a>
+                </li>
+            </ul>
+        </section>
+
+        <section name="Datos de prueba">
+            <p>
+                Las pruebas de DynamicJasper utilizan datos de prueba generados al
+                azar, en memoria. Si usa la clase
+                <code>JRBeanCollectionDataSource</code>, puede obtener el conjunto de
+                objetos dummy desde
+                <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/TestRepositoryProducts.java">TestRepositoryProducts</a>
+                (método <code>getDummyCollection()</code>).
+            </p>
+
+            <p>
+                También se puede usar una fuente JDBC. El test suite inicializa una
+                base de datos HSQLDB en <code>target/test-classes/hsql/test_dj_db</code>
+                y rellena la tabla de productos con los objetos dummy.
+            </p>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<document>
+    <properties>
+        <title>UI - Playground</title>
+        <author email="fdvsolutions@gmail.com" name="Martin Gorostegui"/>
+    </properties>
+
+    <body>
+        <section name="Introducción">
+            <p>
+                El DynamicJasper Playground es una webapp de ejemplo hecha en GWT que
+                muestra todas las capacidades y el potencial que ofrece la API de
+                DynamicJasper.
+            </p>
+
+            <p>
+                Puede
+                <a href="https://github.com/FDVSolutions/DynamicJasper">descargar</a>
+                la aplicación war desde GitHub y desplegarla en un contenedor de
+                servlets (como Apache Tomcat). El código fuente también está disponible.
+            </p>
+        </section>
+
+        <section name="Uso">
+            <p>
+                El Playground usa como ejemplo un reporte que lista películas, DVD y
+                títulos de libros. En el área de selección de columnas puede elegir las
+                columnas que desea que aparezcan en el reporte, y también el orden en
+                el que quiere que aparezcan.
+            </p>
+
+            <p>Se puede hacer más configuración del reporte:</p>
+
+            <ul>
+                <li>Título y subtítulo</li>
+                <li>Formato de salida (PDF, Excel, HTML y RTF)</li>
+                <li>Estilos visuales para cada elemento del reporte</li>
+                <li>Definir el título de cada columna</li>
+            </ul>
+
+            <p>
+                Se pueden crear grupos (como en JasperReports), haciendo clic en el
+                botón a la derecha de la columna que se quiere agrupar.
+            </p>
+
+            <note>
+                El agrupamiento requiere que los datos estén ordenados para que la
+                selección de grupos funcione (por ejemplo, si se agrupa por las
+                columnas A, B y C, los datos deben estar ordenados por A, B y C). En
+                este playground los datos se ordenan correctamente (porque es una
+                demo), pero no es responsabilidad de este componente ni de
+                JasperReports ordenar los datos.
+            </note>
+        </section>
+
+        <section name="Mini guía">
+            <p>Y ahora una mini guía…</p>
+
+            <figure>
+                <image src="../../images/playground/Diapositiva1_s.jpg" alt="Opciones principales del reporte" width="640"/>
+                <caption>Opciones principales del reporte.</caption>
+            </figure>
+
+            <figure>
+                <image src="../../images/playground/Diapositiva2_s.jpg" alt="Definiendo algunos estilos" width="640"/>
+                <caption>Definiendo algunos estilos.</caption>
+            </figure>
+
+            <figure>
+                <image src="../../images/playground/Diapositiva3_s.jpg" alt="El área de selección de columnas" width="640"/>
+                <caption>El área de selección de columnas.</caption>
+            </figure>
+
+            <figure>
+                <image src="../../images/playground/Diapositiva4_s.jpg" alt="Redefiniendo estilos por columna" width="640"/>
+                <caption>Redefiniendo estilos por columna.</caption>
+            </figure>
+
+            <figure>
+                <image src="../../images/playground/Diapositiva5_s.jpg" alt="El reporte final" width="640"/>
+                <caption>El reporte final.</caption>
+            </figure>
+        </section>
+    </body>
+</document>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<document>
+    <properties>
+        <title>Features</title>
+        <author email="fdvsolutions@gmail.com" name="FDV Solutions"/>
+    </properties>
+
+    <body>
+        <section name="Features">
+            <p>Características principales de DynamicJasper:</p>
+
+            <ul>
+                <li>
+                    <b>Columnas dinámicas</b>: columnas de propiedades de beans,
+                    columnas de expresiones (calculadas), columnas de código de barras y
+                    columnas de imagen, con título, ancho y alineación configurables.
+                </li>
+                <li>
+                    <b>Grupos repetibles</b>: encabezado y pie de grupo, variables de
+                    agrupación (SUM, COUNT, MIN, MAX, COUNT DISTINCT, etc.) y layouts
+                    configurables.
+                </li>
+                <li>
+                    <b>Estilos</b>: estilos por defecto para título, subtítulo, encabezado,
+                    detalle, encabezado de grupo y pie de grupo.
+                </li>
+                <li>
+                    <b>Estilos condicionales</b>: formato condicional por columna según
+                    expresiones evaluadas en tiempo de ejecución.
+                </li>
+                <li>
+                    <b>AutoText</b>: texto automático en la página (título, subtítulo,
+                    fecha, número de página, etc.).
+                </li>
+                <li>
+                    <b>Gráficas y tablas dinámicas</b>: gráficos (barras, circulares, líneas,
+                    etc.) y crosstabs generados dinámicamente.
+                </li>
+                <li>
+                    <b>Sub-reportes</b>: sub-reportes dinámicos, incluyendo sub-reportes
+                    recursivos y concatenados.
+                </li>
+                <li>
+                    <b>Formatos de exportación</b>: PDF, Excel, HTML, CSV, XML y texto,
+                    entre otros, vía <code>ReportWriter</code>.
+                </li>
+                <li>
+                    <b>Fuentes de datos</b>: colecciones de beans, ResultSet JDBC,
+                    JdbcTemplate o cualquier implementación de <code>JRDataSource</code>.
+                </li>
+                <li>
+                    <b>Lenguajes de expresión</b>: Java (por defecto), Groovy y JavaScript.
+                </li>
+                <li>
+                    <b>APIs flexibles</b>: <code>FastReportBuilder</code> para reportes
+                    rápidos, <code>DynamicReportBuilder</code> para control total y
+                    <code>ReflectiveReportBuilder</code> para reportes generados
+                    automáticamente a partir de beans.
+                </li>
+            </ul>
+        </section>
+    </body>
+</document>

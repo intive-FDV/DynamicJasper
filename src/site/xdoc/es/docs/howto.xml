@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    ~ DynamicJasper: A library for creating reports dynamically by specifying
+    ~ columns, groups, styles, etc. at runtime.
+    ~
+    ~ Copyright (C) 2025  FDV Solutions (http://www.fdvsolutions.com)
+    ~
+    ~ This library is free software; you can redistribute it and/or
+    ~ modify it under the terms of the GNU Lesser General Public
+    ~ License as published by the Free Software Foundation; either
+    ~ version 2.1 of the License, or (at your option) any later version.
+    ~
+    ~ This library is distributed in the hope that it will be useful,
+    ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    ~ Lesser General Public License for more details.
+    -->
+<document>
+    <properties>
+        <title>How To's</title>
+        <author email="fdvsolutions@gmail.com" name="FDV Solutions"/>
+    </properties>
+
+    <body>
+        <section name="Conditional styles">
+            <p>
+                DynamicJasper allows you to define a conditional style for a column.
+                This means, when the expression of the conditional style returns true
+                (in the report), the style defined in the conditional style will be
+                applied to the column.
+            </p>
+
+            <p>
+                The example below uses the "amount" column of the
+                <a href="../../examples/FastReportTest.pdf">FastReportTest report</a>
+                and makes it bold when the value is &gt; 100.
+            </p>
+
+            <source><![CDATA[// Create the style for the detail section
+StyleBuilder sb = new StyleBuilder();
+sb.setName("detail");
+
+// Create the conditional style
+Style conditionalStyle = sb.build();
+
+// Create the style to be applied when the condition is true
+sb.setName("conditional-detail");
+sb.setStyleProperty(JRStyle.PROPERTY_FONT_BOLD, "true");
+Style conditionalBoldStyle = sb.build();
+
+// Create the conditional expression, it will be applied to the column
+// when the report is generated
+ConditionalStyle cs = new ConditionalStyle();
+cs.setCondition(new ConditionStyleExpression() {
+    public Object evaluate(Object value) throws Exception {
+        Double d = (Double) value;
+        if (d != null && d.doubleValue() > 100) {
+            return Boolean.TRUE;
+        } else {
+            return Boolean.FALSE;
+        }
+    }
+});
+cs.setStyle(conditionalBoldStyle);
+
+// Add the conditional style to the column
+dcb.addConditionalStyle(cs);]]></source>
+
+            <p>
+                The conditional style can also be defined in XML, in the style of the
+                JasperReports stylesheet (this is more handy for a project). The
+                DynamicJasper test project uses a <a
+                href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/resources/ar/com/fdvs/dj/test/styles.xml">styles.xml</a>
+                file where the conditional style is defined like this:
+            </p>
+
+            <source><![CDATA[<conditionalStyle name="condition-amount-greater-than-100" isDefault="true">
+    <conditionExpression>&lt;![CDATA[$F{amount}.doubleValue() > 100]]&gt;</conditionExpression>
+    <style parent="detail">
+        <property name="isBold" value="true"/>
+    </style>
+</conditionalStyle>]]></source>
+
+            <p>
+                and is added to the column with:
+            </p>
+
+            <source><![CDATA[dcb.addConditionalStyle("condition-amount-greater-than-100",
+    new ConditionStyleExpression() {
+        public Object evaluate(Object value) throws Exception {
+            Double d = (Double) value;
+            if (d != null && d.doubleValue() > 100) {
+                return Boolean.TRUE;
+            } else {
+                return Boolean.FALSE;
+            }
+        }
+    });]]></source>
+
+            <p>
+                The generated report is <a href="../../examples/ConditionalStylesReportTest.pdf">ConditionalStylesReportTest.pdf</a>
+                and the code is in
+                <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/ConditionalStylesReportTest.java">ConditionalStylesReportTest.java</a>.
+            </p>
+        </section>
+
+        <section name="Image banner">
+            <p>
+                In the example below a logo is added to the header of the report as an image.
+                This is a sample of how to create a banner with an image in the header of the
+                report. The same can be achieved by setting an image as the column
+                background.
+            </p>
+
+            <p>
+                The generated report is <a href="../../examples/ImageBannerReportTest.pdf">ImageBannerReportTest.pdf</a>
+                and the code is in
+                <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/ImageBannerReportTest.java">ImageBannerReportTest.java</a>.
+            </p>
+
+            <p>
+                The images used in the example are available in the test resources as
+                <code>images/logo_fdv_solutions_60.png</code> and
+                <code>images/dynamicJasper_60.jpg</code>.
+            </p>
+
+            <source><![CDATA[/*
+ * Add a first-page image banner (header of the report).
+ */
+drb.addFirstPageImageBanner("images/logo_fdv_solutions_60.png", 197, 60, ImageBanner.Alignment.Left)
+   .addFirstPageImageBanner("images/dynamicJasper_60.jpg", 300, 60, ImageBanner.Alignment.Right);
+
+/*
+ * Add an image banner to all pages.
+ */
+drb.addImageBanner("images/logo_fdv_solutions_60.png", 100, 25, ImageBanner.Alignment.Left, ImageScaleMode.FILL)
+   .addImageBanner("images/dynamicJasper_60.jpg", 150, 25, ImageBanner.Alignment.Right, ImageScaleMode.FILL);]]></source>
+        </section>
+
+        <section name="JRXML template">
+            <p>
+                The report below was created from a JRXML template (jrdynamic template).
+                It was generated from a template that is available in the
+                DynamicJasper test resources as
+                <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/resources/ar/com/fdvs/dj/test/template.xml">template.xml</a>.
+                The report is <a href="../../examples/TemplateReportTest.pdf">TemplateReportTest.pdf</a>
+                and the code is in
+                <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/TemplateReportTest.java">TemplateReportTest.java</a>.
+            </p>
+
+            <source><![CDATA[/*
+ * Set the template to be used to generate the report.
+ */
+String templatePath = "template.xml";
+drb.addTemplate(templatePath);]]></source>
+        </section>
+
+        <section name="Header and footer">
+            <p>
+                DynamicJasper allows you to add text to the header and footer of the
+                report. This is a sample of how to add text to the header and footer of
+                the report.
+            </p>
+
+            <source><![CDATA[/*
+ * Add the report header text.
+ */
+drb.addReportHeader("This is the report header");
+
+/*
+ * Add the report footer text.
+ */
+drb.addReportFooter("This is the report footer");]]></source>
+        </section>
+
+        <section name="Chart">
+            <p>
+                In the example below a bar chart is added to the report. This is a sample
+                of how to create a chart with a column. The same can be achieved by
+                creating a chart with a group.
+            </p>
+
+            <p>
+                The generated report is <a href="../../examples/ChartReportTest.pdf">ChartReportTest.pdf</a>
+                and the code is in
+                <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/ChartReportTest.java">ChartReportTest.java</a>.
+            </p>
+
+            <source><![CDATA[/*
+ * Set the chart type and style.
+ */
+DJChart chart = new DJChart();
+chart.setType(DJChartConstants.CHART_TYPE_BAR);
+chart.setTitle("State chart");
+
+/*
+ * Add the column that will be used in the chart.
+ */
+DJVariable chartColumn = new DJVariable("state", "state", String.class.getName());
+chartColumn.setOperation(DJVariable.OPERATION_NONE);
+chart.addGroupByColumn(chartColumn);
+
+/*
+ * Add the data to be used in the chart.
+ */
+DJVariable chartData = new DJVariable("amount", "amount", Float.class.getName());
+chartData.setOperation(DJVariable.OPERATION_SUM);
+chart.addGroupColumnValue(chartData);
+
+/*
+ * Add the chart to the report.
+ */
+drb.addChart(chart);
+
+/*
+ * Set the chart parameters.
+ */
+chart.setParameter(DJChartConstants.PARAMETER_DATA_SET_KEY, "chart-data");
+chart.setParameter(DJChartConstants.PARAMETER_DATA_SET_FIELD_LABEL, "state");
+chart.setParameter(DJChartConstants.PARAMETER_DATA_SET_FIELD_VALUE, "amount");
+chart.setParameter(DJChartConstants.PARAMETER_DATA_SET_GROUP, "state");]]></source>
+        </section>
+
+        <section name="Custom expression">
+            <p>
+                Sometimes, the expression for a column is too complex or involves too
+                much code to be written inline in the report. In this case, you can
+                create a custom expression for the column.
+            </p>
+
+            <p>
+                The example below creates a report with one column and one group, and
+                shows how to use a custom expression for the column (to get a formatted
+                value for the group total).
+            </p>
+
+            <p>
+                The generated report is <a href="../../examples/CustomExpressionReportTest.pdf">CustomExpressionReportTest.pdf</a>
+                and the code is in
+                <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/CustomExpressionReportTest.java">CustomExpressionReportTest.java</a>.
+            </p>
+
+            <source><![CDATA[/*
+ * Create the report.
+ */
+FastReportBuilder drb = new FastReportBuilder();
+
+/*
+ * Create the column.
+ */
+ColumnBuilder dcb = new ColumnBuilder();
+dcb.setName("Amount");
+dcb.setProperty("amount");
+dcb.setType(Float.class.getName());
+dcb.setWidth(50);
+
+/*
+ * Create the group.
+ */
+GroupBuilder gb = new GroupBuilder();
+gb.setName("state");
+gb.setProperty("state");
+gb.setType(String.class.getName());
+gb.setLayout(GroupLayout.GROUP_HEADER);
+drb.addGroup(gb);
+
+/*
+ * Create the custom expression.
+ */
+CustomExpression customExpression = new CustomExpression() {
+    public Object evaluate(Object value) throws Exception {
+        // Format the value
+        return "Total: " + value;
+    }
+};
+
+/*
+ * Create the custom column.
+ */
+dcb.setCustomExpression(customExpression);
+drb.addColumn(dcb.build());
+
+/*
+ * Add the group total column to the report.
+ */
+gb.addFooterVariable("amount-total", DJVariable.OPERATION_SUM);]]></source>
+        </section>
+
+        <section name="AutoText">
+            <p>
+                DynamicJasper allows you to add auto-text fields to the report. The
+                auto-text fields are evaluated at runtime and their value is shown in the
+                report.
+            </p>
+
+            <source><![CDATA[/*
+ * Set the auto-text field.
+ */
+drb.setAutoText("Today's date: " + AutoTextConstants.DATE);]]></source>
+        </section>
+
+        <section name="Integración con Webwork">
+            <p>
+                The example below shows how to integrate DynamicJasper with Apache
+                Webwork (legacy). For Spring, Struts 2 o otros frameworks, use el
+                JasperPrint generado por <code>DynamicJasperHelper.generateJasperPrint()</code>
+                y exportarlo directamente con <code>JRExporter</code> a la respuesta HTTP.
+            </p>
+
+            <source><![CDATA[public class ReportAction extends Action {
+
+    public void run() throws Exception {
+        // Get the report from the request
+        DynamicReport report = (DynamicReport) context.get("report");
+
+        // Get the data source from the request
+        DataSource ds = (DataSource) context.get("dataSource");
+
+        // Generate the report
+        JasperPrint print = DynamicJasperHelper.generateJasperPrint(report, ds);
+
+        // Export the report to a PDF
+        JRPdfExporter exporter = new JRPdfExporter();
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, getResponse().getOutputStream());
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+        exporter.exportReport();
+    }
+}]]></source>
+        </section>
+
+        <section name="Subreport">
+            <p>
+                In the example below a subreport is added to the report. This is a sample
+                of how to create a subreport with a column. The same can be achieved by
+                creating a subreport with a group.
+            </p>
+
+            <p>
+                The generated report is <a href="../../examples/SubReportTest.pdf">SubReportTest.pdf</a>
+                and the code is in
+                <a href="https://github.com/FDVSolutions/DynamicJasper/blob/main/src/test/java/ar/com/fdvs/dj/test/SubReportTest.java">SubReportTest.java</a>.
+            </p>
+
+            <source><![CDATA[/*
+ * Set the subreport to be used in the report.
+ */
+String subreportPath = "subreport.jasper";
+drb.addSubreport("subreport", subreportPath);
+
+/*
+ * Create the subreport parameters.
+ */
+Map subreportParameters = new HashMap();
+subreportParameters.put("parameter1", "value1");
+subreportParameters.put("parameter2", "value2");
+
+/*
+ * Add the subreport to the report.
+ */
+drb.addSubreportData("subreport-data", subreportParameters);]]></source>
+        </section>
+    </body>
+</document>

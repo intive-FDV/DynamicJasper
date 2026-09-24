@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document xmlns="http://maven.apache.org/DOCX/2.0.2"
+          xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <properties>
+    <title>DynamicJasper Pro</title>
+  </properties>
+
+  <body>
+    <section name="DynamicJasper Pro - Commercial version">
+      <p>
+        <a href="getProEs.html"><b>Versi&oacute;n en espa&ntilde;ol</b></a>
+      </p>
+      <p>
+        If you're using DynamicJasper in a commercial project,
+        <b>your support is important</b>. Consider buying a license to help us
+        keep improving the product and cover maintenance costs.
+      </p>
+      <p>
+        <b>Get Pro</b> gives you access to:
+      </p>
+      <ul>
+        <li>Exclusive commercial support (priority e-mail support).</li>
+        <li>Dedicated private mailing list.</li>
+        <li>Dedicated private forum.</li>
+        <li>Early access to new releases.</li>
+        <li>Paid custom development.</li>
+      </ul>
+      <p>
+        <a class="external" href="https://www.intive-fdv.com/dj/getpro/"
+           target="_blank">
+          <img src="images/button_en.png" alt="Get Pro" width="100" height="38"/>
+        </a>
+      </p>
+      <p>
+        You can also contact us by e-mail at
+        <b><a href="mailto:support@intive-fdv.com">support@intive-fdv.com</a></b>.
+      </p>
+      <p>
+        <a class="external" href="https://www.intive-fdv.com/" target="_blank">
+          <img src="images/fdvsolutions_dynamicjasper_project.png" alt="Intive FDV" width="100" height="37"/>
+        </a>
+      </p>
+      <p>
+        <a class="external" href="https://eclipse.org/" target="_blank">
+          <img src="images/logos/eclipse.png" alt="Eclipse" width="67" height="48"/>
+        </a>
+        <a class="external" href="https://jasperreports.org" target="_blank">
+          <img src="images/logos/icon_pr_jasperreports_pro.gif" alt="JasperReports" width="125" height="38"/>
+        </a>
+        <a class="external" href="https://maven.apache.org" target="_blank">
+          <img src="images/logos/maven-feather.png" alt="Maven" width="58" height="85"/>
+        </a>
+      </p>
+    </section>
+  </body>
+</document>
