@@ -4,6 +4,8 @@ title: HOW-TO Create variables and define specific behavior
 # permalink: /how-to/
 ---
 
+{% include nav.html %}
+
 
 
 If there is a need to decouple how a variable is calculated, and how the result must be shown, then a combination of `CustomExpresion` and `DJValueFormatter` may be used.

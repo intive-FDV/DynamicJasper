@@ -4,6 +4,8 @@ title: HOW-TO Create a report with columns [like the telephone guide]
 # permalink: /how-to/
 ---
 
+{% include nav.html %}
+
 
 If we need more than one column (not the columns from the DJ API) like in the telephone guide we can tell the DynamicReportBuilder the number of columns per page in the report.
 

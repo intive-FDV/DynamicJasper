@@ -29,6 +29,7 @@ baseurl: "/DynamicJasper" # the subpath of your site, e.g. /blog
 url: "http://intive-fdv.github.io/" # the base hostname & protocol for your site, e.g. http://example.com
 # twitter_username: jekyllrb
 # github_username:  jekyll
+repository: intive-FDV/DynamicJasper
 
 # Build settings
 theme: jekyll-theme-primer

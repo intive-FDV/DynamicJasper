@@ -4,6 +4,8 @@ title: Add labels in group header and footer
 # permalink: /how-to/
 ---
 
+{% include nav.html %}
+
 # Add labels in group header and footer
 
 > Added in v3.0.7

@@ -4,6 +4,8 @@ title: HOW-TO Hide a column
 # permalink: /how-to/
 ---
 
+{% include nav.html %}
+
 Its possible to hide a column when it’s used for grouping, printing only the current value on the header of the group every time it changes.
 
 This can be achieved through the different “group layouts”.

@@ -1,0 +1,38 @@
+name: Sync changes.md
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/changes/changes.xml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref || github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Regenerate docs/changes.md
+        run: python3 scripts/changes_xml_to_md.py
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- docs/changes.md; then
+            echo "No changes to docs/changes.md"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/changes.md
+          git commit -m "docs: regenerate changes.md from changes.xml [skip ci]"
+          git push

@@ -4,6 +4,8 @@ title: Grouping Styles
 # permalink: /about/
 ---
 
+{% include nav.html %}
+
 # Grouping Styles
 
 DynamicJasper comes with predefined grouping layouts. Different combinations in layouts among nested groups can give to your reports a high visual impact.

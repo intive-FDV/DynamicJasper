@@ -4,6 +4,8 @@ title: Getting Started!
 # permalink: /about/
 ---
 
+{% include nav.html %}
+
 # Try the examples first
 
 The source code comes with examples ready to run (you need Maven 2 to build the source code). below a listing of some TestCases that are a good starting point.

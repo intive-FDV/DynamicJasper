@@ -34,3 +34,10 @@ gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
 gem "http_parser.rb", "~> 0.6.0", :platforms => [:jruby]
 
 gem "webrick", "~> 1.8"
+
+# Ruby 3.4+ removed these from the default gems bundled with the interpreter;
+# jekyll 3.9.x (pulled in by github-pages) still requires them without declaring them.
+gem "csv"
+gem "base64"
+gem "logger"
+gem "bigdecimal"

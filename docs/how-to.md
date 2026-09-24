@@ -4,6 +4,8 @@ title: How-To guide
 permalink: /how-to/
 ---
 
+{% include nav.html %}
+
 This section covers examples that answer most commons “how to” questions about how to get things done using DynamicJasper.
 
 ## Grouping and Layout

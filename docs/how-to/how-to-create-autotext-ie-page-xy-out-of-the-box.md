@@ -4,6 +4,8 @@ title: HOW-TO Create Autotext out of the box
 # permalink: /how-to/
 ---
 
+{% include nav.html %}
+
 
 To add common auto text expressions in header and footer such as "_Page X of Y_", "_Created on 07/23/2007_", etc. 
 Just use the `DynamicReportBuilder` like this:

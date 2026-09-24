@@ -4,6 +4,8 @@ title: HOW-TO Avoid splitting of rows
 # permalink: /how-to/
 ---
 
+{% include nav.html %}
+
 Sometimes, when a report is being filled at the end of a page, the value of a field is big enough to not 
 fit in the space given making the line to be split and continued in the next page. 
 

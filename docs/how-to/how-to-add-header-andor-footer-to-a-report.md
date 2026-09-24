@@ -3,6 +3,8 @@ layout: page
 title: HOW-TO Add header and/or footer to a report
 ---
 
+{% include nav.html %}
+
 # HOW-TO Add header and/or footer to a report
 
 You have two different ways to achieve this task:

@@ -4,6 +4,8 @@ title: License
 permalink: /license
 ---
 
+{% include nav.html %}
+
 # GNU LESSER GENERAL PUBLIC LICENSE
 Version 3, 29 June 2007
 

@@ -4,6 +4,8 @@ title: HOW-TO Create colspan headers
 # permalink: /how-to/
 ---
 
+{% include nav.html %}
+
 
 > Available since version 3.2.1
 
