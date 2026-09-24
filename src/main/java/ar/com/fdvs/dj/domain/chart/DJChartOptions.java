@@ -551,7 +551,7 @@ public class DJChartOptions extends DJBaseElement {
 
 	/**
 	 * Sets a user specified chart customizer class name.
-	 * @see net.sf.jasperreports.engine.JRChartCustomizer
+	 * @see net.sf.jasperreports.charts.JRChartCustomizer
  	 */
 	public void setCustomizerClass(String customizerClass) {
 		this.customizerClass = customizerClass;
@@ -559,7 +559,7 @@ public class DJChartOptions extends DJBaseElement {
 
 	/**
 	 * Returns a user specified chart customizer class name.
-	 * @see net.sf.jasperreports.engine.JRChartCustomizer
+	 * @see net.sf.jasperreports.charts.JRChartCustomizer
 	 *
 	 * @return	user specified chart customizer class name
 	 **/

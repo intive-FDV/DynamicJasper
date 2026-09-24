@@ -72,8 +72,7 @@ public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {
 	
 	/**
 	 * Sets the category for any kind of builder
-	 * 
-	 * @author esteban.invernizzi@fdvsolutions.com
+	 *
 	 * @param column
 	 * @return
 	 */
@@ -285,7 +284,7 @@ public abstract class AbstractChartBuilder<T extends AbstractChartBuilder> {
 
 	/**
 	 * Sets a user specified chart customizer class name.
-	 * @see net.sf.jasperreports.engine.JRChartCustomizer
+	 * @see net.sf.jasperreports.charts.JRChartCustomizer
  	 */
 	public abstract T setCustomizerClass(String customizerClass);	
 	

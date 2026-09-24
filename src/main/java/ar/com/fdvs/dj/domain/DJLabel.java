@@ -30,8 +30,8 @@ public class DJLabel extends DJBaseElement {
 	}
 	
 	/**
-	 * @Deprecated
-	 */	
+	 * @deprecated
+	 */
 	public DJLabel(String text, Style labelStyle,
 			LabelPosition labelPosition) {
 		super();

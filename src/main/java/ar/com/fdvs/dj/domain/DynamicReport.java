@@ -412,7 +412,7 @@ public class DynamicReport extends DJBaseElement {
 	}
 
 	/**
-	 * Must be a Map<String, String>
+	 * Must be a {@code Map<String, String>}
 	 * @param properties
 	 */
 	public void setProperties(Map<String, String> properties) {

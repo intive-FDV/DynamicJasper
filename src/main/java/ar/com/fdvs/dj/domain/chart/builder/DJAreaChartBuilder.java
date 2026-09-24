@@ -329,7 +329,7 @@ public class DJAreaChartBuilder extends AbstractChartBuilder<DJAreaChartBuilder>
 
 	/**
 	 * Sets a user specified chart customizer class name.
-	 * @see net.sf.jasperreports.engine.JRChartCustomizer
+	 * @see net.sf.jasperreports.charts.JRChartCustomizer
  	 */
 	public DJAreaChartBuilder setCustomizerClass(String customizerClass) {
 		this.chart.getOptions().setCustomizerClass(customizerClass);

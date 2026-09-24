@@ -64,7 +64,7 @@ public class DJGroup extends DJBaseElement {
 	}
 
 	/**
-	 * Map<Column, Style>
+	 * {@code Map<Column, Style>}
 	 */
 	private Map<AbstractColumn, Style> columnHeaderStyles = new HashMap<AbstractColumn, Style>();
 	private Style defaultColumnHeaederStyle;

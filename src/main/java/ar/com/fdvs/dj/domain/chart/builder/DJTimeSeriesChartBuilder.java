@@ -329,7 +329,7 @@ public class DJTimeSeriesChartBuilder extends AbstractChartBuilder<DJTimeSeriesC
 
 	/**
 	 * Sets a user specified chart customizer class name.
-	 * @see net.sf.jasperreports.engine.JRChartCustomizer
+	 * @see net.sf.jasperreports.charts.JRChartCustomizer
  	 */
 	public DJTimeSeriesChartBuilder setCustomizerClass(String customizerClass) {
 		this.chart.getOptions().setCustomizerClass(customizerClass);

@@ -230,7 +230,7 @@ public class Style implements Serializable, Cloneable {
 	}
 
 	/**
-	 * @deprecated Use {@link #getStretchType(StretchTypeEnum)}
+	 * @deprecated Use {@link #getStretchType()}
 	 * @return
 	 */
 	@Deprecated

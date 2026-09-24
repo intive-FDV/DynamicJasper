@@ -57,15 +57,15 @@ public class AutoText extends DJBaseElement {
     public static final byte AUTOTEXT_JREXPRESSION = 5;
 
     /**
-     * @Deprecated due to miss spell use ALIGNMENT_LEFT
+     * @deprecated due to miss spell use ALIGNMENT_LEFT
      */
     public static final byte ALIGMENT_LEFT = 1;
     /**
-     * @Deprecated due to miss spell use ALIGNMENT_CENTER
+     * @deprecated due to miss spell use ALIGNMENT_CENTER
      */
     public static final byte ALIGMENT_CENTER = 2;
     /**
-     * @Deprecated due to miss spell use ALIGNMENT_RIGHT
+     * @deprecated due to miss spell use ALIGNMENT_RIGHT
      */
     public static final byte ALIGMENT_RIGHT = 3;
 
